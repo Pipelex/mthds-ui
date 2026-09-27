@@ -5,12 +5,12 @@
 import type { GraphSpec } from "@graph/types";
 
 export const DRY_CV_SCREENING = {
-  graph_id: "13ce9f00-5328-46be-9510-032785a4adb8",
-  created_at: "2026-08-14T10:48:33.035073Z",
+  graph_id: "244685f6-4482-4bdf-8eda-2821ab9f591b",
+  created_at: "2026-09-27T08:50:01.929731Z",
   pipeline_ref: { domain: "recruitment", main_pipe: "cv_screening", entrypoint: null },
   nodes: [
     {
-      id: "13ce9f00-5328-46be-9510-032785a4adb8:node_0",
+      id: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_0",
       kind: "controller",
       pipe_code: "cv_screening",
       pipe_type: "PipeSequence",
@@ -19,30 +19,28 @@ export const DRY_CV_SCREENING = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:33.035073Z",
-        ended_at: "2026-08-14T10:48:33.176207Z",
-        duration: 0.141134,
+        started_at: "2026-09-27T08:50:01.929731Z",
+        ended_at: "2026-09-27T08:50:01.955509Z",
+        duration: 0.025778,
       },
       io: {
         inputs: [
           {
             name: "cv",
             concept: "Document",
-            content_type: "XgpFtqBSOfBYnhGqCRtT",
+            content_type: "yBrOhWzwkVlOlyZBFPHd",
             preview: null,
             size: null,
-            digest: "JcE79",
+            digest: "gRfXm",
             data: {
-              url: "xigmjvaujoLBOTDRSewq",
-              public_url: "wGqMUmLbEatctqhqQdCY",
-              mime_type: "XgpFtqBSOfBYnhGqCRtT",
-              filename: "sYntdgDmSXjegUiQGsQI",
-              title: "GmgKUGbsPaGesogMEvZx",
-              snippet: "ROHaVHZdOsJJIJPZAZXd",
+              url: "RokntUOJjPqYgshbTtnx",
+              public_url: "EvHutspuhcewrZuSHMbe",
+              mime_type: "yBrOhWzwkVlOlyZBFPHd",
+              filename: "HFqfSiRzONhHVufNEWgJ",
+              title: "jOTFBXGXVyoASdzwJpLI",
+              snippet: "YFKKJlqQTkKfmUSapEvU",
             },
-            data_text: "GmgKUGbsPaGesogMEvZx (xigmjvaujoLBOTDRSewq)\n  ROHaVHZdOsJJIJPZAZXd\n",
-            data_html:
-              '<a href="wGqMUmLbEatctqhqQdCY" class="msg-document">GmgKUGbsPaGesogMEvZx</a><br/><small>ROHaVHZdOsJJIJPZAZXd</small>',
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -53,14 +51,11 @@ export const DRY_CV_SCREENING = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "jP2Au",
+            digest: "mZMte",
             data: {
-              text: "# Candidate Screening Report\n\n## Candidate: WYpqdgZmxXTThtttUgDb\nIfgoJiJqoizOvZzBuZuk\n\n## Match Score: 546020137469.922/100\natJbQlnNpjxFnSznfVgf\n\n## Strengths\nmatch.strengths: ```\n['417688']\n```\n\n## Gaps\nmatch.gaps: ```\n['1e1923a9e1']\n```",
+              text: "# Candidate Screening Report\n\n## Candidate: lsSlQjIjxMtnyDkCpsKr\nIkFSnZCNEwtsubcZASaW\n\n## Match Score: 41.5828358941407/100\nQwLeljJmTLhcbzOiVaWj\n\n## Strengths\n<match.strengths>\n['7']\n</match.strengths>\n\n## Gaps\n<match.gaps>\n['cfbd77']\n</match.gaps>",
             },
-            data_text:
-              "                                     Candidate Screening Report                                     \n\nCandidate: WYpqdgZmxXTThtttUgDb                                                                     \n\nIfgoJiJqoizOvZzBuZuk                                                                                \n\nMatch Score: 546020137469.922/100                                                                   \n\natJbQlnNpjxFnSznfVgf                                                                                \n\nStrengths                                                                                           \n\nmatch.strengths: ``` ['417688']                                                                     \n\n                                                                                                    \n                                                                                                    \n ## Gaps                                                                                            \n match.gaps: ```                                                                                    \n ['1e1923a9e1']                                                                                     \n                                                                                                    \n",
-            data_html:
-              "# Candidate Screening Report\n\n## Candidate: WYpqdgZmxXTThtttUgDb\nIfgoJiJqoizOvZzBuZuk\n\n## Match Score: 546020137469.922/100\natJbQlnNpjxFnSznfVgf\n\n## Strengths\nmatch.strengths: ```\n[&#x27;417688&#x27;]\n```\n\n## Gaps\nmatch.gaps: ```\n[&#x27;1e1923a9e1&#x27;]\n```",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -98,7 +93,7 @@ export const DRY_CV_SCREENING = {
       execution_data: { step_count: 5 },
     },
     {
-      id: "13ce9f00-5328-46be-9510-032785a4adb8:node_1",
+      id: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_1",
       kind: "operator",
       pipe_code: "extract_cv",
       pipe_type: "PipeExtract",
@@ -107,30 +102,28 @@ export const DRY_CV_SCREENING = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:33.040509Z",
-        ended_at: "2026-08-14T10:48:33.047540Z",
-        duration: 0.007031,
+        started_at: "2026-09-27T08:50:01.930883Z",
+        ended_at: "2026-09-27T08:50:01.934663Z",
+        duration: 0.00378,
       },
       io: {
         inputs: [
           {
             name: "cv",
             concept: "Document",
-            content_type: "XgpFtqBSOfBYnhGqCRtT",
+            content_type: "yBrOhWzwkVlOlyZBFPHd",
             preview: null,
             size: null,
-            digest: "JcE79",
+            digest: "gRfXm",
             data: {
-              url: "xigmjvaujoLBOTDRSewq",
-              public_url: "wGqMUmLbEatctqhqQdCY",
-              mime_type: "XgpFtqBSOfBYnhGqCRtT",
-              filename: "sYntdgDmSXjegUiQGsQI",
-              title: "GmgKUGbsPaGesogMEvZx",
-              snippet: "ROHaVHZdOsJJIJPZAZXd",
+              url: "RokntUOJjPqYgshbTtnx",
+              public_url: "EvHutspuhcewrZuSHMbe",
+              mime_type: "yBrOhWzwkVlOlyZBFPHd",
+              filename: "HFqfSiRzONhHVufNEWgJ",
+              title: "jOTFBXGXVyoASdzwJpLI",
+              snippet: "YFKKJlqQTkKfmUSapEvU",
             },
-            data_text: "GmgKUGbsPaGesogMEvZx (xigmjvaujoLBOTDRSewq)\n  ROHaVHZdOsJJIJPZAZXd\n",
-            data_html:
-              '<a href="wGqMUmLbEatctqhqQdCY" class="msg-document">GmgKUGbsPaGesogMEvZx</a><br/><small>ROHaVHZdOsJJIJPZAZXd</small>',
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -141,7 +134,7 @@ export const DRY_CV_SCREENING = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "TCVC3",
+            digest: "DXVGp",
             data: {
               items: [
                 {
@@ -178,10 +171,7 @@ export const DRY_CV_SCREENING = {
                 },
               ],
             },
-            data_text:
-              "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
-            data_html:
-              "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            multiplicity: true,
             extra: {},
           },
         ],
@@ -215,7 +205,7 @@ export const DRY_CV_SCREENING = {
       },
     },
     {
-      id: "13ce9f00-5328-46be-9510-032785a4adb8:node_2",
+      id: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_2",
       kind: "operator",
       pipe_code: "analyze_candidate",
       pipe_type: "PipeLLM",
@@ -224,9 +214,9 @@ export const DRY_CV_SCREENING = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:33.051788Z",
-        ended_at: "2026-08-14T10:48:33.066330Z",
-        duration: 0.014542,
+        started_at: "2026-09-27T08:50:01.935059Z",
+        ended_at: "2026-09-27T08:50:01.939903Z",
+        duration: 0.004844,
       },
       io: {
         inputs: [
@@ -236,7 +226,7 @@ export const DRY_CV_SCREENING = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "TCVC3",
+            digest: "DXVGp",
             data: {
               items: [
                 {
@@ -273,10 +263,7 @@ export const DRY_CV_SCREENING = {
                 },
               ],
             },
-            data_text:
-              "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
-            data_html:
-              "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            multiplicity: true,
             extra: {},
           },
         ],
@@ -287,17 +274,14 @@ export const DRY_CV_SCREENING = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "gdArN",
+            digest: "XrDLz",
             data: {
-              name: "WYpqdgZmxXTThtttUgDb",
-              skills: ["b9ff6c"],
-              experience_years: 4144,
-              summary: "IfgoJiJqoizOvZzBuZuk",
+              name: "lsSlQjIjxMtnyDkCpsKr",
+              skills: ["5d99"],
+              experience_years: 614,
+              summary: "IkFSnZCNEwtsubcZASaW",
             },
-            data_text:
-              " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n name                               │ WYpqdgZmxXTThtttUgDb                      \n────────────────────────────────────┼───────────────────────────────────────────\n skills                             │   1   │ b9ff6c                            \n────────────────────────────────────┼───────────────────────────────────────────\n experience_years                   │ 4144                                      \n────────────────────────────────────┼───────────────────────────────────────────\n summary                            │ IfgoJiJqoizOvZzBuZuk                      \n",
-            data_html:
-              "<table><tr><th>name</th><td>WYpqdgZmxXTThtttUgDb</td></tr><tr><th>skills</th><td><ul><li>b9ff6c</li></ul></td></tr><tr><th>experience_years</th><td>4144</td></tr><tr><th>summary</th><td>IfgoJiJqoizOvZzBuZuk</td></tr></table>",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -352,7 +336,7 @@ export const DRY_CV_SCREENING = {
       },
     },
     {
-      id: "13ce9f00-5328-46be-9510-032785a4adb8:node_3",
+      id: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_3",
       kind: "controller",
       pipe_code: "enrich_candidate",
       pipe_type: "PipeParallel",
@@ -361,9 +345,9 @@ export const DRY_CV_SCREENING = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:33.070477Z",
-        ended_at: "2026-08-14T10:48:33.143285Z",
-        duration: 0.072808,
+        started_at: "2026-09-27T08:50:01.940028Z",
+        ended_at: "2026-09-27T08:50:01.948037Z",
+        duration: 0.008009,
       },
       io: {
         inputs: [
@@ -373,17 +357,14 @@ export const DRY_CV_SCREENING = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "gdArN",
+            digest: "XrDLz",
             data: {
-              name: "WYpqdgZmxXTThtttUgDb",
-              skills: ["b9ff6c"],
-              experience_years: 4144,
-              summary: "IfgoJiJqoizOvZzBuZuk",
+              name: "lsSlQjIjxMtnyDkCpsKr",
+              skills: ["5d99"],
+              experience_years: 614,
+              summary: "IkFSnZCNEwtsubcZASaW",
             },
-            data_text:
-              " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n name                               │ WYpqdgZmxXTThtttUgDb                      \n────────────────────────────────────┼───────────────────────────────────────────\n skills                             │   1   │ b9ff6c                            \n────────────────────────────────────┼───────────────────────────────────────────\n experience_years                   │ 4144                                      \n────────────────────────────────────┼───────────────────────────────────────────\n summary                            │ IfgoJiJqoizOvZzBuZuk                      \n",
-            data_html:
-              "<table><tr><th>name</th><td>WYpqdgZmxXTThtttUgDb</td></tr><tr><th>skills</th><td><ul><li>b9ff6c</li></ul></td></tr><tr><th>experience_years</th><td>4144</td></tr><tr><th>summary</th><td>IfgoJiJqoizOvZzBuZuk</td></tr></table>",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -394,40 +375,37 @@ export const DRY_CV_SCREENING = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "FS7Dt",
+            digest: "i8Lhe",
             data: {
-              answer: "SJgZXOvwqONvsdRXNgQy",
+              answer: "CqLtZdyiIdfMzUnkDnWU",
               sources: [
                 {
-                  url: "nDnAWnFFSTbllSDYQgAH",
-                  public_url: "KkoLkWqMgtPwJGXaopit",
-                  mime_type: "iGIusJPkYWMOvvBsBcNW",
-                  filename: "ALubPQwLFVmOBZtAvTbc",
-                  title: "YVhdVVazSwtiGSzneTfD",
-                  snippet: "TpRkIvetINcMUBqqkRhD",
+                  url: "dsputzLbifdotKVQDbBh",
+                  public_url: "pRnKvmZHMItyKEThngVz",
+                  mime_type: "ceSscQeFiDxklXMEqZLQ",
+                  filename: "truzfkYYLbHXjqJDCZBe",
+                  title: "vFcvxeqILyXjYlMHpBuX",
+                  snippet: "cfirkDNNdWBXmUQhWctp",
                 },
                 {
-                  url: "BMybnWRdjtjZoBneUevM",
-                  public_url: "zsoEkuHjOvpvoFuvqqLs",
-                  mime_type: "ciqLpekfsBoPeIomZPTa",
-                  filename: "poAOQDsNtGVuRLwBALZO",
-                  title: "rUcwVNzTTJLaNgajXuRb",
-                  snippet: "KwEEuhUxvTbhdyvRsgoQ",
+                  url: "gqyPORvNvGXywRCPFQEc",
+                  public_url: "tUiUaxrbANIWknTolsoJ",
+                  mime_type: "hBWYfhdbBVadXUHPBCnR",
+                  filename: "GxGqpfuplCIKkRNXxrPU",
+                  title: "LobpMrrOAiWgGIUhlcFD",
+                  snippet: "EeWBVEdONKRPFROFAkeH",
                 },
                 {
-                  url: "DxaabKqYdlHUWCvqOkOg",
-                  public_url: "hdNwjkDapndWOLTDHbPF",
-                  mime_type: "ARMyZxmceOgSgJdgmSbW",
-                  filename: "CsIyFdEoJCrCalQnvnpb",
-                  title: "xSQWDfElLcBeVXnZPVvP",
-                  snippet: "vFIEYAElXbvjyQLDQpSZ",
+                  url: "SIAgNcxRgtIBGGYbsZXB",
+                  public_url: "kaxlOTftiYGvwtEOifgg",
+                  mime_type: "uQNOClZghGUCvSWOzLFK",
+                  filename: "cJydyovPuwYvmKJNFxvv",
+                  title: "HNKSVNcAXJpcOvYiVakv",
+                  snippet: "YYbNGxfOrkWFKpcwnMvD",
                 },
               ],
             },
-            data_text:
-              "Search Result:\nSJgZXOvwqONvsdRXNgQy                                                                                \n\nSources (3):\nYVhdVVazSwtiGSzneTfD (nDnAWnFFSTbllSDYQgAH)\n  TpRkIvetINcMUBqqkRhD\n\nrUcwVNzTTJLaNgajXuRb (BMybnWRdjtjZoBneUevM)\n  KwEEuhUxvTbhdyvRsgoQ\n\nxSQWDfElLcBeVXnZPVvP (DxaabKqYdlHUWCvqOkOg)\n  vFIEYAElXbvjyQLDQpSZ\n",
-            data_html:
-              '<div><p>SJgZXOvwqONvsdRXNgQy</p><h4>Sources</h4><ul><li><a href="KkoLkWqMgtPwJGXaopit" class="msg-document">YVhdVVazSwtiGSzneTfD</a><br/><small>TpRkIvetINcMUBqqkRhD</small></li><li><a href="zsoEkuHjOvpvoFuvqqLs" class="msg-document">rUcwVNzTTJLaNgajXuRb</a><br/><small>KwEEuhUxvTbhdyvRsgoQ</small></li><li><a href="hdNwjkDapndWOLTDHbPF" class="msg-document">xSQWDfElLcBeVXnZPVvP</a><br/><small>vFIEYAElXbvjyQLDQpSZ</small></li></ul></div>',
+            multiplicity: null,
             extra: {},
           },
           {
@@ -436,13 +414,13 @@ export const DRY_CV_SCREENING = {
             content_type: "image/jpeg",
             preview: null,
             size: null,
-            digest: "dHMeu",
+            digest: "bCiSi",
             data: {
               url: "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
               public_url:
                 "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
               source_prompt:
-                "Professional profile card for WYpqdgZmxXTThtttUgDb, IfgoJiJqoizOvZzBuZuk",
+                "Professional profile card for lsSlQjIjxMtnyDkCpsKr, IkFSnZCNEwtsubcZASaW",
               source_negative_prompt: null,
               caption: null,
               mime_type: "image/jpeg",
@@ -450,10 +428,7 @@ export const DRY_CV_SCREENING = {
               height: 1024,
               filename: null,
             },
-            data_text:
-              "Image:\nURL: https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg     \nPublic URL: Open Image\nSize: 1024x1024\nMIME Type: image/jpeg\n\nSource Prompt:\nProfessional profile card for WYpqdgZmxXTThtttUgDb, IfgoJiJqoizOvZzBuZuk\n",
-            data_html:
-              '<img src="https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg" class="msg-img">',
+            multiplicity: null,
             extra: {},
           },
           {
@@ -462,34 +437,34 @@ export const DRY_CV_SCREENING = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "RCybC",
+            digest: "hzDbA",
             data: {
               search_result: {
-                answer: "SJgZXOvwqONvsdRXNgQy",
+                answer: "CqLtZdyiIdfMzUnkDnWU",
                 sources: [
                   {
-                    url: "nDnAWnFFSTbllSDYQgAH",
-                    public_url: "KkoLkWqMgtPwJGXaopit",
-                    mime_type: "iGIusJPkYWMOvvBsBcNW",
-                    filename: "ALubPQwLFVmOBZtAvTbc",
-                    title: "YVhdVVazSwtiGSzneTfD",
-                    snippet: "TpRkIvetINcMUBqqkRhD",
+                    url: "dsputzLbifdotKVQDbBh",
+                    public_url: "pRnKvmZHMItyKEThngVz",
+                    mime_type: "ceSscQeFiDxklXMEqZLQ",
+                    filename: "truzfkYYLbHXjqJDCZBe",
+                    title: "vFcvxeqILyXjYlMHpBuX",
+                    snippet: "cfirkDNNdWBXmUQhWctp",
                   },
                   {
-                    url: "BMybnWRdjtjZoBneUevM",
-                    public_url: "zsoEkuHjOvpvoFuvqqLs",
-                    mime_type: "ciqLpekfsBoPeIomZPTa",
-                    filename: "poAOQDsNtGVuRLwBALZO",
-                    title: "rUcwVNzTTJLaNgajXuRb",
-                    snippet: "KwEEuhUxvTbhdyvRsgoQ",
+                    url: "gqyPORvNvGXywRCPFQEc",
+                    public_url: "tUiUaxrbANIWknTolsoJ",
+                    mime_type: "hBWYfhdbBVadXUHPBCnR",
+                    filename: "GxGqpfuplCIKkRNXxrPU",
+                    title: "LobpMrrOAiWgGIUhlcFD",
+                    snippet: "EeWBVEdONKRPFROFAkeH",
                   },
                   {
-                    url: "DxaabKqYdlHUWCvqOkOg",
-                    public_url: "hdNwjkDapndWOLTDHbPF",
-                    mime_type: "ARMyZxmceOgSgJdgmSbW",
-                    filename: "CsIyFdEoJCrCalQnvnpb",
-                    title: "xSQWDfElLcBeVXnZPVvP",
-                    snippet: "vFIEYAElXbvjyQLDQpSZ",
+                    url: "SIAgNcxRgtIBGGYbsZXB",
+                    public_url: "kaxlOTftiYGvwtEOifgg",
+                    mime_type: "uQNOClZghGUCvSWOzLFK",
+                    filename: "cJydyovPuwYvmKJNFxvv",
+                    title: "HNKSVNcAXJpcOvYiVakv",
+                    snippet: "YYbNGxfOrkWFKpcwnMvD",
                   },
                 ],
               },
@@ -498,7 +473,7 @@ export const DRY_CV_SCREENING = {
                 public_url:
                   "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
                 source_prompt:
-                  "Professional profile card for WYpqdgZmxXTThtttUgDb, IfgoJiJqoizOvZzBuZuk",
+                  "Professional profile card for lsSlQjIjxMtnyDkCpsKr, IkFSnZCNEwtsubcZASaW",
                 source_negative_prompt: null,
                 caption: null,
                 mime_type: "image/jpeg",
@@ -507,10 +482,7 @@ export const DRY_CV_SCREENING = {
                 filename: null,
               },
             },
-            data_text:
-              '{\n    "search_result": {\n        "answer": "SJgZXOvwqONvsdRXNgQy",\n        "sources": [\n            {\n                "url": "nDnAWnFFSTbllSDYQgAH",\n                "public_url": "KkoLkWqMgtPwJGXaopit",\n                "mime_type": "iGIusJPkYWMOvvBsBcNW",\n                "filename": "ALubPQwLFVmOBZtAvTbc",\n                "title": "YVhdVVazSwtiGSzneTfD",\n                "snippet": "TpRkIvetINcMUBqqkRhD"\n            },\n            {\n                "url": "BMybnWRdjtjZoBneUevM",\n                "public_url": "zsoEkuHjOvpvoFuvqqLs",\n                "mime_type": "ciqLpekfsBoPeIomZPTa",\n                "filename": "poAOQDsNtGVuRLwBALZO",\n                "title": "rUcwVNzTTJLaNgajXuRb",\n                "snippet": "KwEEuhUxvTbhdyvRsgoQ"\n            },\n            {\n                "url": "DxaabKqYdlHUWCvqOkOg",\n                "public_url": "hdNwjkDapndWOLTDHbPF",\n                "mime_type": "ARMyZxmceOgSgJdgmSbW",\n                "filename": "CsIyFdEoJCrCalQnvnpb",\n                "title": "xSQWDfElLcBeVXnZPVvP",\n                "snippet": "vFIEYAElXbvjyQLDQpSZ"\n            }\n        ]\n    },\n    "card_image": {\n        "url": \n"https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",\n        "public_url": \n"https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",\n        "source_prompt": "Professional profile card for WYpqdgZmxXTThtttUgDb, IfgoJiJqoizOvZzBuZuk",\n        "source_negative_prompt": null,\n        "caption": null,\n        "mime_type": "image/jpeg",\n        "width": 1024,\n        "height": 1024,\n        "filename": null\n    }\n}\n',
-            data_html:
-              '<table><tr><th>search_result</th><td><div><p>SJgZXOvwqONvsdRXNgQy</p><h4>Sources</h4><ul><li><a href="KkoLkWqMgtPwJGXaopit" class="msg-document">YVhdVVazSwtiGSzneTfD</a><br/><small>TpRkIvetINcMUBqqkRhD</small></li><li><a href="zsoEkuHjOvpvoFuvqqLs" class="msg-document">rUcwVNzTTJLaNgajXuRb</a><br/><small>KwEEuhUxvTbhdyvRsgoQ</small></li><li><a href="hdNwjkDapndWOLTDHbPF" class="msg-document">xSQWDfElLcBeVXnZPVvP</a><br/><small>vFIEYAElXbvjyQLDQpSZ</small></li></ul></div></td></tr><tr><th>card_image</th><td><img src="https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg" class="msg-img"></td></tr></table>',
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -543,7 +515,7 @@ export const DRY_CV_SCREENING = {
       },
     },
     {
-      id: "13ce9f00-5328-46be-9510-032785a4adb8:node_4",
+      id: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_4",
       kind: "operator",
       pipe_code: "search_candidate",
       pipe_type: "PipeSearch",
@@ -552,9 +524,9 @@ export const DRY_CV_SCREENING = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:33.074144Z",
-        ended_at: "2026-08-14T10:48:33.082144Z",
-        duration: 0.008,
+        started_at: "2026-09-27T08:50:01.940931Z",
+        ended_at: "2026-09-27T08:50:01.945368Z",
+        duration: 0.004437,
       },
       io: {
         inputs: [
@@ -564,17 +536,14 @@ export const DRY_CV_SCREENING = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "gdArN",
+            digest: "XrDLz",
             data: {
-              name: "WYpqdgZmxXTThtttUgDb",
-              skills: ["b9ff6c"],
-              experience_years: 4144,
-              summary: "IfgoJiJqoizOvZzBuZuk",
+              name: "lsSlQjIjxMtnyDkCpsKr",
+              skills: ["5d99"],
+              experience_years: 614,
+              summary: "IkFSnZCNEwtsubcZASaW",
             },
-            data_text:
-              " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n name                               │ WYpqdgZmxXTThtttUgDb                      \n────────────────────────────────────┼───────────────────────────────────────────\n skills                             │   1   │ b9ff6c                            \n────────────────────────────────────┼───────────────────────────────────────────\n experience_years                   │ 4144                                      \n────────────────────────────────────┼───────────────────────────────────────────\n summary                            │ IfgoJiJqoizOvZzBuZuk                      \n",
-            data_html:
-              "<table><tr><th>name</th><td>WYpqdgZmxXTThtttUgDb</td></tr><tr><th>skills</th><td><ul><li>b9ff6c</li></ul></td></tr><tr><th>experience_years</th><td>4144</td></tr><tr><th>summary</th><td>IfgoJiJqoizOvZzBuZuk</td></tr></table>",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -585,40 +554,37 @@ export const DRY_CV_SCREENING = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "FS7Dt",
+            digest: "i8Lhe",
             data: {
-              answer: "SJgZXOvwqONvsdRXNgQy",
+              answer: "CqLtZdyiIdfMzUnkDnWU",
               sources: [
                 {
-                  url: "nDnAWnFFSTbllSDYQgAH",
-                  public_url: "KkoLkWqMgtPwJGXaopit",
-                  mime_type: "iGIusJPkYWMOvvBsBcNW",
-                  filename: "ALubPQwLFVmOBZtAvTbc",
-                  title: "YVhdVVazSwtiGSzneTfD",
-                  snippet: "TpRkIvetINcMUBqqkRhD",
+                  url: "dsputzLbifdotKVQDbBh",
+                  public_url: "pRnKvmZHMItyKEThngVz",
+                  mime_type: "ceSscQeFiDxklXMEqZLQ",
+                  filename: "truzfkYYLbHXjqJDCZBe",
+                  title: "vFcvxeqILyXjYlMHpBuX",
+                  snippet: "cfirkDNNdWBXmUQhWctp",
                 },
                 {
-                  url: "BMybnWRdjtjZoBneUevM",
-                  public_url: "zsoEkuHjOvpvoFuvqqLs",
-                  mime_type: "ciqLpekfsBoPeIomZPTa",
-                  filename: "poAOQDsNtGVuRLwBALZO",
-                  title: "rUcwVNzTTJLaNgajXuRb",
-                  snippet: "KwEEuhUxvTbhdyvRsgoQ",
+                  url: "gqyPORvNvGXywRCPFQEc",
+                  public_url: "tUiUaxrbANIWknTolsoJ",
+                  mime_type: "hBWYfhdbBVadXUHPBCnR",
+                  filename: "GxGqpfuplCIKkRNXxrPU",
+                  title: "LobpMrrOAiWgGIUhlcFD",
+                  snippet: "EeWBVEdONKRPFROFAkeH",
                 },
                 {
-                  url: "DxaabKqYdlHUWCvqOkOg",
-                  public_url: "hdNwjkDapndWOLTDHbPF",
-                  mime_type: "ARMyZxmceOgSgJdgmSbW",
-                  filename: "CsIyFdEoJCrCalQnvnpb",
-                  title: "xSQWDfElLcBeVXnZPVvP",
-                  snippet: "vFIEYAElXbvjyQLDQpSZ",
+                  url: "SIAgNcxRgtIBGGYbsZXB",
+                  public_url: "kaxlOTftiYGvwtEOifgg",
+                  mime_type: "uQNOClZghGUCvSWOzLFK",
+                  filename: "cJydyovPuwYvmKJNFxvv",
+                  title: "HNKSVNcAXJpcOvYiVakv",
+                  snippet: "YYbNGxfOrkWFKpcwnMvD",
                 },
               ],
             },
-            data_text:
-              "Search Result:\nSJgZXOvwqONvsdRXNgQy                                                                                \n\nSources (3):\nYVhdVVazSwtiGSzneTfD (nDnAWnFFSTbllSDYQgAH)\n  TpRkIvetINcMUBqqkRhD\n\nrUcwVNzTTJLaNgajXuRb (BMybnWRdjtjZoBneUevM)\n  KwEEuhUxvTbhdyvRsgoQ\n\nxSQWDfElLcBeVXnZPVvP (DxaabKqYdlHUWCvqOkOg)\n  vFIEYAElXbvjyQLDQpSZ\n",
-            data_html:
-              '<div><p>SJgZXOvwqONvsdRXNgQy</p><h4>Sources</h4><ul><li><a href="KkoLkWqMgtPwJGXaopit" class="msg-document">YVhdVVazSwtiGSzneTfD</a><br/><small>TpRkIvetINcMUBqqkRhD</small></li><li><a href="zsoEkuHjOvpvoFuvqqLs" class="msg-document">rUcwVNzTTJLaNgajXuRb</a><br/><small>KwEEuhUxvTbhdyvRsgoQ</small></li><li><a href="hdNwjkDapndWOLTDHbPF" class="msg-document">xSQWDfElLcBeVXnZPVvP</a><br/><small>vFIEYAElXbvjyQLDQpSZ</small></li></ul></div>',
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -645,13 +611,13 @@ export const DRY_CV_SCREENING = {
         subtree_by_model: [],
       },
       execution_data: {
-        rendered_query: "WYpqdgZmxXTThtttUgDb professional background",
+        rendered_query: "lsSlQjIjxMtnyDkCpsKr professional background",
         resolved_model: "linkup-standard",
         is_structured_output: false,
       },
     },
     {
-      id: "13ce9f00-5328-46be-9510-032785a4adb8:node_5",
+      id: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_5",
       kind: "operator",
       pipe_code: "generate_card",
       pipe_type: "PipeImgGen",
@@ -660,9 +626,9 @@ export const DRY_CV_SCREENING = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:33.085152Z",
-        ended_at: "2026-08-14T10:48:33.094682Z",
-        duration: 0.00953,
+        started_at: "2026-09-27T08:50:01.945617Z",
+        ended_at: "2026-09-27T08:50:01.947477Z",
+        duration: 0.00186,
       },
       io: {
         inputs: [
@@ -672,17 +638,14 @@ export const DRY_CV_SCREENING = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "gdArN",
+            digest: "XrDLz",
             data: {
-              name: "WYpqdgZmxXTThtttUgDb",
-              skills: ["b9ff6c"],
-              experience_years: 4144,
-              summary: "IfgoJiJqoizOvZzBuZuk",
+              name: "lsSlQjIjxMtnyDkCpsKr",
+              skills: ["5d99"],
+              experience_years: 614,
+              summary: "IkFSnZCNEwtsubcZASaW",
             },
-            data_text:
-              " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n name                               │ WYpqdgZmxXTThtttUgDb                      \n────────────────────────────────────┼───────────────────────────────────────────\n skills                             │   1   │ b9ff6c                            \n────────────────────────────────────┼───────────────────────────────────────────\n experience_years                   │ 4144                                      \n────────────────────────────────────┼───────────────────────────────────────────\n summary                            │ IfgoJiJqoizOvZzBuZuk                      \n",
-            data_html:
-              "<table><tr><th>name</th><td>WYpqdgZmxXTThtttUgDb</td></tr><tr><th>skills</th><td><ul><li>b9ff6c</li></ul></td></tr><tr><th>experience_years</th><td>4144</td></tr><tr><th>summary</th><td>IfgoJiJqoizOvZzBuZuk</td></tr></table>",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -693,13 +656,13 @@ export const DRY_CV_SCREENING = {
             content_type: "image/jpeg",
             preview: null,
             size: null,
-            digest: "dHMeu",
+            digest: "bCiSi",
             data: {
               url: "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
               public_url:
                 "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
               source_prompt:
-                "Professional profile card for WYpqdgZmxXTThtttUgDb, IfgoJiJqoizOvZzBuZuk",
+                "Professional profile card for lsSlQjIjxMtnyDkCpsKr, IkFSnZCNEwtsubcZASaW",
               source_negative_prompt: null,
               caption: null,
               mime_type: "image/jpeg",
@@ -707,10 +670,7 @@ export const DRY_CV_SCREENING = {
               height: 1024,
               filename: null,
             },
-            data_text:
-              "Image:\nURL: https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg     \nPublic URL: Open Image\nSize: 1024x1024\nMIME Type: image/jpeg\n\nSource Prompt:\nProfessional profile card for WYpqdgZmxXTThtttUgDb, IfgoJiJqoizOvZzBuZuk\n",
-            data_html:
-              '<img src="https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg" class="msg-img">',
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -738,14 +698,14 @@ export const DRY_CV_SCREENING = {
       },
       execution_data: {
         resolved_model: "@default-general",
-        rendered_prompt: "Professional profile card for WYpqdgZmxXTThtttUgDb, IfgoJiJqoizOvZzBuZuk",
+        rendered_prompt: "Professional profile card for lsSlQjIjxMtnyDkCpsKr, IkFSnZCNEwtsubcZASaW",
         rendered_negative_prompt: null,
         aspect_ratio: "square",
         nb_images: 1,
       },
     },
     {
-      id: "13ce9f00-5328-46be-9510-032785a4adb8:node_6",
+      id: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_6",
       kind: "operator",
       pipe_code: "score_match",
       pipe_type: "PipeLLM",
@@ -754,9 +714,9 @@ export const DRY_CV_SCREENING = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:33.147868Z",
-        ended_at: "2026-08-14T10:48:33.161461Z",
-        duration: 0.013593,
+        started_at: "2026-09-27T08:50:01.948451Z",
+        ended_at: "2026-09-27T08:50:01.952329Z",
+        duration: 0.003878,
       },
       io: {
         inputs: [
@@ -766,17 +726,14 @@ export const DRY_CV_SCREENING = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "gdArN",
+            digest: "XrDLz",
             data: {
-              name: "WYpqdgZmxXTThtttUgDb",
-              skills: ["b9ff6c"],
-              experience_years: 4144,
-              summary: "IfgoJiJqoizOvZzBuZuk",
+              name: "lsSlQjIjxMtnyDkCpsKr",
+              skills: ["5d99"],
+              experience_years: 614,
+              summary: "IkFSnZCNEwtsubcZASaW",
             },
-            data_text:
-              " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n name                               │ WYpqdgZmxXTThtttUgDb                      \n────────────────────────────────────┼───────────────────────────────────────────\n skills                             │   1   │ b9ff6c                            \n────────────────────────────────────┼───────────────────────────────────────────\n experience_years                   │ 4144                                      \n────────────────────────────────────┼───────────────────────────────────────────\n summary                            │ IfgoJiJqoizOvZzBuZuk                      \n",
-            data_html:
-              "<table><tr><th>name</th><td>WYpqdgZmxXTThtttUgDb</td></tr><tr><th>skills</th><td><ul><li>b9ff6c</li></ul></td></tr><tr><th>experience_years</th><td>4144</td></tr><tr><th>summary</th><td>IfgoJiJqoizOvZzBuZuk</td></tr></table>",
+            multiplicity: null,
             extra: {},
           },
           {
@@ -785,40 +742,37 @@ export const DRY_CV_SCREENING = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "FS7Dt",
+            digest: "i8Lhe",
             data: {
-              answer: "SJgZXOvwqONvsdRXNgQy",
+              answer: "CqLtZdyiIdfMzUnkDnWU",
               sources: [
                 {
-                  url: "nDnAWnFFSTbllSDYQgAH",
-                  public_url: "KkoLkWqMgtPwJGXaopit",
-                  mime_type: "iGIusJPkYWMOvvBsBcNW",
-                  filename: "ALubPQwLFVmOBZtAvTbc",
-                  title: "YVhdVVazSwtiGSzneTfD",
-                  snippet: "TpRkIvetINcMUBqqkRhD",
+                  url: "dsputzLbifdotKVQDbBh",
+                  public_url: "pRnKvmZHMItyKEThngVz",
+                  mime_type: "ceSscQeFiDxklXMEqZLQ",
+                  filename: "truzfkYYLbHXjqJDCZBe",
+                  title: "vFcvxeqILyXjYlMHpBuX",
+                  snippet: "cfirkDNNdWBXmUQhWctp",
                 },
                 {
-                  url: "BMybnWRdjtjZoBneUevM",
-                  public_url: "zsoEkuHjOvpvoFuvqqLs",
-                  mime_type: "ciqLpekfsBoPeIomZPTa",
-                  filename: "poAOQDsNtGVuRLwBALZO",
-                  title: "rUcwVNzTTJLaNgajXuRb",
-                  snippet: "KwEEuhUxvTbhdyvRsgoQ",
+                  url: "gqyPORvNvGXywRCPFQEc",
+                  public_url: "tUiUaxrbANIWknTolsoJ",
+                  mime_type: "hBWYfhdbBVadXUHPBCnR",
+                  filename: "GxGqpfuplCIKkRNXxrPU",
+                  title: "LobpMrrOAiWgGIUhlcFD",
+                  snippet: "EeWBVEdONKRPFROFAkeH",
                 },
                 {
-                  url: "DxaabKqYdlHUWCvqOkOg",
-                  public_url: "hdNwjkDapndWOLTDHbPF",
-                  mime_type: "ARMyZxmceOgSgJdgmSbW",
-                  filename: "CsIyFdEoJCrCalQnvnpb",
-                  title: "xSQWDfElLcBeVXnZPVvP",
-                  snippet: "vFIEYAElXbvjyQLDQpSZ",
+                  url: "SIAgNcxRgtIBGGYbsZXB",
+                  public_url: "kaxlOTftiYGvwtEOifgg",
+                  mime_type: "uQNOClZghGUCvSWOzLFK",
+                  filename: "cJydyovPuwYvmKJNFxvv",
+                  title: "HNKSVNcAXJpcOvYiVakv",
+                  snippet: "YYbNGxfOrkWFKpcwnMvD",
                 },
               ],
             },
-            data_text:
-              "Search Result:\nSJgZXOvwqONvsdRXNgQy                                                                                \n\nSources (3):\nYVhdVVazSwtiGSzneTfD (nDnAWnFFSTbllSDYQgAH)\n  TpRkIvetINcMUBqqkRhD\n\nrUcwVNzTTJLaNgajXuRb (BMybnWRdjtjZoBneUevM)\n  KwEEuhUxvTbhdyvRsgoQ\n\nxSQWDfElLcBeVXnZPVvP (DxaabKqYdlHUWCvqOkOg)\n  vFIEYAElXbvjyQLDQpSZ\n",
-            data_html:
-              '<div><p>SJgZXOvwqONvsdRXNgQy</p><h4>Sources</h4><ul><li><a href="KkoLkWqMgtPwJGXaopit" class="msg-document">YVhdVVazSwtiGSzneTfD</a><br/><small>TpRkIvetINcMUBqqkRhD</small></li><li><a href="zsoEkuHjOvpvoFuvqqLs" class="msg-document">rUcwVNzTTJLaNgajXuRb</a><br/><small>KwEEuhUxvTbhdyvRsgoQ</small></li><li><a href="hdNwjkDapndWOLTDHbPF" class="msg-document">xSQWDfElLcBeVXnZPVvP</a><br/><small>vFIEYAElXbvjyQLDQpSZ</small></li></ul></div>',
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -829,17 +783,14 @@ export const DRY_CV_SCREENING = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "VCEJQ",
+            digest: "cXbie",
             data: {
-              score: 546020137469.922,
-              strengths: ["417688"],
-              gaps: ["1e1923a9e1"],
-              recommendation: "atJbQlnNpjxFnSznfVgf",
+              score: 41.5828358941407,
+              strengths: ["7"],
+              gaps: ["cfbd77"],
+              recommendation: "QwLeljJmTLhcbzOiVaWj",
             },
-            data_text:
-              " Attribute                        ┃ Value                                       \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n score                            │ 546020137469.922                            \n──────────────────────────────────┼─────────────────────────────────────────────\n strengths                        │   1   │ 417688                              \n──────────────────────────────────┼─────────────────────────────────────────────\n gaps                             │   1   │ 1e1923a9e1                          \n──────────────────────────────────┼─────────────────────────────────────────────\n recommendation                   │ atJbQlnNpjxFnSznfVgf                        \n",
-            data_html:
-              "<table><tr><th>score</th><td>546020137469.922</td></tr><tr><th>strengths</th><td><ul><li>417688</li></ul></td></tr><tr><th>gaps</th><td><ul><li>1e1923a9e1</li></ul></td></tr><tr><th>recommendation</th><td>atJbQlnNpjxFnSznfVgf</td></tr></table>",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -889,12 +840,12 @@ export const DRY_CV_SCREENING = {
         is_multiple_output: false,
         rendered_system_prompt: null,
         rendered_user_prompt:
-          'Based on this candidate profile and online research, score how well they match our open role:\n\nProfile:\n<profile>\n# name: WYpqdgZmxXTThtttUgDb\n\n# skills: - b9ff6c\n\n# experience_years: 4144\n\n# summary: IfgoJiJqoizOvZzBuZuk\n</profile>\n\nOnline research:\n<search_result>\nSJgZXOvwqONvsdRXNgQy\n\nSources:\n- YVhdVVazSwtiGSzneTfD: nDnAWnFFSTbllSDYQgAH\n  TpRkIvetINcMUBqqkRhD\n- rUcwVNzTTJLaNgajXuRb: BMybnWRdjtjZoBneUevM\n  KwEEuhUxvTbhdyvRsgoQ\n- xSQWDfElLcBeVXnZPVvP: DxaabKqYdlHUWCvqOkOg\n  vFIEYAElXbvjyQLDQpSZ\n</search_result>\n\n---\nThe instance we want to generate will be for the following class:\nclass recruitment__MatchScore(StructuredContent):\n    """Score for how well a candidate matches a role"""\n    score: float  # Match score 0-100\n    strengths: List[Any] | None = None  # Key strengths\n    gaps: List[Any] | None = None  # Skill gaps\n    recommendation: str  # Hiring recommendation\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
+          'Based on this candidate profile and online research, score how well they match our open role:\n\nProfile:\n<profile>\n# name: lsSlQjIjxMtnyDkCpsKr\n\n# skills: - 5d99\n\n# experience_years: 614\n\n# summary: IkFSnZCNEwtsubcZASaW\n</profile>\n\nOnline research:\n<search_result>\nCqLtZdyiIdfMzUnkDnWU\n\nSources:\n- vFcvxeqILyXjYlMHpBuX: dsputzLbifdotKVQDbBh\n  cfirkDNNdWBXmUQhWctp\n- LobpMrrOAiWgGIUhlcFD: gqyPORvNvGXywRCPFQEc\n  EeWBVEdONKRPFROFAkeH\n- HNKSVNcAXJpcOvYiVakv: SIAgNcxRgtIBGGYbsZXB\n  YYbNGxfOrkWFKpcwnMvD\n</search_result>\n\n---\nThe instance we want to generate will be for the following class:\nclass recruitment__MatchScore(StructuredContent):\n    """Score for how well a candidate matches a role"""\n    score: float  # Match score 0-100\n    strengths: List[Any] | None = None  # Key strengths\n    gaps: List[Any] | None = None  # Skill gaps\n    recommendation: str  # Hiring recommendation\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
         structuring_path: "object_direct",
       },
     },
     {
-      id: "13ce9f00-5328-46be-9510-032785a4adb8:node_7",
+      id: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_7",
       kind: "operator",
       pipe_code: "compose_report",
       pipe_type: "PipeCompose",
@@ -903,9 +854,9 @@ export const DRY_CV_SCREENING = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:33.166121Z",
-        ended_at: "2026-08-14T10:48:33.173610Z",
-        duration: 0.007489,
+        started_at: "2026-09-27T08:50:01.952730Z",
+        ended_at: "2026-09-27T08:50:01.955323Z",
+        duration: 0.002593,
       },
       io: {
         inputs: [
@@ -915,17 +866,14 @@ export const DRY_CV_SCREENING = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "gdArN",
+            digest: "XrDLz",
             data: {
-              name: "WYpqdgZmxXTThtttUgDb",
-              skills: ["b9ff6c"],
-              experience_years: 4144,
-              summary: "IfgoJiJqoizOvZzBuZuk",
+              name: "lsSlQjIjxMtnyDkCpsKr",
+              skills: ["5d99"],
+              experience_years: 614,
+              summary: "IkFSnZCNEwtsubcZASaW",
             },
-            data_text:
-              " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n name                               │ WYpqdgZmxXTThtttUgDb                      \n────────────────────────────────────┼───────────────────────────────────────────\n skills                             │   1   │ b9ff6c                            \n────────────────────────────────────┼───────────────────────────────────────────\n experience_years                   │ 4144                                      \n────────────────────────────────────┼───────────────────────────────────────────\n summary                            │ IfgoJiJqoizOvZzBuZuk                      \n",
-            data_html:
-              "<table><tr><th>name</th><td>WYpqdgZmxXTThtttUgDb</td></tr><tr><th>skills</th><td><ul><li>b9ff6c</li></ul></td></tr><tr><th>experience_years</th><td>4144</td></tr><tr><th>summary</th><td>IfgoJiJqoizOvZzBuZuk</td></tr></table>",
+            multiplicity: null,
             extra: {},
           },
           {
@@ -934,17 +882,14 @@ export const DRY_CV_SCREENING = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "VCEJQ",
+            digest: "cXbie",
             data: {
-              score: 546020137469.922,
-              strengths: ["417688"],
-              gaps: ["1e1923a9e1"],
-              recommendation: "atJbQlnNpjxFnSznfVgf",
+              score: 41.5828358941407,
+              strengths: ["7"],
+              gaps: ["cfbd77"],
+              recommendation: "QwLeljJmTLhcbzOiVaWj",
             },
-            data_text:
-              " Attribute                        ┃ Value                                       \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n score                            │ 546020137469.922                            \n──────────────────────────────────┼─────────────────────────────────────────────\n strengths                        │   1   │ 417688                              \n──────────────────────────────────┼─────────────────────────────────────────────\n gaps                             │   1   │ 1e1923a9e1                          \n──────────────────────────────────┼─────────────────────────────────────────────\n recommendation                   │ atJbQlnNpjxFnSznfVgf                        \n",
-            data_html:
-              "<table><tr><th>score</th><td>546020137469.922</td></tr><tr><th>strengths</th><td><ul><li>417688</li></ul></td></tr><tr><th>gaps</th><td><ul><li>1e1923a9e1</li></ul></td></tr><tr><th>recommendation</th><td>atJbQlnNpjxFnSznfVgf</td></tr></table>",
+            multiplicity: null,
             extra: {},
           },
           {
@@ -953,13 +898,13 @@ export const DRY_CV_SCREENING = {
             content_type: "image/jpeg",
             preview: null,
             size: null,
-            digest: "dHMeu",
+            digest: "bCiSi",
             data: {
               url: "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
               public_url:
                 "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
               source_prompt:
-                "Professional profile card for WYpqdgZmxXTThtttUgDb, IfgoJiJqoizOvZzBuZuk",
+                "Professional profile card for lsSlQjIjxMtnyDkCpsKr, IkFSnZCNEwtsubcZASaW",
               source_negative_prompt: null,
               caption: null,
               mime_type: "image/jpeg",
@@ -967,10 +912,7 @@ export const DRY_CV_SCREENING = {
               height: 1024,
               filename: null,
             },
-            data_text:
-              "Image:\nURL: https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg     \nPublic URL: Open Image\nSize: 1024x1024\nMIME Type: image/jpeg\n\nSource Prompt:\nProfessional profile card for WYpqdgZmxXTThtttUgDb, IfgoJiJqoizOvZzBuZuk\n",
-            data_html:
-              '<img src="https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg" class="msg-img">',
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -981,14 +923,11 @@ export const DRY_CV_SCREENING = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "jP2Au",
+            digest: "mZMte",
             data: {
-              text: "# Candidate Screening Report\n\n## Candidate: WYpqdgZmxXTThtttUgDb\nIfgoJiJqoizOvZzBuZuk\n\n## Match Score: 546020137469.922/100\natJbQlnNpjxFnSznfVgf\n\n## Strengths\nmatch.strengths: ```\n['417688']\n```\n\n## Gaps\nmatch.gaps: ```\n['1e1923a9e1']\n```",
+              text: "# Candidate Screening Report\n\n## Candidate: lsSlQjIjxMtnyDkCpsKr\nIkFSnZCNEwtsubcZASaW\n\n## Match Score: 41.5828358941407/100\nQwLeljJmTLhcbzOiVaWj\n\n## Strengths\n<match.strengths>\n['7']\n</match.strengths>\n\n## Gaps\n<match.gaps>\n['cfbd77']\n</match.gaps>",
             },
-            data_text:
-              "                                     Candidate Screening Report                                     \n\nCandidate: WYpqdgZmxXTThtttUgDb                                                                     \n\nIfgoJiJqoizOvZzBuZuk                                                                                \n\nMatch Score: 546020137469.922/100                                                                   \n\natJbQlnNpjxFnSznfVgf                                                                                \n\nStrengths                                                                                           \n\nmatch.strengths: ``` ['417688']                                                                     \n\n                                                                                                    \n                                                                                                    \n ## Gaps                                                                                            \n match.gaps: ```                                                                                    \n ['1e1923a9e1']                                                                                     \n                                                                                                    \n",
-            data_html:
-              "# Candidate Screening Report\n\n## Candidate: WYpqdgZmxXTThtttUgDb\nIfgoJiJqoizOvZzBuZuk\n\n## Match Score: 546020137469.922/100\natJbQlnNpjxFnSznfVgf\n\n## Strengths\nmatch.strengths: ```\n[&#x27;417688&#x27;]\n```\n\n## Gaps\nmatch.gaps: ```\n[&#x27;1e1923a9e1&#x27;]\n```",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -1017,15 +956,15 @@ export const DRY_CV_SCREENING = {
       execution_data: {
         compose_mode: "template",
         rendered_text:
-          "# Candidate Screening Report\n\n## Candidate: WYpqdgZmxXTThtttUgDb\nIfgoJiJqoizOvZzBuZuk\n\n## Match Score: 546020137469.922/100\natJbQlnNpjxFnSznfVgf\n\n## Strengths\nmatch.strengths: ```\n['417688']\n```\n\n## Gaps\nmatch.gaps: ```\n['1e1923a9e1']\n```",
+          "# Candidate Screening Report\n\n## Candidate: lsSlQjIjxMtnyDkCpsKr\nIkFSnZCNEwtsubcZASaW\n\n## Match Score: 41.5828358941407/100\nQwLeljJmTLhcbzOiVaWj\n\n## Strengths\n<match.strengths>\n['7']\n</match.strengths>\n\n## Gaps\n<match.gaps>\n['cfbd77']\n</match.gaps>",
       },
     },
   ],
   edges: [
     {
-      id: "13ce9f00-5328-46be-9510-032785a4adb8:edge_0",
-      source: "13ce9f00-5328-46be-9510-032785a4adb8:node_0",
-      target: "13ce9f00-5328-46be-9510-032785a4adb8:node_1",
+      id: "244685f6-4482-4bdf-8eda-2821ab9f591b:edge_0",
+      source: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_0",
+      target: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_1",
       kind: "contains",
       optional: false,
       label: null,
@@ -1034,9 +973,9 @@ export const DRY_CV_SCREENING = {
       meta: {},
     },
     {
-      id: "13ce9f00-5328-46be-9510-032785a4adb8:edge_1",
-      source: "13ce9f00-5328-46be-9510-032785a4adb8:node_0",
-      target: "13ce9f00-5328-46be-9510-032785a4adb8:node_2",
+      id: "244685f6-4482-4bdf-8eda-2821ab9f591b:edge_1",
+      source: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_0",
+      target: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_2",
       kind: "contains",
       optional: false,
       label: null,
@@ -1045,9 +984,9 @@ export const DRY_CV_SCREENING = {
       meta: {},
     },
     {
-      id: "13ce9f00-5328-46be-9510-032785a4adb8:edge_2",
-      source: "13ce9f00-5328-46be-9510-032785a4adb8:node_0",
-      target: "13ce9f00-5328-46be-9510-032785a4adb8:node_3",
+      id: "244685f6-4482-4bdf-8eda-2821ab9f591b:edge_2",
+      source: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_0",
+      target: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_3",
       kind: "contains",
       optional: false,
       label: null,
@@ -1056,9 +995,9 @@ export const DRY_CV_SCREENING = {
       meta: {},
     },
     {
-      id: "13ce9f00-5328-46be-9510-032785a4adb8:edge_3",
-      source: "13ce9f00-5328-46be-9510-032785a4adb8:node_3",
-      target: "13ce9f00-5328-46be-9510-032785a4adb8:node_4",
+      id: "244685f6-4482-4bdf-8eda-2821ab9f591b:edge_3",
+      source: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_3",
+      target: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_4",
       kind: "contains",
       optional: false,
       label: null,
@@ -1067,9 +1006,9 @@ export const DRY_CV_SCREENING = {
       meta: {},
     },
     {
-      id: "13ce9f00-5328-46be-9510-032785a4adb8:edge_4",
-      source: "13ce9f00-5328-46be-9510-032785a4adb8:node_3",
-      target: "13ce9f00-5328-46be-9510-032785a4adb8:node_5",
+      id: "244685f6-4482-4bdf-8eda-2821ab9f591b:edge_4",
+      source: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_3",
+      target: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_5",
       kind: "contains",
       optional: false,
       label: null,
@@ -1078,9 +1017,9 @@ export const DRY_CV_SCREENING = {
       meta: {},
     },
     {
-      id: "13ce9f00-5328-46be-9510-032785a4adb8:edge_5",
-      source: "13ce9f00-5328-46be-9510-032785a4adb8:node_0",
-      target: "13ce9f00-5328-46be-9510-032785a4adb8:node_6",
+      id: "244685f6-4482-4bdf-8eda-2821ab9f591b:edge_5",
+      source: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_0",
+      target: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_6",
       kind: "contains",
       optional: false,
       label: null,
@@ -1089,9 +1028,9 @@ export const DRY_CV_SCREENING = {
       meta: {},
     },
     {
-      id: "13ce9f00-5328-46be-9510-032785a4adb8:edge_6",
-      source: "13ce9f00-5328-46be-9510-032785a4adb8:node_0",
-      target: "13ce9f00-5328-46be-9510-032785a4adb8:node_7",
+      id: "244685f6-4482-4bdf-8eda-2821ab9f591b:edge_6",
+      source: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_0",
+      target: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_7",
       kind: "contains",
       optional: false,
       label: null,
@@ -1100,9 +1039,9 @@ export const DRY_CV_SCREENING = {
       meta: {},
     },
     {
-      id: "13ce9f00-5328-46be-9510-032785a4adb8:asm_edge_0",
-      source: "13ce9f00-5328-46be-9510-032785a4adb8:node_1",
-      target: "13ce9f00-5328-46be-9510-032785a4adb8:node_2",
+      id: "244685f6-4482-4bdf-8eda-2821ab9f591b:asm_edge_0",
+      source: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_1",
+      target: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_2",
       kind: "data",
       optional: false,
       label: "pages",
@@ -1111,9 +1050,9 @@ export const DRY_CV_SCREENING = {
       meta: {},
     },
     {
-      id: "13ce9f00-5328-46be-9510-032785a4adb8:asm_edge_1",
-      source: "13ce9f00-5328-46be-9510-032785a4adb8:node_2",
-      target: "13ce9f00-5328-46be-9510-032785a4adb8:node_3",
+      id: "244685f6-4482-4bdf-8eda-2821ab9f591b:asm_edge_1",
+      source: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_2",
+      target: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_3",
       kind: "data",
       optional: false,
       label: "profile",
@@ -1122,9 +1061,9 @@ export const DRY_CV_SCREENING = {
       meta: {},
     },
     {
-      id: "13ce9f00-5328-46be-9510-032785a4adb8:asm_edge_2",
-      source: "13ce9f00-5328-46be-9510-032785a4adb8:node_2",
-      target: "13ce9f00-5328-46be-9510-032785a4adb8:node_4",
+      id: "244685f6-4482-4bdf-8eda-2821ab9f591b:asm_edge_2",
+      source: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_2",
+      target: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_4",
       kind: "data",
       optional: false,
       label: "profile",
@@ -1133,9 +1072,9 @@ export const DRY_CV_SCREENING = {
       meta: {},
     },
     {
-      id: "13ce9f00-5328-46be-9510-032785a4adb8:asm_edge_3",
-      source: "13ce9f00-5328-46be-9510-032785a4adb8:node_2",
-      target: "13ce9f00-5328-46be-9510-032785a4adb8:node_5",
+      id: "244685f6-4482-4bdf-8eda-2821ab9f591b:asm_edge_3",
+      source: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_2",
+      target: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_5",
       kind: "data",
       optional: false,
       label: "profile",
@@ -1144,9 +1083,9 @@ export const DRY_CV_SCREENING = {
       meta: {},
     },
     {
-      id: "13ce9f00-5328-46be-9510-032785a4adb8:asm_edge_4",
-      source: "13ce9f00-5328-46be-9510-032785a4adb8:node_2",
-      target: "13ce9f00-5328-46be-9510-032785a4adb8:node_6",
+      id: "244685f6-4482-4bdf-8eda-2821ab9f591b:asm_edge_4",
+      source: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_2",
+      target: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_6",
       kind: "data",
       optional: false,
       label: "profile",
@@ -1155,9 +1094,9 @@ export const DRY_CV_SCREENING = {
       meta: {},
     },
     {
-      id: "13ce9f00-5328-46be-9510-032785a4adb8:asm_edge_5",
-      source: "13ce9f00-5328-46be-9510-032785a4adb8:node_3",
-      target: "13ce9f00-5328-46be-9510-032785a4adb8:node_6",
+      id: "244685f6-4482-4bdf-8eda-2821ab9f591b:asm_edge_5",
+      source: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_3",
+      target: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_6",
       kind: "data",
       optional: false,
       label: "search_result",
@@ -1166,9 +1105,9 @@ export const DRY_CV_SCREENING = {
       meta: {},
     },
     {
-      id: "13ce9f00-5328-46be-9510-032785a4adb8:asm_edge_6",
-      source: "13ce9f00-5328-46be-9510-032785a4adb8:node_2",
-      target: "13ce9f00-5328-46be-9510-032785a4adb8:node_7",
+      id: "244685f6-4482-4bdf-8eda-2821ab9f591b:asm_edge_6",
+      source: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_2",
+      target: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_7",
       kind: "data",
       optional: false,
       label: "profile",
@@ -1177,9 +1116,9 @@ export const DRY_CV_SCREENING = {
       meta: {},
     },
     {
-      id: "13ce9f00-5328-46be-9510-032785a4adb8:asm_edge_7",
-      source: "13ce9f00-5328-46be-9510-032785a4adb8:node_6",
-      target: "13ce9f00-5328-46be-9510-032785a4adb8:node_7",
+      id: "244685f6-4482-4bdf-8eda-2821ab9f591b:asm_edge_7",
+      source: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_6",
+      target: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_7",
       kind: "data",
       optional: false,
       label: "match",
@@ -1188,9 +1127,9 @@ export const DRY_CV_SCREENING = {
       meta: {},
     },
     {
-      id: "13ce9f00-5328-46be-9510-032785a4adb8:asm_edge_8",
-      source: "13ce9f00-5328-46be-9510-032785a4adb8:node_3",
-      target: "13ce9f00-5328-46be-9510-032785a4adb8:node_7",
+      id: "244685f6-4482-4bdf-8eda-2821ab9f591b:asm_edge_8",
+      source: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_3",
+      target: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_7",
       kind: "data",
       optional: false,
       label: "card_image",
@@ -1199,25 +1138,25 @@ export const DRY_CV_SCREENING = {
       meta: {},
     },
     {
-      id: "13ce9f00-5328-46be-9510-032785a4adb8:asm_edge_9",
-      source: "13ce9f00-5328-46be-9510-032785a4adb8:node_4",
-      target: "13ce9f00-5328-46be-9510-032785a4adb8:node_3",
+      id: "244685f6-4482-4bdf-8eda-2821ab9f591b:asm_edge_9",
+      source: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_4",
+      target: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_3",
       kind: "parallel_combine",
       optional: false,
       label: null,
-      source_stuff_digest: "FS7Dt",
-      target_stuff_digest: "RCybC",
+      source_stuff_digest: "i8Lhe",
+      target_stuff_digest: "hzDbA",
       meta: {},
     },
     {
-      id: "13ce9f00-5328-46be-9510-032785a4adb8:asm_edge_10",
-      source: "13ce9f00-5328-46be-9510-032785a4adb8:node_5",
-      target: "13ce9f00-5328-46be-9510-032785a4adb8:node_3",
+      id: "244685f6-4482-4bdf-8eda-2821ab9f591b:asm_edge_10",
+      source: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_5",
+      target: "244685f6-4482-4bdf-8eda-2821ab9f591b:node_3",
       kind: "parallel_combine",
       optional: false,
       label: null,
-      source_stuff_digest: "dHMeu",
-      target_stuff_digest: "RCybC",
+      source_stuff_digest: "bCiSi",
+      target_stuff_digest: "hzDbA",
       meta: {},
     },
   ],
@@ -1311,31 +1250,31 @@ export const DRY_CV_SCREENING = {
       },
       sequential_sub_pipes: [
         {
-          pipe_code: "extract_cv",
+          pipe_code: "recruitment.extract_cv",
           output_name: "pages",
           output_multiplicity: null,
           batch_params: null,
         },
         {
-          pipe_code: "analyze_candidate",
+          pipe_code: "recruitment.analyze_candidate",
           output_name: "profile",
           output_multiplicity: null,
           batch_params: null,
         },
         {
-          pipe_code: "enrich_candidate",
+          pipe_code: "recruitment.enrich_candidate",
           output_name: "candidate_assets",
           output_multiplicity: null,
           batch_params: null,
         },
         {
-          pipe_code: "score_match",
+          pipe_code: "recruitment.score_match",
           output_name: "match",
           output_multiplicity: null,
           batch_params: null,
         },
         {
-          pipe_code: "compose_report",
+          pipe_code: "recruitment.compose_report",
           output_name: "report",
           output_multiplicity: null,
           batch_params: null,
@@ -1429,6 +1368,7 @@ export const DRY_CV_SCREENING = {
       },
       llm_choices: { for_text: null, for_object: null },
       output_multiplicity: null,
+      templating_style: null,
     },
     "recruitment.enrich_candidate": {
       pipe_category: "PipeController",
@@ -1462,13 +1402,13 @@ export const DRY_CV_SCREENING = {
       },
       parallel_sub_pipes: [
         {
-          pipe_code: "search_candidate",
+          pipe_code: "recruitment.search_candidate",
           output_name: "search_result",
           output_multiplicity: null,
           batch_params: null,
         },
         {
-          pipe_code: "generate_card",
+          pipe_code: "recruitment.generate_card",
           output_name: "card_image",
           output_multiplicity: null,
           batch_params: null,
@@ -1627,6 +1567,7 @@ export const DRY_CV_SCREENING = {
       },
       llm_choices: { for_text: null, for_object: null },
       output_multiplicity: null,
+      templating_style: null,
     },
     "recruitment.compose_report": {
       pipe_category: "PipeOperator",
@@ -1710,6 +1651,7 @@ export const DRY_CV_SCREENING = {
       structure_class_name: "DocumentContent",
       refines: null,
       json_schema: {
+        description: "A document",
         properties: {
           url: {
             description: "The document URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
@@ -1762,6 +1704,7 @@ export const DRY_CV_SCREENING = {
       json_schema: {
         $defs: {
           ImageContent: {
+            description: "An image",
             properties: {
               url: {
                 description: "The image URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
@@ -1848,12 +1791,15 @@ export const DRY_CV_SCREENING = {
             type: "object",
           },
           TextContent: {
+            description: "A text",
             properties: { text: { description: "The text", title: "Text", type: "string" } },
             required: ["text"],
             title: "TextContent",
             type: "object",
           },
         },
+        description:
+          "The content of a page of a document, comprising text and linked images and an optional page view image",
         properties: {
           text_and_images: {
             $ref: "#/$defs/TextAndImagesContent",
@@ -1923,6 +1869,7 @@ export const DRY_CV_SCREENING = {
       json_schema: {
         $defs: {
           DocumentContent: {
+            description: "A document",
             properties: {
               url: {
                 description:
@@ -1992,6 +1939,7 @@ export const DRY_CV_SCREENING = {
       structure_class_name: "ImageContent",
       refines: null,
       json_schema: {
+        description: "An image",
         properties: {
           url: {
             description: "The image URL: a storage URI, an HTTP(S) URL, or a base64 data URL",

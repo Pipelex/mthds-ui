@@ -1,31 +1,31 @@
 flowchart LR
 
     %% Pipe and stuff nodes within controller subgraphs
-    subgraph sg_n_c58345ad22["translate_pipeline"]
-        subgraph sg_n_2a7a87c1e1["route_translation"]
-            n_7c4d5a8c22["passthrough"]
-            s_b61ebadce3(["translated<br/>TranslatedText"]):::stuff
-            n_6811382583["translate_french"]
-            s_09dbb28bc1(["translated<br/>TranslatedText"]):::stuff
-            n_bdfb614b20["translate_other"]
-            s_1bb7fed9c1(["translated<br/>TranslatedText"]):::stuff
+    subgraph sg_n_1f18e20496["translate_pipeline"]
+        subgraph sg_n_d4e8cf5018["route_translation"]
+            n_4ecc845436["passthrough"]
+            s_5b5930d588(["translated<br/>TranslatedText"]):::stuff
+            n_83126e522e["translate_french"]
+            s_0c7dcab906(["translated<br/>TranslatedText"]):::stuff
+            n_9357a9ee13["translate_other"]
+            s_5fb2b402a1(["translated<br/>TranslatedText"]):::stuff
         end
-        n_e35deb673d["detect_language"]
-        s_51ef263882(["classified<br/>ClassifiedText"]):::stuff
+        n_461d37c2ca["detect_language"]
+        s_75bbf70307(["classified<br/>ClassifiedText"]):::stuff
     end
 
     %% Pipeline input stuff nodes (no producer)
-    s_1053de247e(["text<br/>Text"]):::stuff
+    s_3250453266(["text<br/>Text"]):::stuff
 
     %% Data flow edges: producer -> stuff -> consumer
-    n_7c4d5a8c22 --> s_b61ebadce3
-    n_6811382583 --> s_09dbb28bc1
-    n_bdfb614b20 --> s_1bb7fed9c1
-    n_e35deb673d --> s_51ef263882
-    s_51ef263882 --> n_7c4d5a8c22
-    s_51ef263882 --> n_6811382583
-    s_51ef263882 --> n_bdfb614b20
-    s_1053de247e --> n_e35deb673d
+    n_4ecc845436 --> s_5b5930d588
+    n_9357a9ee13 --> s_5fb2b402a1
+    n_461d37c2ca --> s_75bbf70307
+    n_83126e522e --> s_0c7dcab906
+    s_3250453266 --> n_461d37c2ca
+    s_75bbf70307 --> n_4ecc845436
+    s_75bbf70307 --> n_83126e522e
+    s_75bbf70307 --> n_9357a9ee13
 
     %% Style definitions
     classDef failed fill:#ffcccc,stroke:#cc0000
@@ -33,5 +33,5 @@ flowchart LR
     classDef controller fill:#e6f3ff,stroke:#0066cc
 
     %% Subgraph depth-based coloring
-    style sg_n_2a7a87c1e1 fill:#e6ffe6
-    style sg_n_c58345ad22 fill:#e6f3ff
+    style sg_n_1f18e20496 fill:#e6f3ff
+    style sg_n_d4e8cf5018 fill:#e6ffe6

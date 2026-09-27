@@ -5,12 +5,12 @@
 import type { GraphSpec } from "@graph/types";
 
 export const DRY_ALL_CONTROLLER_TYPES = {
-  graph_id: "cc32a226-1887-444e-908c-7cd111aabcd0",
-  created_at: "2026-08-14T10:49:50.997621Z",
+  graph_id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf",
+  created_at: "2026-09-27T08:51:21.460087Z",
   pipeline_ref: { domain: "controller_showcase", main_pipe: "all_controllers", entrypoint: null },
   nodes: [
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:node_0",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_0",
       kind: "controller",
       pipe_code: "all_controllers",
       pipe_type: "PipeSequence",
@@ -19,30 +19,28 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:49:50.997621Z",
-        ended_at: "2026-08-14T10:49:51.183567Z",
-        duration: 0.185946,
+        started_at: "2026-09-27T08:51:21.460087Z",
+        ended_at: "2026-09-27T08:51:21.491702Z",
+        duration: 0.031615,
       },
       io: {
         inputs: [
           {
             name: "document",
             concept: "Document",
-            content_type: "sWCYtQhkStyECNaxpNID",
+            content_type: "OyZgyIsLDekTDaBpkKdG",
             preview: null,
             size: null,
-            digest: "VyPmn",
+            digest: "n7eXz",
             data: {
-              url: "oWjFeXEQNFyUGITURttt",
-              public_url: "GMFiuefeQsfTIfIYuhkY",
-              mime_type: "sWCYtQhkStyECNaxpNID",
-              filename: "aCqWqOyOwJyiTBOphoYn",
-              title: "DkJTIKEJMDoFzTuDJaRR",
-              snippet: "ZPjCTsgWZSipNADNyqxj",
+              url: "QkPBXdPUcQuzpVsxQJdn",
+              public_url: "dBNiPGobJKyOImpVlhBV",
+              mime_type: "OyZgyIsLDekTDaBpkKdG",
+              filename: "pLzIdBgBMzqVCjcvbqxM",
+              title: "hgPBjqlPFBsQyYVJOOvw",
+              snippet: "oYURWujniNaTkGbLuOuc",
             },
-            data_text: "DkJTIKEJMDoFzTuDJaRR (oWjFeXEQNFyUGITURttt)\n  ZPjCTsgWZSipNADNyqxj\n",
-            data_html:
-              '<a href="GMFiuefeQsfTIfIYuhkY" class="msg-document">DkJTIKEJMDoFzTuDJaRR</a><br/><small>ZPjCTsgWZSipNADNyqxj</small>',
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -53,11 +51,9 @@ export const DRY_ALL_CONTROLLER_TYPES = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "edywS",
-            data: { text: "# Text Report\n\ngeoaNDlPFoUmfcGIyVCG" },
-            data_text:
-              "                                            Text Report                                             \n\ngeoaNDlPFoUmfcGIyVCG                                                                                \n",
-            data_html: "# Text Report\n\ngeoaNDlPFoUmfcGIyVCG",
+            digest: "X4BnN",
+            data: { text: "# Text Report\n\nKpxhYtrTWTXMgxduGFuM" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -95,7 +91,7 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       execution_data: { step_count: 5 },
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:node_1",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_1",
       kind: "operator",
       pipe_code: "extract_input",
       pipe_type: "PipeExtract",
@@ -104,30 +100,28 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:49:51.002983Z",
-        ended_at: "2026-08-14T10:49:51.011925Z",
-        duration: 0.008942,
+        started_at: "2026-09-27T08:51:21.461304Z",
+        ended_at: "2026-09-27T08:51:21.464319Z",
+        duration: 0.003015,
       },
       io: {
         inputs: [
           {
             name: "document",
             concept: "Document",
-            content_type: "sWCYtQhkStyECNaxpNID",
+            content_type: "OyZgyIsLDekTDaBpkKdG",
             preview: null,
             size: null,
-            digest: "VyPmn",
+            digest: "n7eXz",
             data: {
-              url: "oWjFeXEQNFyUGITURttt",
-              public_url: "GMFiuefeQsfTIfIYuhkY",
-              mime_type: "sWCYtQhkStyECNaxpNID",
-              filename: "aCqWqOyOwJyiTBOphoYn",
-              title: "DkJTIKEJMDoFzTuDJaRR",
-              snippet: "ZPjCTsgWZSipNADNyqxj",
+              url: "QkPBXdPUcQuzpVsxQJdn",
+              public_url: "dBNiPGobJKyOImpVlhBV",
+              mime_type: "OyZgyIsLDekTDaBpkKdG",
+              filename: "pLzIdBgBMzqVCjcvbqxM",
+              title: "hgPBjqlPFBsQyYVJOOvw",
+              snippet: "oYURWujniNaTkGbLuOuc",
             },
-            data_text: "DkJTIKEJMDoFzTuDJaRR (oWjFeXEQNFyUGITURttt)\n  ZPjCTsgWZSipNADNyqxj\n",
-            data_html:
-              '<a href="GMFiuefeQsfTIfIYuhkY" class="msg-document">DkJTIKEJMDoFzTuDJaRR</a><br/><small>ZPjCTsgWZSipNADNyqxj</small>',
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -138,7 +132,7 @@ export const DRY_ALL_CONTROLLER_TYPES = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "m2Rg9",
+            digest: "VxzpU",
             data: {
               items: [
                 {
@@ -175,10 +169,7 @@ export const DRY_ALL_CONTROLLER_TYPES = {
                 },
               ],
             },
-            data_text:
-              "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
-            data_html:
-              "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            multiplicity: true,
             extra: {},
           },
         ],
@@ -212,7 +203,7 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       },
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:node_2",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_2",
       kind: "controller",
       pipe_code: "parallel_classify",
       pipe_type: "PipeParallel",
@@ -221,9 +212,9 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:49:51.016209Z",
-        ended_at: "2026-08-14T10:49:51.092082Z",
-        duration: 0.075873,
+        started_at: "2026-09-27T08:51:21.464417Z",
+        ended_at: "2026-09-27T08:51:21.474164Z",
+        duration: 0.009747,
       },
       io: {
         inputs: [
@@ -233,7 +224,7 @@ export const DRY_ALL_CONTROLLER_TYPES = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "m2Rg9",
+            digest: "VxzpU",
             data: {
               items: [
                 {
@@ -270,10 +261,7 @@ export const DRY_ALL_CONTROLLER_TYPES = {
                 },
               ],
             },
-            data_text:
-              "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
-            data_html:
-              "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            multiplicity: true,
             extra: {},
           },
         ],
@@ -284,14 +272,11 @@ export const DRY_ALL_CONTROLLER_TYPES = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "aWBKk",
+            digest: "3xMqm",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze this content:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n#\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze this content:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n#\n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Analyze this content:       \n\n\n• item #1:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n• item #2:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                                                                                    \n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze this content:\n\n&lt;pages&gt;\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n#\n    ",
+            multiplicity: null,
             extra: {},
           },
           {
@@ -300,40 +285,37 @@ export const DRY_ALL_CONTROLLER_TYPES = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "Nt8xU",
+            digest: "NKXEE",
             data: {
-              answer: "wPwUVaOvByeqzCuhqVzK",
+              answer: "QlpQlvbpoKxjDxzCusGk",
               sources: [
                 {
-                  url: "eYdaUGBzpzCZkkTFrBpu",
-                  public_url: "kXWrypMGNZAOLRKBEGou",
-                  mime_type: "pYEqnMRsxqmEMAxpSkxW",
-                  filename: "ZqmuslMnNsSYiVYJCUHK",
-                  title: "qcZebuwQRDGWyNfOIeTe",
-                  snippet: "KTIwuxoavPYsdALpHgNs",
+                  url: "nMovHmqWJIHizTQTpUZU",
+                  public_url: "KlcZPagpnfSSvEdFISkC",
+                  mime_type: "PjVisBwymgJgMYVhrPTB",
+                  filename: "RRbjiaIZQHKWyKizXhwU",
+                  title: "tJvozfoCZblzvfxoATWb",
+                  snippet: "wqBwojIuegGDBBslyCGk",
                 },
                 {
-                  url: "tDiybsRhQFOjHJbVPGeh",
-                  public_url: "GZsXqBRQoBefkuOlKSJv",
-                  mime_type: "wiTlmeHaOsJWYkiXudBP",
-                  filename: "eiqlpIABGyhaeUrHSHsM",
-                  title: "vIFXXtEQvWcwkSOIPMIt",
-                  snippet: "sXFzhSXOFtuqYPuVUnds",
+                  url: "mQyTNknicJpmRXbiGPWN",
+                  public_url: "IiChQfBostSveTtCBaRG",
+                  mime_type: "LxEattrgrsuJcChdyjpB",
+                  filename: "iGUfNTmWevAdxpfUiOjv",
+                  title: "lxsZKJsiTEryJwBBAhNA",
+                  snippet: "wlFeFBcVQjsFbStNDcRd",
                 },
                 {
-                  url: "FSACbMprTokbplCXwFbO",
-                  public_url: "hAWTZkQLquYrpAKKaFBi",
-                  mime_type: "OBtIfPiOlnZelXLnObMe",
-                  filename: "lCJUobwPYKhDgWCMZalT",
-                  title: "FOFUyrqDfYQxkMlxMKpi",
-                  snippet: "wmzfwULoMgvdCJwAEXJZ",
+                  url: "tVDYGnAQAqHFtRzTrGsT",
+                  public_url: "OuvbosToOzDDDeUWwNNz",
+                  mime_type: "AXBemJmJfeeqWVayZwDS",
+                  filename: "loeuSOVPOgTXdHEjLAes",
+                  title: "ZLfNEcuBFjMepgDCtylg",
+                  snippet: "rttYRvdINRlCBSKUGBrM",
                 },
               ],
             },
-            data_text:
-              "Search Result:\nwPwUVaOvByeqzCuhqVzK                                                                                \n\nSources (3):\nqcZebuwQRDGWyNfOIeTe (eYdaUGBzpzCZkkTFrBpu)\n  KTIwuxoavPYsdALpHgNs\n\nvIFXXtEQvWcwkSOIPMIt (tDiybsRhQFOjHJbVPGeh)\n  sXFzhSXOFtuqYPuVUnds\n\nFOFUyrqDfYQxkMlxMKpi (FSACbMprTokbplCXwFbO)\n  wmzfwULoMgvdCJwAEXJZ\n",
-            data_html:
-              '<div><p>wPwUVaOvByeqzCuhqVzK</p><h4>Sources</h4><ul><li><a href="kXWrypMGNZAOLRKBEGou" class="msg-document">qcZebuwQRDGWyNfOIeTe</a><br/><small>KTIwuxoavPYsdALpHgNs</small></li><li><a href="GZsXqBRQoBefkuOlKSJv" class="msg-document">vIFXXtEQvWcwkSOIPMIt</a><br/><small>sXFzhSXOFtuqYPuVUnds</small></li><li><a href="hAWTZkQLquYrpAKKaFBi" class="msg-document">FOFUyrqDfYQxkMlxMKpi</a><br/><small>wmzfwULoMgvdCJwAEXJZ</small></li></ul></div>',
+            multiplicity: null,
             extra: {},
           },
           {
@@ -342,45 +324,42 @@ export const DRY_ALL_CONTROLLER_TYPES = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "Qkk7i",
+            digest: "fGELX",
             data: {
               analysis: {
-                text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze this content:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n#\n    ",
+                text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze this content:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n#\n    ",
               },
               search_result: {
-                answer: "wPwUVaOvByeqzCuhqVzK",
+                answer: "QlpQlvbpoKxjDxzCusGk",
                 sources: [
                   {
-                    url: "eYdaUGBzpzCZkkTFrBpu",
-                    public_url: "kXWrypMGNZAOLRKBEGou",
-                    mime_type: "pYEqnMRsxqmEMAxpSkxW",
-                    filename: "ZqmuslMnNsSYiVYJCUHK",
-                    title: "qcZebuwQRDGWyNfOIeTe",
-                    snippet: "KTIwuxoavPYsdALpHgNs",
+                    url: "nMovHmqWJIHizTQTpUZU",
+                    public_url: "KlcZPagpnfSSvEdFISkC",
+                    mime_type: "PjVisBwymgJgMYVhrPTB",
+                    filename: "RRbjiaIZQHKWyKizXhwU",
+                    title: "tJvozfoCZblzvfxoATWb",
+                    snippet: "wqBwojIuegGDBBslyCGk",
                   },
                   {
-                    url: "tDiybsRhQFOjHJbVPGeh",
-                    public_url: "GZsXqBRQoBefkuOlKSJv",
-                    mime_type: "wiTlmeHaOsJWYkiXudBP",
-                    filename: "eiqlpIABGyhaeUrHSHsM",
-                    title: "vIFXXtEQvWcwkSOIPMIt",
-                    snippet: "sXFzhSXOFtuqYPuVUnds",
+                    url: "mQyTNknicJpmRXbiGPWN",
+                    public_url: "IiChQfBostSveTtCBaRG",
+                    mime_type: "LxEattrgrsuJcChdyjpB",
+                    filename: "iGUfNTmWevAdxpfUiOjv",
+                    title: "lxsZKJsiTEryJwBBAhNA",
+                    snippet: "wlFeFBcVQjsFbStNDcRd",
                   },
                   {
-                    url: "FSACbMprTokbplCXwFbO",
-                    public_url: "hAWTZkQLquYrpAKKaFBi",
-                    mime_type: "OBtIfPiOlnZelXLnObMe",
-                    filename: "lCJUobwPYKhDgWCMZalT",
-                    title: "FOFUyrqDfYQxkMlxMKpi",
-                    snippet: "wmzfwULoMgvdCJwAEXJZ",
+                    url: "tVDYGnAQAqHFtRzTrGsT",
+                    public_url: "OuvbosToOzDDDeUWwNNz",
+                    mime_type: "AXBemJmJfeeqWVayZwDS",
+                    filename: "loeuSOVPOgTXdHEjLAes",
+                    title: "ZLfNEcuBFjMepgDCtylg",
+                    snippet: "rttYRvdINRlCBSKUGBrM",
                   },
                 ],
               },
             },
-            data_text:
-              '{\n    "analysis": {\n        "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\\n    user_text:\\n    \nAnalyze this content:\\n\\n<pages>\\n\\n • item #1:\\n\\n# text_and_images\\n\\n## text: ### text: DRY RUN: \nOCR text\\n\\n## images: \\n\\n## raw_html: None\\n\\n# page_view: None\\n\\n • item #2:\\n\\n# \ntext_and_images\\n\\n## text: ### text: DRY RUN: OCR text\\n\\n## images: \\n\\n## raw_html: None\\n\\n#\\n  \n"\n    },\n    "search_result": {\n        "answer": "wPwUVaOvByeqzCuhqVzK",\n        "sources": [\n            {\n                "url": "eYdaUGBzpzCZkkTFrBpu",\n                "public_url": "kXWrypMGNZAOLRKBEGou",\n                "mime_type": "pYEqnMRsxqmEMAxpSkxW",\n                "filename": "ZqmuslMnNsSYiVYJCUHK",\n                "title": "qcZebuwQRDGWyNfOIeTe",\n                "snippet": "KTIwuxoavPYsdALpHgNs"\n            },\n            {\n                "url": "tDiybsRhQFOjHJbVPGeh",\n                "public_url": "GZsXqBRQoBefkuOlKSJv",\n                "mime_type": "wiTlmeHaOsJWYkiXudBP",\n                "filename": "eiqlpIABGyhaeUrHSHsM",\n                "title": "vIFXXtEQvWcwkSOIPMIt",\n                "snippet": "sXFzhSXOFtuqYPuVUnds"\n            },\n            {\n                "url": "FSACbMprTokbplCXwFbO",\n                "public_url": "hAWTZkQLquYrpAKKaFBi",\n                "mime_type": "OBtIfPiOlnZelXLnObMe",\n                "filename": "lCJUobwPYKhDgWCMZalT",\n                "title": "FOFUyrqDfYQxkMlxMKpi",\n                "snippet": "wmzfwULoMgvdCJwAEXJZ"\n            }\n        ]\n    }\n}\n',
-            data_html:
-              '<table><tr><th>analysis</th><td>DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze this content:\n\n&lt;pages&gt;\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n#\n    </td></tr><tr><th>search_result</th><td><div><p>wPwUVaOvByeqzCuhqVzK</p><h4>Sources</h4><ul><li><a href="kXWrypMGNZAOLRKBEGou" class="msg-document">qcZebuwQRDGWyNfOIeTe</a><br/><small>KTIwuxoavPYsdALpHgNs</small></li><li><a href="GZsXqBRQoBefkuOlKSJv" class="msg-document">vIFXXtEQvWcwkSOIPMIt</a><br/><small>sXFzhSXOFtuqYPuVUnds</small></li><li><a href="hAWTZkQLquYrpAKKaFBi" class="msg-document">FOFUyrqDfYQxkMlxMKpi</a><br/><small>wmzfwULoMgvdCJwAEXJZ</small></li></ul></div></td></tr></table>',
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -422,7 +401,7 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       },
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:node_3",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_3",
       kind: "operator",
       pipe_code: "analyze_content",
       pipe_type: "PipeLLM",
@@ -431,9 +410,9 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:49:51.021254Z",
-        ended_at: "2026-08-14T10:49:51.070748Z",
-        duration: 0.049494,
+        started_at: "2026-09-27T08:51:21.466429Z",
+        ended_at: "2026-09-27T08:51:21.468866Z",
+        duration: 0.002437,
       },
       io: {
         inputs: [
@@ -443,7 +422,7 @@ export const DRY_ALL_CONTROLLER_TYPES = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "m2Rg9",
+            digest: "VxzpU",
             data: {
               items: [
                 {
@@ -480,10 +459,7 @@ export const DRY_ALL_CONTROLLER_TYPES = {
                 },
               ],
             },
-            data_text:
-              "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
-            data_html:
-              "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            multiplicity: true,
             extra: {},
           },
         ],
@@ -494,14 +470,11 @@ export const DRY_ALL_CONTROLLER_TYPES = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "aWBKk",
+            digest: "3xMqm",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze this content:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n#\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze this content:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n#\n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Analyze this content:       \n\n\n• item #1:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n• item #2:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                                                                                    \n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze this content:\n\n&lt;pages&gt;\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n#\n    ",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -556,7 +529,7 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       },
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:node_4",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_4",
       kind: "operator",
       pipe_code: "search_context",
       pipe_type: "PipeSearch",
@@ -565,9 +538,9 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:49:51.074344Z",
-        ended_at: "2026-08-14T10:49:51.083414Z",
-        duration: 0.00907,
+        started_at: "2026-09-27T08:51:21.469000Z",
+        ended_at: "2026-09-27T08:51:21.473832Z",
+        duration: 0.004832,
       },
       io: {
         inputs: [
@@ -577,7 +550,7 @@ export const DRY_ALL_CONTROLLER_TYPES = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "m2Rg9",
+            digest: "VxzpU",
             data: {
               items: [
                 {
@@ -614,10 +587,7 @@ export const DRY_ALL_CONTROLLER_TYPES = {
                 },
               ],
             },
-            data_text:
-              "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
-            data_html:
-              "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            multiplicity: true,
             extra: {},
           },
         ],
@@ -628,40 +598,37 @@ export const DRY_ALL_CONTROLLER_TYPES = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "Nt8xU",
+            digest: "NKXEE",
             data: {
-              answer: "wPwUVaOvByeqzCuhqVzK",
+              answer: "QlpQlvbpoKxjDxzCusGk",
               sources: [
                 {
-                  url: "eYdaUGBzpzCZkkTFrBpu",
-                  public_url: "kXWrypMGNZAOLRKBEGou",
-                  mime_type: "pYEqnMRsxqmEMAxpSkxW",
-                  filename: "ZqmuslMnNsSYiVYJCUHK",
-                  title: "qcZebuwQRDGWyNfOIeTe",
-                  snippet: "KTIwuxoavPYsdALpHgNs",
+                  url: "nMovHmqWJIHizTQTpUZU",
+                  public_url: "KlcZPagpnfSSvEdFISkC",
+                  mime_type: "PjVisBwymgJgMYVhrPTB",
+                  filename: "RRbjiaIZQHKWyKizXhwU",
+                  title: "tJvozfoCZblzvfxoATWb",
+                  snippet: "wqBwojIuegGDBBslyCGk",
                 },
                 {
-                  url: "tDiybsRhQFOjHJbVPGeh",
-                  public_url: "GZsXqBRQoBefkuOlKSJv",
-                  mime_type: "wiTlmeHaOsJWYkiXudBP",
-                  filename: "eiqlpIABGyhaeUrHSHsM",
-                  title: "vIFXXtEQvWcwkSOIPMIt",
-                  snippet: "sXFzhSXOFtuqYPuVUnds",
+                  url: "mQyTNknicJpmRXbiGPWN",
+                  public_url: "IiChQfBostSveTtCBaRG",
+                  mime_type: "LxEattrgrsuJcChdyjpB",
+                  filename: "iGUfNTmWevAdxpfUiOjv",
+                  title: "lxsZKJsiTEryJwBBAhNA",
+                  snippet: "wlFeFBcVQjsFbStNDcRd",
                 },
                 {
-                  url: "FSACbMprTokbplCXwFbO",
-                  public_url: "hAWTZkQLquYrpAKKaFBi",
-                  mime_type: "OBtIfPiOlnZelXLnObMe",
-                  filename: "lCJUobwPYKhDgWCMZalT",
-                  title: "FOFUyrqDfYQxkMlxMKpi",
-                  snippet: "wmzfwULoMgvdCJwAEXJZ",
+                  url: "tVDYGnAQAqHFtRzTrGsT",
+                  public_url: "OuvbosToOzDDDeUWwNNz",
+                  mime_type: "AXBemJmJfeeqWVayZwDS",
+                  filename: "loeuSOVPOgTXdHEjLAes",
+                  title: "ZLfNEcuBFjMepgDCtylg",
+                  snippet: "rttYRvdINRlCBSKUGBrM",
                 },
               ],
             },
-            data_text:
-              "Search Result:\nwPwUVaOvByeqzCuhqVzK                                                                                \n\nSources (3):\nqcZebuwQRDGWyNfOIeTe (eYdaUGBzpzCZkkTFrBpu)\n  KTIwuxoavPYsdALpHgNs\n\nvIFXXtEQvWcwkSOIPMIt (tDiybsRhQFOjHJbVPGeh)\n  sXFzhSXOFtuqYPuVUnds\n\nFOFUyrqDfYQxkMlxMKpi (FSACbMprTokbplCXwFbO)\n  wmzfwULoMgvdCJwAEXJZ\n",
-            data_html:
-              '<div><p>wPwUVaOvByeqzCuhqVzK</p><h4>Sources</h4><ul><li><a href="kXWrypMGNZAOLRKBEGou" class="msg-document">qcZebuwQRDGWyNfOIeTe</a><br/><small>KTIwuxoavPYsdALpHgNs</small></li><li><a href="GZsXqBRQoBefkuOlKSJv" class="msg-document">vIFXXtEQvWcwkSOIPMIt</a><br/><small>sXFzhSXOFtuqYPuVUnds</small></li><li><a href="hAWTZkQLquYrpAKKaFBi" class="msg-document">FOFUyrqDfYQxkMlxMKpi</a><br/><small>wmzfwULoMgvdCJwAEXJZ</small></li></ul></div>',
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -695,18 +662,18 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       },
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:node_5",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_5",
       kind: "controller",
       pipe_code: "batch_process_batch",
       pipe_type: "PipeBatch",
-      description: "Batch processing for batch_process",
+      description: "Batch processing for controller_showcase.batch_process",
       domain_code: "controller_showcase",
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:49:51.095661Z",
-        ended_at: "2026-08-14T10:49:51.146404Z",
-        duration: 0.050743,
+        started_at: "2026-09-27T08:51:21.474355Z",
+        ended_at: "2026-09-27T08:51:21.485489Z",
+        duration: 0.011134,
       },
       io: {
         inputs: [
@@ -716,7 +683,7 @@ export const DRY_ALL_CONTROLLER_TYPES = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "m2Rg9",
+            digest: "VxzpU",
             data: {
               items: [
                 {
@@ -753,10 +720,7 @@ export const DRY_ALL_CONTROLLER_TYPES = {
                 },
               ],
             },
-            data_text:
-              "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
-            data_html:
-              "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            multiplicity: true,
             extra: {},
           },
         ],
@@ -767,27 +731,24 @@ export const DRY_ALL_CONTROLLER_TYPES = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "FWeoh",
+            digest: "hTD2C",
             data: {
               items: [
                 {
-                  text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    ",
+                  text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    ",
                 },
                 {
-                  text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    ",
+                  text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    ",
                 },
                 {
-                  text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    ",
+                  text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    ",
                 },
                 {
-                  text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    ",
+                  text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    ",
                 },
               ],
             },
-            data_text:
-              "   1    │ DRY RUN: llm_gen_text •                                               \n        │ llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, \n        │ max_tokens=None, prompting_target=None) • prompt=LLM Prompt:          \n        │ user_text: Summarize this page:                                       \n        │                                                                       \n        │                                                                       \n        │ text: ### text: DRY RUN: OCR text                                     \n        │                                                                       \n        │ images:                                                               \n        │                                                                       \n        │ raw_html: None                                                        \n        │                                                                       \n        │                            page_view: None                            \n        │                                                                       \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: llm_gen_text •                                               \n        │ llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, \n        │ max_tokens=None, prompting_target=None) • prompt=LLM Prompt:          \n        │ user_text: Summarize this page:                                       \n        │                                                                       \n        │                                                                       \n        │ text: ### text: DRY RUN: OCR text                                     \n        │                                                                       \n        │ images:                                                               \n        │                                                                       \n        │ raw_html: None                                                        \n        │                                                                       \n        │                            page_view: None                            \n        │                                                                       \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: llm_gen_text •                                               \n        │ llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, \n        │ max_tokens=None, prompting_target=None) • prompt=LLM Prompt:          \n        │ user_text: Summarize this page:                                       \n        │                                                                       \n        │                                                                       \n        │ text: ### text: DRY RUN: OCR text                                     \n        │                                                                       \n        │ images:                                                               \n        │                                                                       \n        │ raw_html: None                                                        \n        │                                                                       \n        │                            page_view: None                            \n        │                                                                       \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: llm_gen_text •                                               \n        │ llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, \n        │ max_tokens=None, prompting_target=None) • prompt=LLM Prompt:          \n        │ user_text: Summarize this page:                                       \n        │                                                                       \n        │                                                                       \n        │ text: ### text: DRY RUN: OCR text                                     \n        │                                                                       \n        │ images:                                                               \n        │                                                                       \n        │ raw_html: None                                                        \n        │                                                                       \n        │                            page_view: None                            \n        │                                                                       \n",
-            data_html:
-              "<ul><li>DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    </li><li>DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    </li><li>DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    </li><li>DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    </li></ul>",
+            multiplicity: true,
             extra: {},
           },
         ],
@@ -822,10 +783,10 @@ export const DRY_ALL_CONTROLLER_TYPES = {
           },
         ],
       },
-      execution_data: { item_count: 4, branch_pipe_code: "batch_process" },
+      execution_data: { item_count: 4, branch_pipe_code: "controller_showcase.batch_process" },
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:node_6",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_6",
       kind: "operator",
       pipe_code: "batch_process",
       pipe_type: "PipeLLM",
@@ -834,9 +795,9 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:49:51.100670Z",
-        ended_at: "2026-08-14T10:49:51.108287Z",
-        duration: 0.007617,
+        started_at: "2026-09-27T08:51:21.476136Z",
+        ended_at: "2026-09-27T08:51:21.478450Z",
+        duration: 0.002314,
       },
       io: {
         inputs: [
@@ -846,14 +807,12 @@ export const DRY_ALL_CONTROLLER_TYPES = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "m2Rg9-branch-0",
+            digest: "VxzpU-branch-0",
             data: {
               text_and_images: { text: { text: "DRY RUN: OCR text" }, images: [], raw_html: null },
               page_view: null,
             },
-            data_text:
-              "DRY RUN: OCR text                                                                                   \n",
-            data_html: "<table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table>",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -864,14 +823,11 @@ export const DRY_ALL_CONTROLLER_TYPES = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "8ZjEQ-branch-0",
+            digest: "ju9vb-branch-0",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize this page:        \n\n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    ",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -926,7 +882,7 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       },
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:node_7",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_7",
       kind: "operator",
       pipe_code: "batch_process",
       pipe_type: "PipeLLM",
@@ -935,9 +891,9 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:49:51.111333Z",
-        ended_at: "2026-08-14T10:49:51.119203Z",
-        duration: 0.00787,
+        started_at: "2026-09-27T08:51:21.478706Z",
+        ended_at: "2026-09-27T08:51:21.480733Z",
+        duration: 0.002027,
       },
       io: {
         inputs: [
@@ -947,14 +903,12 @@ export const DRY_ALL_CONTROLLER_TYPES = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "m2Rg9-branch-1",
+            digest: "VxzpU-branch-1",
             data: {
               text_and_images: { text: { text: "DRY RUN: OCR text" }, images: [], raw_html: null },
               page_view: null,
             },
-            data_text:
-              "DRY RUN: OCR text                                                                                   \n",
-            data_html: "<table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table>",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -965,14 +919,11 @@ export const DRY_ALL_CONTROLLER_TYPES = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "8ZjEQ-branch-1",
+            digest: "ju9vb-branch-1",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize this page:        \n\n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    ",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -1027,7 +978,7 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       },
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:node_8",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_8",
       kind: "operator",
       pipe_code: "batch_process",
       pipe_type: "PipeLLM",
@@ -1036,9 +987,9 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:49:51.122428Z",
-        ended_at: "2026-08-14T10:49:51.130675Z",
-        duration: 0.008247,
+        started_at: "2026-09-27T08:51:21.480983Z",
+        ended_at: "2026-09-27T08:51:21.482963Z",
+        duration: 0.00198,
       },
       io: {
         inputs: [
@@ -1048,14 +999,12 @@ export const DRY_ALL_CONTROLLER_TYPES = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "m2Rg9-branch-2",
+            digest: "VxzpU-branch-2",
             data: {
               text_and_images: { text: { text: "DRY RUN: OCR text" }, images: [], raw_html: null },
               page_view: null,
             },
-            data_text:
-              "DRY RUN: OCR text                                                                                   \n",
-            data_html: "<table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table>",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -1066,14 +1015,11 @@ export const DRY_ALL_CONTROLLER_TYPES = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "8ZjEQ-branch-2",
+            digest: "ju9vb-branch-2",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize this page:        \n\n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    ",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -1128,7 +1074,7 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       },
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:node_9",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_9",
       kind: "operator",
       pipe_code: "batch_process",
       pipe_type: "PipeLLM",
@@ -1137,9 +1083,9 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:49:51.133868Z",
-        ended_at: "2026-08-14T10:49:51.141635Z",
-        duration: 0.007767,
+        started_at: "2026-09-27T08:51:21.483204Z",
+        ended_at: "2026-09-27T08:51:21.485212Z",
+        duration: 0.002008,
       },
       io: {
         inputs: [
@@ -1149,14 +1095,12 @@ export const DRY_ALL_CONTROLLER_TYPES = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "m2Rg9-branch-3",
+            digest: "VxzpU-branch-3",
             data: {
               text_and_images: { text: { text: "DRY RUN: OCR text" }, images: [], raw_html: null },
               page_view: null,
             },
-            data_text:
-              "DRY RUN: OCR text                                                                                   \n",
-            data_html: "<table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table>",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -1167,14 +1111,11 @@ export const DRY_ALL_CONTROLLER_TYPES = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "8ZjEQ-branch-3",
+            digest: "ju9vb-branch-3",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize this page:        \n\n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    ",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -1229,7 +1170,7 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       },
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:node_10",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_10",
       kind: "operator",
       pipe_code: "classify_content",
       pipe_type: "PipeLLM",
@@ -1238,9 +1179,9 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:49:51.150570Z",
-        ended_at: "2026-08-14T10:49:51.162626Z",
-        duration: 0.012056,
+        started_at: "2026-09-27T08:51:21.485796Z",
+        ended_at: "2026-09-27T08:51:21.488186Z",
+        duration: 0.00239,
       },
       io: {
         inputs: [
@@ -1250,14 +1191,11 @@ export const DRY_ALL_CONTROLLER_TYPES = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "aWBKk",
+            digest: "3xMqm",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze this content:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n#\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze this content:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n#\n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Analyze this content:       \n\n\n• item #1:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n• item #2:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                                                                                    \n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze this content:\n\n&lt;pages&gt;\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n#\n    ",
+            multiplicity: null,
             extra: {},
           },
           {
@@ -1266,40 +1204,37 @@ export const DRY_ALL_CONTROLLER_TYPES = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "Nt8xU",
+            digest: "NKXEE",
             data: {
-              answer: "wPwUVaOvByeqzCuhqVzK",
+              answer: "QlpQlvbpoKxjDxzCusGk",
               sources: [
                 {
-                  url: "eYdaUGBzpzCZkkTFrBpu",
-                  public_url: "kXWrypMGNZAOLRKBEGou",
-                  mime_type: "pYEqnMRsxqmEMAxpSkxW",
-                  filename: "ZqmuslMnNsSYiVYJCUHK",
-                  title: "qcZebuwQRDGWyNfOIeTe",
-                  snippet: "KTIwuxoavPYsdALpHgNs",
+                  url: "nMovHmqWJIHizTQTpUZU",
+                  public_url: "KlcZPagpnfSSvEdFISkC",
+                  mime_type: "PjVisBwymgJgMYVhrPTB",
+                  filename: "RRbjiaIZQHKWyKizXhwU",
+                  title: "tJvozfoCZblzvfxoATWb",
+                  snippet: "wqBwojIuegGDBBslyCGk",
                 },
                 {
-                  url: "tDiybsRhQFOjHJbVPGeh",
-                  public_url: "GZsXqBRQoBefkuOlKSJv",
-                  mime_type: "wiTlmeHaOsJWYkiXudBP",
-                  filename: "eiqlpIABGyhaeUrHSHsM",
-                  title: "vIFXXtEQvWcwkSOIPMIt",
-                  snippet: "sXFzhSXOFtuqYPuVUnds",
+                  url: "mQyTNknicJpmRXbiGPWN",
+                  public_url: "IiChQfBostSveTtCBaRG",
+                  mime_type: "LxEattrgrsuJcChdyjpB",
+                  filename: "iGUfNTmWevAdxpfUiOjv",
+                  title: "lxsZKJsiTEryJwBBAhNA",
+                  snippet: "wlFeFBcVQjsFbStNDcRd",
                 },
                 {
-                  url: "FSACbMprTokbplCXwFbO",
-                  public_url: "hAWTZkQLquYrpAKKaFBi",
-                  mime_type: "OBtIfPiOlnZelXLnObMe",
-                  filename: "lCJUobwPYKhDgWCMZalT",
-                  title: "FOFUyrqDfYQxkMlxMKpi",
-                  snippet: "wmzfwULoMgvdCJwAEXJZ",
+                  url: "tVDYGnAQAqHFtRzTrGsT",
+                  public_url: "OuvbosToOzDDDeUWwNNz",
+                  mime_type: "AXBemJmJfeeqWVayZwDS",
+                  filename: "loeuSOVPOgTXdHEjLAes",
+                  title: "ZLfNEcuBFjMepgDCtylg",
+                  snippet: "rttYRvdINRlCBSKUGBrM",
                 },
               ],
             },
-            data_text:
-              "Search Result:\nwPwUVaOvByeqzCuhqVzK                                                                                \n\nSources (3):\nqcZebuwQRDGWyNfOIeTe (eYdaUGBzpzCZkkTFrBpu)\n  KTIwuxoavPYsdALpHgNs\n\nvIFXXtEQvWcwkSOIPMIt (tDiybsRhQFOjHJbVPGeh)\n  sXFzhSXOFtuqYPuVUnds\n\nFOFUyrqDfYQxkMlxMKpi (FSACbMprTokbplCXwFbO)\n  wmzfwULoMgvdCJwAEXJZ\n",
-            data_html:
-              '<div><p>wPwUVaOvByeqzCuhqVzK</p><h4>Sources</h4><ul><li><a href="kXWrypMGNZAOLRKBEGou" class="msg-document">qcZebuwQRDGWyNfOIeTe</a><br/><small>KTIwuxoavPYsdALpHgNs</small></li><li><a href="GZsXqBRQoBefkuOlKSJv" class="msg-document">vIFXXtEQvWcwkSOIPMIt</a><br/><small>sXFzhSXOFtuqYPuVUnds</small></li><li><a href="hAWTZkQLquYrpAKKaFBi" class="msg-document">FOFUyrqDfYQxkMlxMKpi</a><br/><small>wmzfwULoMgvdCJwAEXJZ</small></li></ul></div>',
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -1310,12 +1245,9 @@ export const DRY_ALL_CONTROLLER_TYPES = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "dXs4V",
-            data: { content: "geoaNDlPFoUmfcGIyVCG", category: "data" },
-            data_text:
-              " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n content                   │ geoaNDlPFoUmfcGIyVCG                               \n───────────────────────────┼────────────────────────────────────────────────────\n category                  │ data                                               \n",
-            data_html:
-              "<table><tr><th>content</th><td>geoaNDlPFoUmfcGIyVCG</td></tr><tr><th>category</th><td>data</td></tr></table>",
+            digest: "THKsQ",
+            data: { content: "KpxhYtrTWTXMgxduGFuM", category: "data" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -1365,12 +1297,12 @@ export const DRY_ALL_CONTROLLER_TYPES = {
         is_multiple_output: false,
         rendered_system_prompt: null,
         rendered_user_prompt:
-          'Classify this content as either \'text\' or \'data\':\n\nAnalysis:\n<analysis>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze this content:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n#\n    \n</analysis>\nContext:\n<search_result>\nwPwUVaOvByeqzCuhqVzK\n\nSources:\n- qcZebuwQRDGWyNfOIeTe: eYdaUGBzpzCZkkTFrBpu\n  KTIwuxoavPYsdALpHgNs\n- vIFXXtEQvWcwkSOIPMIt: tDiybsRhQFOjHJbVPGeh\n  sXFzhSXOFtuqYPuVUnds\n- FOFUyrqDfYQxkMlxMKpi: FSACbMprTokbplCXwFbO\n  wmzfwULoMgvdCJwAEXJZ\n</search_result>\n\n---\nThe instance we want to generate will be for the following class:\nclass controller_showcase__ClassifiedItem(StructuredContent):\n    """Item classified for routing"""\n    content: str  # Item content\n    category: Literal[\n        "text",\n        "data",\n    ]  # Item category\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
+          'Classify this content as either \'text\' or \'data\':\n\nAnalysis:\n<analysis>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze this content:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n#\n    \n</analysis>\nContext:\n<search_result>\nQlpQlvbpoKxjDxzCusGk\n\nSources:\n- tJvozfoCZblzvfxoATWb: nMovHmqWJIHizTQTpUZU\n  wqBwojIuegGDBBslyCGk\n- lxsZKJsiTEryJwBBAhNA: mQyTNknicJpmRXbiGPWN\n  wlFeFBcVQjsFbStNDcRd\n- ZLfNEcuBFjMepgDCtylg: tVDYGnAQAqHFtRzTrGsT\n  rttYRvdINRlCBSKUGBrM\n</search_result>\n\n---\nThe instance we want to generate will be for the following class:\nclass controller_showcase__ClassifiedItem(StructuredContent):\n    """Item classified for routing"""\n    content: str  # Item content\n    category: Literal[\n        "text",\n        "data",\n    ]  # Item category\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
         structuring_path: "object_direct",
       },
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:node_11",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_11",
       kind: "controller",
       pipe_code: "route_processing",
       pipe_type: "PipeCondition",
@@ -1379,9 +1311,9 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:49:51.165999Z",
-        ended_at: "2026-08-14T10:49:51.181564Z",
-        duration: 0.015565,
+        started_at: "2026-09-27T08:51:21.488245Z",
+        ended_at: "2026-09-27T08:51:21.491573Z",
+        duration: 0.003328,
       },
       io: {
         inputs: [
@@ -1391,12 +1323,9 @@ export const DRY_ALL_CONTROLLER_TYPES = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "dXs4V",
-            data: { content: "geoaNDlPFoUmfcGIyVCG", category: "data" },
-            data_text:
-              " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n content                   │ geoaNDlPFoUmfcGIyVCG                               \n───────────────────────────┼────────────────────────────────────────────────────\n category                  │ data                                               \n",
-            data_html:
-              "<table><tr><th>content</th><td>geoaNDlPFoUmfcGIyVCG</td></tr><tr><th>category</th><td>data</td></tr></table>",
+            digest: "THKsQ",
+            data: { content: "KpxhYtrTWTXMgxduGFuM", category: "data" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -1407,11 +1336,9 @@ export const DRY_ALL_CONTROLLER_TYPES = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "edywS",
-            data: { text: "# Text Report\n\ngeoaNDlPFoUmfcGIyVCG" },
-            data_text:
-              "                                            Text Report                                             \n\ngeoaNDlPFoUmfcGIyVCG                                                                                \n",
-            data_html: "# Text Report\n\ngeoaNDlPFoUmfcGIyVCG",
+            digest: "X4BnN",
+            data: { text: "# Text Report\n\nKpxhYtrTWTXMgxduGFuM" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -1440,7 +1367,7 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       execution_data: { evaluated_expression: "dry_run", selected_outcome: "all_outcomes" },
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:node_12",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_12",
       kind: "operator",
       pipe_code: "process_data",
       pipe_type: "PipeCompose",
@@ -1449,9 +1376,9 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:49:51.169429Z",
-        ended_at: "2026-08-14T10:49:51.173634Z",
-        duration: 0.004205,
+        started_at: "2026-09-27T08:51:21.489153Z",
+        ended_at: "2026-09-27T08:51:21.489920Z",
+        duration: 0.000767,
       },
       io: {
         inputs: [
@@ -1461,12 +1388,9 @@ export const DRY_ALL_CONTROLLER_TYPES = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "dXs4V",
-            data: { content: "geoaNDlPFoUmfcGIyVCG", category: "data" },
-            data_text:
-              " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n content                   │ geoaNDlPFoUmfcGIyVCG                               \n───────────────────────────┼────────────────────────────────────────────────────\n category                  │ data                                               \n",
-            data_html:
-              "<table><tr><th>content</th><td>geoaNDlPFoUmfcGIyVCG</td></tr><tr><th>category</th><td>data</td></tr></table>",
+            digest: "THKsQ",
+            data: { content: "KpxhYtrTWTXMgxduGFuM", category: "data" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -1477,11 +1401,9 @@ export const DRY_ALL_CONTROLLER_TYPES = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "SAeeJ",
-            data: { text: "# Data Report\n\ngeoaNDlPFoUmfcGIyVCG" },
-            data_text:
-              "                                            Data Report                                             \n\ngeoaNDlPFoUmfcGIyVCG                                                                                \n",
-            data_html: "# Data Report\n\ngeoaNDlPFoUmfcGIyVCG",
+            digest: "QHuuy",
+            data: { text: "# Data Report\n\nKpxhYtrTWTXMgxduGFuM" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -1509,11 +1431,11 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       },
       execution_data: {
         compose_mode: "template",
-        rendered_text: "# Data Report\n\ngeoaNDlPFoUmfcGIyVCG",
+        rendered_text: "# Data Report\n\nKpxhYtrTWTXMgxduGFuM",
       },
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:node_13",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_13",
       kind: "operator",
       pipe_code: "process_text",
       pipe_type: "PipeCompose",
@@ -1522,9 +1444,9 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:49:51.173669Z",
-        ended_at: "2026-08-14T10:49:51.181231Z",
-        duration: 0.007562,
+        started_at: "2026-09-27T08:51:21.489949Z",
+        ended_at: "2026-09-27T08:51:21.491435Z",
+        duration: 0.001486,
       },
       io: {
         inputs: [
@@ -1534,12 +1456,9 @@ export const DRY_ALL_CONTROLLER_TYPES = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "dXs4V",
-            data: { content: "geoaNDlPFoUmfcGIyVCG", category: "data" },
-            data_text:
-              " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n content                   │ geoaNDlPFoUmfcGIyVCG                               \n───────────────────────────┼────────────────────────────────────────────────────\n category                  │ data                                               \n",
-            data_html:
-              "<table><tr><th>content</th><td>geoaNDlPFoUmfcGIyVCG</td></tr><tr><th>category</th><td>data</td></tr></table>",
+            digest: "THKsQ",
+            data: { content: "KpxhYtrTWTXMgxduGFuM", category: "data" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -1550,11 +1469,9 @@ export const DRY_ALL_CONTROLLER_TYPES = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "edywS",
-            data: { text: "# Text Report\n\ngeoaNDlPFoUmfcGIyVCG" },
-            data_text:
-              "                                            Text Report                                             \n\ngeoaNDlPFoUmfcGIyVCG                                                                                \n",
-            data_html: "# Text Report\n\ngeoaNDlPFoUmfcGIyVCG",
+            digest: "X4BnN",
+            data: { text: "# Text Report\n\nKpxhYtrTWTXMgxduGFuM" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -1582,15 +1499,15 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       },
       execution_data: {
         compose_mode: "template",
-        rendered_text: "# Text Report\n\ngeoaNDlPFoUmfcGIyVCG",
+        rendered_text: "# Text Report\n\nKpxhYtrTWTXMgxduGFuM",
       },
     },
   ],
   edges: [
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:edge_0",
-      source: "cc32a226-1887-444e-908c-7cd111aabcd0:node_0",
-      target: "cc32a226-1887-444e-908c-7cd111aabcd0:node_1",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:edge_0",
+      source: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_0",
+      target: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_1",
       kind: "contains",
       optional: false,
       label: null,
@@ -1599,9 +1516,9 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       meta: {},
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:edge_1",
-      source: "cc32a226-1887-444e-908c-7cd111aabcd0:node_0",
-      target: "cc32a226-1887-444e-908c-7cd111aabcd0:node_2",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:edge_1",
+      source: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_0",
+      target: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_2",
       kind: "contains",
       optional: false,
       label: null,
@@ -1610,9 +1527,9 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       meta: {},
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:edge_2",
-      source: "cc32a226-1887-444e-908c-7cd111aabcd0:node_2",
-      target: "cc32a226-1887-444e-908c-7cd111aabcd0:node_3",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:edge_2",
+      source: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_2",
+      target: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_3",
       kind: "contains",
       optional: false,
       label: null,
@@ -1621,9 +1538,9 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       meta: {},
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:edge_3",
-      source: "cc32a226-1887-444e-908c-7cd111aabcd0:node_2",
-      target: "cc32a226-1887-444e-908c-7cd111aabcd0:node_4",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:edge_3",
+      source: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_2",
+      target: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_4",
       kind: "contains",
       optional: false,
       label: null,
@@ -1632,9 +1549,9 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       meta: {},
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:edge_4",
-      source: "cc32a226-1887-444e-908c-7cd111aabcd0:node_0",
-      target: "cc32a226-1887-444e-908c-7cd111aabcd0:node_5",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:edge_4",
+      source: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_0",
+      target: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_5",
       kind: "contains",
       optional: false,
       label: null,
@@ -1643,9 +1560,9 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       meta: {},
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:edge_5",
-      source: "cc32a226-1887-444e-908c-7cd111aabcd0:node_5",
-      target: "cc32a226-1887-444e-908c-7cd111aabcd0:node_6",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:edge_5",
+      source: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_5",
+      target: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_6",
       kind: "contains",
       optional: false,
       label: null,
@@ -1654,9 +1571,9 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       meta: {},
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:edge_6",
-      source: "cc32a226-1887-444e-908c-7cd111aabcd0:node_5",
-      target: "cc32a226-1887-444e-908c-7cd111aabcd0:node_7",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:edge_6",
+      source: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_5",
+      target: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_7",
       kind: "contains",
       optional: false,
       label: null,
@@ -1665,9 +1582,9 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       meta: {},
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:edge_7",
-      source: "cc32a226-1887-444e-908c-7cd111aabcd0:node_5",
-      target: "cc32a226-1887-444e-908c-7cd111aabcd0:node_8",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:edge_7",
+      source: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_5",
+      target: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_8",
       kind: "contains",
       optional: false,
       label: null,
@@ -1676,9 +1593,9 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       meta: {},
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:edge_8",
-      source: "cc32a226-1887-444e-908c-7cd111aabcd0:node_5",
-      target: "cc32a226-1887-444e-908c-7cd111aabcd0:node_9",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:edge_8",
+      source: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_5",
+      target: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_9",
       kind: "contains",
       optional: false,
       label: null,
@@ -1687,9 +1604,9 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       meta: {},
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:edge_9",
-      source: "cc32a226-1887-444e-908c-7cd111aabcd0:node_0",
-      target: "cc32a226-1887-444e-908c-7cd111aabcd0:node_10",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:edge_9",
+      source: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_0",
+      target: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_10",
       kind: "contains",
       optional: false,
       label: null,
@@ -1698,9 +1615,9 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       meta: {},
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:edge_10",
-      source: "cc32a226-1887-444e-908c-7cd111aabcd0:node_0",
-      target: "cc32a226-1887-444e-908c-7cd111aabcd0:node_11",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:edge_10",
+      source: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_0",
+      target: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_11",
       kind: "contains",
       optional: false,
       label: null,
@@ -1709,9 +1626,9 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       meta: {},
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:edge_11",
-      source: "cc32a226-1887-444e-908c-7cd111aabcd0:node_11",
-      target: "cc32a226-1887-444e-908c-7cd111aabcd0:node_12",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:edge_11",
+      source: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_11",
+      target: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_12",
       kind: "contains",
       optional: false,
       label: null,
@@ -1720,9 +1637,9 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       meta: {},
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:edge_12",
-      source: "cc32a226-1887-444e-908c-7cd111aabcd0:node_11",
-      target: "cc32a226-1887-444e-908c-7cd111aabcd0:node_13",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:edge_12",
+      source: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_11",
+      target: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_13",
       kind: "contains",
       optional: false,
       label: null,
@@ -1731,9 +1648,9 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       meta: {},
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:asm_edge_0",
-      source: "cc32a226-1887-444e-908c-7cd111aabcd0:node_1",
-      target: "cc32a226-1887-444e-908c-7cd111aabcd0:node_2",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:asm_edge_0",
+      source: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_1",
+      target: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_2",
       kind: "data",
       optional: false,
       label: "pages",
@@ -1742,9 +1659,9 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       meta: {},
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:asm_edge_1",
-      source: "cc32a226-1887-444e-908c-7cd111aabcd0:node_1",
-      target: "cc32a226-1887-444e-908c-7cd111aabcd0:node_3",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:asm_edge_1",
+      source: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_1",
+      target: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_3",
       kind: "data",
       optional: false,
       label: "pages",
@@ -1753,9 +1670,9 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       meta: {},
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:asm_edge_2",
-      source: "cc32a226-1887-444e-908c-7cd111aabcd0:node_1",
-      target: "cc32a226-1887-444e-908c-7cd111aabcd0:node_4",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:asm_edge_2",
+      source: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_1",
+      target: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_4",
       kind: "data",
       optional: false,
       label: "pages",
@@ -1764,9 +1681,9 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       meta: {},
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:asm_edge_3",
-      source: "cc32a226-1887-444e-908c-7cd111aabcd0:node_1",
-      target: "cc32a226-1887-444e-908c-7cd111aabcd0:node_5",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:asm_edge_3",
+      source: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_1",
+      target: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_5",
       kind: "data",
       optional: false,
       label: "pages",
@@ -1775,9 +1692,9 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       meta: {},
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:asm_edge_4",
-      source: "cc32a226-1887-444e-908c-7cd111aabcd0:node_2",
-      target: "cc32a226-1887-444e-908c-7cd111aabcd0:node_10",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:asm_edge_4",
+      source: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_2",
+      target: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_10",
       kind: "data",
       optional: false,
       label: "analysis",
@@ -1786,9 +1703,9 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       meta: {},
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:asm_edge_5",
-      source: "cc32a226-1887-444e-908c-7cd111aabcd0:node_2",
-      target: "cc32a226-1887-444e-908c-7cd111aabcd0:node_10",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:asm_edge_5",
+      source: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_2",
+      target: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_10",
       kind: "data",
       optional: false,
       label: "search_result",
@@ -1797,9 +1714,9 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       meta: {},
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:asm_edge_6",
-      source: "cc32a226-1887-444e-908c-7cd111aabcd0:node_10",
-      target: "cc32a226-1887-444e-908c-7cd111aabcd0:node_11",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:asm_edge_6",
+      source: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_10",
+      target: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_11",
       kind: "data",
       optional: false,
       label: "classified",
@@ -1808,9 +1725,9 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       meta: {},
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:asm_edge_7",
-      source: "cc32a226-1887-444e-908c-7cd111aabcd0:node_10",
-      target: "cc32a226-1887-444e-908c-7cd111aabcd0:node_12",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:asm_edge_7",
+      source: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_10",
+      target: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_12",
       kind: "data",
       optional: false,
       label: "classified",
@@ -1819,9 +1736,9 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       meta: {},
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:asm_edge_8",
-      source: "cc32a226-1887-444e-908c-7cd111aabcd0:node_10",
-      target: "cc32a226-1887-444e-908c-7cd111aabcd0:node_13",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:asm_edge_8",
+      source: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_10",
+      target: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_13",
       kind: "data",
       optional: false,
       label: "classified",
@@ -1830,113 +1747,113 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       meta: {},
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:asm_edge_9",
-      source: "cc32a226-1887-444e-908c-7cd111aabcd0:node_5",
-      target: "cc32a226-1887-444e-908c-7cd111aabcd0:node_6",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:asm_edge_9",
+      source: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_5",
+      target: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_6",
       kind: "batch_item",
       optional: false,
       label: "[0]",
-      source_stuff_digest: "m2Rg9",
-      target_stuff_digest: "m2Rg9-branch-0",
+      source_stuff_digest: "VxzpU",
+      target_stuff_digest: "VxzpU-branch-0",
       meta: {},
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:asm_edge_10",
-      source: "cc32a226-1887-444e-908c-7cd111aabcd0:node_5",
-      target: "cc32a226-1887-444e-908c-7cd111aabcd0:node_7",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:asm_edge_10",
+      source: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_5",
+      target: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_7",
       kind: "batch_item",
       optional: false,
       label: "[1]",
-      source_stuff_digest: "m2Rg9",
-      target_stuff_digest: "m2Rg9-branch-1",
+      source_stuff_digest: "VxzpU",
+      target_stuff_digest: "VxzpU-branch-1",
       meta: {},
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:asm_edge_11",
-      source: "cc32a226-1887-444e-908c-7cd111aabcd0:node_5",
-      target: "cc32a226-1887-444e-908c-7cd111aabcd0:node_8",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:asm_edge_11",
+      source: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_5",
+      target: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_8",
       kind: "batch_item",
       optional: false,
       label: "[2]",
-      source_stuff_digest: "m2Rg9",
-      target_stuff_digest: "m2Rg9-branch-2",
+      source_stuff_digest: "VxzpU",
+      target_stuff_digest: "VxzpU-branch-2",
       meta: {},
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:asm_edge_12",
-      source: "cc32a226-1887-444e-908c-7cd111aabcd0:node_5",
-      target: "cc32a226-1887-444e-908c-7cd111aabcd0:node_9",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:asm_edge_12",
+      source: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_5",
+      target: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_9",
       kind: "batch_item",
       optional: false,
       label: "[3]",
-      source_stuff_digest: "m2Rg9",
-      target_stuff_digest: "m2Rg9-branch-3",
+      source_stuff_digest: "VxzpU",
+      target_stuff_digest: "VxzpU-branch-3",
       meta: {},
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:asm_edge_13",
-      source: "cc32a226-1887-444e-908c-7cd111aabcd0:node_6",
-      target: "cc32a226-1887-444e-908c-7cd111aabcd0:node_5",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:asm_edge_13",
+      source: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_6",
+      target: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_5",
       kind: "batch_aggregate",
       optional: false,
       label: "[0]",
-      source_stuff_digest: "8ZjEQ-branch-0",
-      target_stuff_digest: "FWeoh",
+      source_stuff_digest: "ju9vb-branch-0",
+      target_stuff_digest: "hTD2C",
       meta: {},
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:asm_edge_14",
-      source: "cc32a226-1887-444e-908c-7cd111aabcd0:node_7",
-      target: "cc32a226-1887-444e-908c-7cd111aabcd0:node_5",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:asm_edge_14",
+      source: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_7",
+      target: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_5",
       kind: "batch_aggregate",
       optional: false,
       label: "[1]",
-      source_stuff_digest: "8ZjEQ-branch-1",
-      target_stuff_digest: "FWeoh",
+      source_stuff_digest: "ju9vb-branch-1",
+      target_stuff_digest: "hTD2C",
       meta: {},
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:asm_edge_15",
-      source: "cc32a226-1887-444e-908c-7cd111aabcd0:node_8",
-      target: "cc32a226-1887-444e-908c-7cd111aabcd0:node_5",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:asm_edge_15",
+      source: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_8",
+      target: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_5",
       kind: "batch_aggregate",
       optional: false,
       label: "[2]",
-      source_stuff_digest: "8ZjEQ-branch-2",
-      target_stuff_digest: "FWeoh",
+      source_stuff_digest: "ju9vb-branch-2",
+      target_stuff_digest: "hTD2C",
       meta: {},
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:asm_edge_16",
-      source: "cc32a226-1887-444e-908c-7cd111aabcd0:node_9",
-      target: "cc32a226-1887-444e-908c-7cd111aabcd0:node_5",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:asm_edge_16",
+      source: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_9",
+      target: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_5",
       kind: "batch_aggregate",
       optional: false,
       label: "[3]",
-      source_stuff_digest: "8ZjEQ-branch-3",
-      target_stuff_digest: "FWeoh",
+      source_stuff_digest: "ju9vb-branch-3",
+      target_stuff_digest: "hTD2C",
       meta: {},
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:asm_edge_17",
-      source: "cc32a226-1887-444e-908c-7cd111aabcd0:node_3",
-      target: "cc32a226-1887-444e-908c-7cd111aabcd0:node_2",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:asm_edge_17",
+      source: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_3",
+      target: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_2",
       kind: "parallel_combine",
       optional: false,
       label: null,
-      source_stuff_digest: "aWBKk",
-      target_stuff_digest: "Qkk7i",
+      source_stuff_digest: "3xMqm",
+      target_stuff_digest: "fGELX",
       meta: {},
     },
     {
-      id: "cc32a226-1887-444e-908c-7cd111aabcd0:asm_edge_18",
-      source: "cc32a226-1887-444e-908c-7cd111aabcd0:node_4",
-      target: "cc32a226-1887-444e-908c-7cd111aabcd0:node_2",
+      id: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:asm_edge_18",
+      source: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_4",
+      target: "bc5f9947-d8f5-4a54-8224-ba20d524f8bf:node_2",
       kind: "parallel_combine",
       optional: false,
       label: null,
-      source_stuff_digest: "Nt8xU",
-      target_stuff_digest: "Qkk7i",
+      source_stuff_digest: "NKXEE",
+      target_stuff_digest: "fGELX",
       meta: {},
     },
   ],
@@ -2030,31 +1947,31 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       },
       sequential_sub_pipes: [
         {
-          pipe_code: "extract_input",
+          pipe_code: "controller_showcase.extract_input",
           output_name: "pages",
           output_multiplicity: null,
           batch_params: null,
         },
         {
-          pipe_code: "parallel_classify",
+          pipe_code: "controller_showcase.parallel_classify",
           output_name: "classification_bundle",
           output_multiplicity: null,
           batch_params: null,
         },
         {
-          pipe_code: "batch_process",
+          pipe_code: "controller_showcase.batch_process",
           output_name: "page_results",
           output_multiplicity: true,
           batch_params: { input_list_stuff_name: "pages", input_item_stuff_name: "page" },
         },
         {
-          pipe_code: "classify_content",
+          pipe_code: "controller_showcase.classify_content",
           output_name: "classified",
           output_multiplicity: null,
           batch_params: null,
         },
         {
-          pipe_code: "route_processing",
+          pipe_code: "controller_showcase.route_processing",
           output_name: "processed",
           output_multiplicity: null,
           batch_params: null,
@@ -2135,13 +2052,13 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       },
       parallel_sub_pipes: [
         {
-          pipe_code: "analyze_content",
+          pipe_code: "controller_showcase.analyze_content",
           output_name: "analysis",
           output_multiplicity: null,
           batch_params: null,
         },
         {
-          pipe_code: "search_context",
+          pipe_code: "controller_showcase.search_context",
           output_name: "search_result",
           output_multiplicity: null,
           batch_params: null,
@@ -2195,6 +2112,7 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       },
       llm_choices: { for_text: null, for_object: null },
       output_multiplicity: null,
+      templating_style: null,
     },
     "controller_showcase.search_context": {
       pipe_category: "PipeOperator",
@@ -2247,7 +2165,7 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       type: "PipeBatch",
       code: "batch_process_batch",
       domain_code: "controller_showcase",
-      description: "Batch processing for batch_process",
+      description: "Batch processing for controller_showcase.batch_process",
       inputs: {
         pages: {
           concept: {
@@ -2273,7 +2191,7 @@ export const DRY_ALL_CONTROLLER_TYPES = {
         multiplicity: null,
         presence: "plain",
       },
-      branch_pipe_code: "batch_process",
+      branch_pipe_code: "controller_showcase.batch_process",
       batch_params: { input_list_stuff_name: "pages", input_item_stuff_name: "page" },
     },
     "controller_showcase.batch_process": {
@@ -2322,6 +2240,7 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       },
       llm_choices: { for_text: null, for_object: null },
       output_multiplicity: null,
+      templating_style: null,
     },
     "controller_showcase.classify_content": {
       pipe_category: "PipeOperator",
@@ -2380,6 +2299,7 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       },
       llm_choices: { for_text: null, for_object: null },
       output_multiplicity: null,
+      templating_style: null,
     },
     "controller_showcase.route_processing": {
       pipe_category: "PipeController",
@@ -2412,8 +2332,11 @@ export const DRY_ALL_CONTROLLER_TYPES = {
         presence: "plain",
       },
       expression: "{{ classified.category }}",
-      outcome_map: { text: "process_text", data: "process_data" },
-      default_outcome: "process_text",
+      outcome_map: {
+        text: "controller_showcase.process_text",
+        data: "controller_showcase.process_data",
+      },
+      default_outcome: "controller_showcase.process_text",
       add_alias_from_expression_to: null,
     },
     "controller_showcase.process_data": {
@@ -2511,6 +2434,7 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       structure_class_name: "DocumentContent",
       refines: null,
       json_schema: {
+        description: "A document",
         properties: {
           url: {
             description: "The document URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
@@ -2563,6 +2487,7 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       json_schema: {
         $defs: {
           ImageContent: {
+            description: "An image",
             properties: {
               url: {
                 description: "The image URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
@@ -2649,12 +2574,15 @@ export const DRY_ALL_CONTROLLER_TYPES = {
             type: "object",
           },
           TextContent: {
+            description: "A text",
             properties: { text: { description: "The text", title: "Text", type: "string" } },
             required: ["text"],
             title: "TextContent",
             type: "object",
           },
         },
+        description:
+          "The content of a page of a document, comprising text and linked images and an optional page view image",
         properties: {
           text_and_images: {
             $ref: "#/$defs/TextAndImagesContent",
@@ -2693,6 +2621,7 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       structure_class_name: "TextContent",
       refines: null,
       json_schema: {
+        description: "A text",
         properties: { text: { description: "The text", title: "Text", type: "string" } },
         required: ["text"],
         title: "TextContent",
@@ -2708,6 +2637,7 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       json_schema: {
         $defs: {
           DocumentContent: {
+            description: "A document",
             properties: {
               url: {
                 description:

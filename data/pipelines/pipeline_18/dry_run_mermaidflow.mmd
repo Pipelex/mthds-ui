@@ -1,49 +1,49 @@
 flowchart LR
 
     %% Pipe and stuff nodes within controller subgraphs
-    subgraph sg_n_a079f4cd92["review_pipeline"]
-        subgraph sg_n_4e84c23750["parallel_checks"]
-            n_7b8bf3fee7["logic_check"]
-            s_087af51753(["logic_findings<br/>ReviewFinding"]):::stuff
-            n_6060f36226["perf_check"]
-            s_7963e00142(["perf_findings<br/>ReviewFinding"]):::stuff
-            n_e992159ba8["security_check"]
-            s_187c6a06e6(["security_findings<br/>ReviewFinding"]):::stuff
-            n_6a5199b497["style_check"]
-            s_07b6ffcb8a(["style_findings<br/>ReviewFinding"]):::stuff
-            s_817a4f9a7d(["review_findings_bundle<br/>Composite"]):::stuff
+    subgraph sg_n_40408bb354["review_pipeline"]
+        subgraph sg_n_1df3596c55["parallel_checks"]
+            n_362273268c["logic_check"]
+            s_917907f3cc(["logic_findings<br/>ReviewFinding#91;#93;"]):::stuff
+            n_bbc31b6d86["perf_check"]
+            s_09ece201e2(["perf_findings<br/>ReviewFinding#91;#93;"]):::stuff
+            n_c47243a611["security_check"]
+            s_28333a6beb(["security_findings<br/>ReviewFinding#91;#93;"]):::stuff
+            n_2490507a27["style_check"]
+            s_bde3141efe(["style_findings<br/>ReviewFinding#91;#93;"]):::stuff
+            s_07e7fe989a(["review_findings_bundle<br/>Composite"]):::stuff
         end
-        n_724da17730["compose_review"]
-        s_ce68782cd6(["review<br/>CodeReview"]):::stuff
-        n_57520eb830["fetch_diff"]
-        s_17ca22f100(["diff<br/>SearchResult"]):::stuff
+        n_17f8241cb2["compose_review"]
+        s_f0f2b1c331(["review<br/>CodeReview"]):::stuff
+        n_1ac6f4b83b["fetch_diff"]
+        s_23ad8b8e88(["diff<br/>SearchResult"]):::stuff
     end
 
     %% Pipeline input stuff nodes (no producer)
-    s_c18759949a(["pr_url<br/>Text"]):::stuff
+    s_25023ac66a(["pr_url<br/>Text"]):::stuff
 
     %% Data flow edges: producer -> stuff -> consumer
-    n_6a5199b497 --> s_07b6ffcb8a
-    n_e992159ba8 --> s_187c6a06e6
-    n_57520eb830 --> s_17ca22f100
-    n_6060f36226 --> s_7963e00142
-    n_7b8bf3fee7 --> s_087af51753
-    n_724da17730 --> s_ce68782cd6
-    s_c18759949a --> n_57520eb830
-    s_07b6ffcb8a --> n_724da17730
-    s_187c6a06e6 --> n_724da17730
-    s_17ca22f100 --> n_e992159ba8
-    s_17ca22f100 --> n_6a5199b497
-    s_17ca22f100 --> n_7b8bf3fee7
-    s_17ca22f100 --> n_6060f36226
-    s_7963e00142 --> n_724da17730
-    s_087af51753 --> n_724da17730
+    n_1ac6f4b83b --> s_23ad8b8e88
+    n_bbc31b6d86 --> s_09ece201e2
+    n_17f8241cb2 --> s_f0f2b1c331
+    n_362273268c --> s_917907f3cc
+    n_2490507a27 --> s_bde3141efe
+    n_c47243a611 --> s_28333a6beb
+    s_25023ac66a --> n_1ac6f4b83b
+    s_23ad8b8e88 --> n_c47243a611
+    s_23ad8b8e88 --> n_2490507a27
+    s_23ad8b8e88 --> n_362273268c
+    s_23ad8b8e88 --> n_bbc31b6d86
+    s_09ece201e2 --> n_17f8241cb2
+    s_917907f3cc --> n_17f8241cb2
+    s_bde3141efe --> n_17f8241cb2
+    s_28333a6beb --> n_17f8241cb2
 
     %% Parallel combine edges: branch outputs → combined output
-    s_187c6a06e6 -.-> s_817a4f9a7d
-    s_07b6ffcb8a -.-> s_817a4f9a7d
-    s_087af51753 -.-> s_817a4f9a7d
-    s_7963e00142 -.-> s_817a4f9a7d
+    s_28333a6beb -.-> s_07e7fe989a
+    s_bde3141efe -.-> s_07e7fe989a
+    s_917907f3cc -.-> s_07e7fe989a
+    s_09ece201e2 -.-> s_07e7fe989a
 
     %% Style definitions
     classDef failed fill:#ffcccc,stroke:#cc0000
@@ -51,5 +51,5 @@ flowchart LR
     classDef controller fill:#e6f3ff,stroke:#0066cc
 
     %% Subgraph depth-based coloring
-    style sg_n_4e84c23750 fill:#e6ffe6
-    style sg_n_a079f4cd92 fill:#e6f3ff
+    style sg_n_1df3596c55 fill:#e6ffe6
+    style sg_n_40408bb354 fill:#e6f3ff

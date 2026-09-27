@@ -5,12 +5,12 @@
 import type { GraphSpec } from "@graph/types";
 
 export const DRY_TWO_PIPE_CHAIN = {
-  graph_id: "a00ada8c-412a-410a-8b4a-1e08496be5b7",
-  created_at: "2026-08-14T10:48:05.980301Z",
+  graph_id: "a9a49780-6036-4f92-9588-d05ec07ac210",
+  created_at: "2026-09-27T08:49:26.588120Z",
   pipeline_ref: { domain: "document_analysis", main_pipe: "extract_and_analyze", entrypoint: null },
   nodes: [
     {
-      id: "a00ada8c-412a-410a-8b4a-1e08496be5b7:node_0",
+      id: "a9a49780-6036-4f92-9588-d05ec07ac210:node_0",
       kind: "controller",
       pipe_code: "extract_and_analyze",
       pipe_type: "PipeSequence",
@@ -19,30 +19,28 @@ export const DRY_TWO_PIPE_CHAIN = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:05.980301Z",
-        ended_at: "2026-08-14T10:48:06.011543Z",
-        duration: 0.031242,
+        started_at: "2026-09-27T08:49:26.588120Z",
+        ended_at: "2026-09-27T08:49:26.596133Z",
+        duration: 0.008013,
       },
       io: {
         inputs: [
           {
             name: "document",
             concept: "Document",
-            content_type: "txJCFHDLZrLPDTxoFsyx",
+            content_type: "wJbAsZNgUTAXNBVnbMtL",
             preview: null,
             size: null,
-            digest: "WY8GG",
+            digest: "4Vtyt",
             data: {
-              url: "QuPYScYqxtdPDZjcfoaZ",
-              public_url: "USPTaqIWAubKDnGoGLnu",
-              mime_type: "txJCFHDLZrLPDTxoFsyx",
-              filename: "SVbTXpZgpWDuoHYxYNra",
-              title: "NGIsYaeZOrgEOhTeLAex",
-              snippet: "cGHbsNFcLjOXSrVFPeVk",
+              url: "bYiZVZDxQcAqNgndCyTA",
+              public_url: "LtvYNAjephhTwAASoIXw",
+              mime_type: "wJbAsZNgUTAXNBVnbMtL",
+              filename: "SRdOhyTtKJLsoslRduWe",
+              title: "gYEtwvbILWopghtKLQFx",
+              snippet: "XYBmgKuZfbuPzbvTIttC",
             },
-            data_text: "NGIsYaeZOrgEOhTeLAex (QuPYScYqxtdPDZjcfoaZ)\n  cGHbsNFcLjOXSrVFPeVk\n",
-            data_html:
-              '<a href="USPTaqIWAubKDnGoGLnu" class="msg-document">NGIsYaeZOrgEOhTeLAex</a><br/><small>cGHbsNFcLjOXSrVFPeVk</small>',
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -53,14 +51,11 @@ export const DRY_TWO_PIPE_CHAIN = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "K4HuG",
+            digest: "XDLym",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following document pages and provide a detailed analysis:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY \n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following document pages and provide a detailed analysis:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY \n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Analyze the following       \ndocument pages and provide a detailed analysis:                                                     \n\n\n• item #1:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n• item #2:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY                                                                                 \n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following document pages and provide a detailed analysis:\n\n&lt;pages&gt;\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY \n    ",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -98,7 +93,7 @@ export const DRY_TWO_PIPE_CHAIN = {
       execution_data: { step_count: 2 },
     },
     {
-      id: "a00ada8c-412a-410a-8b4a-1e08496be5b7:node_1",
+      id: "a9a49780-6036-4f92-9588-d05ec07ac210:node_1",
       kind: "operator",
       pipe_code: "extract_document",
       pipe_type: "PipeExtract",
@@ -107,30 +102,28 @@ export const DRY_TWO_PIPE_CHAIN = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:05.986028Z",
-        ended_at: "2026-08-14T10:48:05.993521Z",
-        duration: 0.007493,
+        started_at: "2026-09-27T08:49:26.589708Z",
+        ended_at: "2026-09-27T08:49:26.593307Z",
+        duration: 0.003599,
       },
       io: {
         inputs: [
           {
             name: "document",
             concept: "Document",
-            content_type: "txJCFHDLZrLPDTxoFsyx",
+            content_type: "wJbAsZNgUTAXNBVnbMtL",
             preview: null,
             size: null,
-            digest: "WY8GG",
+            digest: "4Vtyt",
             data: {
-              url: "QuPYScYqxtdPDZjcfoaZ",
-              public_url: "USPTaqIWAubKDnGoGLnu",
-              mime_type: "txJCFHDLZrLPDTxoFsyx",
-              filename: "SVbTXpZgpWDuoHYxYNra",
-              title: "NGIsYaeZOrgEOhTeLAex",
-              snippet: "cGHbsNFcLjOXSrVFPeVk",
+              url: "bYiZVZDxQcAqNgndCyTA",
+              public_url: "LtvYNAjephhTwAASoIXw",
+              mime_type: "wJbAsZNgUTAXNBVnbMtL",
+              filename: "SRdOhyTtKJLsoslRduWe",
+              title: "gYEtwvbILWopghtKLQFx",
+              snippet: "XYBmgKuZfbuPzbvTIttC",
             },
-            data_text: "NGIsYaeZOrgEOhTeLAex (QuPYScYqxtdPDZjcfoaZ)\n  cGHbsNFcLjOXSrVFPeVk\n",
-            data_html:
-              '<a href="USPTaqIWAubKDnGoGLnu" class="msg-document">NGIsYaeZOrgEOhTeLAex</a><br/><small>cGHbsNFcLjOXSrVFPeVk</small>',
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -141,7 +134,7 @@ export const DRY_TWO_PIPE_CHAIN = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "3WopS",
+            digest: "ngiHz",
             data: {
               items: [
                 {
@@ -178,10 +171,7 @@ export const DRY_TWO_PIPE_CHAIN = {
                 },
               ],
             },
-            data_text:
-              "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
-            data_html:
-              "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            multiplicity: true,
             extra: {},
           },
         ],
@@ -215,7 +205,7 @@ export const DRY_TWO_PIPE_CHAIN = {
       },
     },
     {
-      id: "a00ada8c-412a-410a-8b4a-1e08496be5b7:node_2",
+      id: "a9a49780-6036-4f92-9588-d05ec07ac210:node_2",
       kind: "operator",
       pipe_code: "analyze_pages",
       pipe_type: "PipeLLM",
@@ -224,9 +214,9 @@ export const DRY_TWO_PIPE_CHAIN = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:05.997599Z",
-        ended_at: "2026-08-14T10:48:06.009069Z",
-        duration: 0.01147,
+        started_at: "2026-09-27T08:49:26.593596Z",
+        ended_at: "2026-09-27T08:49:26.595984Z",
+        duration: 0.002388,
       },
       io: {
         inputs: [
@@ -236,7 +226,7 @@ export const DRY_TWO_PIPE_CHAIN = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "3WopS",
+            digest: "ngiHz",
             data: {
               items: [
                 {
@@ -273,10 +263,7 @@ export const DRY_TWO_PIPE_CHAIN = {
                 },
               ],
             },
-            data_text:
-              "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
-            data_html:
-              "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            multiplicity: true,
             extra: {},
           },
         ],
@@ -287,14 +274,11 @@ export const DRY_TWO_PIPE_CHAIN = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "K4HuG",
+            digest: "XDLym",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following document pages and provide a detailed analysis:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY \n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following document pages and provide a detailed analysis:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY \n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Analyze the following       \ndocument pages and provide a detailed analysis:                                                     \n\n\n• item #1:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n• item #2:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY                                                                                 \n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following document pages and provide a detailed analysis:\n\n&lt;pages&gt;\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY \n    ",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -351,9 +335,9 @@ export const DRY_TWO_PIPE_CHAIN = {
   ],
   edges: [
     {
-      id: "a00ada8c-412a-410a-8b4a-1e08496be5b7:edge_0",
-      source: "a00ada8c-412a-410a-8b4a-1e08496be5b7:node_0",
-      target: "a00ada8c-412a-410a-8b4a-1e08496be5b7:node_1",
+      id: "a9a49780-6036-4f92-9588-d05ec07ac210:edge_0",
+      source: "a9a49780-6036-4f92-9588-d05ec07ac210:node_0",
+      target: "a9a49780-6036-4f92-9588-d05ec07ac210:node_1",
       kind: "contains",
       optional: false,
       label: null,
@@ -362,9 +346,9 @@ export const DRY_TWO_PIPE_CHAIN = {
       meta: {},
     },
     {
-      id: "a00ada8c-412a-410a-8b4a-1e08496be5b7:edge_1",
-      source: "a00ada8c-412a-410a-8b4a-1e08496be5b7:node_0",
-      target: "a00ada8c-412a-410a-8b4a-1e08496be5b7:node_2",
+      id: "a9a49780-6036-4f92-9588-d05ec07ac210:edge_1",
+      source: "a9a49780-6036-4f92-9588-d05ec07ac210:node_0",
+      target: "a9a49780-6036-4f92-9588-d05ec07ac210:node_2",
       kind: "contains",
       optional: false,
       label: null,
@@ -373,9 +357,9 @@ export const DRY_TWO_PIPE_CHAIN = {
       meta: {},
     },
     {
-      id: "a00ada8c-412a-410a-8b4a-1e08496be5b7:asm_edge_0",
-      source: "a00ada8c-412a-410a-8b4a-1e08496be5b7:node_1",
-      target: "a00ada8c-412a-410a-8b4a-1e08496be5b7:node_2",
+      id: "a9a49780-6036-4f92-9588-d05ec07ac210:asm_edge_0",
+      source: "a9a49780-6036-4f92-9588-d05ec07ac210:node_1",
+      target: "a9a49780-6036-4f92-9588-d05ec07ac210:node_2",
       kind: "data",
       optional: false,
       label: "pages",
@@ -474,13 +458,13 @@ export const DRY_TWO_PIPE_CHAIN = {
       },
       sequential_sub_pipes: [
         {
-          pipe_code: "extract_document",
+          pipe_code: "document_analysis.extract_document",
           output_name: "pages",
           output_multiplicity: null,
           batch_params: null,
         },
         {
-          pipe_code: "analyze_pages",
+          pipe_code: "document_analysis.analyze_pages",
           output_name: "analysis",
           output_multiplicity: null,
           batch_params: null,
@@ -575,6 +559,7 @@ export const DRY_TWO_PIPE_CHAIN = {
       },
       llm_choices: { for_text: null, for_object: null },
       output_multiplicity: null,
+      templating_style: null,
     },
   },
   concept_registry: {
@@ -599,6 +584,7 @@ export const DRY_TWO_PIPE_CHAIN = {
       structure_class_name: "DocumentContent",
       refines: null,
       json_schema: {
+        description: "A document",
         properties: {
           url: {
             description: "The document URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
@@ -651,6 +637,7 @@ export const DRY_TWO_PIPE_CHAIN = {
       json_schema: {
         $defs: {
           ImageContent: {
+            description: "An image",
             properties: {
               url: {
                 description: "The image URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
@@ -737,12 +724,15 @@ export const DRY_TWO_PIPE_CHAIN = {
             type: "object",
           },
           TextContent: {
+            description: "A text",
             properties: { text: { description: "The text", title: "Text", type: "string" } },
             required: ["text"],
             title: "TextContent",
             type: "object",
           },
         },
+        description:
+          "The content of a page of a document, comprising text and linked images and an optional page view image",
         properties: {
           text_and_images: {
             $ref: "#/$defs/TextAndImagesContent",

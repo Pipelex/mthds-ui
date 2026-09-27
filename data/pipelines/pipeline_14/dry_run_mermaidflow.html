@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pipeline: All Types Chain</title>
 <script nonce="PIPELEX_CSP_NONCE" src="https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js" integrity="sha384-rbtjAdnIQE/aQJGEgXrVUlMibdfTSa4PQju4HDhN3sR2PmaKFzhEafuePsl9H/9I" crossorigin="anonymous"></script>
-<!-- DOMPurify for HTML sanitization (XSS prevention) -->
-<script nonce="PIPELEX_CSP_NONCE" src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js" integrity="sha384-eEu5CTj3qGvu9PdJuS+YlkNi7d2XxQROAFYOr59zgObtlcux1ae1Il3u7jvdCSWu" crossorigin="anonymous"></script>
     <style nonce="PIPELEX_CSP_NONCE">
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
@@ -230,38 +228,6 @@ h1 {
     word-wrap: break-word;
     line-height: 1.5;
 }
-.data-modal-content.text-content {
-    line-height: 1;
-    white-space: pre;
-    word-wrap: normal;
-    overflow-x: auto;
-    padding-right: 20px;
-}
-.data-modal-content.html-content {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: #1e1e1e;
-    color: #d4d4d4;
-    padding: 12px;
-    border-radius: 4px;
-}
-.data-modal-content.html-content table {
-    border-collapse: collapse;
-    width: 100%;
-}
-.data-modal-content.html-content th,
-.data-modal-content.html-content td {
-    border: 1px solid #444;
-    padding: 8px 12px;
-    text-align: left;
-}
-.data-modal-content.html-content th {
-    background: #252a30;
-    color: #e0e0e0;
-    font-weight: 600;
-}
-.data-modal-content.html-content tr:hover {
-    background: #2a2530;
-}
 .data-modal-overlay {
     position: fixed;
     top: 0;
@@ -325,9 +291,8 @@ h1 {
     </div>
     <div class="format-toolbar">
         <div class="format-tabs" id="format-tabs">
-            <button class="format-tab active" data-format="html" id="tab-html">HTML</button>
+            <button class="format-tab active" data-format="preview" id="tab-preview">Preview</button>
             <button class="format-tab" data-format="json" id="tab-json">JSON</button>
-            <button class="format-tab" data-format="text" id="tab-text">Pretty</button>
         </div>
         <div class="format-actions">
             <button class="action-btn" id="open-external-btn" onclick="openExternal()" title="Open in new window" style="display: none;">
@@ -344,17 +309,15 @@ h1 {
     <div class="data-modal-content" id="modal-content"></div>
 </div>
     <script nonce="PIPELEX_CSP_NONCE">
-// Embedded stuff data from graph (all formats)
-const stuffDataJson = {"s_4284733f72": {"text": "# Complete Analysis\n\n## Analysis\nanalysis: ```\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Analyze the content of these pages:\n\n<pages>\n\n \u2022 item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n \u2022 item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw\n    \n```\n\n## Related Research\nsearch_result: ```\niJpfIymADOjYTqBAaTug\n\nSources:\n- pEBDUXASEoIEurflbHxS: ExzpBHaODRGxSGlvSCtN\n  rPoFmwgzviEWWYQkAsXj\n- myOvJZySCRkzodKlAQpo: ysliDavxrrKuqWhkSAwu\n  rjAmoyfvtBRKNlvvzUTw\n- UtkRJwTeDuqJGMOLHlst: vESEuVVvuwyWxCqoIDAU\n  VyKzXGKtnHEWLFiDnayH\n```"}, "s_48d87427c9": {"url": "kizSLTgvMRisXKWLUUGh", "public_url": "aGBIqKKUdsuHSZhnNrjo", "mime_type": "XJiqScBMxdQGNnVZvUBG", "filename": "MAsIsFJBaPACbzIijSsT", "title": "PxkrkJAOGopezZddiNqS", "snippet": "xvIgflCgJGumFijGbbIp"}, "s_6ea4a5bf49": {"items": [{"text_and_images": {"text": {"text": "DRY RUN: OCR text"}, "images": [], "raw_html": null}, "page_view": null}, {"text_and_images": {"text": {"text": "DRY RUN: OCR text"}, "images": [], "raw_html": null}, "page_view": null}, {"text_and_images": {"text": {"text": "DRY RUN: OCR text"}, "images": [], "raw_html": null}, "page_view": null}, {"text_and_images": {"text": {"text": "DRY RUN: OCR text"}, "images": [], "raw_html": null}, "page_view": null}]}, "s_1be2b55c9a": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Analyze the content of these pages:\n\n<pages>\n\n \u2022 item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n \u2022 item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw\n    "}, "s_0674426790": {"answer": "iJpfIymADOjYTqBAaTug", "sources": [{"url": "ExzpBHaODRGxSGlvSCtN", "public_url": "RxYRDPFRHwzPLgJrshUg", "mime_type": "dAhtyAttwlufqtwmMPuv", "filename": "nGhBkgctMyaNxbHKKRLw", "title": "pEBDUXASEoIEurflbHxS", "snippet": "rPoFmwgzviEWWYQkAsXj"}, {"url": "ysliDavxrrKuqWhkSAwu", "public_url": "GJhZBkegrBeVKsegYcek", "mime_type": "jTzBVMyTZmOvTJePsKrg", "filename": "FFABuAkejKBbupWnjhFr", "title": "myOvJZySCRkzodKlAQpo", "snippet": "rjAmoyfvtBRKNlvvzUTw"}, {"url": "vESEuVVvuwyWxCqoIDAU", "public_url": "McoAeurTUWpBZFYWehVb", "mime_type": "BqJezOoUkpahdWkhXHGa", "filename": "ksxTPyOincJsJKgNbJoT", "title": "UtkRJwTeDuqJGMOLHlst", "snippet": "VyKzXGKtnHEWLFiDnayH"}]}, "s_766003cd16": {"url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg", "public_url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg", "source_prompt": "Infographic summarizing: DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Analyze the content of these pages:\n\n<pages>\n\n \u2022 item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n \u2022 item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw\n    ", "source_negative_prompt": null, "caption": null, "mime_type": "image/jpeg", "width": 1024, "height": 1024, "filename": null}};
-const stuffDataText = {"s_4284733f72": "                                         Complete Analysis                                          \n\nAnalysis                                                                                            \n\nanalysis: ``` DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,          \ntemperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt: user_text: Analyze the\ncontent of these pages:                                                                             \n\n\n\u2022 item #1:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n\u2022 item #2:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw                                                                                                 \n\n                                                                                                    \n                                                                                                    \n ## Related Research                                                                                \n search_result: ```                                                                                 \n iJpfIymADOjYTqBAaTug                                                                               \n                                                                                                    \n Sources:                                                                                           \n - pEBDUXASEoIEurflbHxS: ExzpBHaODRGxSGlvSCtN                                                       \n   rPoFmwgzviEWWYQkAsXj                                                                             \n - myOvJZySCRkzodKlAQpo: ysliDavxrrKuqWhkSAwu                                                       \n   rjAmoyfvtBRKNlvvzUTw                                                                             \n - UtkRJwTeDuqJGMOLHlst: vESEuVVvuwyWxCqoIDAU                                                       \n   VyKzXGKtnHEWLFiDnayH                                                                             \n                                                                                                    \n", "s_48d87427c9": "PxkrkJAOGopezZddiNqS (kizSLTgvMRisXKWLUUGh)\n  xvIgflCgJGumFijGbbIp\n", "s_6ea4a5bf49": "   1    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   2    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   3    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   4    \u2502 DRY RUN: OCR text                                                     \n", "s_1be2b55c9a": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt: user_text: Analyze the content of these\npages:                                                                                              \n\n\n\u2022 item #1:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n\u2022 item #2:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw                                                                                                 \n", "s_0674426790": "Search Result:\niJpfIymADOjYTqBAaTug                                                                                \n\nSources (3):\npEBDUXASEoIEurflbHxS (ExzpBHaODRGxSGlvSCtN)\n  rPoFmwgzviEWWYQkAsXj\n\nmyOvJZySCRkzodKlAQpo (ysliDavxrrKuqWhkSAwu)\n  rjAmoyfvtBRKNlvvzUTw\n\nUtkRJwTeDuqJGMOLHlst (vESEuVVvuwyWxCqoIDAU)\n  VyKzXGKtnHEWLFiDnayH\n", "s_766003cd16": "Image:\nURL: https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg     \nPublic URL: Open Image\nSize: 1024x1024\nMIME Type: image/jpeg\n\nSource Prompt:\nInfographic summarizing: DRY RUN: llm_gen_text \u2022 \nllm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, \nprompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Analyze the content of these pages:\n\n<pages>\n\n \u2022 item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n \u2022 item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw\n    \n"};
-const stuffDataHtml = {"s_4284733f72": "# Complete Analysis\n\n## Analysis\nanalysis: ```\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Analyze the content of these pages:\n\n&lt;pages&gt;\n\n \u2022 item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n \u2022 item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw\n    \n```\n\n## Related Research\nsearch_result: ```\niJpfIymADOjYTqBAaTug\n\nSources:\n- pEBDUXASEoIEurflbHxS: ExzpBHaODRGxSGlvSCtN\n  rPoFmwgzviEWWYQkAsXj\n- myOvJZySCRkzodKlAQpo: ysliDavxrrKuqWhkSAwu\n  rjAmoyfvtBRKNlvvzUTw\n- UtkRJwTeDuqJGMOLHlst: vESEuVVvuwyWxCqoIDAU\n  VyKzXGKtnHEWLFiDnayH\n```", "s_48d87427c9": "<a href=\"aGBIqKKUdsuHSZhnNrjo\" class=\"msg-document\">PxkrkJAOGopezZddiNqS</a><br/><small>xvIgflCgJGumFijGbbIp</small>", "s_6ea4a5bf49": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>", "s_1be2b55c9a": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Analyze the content of these pages:\n\n&lt;pages&gt;\n\n \u2022 item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n \u2022 item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw\n    ", "s_0674426790": "<div><p>iJpfIymADOjYTqBAaTug</p><h4>Sources</h4><ul><li><a href=\"RxYRDPFRHwzPLgJrshUg\" class=\"msg-document\">pEBDUXASEoIEurflbHxS</a><br/><small>rPoFmwgzviEWWYQkAsXj</small></li><li><a href=\"GJhZBkegrBeVKsegYcek\" class=\"msg-document\">myOvJZySCRkzodKlAQpo</a><br/><small>rjAmoyfvtBRKNlvvzUTw</small></li><li><a href=\"McoAeurTUWpBZFYWehVb\" class=\"msg-document\">UtkRJwTeDuqJGMOLHlst</a><br/><small>VyKzXGKtnHEWLFiDnayH</small></li></ul></div>", "s_766003cd16": "<img src=\"https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg\" class=\"msg-img\">"};
-const stuffMetadata = {"s_4284733f72": {"name": "output", "concept": "FinalOutput"}, "s_48d87427c9": {"name": "document", "concept": "Document"}, "s_6ea4a5bf49": {"name": "pages", "concept": "Page"}, "s_1be2b55c9a": {"name": "analysis", "concept": "Analysis"}, "s_0674426790": {"name": "search_result", "concept": "SearchResult"}, "s_766003cd16": {"name": "visualization", "concept": "Image"}};
-const stuffContentType = {"s_48d87427c9": "XJiqScBMxdQGNnVZvUBG", "s_766003cd16": "image/jpeg"};
-const mermaidCode = "flowchart LR\n\n    %% Pipe and stuff nodes within controller subgraphs\n    subgraph sg_n_2d95bab326[\"all_types_chain\"]\n        n_9df644fa08[\"step_compose\"]\n        s_4284733f72([\"output\u003cbr/\u003eFinalOutput\"]):::stuff\n        n_cb6876b07d[\"step_extract\"]\n        s_6ea4a5bf49([\"pages\u003cbr/\u003ePage\"]):::stuff\n        n_b218811469[\"step_imggen\"]\n        s_766003cd16([\"visualization\u003cbr/\u003eImage\"]):::stuff\n        n_af5d4f8f98[\"step_llm\"]\n        s_1be2b55c9a([\"analysis\u003cbr/\u003eAnalysis\"]):::stuff\n        n_38873a3fd1[\"step_search\"]\n        s_0674426790([\"search_result\u003cbr/\u003eSearchResult\"]):::stuff\n    end\n\n    %% Pipeline input stuff nodes (no producer)\n    s_48d87427c9([\"document\u003cbr/\u003eDocument\"]):::stuff\n\n    %% Data flow edges: producer -\u003e stuff -\u003e consumer\n    n_cb6876b07d --\u003e s_6ea4a5bf49\n    n_af5d4f8f98 --\u003e s_1be2b55c9a\n    n_38873a3fd1 --\u003e s_0674426790\n    n_9df644fa08 --\u003e s_4284733f72\n    n_b218811469 --\u003e s_766003cd16\n    s_6ea4a5bf49 --\u003e n_af5d4f8f98\n    s_1be2b55c9a --\u003e n_38873a3fd1\n    s_1be2b55c9a --\u003e n_b218811469\n    s_1be2b55c9a --\u003e n_9df644fa08\n    s_0674426790 --\u003e n_9df644fa08\n    s_48d87427c9 --\u003e n_cb6876b07d\n\n    %% Style definitions\n    classDef failed fill:#ffcccc,stroke:#cc0000\n    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px\n    classDef controller fill:#e6f3ff,stroke:#0066cc\n\n    %% Subgraph depth-based coloring\n    style sg_n_2d95bab326 fill:#e6f3ff";
+// Embedded stuff data from graph
+const stuffDataJson = {"s_fd15778a6a": {"text": "# Complete Analysis\n\n## Analysis\n\u003canalysis>\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Analyze the content of these pages:\n\n\u003cpages>\n\n \u2022 item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n \u2022 item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw\n    \n\u003c/analysis>\n\n## Related Research\n\u003csearch_result>\neKlGWLsLYYtNtSlgNklB\n\nSources:\n- uCljbStRRDhWDMNktPFj: mWhtRomvePsjeytUvoeJ\n  LDMsbKYqpjhFdLVKSZrV\n- yhBuHjSlNuRuLJSuIemn: eDLndgOojLBjqaeDZOqQ\n  cstPyeQRWHbOiuIApfSp\n- DtRxBLdknXkZdXuxDIIX: geQmvBHoyzzGjvIiejbW\n  MbBetcRnYOMYaajfMxSZ\n\u003c/search_result>"}, "s_7bc34cd905": {"url": "OCACWMOJEXXQFNlWiojq", "public_url": "ePnJQvBqTbJwAvLVhToW", "mime_type": "NWnyRTmAXEsjWQcOSrgd", "filename": "WvMKMnSHuJqivUakQjKF", "title": "NMHoySaBGbyBQwmmIVYh", "snippet": "RzhbJtsZVZTXYJXnuBbb"}, "s_c808072e94": {"items": [{"text_and_images": {"text": {"text": "DRY RUN: OCR text"}, "images": [], "raw_html": null}, "page_view": null}, {"text_and_images": {"text": {"text": "DRY RUN: OCR text"}, "images": [], "raw_html": null}, "page_view": null}, {"text_and_images": {"text": {"text": "DRY RUN: OCR text"}, "images": [], "raw_html": null}, "page_view": null}, {"text_and_images": {"text": {"text": "DRY RUN: OCR text"}, "images": [], "raw_html": null}, "page_view": null}]}, "s_6ff1e0c222": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Analyze the content of these pages:\n\n\u003cpages>\n\n \u2022 item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n \u2022 item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw\n    "}, "s_1f84af2d1b": {"answer": "eKlGWLsLYYtNtSlgNklB", "sources": [{"url": "mWhtRomvePsjeytUvoeJ", "public_url": "NCFAfcKemMJgYuDzzIyY", "mime_type": "ouoaGASfOzjkwFdZyfvo", "filename": "bJkpstzHLHeUnMztgevW", "title": "uCljbStRRDhWDMNktPFj", "snippet": "LDMsbKYqpjhFdLVKSZrV"}, {"url": "eDLndgOojLBjqaeDZOqQ", "public_url": "dZmuTVlSvWPnACvFmOgr", "mime_type": "aLNumBoazBKduVAdkLxV", "filename": "bckEKKpSWOaeTymbIhGZ", "title": "yhBuHjSlNuRuLJSuIemn", "snippet": "cstPyeQRWHbOiuIApfSp"}, {"url": "geQmvBHoyzzGjvIiejbW", "public_url": "qQXHhDOisQCxZyWOSuli", "mime_type": "gkLsRQngXOBeVlmmgNPQ", "filename": "JOVuguOqEJBSlgKjlNji", "title": "DtRxBLdknXkZdXuxDIIX", "snippet": "MbBetcRnYOMYaajfMxSZ"}]}, "s_cba4b8fc08": {"url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg", "public_url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg", "source_prompt": "Infographic summarizing: DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Analyze the content of these pages:\n\n\u003cpages>\n\n \u2022 item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n \u2022 item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw\n    ", "source_negative_prompt": null, "caption": null, "mime_type": "image/jpeg", "width": 1024, "height": 1024, "filename": null}};
+const stuffMetadata = {"s_fd15778a6a": {"name": "output", "concept": "FinalOutput"}, "s_7bc34cd905": {"name": "document", "concept": "Document"}, "s_c808072e94": {"name": "pages", "concept": "Page[]"}, "s_6ff1e0c222": {"name": "analysis", "concept": "Analysis"}, "s_1f84af2d1b": {"name": "search_result", "concept": "SearchResult"}, "s_cba4b8fc08": {"name": "visualization", "concept": "Image"}};
+const stuffContentType = {"s_7bc34cd905": "NWnyRTmAXEsjWQcOSrgd", "s_cba4b8fc08": "image/jpeg"};
+const mermaidCode = "flowchart LR\n\n    %% Pipe and stuff nodes within controller subgraphs\n    subgraph sg_n_e1510af5c5[\"all_types_chain\"]\n        n_60948fa139[\"step_compose\"]\n        s_fd15778a6a([\"output\u003cbr/\u003eFinalOutput\"]):::stuff\n        n_5632abeb68[\"step_extract\"]\n        s_c808072e94([\"pages\u003cbr/\u003ePage#91;#93;\"]):::stuff\n        n_69d00cf055[\"step_imggen\"]\n        s_cba4b8fc08([\"visualization\u003cbr/\u003eImage\"]):::stuff\n        n_a4ed38fdaf[\"step_llm\"]\n        s_6ff1e0c222([\"analysis\u003cbr/\u003eAnalysis\"]):::stuff\n        n_44f414bc73[\"step_search\"]\n        s_1f84af2d1b([\"search_result\u003cbr/\u003eSearchResult\"]):::stuff\n    end\n\n    %% Pipeline input stuff nodes (no producer)\n    s_7bc34cd905([\"document\u003cbr/\u003eDocument\"]):::stuff\n\n    %% Data flow edges: producer -\u003e stuff -\u003e consumer\n    n_5632abeb68 --\u003e s_c808072e94\n    n_69d00cf055 --\u003e s_cba4b8fc08\n    n_60948fa139 --\u003e s_fd15778a6a\n    n_a4ed38fdaf --\u003e s_6ff1e0c222\n    n_44f414bc73 --\u003e s_1f84af2d1b\n    s_c808072e94 --\u003e n_a4ed38fdaf\n    s_7bc34cd905 --\u003e n_5632abeb68\n    s_6ff1e0c222 --\u003e n_44f414bc73\n    s_6ff1e0c222 --\u003e n_69d00cf055\n    s_6ff1e0c222 --\u003e n_60948fa139\n    s_1f84af2d1b --\u003e n_60948fa139\n\n    %% Style definitions\n    classDef failed fill:#ffcccc,stroke:#cc0000\n    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px\n    classDef controller fill:#e6f3ff,stroke:#0066cc\n\n    %% Subgraph depth-based coloring\n    style sg_n_e1510af5c5 fill:#e6f3ff";
 
 // Track current state
 let currentStuffId = null;
-let currentFormat = 'html';
+let currentFormat = 'preview';
 let currentTheme = "dark";
 
 // Include shared utility functions
@@ -527,14 +490,8 @@ function attachClickHandlers() {
         const svgContainer = document.querySelector('.mermaid svg');
         if (!svgContainer) return;
 
-        // Find nodes by their flowchart IDs - use any available data source
-        const allStuffIds = new Set([
-            ...Object.keys(stuffDataJson || {}),
-            ...Object.keys(stuffDataText || {}),
-            ...Object.keys(stuffDataHtml || {})
-        ]);
-
-        for (const stuffId of allStuffIds) {
+        // Find nodes by their flowchart IDs
+        for (const stuffId of Object.keys(stuffDataJson || {})) {
             // Mermaid generates IDs like 'flowchart-s_xxx-123'
             const nodes = svgContainer.querySelectorAll(`[id^="flowchart-${stuffId}"]`);
             nodes.forEach(node => {
@@ -593,13 +550,13 @@ function setFormat(format) {
 
 function renderContent(stuffId, format) {
     const content = document.getElementById('modal-content');
-    content.classList.remove('html-content', 'text-content', 'pdf-content', 'image-content');
+    content.classList.remove('pdf-content', 'image-content');
 
     // Handle PDF content type with embedded viewer
     const contentType = stuffContentType?.[stuffId];
     const jsonData = stuffDataJson?.[stuffId];
 
-    if (format === 'html' && contentType === 'application/pdf') {
+    if (format === 'preview' && contentType === 'application/pdf') {
         const pdfUrl = extractUrl(jsonData);
         if (pdfUrl) {
             content.classList.add('pdf-content');
@@ -615,7 +572,7 @@ function renderContent(stuffId, format) {
     }
 
     // Handle image content type
-    if (format === 'html' && contentType?.startsWith('image/')) {
+    if (format === 'preview' && contentType?.startsWith('image/')) {
         const imageUrl = extractUrl(jsonData);
         if (imageUrl) {
             content.classList.add('image-content');
@@ -630,25 +587,12 @@ function renderContent(stuffId, format) {
         }
     }
 
+    content.innerHTML = '';
     if (format === 'json') {
         const data = stuffDataJson?.[stuffId];
-        content.innerHTML = '';
         content.textContent = data ? JSON.stringify(data, null, 2) : 'No JSON data available';
-    } else if (format === 'text') {
-        const data = stuffDataText?.[stuffId];
-        content.classList.add('text-content');
-        content.innerHTML = '';
-        content.textContent = data || 'No text data available';
-    } else if (format === 'html') {
-        const data = stuffDataHtml?.[stuffId];
-        if (data) {
-            content.classList.add('html-content');
-            content.innerHTML = DOMPurify.sanitize(data);
-            makeLinksOpenInNewWindow(content);
-        } else {
-            content.innerHTML = '';
-            content.textContent = 'No HTML data available';
-        }
+    } else {
+        content.textContent = 'No preview available';
     }
 
     updateOpenExternalButton(stuffId, contentType, jsonData);
@@ -667,32 +611,28 @@ function updateOpenExternalButton(stuffId, contentType, jsonData) {
 
 function updateTabAvailability(stuffId) {
     const jsonTab = document.getElementById('tab-json');
-    const textTab = document.getElementById('tab-text');
-    const htmlTab = document.getElementById('tab-html');
+    const previewTab = document.getElementById('tab-preview');
 
     jsonTab.disabled = !stuffDataJson?.[stuffId];
-    textTab.disabled = !stuffDataText?.[stuffId];
 
-    // For PDF and image content types, the tab can render from JSON data via extractUrl()
+    // PDF and image content preview from the URL their JSON data carries
     const contentType = stuffContentType?.[stuffId];
     const jsonData = stuffDataJson?.[stuffId];
-    const canRenderFromJson = (contentType === 'application/pdf' || contentType?.startsWith('image/')) && extractUrl(jsonData);
-    htmlTab.disabled = !stuffDataHtml?.[stuffId] && !canRenderFromJson;
+    const canPreview = (contentType === 'application/pdf' || contentType?.startsWith('image/')) && !!extractUrl(jsonData);
+    previewTab.disabled = !canPreview;
 
-    // Update HTML tab label based on content type
+    // Label the preview tab after the content type it shows
     if (contentType === 'application/pdf') {
-        htmlTab.textContent = 'PDF';
+        previewTab.textContent = 'PDF';
     } else if (contentType?.startsWith('image/')) {
-        htmlTab.textContent = 'Image';
+        previewTab.textContent = 'Image';
     } else {
-        htmlTab.textContent = 'HTML';
+        previewTab.textContent = 'Preview';
     }
 
-    // Find first available format (HTML -> JSON -> Pretty)
-    if (!htmlTab.disabled) return 'html';
-    if (!jsonTab.disabled) return 'json';
-    if (!textTab.disabled) return 'text';
-    return 'html';
+    // Find first available format (preview -> JSON)
+    if (!previewTab.disabled) return 'preview';
+    return 'json';
 }
 
 function showModal(stuffId) {
@@ -739,20 +679,15 @@ function hideModal() {
 function getCurrentContent() {
     if (!currentStuffId) return null;
 
+    const data = stuffDataJson?.[currentStuffId];
     if (currentFormat === 'json') {
-        const data = stuffDataJson?.[currentStuffId];
         if (!data) return null;
         return { content: JSON.stringify(data, null, 2), ext: 'json', mime: 'application/json' };
-    } else if (currentFormat === 'text') {
-        const data = stuffDataText?.[currentStuffId];
-        if (!data) return null;
-        return { content: data, ext: 'txt', mime: 'text/plain' };
-    } else if (currentFormat === 'html') {
-        const data = stuffDataHtml?.[currentStuffId];
-        if (!data) return null;
-        return { content: data, ext: 'html', mime: 'text/html' };
     }
-    return null;
+    // A preview's copyable content is the URL it shows
+    const url = extractUrl(data);
+    if (!url) return null;
+    return { content: url, ext: 'txt', mime: 'text/plain' };
 }
 
 // Copy content to clipboard

@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pipeline: Etl Pipeline</title>
 <script nonce="PIPELEX_CSP_NONCE" src="https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js" integrity="sha384-rbtjAdnIQE/aQJGEgXrVUlMibdfTSa4PQju4HDhN3sR2PmaKFzhEafuePsl9H/9I" crossorigin="anonymous"></script>
-<!-- DOMPurify for HTML sanitization (XSS prevention) -->
-<script nonce="PIPELEX_CSP_NONCE" src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js" integrity="sha384-eEu5CTj3qGvu9PdJuS+YlkNi7d2XxQROAFYOr59zgObtlcux1ae1Il3u7jvdCSWu" crossorigin="anonymous"></script>
     <style nonce="PIPELEX_CSP_NONCE">
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
@@ -230,38 +228,6 @@ h1 {
     word-wrap: break-word;
     line-height: 1.5;
 }
-.data-modal-content.text-content {
-    line-height: 1;
-    white-space: pre;
-    word-wrap: normal;
-    overflow-x: auto;
-    padding-right: 20px;
-}
-.data-modal-content.html-content {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: #1e1e1e;
-    color: #d4d4d4;
-    padding: 12px;
-    border-radius: 4px;
-}
-.data-modal-content.html-content table {
-    border-collapse: collapse;
-    width: 100%;
-}
-.data-modal-content.html-content th,
-.data-modal-content.html-content td {
-    border: 1px solid #444;
-    padding: 8px 12px;
-    text-align: left;
-}
-.data-modal-content.html-content th {
-    background: #252a30;
-    color: #e0e0e0;
-    font-weight: 600;
-}
-.data-modal-content.html-content tr:hover {
-    background: #2a2530;
-}
 .data-modal-overlay {
     position: fixed;
     top: 0;
@@ -325,9 +291,8 @@ h1 {
     </div>
     <div class="format-toolbar">
         <div class="format-tabs" id="format-tabs">
-            <button class="format-tab active" data-format="html" id="tab-html">HTML</button>
+            <button class="format-tab active" data-format="preview" id="tab-preview">Preview</button>
             <button class="format-tab" data-format="json" id="tab-json">JSON</button>
-            <button class="format-tab" data-format="text" id="tab-text">Pretty</button>
         </div>
         <div class="format-actions">
             <button class="action-btn" id="open-external-btn" onclick="openExternal()" title="Open in new window" style="display: none;">
@@ -344,17 +309,15 @@ h1 {
     <div class="data-modal-content" id="modal-content"></div>
 </div>
     <script nonce="PIPELEX_CSP_NONCE">
-// Embedded stuff data from graph (all formats)
-const stuffDataJson = {"s_dbd9fac7ad": {"text": "# Processed Content\n\n## Text\nclean_text: ```\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Add semantic tags and structure to this cleaned text:\n\n<clean_text>\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Clean the foll\n    \n```\n\n## Images\nprocessed_image: ```\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Generate concise captions for each image described:\n\n<described>\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Identify and desc\n    \n```"}, "s_f3c24db7d3": {"url": "qwjvYxDdZijbZzvjHjVJ", "public_url": "IdNHikQKelGrodAMgxmW", "mime_type": "URtuxlOqKNxBxHTedMYo", "filename": "jNVAxvuyYwWfJPffWGUr", "title": "DOmQWsNSVxdFPcbKWpUI", "snippet": "CGvdmtfwxmuNuFPqrCVZ"}, "s_2846fe9ae6": {"items": [{"text_and_images": {"text": {"text": "DRY RUN: OCR text"}, "images": [], "raw_html": null}, "page_view": null}, {"text_and_images": {"text": {"text": "DRY RUN: OCR text"}, "images": [], "raw_html": null}, "page_view": null}, {"text_and_images": {"text": {"text": "DRY RUN: OCR text"}, "images": [], "raw_html": null}, "page_view": null}, {"text_and_images": {"text": {"text": "DRY RUN: OCR text"}, "images": [], "raw_html": null}, "page_view": null}]}, "s_9fe0b908c0": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Add semantic tags and structure to this cleaned text:\n\n<clean_text>\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Clean the foll\n    "}, "s_051b86e528": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Generate concise captions for each image described:\n\n<described>\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Identify and desc\n    "}, "s_c58497e899": {"clean_text": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Add semantic tags and structure to this cleaned text:\n\n<clean_text>\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Clean the foll\n    "}, "processed_image": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Generate concise captions for each image described:\n\n<described>\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Identify and desc\n    "}}, "s_627d0d06c6": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Clean the following text by removing artifacts, headers, and footers:\n\n<pages>\n\n \u2022 item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n \u2022 item #2:\n\n# text_and_images\n\n## text: ### text: DRY \n    "}, "s_47262f5429": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Identify and describe any images or figures found in these pages:\n\n<pages>\n\n \u2022 item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n \u2022 item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN:\n    "}};
-const stuffDataText = {"s_dbd9fac7ad": "                                         Processed Content                                          \n\nText                                                                                                \n\nclean_text: ``` DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,        \ntemperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt: user_text: Add        \nsemantic tags and structure to this cleaned text:                                                   \n\n<clean_text> DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,           \ntemperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt: user_text: Clean the  \nfoll                                                                                                \n\n                                                                                                    \n                                                                                                    \n ## Images                                                                                          \n processed_image: ```                                                                               \n DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \n max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:                                       \n     user_text:                                                                                     \n     Generate concise captions for each image described:                                            \n                                                                                                    \n <described>                                                                                        \n DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \n max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:                                       \n     user_text:                                                                                     \n     Identify and desc                                                                              \n                                                                                                    \n", "s_f3c24db7d3": "DOmQWsNSVxdFPcbKWpUI (qwjvYxDdZijbZzvjHjVJ)\n  CGvdmtfwxmuNuFPqrCVZ\n", "s_2846fe9ae6": "   1    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   2    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   3    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   4    \u2502 DRY RUN: OCR text                                                     \n", "s_9fe0b908c0": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt: user_text: Add semantic tags and       \nstructure to this cleaned text:                                                                     \n\n<clean_text> DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,           \ntemperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt: user_text: Clean the  \nfoll                                                                                                \n", "s_051b86e528": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt: user_text: Generate concise captions   \nfor each image described:                                                                           \n\n", "s_c58497e899": "{\n    \"clean_text\": {\n        \"text\": \"DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, \ntemperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\\n    user_text:\\n    \nAdd semantic tags and structure to this cleaned text:\\n\\n<clean_text>\\nDRY RUN: llm_gen_text \u2022 \nllm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, \nprompting_target=None) \u2022 prompt=LLM Prompt:\\n    user_text:\\n    Clean the foll\\n    \"\n    },\n    \"processed_image\": {\n        \"text\": \"DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, \ntemperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\\n    user_text:\\n    \nGenerate concise captions for each image described:\\n\\n<described>\\nDRY RUN: llm_gen_text \u2022 \nllm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, \nprompting_target=None) \u2022 prompt=LLM Prompt:\\n    user_text:\\n    Identify and desc\\n    \"\n    }\n}\n", "s_627d0d06c6": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt: user_text: Clean the following text by \nremoving artifacts, headers, and footers:                                                           \n\n\n\u2022 item #1:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n\u2022 item #2:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY                                                                                 \n", "s_47262f5429": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt: user_text: Identify and describe any   \nimages or figures found in these pages:                                                             \n\n\n\u2022 item #1:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n\u2022 item #2:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN:                                                                            \n"};
-const stuffDataHtml = {"s_dbd9fac7ad": "# Processed Content\n\n## Text\nclean_text: ```\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Add semantic tags and structure to this cleaned text:\n\n&lt;clean_text&gt;\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Clean the foll\n    \n```\n\n## Images\nprocessed_image: ```\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Generate concise captions for each image described:\n\n&lt;described&gt;\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Identify and desc\n    \n```", "s_f3c24db7d3": "<a href=\"IdNHikQKelGrodAMgxmW\" class=\"msg-document\">DOmQWsNSVxdFPcbKWpUI</a><br/><small>CGvdmtfwxmuNuFPqrCVZ</small>", "s_2846fe9ae6": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>", "s_9fe0b908c0": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Add semantic tags and structure to this cleaned text:\n\n&lt;clean_text&gt;\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Clean the foll\n    ", "s_051b86e528": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Generate concise captions for each image described:\n\n&lt;described&gt;\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Identify and desc\n    ", "s_c58497e899": "<table><tr><th>clean_text</th><td>DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Add semantic tags and structure to this cleaned text:\n\n&lt;clean_text&gt;\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Clean the foll\n    </td></tr><tr><th>processed_image</th><td>DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Generate concise captions for each image described:\n\n&lt;described&gt;\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Identify and desc\n    </td></tr></table>", "s_627d0d06c6": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Clean the following text by removing artifacts, headers, and footers:\n\n&lt;pages&gt;\n\n \u2022 item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n \u2022 item #2:\n\n# text_and_images\n\n## text: ### text: DRY \n    ", "s_47262f5429": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Identify and describe any images or figures found in these pages:\n\n&lt;pages&gt;\n\n \u2022 item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n \u2022 item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN:\n    "};
-const stuffMetadata = {"s_dbd9fac7ad": {"name": "processed", "concept": "ProcessedContent"}, "s_f3c24db7d3": {"name": "document", "concept": "Document"}, "s_2846fe9ae6": {"name": "pages", "concept": "Page"}, "s_9fe0b908c0": {"name": "enriched", "concept": "EnrichedText"}, "s_051b86e528": {"name": "captioned", "concept": "ProcessedImage"}, "s_c58497e899": {"name": "processed_parts", "concept": "Composite"}, "s_627d0d06c6": {"name": "clean_text", "concept": "CleanText"}, "s_47262f5429": {"name": "described", "concept": "Text"}};
-const stuffContentType = {"s_f3c24db7d3": "URtuxlOqKNxBxHTedMYo"};
-const mermaidCode = "flowchart LR\n\n    %% Pipe and stuff nodes within controller subgraphs\n    subgraph sg_n_d75db44109[\"etl_pipeline\"]\n        subgraph sg_n_3b7cce1a12[\"dual_process\"]\n            subgraph sg_n_12fcdc51d3[\"image_branch\"]\n                n_07f81bf6c6[\"caption_images\"]\n                s_051b86e528([\"captioned\u003cbr/\u003eProcessedImage\"]):::stuff\n                n_71c360539e[\"extract_images\"]\n                s_47262f5429([\"described\u003cbr/\u003eText\"]):::stuff\n            end\n            subgraph sg_n_75f8ca4fe7[\"text_branch\"]\n                n_0b45f869d1[\"clean_text\"]\n                s_627d0d06c6([\"clean_text\u003cbr/\u003eCleanText\"]):::stuff\n                n_f40b561581[\"enrich_text\"]\n                s_9fe0b908c0([\"enriched\u003cbr/\u003eEnrichedText\"]):::stuff\n            end\n            s_c58497e899([\"processed_parts\u003cbr/\u003eComposite\"]):::stuff\n        end\n        n_e97ee72cd0[\"combine_results\"]\n        s_dbd9fac7ad([\"processed\u003cbr/\u003eProcessedContent\"]):::stuff\n        n_3b31c51721[\"extract_content\"]\n        s_2846fe9ae6([\"pages\u003cbr/\u003ePage\"]):::stuff\n    end\n\n    %% Pipeline input stuff nodes (no producer)\n    s_f3c24db7d3([\"document\u003cbr/\u003eDocument\"]):::stuff\n\n    %% Data flow edges: producer -\u003e stuff -\u003e consumer\n    n_f40b561581 --\u003e s_9fe0b908c0\n    n_3b31c51721 --\u003e s_2846fe9ae6\n    n_0b45f869d1 --\u003e s_627d0d06c6\n    n_71c360539e --\u003e s_47262f5429\n    n_e97ee72cd0 --\u003e s_dbd9fac7ad\n    n_07f81bf6c6 --\u003e s_051b86e528\n    s_f3c24db7d3 --\u003e n_3b31c51721\n    s_9fe0b908c0 --\u003e n_e97ee72cd0\n    s_2846fe9ae6 --\u003e n_0b45f869d1\n    s_2846fe9ae6 --\u003e n_71c360539e\n    s_627d0d06c6 --\u003e n_f40b561581\n    s_47262f5429 --\u003e n_07f81bf6c6\n    s_051b86e528 --\u003e n_e97ee72cd0\n\n    %% Parallel combine edges: branch outputs \u2192 combined output\n    s_9fe0b908c0 -.-\u003e s_c58497e899\n    s_051b86e528 -.-\u003e s_c58497e899\n\n    %% Style definitions\n    classDef failed fill:#ffcccc,stroke:#cc0000\n    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px\n    classDef controller fill:#e6f3ff,stroke:#0066cc\n\n    %% Subgraph depth-based coloring\n    style sg_n_12fcdc51d3 fill:#fffde6\n    style sg_n_3b7cce1a12 fill:#e6ffe6\n    style sg_n_75f8ca4fe7 fill:#fffde6\n    style sg_n_d75db44109 fill:#e6f3ff";
+// Embedded stuff data from graph
+const stuffDataJson = {"s_06a048cb67": {"text": "# Processed Content\n\n## Text\n\u003cclean_text>\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Add semantic tags and structure to this cleaned text:\n\n\u003cclean_text>\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Clean the following text by removing \n    \n\u003c/clean_text>\n\n## Images\n\u003cprocessed_image>\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Generate concise captions for each image described:\n\n\u003cdescribed>\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Identify and describe any images or figu\n    \n\u003c/processed_image>"}, "s_1d98081d50": {"url": "XjQzHxbIHMFmILNgcfWx", "public_url": "iVsZzrprPGztNsVKXKyj", "mime_type": "wgPhcOXlFkMNxgEVcyaX", "filename": "nniUTLhsLZZxUSEgbRKW", "title": "bxGUfEvGdCncXNcIJOOR", "snippet": "tAGCFVqgVlLcZPtPUFvv"}, "s_47b25e798c": {"items": [{"text_and_images": {"text": {"text": "DRY RUN: OCR text"}, "images": [], "raw_html": null}, "page_view": null}, {"text_and_images": {"text": {"text": "DRY RUN: OCR text"}, "images": [], "raw_html": null}, "page_view": null}, {"text_and_images": {"text": {"text": "DRY RUN: OCR text"}, "images": [], "raw_html": null}, "page_view": null}, {"text_and_images": {"text": {"text": "DRY RUN: OCR text"}, "images": [], "raw_html": null}, "page_view": null}]}, "s_18b8818702": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Add semantic tags and structure to this cleaned text:\n\n\u003cclean_text>\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Clean the following text by removing \n    "}, "s_260e237159": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Generate concise captions for each image described:\n\n\u003cdescribed>\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Identify and describe any images or figu\n    "}, "s_c1c0b2006d": {"clean_text": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Add semantic tags and structure to this cleaned text:\n\n\u003cclean_text>\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Clean the following text by removing \n    "}, "processed_image": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Generate concise captions for each image described:\n\n\u003cdescribed>\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Identify and describe any images or figu\n    "}}, "s_7b03bc9d52": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Clean the following text by removing artifacts, headers, and footers:\n\n\u003cpages>\n\n \u2022 item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n \u2022 item #2:\n\n# text_and_images\n\n## text: ### text: DRY \n    "}, "s_0fe3f8c377": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Identify and describe any images or figures found in these pages:\n\n\u003cpages>\n\n \u2022 item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n \u2022 item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN:\n    "}};
+const stuffMetadata = {"s_06a048cb67": {"name": "processed", "concept": "ProcessedContent"}, "s_1d98081d50": {"name": "document", "concept": "Document"}, "s_47b25e798c": {"name": "pages", "concept": "Page[]"}, "s_18b8818702": {"name": "enriched", "concept": "EnrichedText"}, "s_260e237159": {"name": "captioned", "concept": "ProcessedImage"}, "s_c1c0b2006d": {"name": "processed_parts", "concept": "Composite"}, "s_7b03bc9d52": {"name": "clean_text", "concept": "CleanText"}, "s_0fe3f8c377": {"name": "described", "concept": "Text"}};
+const stuffContentType = {"s_1d98081d50": "wgPhcOXlFkMNxgEVcyaX"};
+const mermaidCode = "flowchart LR\n\n    %% Pipe and stuff nodes within controller subgraphs\n    subgraph sg_n_82957d96c0[\"etl_pipeline\"]\n        subgraph sg_n_cfd276f664[\"dual_process\"]\n            subgraph sg_n_37c8dbf70a[\"image_branch\"]\n                n_13180fe055[\"caption_images\"]\n                s_260e237159([\"captioned\u003cbr/\u003eProcessedImage\"]):::stuff\n                n_f97e7a99b3[\"extract_images\"]\n                s_0fe3f8c377([\"described\u003cbr/\u003eText\"]):::stuff\n            end\n            subgraph sg_n_2d85626188[\"text_branch\"]\n                n_5140f3a416[\"clean_text\"]\n                s_7b03bc9d52([\"clean_text\u003cbr/\u003eCleanText\"]):::stuff\n                n_e6f672e62c[\"enrich_text\"]\n                s_18b8818702([\"enriched\u003cbr/\u003eEnrichedText\"]):::stuff\n            end\n            s_c1c0b2006d([\"processed_parts\u003cbr/\u003eComposite\"]):::stuff\n        end\n        n_e8dfbdb694[\"combine_results\"]\n        s_06a048cb67([\"processed\u003cbr/\u003eProcessedContent\"]):::stuff\n        n_f620328be3[\"extract_content\"]\n        s_47b25e798c([\"pages\u003cbr/\u003ePage#91;#93;\"]):::stuff\n    end\n\n    %% Pipeline input stuff nodes (no producer)\n    s_1d98081d50([\"document\u003cbr/\u003eDocument\"]):::stuff\n\n    %% Data flow edges: producer -\u003e stuff -\u003e consumer\n    n_e6f672e62c --\u003e s_18b8818702\n    n_f620328be3 --\u003e s_47b25e798c\n    n_13180fe055 --\u003e s_260e237159\n    n_f97e7a99b3 --\u003e s_0fe3f8c377\n    n_e8dfbdb694 --\u003e s_06a048cb67\n    n_5140f3a416 --\u003e s_7b03bc9d52\n    s_18b8818702 --\u003e n_e8dfbdb694\n    s_47b25e798c --\u003e n_5140f3a416\n    s_47b25e798c --\u003e n_f97e7a99b3\n    s_1d98081d50 --\u003e n_f620328be3\n    s_260e237159 --\u003e n_e8dfbdb694\n    s_0fe3f8c377 --\u003e n_13180fe055\n    s_7b03bc9d52 --\u003e n_e6f672e62c\n\n    %% Parallel combine edges: branch outputs \u2192 combined output\n    s_18b8818702 -.-\u003e s_c1c0b2006d\n    s_260e237159 -.-\u003e s_c1c0b2006d\n\n    %% Style definitions\n    classDef failed fill:#ffcccc,stroke:#cc0000\n    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px\n    classDef controller fill:#e6f3ff,stroke:#0066cc\n\n    %% Subgraph depth-based coloring\n    style sg_n_2d85626188 fill:#fffde6\n    style sg_n_37c8dbf70a fill:#fffde6\n    style sg_n_82957d96c0 fill:#e6f3ff\n    style sg_n_cfd276f664 fill:#e6ffe6";
 
 // Track current state
 let currentStuffId = null;
-let currentFormat = 'html';
+let currentFormat = 'preview';
 let currentTheme = "dark";
 
 // Include shared utility functions
@@ -527,14 +490,8 @@ function attachClickHandlers() {
         const svgContainer = document.querySelector('.mermaid svg');
         if (!svgContainer) return;
 
-        // Find nodes by their flowchart IDs - use any available data source
-        const allStuffIds = new Set([
-            ...Object.keys(stuffDataJson || {}),
-            ...Object.keys(stuffDataText || {}),
-            ...Object.keys(stuffDataHtml || {})
-        ]);
-
-        for (const stuffId of allStuffIds) {
+        // Find nodes by their flowchart IDs
+        for (const stuffId of Object.keys(stuffDataJson || {})) {
             // Mermaid generates IDs like 'flowchart-s_xxx-123'
             const nodes = svgContainer.querySelectorAll(`[id^="flowchart-${stuffId}"]`);
             nodes.forEach(node => {
@@ -593,13 +550,13 @@ function setFormat(format) {
 
 function renderContent(stuffId, format) {
     const content = document.getElementById('modal-content');
-    content.classList.remove('html-content', 'text-content', 'pdf-content', 'image-content');
+    content.classList.remove('pdf-content', 'image-content');
 
     // Handle PDF content type with embedded viewer
     const contentType = stuffContentType?.[stuffId];
     const jsonData = stuffDataJson?.[stuffId];
 
-    if (format === 'html' && contentType === 'application/pdf') {
+    if (format === 'preview' && contentType === 'application/pdf') {
         const pdfUrl = extractUrl(jsonData);
         if (pdfUrl) {
             content.classList.add('pdf-content');
@@ -615,7 +572,7 @@ function renderContent(stuffId, format) {
     }
 
     // Handle image content type
-    if (format === 'html' && contentType?.startsWith('image/')) {
+    if (format === 'preview' && contentType?.startsWith('image/')) {
         const imageUrl = extractUrl(jsonData);
         if (imageUrl) {
             content.classList.add('image-content');
@@ -630,25 +587,12 @@ function renderContent(stuffId, format) {
         }
     }
 
+    content.innerHTML = '';
     if (format === 'json') {
         const data = stuffDataJson?.[stuffId];
-        content.innerHTML = '';
         content.textContent = data ? JSON.stringify(data, null, 2) : 'No JSON data available';
-    } else if (format === 'text') {
-        const data = stuffDataText?.[stuffId];
-        content.classList.add('text-content');
-        content.innerHTML = '';
-        content.textContent = data || 'No text data available';
-    } else if (format === 'html') {
-        const data = stuffDataHtml?.[stuffId];
-        if (data) {
-            content.classList.add('html-content');
-            content.innerHTML = DOMPurify.sanitize(data);
-            makeLinksOpenInNewWindow(content);
-        } else {
-            content.innerHTML = '';
-            content.textContent = 'No HTML data available';
-        }
+    } else {
+        content.textContent = 'No preview available';
     }
 
     updateOpenExternalButton(stuffId, contentType, jsonData);
@@ -667,32 +611,28 @@ function updateOpenExternalButton(stuffId, contentType, jsonData) {
 
 function updateTabAvailability(stuffId) {
     const jsonTab = document.getElementById('tab-json');
-    const textTab = document.getElementById('tab-text');
-    const htmlTab = document.getElementById('tab-html');
+    const previewTab = document.getElementById('tab-preview');
 
     jsonTab.disabled = !stuffDataJson?.[stuffId];
-    textTab.disabled = !stuffDataText?.[stuffId];
 
-    // For PDF and image content types, the tab can render from JSON data via extractUrl()
+    // PDF and image content preview from the URL their JSON data carries
     const contentType = stuffContentType?.[stuffId];
     const jsonData = stuffDataJson?.[stuffId];
-    const canRenderFromJson = (contentType === 'application/pdf' || contentType?.startsWith('image/')) && extractUrl(jsonData);
-    htmlTab.disabled = !stuffDataHtml?.[stuffId] && !canRenderFromJson;
+    const canPreview = (contentType === 'application/pdf' || contentType?.startsWith('image/')) && !!extractUrl(jsonData);
+    previewTab.disabled = !canPreview;
 
-    // Update HTML tab label based on content type
+    // Label the preview tab after the content type it shows
     if (contentType === 'application/pdf') {
-        htmlTab.textContent = 'PDF';
+        previewTab.textContent = 'PDF';
     } else if (contentType?.startsWith('image/')) {
-        htmlTab.textContent = 'Image';
+        previewTab.textContent = 'Image';
     } else {
-        htmlTab.textContent = 'HTML';
+        previewTab.textContent = 'Preview';
     }
 
-    // Find first available format (HTML -> JSON -> Pretty)
-    if (!htmlTab.disabled) return 'html';
-    if (!jsonTab.disabled) return 'json';
-    if (!textTab.disabled) return 'text';
-    return 'html';
+    // Find first available format (preview -> JSON)
+    if (!previewTab.disabled) return 'preview';
+    return 'json';
 }
 
 function showModal(stuffId) {
@@ -739,20 +679,15 @@ function hideModal() {
 function getCurrentContent() {
     if (!currentStuffId) return null;
 
+    const data = stuffDataJson?.[currentStuffId];
     if (currentFormat === 'json') {
-        const data = stuffDataJson?.[currentStuffId];
         if (!data) return null;
         return { content: JSON.stringify(data, null, 2), ext: 'json', mime: 'application/json' };
-    } else if (currentFormat === 'text') {
-        const data = stuffDataText?.[currentStuffId];
-        if (!data) return null;
-        return { content: data, ext: 'txt', mime: 'text/plain' };
-    } else if (currentFormat === 'html') {
-        const data = stuffDataHtml?.[currentStuffId];
-        if (!data) return null;
-        return { content: data, ext: 'html', mime: 'text/html' };
     }
-    return null;
+    // A preview's copyable content is the URL it shows
+    const url = extractUrl(data);
+    if (!url) return null;
+    return { content: url, ext: 'txt', mime: 'text/plain' };
 }
 
 // Copy content to clipboard

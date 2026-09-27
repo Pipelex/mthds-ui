@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pipeline: Route Availability</title>
 <script nonce="PIPELEX_CSP_NONCE" src="https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js" integrity="sha384-rbtjAdnIQE/aQJGEgXrVUlMibdfTSa4PQju4HDhN3sR2PmaKFzhEafuePsl9H/9I" crossorigin="anonymous"></script>
-<!-- DOMPurify for HTML sanitization (XSS prevention) -->
-<script nonce="PIPELEX_CSP_NONCE" src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js" integrity="sha384-eEu5CTj3qGvu9PdJuS+YlkNi7d2XxQROAFYOr59zgObtlcux1ae1Il3u7jvdCSWu" crossorigin="anonymous"></script>
     <style nonce="PIPELEX_CSP_NONCE">
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
@@ -230,38 +228,6 @@ h1 {
     word-wrap: break-word;
     line-height: 1.5;
 }
-.data-modal-content.text-content {
-    line-height: 1;
-    white-space: pre;
-    word-wrap: normal;
-    overflow-x: auto;
-    padding-right: 20px;
-}
-.data-modal-content.html-content {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: #1e1e1e;
-    color: #d4d4d4;
-    padding: 12px;
-    border-radius: 4px;
-}
-.data-modal-content.html-content table {
-    border-collapse: collapse;
-    width: 100%;
-}
-.data-modal-content.html-content th,
-.data-modal-content.html-content td {
-    border: 1px solid #444;
-    padding: 8px 12px;
-    text-align: left;
-}
-.data-modal-content.html-content th {
-    background: #252a30;
-    color: #e0e0e0;
-    font-weight: 600;
-}
-.data-modal-content.html-content tr:hover {
-    background: #2a2530;
-}
 .data-modal-overlay {
     position: fixed;
     top: 0;
@@ -325,9 +291,8 @@ h1 {
     </div>
     <div class="format-toolbar">
         <div class="format-tabs" id="format-tabs">
-            <button class="format-tab active" data-format="html" id="tab-html">HTML</button>
+            <button class="format-tab active" data-format="preview" id="tab-preview">Preview</button>
             <button class="format-tab" data-format="json" id="tab-json">JSON</button>
-            <button class="format-tab" data-format="text" id="tab-text">Pretty</button>
         </div>
         <div class="format-actions">
             <button class="action-btn" id="open-external-btn" onclick="openExternal()" title="Open in new window" style="display: none;">
@@ -344,17 +309,15 @@ h1 {
     <div class="data-modal-content" id="modal-content"></div>
 </div>
     <script nonce="PIPELEX_CSP_NONCE">
-// Embedded stuff data from graph (all formats)
-const stuffDataJson = {"s_a6424cc8ed": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    This request is not urgent. List every free date from the checks below and invite the requester to pick one.\n\n<checks>\n\n \u2022 item #1:\n\n# day: YeImXCCxuaevsYziCsYG\n\n# is_free: True\n\n# note: IpJxwsJLFHAZhGNynapT\n\n \u2022 item #2:\n\n# day: DEbKRcsCWfYqDvgEZxcZ\n\n# is_\n    "}, "s_fcb89a1518": {"text": "IjnBddoUWWIRwQfzwPQI"}, "s_87e46bf7fe": {"items": [{"date": "2026-06-07", "time": "02:30:30.536101"}, {"date": "2021-03-30", "time": "19:33:12.833996"}, {"date": "2026-02-12", "time": "18:59:47.662836"}]}, "s_3d446d137b": {"yes_no": false}, "s_8eb6c4f52e": {"items": [{"day": "YeImXCCxuaevsYziCsYG", "is_free": true, "note": "IpJxwsJLFHAZhGNynapT"}, {"day": "DEbKRcsCWfYqDvgEZxcZ", "is_free": true, "note": "GzSSIZMxtCgsUiGMSjJG"}, {"day": "ylcqPjJyKgmCJaCkvztu", "is_free": true, "note": "NqkoZxvTkTyqDYYRAgIe"}]}, "s_64941dc647": {"day": "YeImXCCxuaevsYziCsYG", "is_free": true, "note": "IpJxwsJLFHAZhGNynapT"}, "s_138098be7b": {"date": "2026-06-07", "time": "02:30:30.536101"}, "s_a6001e078a": {"day": "DEbKRcsCWfYqDvgEZxcZ", "is_free": true, "note": "GzSSIZMxtCgsUiGMSjJG"}, "s_a986d5204b": {"date": "2021-03-30", "time": "19:33:12.833996"}, "s_d6d7b8cb3f": {"day": "ylcqPjJyKgmCJaCkvztu", "is_free": true, "note": "NqkoZxvTkTyqDYYRAgIe"}, "s_29cddfb16b": {"date": "2026-02-12", "time": "18:59:47.662836"}, "s_f4daabe905": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    This request is urgent. Confirm the earliest free date from the checks below, in one short paragraph.\n\n<checks>\n\n \u2022 item #1:\n\n# day: YeImXCCxuaevsYziCsYG\n\n# is_free: True\n\n# note: IpJxwsJLFHAZhGNynapT\n\n \u2022 item #2:\n\n# day: DEbKRcsCWfYqDvgEZxcZ\n\n# is_free: T\n    "}};
-const stuffDataText = {"s_a6424cc8ed": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt: user_text: This request is not urgent. \nList every free date from the checks below and invite the requester to pick one.                    \n\n\n\u2022 item #1:                                                                                          \n\n                                     day: YeImXCCxuaevsYziCsYG                                      \n\n                                           is_free: True                                            \n\n                                     note: IpJxwsJLFHAZhGNynapT                                     \n\n\u2022 item #2:                                                                                          \n\n                                     day: DEbKRcsCWfYqDvgEZxcZ                                      \n\n                                                is_                                                 \n", "s_fcb89a1518": "IjnBddoUWWIRwQfzwPQI                                                                                \n", "s_87e46bf7fe": "        1         \u2502 {                                                           \n                  \u2502   \"date\": \"2026-06-07\",                                     \n                  \u2502   \"time\": \"02:30:30.536101\"                                 \n                  \u2502 }                                                           \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n        2         \u2502 {                                                           \n                  \u2502   \"date\": \"2021-03-30\",                                     \n                  \u2502   \"time\": \"19:33:12.833996\"                                 \n                  \u2502 }                                                           \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n        3         \u2502 {                                                           \n                  \u2502   \"date\": \"2026-02-12\",                                     \n                  \u2502   \"time\": \"18:59:47.662836\"                                 \n                  \u2502 }                                                           \n", "s_3d446d137b": "{\n    \"yes_no\": false\n}\n", "s_8eb6c4f52e": "   1    \u2502  Attribute              \u2503 Value                                       \n        \u2502 \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 \n        \u2502  day                    \u2502 YeImXCCxuaevsYziCsYG                        \n        \u2502 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 \n        \u2502  is_free                \u2502 True                                        \n        \u2502 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 \n        \u2502  note                   \u2502 IpJxwsJLFHAZhGNynapT                        \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   2    \u2502  Attribute              \u2503 Value                                       \n        \u2502 \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 \n        \u2502  day                    \u2502 DEbKRcsCWfYqDvgEZxcZ                        \n        \u2502 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 \n        \u2502  is_free                \u2502 True                                        \n        \u2502 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 \n        \u2502  note                   \u2502 GzSSIZMxtCgsUiGMSjJG                        \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   3    \u2502  Attribute              \u2503 Value                                       \n        \u2502 \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 \n        \u2502  day                    \u2502 ylcqPjJyKgmCJaCkvztu                        \n        \u2502 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 \n        \u2502  is_free                \u2502 True                                        \n        \u2502 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 \n        \u2502  note                   \u2502 NqkoZxvTkTyqDYYRAgIe                        \n", "s_64941dc647": " Attribute                 \u2503 Value                                              \n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n day                       \u2502 YeImXCCxuaevsYziCsYG                               \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n is_free                   \u2502 True                                               \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n note                      \u2502 IpJxwsJLFHAZhGNynapT                               \n", "s_138098be7b": "{\n  \"date\": \"2026-06-07\",\n  \"time\": \"02:30:30.536101\"\n}\n", "s_a6001e078a": " Attribute                 \u2503 Value                                              \n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n day                       \u2502 DEbKRcsCWfYqDvgEZxcZ                               \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n is_free                   \u2502 True                                               \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n note                      \u2502 GzSSIZMxtCgsUiGMSjJG                               \n", "s_a986d5204b": "{\n  \"date\": \"2021-03-30\",\n  \"time\": \"19:33:12.833996\"\n}\n", "s_d6d7b8cb3f": " Attribute                 \u2503 Value                                              \n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n day                       \u2502 ylcqPjJyKgmCJaCkvztu                               \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n is_free                   \u2502 True                                               \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n note                      \u2502 NqkoZxvTkTyqDYYRAgIe                               \n", "s_29cddfb16b": "{\n  \"date\": \"2026-02-12\",\n  \"time\": \"18:59:47.662836\"\n}\n", "s_f4daabe905": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt: user_text: This request is urgent.     \nConfirm the earliest free date from the checks below, in one short paragraph.                       \n\n\n\u2022 item #1:                                                                                          \n\n                                     day: YeImXCCxuaevsYziCsYG                                      \n\n                                           is_free: True                                            \n\n                                     note: IpJxwsJLFHAZhGNynapT                                     \n\n\u2022 item #2:                                                                                          \n\n                                     day: DEbKRcsCWfYqDvgEZxcZ                                      \n\n                                             is_free: T                                             \n"};
-const stuffDataHtml = {"s_a6424cc8ed": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    This request is not urgent. List every free date from the checks below and invite the requester to pick one.\n\n&lt;checks&gt;\n\n \u2022 item #1:\n\n# day: YeImXCCxuaevsYziCsYG\n\n# is_free: True\n\n# note: IpJxwsJLFHAZhGNynapT\n\n \u2022 item #2:\n\n# day: DEbKRcsCWfYqDvgEZxcZ\n\n# is_\n    ", "s_fcb89a1518": "IjnBddoUWWIRwQfzwPQI", "s_87e46bf7fe": "<ul><li>2026-06-07T02:30:30.536101</li><li>2021-03-30T19:33:12.833996</li><li>2026-02-12T18:59:47.662836</li></ul>", "s_3d446d137b": "no", "s_8eb6c4f52e": "<ul><li><table><tr><th>day</th><td>YeImXCCxuaevsYziCsYG</td></tr><tr><th>is_free</th><td>True</td></tr><tr><th>note</th><td>IpJxwsJLFHAZhGNynapT</td></tr></table></li><li><table><tr><th>day</th><td>DEbKRcsCWfYqDvgEZxcZ</td></tr><tr><th>is_free</th><td>True</td></tr><tr><th>note</th><td>GzSSIZMxtCgsUiGMSjJG</td></tr></table></li><li><table><tr><th>day</th><td>ylcqPjJyKgmCJaCkvztu</td></tr><tr><th>is_free</th><td>True</td></tr><tr><th>note</th><td>NqkoZxvTkTyqDYYRAgIe</td></tr></table></li></ul>", "s_64941dc647": "<table><tr><th>day</th><td>YeImXCCxuaevsYziCsYG</td></tr><tr><th>is_free</th><td>True</td></tr><tr><th>note</th><td>IpJxwsJLFHAZhGNynapT</td></tr></table>", "s_138098be7b": "2026-06-07T02:30:30.536101", "s_a6001e078a": "<table><tr><th>day</th><td>DEbKRcsCWfYqDvgEZxcZ</td></tr><tr><th>is_free</th><td>True</td></tr><tr><th>note</th><td>GzSSIZMxtCgsUiGMSjJG</td></tr></table>", "s_a986d5204b": "2021-03-30T19:33:12.833996", "s_d6d7b8cb3f": "<table><tr><th>day</th><td>ylcqPjJyKgmCJaCkvztu</td></tr><tr><th>is_free</th><td>True</td></tr><tr><th>note</th><td>NqkoZxvTkTyqDYYRAgIe</td></tr></table>", "s_29cddfb16b": "2026-02-12T18:59:47.662836", "s_f4daabe905": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    This request is urgent. Confirm the earliest free date from the checks below, in one short paragraph.\n\n&lt;checks&gt;\n\n \u2022 item #1:\n\n# day: YeImXCCxuaevsYziCsYG\n\n# is_free: True\n\n# note: IpJxwsJLFHAZhGNynapT\n\n \u2022 item #2:\n\n# day: DEbKRcsCWfYqDvgEZxcZ\n\n# is_free: T\n    "};
-const stuffMetadata = {"s_a6424cc8ed": {"name": "reply", "concept": "Reply"}, "s_fcb89a1518": {"name": "request", "concept": "Text"}, "s_87e46bf7fe": {"name": "dates", "concept": "Date"}, "s_3d446d137b": {"name": "urgent", "concept": "YesNo"}, "s_8eb6c4f52e": {"name": "checks", "concept": "SlotCheck"}, "s_64941dc647": {"name": "slot_check", "concept": "SlotCheck"}, "s_138098be7b": {"name": "day", "concept": "Date"}, "s_a6001e078a": {"name": "slot_check", "concept": "SlotCheck"}, "s_a986d5204b": {"name": "day", "concept": "Date"}, "s_d6d7b8cb3f": {"name": "slot_check", "concept": "SlotCheck"}, "s_29cddfb16b": {"name": "day", "concept": "Date"}, "s_f4daabe905": {"name": "reply", "concept": "Reply"}};
+// Embedded stuff data from graph
+const stuffDataJson = {"s_d9054301e9": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    This request is not urgent. List every free date from the checks below and invite the requester to pick one.\n\n\u003cchecks>\n\n \u2022 item #1:\n\n# day: qUjvnYpugUZRfOFQsMWE\n\n# is_free: False\n\n# note: xLDxVWSaRQwXytWaheSc\n\n \u2022 item #2:\n\n# day: hLaWVnVcAFEJxWdlQYVt\n\n# is\n    "}, "s_3b023d579a": {"text": "bCQjFiQiLbUJqFQWSvwk"}, "s_5db681f2f5": {"items": [{"date": "2024-11-07", "time": "15:33:32.814952"}, {"date": "2023-09-05", "time": "23:05:15.761141"}, {"date": "2020-06-08", "time": "13:08:16.677623"}]}, "s_de5d5011ca": {"yes_no": false}, "s_1b87c9521c": {"items": [{"day": "qUjvnYpugUZRfOFQsMWE", "is_free": false, "note": "xLDxVWSaRQwXytWaheSc"}, {"day": "hLaWVnVcAFEJxWdlQYVt", "is_free": true, "note": "HnXgzCfBuqDcSMBjvCIY"}, {"day": "mXAmlUgnhdwXhwgoOeBl", "is_free": true, "note": "QIVrAUIQBbttYdilTWrU"}]}, "s_7014635a68": {"day": "qUjvnYpugUZRfOFQsMWE", "is_free": false, "note": "xLDxVWSaRQwXytWaheSc"}, "s_e60ecc9789": {"date": "2024-11-07", "time": "15:33:32.814952"}, "s_8d5d974347": {"day": "hLaWVnVcAFEJxWdlQYVt", "is_free": true, "note": "HnXgzCfBuqDcSMBjvCIY"}, "s_3137cd6fe5": {"date": "2023-09-05", "time": "23:05:15.761141"}, "s_0f2b2a2bf8": {"day": "mXAmlUgnhdwXhwgoOeBl", "is_free": true, "note": "QIVrAUIQBbttYdilTWrU"}, "s_399bfaed15": {"date": "2020-06-08", "time": "13:08:16.677623"}, "s_0760025825": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    This request is urgent. Confirm the earliest free date from the checks below, in one short paragraph.\n\n\u003cchecks>\n\n \u2022 item #1:\n\n# day: qUjvnYpugUZRfOFQsMWE\n\n# is_free: False\n\n# note: xLDxVWSaRQwXytWaheSc\n\n \u2022 item #2:\n\n# day: hLaWVnVcAFEJxWdlQYVt\n\n# is_free: \n    "}};
+const stuffMetadata = {"s_d9054301e9": {"name": "reply", "concept": "Reply"}, "s_3b023d579a": {"name": "request", "concept": "Text"}, "s_5db681f2f5": {"name": "dates", "concept": "Date[]"}, "s_de5d5011ca": {"name": "urgent", "concept": "YesNo"}, "s_1b87c9521c": {"name": "checks", "concept": "SlotCheck[]"}, "s_7014635a68": {"name": "slot_check", "concept": "SlotCheck"}, "s_e60ecc9789": {"name": "day", "concept": "Date"}, "s_8d5d974347": {"name": "slot_check", "concept": "SlotCheck"}, "s_3137cd6fe5": {"name": "day", "concept": "Date"}, "s_0f2b2a2bf8": {"name": "slot_check", "concept": "SlotCheck"}, "s_399bfaed15": {"name": "day", "concept": "Date"}, "s_0760025825": {"name": "reply", "concept": "Reply"}};
 const stuffContentType = {};
-const mermaidCode = "flowchart LR\n\n    %% Pipe and stuff nodes within controller subgraphs\n    subgraph sg_n_5272c82a00[\"route_availability\"]\n        subgraph sg_n_05954e479c[\"check_day_batch\"]\n            n_21fcc1a1a7[\"check_day\"]\n            s_138098be7b([\"day\u003cbr/\u003eDate\"]):::stuff\n            s_64941dc647([\"slot_check\u003cbr/\u003eSlotCheck\"]):::stuff\n            n_131a1d63b5[\"check_day\"]\n            s_a986d5204b([\"day\u003cbr/\u003eDate\"]):::stuff\n            s_a6001e078a([\"slot_check\u003cbr/\u003eSlotCheck\"]):::stuff\n            n_ee202a02d4[\"check_day\"]\n            s_29cddfb16b([\"day\u003cbr/\u003eDate\"]):::stuff\n            s_d6d7b8cb3f([\"slot_check\u003cbr/\u003eSlotCheck\"]):::stuff\n        end\n        subgraph sg_n_64c2cfd8c3[\"route_reply\"]\n            n_c8ef1d48a9[\"reply_now\"]\n            s_f4daabe905([\"reply\u003cbr/\u003eReply\"]):::stuff\n            n_c141c71e1a[\"reply_with_options\"]\n            s_a6424cc8ed([\"reply\u003cbr/\u003eReply\"]):::stuff\n        end\n        n_ca7f49d9c9[\"is_urgent\"]\n        s_3d446d137b([\"urgent\u003cbr/\u003eYesNo\"]):::stuff\n        n_6e2a326dcb[\"read_dates\"]\n        s_87e46bf7fe([\"dates\u003cbr/\u003eDate\"]):::stuff\n    end\n\n    %% Pipeline input stuff nodes (no producer)\n    s_8eb6c4f52e([\"checks\u003cbr/\u003eSlotCheck\"]):::stuff\n    s_fcb89a1518([\"request\u003cbr/\u003eText\"]):::stuff\n\n    %% Data flow edges: producer -\u003e stuff -\u003e consumer\n    n_c141c71e1a --\u003e s_a6424cc8ed\n    n_c8ef1d48a9 --\u003e s_f4daabe905\n    n_ca7f49d9c9 --\u003e s_3d446d137b\n    n_21fcc1a1a7 --\u003e s_64941dc647\n    n_131a1d63b5 --\u003e s_a6001e078a\n    n_ee202a02d4 --\u003e s_d6d7b8cb3f\n    n_6e2a326dcb --\u003e s_87e46bf7fe\n    s_8eb6c4f52e --\u003e n_c8ef1d48a9\n    s_8eb6c4f52e --\u003e n_c141c71e1a\n    s_fcb89a1518 --\u003e n_6e2a326dcb\n    s_fcb89a1518 --\u003e n_ca7f49d9c9\n    s_138098be7b --\u003e n_21fcc1a1a7\n    s_a986d5204b --\u003e n_131a1d63b5\n    s_29cddfb16b --\u003e n_ee202a02d4\n\n    %% Batch edges: list-item relationships\n    s_87e46bf7fe -.\"[0]\".-\u003e s_138098be7b\n    s_87e46bf7fe -.\"[1]\".-\u003e s_a986d5204b\n    s_87e46bf7fe -.\"[2]\".-\u003e s_29cddfb16b\n    s_64941dc647 -.\"[0]\".-\u003e s_8eb6c4f52e\n    s_a6001e078a -.\"[1]\".-\u003e s_8eb6c4f52e\n    s_d6d7b8cb3f -.\"[2]\".-\u003e s_8eb6c4f52e\n\n    %% Style definitions\n    classDef failed fill:#ffcccc,stroke:#cc0000\n    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px\n    classDef controller fill:#e6f3ff,stroke:#0066cc\n\n    %% Subgraph depth-based coloring\n    style sg_n_05954e479c fill:#e6ffe6\n    style sg_n_5272c82a00 fill:#e6f3ff\n    style sg_n_64c2cfd8c3 fill:#e6ffe6";
+const mermaidCode = "flowchart LR\n\n    %% Pipe and stuff nodes within controller subgraphs\n    subgraph sg_n_e12cc4d227[\"route_availability\"]\n        subgraph sg_n_3560013eaf[\"check_day_batch\"]\n            n_d1ad93ee02[\"check_day\"]\n            s_e60ecc9789([\"day\u003cbr/\u003eDate\"]):::stuff\n            s_7014635a68([\"slot_check\u003cbr/\u003eSlotCheck\"]):::stuff\n            n_c645d6d496[\"check_day\"]\n            s_3137cd6fe5([\"day\u003cbr/\u003eDate\"]):::stuff\n            s_8d5d974347([\"slot_check\u003cbr/\u003eSlotCheck\"]):::stuff\n            n_dfa593fb18[\"check_day\"]\n            s_399bfaed15([\"day\u003cbr/\u003eDate\"]):::stuff\n            s_0f2b2a2bf8([\"slot_check\u003cbr/\u003eSlotCheck\"]):::stuff\n        end\n        subgraph sg_n_38a1dbd3c8[\"route_reply\"]\n            n_f43c8a57eb[\"reply_now\"]\n            s_0760025825([\"reply\u003cbr/\u003eReply\"]):::stuff\n            n_9489784708[\"reply_with_options\"]\n            s_d9054301e9([\"reply\u003cbr/\u003eReply\"]):::stuff\n        end\n        n_d2dc0429e7[\"is_urgent\"]\n        s_de5d5011ca([\"urgent\u003cbr/\u003eYesNo\"]):::stuff\n        n_5022d0a746[\"read_dates\"]\n        s_5db681f2f5([\"dates\u003cbr/\u003eDate#91;#93;\"]):::stuff\n    end\n\n    %% Pipeline input stuff nodes (no producer)\n    s_1b87c9521c([\"checks\u003cbr/\u003eSlotCheck#91;#93;\"]):::stuff\n    s_3b023d579a([\"request\u003cbr/\u003eText\"]):::stuff\n\n    %% Data flow edges: producer -\u003e stuff -\u003e consumer\n    n_5022d0a746 --\u003e s_5db681f2f5\n    n_9489784708 --\u003e s_d9054301e9\n    n_d1ad93ee02 --\u003e s_7014635a68\n    n_c645d6d496 --\u003e s_8d5d974347\n    n_dfa593fb18 --\u003e s_0f2b2a2bf8\n    n_f43c8a57eb --\u003e s_0760025825\n    n_d2dc0429e7 --\u003e s_de5d5011ca\n    s_e60ecc9789 --\u003e n_d1ad93ee02\n    s_3137cd6fe5 --\u003e n_c645d6d496\n    s_399bfaed15 --\u003e n_dfa593fb18\n    s_3b023d579a --\u003e n_5022d0a746\n    s_3b023d579a --\u003e n_d2dc0429e7\n    s_1b87c9521c --\u003e n_f43c8a57eb\n    s_1b87c9521c --\u003e n_9489784708\n\n    %% Batch edges: list-item relationships\n    s_5db681f2f5 -.\"[0]\".-\u003e s_e60ecc9789\n    s_5db681f2f5 -.\"[1]\".-\u003e s_3137cd6fe5\n    s_5db681f2f5 -.\"[2]\".-\u003e s_399bfaed15\n    s_7014635a68 -.\"[0]\".-\u003e s_1b87c9521c\n    s_8d5d974347 -.\"[1]\".-\u003e s_1b87c9521c\n    s_0f2b2a2bf8 -.\"[2]\".-\u003e s_1b87c9521c\n\n    %% Style definitions\n    classDef failed fill:#ffcccc,stroke:#cc0000\n    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px\n    classDef controller fill:#e6f3ff,stroke:#0066cc\n\n    %% Subgraph depth-based coloring\n    style sg_n_3560013eaf fill:#e6ffe6\n    style sg_n_38a1dbd3c8 fill:#e6ffe6\n    style sg_n_e12cc4d227 fill:#e6f3ff";
 
 // Track current state
 let currentStuffId = null;
-let currentFormat = 'html';
+let currentFormat = 'preview';
 let currentTheme = "dark";
 
 // Include shared utility functions
@@ -527,14 +490,8 @@ function attachClickHandlers() {
         const svgContainer = document.querySelector('.mermaid svg');
         if (!svgContainer) return;
 
-        // Find nodes by their flowchart IDs - use any available data source
-        const allStuffIds = new Set([
-            ...Object.keys(stuffDataJson || {}),
-            ...Object.keys(stuffDataText || {}),
-            ...Object.keys(stuffDataHtml || {})
-        ]);
-
-        for (const stuffId of allStuffIds) {
+        // Find nodes by their flowchart IDs
+        for (const stuffId of Object.keys(stuffDataJson || {})) {
             // Mermaid generates IDs like 'flowchart-s_xxx-123'
             const nodes = svgContainer.querySelectorAll(`[id^="flowchart-${stuffId}"]`);
             nodes.forEach(node => {
@@ -593,13 +550,13 @@ function setFormat(format) {
 
 function renderContent(stuffId, format) {
     const content = document.getElementById('modal-content');
-    content.classList.remove('html-content', 'text-content', 'pdf-content', 'image-content');
+    content.classList.remove('pdf-content', 'image-content');
 
     // Handle PDF content type with embedded viewer
     const contentType = stuffContentType?.[stuffId];
     const jsonData = stuffDataJson?.[stuffId];
 
-    if (format === 'html' && contentType === 'application/pdf') {
+    if (format === 'preview' && contentType === 'application/pdf') {
         const pdfUrl = extractUrl(jsonData);
         if (pdfUrl) {
             content.classList.add('pdf-content');
@@ -615,7 +572,7 @@ function renderContent(stuffId, format) {
     }
 
     // Handle image content type
-    if (format === 'html' && contentType?.startsWith('image/')) {
+    if (format === 'preview' && contentType?.startsWith('image/')) {
         const imageUrl = extractUrl(jsonData);
         if (imageUrl) {
             content.classList.add('image-content');
@@ -630,25 +587,12 @@ function renderContent(stuffId, format) {
         }
     }
 
+    content.innerHTML = '';
     if (format === 'json') {
         const data = stuffDataJson?.[stuffId];
-        content.innerHTML = '';
         content.textContent = data ? JSON.stringify(data, null, 2) : 'No JSON data available';
-    } else if (format === 'text') {
-        const data = stuffDataText?.[stuffId];
-        content.classList.add('text-content');
-        content.innerHTML = '';
-        content.textContent = data || 'No text data available';
-    } else if (format === 'html') {
-        const data = stuffDataHtml?.[stuffId];
-        if (data) {
-            content.classList.add('html-content');
-            content.innerHTML = DOMPurify.sanitize(data);
-            makeLinksOpenInNewWindow(content);
-        } else {
-            content.innerHTML = '';
-            content.textContent = 'No HTML data available';
-        }
+    } else {
+        content.textContent = 'No preview available';
     }
 
     updateOpenExternalButton(stuffId, contentType, jsonData);
@@ -667,32 +611,28 @@ function updateOpenExternalButton(stuffId, contentType, jsonData) {
 
 function updateTabAvailability(stuffId) {
     const jsonTab = document.getElementById('tab-json');
-    const textTab = document.getElementById('tab-text');
-    const htmlTab = document.getElementById('tab-html');
+    const previewTab = document.getElementById('tab-preview');
 
     jsonTab.disabled = !stuffDataJson?.[stuffId];
-    textTab.disabled = !stuffDataText?.[stuffId];
 
-    // For PDF and image content types, the tab can render from JSON data via extractUrl()
+    // PDF and image content preview from the URL their JSON data carries
     const contentType = stuffContentType?.[stuffId];
     const jsonData = stuffDataJson?.[stuffId];
-    const canRenderFromJson = (contentType === 'application/pdf' || contentType?.startsWith('image/')) && extractUrl(jsonData);
-    htmlTab.disabled = !stuffDataHtml?.[stuffId] && !canRenderFromJson;
+    const canPreview = (contentType === 'application/pdf' || contentType?.startsWith('image/')) && !!extractUrl(jsonData);
+    previewTab.disabled = !canPreview;
 
-    // Update HTML tab label based on content type
+    // Label the preview tab after the content type it shows
     if (contentType === 'application/pdf') {
-        htmlTab.textContent = 'PDF';
+        previewTab.textContent = 'PDF';
     } else if (contentType?.startsWith('image/')) {
-        htmlTab.textContent = 'Image';
+        previewTab.textContent = 'Image';
     } else {
-        htmlTab.textContent = 'HTML';
+        previewTab.textContent = 'Preview';
     }
 
-    // Find first available format (HTML -> JSON -> Pretty)
-    if (!htmlTab.disabled) return 'html';
-    if (!jsonTab.disabled) return 'json';
-    if (!textTab.disabled) return 'text';
-    return 'html';
+    // Find first available format (preview -> JSON)
+    if (!previewTab.disabled) return 'preview';
+    return 'json';
 }
 
 function showModal(stuffId) {
@@ -739,20 +679,15 @@ function hideModal() {
 function getCurrentContent() {
     if (!currentStuffId) return null;
 
+    const data = stuffDataJson?.[currentStuffId];
     if (currentFormat === 'json') {
-        const data = stuffDataJson?.[currentStuffId];
         if (!data) return null;
         return { content: JSON.stringify(data, null, 2), ext: 'json', mime: 'application/json' };
-    } else if (currentFormat === 'text') {
-        const data = stuffDataText?.[currentStuffId];
-        if (!data) return null;
-        return { content: data, ext: 'txt', mime: 'text/plain' };
-    } else if (currentFormat === 'html') {
-        const data = stuffDataHtml?.[currentStuffId];
-        if (!data) return null;
-        return { content: data, ext: 'html', mime: 'text/html' };
     }
-    return null;
+    // A preview's copyable content is the URL it shows
+    const url = extractUrl(data);
+    if (!url) return null;
+    return { content: url, ext: 'txt', mime: 'text/plain' };
 }
 
 // Copy content to clipboard

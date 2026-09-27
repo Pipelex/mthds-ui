@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pipeline: Diamond Pipeline</title>
 <script nonce="PIPELEX_CSP_NONCE" src="https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js" integrity="sha384-rbtjAdnIQE/aQJGEgXrVUlMibdfTSa4PQju4HDhN3sR2PmaKFzhEafuePsl9H/9I" crossorigin="anonymous"></script>
-<!-- DOMPurify for HTML sanitization (XSS prevention) -->
-<script nonce="PIPELEX_CSP_NONCE" src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js" integrity="sha384-eEu5CTj3qGvu9PdJuS+YlkNi7d2XxQROAFYOr59zgObtlcux1ae1Il3u7jvdCSWu" crossorigin="anonymous"></script>
     <style nonce="PIPELEX_CSP_NONCE">
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
@@ -230,38 +228,6 @@ h1 {
     word-wrap: break-word;
     line-height: 1.5;
 }
-.data-modal-content.text-content {
-    line-height: 1;
-    white-space: pre;
-    word-wrap: normal;
-    overflow-x: auto;
-    padding-right: 20px;
-}
-.data-modal-content.html-content {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: #1e1e1e;
-    color: #d4d4d4;
-    padding: 12px;
-    border-radius: 4px;
-}
-.data-modal-content.html-content table {
-    border-collapse: collapse;
-    width: 100%;
-}
-.data-modal-content.html-content th,
-.data-modal-content.html-content td {
-    border: 1px solid #444;
-    padding: 8px 12px;
-    text-align: left;
-}
-.data-modal-content.html-content th {
-    background: #252a30;
-    color: #e0e0e0;
-    font-weight: 600;
-}
-.data-modal-content.html-content tr:hover {
-    background: #2a2530;
-}
 .data-modal-overlay {
     position: fixed;
     top: 0;
@@ -325,9 +291,8 @@ h1 {
     </div>
     <div class="format-toolbar">
         <div class="format-tabs" id="format-tabs">
-            <button class="format-tab active" data-format="html" id="tab-html">HTML</button>
+            <button class="format-tab active" data-format="preview" id="tab-preview">Preview</button>
             <button class="format-tab" data-format="json" id="tab-json">JSON</button>
-            <button class="format-tab" data-format="text" id="tab-text">Pretty</button>
         </div>
         <div class="format-actions">
             <button class="action-btn" id="open-external-btn" onclick="openExternal()" title="Open in new window" style="display: none;">
@@ -344,17 +309,15 @@ h1 {
     <div class="data-modal-content" id="modal-content"></div>
 </div>
     <script nonce="PIPELEX_CSP_NONCE">
-// Embedded stuff data from graph (all formats)
-const stuffDataJson = {"s_bfd00dcd25": {"text": "# Merged Analysis\n\n## Technical Analysis\nalpha_result: ```\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Perform a technical analysis of this data:\n\n<data>\nTtaSROEAkhDEdqChzTLH\n</data>\n    \n```\n\n## Related Context\nbeta_result: ```\njXFdAwHwLOsFxrpFveVP\n\nSources:\n- udvmkGMurCJXxJNhxbmd: cwlCwBGuOevAwdvsUmaK\n  smPwvNKqSObCzfgyzOgW\n- svLOodFgpYNGQDACmaNy: MhuKHNDHKsIpTwyEFFll\n  QITDORUsAryMqcPwYfVQ\n- rjcgpQKRRSaLYmXwxprj: NbxBwRFOWFvmrhGCrGQe\n  rIGmCxfjMwEUeIzMvjci\n```\n\n## Risk Assessment\ngamma_result: ```\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Perform a risk assessment of this data:\n\n<data>\nTtaSROEAkhDEdqChzTLH\n</data>\n    \n```"}, "s_5f227c3dd4": {"text": "TtaSROEAkhDEdqChzTLH"}, "s_48ac5e7079": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Perform a technical analysis of this data:\n\n<data>\nTtaSROEAkhDEdqChzTLH\n</data>\n    "}, "s_59c91005b7": {"answer": "jXFdAwHwLOsFxrpFveVP", "sources": [{"url": "cwlCwBGuOevAwdvsUmaK", "public_url": "DUAnfXAPLQelJXgYdptD", "mime_type": "FQNwuSYWTUyJWUCPmbZV", "filename": "qNIQXMeUSPZBVFmdDTdb", "title": "udvmkGMurCJXxJNhxbmd", "snippet": "smPwvNKqSObCzfgyzOgW"}, {"url": "MhuKHNDHKsIpTwyEFFll", "public_url": "qIEDnBJSguHJHqCVbwWE", "mime_type": "NsQrSTcRuDBNDRjMQgIo", "filename": "LgPyfFrosgIpkWPOazup", "title": "svLOodFgpYNGQDACmaNy", "snippet": "QITDORUsAryMqcPwYfVQ"}, {"url": "NbxBwRFOWFvmrhGCrGQe", "public_url": "JPKJjWWhQRDiODNDlijm", "mime_type": "ohvadUAgQlQblEYQgjMI", "filename": "dWDwTdCDlgOalBaUfqFg", "title": "rjcgpQKRRSaLYmXwxprj", "snippet": "rIGmCxfjMwEUeIzMvjci"}]}, "s_4308295a41": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Perform a risk assessment of this data:\n\n<data>\nTtaSROEAkhDEdqChzTLH\n</data>\n    "}, "s_0eb4f7ff56": {"url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg", "public_url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg", "source_prompt": "Data visualization diagram for: TtaSROEAkhDEdqChzTLH", "source_negative_prompt": null, "caption": null, "mime_type": "image/jpeg", "width": 1024, "height": 1024, "filename": null}, "s_9349a75094": {"alpha_result": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Perform a technical analysis of this data:\n\n<data>\nTtaSROEAkhDEdqChzTLH\n</data>\n    "}, "beta_result": {"answer": "jXFdAwHwLOsFxrpFveVP", "sources": [{"url": "cwlCwBGuOevAwdvsUmaK", "public_url": "DUAnfXAPLQelJXgYdptD", "mime_type": "FQNwuSYWTUyJWUCPmbZV", "filename": "qNIQXMeUSPZBVFmdDTdb", "title": "udvmkGMurCJXxJNhxbmd", "snippet": "smPwvNKqSObCzfgyzOgW"}, {"url": "MhuKHNDHKsIpTwyEFFll", "public_url": "qIEDnBJSguHJHqCVbwWE", "mime_type": "NsQrSTcRuDBNDRjMQgIo", "filename": "LgPyfFrosgIpkWPOazup", "title": "svLOodFgpYNGQDACmaNy", "snippet": "QITDORUsAryMqcPwYfVQ"}, {"url": "NbxBwRFOWFvmrhGCrGQe", "public_url": "JPKJjWWhQRDiODNDlijm", "mime_type": "ohvadUAgQlQblEYQgjMI", "filename": "dWDwTdCDlgOalBaUfqFg", "title": "rjcgpQKRRSaLYmXwxprj", "snippet": "rIGmCxfjMwEUeIzMvjci"}]}, "gamma_result": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Perform a risk assessment of this data:\n\n<data>\nTtaSROEAkhDEdqChzTLH\n</data>\n    "}, "delta_result": {"url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg", "public_url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg", "source_prompt": "Data visualization diagram for: TtaSROEAkhDEdqChzTLH", "source_negative_prompt": null, "caption": null, "mime_type": "image/jpeg", "width": 1024, "height": 1024, "filename": null}}};
-const stuffDataText = {"s_bfd00dcd25": "                                          Merged Analysis                                           \n\nTechnical Analysis                                                                                  \n\nalpha_result: ``` DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,      \ntemperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt: user_text: Perform a  \ntechnical analysis of this data:                                                                    \n\n\n                                                                                                    \n                                                                                                    \n ## Related Context                                                                                 \n beta_result: ```                                                                                   \n jXFdAwHwLOsFxrpFveVP                                                                               \n                                                                                                    \n Sources:                                                                                           \n - udvmkGMurCJXxJNhxbmd: cwlCwBGuOevAwdvsUmaK                                                       \n   smPwvNKqSObCzfgyzOgW                                                                             \n - svLOodFgpYNGQDACmaNy: MhuKHNDHKsIpTwyEFFll                                                       \n   QITDORUsAryMqcPwYfVQ                                                                             \n - rjcgpQKRRSaLYmXwxprj: NbxBwRFOWFvmrhGCrGQe                                                       \n   rIGmCxfjMwEUeIzMvjci                                                                             \n                                                                                                    \n\nRisk Assessment                                                                                     \n\ngamma_result: ``` DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,      \ntemperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt: user_text: Perform a  \nrisk assessment of this data:                                                                       \n\n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n", "s_5f227c3dd4": "TtaSROEAkhDEdqChzTLH                                                                                \n", "s_48ac5e7079": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt: user_text: Perform a technical analysis\nof this data:                                                                                       \n\n", "s_59c91005b7": "Search Result:\njXFdAwHwLOsFxrpFveVP                                                                                \n\nSources (3):\nudvmkGMurCJXxJNhxbmd (cwlCwBGuOevAwdvsUmaK)\n  smPwvNKqSObCzfgyzOgW\n\nsvLOodFgpYNGQDACmaNy (MhuKHNDHKsIpTwyEFFll)\n  QITDORUsAryMqcPwYfVQ\n\nrjcgpQKRRSaLYmXwxprj (NbxBwRFOWFvmrhGCrGQe)\n  rIGmCxfjMwEUeIzMvjci\n", "s_4308295a41": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt: user_text: Perform a risk assessment of\nthis data:                                                                                          \n\n", "s_0eb4f7ff56": "Image:\nURL: https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg     \nPublic URL: Open Image\nSize: 1024x1024\nMIME Type: image/jpeg\n\nSource Prompt:\nData visualization diagram for: TtaSROEAkhDEdqChzTLH\n", "s_9349a75094": "{\n    \"alpha_result\": {\n        \"text\": \"DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, \ntemperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\\n    user_text:\\n    \nPerform a technical analysis of this data:\\n\\n<data>\\nTtaSROEAkhDEdqChzTLH\\n</data>\\n    \"\n    },\n    \"beta_result\": {\n        \"answer\": \"jXFdAwHwLOsFxrpFveVP\",\n        \"sources\": [\n            {\n                \"url\": \"cwlCwBGuOevAwdvsUmaK\",\n                \"public_url\": \"DUAnfXAPLQelJXgYdptD\",\n                \"mime_type\": \"FQNwuSYWTUyJWUCPmbZV\",\n                \"filename\": \"qNIQXMeUSPZBVFmdDTdb\",\n                \"title\": \"udvmkGMurCJXxJNhxbmd\",\n                \"snippet\": \"smPwvNKqSObCzfgyzOgW\"\n            },\n            {\n                \"url\": \"MhuKHNDHKsIpTwyEFFll\",\n                \"public_url\": \"qIEDnBJSguHJHqCVbwWE\",\n                \"mime_type\": \"NsQrSTcRuDBNDRjMQgIo\",\n                \"filename\": \"LgPyfFrosgIpkWPOazup\",\n                \"title\": \"svLOodFgpYNGQDACmaNy\",\n                \"snippet\": \"QITDORUsAryMqcPwYfVQ\"\n            },\n            {\n                \"url\": \"NbxBwRFOWFvmrhGCrGQe\",\n                \"public_url\": \"JPKJjWWhQRDiODNDlijm\",\n                \"mime_type\": \"ohvadUAgQlQblEYQgjMI\",\n                \"filename\": \"dWDwTdCDlgOalBaUfqFg\",\n                \"title\": \"rjcgpQKRRSaLYmXwxprj\",\n                \"snippet\": \"rIGmCxfjMwEUeIzMvjci\"\n            }\n        ]\n    },\n    \"gamma_result\": {\n        \"text\": \"DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, \ntemperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\\n    user_text:\\n    \nPerform a risk assessment of this data:\\n\\n<data>\\nTtaSROEAkhDEdqChzTLH\\n</data>\\n    \"\n    },\n    \"delta_result\": {\n        \"url\": \n\"https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg\",\n        \"public_url\": \n\"https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg\",\n        \"source_prompt\": \"Data visualization diagram for: TtaSROEAkhDEdqChzTLH\",\n        \"source_negative_prompt\": null,\n        \"caption\": null,\n        \"mime_type\": \"image/jpeg\",\n        \"width\": 1024,\n        \"height\": 1024,\n        \"filename\": null\n    }\n}\n"};
-const stuffDataHtml = {"s_bfd00dcd25": "# Merged Analysis\n\n## Technical Analysis\nalpha_result: ```\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Perform a technical analysis of this data:\n\n&lt;data&gt;\nTtaSROEAkhDEdqChzTLH\n&lt;/data&gt;\n    \n```\n\n## Related Context\nbeta_result: ```\njXFdAwHwLOsFxrpFveVP\n\nSources:\n- udvmkGMurCJXxJNhxbmd: cwlCwBGuOevAwdvsUmaK\n  smPwvNKqSObCzfgyzOgW\n- svLOodFgpYNGQDACmaNy: MhuKHNDHKsIpTwyEFFll\n  QITDORUsAryMqcPwYfVQ\n- rjcgpQKRRSaLYmXwxprj: NbxBwRFOWFvmrhGCrGQe\n  rIGmCxfjMwEUeIzMvjci\n```\n\n## Risk Assessment\ngamma_result: ```\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Perform a risk assessment of this data:\n\n&lt;data&gt;\nTtaSROEAkhDEdqChzTLH\n&lt;/data&gt;\n    \n```", "s_5f227c3dd4": "TtaSROEAkhDEdqChzTLH", "s_48ac5e7079": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Perform a technical analysis of this data:\n\n&lt;data&gt;\nTtaSROEAkhDEdqChzTLH\n&lt;/data&gt;\n    ", "s_59c91005b7": "<div><p>jXFdAwHwLOsFxrpFveVP</p><h4>Sources</h4><ul><li><a href=\"DUAnfXAPLQelJXgYdptD\" class=\"msg-document\">udvmkGMurCJXxJNhxbmd</a><br/><small>smPwvNKqSObCzfgyzOgW</small></li><li><a href=\"qIEDnBJSguHJHqCVbwWE\" class=\"msg-document\">svLOodFgpYNGQDACmaNy</a><br/><small>QITDORUsAryMqcPwYfVQ</small></li><li><a href=\"JPKJjWWhQRDiODNDlijm\" class=\"msg-document\">rjcgpQKRRSaLYmXwxprj</a><br/><small>rIGmCxfjMwEUeIzMvjci</small></li></ul></div>", "s_4308295a41": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Perform a risk assessment of this data:\n\n&lt;data&gt;\nTtaSROEAkhDEdqChzTLH\n&lt;/data&gt;\n    ", "s_0eb4f7ff56": "<img src=\"https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg\" class=\"msg-img\">", "s_9349a75094": "<table><tr><th>alpha_result</th><td>DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Perform a technical analysis of this data:\n\n&lt;data&gt;\nTtaSROEAkhDEdqChzTLH\n&lt;/data&gt;\n    </td></tr><tr><th>beta_result</th><td><div><p>jXFdAwHwLOsFxrpFveVP</p><h4>Sources</h4><ul><li><a href=\"DUAnfXAPLQelJXgYdptD\" class=\"msg-document\">udvmkGMurCJXxJNhxbmd</a><br/><small>smPwvNKqSObCzfgyzOgW</small></li><li><a href=\"qIEDnBJSguHJHqCVbwWE\" class=\"msg-document\">svLOodFgpYNGQDACmaNy</a><br/><small>QITDORUsAryMqcPwYfVQ</small></li><li><a href=\"JPKJjWWhQRDiODNDlijm\" class=\"msg-document\">rjcgpQKRRSaLYmXwxprj</a><br/><small>rIGmCxfjMwEUeIzMvjci</small></li></ul></div></td></tr><tr><th>gamma_result</th><td>DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Perform a risk assessment of this data:\n\n&lt;data&gt;\nTtaSROEAkhDEdqChzTLH\n&lt;/data&gt;\n    </td></tr><tr><th>delta_result</th><td><img src=\"https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg\" class=\"msg-img\"></td></tr></table>"};
-const stuffMetadata = {"s_bfd00dcd25": {"name": "merged", "concept": "MergedResult"}, "s_5f227c3dd4": {"name": "data", "concept": "Text"}, "s_48ac5e7079": {"name": "alpha_result", "concept": "ProcessedData"}, "s_59c91005b7": {"name": "beta_result", "concept": "SearchResult"}, "s_4308295a41": {"name": "gamma_result", "concept": "ProcessedData"}, "s_0eb4f7ff56": {"name": "delta_result", "concept": "Image"}, "s_9349a75094": {"name": "parallel_results", "concept": "Composite"}};
-const stuffContentType = {"s_0eb4f7ff56": "image/jpeg"};
-const mermaidCode = "flowchart LR\n\n    %% Pipe and stuff nodes within controller subgraphs\n    subgraph sg_n_cbdb3c1396[\"diamond_pipeline\"]\n        subgraph sg_n_dbbb850681[\"quad_process\"]\n            n_1871ddd728[\"process_alpha\"]\n            s_48ac5e7079([\"alpha_result\u003cbr/\u003eProcessedData\"]):::stuff\n            n_762e0c5d1f[\"process_beta\"]\n            s_59c91005b7([\"beta_result\u003cbr/\u003eSearchResult\"]):::stuff\n            n_8283d7ae76[\"process_delta\"]\n            s_0eb4f7ff56([\"delta_result\u003cbr/\u003eImage\"]):::stuff\n            n_ba6f026c0f[\"process_gamma\"]\n            s_4308295a41([\"gamma_result\u003cbr/\u003eProcessedData\"]):::stuff\n            s_9349a75094([\"parallel_results\u003cbr/\u003eComposite\"]):::stuff\n        end\n        n_d9d9ece40a[\"merge_all\"]\n        s_bfd00dcd25([\"merged\u003cbr/\u003eMergedResult\"]):::stuff\n    end\n\n    %% Pipeline input stuff nodes (no producer)\n    s_5f227c3dd4([\"data\u003cbr/\u003eText\"]):::stuff\n\n    %% Data flow edges: producer -\u003e stuff -\u003e consumer\n    n_762e0c5d1f --\u003e s_59c91005b7\n    n_ba6f026c0f --\u003e s_4308295a41\n    n_8283d7ae76 --\u003e s_0eb4f7ff56\n    n_1871ddd728 --\u003e s_48ac5e7079\n    n_d9d9ece40a --\u003e s_bfd00dcd25\n    s_59c91005b7 --\u003e n_d9d9ece40a\n    s_4308295a41 --\u003e n_d9d9ece40a\n    s_0eb4f7ff56 --\u003e n_d9d9ece40a\n    s_5f227c3dd4 --\u003e n_1871ddd728\n    s_5f227c3dd4 --\u003e n_762e0c5d1f\n    s_5f227c3dd4 --\u003e n_ba6f026c0f\n    s_5f227c3dd4 --\u003e n_8283d7ae76\n    s_48ac5e7079 --\u003e n_d9d9ece40a\n\n    %% Parallel combine edges: branch outputs \u2192 combined output\n    s_48ac5e7079 -.-\u003e s_9349a75094\n    s_59c91005b7 -.-\u003e s_9349a75094\n    s_4308295a41 -.-\u003e s_9349a75094\n    s_0eb4f7ff56 -.-\u003e s_9349a75094\n\n    %% Style definitions\n    classDef failed fill:#ffcccc,stroke:#cc0000\n    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px\n    classDef controller fill:#e6f3ff,stroke:#0066cc\n\n    %% Subgraph depth-based coloring\n    style sg_n_cbdb3c1396 fill:#e6f3ff\n    style sg_n_dbbb850681 fill:#e6ffe6";
+// Embedded stuff data from graph
+const stuffDataJson = {"s_33324d2fe4": {"text": "# Merged Analysis\n\n## Technical Analysis\n\u003calpha_result>\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Perform a technical analysis of this data:\n\n\u003cdata>\nzxblTqyJBPtHTYyelsmd\n\u003c/data>\n    \n\u003c/alpha_result>\n\n## Related Context\n\u003cbeta_result>\nkfkgauyzjvFCBIvfprFs\n\nSources:\n- cyuMFKEZjBvgdLWpVDyn: dAFnVSNCiwaQMpahRISn\n  sIusCZKIxykfnBDjvluZ\n- UkYkzgnQUdwiUIbGGwbw: mKrvnDRgjFUYtYrZXtad\n  NIEWFrNXbDjxypZJUmnQ\n- KmApjLEHOApOsOGLpEQb: nrhHMaPvfvhNGFRMSNuB\n  vUvBmxmhXhQhtAVWmLcz\n\u003c/beta_result>\n\n## Risk Assessment\n\u003cgamma_result>\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Perform a risk assessment of this data:\n\n\u003cdata>\nzxblTqyJBPtHTYyelsmd\n\u003c/data>\n    \n\u003c/gamma_result>"}, "s_b9bd5e7b6c": {"text": "zxblTqyJBPtHTYyelsmd"}, "s_a7545757b4": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Perform a technical analysis of this data:\n\n\u003cdata>\nzxblTqyJBPtHTYyelsmd\n\u003c/data>\n    "}, "s_383ce60656": {"answer": "kfkgauyzjvFCBIvfprFs", "sources": [{"url": "dAFnVSNCiwaQMpahRISn", "public_url": "MkIetDSvCkiTPAJTySAV", "mime_type": "LHiAEznELnmMtkJhQwsk", "filename": "msJDqGcMTJDWDaELwnXW", "title": "cyuMFKEZjBvgdLWpVDyn", "snippet": "sIusCZKIxykfnBDjvluZ"}, {"url": "mKrvnDRgjFUYtYrZXtad", "public_url": "HBhTipkHIlUtxqSzJHgF", "mime_type": "ugxObAVzqTyGbLfjOaiZ", "filename": "ZPaNFprhjuNsyvXNsFvm", "title": "UkYkzgnQUdwiUIbGGwbw", "snippet": "NIEWFrNXbDjxypZJUmnQ"}, {"url": "nrhHMaPvfvhNGFRMSNuB", "public_url": "wpqTYStdKsXGhbuqmOXT", "mime_type": "yEYCXMagAXpQYPmGXhdD", "filename": "xzKRBvAbhpFCaxrYUsee", "title": "KmApjLEHOApOsOGLpEQb", "snippet": "vUvBmxmhXhQhtAVWmLcz"}]}, "s_a986741a68": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Perform a risk assessment of this data:\n\n\u003cdata>\nzxblTqyJBPtHTYyelsmd\n\u003c/data>\n    "}, "s_d13a8191a0": {"url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg", "public_url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg", "source_prompt": "Data visualization diagram for: zxblTqyJBPtHTYyelsmd", "source_negative_prompt": null, "caption": null, "mime_type": "image/jpeg", "width": 1024, "height": 1024, "filename": null}, "s_acf74dca04": {"alpha_result": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Perform a technical analysis of this data:\n\n\u003cdata>\nzxblTqyJBPtHTYyelsmd\n\u003c/data>\n    "}, "beta_result": {"answer": "kfkgauyzjvFCBIvfprFs", "sources": [{"url": "dAFnVSNCiwaQMpahRISn", "public_url": "MkIetDSvCkiTPAJTySAV", "mime_type": "LHiAEznELnmMtkJhQwsk", "filename": "msJDqGcMTJDWDaELwnXW", "title": "cyuMFKEZjBvgdLWpVDyn", "snippet": "sIusCZKIxykfnBDjvluZ"}, {"url": "mKrvnDRgjFUYtYrZXtad", "public_url": "HBhTipkHIlUtxqSzJHgF", "mime_type": "ugxObAVzqTyGbLfjOaiZ", "filename": "ZPaNFprhjuNsyvXNsFvm", "title": "UkYkzgnQUdwiUIbGGwbw", "snippet": "NIEWFrNXbDjxypZJUmnQ"}, {"url": "nrhHMaPvfvhNGFRMSNuB", "public_url": "wpqTYStdKsXGhbuqmOXT", "mime_type": "yEYCXMagAXpQYPmGXhdD", "filename": "xzKRBvAbhpFCaxrYUsee", "title": "KmApjLEHOApOsOGLpEQb", "snippet": "vUvBmxmhXhQhtAVWmLcz"}]}, "gamma_result": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Perform a risk assessment of this data:\n\n\u003cdata>\nzxblTqyJBPtHTYyelsmd\n\u003c/data>\n    "}, "delta_result": {"url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg", "public_url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg", "source_prompt": "Data visualization diagram for: zxblTqyJBPtHTYyelsmd", "source_negative_prompt": null, "caption": null, "mime_type": "image/jpeg", "width": 1024, "height": 1024, "filename": null}}};
+const stuffMetadata = {"s_33324d2fe4": {"name": "merged", "concept": "MergedResult"}, "s_b9bd5e7b6c": {"name": "data", "concept": "Text"}, "s_a7545757b4": {"name": "alpha_result", "concept": "ProcessedData"}, "s_383ce60656": {"name": "beta_result", "concept": "SearchResult"}, "s_a986741a68": {"name": "gamma_result", "concept": "ProcessedData"}, "s_d13a8191a0": {"name": "delta_result", "concept": "Image"}, "s_acf74dca04": {"name": "parallel_results", "concept": "Composite"}};
+const stuffContentType = {"s_d13a8191a0": "image/jpeg"};
+const mermaidCode = "flowchart LR\n\n    %% Pipe and stuff nodes within controller subgraphs\n    subgraph sg_n_c0c29455a8[\"diamond_pipeline\"]\n        subgraph sg_n_56b33469dc[\"quad_process\"]\n            n_5296625edb[\"process_alpha\"]\n            s_a7545757b4([\"alpha_result\u003cbr/\u003eProcessedData\"]):::stuff\n            n_3ab833db69[\"process_beta\"]\n            s_383ce60656([\"beta_result\u003cbr/\u003eSearchResult\"]):::stuff\n            n_53eb2a63be[\"process_delta\"]\n            s_d13a8191a0([\"delta_result\u003cbr/\u003eImage\"]):::stuff\n            n_7e9fd6af4e[\"process_gamma\"]\n            s_a986741a68([\"gamma_result\u003cbr/\u003eProcessedData\"]):::stuff\n            s_acf74dca04([\"parallel_results\u003cbr/\u003eComposite\"]):::stuff\n        end\n        n_451088e0eb[\"merge_all\"]\n        s_33324d2fe4([\"merged\u003cbr/\u003eMergedResult\"]):::stuff\n    end\n\n    %% Pipeline input stuff nodes (no producer)\n    s_b9bd5e7b6c([\"data\u003cbr/\u003eText\"]):::stuff\n\n    %% Data flow edges: producer -\u003e stuff -\u003e consumer\n    n_3ab833db69 --\u003e s_383ce60656\n    n_7e9fd6af4e --\u003e s_a986741a68\n    n_5296625edb --\u003e s_a7545757b4\n    n_451088e0eb --\u003e s_33324d2fe4\n    n_53eb2a63be --\u003e s_d13a8191a0\n    s_383ce60656 --\u003e n_451088e0eb\n    s_b9bd5e7b6c --\u003e n_5296625edb\n    s_b9bd5e7b6c --\u003e n_3ab833db69\n    s_b9bd5e7b6c --\u003e n_7e9fd6af4e\n    s_b9bd5e7b6c --\u003e n_53eb2a63be\n    s_a986741a68 --\u003e n_451088e0eb\n    s_a7545757b4 --\u003e n_451088e0eb\n    s_d13a8191a0 --\u003e n_451088e0eb\n\n    %% Parallel combine edges: branch outputs \u2192 combined output\n    s_a7545757b4 -.-\u003e s_acf74dca04\n    s_383ce60656 -.-\u003e s_acf74dca04\n    s_a986741a68 -.-\u003e s_acf74dca04\n    s_d13a8191a0 -.-\u003e s_acf74dca04\n\n    %% Style definitions\n    classDef failed fill:#ffcccc,stroke:#cc0000\n    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px\n    classDef controller fill:#e6f3ff,stroke:#0066cc\n\n    %% Subgraph depth-based coloring\n    style sg_n_56b33469dc fill:#e6ffe6\n    style sg_n_c0c29455a8 fill:#e6f3ff";
 
 // Track current state
 let currentStuffId = null;
-let currentFormat = 'html';
+let currentFormat = 'preview';
 let currentTheme = "dark";
 
 // Include shared utility functions
@@ -527,14 +490,8 @@ function attachClickHandlers() {
         const svgContainer = document.querySelector('.mermaid svg');
         if (!svgContainer) return;
 
-        // Find nodes by their flowchart IDs - use any available data source
-        const allStuffIds = new Set([
-            ...Object.keys(stuffDataJson || {}),
-            ...Object.keys(stuffDataText || {}),
-            ...Object.keys(stuffDataHtml || {})
-        ]);
-
-        for (const stuffId of allStuffIds) {
+        // Find nodes by their flowchart IDs
+        for (const stuffId of Object.keys(stuffDataJson || {})) {
             // Mermaid generates IDs like 'flowchart-s_xxx-123'
             const nodes = svgContainer.querySelectorAll(`[id^="flowchart-${stuffId}"]`);
             nodes.forEach(node => {
@@ -593,13 +550,13 @@ function setFormat(format) {
 
 function renderContent(stuffId, format) {
     const content = document.getElementById('modal-content');
-    content.classList.remove('html-content', 'text-content', 'pdf-content', 'image-content');
+    content.classList.remove('pdf-content', 'image-content');
 
     // Handle PDF content type with embedded viewer
     const contentType = stuffContentType?.[stuffId];
     const jsonData = stuffDataJson?.[stuffId];
 
-    if (format === 'html' && contentType === 'application/pdf') {
+    if (format === 'preview' && contentType === 'application/pdf') {
         const pdfUrl = extractUrl(jsonData);
         if (pdfUrl) {
             content.classList.add('pdf-content');
@@ -615,7 +572,7 @@ function renderContent(stuffId, format) {
     }
 
     // Handle image content type
-    if (format === 'html' && contentType?.startsWith('image/')) {
+    if (format === 'preview' && contentType?.startsWith('image/')) {
         const imageUrl = extractUrl(jsonData);
         if (imageUrl) {
             content.classList.add('image-content');
@@ -630,25 +587,12 @@ function renderContent(stuffId, format) {
         }
     }
 
+    content.innerHTML = '';
     if (format === 'json') {
         const data = stuffDataJson?.[stuffId];
-        content.innerHTML = '';
         content.textContent = data ? JSON.stringify(data, null, 2) : 'No JSON data available';
-    } else if (format === 'text') {
-        const data = stuffDataText?.[stuffId];
-        content.classList.add('text-content');
-        content.innerHTML = '';
-        content.textContent = data || 'No text data available';
-    } else if (format === 'html') {
-        const data = stuffDataHtml?.[stuffId];
-        if (data) {
-            content.classList.add('html-content');
-            content.innerHTML = DOMPurify.sanitize(data);
-            makeLinksOpenInNewWindow(content);
-        } else {
-            content.innerHTML = '';
-            content.textContent = 'No HTML data available';
-        }
+    } else {
+        content.textContent = 'No preview available';
     }
 
     updateOpenExternalButton(stuffId, contentType, jsonData);
@@ -667,32 +611,28 @@ function updateOpenExternalButton(stuffId, contentType, jsonData) {
 
 function updateTabAvailability(stuffId) {
     const jsonTab = document.getElementById('tab-json');
-    const textTab = document.getElementById('tab-text');
-    const htmlTab = document.getElementById('tab-html');
+    const previewTab = document.getElementById('tab-preview');
 
     jsonTab.disabled = !stuffDataJson?.[stuffId];
-    textTab.disabled = !stuffDataText?.[stuffId];
 
-    // For PDF and image content types, the tab can render from JSON data via extractUrl()
+    // PDF and image content preview from the URL their JSON data carries
     const contentType = stuffContentType?.[stuffId];
     const jsonData = stuffDataJson?.[stuffId];
-    const canRenderFromJson = (contentType === 'application/pdf' || contentType?.startsWith('image/')) && extractUrl(jsonData);
-    htmlTab.disabled = !stuffDataHtml?.[stuffId] && !canRenderFromJson;
+    const canPreview = (contentType === 'application/pdf' || contentType?.startsWith('image/')) && !!extractUrl(jsonData);
+    previewTab.disabled = !canPreview;
 
-    // Update HTML tab label based on content type
+    // Label the preview tab after the content type it shows
     if (contentType === 'application/pdf') {
-        htmlTab.textContent = 'PDF';
+        previewTab.textContent = 'PDF';
     } else if (contentType?.startsWith('image/')) {
-        htmlTab.textContent = 'Image';
+        previewTab.textContent = 'Image';
     } else {
-        htmlTab.textContent = 'HTML';
+        previewTab.textContent = 'Preview';
     }
 
-    // Find first available format (HTML -> JSON -> Pretty)
-    if (!htmlTab.disabled) return 'html';
-    if (!jsonTab.disabled) return 'json';
-    if (!textTab.disabled) return 'text';
-    return 'html';
+    // Find first available format (preview -> JSON)
+    if (!previewTab.disabled) return 'preview';
+    return 'json';
 }
 
 function showModal(stuffId) {
@@ -739,20 +679,15 @@ function hideModal() {
 function getCurrentContent() {
     if (!currentStuffId) return null;
 
+    const data = stuffDataJson?.[currentStuffId];
     if (currentFormat === 'json') {
-        const data = stuffDataJson?.[currentStuffId];
         if (!data) return null;
         return { content: JSON.stringify(data, null, 2), ext: 'json', mime: 'application/json' };
-    } else if (currentFormat === 'text') {
-        const data = stuffDataText?.[currentStuffId];
-        if (!data) return null;
-        return { content: data, ext: 'txt', mime: 'text/plain' };
-    } else if (currentFormat === 'html') {
-        const data = stuffDataHtml?.[currentStuffId];
-        if (!data) return null;
-        return { content: data, ext: 'html', mime: 'text/html' };
     }
-    return null;
+    // A preview's copyable content is the URL it shows
+    const url = extractUrl(data);
+    if (!url) return null;
+    return { content: url, ext: 'txt', mime: 'text/plain' };
 }
 
 // Copy content to clipboard

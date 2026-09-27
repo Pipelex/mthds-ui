@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pipeline: Email Triage</title>
 <script nonce="PIPELEX_CSP_NONCE" src="https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js" integrity="sha384-rbtjAdnIQE/aQJGEgXrVUlMibdfTSa4PQju4HDhN3sR2PmaKFzhEafuePsl9H/9I" crossorigin="anonymous"></script>
-<!-- DOMPurify for HTML sanitization (XSS prevention) -->
-<script nonce="PIPELEX_CSP_NONCE" src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js" integrity="sha384-eEu5CTj3qGvu9PdJuS+YlkNi7d2XxQROAFYOr59zgObtlcux1ae1Il3u7jvdCSWu" crossorigin="anonymous"></script>
     <style nonce="PIPELEX_CSP_NONCE">
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
@@ -230,38 +228,6 @@ h1 {
     word-wrap: break-word;
     line-height: 1.5;
 }
-.data-modal-content.text-content {
-    line-height: 1;
-    white-space: pre;
-    word-wrap: normal;
-    overflow-x: auto;
-    padding-right: 20px;
-}
-.data-modal-content.html-content {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: #1e1e1e;
-    color: #d4d4d4;
-    padding: 12px;
-    border-radius: 4px;
-}
-.data-modal-content.html-content table {
-    border-collapse: collapse;
-    width: 100%;
-}
-.data-modal-content.html-content th,
-.data-modal-content.html-content td {
-    border: 1px solid #444;
-    padding: 8px 12px;
-    text-align: left;
-}
-.data-modal-content.html-content th {
-    background: #252a30;
-    color: #e0e0e0;
-    font-weight: 600;
-}
-.data-modal-content.html-content tr:hover {
-    background: #2a2530;
-}
 .data-modal-overlay {
     position: fixed;
     top: 0;
@@ -325,9 +291,8 @@ h1 {
     </div>
     <div class="format-toolbar">
         <div class="format-tabs" id="format-tabs">
-            <button class="format-tab active" data-format="html" id="tab-html">HTML</button>
+            <button class="format-tab active" data-format="preview" id="tab-preview">Preview</button>
             <button class="format-tab" data-format="json" id="tab-json">JSON</button>
-            <button class="format-tab" data-format="text" id="tab-text">Pretty</button>
         </div>
         <div class="format-actions">
             <button class="action-btn" id="open-external-btn" onclick="openExternal()" title="Open in new window" style="display: none;">
@@ -344,17 +309,15 @@ h1 {
     <div class="data-modal-content" id="modal-content"></div>
 </div>
     <script nonce="PIPELEX_CSP_NONCE">
-// Embedded stuff data from graph (all formats)
-const stuffDataJson = {"s_08221ab374": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Generate a professional auto-reply digest for this email:\n\nSubject: yBukgVstOVDtjomfaIrJ\nSummary: ivZZxQOORbuekASrtuAE\n    "}, "s_255c67cd24": {"text": "suFJzwbQMGIMctkGEmqy"}, "s_9b42c12b3a": {"answer": "yumUQszaYDSjZTMyNiWM", "sources": [{"url": "XpaDIsDXOhDITwaOsNwh", "public_url": "omsCxJVxvjZlovCmZiXj", "mime_type": "SLUyHMhFIQYyMbioneqh", "filename": "WczDFTXTZJmIFTbWJGIz", "title": "cpmIFmKIHuOOgDwLCswr", "snippet": "kvfGEbbRhsVTbudNJoEg"}, {"url": "tnkogekaLDpFnTTjqlVE", "public_url": "CqlDcVUNOKZLvLtfZdeH", "mime_type": "hXPGAcKvJUwUAMeTyRQG", "filename": "LOxpYjmjkVnpLQPrmUvz", "title": "iYUmZakIRkWmejeiQWSM", "snippet": "QOFAdBbqNSjpfflowGoC"}, {"url": "FeQiBixHlecZyGxTIoRV", "public_url": "DCOjTeatMPbdTnrOdjrO", "mime_type": "LiOmRtxMdrFTwWMtPcqI", "filename": "UvAIbpzaXeNoJERRneHN", "title": "IszfUSNSorAkcroSiWAc", "snippet": "UUeFnEuwPuiuPKzfrTeE"}]}, "s_478d86db99": {"subject": "yBukgVstOVDtjomfaIrJ", "priority": "auto_reply", "summary": "ivZZxQOORbuekASrtuAE"}, "s_aa269abe5f": {"text": "FLAGGED FOR REVIEW: yBukgVstOVDtjomfaIrJ - ivZZxQOORbuekASrtuAE"}};
-const stuffDataText = {"s_08221ab374": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt: user_text: Generate a professional     \nauto-reply digest for this email:                                                                   \n\nSubject: yBukgVstOVDtjomfaIrJ Summary: ivZZxQOORbuekASrtuAE                                         \n", "s_255c67cd24": "suFJzwbQMGIMctkGEmqy                                                                                \n", "s_9b42c12b3a": "Search Result:\nyumUQszaYDSjZTMyNiWM                                                                                \n\nSources (3):\ncpmIFmKIHuOOgDwLCswr (XpaDIsDXOhDITwaOsNwh)\n  kvfGEbbRhsVTbudNJoEg\n\niYUmZakIRkWmejeiQWSM (tnkogekaLDpFnTTjqlVE)\n  QOFAdBbqNSjpfflowGoC\n\nIszfUSNSorAkcroSiWAc (FeQiBixHlecZyGxTIoRV)\n  UUeFnEuwPuiuPKzfrTeE\n", "s_478d86db99": " Attribute                 \u2503 Value                                              \n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n subject                   \u2502 yBukgVstOVDtjomfaIrJ                               \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n priority                  \u2502 auto_reply                                         \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n summary                   \u2502 ivZZxQOORbuekASrtuAE                               \n", "s_aa269abe5f": "FLAGGED FOR REVIEW: yBukgVstOVDtjomfaIrJ - ivZZxQOORbuekASrtuAE                                     \n"};
-const stuffDataHtml = {"s_08221ab374": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Generate a professional auto-reply digest for this email:\n\nSubject: yBukgVstOVDtjomfaIrJ\nSummary: ivZZxQOORbuekASrtuAE\n    ", "s_255c67cd24": "suFJzwbQMGIMctkGEmqy", "s_9b42c12b3a": "<div><p>yumUQszaYDSjZTMyNiWM</p><h4>Sources</h4><ul><li><a href=\"omsCxJVxvjZlovCmZiXj\" class=\"msg-document\">cpmIFmKIHuOOgDwLCswr</a><br/><small>kvfGEbbRhsVTbudNJoEg</small></li><li><a href=\"CqlDcVUNOKZLvLtfZdeH\" class=\"msg-document\">iYUmZakIRkWmejeiQWSM</a><br/><small>QOFAdBbqNSjpfflowGoC</small></li><li><a href=\"DCOjTeatMPbdTnrOdjrO\" class=\"msg-document\">IszfUSNSorAkcroSiWAc</a><br/><small>UUeFnEuwPuiuPKzfrTeE</small></li></ul></div>", "s_478d86db99": "<table><tr><th>subject</th><td>yBukgVstOVDtjomfaIrJ</td></tr><tr><th>priority</th><td>auto_reply</td></tr><tr><th>summary</th><td>ivZZxQOORbuekASrtuAE</td></tr></table>", "s_aa269abe5f": "FLAGGED FOR REVIEW: yBukgVstOVDtjomfaIrJ - ivZZxQOORbuekASrtuAE"};
-const stuffMetadata = {"s_08221ab374": {"name": "digest", "concept": "InboxDigest"}, "s_255c67cd24": {"name": "query", "concept": "Text"}, "s_9b42c12b3a": {"name": "search_result", "concept": "SearchResult"}, "s_478d86db99": {"name": "classified", "concept": "EmailClassification"}, "s_aa269abe5f": {"name": "digest", "concept": "InboxDigest"}};
+// Embedded stuff data from graph
+const stuffDataJson = {"s_da6116ea6a": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Generate a professional auto-reply digest for this email:\n\nSubject: AyOeIHFpmYidRmWHiNLy\nSummary: fXmvbHddUlqWhHpCtvHn\n    "}, "s_71f9d0c9da": {"text": "drqpbAjVgsOVOEebmVVy"}, "s_ec047e7f8e": {"answer": "TmLxkHVOZVbHxlUSAfQG", "sources": [{"url": "sYjvRMjnEOwfdYxdXZIW", "public_url": "iZxxerRVtwTmCWnRtoUH", "mime_type": "GttLZuwunTLBFZjPfsbH", "filename": "GjDbhtpYklaOwGXgDFlg", "title": "rAhwdBzLXnzfCtRPNSsF", "snippet": "bSpbqqfiYGlYKvIohKtB"}, {"url": "CrpWMCftWjyXMPFQlwek", "public_url": "wsoGZDSqezuikTpLtFpW", "mime_type": "lbrWYkqKtiPpUCXySfWe", "filename": "XjOTdspooSgAJLXCVlND", "title": "NsytpLWmxVRKFyVabxSJ", "snippet": "QCAEZBVuknayKQPRajuS"}, {"url": "hmLYnxFxswiTzogignRZ", "public_url": "xbfMurAEIeFouLBdQZQC", "mime_type": "FQuLilUUjprrLTpPKCWT", "filename": "NycPbXzdBMPZntVMIwIp", "title": "syDjlUdpKmoVDrbywNNl", "snippet": "vgKGDJPdRvAauMfzBsqJ"}]}, "s_3ee6c44ce9": {"subject": "AyOeIHFpmYidRmWHiNLy", "priority": "auto_reply", "summary": "fXmvbHddUlqWhHpCtvHn"}, "s_cd116f3d0a": {"text": "FLAGGED FOR REVIEW: AyOeIHFpmYidRmWHiNLy - fXmvbHddUlqWhHpCtvHn"}};
+const stuffMetadata = {"s_da6116ea6a": {"name": "digest", "concept": "InboxDigest"}, "s_71f9d0c9da": {"name": "query", "concept": "Text"}, "s_ec047e7f8e": {"name": "search_result", "concept": "SearchResult"}, "s_3ee6c44ce9": {"name": "classified", "concept": "EmailClassification"}, "s_cd116f3d0a": {"name": "digest", "concept": "InboxDigest"}};
 const stuffContentType = {};
-const mermaidCode = "flowchart LR\n\n    %% Pipe and stuff nodes within controller subgraphs\n    subgraph sg_n_f68bb52946[\"email_triage\"]\n        subgraph sg_n_349c1ef5b1[\"route_email\"]\n            n_7760fea042[\"flag_for_review\"]\n            s_aa269abe5f([\"digest\u003cbr/\u003eInboxDigest\"]):::stuff\n            n_c5abf1c33f[\"generate_auto_reply\"]\n            s_08221ab374([\"digest\u003cbr/\u003eInboxDigest\"]):::stuff\n        end\n        n_194bdaee8d[\"classify_email\"]\n        s_478d86db99([\"classified\u003cbr/\u003eEmailClassification\"]):::stuff\n        n_55728a228d[\"search_inbox\"]\n        s_9b42c12b3a([\"search_result\u003cbr/\u003eSearchResult\"]):::stuff\n    end\n\n    %% Pipeline input stuff nodes (no producer)\n    s_255c67cd24([\"query\u003cbr/\u003eText\"]):::stuff\n\n    %% Data flow edges: producer -\u003e stuff -\u003e consumer\n    n_c5abf1c33f --\u003e s_08221ab374\n    n_194bdaee8d --\u003e s_478d86db99\n    n_7760fea042 --\u003e s_aa269abe5f\n    n_55728a228d --\u003e s_9b42c12b3a\n    s_255c67cd24 --\u003e n_55728a228d\n    s_478d86db99 --\u003e n_7760fea042\n    s_478d86db99 --\u003e n_c5abf1c33f\n    s_9b42c12b3a --\u003e n_194bdaee8d\n\n    %% Style definitions\n    classDef failed fill:#ffcccc,stroke:#cc0000\n    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px\n    classDef controller fill:#e6f3ff,stroke:#0066cc\n\n    %% Subgraph depth-based coloring\n    style sg_n_349c1ef5b1 fill:#e6ffe6\n    style sg_n_f68bb52946 fill:#e6f3ff";
+const mermaidCode = "flowchart LR\n\n    %% Pipe and stuff nodes within controller subgraphs\n    subgraph sg_n_384ed5dc7d[\"email_triage\"]\n        subgraph sg_n_8089ece20e[\"route_email\"]\n            n_0bffb630aa[\"flag_for_review\"]\n            s_cd116f3d0a([\"digest\u003cbr/\u003eInboxDigest\"]):::stuff\n            n_9889cbcbe8[\"generate_auto_reply\"]\n            s_da6116ea6a([\"digest\u003cbr/\u003eInboxDigest\"]):::stuff\n        end\n        n_04bebdec44[\"classify_email\"]\n        s_3ee6c44ce9([\"classified\u003cbr/\u003eEmailClassification\"]):::stuff\n        n_4e76cc3723[\"search_inbox\"]\n        s_ec047e7f8e([\"search_result\u003cbr/\u003eSearchResult\"]):::stuff\n    end\n\n    %% Pipeline input stuff nodes (no producer)\n    s_71f9d0c9da([\"query\u003cbr/\u003eText\"]):::stuff\n\n    %% Data flow edges: producer -\u003e stuff -\u003e consumer\n    n_0bffb630aa --\u003e s_cd116f3d0a\n    n_4e76cc3723 --\u003e s_ec047e7f8e\n    n_9889cbcbe8 --\u003e s_da6116ea6a\n    n_04bebdec44 --\u003e s_3ee6c44ce9\n    s_ec047e7f8e --\u003e n_04bebdec44\n    s_71f9d0c9da --\u003e n_4e76cc3723\n    s_3ee6c44ce9 --\u003e n_0bffb630aa\n    s_3ee6c44ce9 --\u003e n_9889cbcbe8\n\n    %% Style definitions\n    classDef failed fill:#ffcccc,stroke:#cc0000\n    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px\n    classDef controller fill:#e6f3ff,stroke:#0066cc\n\n    %% Subgraph depth-based coloring\n    style sg_n_384ed5dc7d fill:#e6f3ff\n    style sg_n_8089ece20e fill:#e6ffe6";
 
 // Track current state
 let currentStuffId = null;
-let currentFormat = 'html';
+let currentFormat = 'preview';
 let currentTheme = "dark";
 
 // Include shared utility functions
@@ -527,14 +490,8 @@ function attachClickHandlers() {
         const svgContainer = document.querySelector('.mermaid svg');
         if (!svgContainer) return;
 
-        // Find nodes by their flowchart IDs - use any available data source
-        const allStuffIds = new Set([
-            ...Object.keys(stuffDataJson || {}),
-            ...Object.keys(stuffDataText || {}),
-            ...Object.keys(stuffDataHtml || {})
-        ]);
-
-        for (const stuffId of allStuffIds) {
+        // Find nodes by their flowchart IDs
+        for (const stuffId of Object.keys(stuffDataJson || {})) {
             // Mermaid generates IDs like 'flowchart-s_xxx-123'
             const nodes = svgContainer.querySelectorAll(`[id^="flowchart-${stuffId}"]`);
             nodes.forEach(node => {
@@ -593,13 +550,13 @@ function setFormat(format) {
 
 function renderContent(stuffId, format) {
     const content = document.getElementById('modal-content');
-    content.classList.remove('html-content', 'text-content', 'pdf-content', 'image-content');
+    content.classList.remove('pdf-content', 'image-content');
 
     // Handle PDF content type with embedded viewer
     const contentType = stuffContentType?.[stuffId];
     const jsonData = stuffDataJson?.[stuffId];
 
-    if (format === 'html' && contentType === 'application/pdf') {
+    if (format === 'preview' && contentType === 'application/pdf') {
         const pdfUrl = extractUrl(jsonData);
         if (pdfUrl) {
             content.classList.add('pdf-content');
@@ -615,7 +572,7 @@ function renderContent(stuffId, format) {
     }
 
     // Handle image content type
-    if (format === 'html' && contentType?.startsWith('image/')) {
+    if (format === 'preview' && contentType?.startsWith('image/')) {
         const imageUrl = extractUrl(jsonData);
         if (imageUrl) {
             content.classList.add('image-content');
@@ -630,25 +587,12 @@ function renderContent(stuffId, format) {
         }
     }
 
+    content.innerHTML = '';
     if (format === 'json') {
         const data = stuffDataJson?.[stuffId];
-        content.innerHTML = '';
         content.textContent = data ? JSON.stringify(data, null, 2) : 'No JSON data available';
-    } else if (format === 'text') {
-        const data = stuffDataText?.[stuffId];
-        content.classList.add('text-content');
-        content.innerHTML = '';
-        content.textContent = data || 'No text data available';
-    } else if (format === 'html') {
-        const data = stuffDataHtml?.[stuffId];
-        if (data) {
-            content.classList.add('html-content');
-            content.innerHTML = DOMPurify.sanitize(data);
-            makeLinksOpenInNewWindow(content);
-        } else {
-            content.innerHTML = '';
-            content.textContent = 'No HTML data available';
-        }
+    } else {
+        content.textContent = 'No preview available';
     }
 
     updateOpenExternalButton(stuffId, contentType, jsonData);
@@ -667,32 +611,28 @@ function updateOpenExternalButton(stuffId, contentType, jsonData) {
 
 function updateTabAvailability(stuffId) {
     const jsonTab = document.getElementById('tab-json');
-    const textTab = document.getElementById('tab-text');
-    const htmlTab = document.getElementById('tab-html');
+    const previewTab = document.getElementById('tab-preview');
 
     jsonTab.disabled = !stuffDataJson?.[stuffId];
-    textTab.disabled = !stuffDataText?.[stuffId];
 
-    // For PDF and image content types, the tab can render from JSON data via extractUrl()
+    // PDF and image content preview from the URL their JSON data carries
     const contentType = stuffContentType?.[stuffId];
     const jsonData = stuffDataJson?.[stuffId];
-    const canRenderFromJson = (contentType === 'application/pdf' || contentType?.startsWith('image/')) && extractUrl(jsonData);
-    htmlTab.disabled = !stuffDataHtml?.[stuffId] && !canRenderFromJson;
+    const canPreview = (contentType === 'application/pdf' || contentType?.startsWith('image/')) && !!extractUrl(jsonData);
+    previewTab.disabled = !canPreview;
 
-    // Update HTML tab label based on content type
+    // Label the preview tab after the content type it shows
     if (contentType === 'application/pdf') {
-        htmlTab.textContent = 'PDF';
+        previewTab.textContent = 'PDF';
     } else if (contentType?.startsWith('image/')) {
-        htmlTab.textContent = 'Image';
+        previewTab.textContent = 'Image';
     } else {
-        htmlTab.textContent = 'HTML';
+        previewTab.textContent = 'Preview';
     }
 
-    // Find first available format (HTML -> JSON -> Pretty)
-    if (!htmlTab.disabled) return 'html';
-    if (!jsonTab.disabled) return 'json';
-    if (!textTab.disabled) return 'text';
-    return 'html';
+    // Find first available format (preview -> JSON)
+    if (!previewTab.disabled) return 'preview';
+    return 'json';
 }
 
 function showModal(stuffId) {
@@ -739,20 +679,15 @@ function hideModal() {
 function getCurrentContent() {
     if (!currentStuffId) return null;
 
+    const data = stuffDataJson?.[currentStuffId];
     if (currentFormat === 'json') {
-        const data = stuffDataJson?.[currentStuffId];
         if (!data) return null;
         return { content: JSON.stringify(data, null, 2), ext: 'json', mime: 'application/json' };
-    } else if (currentFormat === 'text') {
-        const data = stuffDataText?.[currentStuffId];
-        if (!data) return null;
-        return { content: data, ext: 'txt', mime: 'text/plain' };
-    } else if (currentFormat === 'html') {
-        const data = stuffDataHtml?.[currentStuffId];
-        if (!data) return null;
-        return { content: data, ext: 'html', mime: 'text/html' };
     }
-    return null;
+    // A preview's copyable content is the URL it shows
+    const url = extractUrl(data);
+    if (!url) return null;
+    return { content: url, ext: 'txt', mime: 'text/plain' };
 }
 
 // Copy content to clipboard

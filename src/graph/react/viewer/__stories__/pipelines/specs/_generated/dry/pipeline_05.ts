@@ -5,12 +5,12 @@
 import type { GraphSpec } from "@graph/types";
 
 export const DRY_SIMPLE_PARALLEL = {
-  graph_id: "a2d0f99e-72df-484b-b5b4-4618080d49a7",
-  created_at: "2026-08-14T10:48:17.920153Z",
+  graph_id: "35c60f24-845a-49c9-a518-2634d719d481",
+  created_at: "2026-09-27T08:49:41.636974Z",
   pipeline_ref: { domain: "text_analysis", main_pipe: "dual_analysis_pipeline", entrypoint: null },
   nodes: [
     {
-      id: "a2d0f99e-72df-484b-b5b4-4618080d49a7:node_0",
+      id: "35c60f24-845a-49c9-a518-2634d719d481:node_0",
       kind: "controller",
       pipe_code: "dual_analysis_pipeline",
       pipe_type: "PipeSequence",
@@ -19,9 +19,9 @@ export const DRY_SIMPLE_PARALLEL = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:17.920153Z",
-        ended_at: "2026-08-14T10:48:17.973556Z",
-        duration: 0.053403,
+        started_at: "2026-09-27T08:49:41.636974Z",
+        ended_at: "2026-09-27T08:49:41.647960Z",
+        duration: 0.010986,
       },
       io: {
         inputs: [
@@ -31,11 +31,9 @@ export const DRY_SIMPLE_PARALLEL = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "DXEjr",
-            data: { text: "vXXmfuZCDDjteXdQhJTl" },
-            data_text:
-              "vXXmfuZCDDjteXdQhJTl                                                                                \n",
-            data_html: "vXXmfuZCDDjteXdQhJTl",
+            digest: "LWdTb",
+            data: { text: "sQsDIoXfsVNddavoIETT" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -46,14 +44,11 @@ export const DRY_SIMPLE_PARALLEL = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "EEAPq",
+            digest: "GBUwP",
             data: {
-              text: "# Text Analysis Report\n\n## Sentiment\n# sentiment: positive\n\n# confidence: -676761.339172452\n\n# explanation: VplmmgmZiFjzWVzNEYYL.sentiment (confidence: -676761.339172452)\nVplmmgmZiFjzWVzNEYYL\n\n## Keywords\nkeywords: ```\n\n • item #1:\n\n# keyword: xUMPkeiyRDTjafdwCodV\n\n# relevance: 597.852782231598\n\n • item #2:\n\n# keyword: AXuPWlcxERWkJiQZEtnV\n\n# relevance: 3790403021.61505\n\n • item #3:\n\n# keyword: TEklKkOAFyqorODvsBzR\n\n# relevance: -0.85636011423101\n\n```",
+              text: "# Text Analysis Report\n\n## Sentiment\n# sentiment: positive\n\n# confidence: 831081541658.336\n\n# explanation: lMIqXHUdCmuzdSjLjHAg.sentiment (confidence: 831081541658.336)\nlMIqXHUdCmuzdSjLjHAg\n\n## Keywords\n<keywords>\n\n • item #1:\n\n# keyword: GirGnDVfoDpMVouccXlE\n\n# relevance: -48642659.8960516\n\n • item #2:\n\n# keyword: YQcDJtYhWnESVuFPUwvI\n\n# relevance: -79116226.664259\n\n • item #3:\n\n# keyword: BfOtymzUhoqFEdYxXSIz\n\n# relevance: 479.531852466278\n\n</keywords>",
             },
-            data_text:
-              "                                        Text Analysis Report                                        \n\nSentiment                                                                                           \n\n                                        sentiment: positive                                         \n\n                                   confidence: -676761.339172452                                    \n\n            explanation: VplmmgmZiFjzWVzNEYYL.sentiment (confidence: -676761.339172452)             \n\nVplmmgmZiFjzWVzNEYYL                                                                                \n\nKeywords                                                                                            \n\nkeywords: ```                                                                                       \n\n• item #1:                                                                                          \n\n                                   keyword: xUMPkeiyRDTjafdwCodV                                    \n\n                                    relevance: 597.852782231598                                     \n\n• item #2:                                                                                          \n\n                                   keyword: AXuPWlcxERWkJiQZEtnV                                    \n\n                                    relevance: 3790403021.61505                                     \n\n• item #3:                                                                                          \n\n                                   keyword: TEklKkOAFyqorODvsBzR                                    \n\n                                    relevance: -0.85636011423101                                    \n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n",
-            data_html:
-              "# Text Analysis Report\n\n## Sentiment\n# sentiment: positive\n\n# confidence: -676761.339172452\n\n# explanation: VplmmgmZiFjzWVzNEYYL.sentiment (confidence: -676761.339172452)\nVplmmgmZiFjzWVzNEYYL\n\n## Keywords\nkeywords: ```\n\n • item #1:\n\n# keyword: xUMPkeiyRDTjafdwCodV\n\n# relevance: 597.852782231598\n\n • item #2:\n\n# keyword: AXuPWlcxERWkJiQZEtnV\n\n# relevance: 3790403021.61505\n\n • item #3:\n\n# keyword: TEklKkOAFyqorODvsBzR\n\n# relevance: -0.85636011423101\n\n```",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -91,7 +86,7 @@ export const DRY_SIMPLE_PARALLEL = {
       execution_data: { step_count: 2 },
     },
     {
-      id: "a2d0f99e-72df-484b-b5b4-4618080d49a7:node_1",
+      id: "35c60f24-845a-49c9-a518-2634d719d481:node_1",
       kind: "controller",
       pipe_code: "parallel_analyze",
       pipe_type: "PipeParallel",
@@ -100,9 +95,9 @@ export const DRY_SIMPLE_PARALLEL = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:17.924488Z",
-        ended_at: "2026-08-14T10:48:17.958376Z",
-        duration: 0.033888,
+        started_at: "2026-09-27T08:49:41.638103Z",
+        ended_at: "2026-09-27T08:49:41.645678Z",
+        duration: 0.007575,
       },
       io: {
         inputs: [
@@ -112,11 +107,9 @@ export const DRY_SIMPLE_PARALLEL = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "DXEjr",
-            data: { text: "vXXmfuZCDDjteXdQhJTl" },
-            data_text:
-              "vXXmfuZCDDjteXdQhJTl                                                                                \n",
-            data_html: "vXXmfuZCDDjteXdQhJTl",
+            digest: "LWdTb",
+            data: { text: "sQsDIoXfsVNddavoIETT" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -127,16 +120,13 @@ export const DRY_SIMPLE_PARALLEL = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "bMtcn",
+            digest: "LMcxS",
             data: {
               sentiment: "positive",
-              confidence: -676761.339172452,
-              explanation: "VplmmgmZiFjzWVzNEYYL",
+              confidence: 831081541658.336,
+              explanation: "lMIqXHUdCmuzdSjLjHAg",
             },
-            data_text:
-              " Attribute                    ┃ Value                                           \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n sentiment                    │ positive                                        \n──────────────────────────────┼─────────────────────────────────────────────────\n confidence                   │ -676761.339172452                               \n──────────────────────────────┼─────────────────────────────────────────────────\n explanation                  │ VplmmgmZiFjzWVzNEYYL                            \n",
-            data_html:
-              "<table><tr><th>sentiment</th><td>positive</td></tr><tr><th>confidence</th><td>-676761.339172452</td></tr><tr><th>explanation</th><td>VplmmgmZiFjzWVzNEYYL</td></tr></table>",
+            multiplicity: null,
             extra: {},
           },
           {
@@ -145,18 +135,15 @@ export const DRY_SIMPLE_PARALLEL = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "ZKkGH",
+            digest: "8Xdsg",
             data: {
               items: [
-                { keyword: "xUMPkeiyRDTjafdwCodV", relevance: 597.852782231598 },
-                { keyword: "AXuPWlcxERWkJiQZEtnV", relevance: 3790403021.61505 },
-                { keyword: "TEklKkOAFyqorODvsBzR", relevance: -0.85636011423101 },
+                { keyword: "GirGnDVfoDpMVouccXlE", relevance: -48642659.8960516 },
+                { keyword: "YQcDJtYhWnESVuFPUwvI", relevance: -79116226.664259 },
+                { keyword: "BfOtymzUhoqFEdYxXSIz", relevance: 479.531852466278 },
               ],
             },
-            data_text:
-              "   1    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                │ xUMPkeiyRDTjafdwCodV                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  relevance              │ 597.852782231598                            \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                │ AXuPWlcxERWkJiQZEtnV                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  relevance              │ 3790403021.61505                            \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                │ TEklKkOAFyqorODvsBzR                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  relevance              │ -0.85636011423101                           \n",
-            data_html:
-              "<ul><li><table><tr><th>keyword</th><td>xUMPkeiyRDTjafdwCodV</td></tr><tr><th>relevance</th><td>597.852782231598</td></tr></table></li><li><table><tr><th>keyword</th><td>AXuPWlcxERWkJiQZEtnV</td></tr><tr><th>relevance</th><td>3790403021.61505</td></tr></table></li><li><table><tr><th>keyword</th><td>TEklKkOAFyqorODvsBzR</td></tr><tr><th>relevance</th><td>-0.85636011423101</td></tr></table></li></ul>",
+            multiplicity: true,
             extra: {},
           },
           {
@@ -165,25 +152,22 @@ export const DRY_SIMPLE_PARALLEL = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "kqc6T",
+            digest: "XTYmd",
             data: {
               sentiment: {
                 sentiment: "positive",
-                confidence: -676761.339172452,
-                explanation: "VplmmgmZiFjzWVzNEYYL",
+                confidence: 831081541658.336,
+                explanation: "lMIqXHUdCmuzdSjLjHAg",
               },
               keywords: {
                 items: [
-                  { keyword: "xUMPkeiyRDTjafdwCodV", relevance: 597.852782231598 },
-                  { keyword: "AXuPWlcxERWkJiQZEtnV", relevance: 3790403021.61505 },
-                  { keyword: "TEklKkOAFyqorODvsBzR", relevance: -0.85636011423101 },
+                  { keyword: "GirGnDVfoDpMVouccXlE", relevance: -48642659.8960516 },
+                  { keyword: "YQcDJtYhWnESVuFPUwvI", relevance: -79116226.664259 },
+                  { keyword: "BfOtymzUhoqFEdYxXSIz", relevance: 479.531852466278 },
                 ],
               },
             },
-            data_text:
-              '{\n    "sentiment": {\n        "sentiment": "positive",\n        "confidence": -676761.339172452,\n        "explanation": "VplmmgmZiFjzWVzNEYYL"\n    },\n    "keywords": {\n        "items": [\n            {\n                "keyword": "xUMPkeiyRDTjafdwCodV",\n                "relevance": 597.852782231598\n            },\n            {\n                "keyword": "AXuPWlcxERWkJiQZEtnV",\n                "relevance": 3790403021.61505\n            },\n            {\n                "keyword": "TEklKkOAFyqorODvsBzR",\n                "relevance": -0.85636011423101\n            }\n        ]\n    }\n}\n',
-            data_html:
-              "<table><tr><th>sentiment</th><td><table><tr><th>sentiment</th><td>positive</td></tr><tr><th>confidence</th><td>-676761.339172452</td></tr><tr><th>explanation</th><td>VplmmgmZiFjzWVzNEYYL</td></tr></table></td></tr><tr><th>keywords</th><td><ul><li><table><tr><th>keyword</th><td>xUMPkeiyRDTjafdwCodV</td></tr><tr><th>relevance</th><td>597.852782231598</td></tr></table></li><li><table><tr><th>keyword</th><td>AXuPWlcxERWkJiQZEtnV</td></tr><tr><th>relevance</th><td>3790403021.61505</td></tr></table></li><li><table><tr><th>keyword</th><td>TEklKkOAFyqorODvsBzR</td></tr><tr><th>relevance</th><td>-0.85636011423101</td></tr></table></li></ul></td></tr></table>",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -225,7 +209,7 @@ export const DRY_SIMPLE_PARALLEL = {
       },
     },
     {
-      id: "a2d0f99e-72df-484b-b5b4-4618080d49a7:node_2",
+      id: "35c60f24-845a-49c9-a518-2634d719d481:node_2",
       kind: "operator",
       pipe_code: "analyze_sentiment",
       pipe_type: "PipeLLM",
@@ -234,9 +218,9 @@ export const DRY_SIMPLE_PARALLEL = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:17.927786Z",
-        ended_at: "2026-08-14T10:48:17.937508Z",
-        duration: 0.009722,
+        started_at: "2026-09-27T08:49:41.638980Z",
+        ended_at: "2026-09-27T08:49:41.642347Z",
+        duration: 0.003367,
       },
       io: {
         inputs: [
@@ -246,11 +230,9 @@ export const DRY_SIMPLE_PARALLEL = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "DXEjr",
-            data: { text: "vXXmfuZCDDjteXdQhJTl" },
-            data_text:
-              "vXXmfuZCDDjteXdQhJTl                                                                                \n",
-            data_html: "vXXmfuZCDDjteXdQhJTl",
+            digest: "LWdTb",
+            data: { text: "sQsDIoXfsVNddavoIETT" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -261,16 +243,13 @@ export const DRY_SIMPLE_PARALLEL = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "bMtcn",
+            digest: "LMcxS",
             data: {
               sentiment: "positive",
-              confidence: -676761.339172452,
-              explanation: "VplmmgmZiFjzWVzNEYYL",
+              confidence: 831081541658.336,
+              explanation: "lMIqXHUdCmuzdSjLjHAg",
             },
-            data_text:
-              " Attribute                    ┃ Value                                           \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n sentiment                    │ positive                                        \n──────────────────────────────┼─────────────────────────────────────────────────\n confidence                   │ -676761.339172452                               \n──────────────────────────────┼─────────────────────────────────────────────────\n explanation                  │ VplmmgmZiFjzWVzNEYYL                            \n",
-            data_html:
-              "<table><tr><th>sentiment</th><td>positive</td></tr><tr><th>confidence</th><td>-676761.339172452</td></tr><tr><th>explanation</th><td>VplmmgmZiFjzWVzNEYYL</td></tr></table>",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -320,12 +299,12 @@ export const DRY_SIMPLE_PARALLEL = {
         is_multiple_output: false,
         rendered_system_prompt: null,
         rendered_user_prompt:
-          'Analyze the sentiment of the following text. Determine if it is positive, negative, or neutral:\n\n<text>\nvXXmfuZCDDjteXdQhJTl\n</text>\n\n---\nThe instance we want to generate will be for the following class:\nclass text_analysis__Sentiment(StructuredContent):\n    """Sentiment analysis result"""\n    sentiment: Literal[\n        "positive",\n        "negative",\n        "neutral",\n    ]  # The detected sentiment\n    confidence: float  # Confidence score 0-1\n    explanation: str  # Why this sentiment was detected\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
+          'Analyze the sentiment of the following text. Determine if it is positive, negative, or neutral:\n\n<text>\nsQsDIoXfsVNddavoIETT\n</text>\n\n---\nThe instance we want to generate will be for the following class:\nclass text_analysis__Sentiment(StructuredContent):\n    """Sentiment analysis result"""\n    sentiment: Literal[\n        "positive",\n        "negative",\n        "neutral",\n    ]  # The detected sentiment\n    confidence: float  # Confidence score 0-1\n    explanation: str  # Why this sentiment was detected\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
         structuring_path: "object_direct",
       },
     },
     {
-      id: "a2d0f99e-72df-484b-b5b4-4618080d49a7:node_3",
+      id: "35c60f24-845a-49c9-a518-2634d719d481:node_3",
       kind: "operator",
       pipe_code: "extract_keywords",
       pipe_type: "PipeLLM",
@@ -334,9 +313,9 @@ export const DRY_SIMPLE_PARALLEL = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:17.940822Z",
-        ended_at: "2026-08-14T10:48:17.950589Z",
-        duration: 0.009767,
+        started_at: "2026-09-27T08:49:41.642635Z",
+        ended_at: "2026-09-27T08:49:41.645076Z",
+        duration: 0.002441,
       },
       io: {
         inputs: [
@@ -346,11 +325,9 @@ export const DRY_SIMPLE_PARALLEL = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "DXEjr",
-            data: { text: "vXXmfuZCDDjteXdQhJTl" },
-            data_text:
-              "vXXmfuZCDDjteXdQhJTl                                                                                \n",
-            data_html: "vXXmfuZCDDjteXdQhJTl",
+            digest: "LWdTb",
+            data: { text: "sQsDIoXfsVNddavoIETT" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -361,18 +338,15 @@ export const DRY_SIMPLE_PARALLEL = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "ZKkGH",
+            digest: "8Xdsg",
             data: {
               items: [
-                { keyword: "xUMPkeiyRDTjafdwCodV", relevance: 597.852782231598 },
-                { keyword: "AXuPWlcxERWkJiQZEtnV", relevance: 3790403021.61505 },
-                { keyword: "TEklKkOAFyqorODvsBzR", relevance: -0.85636011423101 },
+                { keyword: "GirGnDVfoDpMVouccXlE", relevance: -48642659.8960516 },
+                { keyword: "YQcDJtYhWnESVuFPUwvI", relevance: -79116226.664259 },
+                { keyword: "BfOtymzUhoqFEdYxXSIz", relevance: 479.531852466278 },
               ],
             },
-            data_text:
-              "   1    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                │ xUMPkeiyRDTjafdwCodV                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  relevance              │ 597.852782231598                            \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                │ AXuPWlcxERWkJiQZEtnV                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  relevance              │ 3790403021.61505                            \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                │ TEklKkOAFyqorODvsBzR                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  relevance              │ -0.85636011423101                           \n",
-            data_html:
-              "<ul><li><table><tr><th>keyword</th><td>xUMPkeiyRDTjafdwCodV</td></tr><tr><th>relevance</th><td>597.852782231598</td></tr></table></li><li><table><tr><th>keyword</th><td>AXuPWlcxERWkJiQZEtnV</td></tr><tr><th>relevance</th><td>3790403021.61505</td></tr></table></li><li><table><tr><th>keyword</th><td>TEklKkOAFyqorODvsBzR</td></tr><tr><th>relevance</th><td>-0.85636011423101</td></tr></table></li></ul>",
+            multiplicity: true,
             extra: {},
           },
         ],
@@ -422,12 +396,12 @@ export const DRY_SIMPLE_PARALLEL = {
         is_multiple_output: true,
         rendered_system_prompt: null,
         rendered_user_prompt:
-          'Extract the most relevant keywords from the following text:\n\n<text>\nvXXmfuZCDDjteXdQhJTl\n</text>\n\n---\nThe instance we want to generate will be for the following class:\nclass text_analysis__Keyword(StructuredContent):\n    """An extracted keyword with relevance score"""\n    keyword: str  # The keyword text\n    relevance: float  # Relevance score 0-1\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
+          'Extract the most relevant keywords from the following text:\n\n<text>\nsQsDIoXfsVNddavoIETT\n</text>\n\n---\nThe instance we want to generate will be for the following class:\nclass text_analysis__Keyword(StructuredContent):\n    """An extracted keyword with relevance score"""\n    keyword: str  # The keyword text\n    relevance: float  # Relevance score 0-1\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
         structuring_path: "object_list",
       },
     },
     {
-      id: "a2d0f99e-72df-484b-b5b4-4618080d49a7:node_4",
+      id: "35c60f24-845a-49c9-a518-2634d719d481:node_4",
       kind: "operator",
       pipe_code: "merge_results",
       pipe_type: "PipeCompose",
@@ -436,9 +410,9 @@ export const DRY_SIMPLE_PARALLEL = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:17.962637Z",
-        ended_at: "2026-08-14T10:48:17.970937Z",
-        duration: 0.0083,
+        started_at: "2026-09-27T08:49:41.646021Z",
+        ended_at: "2026-09-27T08:49:41.647813Z",
+        duration: 0.001792,
       },
       io: {
         inputs: [
@@ -448,16 +422,13 @@ export const DRY_SIMPLE_PARALLEL = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "bMtcn",
+            digest: "LMcxS",
             data: {
               sentiment: "positive",
-              confidence: -676761.339172452,
-              explanation: "VplmmgmZiFjzWVzNEYYL",
+              confidence: 831081541658.336,
+              explanation: "lMIqXHUdCmuzdSjLjHAg",
             },
-            data_text:
-              " Attribute                    ┃ Value                                           \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n sentiment                    │ positive                                        \n──────────────────────────────┼─────────────────────────────────────────────────\n confidence                   │ -676761.339172452                               \n──────────────────────────────┼─────────────────────────────────────────────────\n explanation                  │ VplmmgmZiFjzWVzNEYYL                            \n",
-            data_html:
-              "<table><tr><th>sentiment</th><td>positive</td></tr><tr><th>confidence</th><td>-676761.339172452</td></tr><tr><th>explanation</th><td>VplmmgmZiFjzWVzNEYYL</td></tr></table>",
+            multiplicity: null,
             extra: {},
           },
           {
@@ -466,18 +437,15 @@ export const DRY_SIMPLE_PARALLEL = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "ZKkGH",
+            digest: "8Xdsg",
             data: {
               items: [
-                { keyword: "xUMPkeiyRDTjafdwCodV", relevance: 597.852782231598 },
-                { keyword: "AXuPWlcxERWkJiQZEtnV", relevance: 3790403021.61505 },
-                { keyword: "TEklKkOAFyqorODvsBzR", relevance: -0.85636011423101 },
+                { keyword: "GirGnDVfoDpMVouccXlE", relevance: -48642659.8960516 },
+                { keyword: "YQcDJtYhWnESVuFPUwvI", relevance: -79116226.664259 },
+                { keyword: "BfOtymzUhoqFEdYxXSIz", relevance: 479.531852466278 },
               ],
             },
-            data_text:
-              "   1    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                │ xUMPkeiyRDTjafdwCodV                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  relevance              │ 597.852782231598                            \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                │ AXuPWlcxERWkJiQZEtnV                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  relevance              │ 3790403021.61505                            \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                │ TEklKkOAFyqorODvsBzR                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  relevance              │ -0.85636011423101                           \n",
-            data_html:
-              "<ul><li><table><tr><th>keyword</th><td>xUMPkeiyRDTjafdwCodV</td></tr><tr><th>relevance</th><td>597.852782231598</td></tr></table></li><li><table><tr><th>keyword</th><td>AXuPWlcxERWkJiQZEtnV</td></tr><tr><th>relevance</th><td>3790403021.61505</td></tr></table></li><li><table><tr><th>keyword</th><td>TEklKkOAFyqorODvsBzR</td></tr><tr><th>relevance</th><td>-0.85636011423101</td></tr></table></li></ul>",
+            multiplicity: true,
             extra: {},
           },
         ],
@@ -488,14 +456,11 @@ export const DRY_SIMPLE_PARALLEL = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "EEAPq",
+            digest: "GBUwP",
             data: {
-              text: "# Text Analysis Report\n\n## Sentiment\n# sentiment: positive\n\n# confidence: -676761.339172452\n\n# explanation: VplmmgmZiFjzWVzNEYYL.sentiment (confidence: -676761.339172452)\nVplmmgmZiFjzWVzNEYYL\n\n## Keywords\nkeywords: ```\n\n • item #1:\n\n# keyword: xUMPkeiyRDTjafdwCodV\n\n# relevance: 597.852782231598\n\n • item #2:\n\n# keyword: AXuPWlcxERWkJiQZEtnV\n\n# relevance: 3790403021.61505\n\n • item #3:\n\n# keyword: TEklKkOAFyqorODvsBzR\n\n# relevance: -0.85636011423101\n\n```",
+              text: "# Text Analysis Report\n\n## Sentiment\n# sentiment: positive\n\n# confidence: 831081541658.336\n\n# explanation: lMIqXHUdCmuzdSjLjHAg.sentiment (confidence: 831081541658.336)\nlMIqXHUdCmuzdSjLjHAg\n\n## Keywords\n<keywords>\n\n • item #1:\n\n# keyword: GirGnDVfoDpMVouccXlE\n\n# relevance: -48642659.8960516\n\n • item #2:\n\n# keyword: YQcDJtYhWnESVuFPUwvI\n\n# relevance: -79116226.664259\n\n • item #3:\n\n# keyword: BfOtymzUhoqFEdYxXSIz\n\n# relevance: 479.531852466278\n\n</keywords>",
             },
-            data_text:
-              "                                        Text Analysis Report                                        \n\nSentiment                                                                                           \n\n                                        sentiment: positive                                         \n\n                                   confidence: -676761.339172452                                    \n\n            explanation: VplmmgmZiFjzWVzNEYYL.sentiment (confidence: -676761.339172452)             \n\nVplmmgmZiFjzWVzNEYYL                                                                                \n\nKeywords                                                                                            \n\nkeywords: ```                                                                                       \n\n• item #1:                                                                                          \n\n                                   keyword: xUMPkeiyRDTjafdwCodV                                    \n\n                                    relevance: 597.852782231598                                     \n\n• item #2:                                                                                          \n\n                                   keyword: AXuPWlcxERWkJiQZEtnV                                    \n\n                                    relevance: 3790403021.61505                                     \n\n• item #3:                                                                                          \n\n                                   keyword: TEklKkOAFyqorODvsBzR                                    \n\n                                    relevance: -0.85636011423101                                    \n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n",
-            data_html:
-              "# Text Analysis Report\n\n## Sentiment\n# sentiment: positive\n\n# confidence: -676761.339172452\n\n# explanation: VplmmgmZiFjzWVzNEYYL.sentiment (confidence: -676761.339172452)\nVplmmgmZiFjzWVzNEYYL\n\n## Keywords\nkeywords: ```\n\n • item #1:\n\n# keyword: xUMPkeiyRDTjafdwCodV\n\n# relevance: 597.852782231598\n\n • item #2:\n\n# keyword: AXuPWlcxERWkJiQZEtnV\n\n# relevance: 3790403021.61505\n\n • item #3:\n\n# keyword: TEklKkOAFyqorODvsBzR\n\n# relevance: -0.85636011423101\n\n```",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -524,15 +489,15 @@ export const DRY_SIMPLE_PARALLEL = {
       execution_data: {
         compose_mode: "template",
         rendered_text:
-          "# Text Analysis Report\n\n## Sentiment\n# sentiment: positive\n\n# confidence: -676761.339172452\n\n# explanation: VplmmgmZiFjzWVzNEYYL.sentiment (confidence: -676761.339172452)\nVplmmgmZiFjzWVzNEYYL\n\n## Keywords\nkeywords: ```\n\n • item #1:\n\n# keyword: xUMPkeiyRDTjafdwCodV\n\n# relevance: 597.852782231598\n\n • item #2:\n\n# keyword: AXuPWlcxERWkJiQZEtnV\n\n# relevance: 3790403021.61505\n\n • item #3:\n\n# keyword: TEklKkOAFyqorODvsBzR\n\n# relevance: -0.85636011423101\n\n```",
+          "# Text Analysis Report\n\n## Sentiment\n# sentiment: positive\n\n# confidence: 831081541658.336\n\n# explanation: lMIqXHUdCmuzdSjLjHAg.sentiment (confidence: 831081541658.336)\nlMIqXHUdCmuzdSjLjHAg\n\n## Keywords\n<keywords>\n\n • item #1:\n\n# keyword: GirGnDVfoDpMVouccXlE\n\n# relevance: -48642659.8960516\n\n • item #2:\n\n# keyword: YQcDJtYhWnESVuFPUwvI\n\n# relevance: -79116226.664259\n\n • item #3:\n\n# keyword: BfOtymzUhoqFEdYxXSIz\n\n# relevance: 479.531852466278\n\n</keywords>",
       },
     },
   ],
   edges: [
     {
-      id: "a2d0f99e-72df-484b-b5b4-4618080d49a7:edge_0",
-      source: "a2d0f99e-72df-484b-b5b4-4618080d49a7:node_0",
-      target: "a2d0f99e-72df-484b-b5b4-4618080d49a7:node_1",
+      id: "35c60f24-845a-49c9-a518-2634d719d481:edge_0",
+      source: "35c60f24-845a-49c9-a518-2634d719d481:node_0",
+      target: "35c60f24-845a-49c9-a518-2634d719d481:node_1",
       kind: "contains",
       optional: false,
       label: null,
@@ -541,9 +506,9 @@ export const DRY_SIMPLE_PARALLEL = {
       meta: {},
     },
     {
-      id: "a2d0f99e-72df-484b-b5b4-4618080d49a7:edge_1",
-      source: "a2d0f99e-72df-484b-b5b4-4618080d49a7:node_1",
-      target: "a2d0f99e-72df-484b-b5b4-4618080d49a7:node_2",
+      id: "35c60f24-845a-49c9-a518-2634d719d481:edge_1",
+      source: "35c60f24-845a-49c9-a518-2634d719d481:node_1",
+      target: "35c60f24-845a-49c9-a518-2634d719d481:node_2",
       kind: "contains",
       optional: false,
       label: null,
@@ -552,9 +517,9 @@ export const DRY_SIMPLE_PARALLEL = {
       meta: {},
     },
     {
-      id: "a2d0f99e-72df-484b-b5b4-4618080d49a7:edge_2",
-      source: "a2d0f99e-72df-484b-b5b4-4618080d49a7:node_1",
-      target: "a2d0f99e-72df-484b-b5b4-4618080d49a7:node_3",
+      id: "35c60f24-845a-49c9-a518-2634d719d481:edge_2",
+      source: "35c60f24-845a-49c9-a518-2634d719d481:node_1",
+      target: "35c60f24-845a-49c9-a518-2634d719d481:node_3",
       kind: "contains",
       optional: false,
       label: null,
@@ -563,9 +528,9 @@ export const DRY_SIMPLE_PARALLEL = {
       meta: {},
     },
     {
-      id: "a2d0f99e-72df-484b-b5b4-4618080d49a7:edge_3",
-      source: "a2d0f99e-72df-484b-b5b4-4618080d49a7:node_0",
-      target: "a2d0f99e-72df-484b-b5b4-4618080d49a7:node_4",
+      id: "35c60f24-845a-49c9-a518-2634d719d481:edge_3",
+      source: "35c60f24-845a-49c9-a518-2634d719d481:node_0",
+      target: "35c60f24-845a-49c9-a518-2634d719d481:node_4",
       kind: "contains",
       optional: false,
       label: null,
@@ -574,9 +539,9 @@ export const DRY_SIMPLE_PARALLEL = {
       meta: {},
     },
     {
-      id: "a2d0f99e-72df-484b-b5b4-4618080d49a7:asm_edge_0",
-      source: "a2d0f99e-72df-484b-b5b4-4618080d49a7:node_1",
-      target: "a2d0f99e-72df-484b-b5b4-4618080d49a7:node_4",
+      id: "35c60f24-845a-49c9-a518-2634d719d481:asm_edge_0",
+      source: "35c60f24-845a-49c9-a518-2634d719d481:node_1",
+      target: "35c60f24-845a-49c9-a518-2634d719d481:node_4",
       kind: "data",
       optional: false,
       label: "sentiment",
@@ -585,9 +550,9 @@ export const DRY_SIMPLE_PARALLEL = {
       meta: {},
     },
     {
-      id: "a2d0f99e-72df-484b-b5b4-4618080d49a7:asm_edge_1",
-      source: "a2d0f99e-72df-484b-b5b4-4618080d49a7:node_1",
-      target: "a2d0f99e-72df-484b-b5b4-4618080d49a7:node_4",
+      id: "35c60f24-845a-49c9-a518-2634d719d481:asm_edge_1",
+      source: "35c60f24-845a-49c9-a518-2634d719d481:node_1",
+      target: "35c60f24-845a-49c9-a518-2634d719d481:node_4",
       kind: "data",
       optional: false,
       label: "keywords",
@@ -596,25 +561,25 @@ export const DRY_SIMPLE_PARALLEL = {
       meta: {},
     },
     {
-      id: "a2d0f99e-72df-484b-b5b4-4618080d49a7:asm_edge_2",
-      source: "a2d0f99e-72df-484b-b5b4-4618080d49a7:node_2",
-      target: "a2d0f99e-72df-484b-b5b4-4618080d49a7:node_1",
+      id: "35c60f24-845a-49c9-a518-2634d719d481:asm_edge_2",
+      source: "35c60f24-845a-49c9-a518-2634d719d481:node_2",
+      target: "35c60f24-845a-49c9-a518-2634d719d481:node_1",
       kind: "parallel_combine",
       optional: false,
       label: null,
-      source_stuff_digest: "bMtcn",
-      target_stuff_digest: "kqc6T",
+      source_stuff_digest: "LMcxS",
+      target_stuff_digest: "XTYmd",
       meta: {},
     },
     {
-      id: "a2d0f99e-72df-484b-b5b4-4618080d49a7:asm_edge_3",
-      source: "a2d0f99e-72df-484b-b5b4-4618080d49a7:node_3",
-      target: "a2d0f99e-72df-484b-b5b4-4618080d49a7:node_1",
+      id: "35c60f24-845a-49c9-a518-2634d719d481:asm_edge_3",
+      source: "35c60f24-845a-49c9-a518-2634d719d481:node_3",
+      target: "35c60f24-845a-49c9-a518-2634d719d481:node_1",
       kind: "parallel_combine",
       optional: false,
       label: null,
-      source_stuff_digest: "ZKkGH",
-      target_stuff_digest: "kqc6T",
+      source_stuff_digest: "8Xdsg",
+      target_stuff_digest: "XTYmd",
       meta: {},
     },
   ],
@@ -708,13 +673,13 @@ export const DRY_SIMPLE_PARALLEL = {
       },
       sequential_sub_pipes: [
         {
-          pipe_code: "parallel_analyze",
+          pipe_code: "text_analysis.parallel_analyze",
           output_name: "analysis_bundle",
           output_multiplicity: null,
           batch_params: null,
         },
         {
-          pipe_code: "merge_results",
+          pipe_code: "text_analysis.merge_results",
           output_name: "report",
           output_multiplicity: null,
           batch_params: null,
@@ -753,13 +718,13 @@ export const DRY_SIMPLE_PARALLEL = {
       },
       parallel_sub_pipes: [
         {
-          pipe_code: "analyze_sentiment",
+          pipe_code: "text_analysis.analyze_sentiment",
           output_name: "sentiment",
           output_multiplicity: null,
           batch_params: null,
         },
         {
-          pipe_code: "extract_keywords",
+          pipe_code: "text_analysis.extract_keywords",
           output_name: "keywords",
           output_multiplicity: null,
           batch_params: null,
@@ -813,6 +778,7 @@ export const DRY_SIMPLE_PARALLEL = {
       },
       llm_choices: { for_text: null, for_object: null },
       output_multiplicity: null,
+      templating_style: null,
     },
     "text_analysis.extract_keywords": {
       pipe_category: "PipeOperator",
@@ -859,6 +825,7 @@ export const DRY_SIMPLE_PARALLEL = {
       },
       llm_choices: { for_text: null, for_object: null },
       output_multiplicity: true,
+      templating_style: null,
     },
     "text_analysis.merge_results": {
       pipe_category: "PipeOperator",
@@ -931,6 +898,7 @@ export const DRY_SIMPLE_PARALLEL = {
       structure_class_name: "TextContent",
       refines: null,
       json_schema: {
+        description: "A text",
         properties: { text: { description: "The text", title: "Text", type: "string" } },
         required: ["text"],
         title: "TextContent",

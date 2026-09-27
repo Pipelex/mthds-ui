@@ -1,6 +1,6 @@
 {
-  "graph_id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d",
-  "created_at": "2026-08-14T10:50:01.910917Z",
+  "graph_id": "50179426-5d20-4fe7-90be-e28fd85a0148",
+  "created_at": "2026-09-27T08:51:31.299494Z",
   "pipeline_ref": {
     "domain": "cv_batch_screening",
     "main_pipe": "batch_analyze_cvs_for_job_offer",
@@ -8,7 +8,7 @@
   },
   "nodes": [
     {
-      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_0",
+      "id": "50179426-5d20-4fe7-90be-e28fd85a0148:node_0",
       "kind": "controller",
       "pipe_code": "batch_analyze_cvs_for_job_offer",
       "pipe_type": "PipeSequence",
@@ -17,29 +17,28 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-08-14T10:50:01.910917Z",
-        "ended_at": "2026-08-14T10:50:02.111630Z",
-        "duration": 0.200713
+        "started_at": "2026-09-27T08:51:31.299494Z",
+        "ended_at": "2026-09-27T08:51:31.335702Z",
+        "duration": 0.036208
       },
       "io": {
         "inputs": [
           {
             "name": "job_offer_pdf",
             "concept": "Document",
-            "content_type": "ycpGzUBOqOkYfCDFjTPX",
+            "content_type": "jqRcHQDIxAPWgUuSBkED",
             "preview": null,
             "size": null,
-            "digest": "AL4nP",
+            "digest": "gTq2B",
             "data": {
-              "url": "CIBantQVrLyfZLudZyFc",
-              "public_url": "quBETKwnXeuvmmLCTcLZ",
-              "mime_type": "ycpGzUBOqOkYfCDFjTPX",
-              "filename": "rPohKmADPrhpVwOrLRls",
-              "title": "bZFqpYiRbVaLPdlUbMqy",
-              "snippet": "BVyYpJPKwUBNhunZbabh"
+              "url": "qYwpWTOhYUwLOeUpjldP",
+              "public_url": "aOvlwMryzuMVxnNsPVFS",
+              "mime_type": "jqRcHQDIxAPWgUuSBkED",
+              "filename": "DBrwZOXTCumivFTXRJBJ",
+              "title": "reNObnLdPNkoDPWDfLvs",
+              "snippet": "XCNGEXFGTTuSJQZhlXVh"
             },
-            "data_text": "bZFqpYiRbVaLPdlUbMqy (CIBantQVrLyfZLudZyFc)\n  BVyYpJPKwUBNhunZbabh\n",
-            "data_html": "<a href=\"quBETKwnXeuvmmLCTcLZ\" class=\"msg-document\">bZFqpYiRbVaLPdlUbMqy</a><br/><small>BVyYpJPKwUBNhunZbabh</small>",
+            "multiplicity": null,
             "extra": {}
           },
           {
@@ -48,29 +47,28 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "KqAzU",
+            "digest": "6BR5D",
             "data": {
               "items": [
                 {
-                  "url": "coIJfbhejVsxLzSDQpVC",
-                  "public_url": "sDjsxSHXrtSJiuewjipS",
-                  "mime_type": "jmWDSjotJhFIWoNzZOOp",
-                  "filename": "HuGfwllOJeEdmEDkGaKs",
-                  "title": "fugmRapvWxqxKLNWxTFX",
-                  "snippet": "mOoohaurcmroOtniqYuO"
+                  "url": "JIJdqiaaBclYfZUzMpOh",
+                  "public_url": "eUCIHAyZLDraMfzoMVpD",
+                  "mime_type": "ugoLEprULjKukVJYRPor",
+                  "filename": "vzhYbzEXJmbPlsWeEKXS",
+                  "title": "mEVRFDKcbOlNXTiiWXjq",
+                  "snippet": "bCdMPxEkStWBoXVYQbjr"
                 },
                 {
-                  "url": "VWGQIIpZMczvNLrlUSLq",
-                  "public_url": "pXnmgUGkwXRyPEgDOjVc",
-                  "mime_type": "QNGcwPuXRCZumRZcxiBX",
-                  "filename": "KLHNVuhuqTUaWVOJyTVw",
-                  "title": "OTzyLeYAGIsRYoAVsxdF",
-                  "snippet": "qoiiXPmhdaPvpgKKFxXw"
+                  "url": "PaCQnNoymADCDlhmzazL",
+                  "public_url": "GYxJqUykpFpLmMQiieSg",
+                  "mime_type": "BuYlCJNogmwZAAztRXLY",
+                  "filename": "okVddiqenubzUGNOsNjm",
+                  "title": "CnmdYEQGaiyEpxCTcKVh",
+                  "snippet": "cTEpLbMGPoLQrzRYHUrU"
                 }
               ]
             },
-            "data_text": "     1      │ fugmRapvWxqxKLNWxTFX (coIJfbhejVsxLzSDQpVC)                       \n            │   mOoohaurcmroOtniqYuO                                            \n────────────┼───────────────────────────────────────────────────────────────────\n     2      │ OTzyLeYAGIsRYoAVsxdF (VWGQIIpZMczvNLrlUSLq)                       \n            │   qoiiXPmhdaPvpgKKFxXw                                            \n",
-            "data_html": "<ul><li><a href=\"sDjsxSHXrtSJiuewjipS\" class=\"msg-document\">fugmRapvWxqxKLNWxTFX</a><br/><small>mOoohaurcmroOtniqYuO</small></li><li><a href=\"pXnmgUGkwXRyPEgDOjVc\" class=\"msg-document\">OTzyLeYAGIsRYoAVsxdF</a><br/><small>qoiiXPmhdaPvpgKKFxXw</small></li></ul>",
+            "multiplicity": true,
             "extra": {}
           }
         ],
@@ -81,25 +79,24 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "HGAnM",
+            "digest": "MFyej",
             "data": {
               "items": [
                 {
-                  "match_score": 7.40731573284898,
-                  "strengths": "SiaTsJBDgGcuoRpLacuX",
-                  "gaps": "oVRYTuCmhABfWNDTwoDs",
-                  "overall_assessment": "txtFTPSkpkIqzsqhyKgc"
+                  "match_score": -36532.59857289,
+                  "strengths": "AtaokYmviWOwKcyrbTMO",
+                  "gaps": "UTvgUENEtLCQFeXHSHeQ",
+                  "overall_assessment": "GRdwXwsFjPDdKIoJBMGv"
                 },
                 {
-                  "match_score": 7101155.35893388,
-                  "strengths": "yPyxPCQYNBJuMzXfmblv",
-                  "gaps": "KfxjkJjlvjRHnarOVYKL",
-                  "overall_assessment": "KoTSKgnHwfznaGLRYTCp"
+                  "match_score": -197463043.252896,
+                  "strengths": "bBMPxetAoAhSrbBIiXVZ",
+                  "gaps": "gipocSpKDGEBdTrSThfv",
+                  "overall_assessment": "nPIxXcjISMBaVtVXpVXh"
                 }
               ]
             },
-            "data_text": "   1    │  Attribute                        ┃ Value                             \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  match_score                      │ 7.40731573284898                  \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  strengths                        │ SiaTsJBDgGcuoRpLacuX              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  gaps                             │ oVRYTuCmhABfWNDTwoDs              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  overall_assessment               │ txtFTPSkpkIqzsqhyKgc              \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute                        ┃ Value                             \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  match_score                      │ 7101155.35893388                  \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  strengths                        │ yPyxPCQYNBJuMzXfmblv              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  gaps                             │ KfxjkJjlvjRHnarOVYKL              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  overall_assessment               │ KoTSKgnHwfznaGLRYTCp              \n",
-            "data_html": "<ul><li><table><tr><th>match_score</th><td>7.40731573284898</td></tr><tr><th>strengths</th><td>SiaTsJBDgGcuoRpLacuX</td></tr><tr><th>gaps</th><td>oVRYTuCmhABfWNDTwoDs</td></tr><tr><th>overall_assessment</th><td>txtFTPSkpkIqzsqhyKgc</td></tr></table></li><li><table><tr><th>match_score</th><td>7101155.35893388</td></tr><tr><th>strengths</th><td>yPyxPCQYNBJuMzXfmblv</td></tr><tr><th>gaps</th><td>KfxjkJjlvjRHnarOVYKL</td></tr><tr><th>overall_assessment</th><td>KoTSKgnHwfznaGLRYTCp</td></tr></table></li></ul>",
+            "multiplicity": true,
             "extra": {}
           }
         ]
@@ -139,7 +136,7 @@
       }
     },
     {
-      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_1",
+      "id": "50179426-5d20-4fe7-90be-e28fd85a0148:node_1",
       "kind": "controller",
       "pipe_code": "prepare_job_offer",
       "pipe_type": "PipeSequence",
@@ -148,29 +145,28 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-08-14T10:50:01.919730Z",
-        "ended_at": "2026-08-14T10:50:02.002268Z",
-        "duration": 0.082538
+        "started_at": "2026-09-27T08:51:31.300741Z",
+        "ended_at": "2026-09-27T08:51:31.309539Z",
+        "duration": 0.008798
       },
       "io": {
         "inputs": [
           {
             "name": "job_offer_pdf",
             "concept": "Document",
-            "content_type": "ycpGzUBOqOkYfCDFjTPX",
+            "content_type": "jqRcHQDIxAPWgUuSBkED",
             "preview": null,
             "size": null,
-            "digest": "AL4nP",
+            "digest": "gTq2B",
             "data": {
-              "url": "CIBantQVrLyfZLudZyFc",
-              "public_url": "quBETKwnXeuvmmLCTcLZ",
-              "mime_type": "ycpGzUBOqOkYfCDFjTPX",
-              "filename": "rPohKmADPrhpVwOrLRls",
-              "title": "bZFqpYiRbVaLPdlUbMqy",
-              "snippet": "BVyYpJPKwUBNhunZbabh"
+              "url": "qYwpWTOhYUwLOeUpjldP",
+              "public_url": "aOvlwMryzuMVxnNsPVFS",
+              "mime_type": "jqRcHQDIxAPWgUuSBkED",
+              "filename": "DBrwZOXTCumivFTXRJBJ",
+              "title": "reNObnLdPNkoDPWDfLvs",
+              "snippet": "XCNGEXFGTTuSJQZhlXVh"
             },
-            "data_text": "bZFqpYiRbVaLPdlUbMqy (CIBantQVrLyfZLudZyFc)\n  BVyYpJPKwUBNhunZbabh\n",
-            "data_html": "<a href=\"quBETKwnXeuvmmLCTcLZ\" class=\"msg-document\">bZFqpYiRbVaLPdlUbMqy</a><br/><small>BVyYpJPKwUBNhunZbabh</small>",
+            "multiplicity": null,
             "extra": {}
           }
         ],
@@ -181,15 +177,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "27Cok",
+            "digest": "dV2H7",
             "data": {
-              "required_skills": "oSclvRyMMApzFQKCJHSj",
-              "responsibilities": "snDnbJuxQxJBBxJZvIBX",
-              "qualifications": "USAETbaCVDWSeNWUIBZY",
-              "nice_to_haves": "uDuKDYZrrwMnpeUbKQJw"
+              "required_skills": "aUGvLrvEcaveKGClMqLG",
+              "responsibilities": "fLogYNHmJlZZPqqNpBKK",
+              "qualifications": "xpTViOwtjGwKcTgWUpDN",
+              "nice_to_haves": "tQOegKApZiQdIPxNjbVC"
             },
-            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills                    │ oSclvRyMMApzFQKCJHSj                      \n────────────────────────────────────┼───────────────────────────────────────────\n responsibilities                   │ snDnbJuxQxJBBxJZvIBX                      \n────────────────────────────────────┼───────────────────────────────────────────\n qualifications                     │ USAETbaCVDWSeNWUIBZY                      \n────────────────────────────────────┼───────────────────────────────────────────\n nice_to_haves                      │ uDuKDYZrrwMnpeUbKQJw                      \n",
-            "data_html": "<table><tr><th>required_skills</th><td>oSclvRyMMApzFQKCJHSj</td></tr><tr><th>responsibilities</th><td>snDnbJuxQxJBBxJZvIBX</td></tr><tr><th>qualifications</th><td>USAETbaCVDWSeNWUIBZY</td></tr><tr><th>nice_to_haves</th><td>uDuKDYZrrwMnpeUbKQJw</td></tr></table>",
+            "multiplicity": null,
             "extra": {}
           }
         ]
@@ -229,7 +224,7 @@
       }
     },
     {
-      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_2",
+      "id": "50179426-5d20-4fe7-90be-e28fd85a0148:node_2",
       "kind": "operator",
       "pipe_code": "extract_one_job_offer",
       "pipe_type": "PipeExtract",
@@ -238,29 +233,28 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-08-14T10:50:01.928751Z",
-        "ended_at": "2026-08-14T10:50:01.936952Z",
-        "duration": 0.008201
+        "started_at": "2026-09-27T08:51:31.301380Z",
+        "ended_at": "2026-09-27T08:51:31.304472Z",
+        "duration": 0.003092
       },
       "io": {
         "inputs": [
           {
             "name": "job_offer_pdf",
             "concept": "Document",
-            "content_type": "ycpGzUBOqOkYfCDFjTPX",
+            "content_type": "jqRcHQDIxAPWgUuSBkED",
             "preview": null,
             "size": null,
-            "digest": "AL4nP",
+            "digest": "gTq2B",
             "data": {
-              "url": "CIBantQVrLyfZLudZyFc",
-              "public_url": "quBETKwnXeuvmmLCTcLZ",
-              "mime_type": "ycpGzUBOqOkYfCDFjTPX",
-              "filename": "rPohKmADPrhpVwOrLRls",
-              "title": "bZFqpYiRbVaLPdlUbMqy",
-              "snippet": "BVyYpJPKwUBNhunZbabh"
+              "url": "qYwpWTOhYUwLOeUpjldP",
+              "public_url": "aOvlwMryzuMVxnNsPVFS",
+              "mime_type": "jqRcHQDIxAPWgUuSBkED",
+              "filename": "DBrwZOXTCumivFTXRJBJ",
+              "title": "reNObnLdPNkoDPWDfLvs",
+              "snippet": "XCNGEXFGTTuSJQZhlXVh"
             },
-            "data_text": "bZFqpYiRbVaLPdlUbMqy (CIBantQVrLyfZLudZyFc)\n  BVyYpJPKwUBNhunZbabh\n",
-            "data_html": "<a href=\"quBETKwnXeuvmmLCTcLZ\" class=\"msg-document\">bZFqpYiRbVaLPdlUbMqy</a><br/><small>BVyYpJPKwUBNhunZbabh</small>",
+            "multiplicity": null,
             "extra": {}
           }
         ],
@@ -271,7 +265,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "Ei6KG",
+            "digest": "DaqtC",
             "data": {
               "items": [
                 {
@@ -316,8 +310,7 @@
                 }
               ]
             },
-            "data_text": "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
-            "data_html": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            "multiplicity": true,
             "extra": {}
           }
         ]
@@ -351,7 +344,7 @@
       }
     },
     {
-      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_3",
+      "id": "50179426-5d20-4fe7-90be-e28fd85a0148:node_3",
       "kind": "operator",
       "pipe_code": "analyze_job_requirements",
       "pipe_type": "PipeLLM",
@@ -360,9 +353,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-08-14T10:50:01.942759Z",
-        "ended_at": "2026-08-14T10:50:01.999251Z",
-        "duration": 0.056492
+        "started_at": "2026-09-27T08:51:31.304836Z",
+        "ended_at": "2026-09-27T08:51:31.309300Z",
+        "duration": 0.004464
       },
       "io": {
         "inputs": [
@@ -372,7 +365,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "Ei6KG",
+            "digest": "DaqtC",
             "data": {
               "items": [
                 {
@@ -417,8 +410,7 @@
                 }
               ]
             },
-            "data_text": "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
-            "data_html": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            "multiplicity": true,
             "extra": {}
           }
         ],
@@ -429,15 +421,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "27Cok",
+            "digest": "dV2H7",
             "data": {
-              "required_skills": "oSclvRyMMApzFQKCJHSj",
-              "responsibilities": "snDnbJuxQxJBBxJZvIBX",
-              "qualifications": "USAETbaCVDWSeNWUIBZY",
-              "nice_to_haves": "uDuKDYZrrwMnpeUbKQJw"
+              "required_skills": "aUGvLrvEcaveKGClMqLG",
+              "responsibilities": "fLogYNHmJlZZPqqNpBKK",
+              "qualifications": "xpTViOwtjGwKcTgWUpDN",
+              "nice_to_haves": "tQOegKApZiQdIPxNjbVC"
             },
-            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills                    │ oSclvRyMMApzFQKCJHSj                      \n────────────────────────────────────┼───────────────────────────────────────────\n responsibilities                   │ snDnbJuxQxJBBxJZvIBX                      \n────────────────────────────────────┼───────────────────────────────────────────\n qualifications                     │ USAETbaCVDWSeNWUIBZY                      \n────────────────────────────────────┼───────────────────────────────────────────\n nice_to_haves                      │ uDuKDYZrrwMnpeUbKQJw                      \n",
-            "data_html": "<table><tr><th>required_skills</th><td>oSclvRyMMApzFQKCJHSj</td></tr><tr><th>responsibilities</th><td>snDnbJuxQxJBBxJZvIBX</td></tr><tr><th>qualifications</th><td>USAETbaCVDWSeNWUIBZY</td></tr><tr><th>nice_to_haves</th><td>uDuKDYZrrwMnpeUbKQJw</td></tr></table>",
+            "multiplicity": null,
             "extra": {}
           }
         ]
@@ -491,18 +482,18 @@
       }
     },
     {
-      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_4",
+      "id": "50179426-5d20-4fe7-90be-e28fd85a0148:node_4",
       "kind": "controller",
       "pipe_code": "process_cv_batch",
       "pipe_type": "PipeBatch",
-      "description": "Batch processing for process_cv",
+      "description": "Batch processing for cv_batch_screening.process_cv",
       "domain_code": "cv_batch_screening",
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-08-14T10:50:02.005940Z",
-        "ended_at": "2026-08-14T10:50:02.108465Z",
-        "duration": 0.102525
+        "started_at": "2026-09-27T08:51:31.309748Z",
+        "ended_at": "2026-09-27T08:51:31.335452Z",
+        "duration": 0.025704
       },
       "io": {
         "inputs": [
@@ -512,29 +503,28 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "KqAzU",
+            "digest": "6BR5D",
             "data": {
               "items": [
                 {
-                  "url": "coIJfbhejVsxLzSDQpVC",
-                  "public_url": "sDjsxSHXrtSJiuewjipS",
-                  "mime_type": "jmWDSjotJhFIWoNzZOOp",
-                  "filename": "HuGfwllOJeEdmEDkGaKs",
-                  "title": "fugmRapvWxqxKLNWxTFX",
-                  "snippet": "mOoohaurcmroOtniqYuO"
+                  "url": "JIJdqiaaBclYfZUzMpOh",
+                  "public_url": "eUCIHAyZLDraMfzoMVpD",
+                  "mime_type": "ugoLEprULjKukVJYRPor",
+                  "filename": "vzhYbzEXJmbPlsWeEKXS",
+                  "title": "mEVRFDKcbOlNXTiiWXjq",
+                  "snippet": "bCdMPxEkStWBoXVYQbjr"
                 },
                 {
-                  "url": "VWGQIIpZMczvNLrlUSLq",
-                  "public_url": "pXnmgUGkwXRyPEgDOjVc",
-                  "mime_type": "QNGcwPuXRCZumRZcxiBX",
-                  "filename": "KLHNVuhuqTUaWVOJyTVw",
-                  "title": "OTzyLeYAGIsRYoAVsxdF",
-                  "snippet": "qoiiXPmhdaPvpgKKFxXw"
+                  "url": "PaCQnNoymADCDlhmzazL",
+                  "public_url": "GYxJqUykpFpLmMQiieSg",
+                  "mime_type": "BuYlCJNogmwZAAztRXLY",
+                  "filename": "okVddiqenubzUGNOsNjm",
+                  "title": "CnmdYEQGaiyEpxCTcKVh",
+                  "snippet": "cTEpLbMGPoLQrzRYHUrU"
                 }
               ]
             },
-            "data_text": "     1      │ fugmRapvWxqxKLNWxTFX (coIJfbhejVsxLzSDQpVC)                       \n            │   mOoohaurcmroOtniqYuO                                            \n────────────┼───────────────────────────────────────────────────────────────────\n     2      │ OTzyLeYAGIsRYoAVsxdF (VWGQIIpZMczvNLrlUSLq)                       \n            │   qoiiXPmhdaPvpgKKFxXw                                            \n",
-            "data_html": "<ul><li><a href=\"sDjsxSHXrtSJiuewjipS\" class=\"msg-document\">fugmRapvWxqxKLNWxTFX</a><br/><small>mOoohaurcmroOtniqYuO</small></li><li><a href=\"pXnmgUGkwXRyPEgDOjVc\" class=\"msg-document\">OTzyLeYAGIsRYoAVsxdF</a><br/><small>qoiiXPmhdaPvpgKKFxXw</small></li></ul>",
+            "multiplicity": true,
             "extra": {}
           }
         ],
@@ -545,25 +535,24 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "HGAnM",
+            "digest": "MFyej",
             "data": {
               "items": [
                 {
-                  "match_score": 7.40731573284898,
-                  "strengths": "SiaTsJBDgGcuoRpLacuX",
-                  "gaps": "oVRYTuCmhABfWNDTwoDs",
-                  "overall_assessment": "txtFTPSkpkIqzsqhyKgc"
+                  "match_score": -36532.59857289,
+                  "strengths": "AtaokYmviWOwKcyrbTMO",
+                  "gaps": "UTvgUENEtLCQFeXHSHeQ",
+                  "overall_assessment": "GRdwXwsFjPDdKIoJBMGv"
                 },
                 {
-                  "match_score": 7101155.35893388,
-                  "strengths": "yPyxPCQYNBJuMzXfmblv",
-                  "gaps": "KfxjkJjlvjRHnarOVYKL",
-                  "overall_assessment": "KoTSKgnHwfznaGLRYTCp"
+                  "match_score": -197463043.252896,
+                  "strengths": "bBMPxetAoAhSrbBIiXVZ",
+                  "gaps": "gipocSpKDGEBdTrSThfv",
+                  "overall_assessment": "nPIxXcjISMBaVtVXpVXh"
                 }
               ]
             },
-            "data_text": "   1    │  Attribute                        ┃ Value                             \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  match_score                      │ 7.40731573284898                  \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  strengths                        │ SiaTsJBDgGcuoRpLacuX              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  gaps                             │ oVRYTuCmhABfWNDTwoDs              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  overall_assessment               │ txtFTPSkpkIqzsqhyKgc              \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute                        ┃ Value                             \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  match_score                      │ 7101155.35893388                  \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  strengths                        │ yPyxPCQYNBJuMzXfmblv              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  gaps                             │ KfxjkJjlvjRHnarOVYKL              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  overall_assessment               │ KoTSKgnHwfznaGLRYTCp              \n",
-            "data_html": "<ul><li><table><tr><th>match_score</th><td>7.40731573284898</td></tr><tr><th>strengths</th><td>SiaTsJBDgGcuoRpLacuX</td></tr><tr><th>gaps</th><td>oVRYTuCmhABfWNDTwoDs</td></tr><tr><th>overall_assessment</th><td>txtFTPSkpkIqzsqhyKgc</td></tr></table></li><li><table><tr><th>match_score</th><td>7101155.35893388</td></tr><tr><th>strengths</th><td>yPyxPCQYNBJuMzXfmblv</td></tr><tr><th>gaps</th><td>KfxjkJjlvjRHnarOVYKL</td></tr><tr><th>overall_assessment</th><td>KoTSKgnHwfznaGLRYTCp</td></tr></table></li></ul>",
+            "multiplicity": true,
             "extra": {}
           }
         ]
@@ -600,11 +589,11 @@
       },
       "execution_data": {
         "item_count": 2,
-        "branch_pipe_code": "process_cv"
+        "branch_pipe_code": "cv_batch_screening.process_cv"
       }
     },
     {
-      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_5",
+      "id": "50179426-5d20-4fe7-90be-e28fd85a0148:node_5",
       "kind": "controller",
       "pipe_code": "process_cv",
       "pipe_type": "PipeSequence",
@@ -613,29 +602,28 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-08-14T10:50:02.010446Z",
-        "ended_at": "2026-08-14T10:50:02.057001Z",
-        "duration": 0.046555
+        "started_at": "2026-09-27T08:51:31.310614Z",
+        "ended_at": "2026-09-27T08:51:31.323188Z",
+        "duration": 0.012574
       },
       "io": {
         "inputs": [
           {
             "name": "cv_pdf",
             "concept": "Document",
-            "content_type": "jmWDSjotJhFIWoNzZOOp",
+            "content_type": "ugoLEprULjKukVJYRPor",
             "preview": null,
             "size": null,
-            "digest": "KqAzU-branch-0",
+            "digest": "6BR5D-branch-0",
             "data": {
-              "url": "coIJfbhejVsxLzSDQpVC",
-              "public_url": "sDjsxSHXrtSJiuewjipS",
-              "mime_type": "jmWDSjotJhFIWoNzZOOp",
-              "filename": "HuGfwllOJeEdmEDkGaKs",
-              "title": "fugmRapvWxqxKLNWxTFX",
-              "snippet": "mOoohaurcmroOtniqYuO"
+              "url": "JIJdqiaaBclYfZUzMpOh",
+              "public_url": "eUCIHAyZLDraMfzoMVpD",
+              "mime_type": "ugoLEprULjKukVJYRPor",
+              "filename": "vzhYbzEXJmbPlsWeEKXS",
+              "title": "mEVRFDKcbOlNXTiiWXjq",
+              "snippet": "bCdMPxEkStWBoXVYQbjr"
             },
-            "data_text": "fugmRapvWxqxKLNWxTFX (coIJfbhejVsxLzSDQpVC)\n  mOoohaurcmroOtniqYuO\n",
-            "data_html": "<a href=\"sDjsxSHXrtSJiuewjipS\" class=\"msg-document\">fugmRapvWxqxKLNWxTFX</a><br/><small>mOoohaurcmroOtniqYuO</small>",
+            "multiplicity": null,
             "extra": {}
           },
           {
@@ -644,15 +632,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "27Cok",
+            "digest": "dV2H7",
             "data": {
-              "required_skills": "oSclvRyMMApzFQKCJHSj",
-              "responsibilities": "snDnbJuxQxJBBxJZvIBX",
-              "qualifications": "USAETbaCVDWSeNWUIBZY",
-              "nice_to_haves": "uDuKDYZrrwMnpeUbKQJw"
+              "required_skills": "aUGvLrvEcaveKGClMqLG",
+              "responsibilities": "fLogYNHmJlZZPqqNpBKK",
+              "qualifications": "xpTViOwtjGwKcTgWUpDN",
+              "nice_to_haves": "tQOegKApZiQdIPxNjbVC"
             },
-            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills                    │ oSclvRyMMApzFQKCJHSj                      \n────────────────────────────────────┼───────────────────────────────────────────\n responsibilities                   │ snDnbJuxQxJBBxJZvIBX                      \n────────────────────────────────────┼───────────────────────────────────────────\n qualifications                     │ USAETbaCVDWSeNWUIBZY                      \n────────────────────────────────────┼───────────────────────────────────────────\n nice_to_haves                      │ uDuKDYZrrwMnpeUbKQJw                      \n",
-            "data_html": "<table><tr><th>required_skills</th><td>oSclvRyMMApzFQKCJHSj</td></tr><tr><th>responsibilities</th><td>snDnbJuxQxJBBxJZvIBX</td></tr><tr><th>qualifications</th><td>USAETbaCVDWSeNWUIBZY</td></tr><tr><th>nice_to_haves</th><td>uDuKDYZrrwMnpeUbKQJw</td></tr></table>",
+            "multiplicity": null,
             "extra": {}
           }
         ],
@@ -663,15 +650,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "kodzK-branch-0",
+            "digest": "keSUs-branch-0",
             "data": {
-              "match_score": 7.40731573284898,
-              "strengths": "SiaTsJBDgGcuoRpLacuX",
-              "gaps": "oVRYTuCmhABfWNDTwoDs",
-              "overall_assessment": "txtFTPSkpkIqzsqhyKgc"
+              "match_score": -36532.59857289,
+              "strengths": "AtaokYmviWOwKcyrbTMO",
+              "gaps": "UTvgUENEtLCQFeXHSHeQ",
+              "overall_assessment": "GRdwXwsFjPDdKIoJBMGv"
             },
-            "data_text": " Attribute                            ┃ Value                                   \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n match_score                          │ 7.40731573284898                        \n──────────────────────────────────────┼─────────────────────────────────────────\n strengths                            │ SiaTsJBDgGcuoRpLacuX                    \n──────────────────────────────────────┼─────────────────────────────────────────\n gaps                                 │ oVRYTuCmhABfWNDTwoDs                    \n──────────────────────────────────────┼─────────────────────────────────────────\n overall_assessment                   │ txtFTPSkpkIqzsqhyKgc                    \n",
-            "data_html": "<table><tr><th>match_score</th><td>7.40731573284898</td></tr><tr><th>strengths</th><td>SiaTsJBDgGcuoRpLacuX</td></tr><tr><th>gaps</th><td>oVRYTuCmhABfWNDTwoDs</td></tr><tr><th>overall_assessment</th><td>txtFTPSkpkIqzsqhyKgc</td></tr></table>",
+            "multiplicity": null,
             "extra": {}
           }
         ]
@@ -711,7 +697,7 @@
       }
     },
     {
-      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_6",
+      "id": "50179426-5d20-4fe7-90be-e28fd85a0148:node_6",
       "kind": "operator",
       "pipe_code": "extract_one_cv",
       "pipe_type": "PipeExtract",
@@ -720,29 +706,28 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-08-14T10:50:02.014657Z",
-        "ended_at": "2026-08-14T10:50:02.020508Z",
-        "duration": 0.005851
+        "started_at": "2026-09-27T08:51:31.311397Z",
+        "ended_at": "2026-09-27T08:51:31.314680Z",
+        "duration": 0.003283
       },
       "io": {
         "inputs": [
           {
             "name": "cv_pdf",
             "concept": "Document",
-            "content_type": "jmWDSjotJhFIWoNzZOOp",
+            "content_type": "ugoLEprULjKukVJYRPor",
             "preview": null,
             "size": null,
-            "digest": "KqAzU-branch-0",
+            "digest": "6BR5D-branch-0",
             "data": {
-              "url": "coIJfbhejVsxLzSDQpVC",
-              "public_url": "sDjsxSHXrtSJiuewjipS",
-              "mime_type": "jmWDSjotJhFIWoNzZOOp",
-              "filename": "HuGfwllOJeEdmEDkGaKs",
-              "title": "fugmRapvWxqxKLNWxTFX",
-              "snippet": "mOoohaurcmroOtniqYuO"
+              "url": "JIJdqiaaBclYfZUzMpOh",
+              "public_url": "eUCIHAyZLDraMfzoMVpD",
+              "mime_type": "ugoLEprULjKukVJYRPor",
+              "filename": "vzhYbzEXJmbPlsWeEKXS",
+              "title": "mEVRFDKcbOlNXTiiWXjq",
+              "snippet": "bCdMPxEkStWBoXVYQbjr"
             },
-            "data_text": "fugmRapvWxqxKLNWxTFX (coIJfbhejVsxLzSDQpVC)\n  mOoohaurcmroOtniqYuO\n",
-            "data_html": "<a href=\"sDjsxSHXrtSJiuewjipS\" class=\"msg-document\">fugmRapvWxqxKLNWxTFX</a><br/><small>mOoohaurcmroOtniqYuO</small>",
+            "multiplicity": null,
             "extra": {}
           }
         ],
@@ -753,7 +738,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "Q7WxA",
+            "digest": "k4bso",
             "data": {
               "items": [
                 {
@@ -798,8 +783,7 @@
                 }
               ]
             },
-            "data_text": "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
-            "data_html": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            "multiplicity": true,
             "extra": {}
           }
         ]
@@ -833,7 +817,7 @@
       }
     },
     {
-      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_7",
+      "id": "50179426-5d20-4fe7-90be-e28fd85a0148:node_7",
       "kind": "operator",
       "pipe_code": "analyze_one_cv",
       "pipe_type": "PipeLLM",
@@ -842,9 +826,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-08-14T10:50:02.024826Z",
-        "ended_at": "2026-08-14T10:50:02.037888Z",
-        "duration": 0.013062
+        "started_at": "2026-09-27T08:51:31.315078Z",
+        "ended_at": "2026-09-27T08:51:31.318808Z",
+        "duration": 0.00373
       },
       "io": {
         "inputs": [
@@ -854,7 +838,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "Q7WxA",
+            "digest": "k4bso",
             "data": {
               "items": [
                 {
@@ -899,8 +883,7 @@
                 }
               ]
             },
-            "data_text": "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
-            "data_html": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            "multiplicity": true,
             "extra": {}
           }
         ],
@@ -911,15 +894,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "53iLu",
+            "digest": "PkG3H",
             "data": {
-              "skills": "QnnFtYHYCCQJAbEMbYTu",
-              "experience": "bMgBqsICzEGgtxvgxNNB",
-              "education": "TObPCaWNJjBEMNMNbySE",
-              "achievements": "zeJEvsYYbGCVyQOketpm"
+              "skills": "kTaugzmAeLuLCVKTVubp",
+              "experience": "pXuLSgGtRoLGmHWYgmmW",
+              "education": "wBRsWBxbBFJpdzQAxCTQ",
+              "achievements": "wovVDRcpalltfmxHjpkD"
             },
-            "data_text": " Attribute                     ┃ Value                                          \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n skills                        │ QnnFtYHYCCQJAbEMbYTu                           \n───────────────────────────────┼────────────────────────────────────────────────\n experience                    │ bMgBqsICzEGgtxvgxNNB                           \n───────────────────────────────┼────────────────────────────────────────────────\n education                     │ TObPCaWNJjBEMNMNbySE                           \n───────────────────────────────┼────────────────────────────────────────────────\n achievements                  │ zeJEvsYYbGCVyQOketpm                           \n",
-            "data_html": "<table><tr><th>skills</th><td>QnnFtYHYCCQJAbEMbYTu</td></tr><tr><th>experience</th><td>bMgBqsICzEGgtxvgxNNB</td></tr><tr><th>education</th><td>TObPCaWNJjBEMNMNbySE</td></tr><tr><th>achievements</th><td>zeJEvsYYbGCVyQOketpm</td></tr></table>",
+            "multiplicity": null,
             "extra": {}
           }
         ]
@@ -973,7 +955,7 @@
       }
     },
     {
-      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_8",
+      "id": "50179426-5d20-4fe7-90be-e28fd85a0148:node_8",
       "kind": "operator",
       "pipe_code": "analyze_match",
       "pipe_type": "PipeLLM",
@@ -982,9 +964,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-08-14T10:50:02.042166Z",
-        "ended_at": "2026-08-14T10:50:02.054799Z",
-        "duration": 0.012633
+        "started_at": "2026-09-27T08:51:31.319296Z",
+        "ended_at": "2026-09-27T08:51:31.322955Z",
+        "duration": 0.003659
       },
       "io": {
         "inputs": [
@@ -994,15 +976,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "53iLu",
+            "digest": "PkG3H",
             "data": {
-              "skills": "QnnFtYHYCCQJAbEMbYTu",
-              "experience": "bMgBqsICzEGgtxvgxNNB",
-              "education": "TObPCaWNJjBEMNMNbySE",
-              "achievements": "zeJEvsYYbGCVyQOketpm"
+              "skills": "kTaugzmAeLuLCVKTVubp",
+              "experience": "pXuLSgGtRoLGmHWYgmmW",
+              "education": "wBRsWBxbBFJpdzQAxCTQ",
+              "achievements": "wovVDRcpalltfmxHjpkD"
             },
-            "data_text": " Attribute                     ┃ Value                                          \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n skills                        │ QnnFtYHYCCQJAbEMbYTu                           \n───────────────────────────────┼────────────────────────────────────────────────\n experience                    │ bMgBqsICzEGgtxvgxNNB                           \n───────────────────────────────┼────────────────────────────────────────────────\n education                     │ TObPCaWNJjBEMNMNbySE                           \n───────────────────────────────┼────────────────────────────────────────────────\n achievements                  │ zeJEvsYYbGCVyQOketpm                           \n",
-            "data_html": "<table><tr><th>skills</th><td>QnnFtYHYCCQJAbEMbYTu</td></tr><tr><th>experience</th><td>bMgBqsICzEGgtxvgxNNB</td></tr><tr><th>education</th><td>TObPCaWNJjBEMNMNbySE</td></tr><tr><th>achievements</th><td>zeJEvsYYbGCVyQOketpm</td></tr></table>",
+            "multiplicity": null,
             "extra": {}
           },
           {
@@ -1011,15 +992,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "27Cok",
+            "digest": "dV2H7",
             "data": {
-              "required_skills": "oSclvRyMMApzFQKCJHSj",
-              "responsibilities": "snDnbJuxQxJBBxJZvIBX",
-              "qualifications": "USAETbaCVDWSeNWUIBZY",
-              "nice_to_haves": "uDuKDYZrrwMnpeUbKQJw"
+              "required_skills": "aUGvLrvEcaveKGClMqLG",
+              "responsibilities": "fLogYNHmJlZZPqqNpBKK",
+              "qualifications": "xpTViOwtjGwKcTgWUpDN",
+              "nice_to_haves": "tQOegKApZiQdIPxNjbVC"
             },
-            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills                    │ oSclvRyMMApzFQKCJHSj                      \n────────────────────────────────────┼───────────────────────────────────────────\n responsibilities                   │ snDnbJuxQxJBBxJZvIBX                      \n────────────────────────────────────┼───────────────────────────────────────────\n qualifications                     │ USAETbaCVDWSeNWUIBZY                      \n────────────────────────────────────┼───────────────────────────────────────────\n nice_to_haves                      │ uDuKDYZrrwMnpeUbKQJw                      \n",
-            "data_html": "<table><tr><th>required_skills</th><td>oSclvRyMMApzFQKCJHSj</td></tr><tr><th>responsibilities</th><td>snDnbJuxQxJBBxJZvIBX</td></tr><tr><th>qualifications</th><td>USAETbaCVDWSeNWUIBZY</td></tr><tr><th>nice_to_haves</th><td>uDuKDYZrrwMnpeUbKQJw</td></tr></table>",
+            "multiplicity": null,
             "extra": {}
           }
         ],
@@ -1030,15 +1010,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "kodzK-branch-0",
+            "digest": "keSUs-branch-0",
             "data": {
-              "match_score": 7.40731573284898,
-              "strengths": "SiaTsJBDgGcuoRpLacuX",
-              "gaps": "oVRYTuCmhABfWNDTwoDs",
-              "overall_assessment": "txtFTPSkpkIqzsqhyKgc"
+              "match_score": -36532.59857289,
+              "strengths": "AtaokYmviWOwKcyrbTMO",
+              "gaps": "UTvgUENEtLCQFeXHSHeQ",
+              "overall_assessment": "GRdwXwsFjPDdKIoJBMGv"
             },
-            "data_text": " Attribute                            ┃ Value                                   \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n match_score                          │ 7.40731573284898                        \n──────────────────────────────────────┼─────────────────────────────────────────\n strengths                            │ SiaTsJBDgGcuoRpLacuX                    \n──────────────────────────────────────┼─────────────────────────────────────────\n gaps                                 │ oVRYTuCmhABfWNDTwoDs                    \n──────────────────────────────────────┼─────────────────────────────────────────\n overall_assessment                   │ txtFTPSkpkIqzsqhyKgc                    \n",
-            "data_html": "<table><tr><th>match_score</th><td>7.40731573284898</td></tr><tr><th>strengths</th><td>SiaTsJBDgGcuoRpLacuX</td></tr><tr><th>gaps</th><td>oVRYTuCmhABfWNDTwoDs</td></tr><tr><th>overall_assessment</th><td>txtFTPSkpkIqzsqhyKgc</td></tr></table>",
+            "multiplicity": null,
             "extra": {}
           }
         ]
@@ -1087,12 +1066,12 @@
         "resolved_model_for_object": "claude-4.8-opus",
         "is_multiple_output": false,
         "rendered_system_prompt": "You are an expert HR analyst specializing in candidate-job fit evaluation. Your task is to produce a structured match analysis comparing a candidate's profile against job requirements.",
-        "rendered_user_prompt": "Analyze how well the candidate matches the job requirements. Evaluate their fit by comparing their skills, experience, and qualifications against what the position demands.\n\n<candidate_profile>\n# skills: QnnFtYHYCCQJAbEMbYTu\n\n# experience: bMgBqsICzEGgtxvgxNNB\n\n# education: TObPCaWNJjBEMNMNbySE\n\n# achievements: zeJEvsYYbGCVyQOketpm\n</candidate_profile>\n\n<job_requirements>\n# required_skills: oSclvRyMMApzFQKCJHSj\n\n# responsibilities: snDnbJuxQxJBBxJZvIBX\n\n# qualifications: USAETbaCVDWSeNWUIBZY\n\n# nice_to_haves: uDuKDYZrrwMnpeUbKQJw\n</job_requirements>\n\nProvide a comprehensive match analysis including a numerical score, identified strengths, gaps, and an overall assessment.\n\n---\nThe instance we want to generate will be for the following class:\nclass cv_batch_screening__CandidateMatch(StructuredContent):\n    \"\"\"An evaluation of how well a candidate fits a job position.\"\"\"\n    match_score: float  # Numerical score representing overall fit percentage between 0 and 100\n    strengths: str  # Areas where the candidate meets or exceeds requirements\n    gaps: str  # Areas where the candidate falls short of requirements\n    overall_assessment: str  # Summary evaluation of the candidate's suitability\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "Analyze how well the candidate matches the job requirements. Evaluate their fit by comparing their skills, experience, and qualifications against what the position demands.\n\n<candidate_profile>\n# skills: kTaugzmAeLuLCVKTVubp\n\n# experience: pXuLSgGtRoLGmHWYgmmW\n\n# education: wBRsWBxbBFJpdzQAxCTQ\n\n# achievements: wovVDRcpalltfmxHjpkD\n</candidate_profile>\n\n<job_requirements>\n# required_skills: aUGvLrvEcaveKGClMqLG\n\n# responsibilities: fLogYNHmJlZZPqqNpBKK\n\n# qualifications: xpTViOwtjGwKcTgWUpDN\n\n# nice_to_haves: tQOegKApZiQdIPxNjbVC\n</job_requirements>\n\nProvide a comprehensive match analysis including a numerical score, identified strengths, gaps, and an overall assessment.\n\n---\nThe instance we want to generate will be for the following class:\nclass cv_batch_screening__CandidateMatch(StructuredContent):\n    \"\"\"An evaluation of how well a candidate fits a job position.\"\"\"\n    match_score: float  # Numerical score representing overall fit percentage between 0 and 100\n    strengths: str  # Areas where the candidate meets or exceeds requirements\n    gaps: str  # Areas where the candidate falls short of requirements\n    overall_assessment: str  # Summary evaluation of the candidate's suitability\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_direct"
       }
     },
     {
-      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_9",
+      "id": "50179426-5d20-4fe7-90be-e28fd85a0148:node_9",
       "kind": "controller",
       "pipe_code": "process_cv",
       "pipe_type": "PipeSequence",
@@ -1101,29 +1080,28 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-08-14T10:50:02.059745Z",
-        "ended_at": "2026-08-14T10:50:02.104748Z",
-        "duration": 0.045003
+        "started_at": "2026-09-27T08:51:31.323420Z",
+        "ended_at": "2026-09-27T08:51:31.334909Z",
+        "duration": 0.011489
       },
       "io": {
         "inputs": [
           {
             "name": "cv_pdf",
             "concept": "Document",
-            "content_type": "QNGcwPuXRCZumRZcxiBX",
+            "content_type": "BuYlCJNogmwZAAztRXLY",
             "preview": null,
             "size": null,
-            "digest": "KqAzU-branch-1",
+            "digest": "6BR5D-branch-1",
             "data": {
-              "url": "VWGQIIpZMczvNLrlUSLq",
-              "public_url": "pXnmgUGkwXRyPEgDOjVc",
-              "mime_type": "QNGcwPuXRCZumRZcxiBX",
-              "filename": "KLHNVuhuqTUaWVOJyTVw",
-              "title": "OTzyLeYAGIsRYoAVsxdF",
-              "snippet": "qoiiXPmhdaPvpgKKFxXw"
+              "url": "PaCQnNoymADCDlhmzazL",
+              "public_url": "GYxJqUykpFpLmMQiieSg",
+              "mime_type": "BuYlCJNogmwZAAztRXLY",
+              "filename": "okVddiqenubzUGNOsNjm",
+              "title": "CnmdYEQGaiyEpxCTcKVh",
+              "snippet": "cTEpLbMGPoLQrzRYHUrU"
             },
-            "data_text": "OTzyLeYAGIsRYoAVsxdF (VWGQIIpZMczvNLrlUSLq)\n  qoiiXPmhdaPvpgKKFxXw\n",
-            "data_html": "<a href=\"pXnmgUGkwXRyPEgDOjVc\" class=\"msg-document\">OTzyLeYAGIsRYoAVsxdF</a><br/><small>qoiiXPmhdaPvpgKKFxXw</small>",
+            "multiplicity": null,
             "extra": {}
           },
           {
@@ -1132,15 +1110,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "27Cok",
+            "digest": "dV2H7",
             "data": {
-              "required_skills": "oSclvRyMMApzFQKCJHSj",
-              "responsibilities": "snDnbJuxQxJBBxJZvIBX",
-              "qualifications": "USAETbaCVDWSeNWUIBZY",
-              "nice_to_haves": "uDuKDYZrrwMnpeUbKQJw"
+              "required_skills": "aUGvLrvEcaveKGClMqLG",
+              "responsibilities": "fLogYNHmJlZZPqqNpBKK",
+              "qualifications": "xpTViOwtjGwKcTgWUpDN",
+              "nice_to_haves": "tQOegKApZiQdIPxNjbVC"
             },
-            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills                    │ oSclvRyMMApzFQKCJHSj                      \n────────────────────────────────────┼───────────────────────────────────────────\n responsibilities                   │ snDnbJuxQxJBBxJZvIBX                      \n────────────────────────────────────┼───────────────────────────────────────────\n qualifications                     │ USAETbaCVDWSeNWUIBZY                      \n────────────────────────────────────┼───────────────────────────────────────────\n nice_to_haves                      │ uDuKDYZrrwMnpeUbKQJw                      \n",
-            "data_html": "<table><tr><th>required_skills</th><td>oSclvRyMMApzFQKCJHSj</td></tr><tr><th>responsibilities</th><td>snDnbJuxQxJBBxJZvIBX</td></tr><tr><th>qualifications</th><td>USAETbaCVDWSeNWUIBZY</td></tr><tr><th>nice_to_haves</th><td>uDuKDYZrrwMnpeUbKQJw</td></tr></table>",
+            "multiplicity": null,
             "extra": {}
           }
         ],
@@ -1151,15 +1128,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "kodzK-branch-1",
+            "digest": "keSUs-branch-1",
             "data": {
-              "match_score": 7101155.35893388,
-              "strengths": "yPyxPCQYNBJuMzXfmblv",
-              "gaps": "KfxjkJjlvjRHnarOVYKL",
-              "overall_assessment": "KoTSKgnHwfznaGLRYTCp"
+              "match_score": -197463043.252896,
+              "strengths": "bBMPxetAoAhSrbBIiXVZ",
+              "gaps": "gipocSpKDGEBdTrSThfv",
+              "overall_assessment": "nPIxXcjISMBaVtVXpVXh"
             },
-            "data_text": " Attribute                            ┃ Value                                   \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n match_score                          │ 7101155.35893388                        \n──────────────────────────────────────┼─────────────────────────────────────────\n strengths                            │ yPyxPCQYNBJuMzXfmblv                    \n──────────────────────────────────────┼─────────────────────────────────────────\n gaps                                 │ KfxjkJjlvjRHnarOVYKL                    \n──────────────────────────────────────┼─────────────────────────────────────────\n overall_assessment                   │ KoTSKgnHwfznaGLRYTCp                    \n",
-            "data_html": "<table><tr><th>match_score</th><td>7101155.35893388</td></tr><tr><th>strengths</th><td>yPyxPCQYNBJuMzXfmblv</td></tr><tr><th>gaps</th><td>KfxjkJjlvjRHnarOVYKL</td></tr><tr><th>overall_assessment</th><td>KoTSKgnHwfznaGLRYTCp</td></tr></table>",
+            "multiplicity": null,
             "extra": {}
           }
         ]
@@ -1199,7 +1175,7 @@
       }
     },
     {
-      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_10",
+      "id": "50179426-5d20-4fe7-90be-e28fd85a0148:node_10",
       "kind": "operator",
       "pipe_code": "extract_one_cv",
       "pipe_type": "PipeExtract",
@@ -1208,29 +1184,28 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-08-14T10:50:02.063936Z",
-        "ended_at": "2026-08-14T10:50:02.069447Z",
-        "duration": 0.005511
+        "started_at": "2026-09-27T08:51:31.324440Z",
+        "ended_at": "2026-09-27T08:51:31.327642Z",
+        "duration": 0.003202
       },
       "io": {
         "inputs": [
           {
             "name": "cv_pdf",
             "concept": "Document",
-            "content_type": "QNGcwPuXRCZumRZcxiBX",
+            "content_type": "BuYlCJNogmwZAAztRXLY",
             "preview": null,
             "size": null,
-            "digest": "KqAzU-branch-1",
+            "digest": "6BR5D-branch-1",
             "data": {
-              "url": "VWGQIIpZMczvNLrlUSLq",
-              "public_url": "pXnmgUGkwXRyPEgDOjVc",
-              "mime_type": "QNGcwPuXRCZumRZcxiBX",
-              "filename": "KLHNVuhuqTUaWVOJyTVw",
-              "title": "OTzyLeYAGIsRYoAVsxdF",
-              "snippet": "qoiiXPmhdaPvpgKKFxXw"
+              "url": "PaCQnNoymADCDlhmzazL",
+              "public_url": "GYxJqUykpFpLmMQiieSg",
+              "mime_type": "BuYlCJNogmwZAAztRXLY",
+              "filename": "okVddiqenubzUGNOsNjm",
+              "title": "CnmdYEQGaiyEpxCTcKVh",
+              "snippet": "cTEpLbMGPoLQrzRYHUrU"
             },
-            "data_text": "OTzyLeYAGIsRYoAVsxdF (VWGQIIpZMczvNLrlUSLq)\n  qoiiXPmhdaPvpgKKFxXw\n",
-            "data_html": "<a href=\"pXnmgUGkwXRyPEgDOjVc\" class=\"msg-document\">OTzyLeYAGIsRYoAVsxdF</a><br/><small>qoiiXPmhdaPvpgKKFxXw</small>",
+            "multiplicity": null,
             "extra": {}
           }
         ],
@@ -1241,7 +1216,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "fH2BV",
+            "digest": "7wgMv",
             "data": {
               "items": [
                 {
@@ -1286,8 +1261,7 @@
                 }
               ]
             },
-            "data_text": "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
-            "data_html": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            "multiplicity": true,
             "extra": {}
           }
         ]
@@ -1321,7 +1295,7 @@
       }
     },
     {
-      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_11",
+      "id": "50179426-5d20-4fe7-90be-e28fd85a0148:node_11",
       "kind": "operator",
       "pipe_code": "analyze_one_cv",
       "pipe_type": "PipeLLM",
@@ -1330,9 +1304,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-08-14T10:50:02.073615Z",
-        "ended_at": "2026-08-14T10:50:02.086243Z",
-        "duration": 0.012628
+        "started_at": "2026-09-27T08:51:31.328008Z",
+        "ended_at": "2026-09-27T08:51:31.331637Z",
+        "duration": 0.003629
       },
       "io": {
         "inputs": [
@@ -1342,7 +1316,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "fH2BV",
+            "digest": "7wgMv",
             "data": {
               "items": [
                 {
@@ -1387,8 +1361,7 @@
                 }
               ]
             },
-            "data_text": "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
-            "data_html": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            "multiplicity": true,
             "extra": {}
           }
         ],
@@ -1399,15 +1372,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "a5foV",
+            "digest": "MrSsC",
             "data": {
-              "skills": "OGsBjNXBxkthnSITuetL",
-              "experience": "EhNUHkqSEeFDmBshfyQQ",
-              "education": "qxLPUWVOfIMyCuNepqqL",
-              "achievements": "AHuivZZwnVTFgXAfFQZy"
+              "skills": "FjxVvmlBVIoPuOANyWDl",
+              "experience": "hlzsGkaEYNxcqlnGceyo",
+              "education": "GnLNzxzdkxKAmGsnrVSV",
+              "achievements": "eWZJpuFArzYZOLyOgBjL"
             },
-            "data_text": " Attribute                     ┃ Value                                          \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n skills                        │ OGsBjNXBxkthnSITuetL                           \n───────────────────────────────┼────────────────────────────────────────────────\n experience                    │ EhNUHkqSEeFDmBshfyQQ                           \n───────────────────────────────┼────────────────────────────────────────────────\n education                     │ qxLPUWVOfIMyCuNepqqL                           \n───────────────────────────────┼────────────────────────────────────────────────\n achievements                  │ AHuivZZwnVTFgXAfFQZy                           \n",
-            "data_html": "<table><tr><th>skills</th><td>OGsBjNXBxkthnSITuetL</td></tr><tr><th>experience</th><td>EhNUHkqSEeFDmBshfyQQ</td></tr><tr><th>education</th><td>qxLPUWVOfIMyCuNepqqL</td></tr><tr><th>achievements</th><td>AHuivZZwnVTFgXAfFQZy</td></tr></table>",
+            "multiplicity": null,
             "extra": {}
           }
         ]
@@ -1461,7 +1433,7 @@
       }
     },
     {
-      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_12",
+      "id": "50179426-5d20-4fe7-90be-e28fd85a0148:node_12",
       "kind": "operator",
       "pipe_code": "analyze_match",
       "pipe_type": "PipeLLM",
@@ -1470,9 +1442,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-08-14T10:50:02.090537Z",
-        "ended_at": "2026-08-14T10:50:02.102640Z",
-        "duration": 0.012103
+        "started_at": "2026-09-27T08:51:31.332094Z",
+        "ended_at": "2026-09-27T08:51:31.334721Z",
+        "duration": 0.002627
       },
       "io": {
         "inputs": [
@@ -1482,15 +1454,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "a5foV",
+            "digest": "MrSsC",
             "data": {
-              "skills": "OGsBjNXBxkthnSITuetL",
-              "experience": "EhNUHkqSEeFDmBshfyQQ",
-              "education": "qxLPUWVOfIMyCuNepqqL",
-              "achievements": "AHuivZZwnVTFgXAfFQZy"
+              "skills": "FjxVvmlBVIoPuOANyWDl",
+              "experience": "hlzsGkaEYNxcqlnGceyo",
+              "education": "GnLNzxzdkxKAmGsnrVSV",
+              "achievements": "eWZJpuFArzYZOLyOgBjL"
             },
-            "data_text": " Attribute                     ┃ Value                                          \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n skills                        │ OGsBjNXBxkthnSITuetL                           \n───────────────────────────────┼────────────────────────────────────────────────\n experience                    │ EhNUHkqSEeFDmBshfyQQ                           \n───────────────────────────────┼────────────────────────────────────────────────\n education                     │ qxLPUWVOfIMyCuNepqqL                           \n───────────────────────────────┼────────────────────────────────────────────────\n achievements                  │ AHuivZZwnVTFgXAfFQZy                           \n",
-            "data_html": "<table><tr><th>skills</th><td>OGsBjNXBxkthnSITuetL</td></tr><tr><th>experience</th><td>EhNUHkqSEeFDmBshfyQQ</td></tr><tr><th>education</th><td>qxLPUWVOfIMyCuNepqqL</td></tr><tr><th>achievements</th><td>AHuivZZwnVTFgXAfFQZy</td></tr></table>",
+            "multiplicity": null,
             "extra": {}
           },
           {
@@ -1499,15 +1470,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "27Cok",
+            "digest": "dV2H7",
             "data": {
-              "required_skills": "oSclvRyMMApzFQKCJHSj",
-              "responsibilities": "snDnbJuxQxJBBxJZvIBX",
-              "qualifications": "USAETbaCVDWSeNWUIBZY",
-              "nice_to_haves": "uDuKDYZrrwMnpeUbKQJw"
+              "required_skills": "aUGvLrvEcaveKGClMqLG",
+              "responsibilities": "fLogYNHmJlZZPqqNpBKK",
+              "qualifications": "xpTViOwtjGwKcTgWUpDN",
+              "nice_to_haves": "tQOegKApZiQdIPxNjbVC"
             },
-            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills                    │ oSclvRyMMApzFQKCJHSj                      \n────────────────────────────────────┼───────────────────────────────────────────\n responsibilities                   │ snDnbJuxQxJBBxJZvIBX                      \n────────────────────────────────────┼───────────────────────────────────────────\n qualifications                     │ USAETbaCVDWSeNWUIBZY                      \n────────────────────────────────────┼───────────────────────────────────────────\n nice_to_haves                      │ uDuKDYZrrwMnpeUbKQJw                      \n",
-            "data_html": "<table><tr><th>required_skills</th><td>oSclvRyMMApzFQKCJHSj</td></tr><tr><th>responsibilities</th><td>snDnbJuxQxJBBxJZvIBX</td></tr><tr><th>qualifications</th><td>USAETbaCVDWSeNWUIBZY</td></tr><tr><th>nice_to_haves</th><td>uDuKDYZrrwMnpeUbKQJw</td></tr></table>",
+            "multiplicity": null,
             "extra": {}
           }
         ],
@@ -1518,15 +1488,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "kodzK-branch-1",
+            "digest": "keSUs-branch-1",
             "data": {
-              "match_score": 7101155.35893388,
-              "strengths": "yPyxPCQYNBJuMzXfmblv",
-              "gaps": "KfxjkJjlvjRHnarOVYKL",
-              "overall_assessment": "KoTSKgnHwfznaGLRYTCp"
+              "match_score": -197463043.252896,
+              "strengths": "bBMPxetAoAhSrbBIiXVZ",
+              "gaps": "gipocSpKDGEBdTrSThfv",
+              "overall_assessment": "nPIxXcjISMBaVtVXpVXh"
             },
-            "data_text": " Attribute                            ┃ Value                                   \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n match_score                          │ 7101155.35893388                        \n──────────────────────────────────────┼─────────────────────────────────────────\n strengths                            │ yPyxPCQYNBJuMzXfmblv                    \n──────────────────────────────────────┼─────────────────────────────────────────\n gaps                                 │ KfxjkJjlvjRHnarOVYKL                    \n──────────────────────────────────────┼─────────────────────────────────────────\n overall_assessment                   │ KoTSKgnHwfznaGLRYTCp                    \n",
-            "data_html": "<table><tr><th>match_score</th><td>7101155.35893388</td></tr><tr><th>strengths</th><td>yPyxPCQYNBJuMzXfmblv</td></tr><tr><th>gaps</th><td>KfxjkJjlvjRHnarOVYKL</td></tr><tr><th>overall_assessment</th><td>KoTSKgnHwfznaGLRYTCp</td></tr></table>",
+            "multiplicity": null,
             "extra": {}
           }
         ]
@@ -1575,16 +1544,16 @@
         "resolved_model_for_object": "claude-4.8-opus",
         "is_multiple_output": false,
         "rendered_system_prompt": "You are an expert HR analyst specializing in candidate-job fit evaluation. Your task is to produce a structured match analysis comparing a candidate's profile against job requirements.",
-        "rendered_user_prompt": "Analyze how well the candidate matches the job requirements. Evaluate their fit by comparing their skills, experience, and qualifications against what the position demands.\n\n<candidate_profile>\n# skills: OGsBjNXBxkthnSITuetL\n\n# experience: EhNUHkqSEeFDmBshfyQQ\n\n# education: qxLPUWVOfIMyCuNepqqL\n\n# achievements: AHuivZZwnVTFgXAfFQZy\n</candidate_profile>\n\n<job_requirements>\n# required_skills: oSclvRyMMApzFQKCJHSj\n\n# responsibilities: snDnbJuxQxJBBxJZvIBX\n\n# qualifications: USAETbaCVDWSeNWUIBZY\n\n# nice_to_haves: uDuKDYZrrwMnpeUbKQJw\n</job_requirements>\n\nProvide a comprehensive match analysis including a numerical score, identified strengths, gaps, and an overall assessment.\n\n---\nThe instance we want to generate will be for the following class:\nclass cv_batch_screening__CandidateMatch(StructuredContent):\n    \"\"\"An evaluation of how well a candidate fits a job position.\"\"\"\n    match_score: float  # Numerical score representing overall fit percentage between 0 and 100\n    strengths: str  # Areas where the candidate meets or exceeds requirements\n    gaps: str  # Areas where the candidate falls short of requirements\n    overall_assessment: str  # Summary evaluation of the candidate's suitability\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "Analyze how well the candidate matches the job requirements. Evaluate their fit by comparing their skills, experience, and qualifications against what the position demands.\n\n<candidate_profile>\n# skills: FjxVvmlBVIoPuOANyWDl\n\n# experience: hlzsGkaEYNxcqlnGceyo\n\n# education: GnLNzxzdkxKAmGsnrVSV\n\n# achievements: eWZJpuFArzYZOLyOgBjL\n</candidate_profile>\n\n<job_requirements>\n# required_skills: aUGvLrvEcaveKGClMqLG\n\n# responsibilities: fLogYNHmJlZZPqqNpBKK\n\n# qualifications: xpTViOwtjGwKcTgWUpDN\n\n# nice_to_haves: tQOegKApZiQdIPxNjbVC\n</job_requirements>\n\nProvide a comprehensive match analysis including a numerical score, identified strengths, gaps, and an overall assessment.\n\n---\nThe instance we want to generate will be for the following class:\nclass cv_batch_screening__CandidateMatch(StructuredContent):\n    \"\"\"An evaluation of how well a candidate fits a job position.\"\"\"\n    match_score: float  # Numerical score representing overall fit percentage between 0 and 100\n    strengths: str  # Areas where the candidate meets or exceeds requirements\n    gaps: str  # Areas where the candidate falls short of requirements\n    overall_assessment: str  # Summary evaluation of the candidate's suitability\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_direct"
       }
     }
   ],
   "edges": [
     {
-      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:edge_0",
-      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_0",
-      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_1",
+      "id": "50179426-5d20-4fe7-90be-e28fd85a0148:edge_0",
+      "source": "50179426-5d20-4fe7-90be-e28fd85a0148:node_0",
+      "target": "50179426-5d20-4fe7-90be-e28fd85a0148:node_1",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -1593,9 +1562,9 @@
       "meta": {}
     },
     {
-      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:edge_1",
-      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_1",
-      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_2",
+      "id": "50179426-5d20-4fe7-90be-e28fd85a0148:edge_1",
+      "source": "50179426-5d20-4fe7-90be-e28fd85a0148:node_1",
+      "target": "50179426-5d20-4fe7-90be-e28fd85a0148:node_2",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -1604,9 +1573,9 @@
       "meta": {}
     },
     {
-      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:edge_2",
-      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_1",
-      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_3",
+      "id": "50179426-5d20-4fe7-90be-e28fd85a0148:edge_2",
+      "source": "50179426-5d20-4fe7-90be-e28fd85a0148:node_1",
+      "target": "50179426-5d20-4fe7-90be-e28fd85a0148:node_3",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -1615,9 +1584,9 @@
       "meta": {}
     },
     {
-      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:edge_3",
-      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_0",
-      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_4",
+      "id": "50179426-5d20-4fe7-90be-e28fd85a0148:edge_3",
+      "source": "50179426-5d20-4fe7-90be-e28fd85a0148:node_0",
+      "target": "50179426-5d20-4fe7-90be-e28fd85a0148:node_4",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -1626,9 +1595,9 @@
       "meta": {}
     },
     {
-      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:edge_4",
-      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_4",
-      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_5",
+      "id": "50179426-5d20-4fe7-90be-e28fd85a0148:edge_4",
+      "source": "50179426-5d20-4fe7-90be-e28fd85a0148:node_4",
+      "target": "50179426-5d20-4fe7-90be-e28fd85a0148:node_5",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -1637,9 +1606,9 @@
       "meta": {}
     },
     {
-      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:edge_5",
-      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_5",
-      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_6",
+      "id": "50179426-5d20-4fe7-90be-e28fd85a0148:edge_5",
+      "source": "50179426-5d20-4fe7-90be-e28fd85a0148:node_5",
+      "target": "50179426-5d20-4fe7-90be-e28fd85a0148:node_6",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -1648,9 +1617,9 @@
       "meta": {}
     },
     {
-      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:edge_6",
-      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_5",
-      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_7",
+      "id": "50179426-5d20-4fe7-90be-e28fd85a0148:edge_6",
+      "source": "50179426-5d20-4fe7-90be-e28fd85a0148:node_5",
+      "target": "50179426-5d20-4fe7-90be-e28fd85a0148:node_7",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -1659,9 +1628,9 @@
       "meta": {}
     },
     {
-      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:edge_7",
-      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_5",
-      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_8",
+      "id": "50179426-5d20-4fe7-90be-e28fd85a0148:edge_7",
+      "source": "50179426-5d20-4fe7-90be-e28fd85a0148:node_5",
+      "target": "50179426-5d20-4fe7-90be-e28fd85a0148:node_8",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -1670,9 +1639,9 @@
       "meta": {}
     },
     {
-      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:edge_8",
-      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_4",
-      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_9",
+      "id": "50179426-5d20-4fe7-90be-e28fd85a0148:edge_8",
+      "source": "50179426-5d20-4fe7-90be-e28fd85a0148:node_4",
+      "target": "50179426-5d20-4fe7-90be-e28fd85a0148:node_9",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -1681,9 +1650,9 @@
       "meta": {}
     },
     {
-      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:edge_9",
-      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_9",
-      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_10",
+      "id": "50179426-5d20-4fe7-90be-e28fd85a0148:edge_9",
+      "source": "50179426-5d20-4fe7-90be-e28fd85a0148:node_9",
+      "target": "50179426-5d20-4fe7-90be-e28fd85a0148:node_10",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -1692,9 +1661,9 @@
       "meta": {}
     },
     {
-      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:edge_10",
-      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_9",
-      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_11",
+      "id": "50179426-5d20-4fe7-90be-e28fd85a0148:edge_10",
+      "source": "50179426-5d20-4fe7-90be-e28fd85a0148:node_9",
+      "target": "50179426-5d20-4fe7-90be-e28fd85a0148:node_11",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -1703,9 +1672,9 @@
       "meta": {}
     },
     {
-      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:edge_11",
-      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_9",
-      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_12",
+      "id": "50179426-5d20-4fe7-90be-e28fd85a0148:edge_11",
+      "source": "50179426-5d20-4fe7-90be-e28fd85a0148:node_9",
+      "target": "50179426-5d20-4fe7-90be-e28fd85a0148:node_12",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -1714,9 +1683,9 @@
       "meta": {}
     },
     {
-      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:asm_edge_0",
-      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_2",
-      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_3",
+      "id": "50179426-5d20-4fe7-90be-e28fd85a0148:asm_edge_0",
+      "source": "50179426-5d20-4fe7-90be-e28fd85a0148:node_2",
+      "target": "50179426-5d20-4fe7-90be-e28fd85a0148:node_3",
       "kind": "data",
       "optional": false,
       "label": "job_offer_pages",
@@ -1725,9 +1694,9 @@
       "meta": {}
     },
     {
-      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:asm_edge_1",
-      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_1",
-      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_5",
+      "id": "50179426-5d20-4fe7-90be-e28fd85a0148:asm_edge_1",
+      "source": "50179426-5d20-4fe7-90be-e28fd85a0148:node_1",
+      "target": "50179426-5d20-4fe7-90be-e28fd85a0148:node_5",
       "kind": "data",
       "optional": false,
       "label": "job_requirements",
@@ -1736,9 +1705,9 @@
       "meta": {}
     },
     {
-      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:asm_edge_2",
-      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_6",
-      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_7",
+      "id": "50179426-5d20-4fe7-90be-e28fd85a0148:asm_edge_2",
+      "source": "50179426-5d20-4fe7-90be-e28fd85a0148:node_6",
+      "target": "50179426-5d20-4fe7-90be-e28fd85a0148:node_7",
       "kind": "data",
       "optional": false,
       "label": "cv_pages",
@@ -1747,9 +1716,9 @@
       "meta": {}
     },
     {
-      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:asm_edge_3",
-      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_7",
-      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_8",
+      "id": "50179426-5d20-4fe7-90be-e28fd85a0148:asm_edge_3",
+      "source": "50179426-5d20-4fe7-90be-e28fd85a0148:node_7",
+      "target": "50179426-5d20-4fe7-90be-e28fd85a0148:node_8",
       "kind": "data",
       "optional": false,
       "label": "candidate_profile",
@@ -1758,9 +1727,9 @@
       "meta": {}
     },
     {
-      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:asm_edge_4",
-      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_1",
-      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_8",
+      "id": "50179426-5d20-4fe7-90be-e28fd85a0148:asm_edge_4",
+      "source": "50179426-5d20-4fe7-90be-e28fd85a0148:node_1",
+      "target": "50179426-5d20-4fe7-90be-e28fd85a0148:node_8",
       "kind": "data",
       "optional": false,
       "label": "job_requirements",
@@ -1769,9 +1738,9 @@
       "meta": {}
     },
     {
-      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:asm_edge_5",
-      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_1",
-      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_9",
+      "id": "50179426-5d20-4fe7-90be-e28fd85a0148:asm_edge_5",
+      "source": "50179426-5d20-4fe7-90be-e28fd85a0148:node_1",
+      "target": "50179426-5d20-4fe7-90be-e28fd85a0148:node_9",
       "kind": "data",
       "optional": false,
       "label": "job_requirements",
@@ -1780,9 +1749,9 @@
       "meta": {}
     },
     {
-      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:asm_edge_6",
-      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_10",
-      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_11",
+      "id": "50179426-5d20-4fe7-90be-e28fd85a0148:asm_edge_6",
+      "source": "50179426-5d20-4fe7-90be-e28fd85a0148:node_10",
+      "target": "50179426-5d20-4fe7-90be-e28fd85a0148:node_11",
       "kind": "data",
       "optional": false,
       "label": "cv_pages",
@@ -1791,9 +1760,9 @@
       "meta": {}
     },
     {
-      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:asm_edge_7",
-      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_11",
-      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_12",
+      "id": "50179426-5d20-4fe7-90be-e28fd85a0148:asm_edge_7",
+      "source": "50179426-5d20-4fe7-90be-e28fd85a0148:node_11",
+      "target": "50179426-5d20-4fe7-90be-e28fd85a0148:node_12",
       "kind": "data",
       "optional": false,
       "label": "candidate_profile",
@@ -1802,9 +1771,9 @@
       "meta": {}
     },
     {
-      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:asm_edge_8",
-      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_1",
-      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_12",
+      "id": "50179426-5d20-4fe7-90be-e28fd85a0148:asm_edge_8",
+      "source": "50179426-5d20-4fe7-90be-e28fd85a0148:node_1",
+      "target": "50179426-5d20-4fe7-90be-e28fd85a0148:node_12",
       "kind": "data",
       "optional": false,
       "label": "job_requirements",
@@ -1813,69 +1782,69 @@
       "meta": {}
     },
     {
-      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:asm_edge_9",
-      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_4",
-      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_5",
+      "id": "50179426-5d20-4fe7-90be-e28fd85a0148:asm_edge_9",
+      "source": "50179426-5d20-4fe7-90be-e28fd85a0148:node_4",
+      "target": "50179426-5d20-4fe7-90be-e28fd85a0148:node_5",
       "kind": "batch_item",
       "optional": false,
       "label": "[0]",
-      "source_stuff_digest": "KqAzU",
-      "target_stuff_digest": "KqAzU-branch-0",
+      "source_stuff_digest": "6BR5D",
+      "target_stuff_digest": "6BR5D-branch-0",
       "meta": {}
     },
     {
-      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:asm_edge_10",
-      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_4",
-      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_6",
+      "id": "50179426-5d20-4fe7-90be-e28fd85a0148:asm_edge_10",
+      "source": "50179426-5d20-4fe7-90be-e28fd85a0148:node_4",
+      "target": "50179426-5d20-4fe7-90be-e28fd85a0148:node_6",
       "kind": "batch_item",
       "optional": false,
       "label": "[0]",
-      "source_stuff_digest": "KqAzU",
-      "target_stuff_digest": "KqAzU-branch-0",
+      "source_stuff_digest": "6BR5D",
+      "target_stuff_digest": "6BR5D-branch-0",
       "meta": {}
     },
     {
-      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:asm_edge_11",
-      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_4",
-      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_9",
+      "id": "50179426-5d20-4fe7-90be-e28fd85a0148:asm_edge_11",
+      "source": "50179426-5d20-4fe7-90be-e28fd85a0148:node_4",
+      "target": "50179426-5d20-4fe7-90be-e28fd85a0148:node_9",
       "kind": "batch_item",
       "optional": false,
       "label": "[1]",
-      "source_stuff_digest": "KqAzU",
-      "target_stuff_digest": "KqAzU-branch-1",
+      "source_stuff_digest": "6BR5D",
+      "target_stuff_digest": "6BR5D-branch-1",
       "meta": {}
     },
     {
-      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:asm_edge_12",
-      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_4",
-      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_10",
+      "id": "50179426-5d20-4fe7-90be-e28fd85a0148:asm_edge_12",
+      "source": "50179426-5d20-4fe7-90be-e28fd85a0148:node_4",
+      "target": "50179426-5d20-4fe7-90be-e28fd85a0148:node_10",
       "kind": "batch_item",
       "optional": false,
       "label": "[1]",
-      "source_stuff_digest": "KqAzU",
-      "target_stuff_digest": "KqAzU-branch-1",
+      "source_stuff_digest": "6BR5D",
+      "target_stuff_digest": "6BR5D-branch-1",
       "meta": {}
     },
     {
-      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:asm_edge_13",
-      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_5",
-      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_4",
+      "id": "50179426-5d20-4fe7-90be-e28fd85a0148:asm_edge_13",
+      "source": "50179426-5d20-4fe7-90be-e28fd85a0148:node_5",
+      "target": "50179426-5d20-4fe7-90be-e28fd85a0148:node_4",
       "kind": "batch_aggregate",
       "optional": false,
       "label": "[0]",
-      "source_stuff_digest": "kodzK-branch-0",
-      "target_stuff_digest": "HGAnM",
+      "source_stuff_digest": "keSUs-branch-0",
+      "target_stuff_digest": "MFyej",
       "meta": {}
     },
     {
-      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:asm_edge_14",
-      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_9",
-      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_4",
+      "id": "50179426-5d20-4fe7-90be-e28fd85a0148:asm_edge_14",
+      "source": "50179426-5d20-4fe7-90be-e28fd85a0148:node_9",
+      "target": "50179426-5d20-4fe7-90be-e28fd85a0148:node_4",
       "kind": "batch_aggregate",
       "optional": false,
       "label": "[1]",
-      "source_stuff_digest": "kodzK-branch-1",
-      "target_stuff_digest": "HGAnM",
+      "source_stuff_digest": "keSUs-branch-1",
+      "target_stuff_digest": "MFyej",
       "meta": {}
     }
   ],
@@ -1983,13 +1952,13 @@
       },
       "sequential_sub_pipes": [
         {
-          "pipe_code": "prepare_job_offer",
+          "pipe_code": "cv_batch_screening.prepare_job_offer",
           "output_name": "job_requirements",
           "output_multiplicity": null,
           "batch_params": null
         },
         {
-          "pipe_code": "process_cv",
+          "pipe_code": "cv_batch_screening.process_cv",
           "output_name": "match_analyses",
           "output_multiplicity": true,
           "batch_params": {
@@ -2031,13 +2000,13 @@
       },
       "sequential_sub_pipes": [
         {
-          "pipe_code": "extract_one_job_offer",
+          "pipe_code": "cv_batch_screening.extract_one_job_offer",
           "output_name": "job_offer_pages",
           "output_multiplicity": null,
           "batch_params": null
         },
         {
-          "pipe_code": "analyze_job_requirements",
+          "pipe_code": "cv_batch_screening.analyze_job_requirements",
           "output_name": "job_requirements",
           "output_multiplicity": null,
           "batch_params": null
@@ -2136,14 +2105,15 @@
         "for_text": "$writing-factual",
         "for_object": null
       },
-      "output_multiplicity": null
+      "output_multiplicity": null,
+      "templating_style": null
     },
     "cv_batch_screening.process_cv_batch": {
       "pipe_category": "PipeController",
       "type": "PipeBatch",
       "code": "process_cv_batch",
       "domain_code": "cv_batch_screening",
-      "description": "Batch processing for process_cv",
+      "description": "Batch processing for cv_batch_screening.process_cv",
       "inputs": {
         "cvs": {
           "concept": {
@@ -2168,7 +2138,7 @@
         "multiplicity": null,
         "presence": "plain"
       },
-      "branch_pipe_code": "process_cv",
+      "branch_pipe_code": "cv_batch_screening.process_cv",
       "batch_params": {
         "input_list_stuff_name": "cvs",
         "input_item_stuff_name": "cv_pdf"
@@ -2217,19 +2187,19 @@
       },
       "sequential_sub_pipes": [
         {
-          "pipe_code": "extract_one_cv",
+          "pipe_code": "cv_batch_screening.extract_one_cv",
           "output_name": "cv_pages",
           "output_multiplicity": null,
           "batch_params": null
         },
         {
-          "pipe_code": "analyze_one_cv",
+          "pipe_code": "cv_batch_screening.analyze_one_cv",
           "output_name": "candidate_profile",
           "output_multiplicity": null,
           "batch_params": null
         },
         {
-          "pipe_code": "analyze_match",
+          "pipe_code": "cv_batch_screening.analyze_match",
           "output_name": "match_analysis",
           "output_multiplicity": null,
           "batch_params": null
@@ -2328,7 +2298,8 @@
         "for_text": "$writing-factual",
         "for_object": null
       },
-      "output_multiplicity": null
+      "output_multiplicity": null,
+      "templating_style": null
     },
     "cv_batch_screening.analyze_match": {
       "pipe_category": "PipeOperator",
@@ -2393,7 +2364,8 @@
         "for_text": "$writing-factual",
         "for_object": null
       },
-      "output_multiplicity": null
+      "output_multiplicity": null,
+      "templating_style": null
     }
   },
   "concept_registry": {
@@ -2444,6 +2416,7 @@
       "structure_class_name": "DocumentContent",
       "refines": null,
       "json_schema": {
+        "description": "A document",
         "properties": {
           "url": {
             "description": "The document URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
@@ -2579,6 +2552,7 @@
       "json_schema": {
         "$defs": {
           "ImageContent": {
+            "description": "An image",
             "properties": {
               "url": {
                 "description": "The image URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
@@ -2746,6 +2720,7 @@
             "type": "object"
           },
           "TextContent": {
+            "description": "A text",
             "properties": {
               "text": {
                 "description": "The text",
@@ -2760,6 +2735,7 @@
             "type": "object"
           }
         },
+        "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
         "properties": {
           "text_and_images": {
             "$ref": "#/$defs/TextAndImagesContent",

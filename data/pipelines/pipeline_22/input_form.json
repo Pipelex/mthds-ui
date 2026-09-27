@@ -90,8 +90,16 @@
       {
         "concept_ref": "content_distribution.IndexEntry",
         "description": "Search index entry",
+        "fields": [
+          {
+            "description": "The JSON object",
+            "kind": "unknown",
+            "name": "json_obj",
+            "required": true
+          }
+        ],
         "gating": true,
-        "kind": "unknown",
+        "kind": "object",
         "name": "index_entry",
         "presence": "plain",
         "refines": [
