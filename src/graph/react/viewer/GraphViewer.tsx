@@ -43,8 +43,8 @@ import {
   resolveIssueTargetNodeId,
 } from "@graph/graphValidation";
 import { findStuffByDigest } from "@graph/stuffLookup";
-import type { InputForm, OutputForm, PipeIOContracts } from "@pipelex/mthds-form";
-import type { ResolveShareUrl, ResolveUrl } from "@pipelex/mthds-form/react";
+import type { InputForm, OutputForm, PipeIOContracts, SaveFiles } from "@pipelex/mthds-form";
+import type { DownloadDisplay, ResolveShareUrl, ResolveUrl } from "@pipelex/mthds-form/react";
 import { StuffResultPanel } from "../detail/StuffResultPanel";
 import { DetailPanel } from "../detail/DetailPanel";
 import { useResizable } from "../detail/useResizable";
@@ -194,6 +194,24 @@ export interface GraphViewerProps {
    */
   resolveShareUrl?: ResolveShareUrl;
   /**
+   * Delivers the files the result panel's downloads hand over: its Download
+   * control and each file's own button.
+   *
+   * Without it the kernel saves them in the browser tab, through an object URL
+   * and a clicked link. A host whose view runs in a sandboxed frame is refused
+   * both, so its downloads fail without a word unless it supplies this, handing
+   * the planned files to its own bridge. It goes on the panel's provider beside
+   * `resolveUrl`, which replaces an outer provider rather than merging with it,
+   * so a `saveFiles` set around the graph does not reach the panel.
+   */
+  saveFiles?: SaveFiles;
+  /**
+   * Which of the result panel's download controls are drawn: the whole-result
+   * Download (`result`) and each file's own button (`files`, which also takes
+   * the kinds that carry one). Both are drawn by default.
+   */
+  downloads?: DownloadDisplay;
+  /**
    * State of the toolbar's validation widget. The widget renders only when this
    * is set — `undefined` (the default) disables the feature entirely. Reactive:
    * a host typically drives `validating → valid | invalid | error` as its
@@ -227,6 +245,8 @@ function StuffNodeDetail({
   inputForm,
   resolveUrl,
   resolveShareUrl,
+  saveFiles,
+  downloads,
 }: {
   /** Selected graph node id — identity for per-node panel state (tab reset). */
   nodeId: string;
@@ -240,6 +260,8 @@ function StuffNodeDetail({
   inputForm?: InputForm;
   resolveUrl?: ResolveUrl;
   resolveShareUrl?: ResolveShareUrl;
+  saveFiles?: SaveFiles;
+  downloads?: DownloadDisplay;
 }) {
   const conceptInfo =
     stuffData.concept && graphspec ? resolveConceptRef(graphspec, stuffData.concept) : undefined;
@@ -266,6 +288,8 @@ function StuffNodeDetail({
             {...(consumer ? { consumer } : {})}
             {...(resolveUrl ? { resolveUrl } : {})}
             {...(resolveShareUrl ? { resolveShareUrl } : {})}
+            {...(saveFiles ? { saveFiles } : {})}
+            {...(downloads ? { downloads } : {})}
             theme={theme}
           />
         )
@@ -428,6 +452,8 @@ export function GraphViewer(props: GraphViewerProps) {
     inputForm,
     resolveUrl,
     resolveShareUrl,
+    saveFiles,
+    downloads,
     validationState,
     validationIssues,
     onValidationIssueClick,
@@ -1302,6 +1328,8 @@ export function GraphViewer(props: GraphViewerProps) {
             inputForm={inputForm}
             resolveUrl={resolveUrl}
             resolveShareUrl={resolveShareUrl}
+            saveFiles={saveFiles}
+            downloads={downloads}
           />
         ) : null}
         {renderDetailExtra &&

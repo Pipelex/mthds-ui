@@ -10,12 +10,14 @@ import {
   type OutputForm,
   type PipeIOContracts,
   type RunField,
+  type SaveFiles,
 } from "@pipelex/mthds-form";
 import {
   JsonView,
   ResultEnvProvider,
   StuffViewer,
   useFieldStrings,
+  type DownloadDisplay,
   type ResolveShareUrl,
   type ResolveUrl,
 } from "@pipelex/mthds-form/react";
@@ -79,6 +81,17 @@ import type { ConceptInfo, GraphSpecNodeIoItem, GraphTheme } from "@graph/types"
  * `resolveUrl`, which is installed as the kernel's `ResultEnvProvider` so the
  * kernel's own file arms paint the file; without one, the panel paints whatever
  * `public_url` the payload carries.
+ *
+ * ## Saving
+ *
+ * The kernel's Download control and its per-file download buttons save through
+ * the browser tab unless a host says otherwise. A host whose view runs in a
+ * sandboxed frame, where the tab's object URL, clicked link and popup are all
+ * refused, passes `saveFiles` to deliver the files through its own bridge, and
+ * `downloads` to choose which of those controls are drawn. Both go on the same
+ * provider as `resolveUrl`, because the kernel's provider replaces an outer
+ * one rather than merging with it: set around the graph instead, they would
+ * never reach a panel that installs its own.
  */
 export interface StuffResultRendererOptions {
   /** `pipe_io_contracts` for the method being displayed. */
@@ -128,6 +141,16 @@ export interface StuffResultPanelProps extends StuffResultRendererOptions {
    * own credential.
    */
   resolveShareUrl?: ResolveShareUrl;
+  /**
+   * Delivers the files a download hands over, for a host that cannot save
+   * through the browser tab. Without one, the kernel saves in the tab.
+   */
+  saveFiles?: SaveFiles;
+  /**
+   * Which download controls are drawn: the whole-result Download and each
+   * file's own button, set independently. Both are drawn by default.
+   */
+  downloads?: DownloadDisplay;
 }
 
 export function StuffResultPanel({
@@ -139,6 +162,8 @@ export function StuffResultPanel({
   consumer,
   resolveUrl,
   resolveShareUrl,
+  saveFiles,
+  downloads,
 }: StuffResultPanelProps) {
   const field = React.useMemo(
     () =>
@@ -155,8 +180,15 @@ export function StuffResultPanel({
     // other surface calls it that. The graph is the one that knows, so the
     // graph is the one that says.
     const panel = <StuffViewer field={field} value={stuff.data} name={stuff.name} />;
-    return resolveUrl || resolveShareUrl ? (
-      <ResultEnvProvider resolveUrl={resolveUrl} resolveShareUrl={resolveShareUrl}>
+    // Installed only when the host said something, so a host that wraps the
+    // whole graph in its own provider still reaches a panel given nothing.
+    return resolveUrl || resolveShareUrl || saveFiles || downloads ? (
+      <ResultEnvProvider
+        resolveUrl={resolveUrl}
+        resolveShareUrl={resolveShareUrl}
+        saveFiles={saveFiles}
+        downloads={downloads}
+      >
         {panel}
       </ResultEnvProvider>
     ) : (
