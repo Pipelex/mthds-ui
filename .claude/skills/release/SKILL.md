@@ -15,7 +15,7 @@ description: >
 
 # Releasing mthds-ui
 
-The procedure is the workspace release play, [`docs/releasing.md`](../../../../docs/releasing.md) at the workspace root — read it first, then run it with what follows. The repo key is `mthds-ui`, the base is `dev`, and the pull request targets `main`: `guard-branches.yml` refuses any head branch but `release/vX.Y.Z` into `main`, so there is no other way in. The release worktree is `_mthds-ui--release`, made with `wt add mthds-ui release --branch release/vX.Y.Z`. The repo declares neither `.worktree.toml` nor `.worktreeinclude`, so `wt` resolves the base from `origin/dev` and provisions with the Makefile's `install` target (`npm install`), whose `prepare` script runs `npm run build` — which is why a fresh worktree arrives with `dist/` already built.
+The procedure is the workspace release play, [`docs/workspace/releasing.md`](../../../../docs/workspace/releasing.md) at the workspace root — read it first, then run it with what follows. The repo key is `mthds-ui`, the base is `dev`, and the pull request targets `main`: `guard-branches.yml` refuses any head branch but `release/vX.Y.Z` into `main`, so there is no other way in. The release worktree is `_mthds-ui--release`, made with `wt add mthds-ui release --branch release/vX.Y.Z`. The repo declares neither `.worktree.toml` nor `.worktreeinclude`, so `wt` resolves the base from `origin/dev` and provisions with the Makefile's `install` target (`npm install`), whose `prepare` script runs `npm run build` — which is why a fresh worktree arrives with `dist/` already built.
 
 ## What ships
 
