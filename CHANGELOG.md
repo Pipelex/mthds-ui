@@ -1,5 +1,15 @@
 # Changelog
 
+## [v0.27.0] - 2026-09-27
+
+### Added
+
+- **`GraphViewer` takes `saveFiles` and `downloads`**: the graph's detail panel saves a result through the host's own delivery when the host passes `saveFiles`, and draws only the download controls `downloads` asks for, the whole-result Download and each file's own button set independently. A host whose view runs in a sandboxed frame, where the browser tab's download is refused, needed both: the panel installs its own `ResultEnvProvider` for `resolveUrl`, which replaced any provider the host set around the graph, so the panel's Download failed there without a word. See [docs/stuff-result-panel.md](docs/stuff-result-panel.md#saving-a-result).
+
+### Changed
+
+- **`@pipelex/mthds-form` moves to `^0.12.0` (Breaking)**: a host reaching the kernel through `./form` or `./form/react` gets its save seam (`saveFiles` and `downloads` on `ResultEnvProvider`, `planStuffSave`, `planFileSave`, `saveInBrowser`), and every file in a rendered result, the graph's detail panel included, now carries its own download button by default. `StuffViewer`'s `hideDownload` is replaced by `downloads={{ result: false, files: false }}`, `downloadStuff` by `saveInBrowser(planStuffSave(…).files)`, and a host supplying a complete `FieldStrings` adds `downloadIncomplete`, `downloadFile` and `downloadFileFailed`.
+
 ## [v0.26.0] - 2026-09-27
 
 ### Changed

@@ -115,11 +115,6 @@ const TAILWIND_HOST_PACKAGES = [
  */
 const SOURCE_ONLY_KERNEL_SELECTORS = new Map([
   [
-    ".contents",
-    "`display: contents`, compiled from the word \"contents\" in comments in the kernel's " +
-      "`src/react/result-field.tsx` and its tests; no shipped JavaScript contains the word",
-  ],
-  [
     ".static",
     "`position: static`, compiled from `static getDerivedStateFromError` in the kernel's " +
       "`src/react/__tests__/file-ways-in.test.tsx`, which its `@source` reaches; no shipped " +
