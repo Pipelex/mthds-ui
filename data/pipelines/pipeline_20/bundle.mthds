@@ -81,6 +81,8 @@ template = """
 @alpha
 ## Market:
 @beta
+## Visual:
+![Infographic]($gamma.url)
 ## Risk:
 @delta
 ## Compliance:

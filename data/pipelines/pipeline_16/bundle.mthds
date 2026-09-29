@@ -63,7 +63,7 @@ type        = "PipeImgGen"
 description = "Generate thumbnail version"
 inputs      = { image = "Image" }
 output      = "Image"
-prompt      = "Generate a thumbnail image: a small, simplified preview illustration in a clean, minimal style."
+prompt      = "Generate a thumbnail of this image: a small, simplified preview illustration in a clean, minimal style. $image"
 
 [pipe.build_catalog]
 type = "PipeCompose"

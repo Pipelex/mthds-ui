@@ -1,38 +1,38 @@
 flowchart LR
 
     %% Pipe and stuff nodes within controller subgraphs
-    subgraph sg_n_060078fe8f["image_pipeline"]
-        subgraph sg_n_96b3b90cbf["parallel_analyze"]
-            n_8ad1781e5d["classify_image"]
-            s_0fe75115b5(["tags<br/>TagList"]):::stuff
-            n_9e6efa597d["describe_image"]
-            s_26a32c5406(["description<br/>Description"]):::stuff
-            n_d77418f5e9["generate_thumbnail"]
-            s_ed7602918d(["thumbnail<br/>Image"]):::stuff
-            s_9df03d6e82(["image_assets<br/>Composite"]):::stuff
+    subgraph sg_n_bf7170e3c2["image_pipeline"]
+        subgraph sg_n_779d7582bf["parallel_analyze"]
+            n_8a495f2af6["classify_image"]
+            s_7fb0506de5(["tags<br/>TagList"]):::stuff
+            n_ea03fe08da["describe_image"]
+            s_3afba8e574(["description<br/>Description"]):::stuff
+            n_3e31064826["generate_thumbnail"]
+            s_3df27e095f(["thumbnail<br/>Image"]):::stuff
+            s_7d8b692f15(["image_assets<br/>Composite"]):::stuff
         end
-        n_23e55a6fe5["build_catalog"]
-        s_3a40767bea(["entry<br/>CatalogEntry"]):::stuff
+        n_3ae1f10df4["build_catalog"]
+        s_cec349e75e(["entry<br/>CatalogEntry"]):::stuff
     end
 
     %% Pipeline input stuff nodes (no producer)
-    s_19edfd71a2(["image<br/>Image"]):::stuff
+    s_ea2c4f812f(["image<br/>Image"]):::stuff
 
     %% Data flow edges: producer -> stuff -> consumer
-    n_9e6efa597d --> s_26a32c5406
-    n_d77418f5e9 --> s_ed7602918d
-    n_8ad1781e5d --> s_0fe75115b5
-    n_23e55a6fe5 --> s_3a40767bea
-    s_26a32c5406 --> n_23e55a6fe5
-    s_19edfd71a2 --> n_9e6efa597d
-    s_19edfd71a2 --> n_8ad1781e5d
-    s_19edfd71a2 --> n_d77418f5e9
-    s_0fe75115b5 --> n_23e55a6fe5
+    n_ea03fe08da --> s_3afba8e574
+    n_3ae1f10df4 --> s_cec349e75e
+    n_8a495f2af6 --> s_7fb0506de5
+    n_3e31064826 --> s_3df27e095f
+    s_3afba8e574 --> n_3ae1f10df4
+    s_7fb0506de5 --> n_3ae1f10df4
+    s_ea2c4f812f --> n_ea03fe08da
+    s_ea2c4f812f --> n_8a495f2af6
+    s_ea2c4f812f --> n_3e31064826
 
     %% Parallel combine edges: branch outputs → combined output
-    s_26a32c5406 -.-> s_9df03d6e82
-    s_0fe75115b5 -.-> s_9df03d6e82
-    s_ed7602918d -.-> s_9df03d6e82
+    s_3afba8e574 -.-> s_7d8b692f15
+    s_7fb0506de5 -.-> s_7d8b692f15
+    s_3df27e095f -.-> s_7d8b692f15
 
     %% Style definitions
     classDef failed fill:#ffcccc,stroke:#cc0000
@@ -40,5 +40,5 @@ flowchart LR
     classDef controller fill:#e6f3ff,stroke:#0066cc
 
     %% Subgraph depth-based coloring
-    style sg_n_060078fe8f fill:#e6f3ff
-    style sg_n_96b3b90cbf fill:#e6ffe6
+    style sg_n_779d7582bf fill:#e6ffe6
+    style sg_n_bf7170e3c2 fill:#e6f3ff
