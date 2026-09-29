@@ -532,7 +532,7 @@ export interface PipeParallelBlueprint extends PipeBlueprintBase {
    * Removed from the language in pipelex 0.41 (a parallel always combines now),
    * so 0.41 registry dumps omit the key entirely. Optional rather than deleted
    * because the static builder still honors it as a legacy authoring key when
-   * naming the combined stuff — see `wip/pr-63-review-notes.md`.
+   * naming the combined stuff, which L-260929-1e09e0 removes.
    */
   combined_output?: string | null;
 }

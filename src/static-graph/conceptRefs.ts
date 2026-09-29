@@ -242,7 +242,7 @@ export function resolveConceptInfo(
   // Local before native. The spec inverts this ("Native concepts always take
   // priority"), but it also makes a bundle that declares a native-named concept
   // invalid outright — so this branch is only reachable on a bundle pipelex
-  // rejects. Tracked in `wip/native-concept-shadowing.md`.
+  // rejects. The diagnostic that would warn the author is L-260929-79b6e6.
   // `hasOwn`, not a truthiness test: `localConcepts` is a caller-supplied
   // record, and on a plain `{}` a code of `toString` or `constructor` reads a
   // built-in off `Object.prototype` and returns a function as the concept.

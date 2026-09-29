@@ -57,7 +57,7 @@ fixtures:
 # ALWAYS pass ONLY= here. A full-corpus live run sweeps every fixture onto
 # whatever pipelex the local CLI happens to be, and has no skip path — any
 # failure aborts partway, leaving a half-swept, mixed-version tree.
-# See wip/fixtures-live-corpus-regeneration.md.
+# L-260929-6a07c8 makes the generator refuse it.
 fixtures-live:
 	node scripts/generate-fixtures.mjs --live $(if $(ONLY),--only $(ONLY))
 

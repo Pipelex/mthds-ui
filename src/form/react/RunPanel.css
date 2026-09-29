@@ -89,9 +89,7 @@
      token, so nothing else shifts as a consequence.
 
      `src/form/__tests__/contrast.test.ts` reads these two literals back and
-     holds them to the AA line — including the `var()` they must not become. And
-     `wip/adopt-form/deferred-run-button-contrast.md` records the alternatives
-     that were weighed. */
+     holds them to the AA line — including the `var()` they must not become. */
   background: #0369a1;
   color: #ffffff;
   font-family: inherit;

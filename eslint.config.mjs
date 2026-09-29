@@ -33,8 +33,8 @@ export default tseslint.config(
     },
   },
   {
-    // Retired boundary, kept as a marker of where it used to run (design
-    // Decision B, `wip/adopt-form/design.md`).
+    // Retired boundary, kept as a marker of where it used to run: the form
+    // adoption's import isolation, which kept the kernel inside `src/form/**`.
     files: ["src/**/*.ts", "src/**/*.tsx"],
     ignores: ["src/form/**"],
     rules: {

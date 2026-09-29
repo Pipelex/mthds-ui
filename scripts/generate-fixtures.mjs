@@ -47,7 +47,7 @@
  * ALWAYS pass --only for a LIVE run. A full-corpus `make fixtures-live` sweeps
  * every fixture onto whatever pipelex the local CLI happens to be, and has no
  * skip path — any failure aborts partway, leaving a half-swept, mixed-version
- * tree. See wip/fixtures-live-corpus-regeneration.md.
+ * tree. L-260929-6a07c8 makes the generator refuse it.
  *
  * --only and --missing are partial runs: they regenerate just the selected
  * pipelines and reuse every other pipeline's existing *_run_graph_spec.json
