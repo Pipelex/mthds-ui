@@ -105,6 +105,8 @@ template = """
 ## Candidate: $profile.name
 $profile.summary
 
+![Profile card]($card_image.url)
+
 ## Match Score: $match.score/100
 $match.recommendation
 
