@@ -1,11 +1,12 @@
 // ─── Parity harness: static builder vs pipelex dry-run GraphSpecs ────────────
-// The permanent Python↔TS drift detector: both specs are normalized to a canonical *structural* form, and
-// the comparison runs over exactly what the renderer consumes — the node
-// multiset, the containment tree, and the producer/consumer relation per stuff
-// (derived with the renderer's own `buildDataflowAnalysis`, so "producer"
-// means what it means on screen: operators only, never controllers).
+// The permanent Python↔TS drift detector: both specs are normalized to a
+// canonical *structural* form, and the comparison runs over exactly what the
+// renderer consumes — the node multiset, the containment tree, and the
+// producer/consumer relation per stuff (derived with the renderer's own
+// `buildDataflowAnalysis`, so "producer" means what it means on screen:
+// operators only, never controllers).
 //
-// Normalization rules (documented here, mirrored in the design doc):
+// Normalization rules (this header is where they are written down):
 //
 // 1. **Batch fan-out collapse (dry side).** A dry run expands a PipeBatch into
 //    one child per mock list item. All children of a PipeBatch node are

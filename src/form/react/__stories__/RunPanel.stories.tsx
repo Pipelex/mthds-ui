@@ -339,7 +339,7 @@ export const StructuredInputs: Story = {
 /**
  * The same panel in light.
  *
- * `theme` does double duty (design Decision D): it selects this library's own
+ * `theme` does double duty: it selects this library's own
  * palette for the panel chrome, AND toggles the kernel's `.dark` class, which is
  * how the shadcn tokens behind the controls flip. One prop, both halves — which
  * is the point, since a panel whose chrome and controls disagreed on the theme

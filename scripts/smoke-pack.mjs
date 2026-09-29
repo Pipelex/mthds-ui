@@ -32,8 +32,8 @@
  *    currently preserves the directive on its own, and `prependUseClient` only
  *    re-adds it to `./form/react`, so `./graph/react` is the entry standing on
  *    the bundler alone and is precisely the one worth asserting.
- * 3. The kernel is left as a bare import, never inlined (design Decision B: a
- *    bundled copy is a second React context identity, so a host's
+ * 3. The kernel is left as a bare import, never inlined (a bundled copy is a
+ *    second React context identity, so a host's
  *    `FieldStringsProvider` would not resolve inside the panel).
  * 4. The kernel is imported (never inlined) by the React entries, and absent
  *    from the React-free ones. Any other

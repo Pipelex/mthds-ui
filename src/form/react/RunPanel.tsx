@@ -36,7 +36,7 @@ export interface RunPanelProps {
    * with the kernel's `getPipeIOContract(contracts, domain, pipeCode)`. The
    * panel deliberately does NOT accept a `GraphSpec` and derive a contract from
    * it — deriving field meaning locally is precisely what this component exists
-   * not to do (design Decision A).
+   * not to do.
    */
   contract: PipeIOContract;
   /**
@@ -162,9 +162,9 @@ const NOTHING_REVEALED: ReadonlySet<string> = new Set<string>();
  * `runSubmitGate` (over the kernel's four steps) decides what goes on the wire.
  * What lives here is layout: which fields are visible, where the toggle and the
  * button sit, and how a rejected verdict is shown. The panel never reads
- * `json_schema` to make a rendering decision and never sniffs a value's shape
- * (design Decision C) — which is what keeps a change to the kernel's derivation
- * invisible to this repo.
+ * `json_schema` to make a rendering decision and never sniffs a value's shape,
+ * since meaning is the kernel's — which is what keeps a change to the kernel's
+ * derivation invisible to this repo.
  */
 export function RunPanel({
   contract,

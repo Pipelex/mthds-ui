@@ -5,8 +5,8 @@
  * the right order over the right data, and that a rejected verdict always
  * produces a line someone can act on. The steps' own behaviour belongs to the
  * kernel and is covered by the kernel's tests; re-asserting it here would just
- * pin this repo to the kernel's internals, which is exactly what design
- * Decision C keeps us out of.
+ * pin this repo to the kernel's internals, which is exactly what leaving
+ * meaning to the kernel keeps us out of.
  */
 import { describe, expect, it } from "vitest";
 import type {
@@ -376,7 +376,7 @@ describe("summarizeVerdict", () => {
     // The third route — the raw-error line — passes `t` to the kernel's
     // `describeValidationError`, which decides for itself whether a given error
     // needs a message key or reads out its own stack. Asserting what it picks
-    // would pin this repo to kernel internals (Decision C); that the translator
+    // would pin this repo to kernel internals; that the translator
     // reaches it at all is covered end to end by the
     // `HostTranslatesTheErrorSummary` story.
 
