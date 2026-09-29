@@ -69,7 +69,7 @@ Everything else — internal refactors, additions this library doesn't consume, 
 
 For each bullet renaming an identifier written as `` `oldName` `` → `` `newName` `` (an export, an option, a CSS entry, a type):
 
-1. **Grep the whole repo**, not just `src/`. Kernel names leak into `README.md`, `CLAUDE.md`, `docs/run-form-panel.md`, `tsup.config.ts` comments, `eslint.config.mjs` messages, `.storybook/*`, `scripts/smoke-pack.mjs`, and the `wip/adopt-form/` design notes. Three places to leave alone:
+1. **Grep the whole repo**, not just `src/`. Kernel names leak into `README.md`, `CLAUDE.md`, `docs/run-form-panel.md`, `tsup.config.ts` comments, `eslint.config.mjs` messages, `.storybook/*`, and `scripts/smoke-pack.mjs`. Three places to leave alone:
    - `CHANGELOG.md`'s **already-dated release entries** (`## [vX.Y.Z] - YYYY-MM-DD`) — a historical record. Step 8 adds this change's entry under `## [Unreleased]`.
    - **`src/form/react/__stories__/contracts/_generated/`** — generated; see Step 6.
    - **`data/mthds-corpus/`** — a vendored copy owned by `pipelex`; editing it forks it.
@@ -106,7 +106,7 @@ On failure, show the errors and connect them to the Step 4 checklist rather than
 
 ## Step 6 — The contracts fixtures: an owed step, and a foot-gun
 
-**This obligation is discharged** — the fixtures were reshaped in the change that moved this repo onto the post-`0.3.0` kernel, and `wip/adopt-form/contracts-fixture-reshape-obligation.md` is now a record of why the ordering was safe rather than something owed. Read it before touching `make fixtures-contracts` anyway, because the foot-gun below is still live: the dumper shells out to an editable pipelex install, so a stray regeneration reshapes fixtures whatever version it reports. The history it records:
+**This obligation is discharged** — the fixtures were reshaped in the change that moved this repo onto the post-`0.3.0` kernel, so this step is now a record of why the ordering was safe rather than something owed. Read it before touching `make fixtures-contracts` anyway, because the foot-gun below is still live: the dumper shells out to an editable pipelex install, so a stray regeneration reshapes fixtures whatever version it reports. The history it records:
 
 `pipelex` PR #1149 reshaped `pipe_io_contracts` — an input's boolean `optional` became a three-valued `presence`, and `multiplicity` gained a `fixed` arm carrying `item_count`. The fixtures in this repo are **pre-reshape**, and so was the kernel at `0.2.0`. They agree, which is exactly what hides the problem: nothing here can go red on its own.
 
@@ -132,8 +132,6 @@ Before trusting any regeneration, the doc's own check tells you what the interpr
 ```
 
 If `presence` is in that list and the kernel is still pre-S2, do not refresh.
-
-Leave `wip/adopt-form/contracts-fixture-reshape-obligation.md` where it is. It opens by saying it is discharged, and it is kept deliberately: the ordering it records is why the regeneration was safe, and a reader who finds only a clean tree cannot reconstruct that.
 
 ## Step 7 — Prove the packaging contract, and look at the form
 

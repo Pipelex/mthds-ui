@@ -1,8 +1,8 @@
 // ─── Static graph builder: MergedMethodSet → GraphSpec ──────────────────────
-// The static walk from the design doc (wip/static-graph-design.md): walk pipe
-// *invocations* starting at the entry pipe, maintaining a scope (the static
-// mirror of working memory), and emit a GraphSpec with `meta.mode: "static"`
-// that the existing GraphViewer renders unchanged.
+// The static walk: walk pipe *invocations* starting at the entry pipe,
+// maintaining a scope (the static mirror of working memory), and emit a
+// GraphSpec with `meta.mode: "static"` that the existing GraphViewer renders
+// unchanged.
 //
 // Identity is deterministic: node ids are invocation paths
 // (`screening.process_cv/step_2/...`) and stuff digests are the raw strings

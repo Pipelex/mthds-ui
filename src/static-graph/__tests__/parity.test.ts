@@ -3,8 +3,8 @@
 // dry_run_graph_spec.json — same generator output as the story fixtures).
 // See parityHarness.ts for the normalization rules and comparison semantics.
 //
-// Accepted divergences are listed per pipeline in ACCEPTED_DIVERGENCES with a
-// reason, and documented in wip/static-graph-design.md. Anything else fails.
+// Accepted divergences are listed per pipeline in ACCEPTED_DIVERGENCES, each
+// with its reason. Anything else fails.
 
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
@@ -138,9 +138,8 @@ describe("parity harness sensitivity", () => {
 // No fixture bundle can exercise this against a checked-in dry spec:
 // pipelex deleted `combined_output` upstream (PipeParallel now always
 // combines) *after* the fixture corpus was generated, so the current CLI
-// rejects the field on authored bundles while the MTHDS spec still
-// documents it. The static side is pinned here instead; see
-// wip/static-graph-design.md for the follow-up.
+// rejects the field on authored bundles, and the MTHDS spec no longer has it
+// either. The static side is pinned here until L-260929-1e09e0 drops it.
 
 const COMBINED_OUTPUT_BUNDLE = `
 domain = "combined_insights"

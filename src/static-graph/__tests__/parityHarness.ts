@@ -1,6 +1,5 @@
 // ─── Parity harness: static builder vs pipelex dry-run GraphSpecs ────────────
-// The permanent Python↔TS drift detector (wip/static-graph-design.md, "Parity
-// harness"): both specs are normalized to a canonical *structural* form, and
+// The permanent Python↔TS drift detector: both specs are normalized to a canonical *structural* form, and
 // the comparison runs over exactly what the renderer consumes — the node
 // multiset, the containment tree, and the producer/consumer relation per stuff
 // (derived with the renderer's own `buildDataflowAnalysis`, so "producer"
