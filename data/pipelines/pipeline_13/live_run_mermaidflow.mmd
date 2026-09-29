@@ -1,45 +1,45 @@
 flowchart LR
 
     %% Pipe and stuff nodes within controller subgraphs
-    subgraph sg_n_2a56dca379["diamond_pipeline"]
-        subgraph sg_n_fb0b03dbb1["quad_process"]
-            n_13f4e0e745["process_alpha"]
-            s_45d7f491f2(["alpha_result<br/>ProcessedData"]):::stuff
-            n_6df2c9a0ae["process_beta"]
-            s_10b633b959(["beta_result<br/>SearchResult"]):::stuff
-            n_4844f476d8["process_delta"]
-            s_bb702f9434(["delta_result<br/>Image"]):::stuff
-            n_08e883cf6b["process_gamma"]
-            s_b45d862cd5(["gamma_result<br/>ProcessedData"]):::stuff
-            s_9065bb8aa3(["parallel_results<br/>Composite"]):::stuff
+    subgraph sg_n_d90dd96000["diamond_pipeline"]
+        subgraph sg_n_848b936389["quad_process"]
+            n_c74d2b582e["process_alpha"]
+            s_7f5e4eb486(["alpha_result<br/>ProcessedData"]):::stuff
+            n_185646f109["process_beta"]
+            s_08c8f3736c(["beta_result<br/>SearchResult"]):::stuff
+            n_29d6709160["process_delta"]
+            s_f85fb07052(["delta_result<br/>Image"]):::stuff
+            n_88a1e7b201["process_gamma"]
+            s_765576d0a7(["gamma_result<br/>ProcessedData"]):::stuff
+            s_a3aa6c9d8b(["parallel_results<br/>Composite"]):::stuff
         end
-        n_268d878ae5["merge_all"]
-        s_7ba5083217(["merged<br/>MergedResult"]):::stuff
+        n_4b2f61bc57["merge_all"]
+        s_da11d5d770(["merged<br/>MergedResult"]):::stuff
     end
 
     %% Pipeline input stuff nodes (no producer)
-    s_c818961b5d(["data<br/>Text"]):::stuff
+    s_3bd5a62c83(["data<br/>Text"]):::stuff
 
     %% Data flow edges: producer -> stuff -> consumer
-    n_08e883cf6b --> s_b45d862cd5
-    n_4844f476d8 --> s_bb702f9434
-    n_13f4e0e745 --> s_45d7f491f2
-    n_6df2c9a0ae --> s_10b633b959
-    n_268d878ae5 --> s_7ba5083217
-    s_b45d862cd5 --> n_268d878ae5
-    s_bb702f9434 --> n_268d878ae5
-    s_45d7f491f2 --> n_268d878ae5
-    s_c818961b5d --> n_13f4e0e745
-    s_c818961b5d --> n_6df2c9a0ae
-    s_c818961b5d --> n_08e883cf6b
-    s_c818961b5d --> n_4844f476d8
-    s_10b633b959 --> n_268d878ae5
+    n_29d6709160 --> s_f85fb07052
+    n_c74d2b582e --> s_7f5e4eb486
+    n_4b2f61bc57 --> s_da11d5d770
+    n_88a1e7b201 --> s_765576d0a7
+    n_185646f109 --> s_08c8f3736c
+    s_f85fb07052 --> n_4b2f61bc57
+    s_7f5e4eb486 --> n_4b2f61bc57
+    s_3bd5a62c83 --> n_c74d2b582e
+    s_3bd5a62c83 --> n_185646f109
+    s_3bd5a62c83 --> n_88a1e7b201
+    s_3bd5a62c83 --> n_29d6709160
+    s_765576d0a7 --> n_4b2f61bc57
+    s_08c8f3736c --> n_4b2f61bc57
 
     %% Parallel combine edges: branch outputs → combined output
-    s_45d7f491f2 -.-> s_9065bb8aa3
-    s_10b633b959 -.-> s_9065bb8aa3
-    s_b45d862cd5 -.-> s_9065bb8aa3
-    s_bb702f9434 -.-> s_9065bb8aa3
+    s_7f5e4eb486 -.-> s_a3aa6c9d8b
+    s_08c8f3736c -.-> s_a3aa6c9d8b
+    s_765576d0a7 -.-> s_a3aa6c9d8b
+    s_f85fb07052 -.-> s_a3aa6c9d8b
 
     %% Style definitions
     classDef failed fill:#ffcccc,stroke:#cc0000
@@ -47,5 +47,5 @@ flowchart LR
     classDef controller fill:#e6f3ff,stroke:#0066cc
 
     %% Subgraph depth-based coloring
-    style sg_n_2a56dca379 fill:#e6f3ff
-    style sg_n_fb0b03dbb1 fill:#e6ffe6
+    style sg_n_848b936389 fill:#e6ffe6
+    style sg_n_d90dd96000 fill:#e6f3ff
