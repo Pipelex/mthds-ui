@@ -55,7 +55,7 @@ function StatusCyclingWrapper() {
 
   return (
     <GraphViewer
-      graphspec={DRY_RUN_CATALOG.DRY_SIMPLE_SEQUENCE.spec}
+      graph={{ graphSpec: DRY_RUN_CATALOG.DRY_SIMPLE_SEQUENCE.spec }}
       initialDirection="LR"
       initialShowControllers={true}
       statusMap={statusMap}
@@ -81,7 +81,7 @@ export const LiveStatusCycling: Story = {
 
 export const MixedStatuses: Story = {
   args: {
-    graphspec: DRY_RUN_CATALOG.DRY_SIMPLE_SEQUENCE.spec,
+    graph: { graphSpec: DRY_RUN_CATALOG.DRY_SIMPLE_SEQUENCE.spec },
     initialDirection: "LR",
     initialShowControllers: true,
     statusMap: {
@@ -105,7 +105,7 @@ export const MixedStatuses: Story = {
 
 export const NoStatusMap: Story = {
   args: {
-    graphspec: DRY_RUN_CATALOG.DRY_SIMPLE_SEQUENCE.spec,
+    graph: { graphSpec: DRY_RUN_CATALOG.DRY_SIMPLE_SEQUENCE.spec },
     initialDirection: "LR",
     initialShowControllers: true,
   },

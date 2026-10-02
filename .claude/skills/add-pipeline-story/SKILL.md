@@ -192,11 +192,11 @@ type Story = StoryObj<typeof GraphViewer>;
 const D = { direction: "LR" as const, showControllers: true };
 
 export const DryRun: Story = {
-  args: { graphspec: DRY_<CONST_PREFIX>, ...D },
+  args: { graph: graphFor("<CONST_PREFIX>", DRY_<CONST_PREFIX>), ...D },
 };
 
 export const LiveRun: Story = {
-  args: { graphspec: LIVE_<CONST_PREFIX>, ...D },
+  args: { graph: graphFor("<CONST_PREFIX>", LIVE_<CONST_PREFIX>), ...D },
 };
 ```
 

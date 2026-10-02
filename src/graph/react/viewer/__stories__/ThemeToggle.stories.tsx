@@ -40,7 +40,7 @@ function pipeColor(container: HTMLElement): string {
 // ─── Cycle through all three modes via the toolbar button ───────────────
 
 export const CycleThroughModes: Story = {
-  args: { graphspec: SPEC, initialShowControllers: false },
+  args: { graph: { graphSpec: SPEC }, initialShowControllers: false },
   play: async ({ canvasElement }) => {
     const container = await waitForRender(canvasElement);
     const canvas = within(canvasElement);
@@ -92,7 +92,7 @@ function InjectedSystemThemeHarness() {
         flip system theme
       </button>
       <GraphViewer
-        graphspec={SPEC}
+        graph={{ graphSpec: SPEC }}
         theme="system"
         systemTheme={sys}
         initialShowControllers={false}

@@ -34,11 +34,15 @@ function SideBySide({ staticSpec, liveSpec }: { staticSpec: GraphSpec; liveSpec:
     >
       <div style={paneStyle}>
         <div style={labelStyle}>Static</div>
-        <GraphViewer graphspec={staticSpec} initialDirection="LR" initialShowControllers />
+        <GraphViewer
+          graph={{ graphSpec: staticSpec }}
+          initialDirection="LR"
+          initialShowControllers
+        />
       </div>
       <div style={paneStyle}>
         <div style={labelStyle}>Live</div>
-        <GraphViewer graphspec={liveSpec} initialDirection="LR" initialShowControllers />
+        <GraphViewer graph={{ graphSpec: liveSpec }} initialDirection="LR" initialShowControllers />
       </div>
     </div>
   );

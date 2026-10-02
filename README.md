@@ -37,11 +37,11 @@ If you render the React components, one setup step follows the install: the form
 import { GraphViewer } from "@pipelex/mthds-ui/graph/react";
 
 function MethodGraph({ graphspec }) {
-  return <GraphViewer graphspec={graphspec} />;
+  return <GraphViewer graph={{ graphSpec: graphspec }} />;
 }
 ```
 
-That's it. `GraphViewer` handles layout, styling, CSS variables, and all ReactFlow internals. All props except `graphspec` are optional with sensible defaults. The one exception to "styling" is the detail panel's data view, which shows a result through the form kernel's controls; those are styled by your app, as [Styling the form controls](#styling-the-form-controls) describes.
+That's it. `GraphViewer` handles layout, styling, CSS variables, and all ReactFlow internals. All props except `graph` are optional with sensible defaults. The one exception to "styling" is the detail panel's data view, which shows a result through the form kernel's controls; those are styled by your app, as [Styling the form controls](#styling-the-form-controls) describes.
 
 ### Next.js (App Router)
 
@@ -63,15 +63,29 @@ const GraphViewer = dynamic(
 ) as React.ComponentType<GraphViewerProps>;
 
 export function MyGraph({ graphspec }) {
-  return <GraphViewer graphspec={graphspec} />;
+  return <GraphViewer graph={{ graphSpec: graphspec }} />;
 }
 ```
+
+### Showing what a run produced
+
+`graph` carries the spec together with the artifacts that describe its pipes, and the detail panel uses them to lay a data node's value out. They must all come from one source, because the panel looks each value's descriptor up by the `pipe_ref` of the pipe that produced it in this graph: a run's own results, or a method's validate report beside that method's dry or static graph. A run's results carry all four, and `graphArtifactsFrom` reads them in one call:
+
+```tsx
+import { GraphViewer, graphArtifactsFrom } from "@pipelex/mthds-ui/graph/react";
+
+// results: { graph_spec, pipe_io_contracts, output_form, input_form }
+const graph = graphArtifactsFrom(results);
+return <GraphViewer graph={graph} />;
+```
+
+Without `pipeIoContracts` and `outputForm` the panel shows each concept's structure table and no data tab. See [docs/stuff-result-panel.md](docs/stuff-result-panel.md).
 
 ### GraphViewer props
 
 | Prop               | Type                                              | Default                | Description                              |
 | ------------------ | ------------------------------------------------- | ---------------------- | ---------------------------------------- |
-| `graphspec`        | `GraphSpec \| null`                               | —                      | Graph data (nodes + edges)               |
+| `graph`            | `GraphArtifacts \| null`                          | —                      | The spec and its descriptors, one source |
 | `config`           | `GraphConfig`                                     | `DEFAULT_GRAPH_CONFIG` | Layout and visual configuration          |
 | `direction`        | `GraphDirection`                                  | `"LR"`                 | Layout direction: `TB`, `LR`, `RL`, `BT` |
 | `showControllers`  | `boolean`                                         | `false`                | Show controller group outlines           |
@@ -237,7 +251,7 @@ const myConfig = {
 
 ```tsx
 <GraphViewer
-  graphspec={graphspec}
+  graph={{ graphSpec: graphspec }}
   config={{
     ...DEFAULT_GRAPH_CONFIG,
     paletteColors: {

@@ -36,7 +36,7 @@ Clearing the prop back to `undefined` falls through to `config.toolbarPosition` 
 ```tsx
 const [pos, setPos] = useState<ToolbarPosition>(TOOLBAR_POSITION.CENTER_LEFT);
 
-<GraphViewer graphspec={spec} toolbarPosition={pos} />;
+<GraphViewer graph={{ graphSpec: spec }} toolbarPosition={pos} />;
 // move it later — the viewer reacts on the next render:
 setPos(TOOLBAR_POSITION.BOTTOM_RIGHT);
 ```

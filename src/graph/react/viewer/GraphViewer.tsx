@@ -43,9 +43,10 @@ import {
   resolveIssueTargetNodeId,
 } from "@graph/graphValidation";
 import { findStuffByDigest } from "@graph/stuffLookup";
-import type { InputForm, OutputForm, PipeIOContracts, SaveFiles } from "@pipelex/mthds-form";
+import type { SaveFiles } from "@pipelex/mthds-form";
 import type { DownloadDisplay, ResolveShareUrl, ResolveUrl } from "@pipelex/mthds-form/react";
 import { StuffResultPanel } from "../detail/StuffResultPanel";
+import { resultDescriptors, type GraphArtifacts } from "./graphArtifacts";
 import { DetailPanel } from "../detail/DetailPanel";
 import { useResizable } from "../detail/useResizable";
 import { PipeDetailPanel } from "../detail/PipeDetailPanel";
@@ -70,7 +71,21 @@ const nodeTypes = {
 };
 
 export interface GraphViewerProps {
-  graphspec: GraphSpec | null;
+  /**
+   * The graph to draw, together with the artifacts that describe its pipes —
+   * all four from ONE source: a run's results, or a method's validate report
+   * beside the dry or static graph of that same method. `null` draws nothing.
+   *
+   * One object rather than a spec prop and three descriptor props, because the
+   * detail panel looks a data node's descriptor up by the `pipe_ref` of the pipe
+   * that produced it IN THIS GRAPH. A graph paired with another source's
+   * descriptors misses every lookup. See `GraphArtifacts`.
+   *
+   * Without `pipeIoContracts` and `outputForm`, the panel still works: it shows
+   * the concept's structure table and no data tab, which is the honest floor
+   * for a graph whose artifacts the host does not hold.
+   */
+  graph: GraphArtifacts | null;
   config?: GraphConfig;
   /** Initial layout direction. Users can toggle this via the built-in toolbar. */
   initialDirection?: GraphDirection;
@@ -143,35 +158,6 @@ export interface GraphViewerProps {
   /** Render extra content below the built-in detail panel content for the selected node. */
   renderDetailExtra?: (nodeId: string, nodeData: GraphNodeData) => React.ReactNode;
   /**
-   * `pipe_io_contracts` for the method this spec is a run of — one half of what
-   * the detail panel needs to render a data node's VALUE.
-   *
-   * The graph renders results itself now. It used to take a render prop instead,
-   * because the form kernel was an optional peer and `./graph/react` had to keep
-   * resolving without it — an arrangement that made sense while the kernel only
-   * powered an optional run form, and stopped making sense the moment the
-   * standard's `output_form` became how this viewer shows a result at all. A
-   * viewer whose detail panel cannot show data is not a viewer, so the kernel is
-   * a dependency of this package and the seam is gone.
-   *
-   * Omit these and the panel still works: it shows the concept's structure table
-   * and no data tab, which is the honest floor for a spec whose artifacts the
-   * host does not hold (a static graph, a spec restored without its validate
-   * report).
-   */
-  contracts?: PipeIOContracts;
-  /**
-   * `output_form` from the SAME `/validate` call — the other half. The contract
-   * names the payload's shape; the descriptor says what the result IS.
-   */
-  outputForm?: OutputForm;
-  /**
-   * `input_form`, optional even here. It is what lets a method's own INPUTS show
-   * their value: no pipe produced them, so no output descriptor describes them,
-   * and the CONSUMING pipe's descriptor for their slot is what names them.
-   */
-  inputForm?: InputForm;
-  /**
    * Turns the runtime's own `pipelex-storage://…` reference into a URL a
    * browser can fetch, so files in a result actually paint.
    *
@@ -239,10 +225,8 @@ function StuffNodeDetail({
   producerPipeRef,
   consumer,
   graphspec,
+  artifacts,
   theme,
-  contracts,
-  outputForm,
-  inputForm,
   resolveUrl,
   resolveShareUrl,
   saveFiles,
@@ -254,10 +238,9 @@ function StuffNodeDetail({
   producerPipeRef?: string;
   consumer?: { pipeRef: string; slotName: string };
   graphspec: GraphSpec | null;
+  /** The descriptors that came with `graphspec`, in the same `graph` object. */
+  artifacts: GraphArtifacts | null;
   theme: GraphTheme;
-  contracts?: PipeIOContracts;
-  outputForm?: OutputForm;
-  inputForm?: InputForm;
   resolveUrl?: ResolveUrl;
   resolveShareUrl?: ResolveShareUrl;
   saveFiles?: SaveFiles;
@@ -275,25 +258,23 @@ function StuffNodeDetail({
   // Both artifacts or neither. The contract names the payload's shape and the
   // descriptor says what the result IS, so a panel given one of the two would be
   // guessing the other — which is the whole failure `output_form` exists to end.
-  const renderData =
-    contracts && outputForm
-      ? () => (
-          <StuffResultPanel
-            contracts={contracts}
-            outputForm={outputForm}
-            {...(inputForm ? { inputForm } : {})}
-            stuff={stuffData}
-            {...(conceptInfo ? { concept: conceptInfo } : {})}
-            {...(producerPipeRef ? { producerPipeRef } : {})}
-            {...(consumer ? { consumer } : {})}
-            {...(resolveUrl ? { resolveUrl } : {})}
-            {...(resolveShareUrl ? { resolveShareUrl } : {})}
-            {...(saveFiles ? { saveFiles } : {})}
-            {...(downloads ? { downloads } : {})}
-            theme={theme}
-          />
-        )
-      : undefined;
+  const descriptors = resultDescriptors(artifacts);
+  const renderData = descriptors
+    ? () => (
+        <StuffResultPanel
+          {...descriptors}
+          stuff={stuffData}
+          {...(conceptInfo ? { concept: conceptInfo } : {})}
+          {...(producerPipeRef ? { producerPipeRef } : {})}
+          {...(consumer ? { consumer } : {})}
+          {...(resolveUrl ? { resolveUrl } : {})}
+          {...(resolveShareUrl ? { resolveShareUrl } : {})}
+          {...(saveFiles ? { saveFiles } : {})}
+          {...(downloads ? { downloads } : {})}
+          theme={theme}
+        />
+      )
+    : undefined;
 
   if (conceptInfo) {
     return (
@@ -429,7 +410,7 @@ interface DetailSelection {
 
 export function GraphViewer(props: GraphViewerProps) {
   const {
-    graphspec: graphspecProp,
+    graph,
     config = DEFAULT_GRAPH_CONFIG,
     initialDirection,
     initialShowControllers,
@@ -447,9 +428,6 @@ export function GraphViewer(props: GraphViewerProps) {
     onNodeSelect,
     onPaneClick,
     renderDetailExtra,
-    contracts,
-    outputForm,
-    inputForm,
     resolveUrl,
     resolveShareUrl,
     saveFiles,
@@ -458,6 +436,12 @@ export function GraphViewer(props: GraphViewerProps) {
     validationIssues,
     onValidationIssueClick,
   } = props;
+
+  // The spec is read out of the `graph` bundle and memoized on ITS identity,
+  // not the wrapper's: a host writing `graph={{ graphSpec, … }}` inline hands
+  // over a new wrapper every render, and keying the build on that would re-run
+  // the ELK layout on every parent render.
+  const graphspecProp = graph?.graphSpec ?? null;
 
   // Single boundary validator for the React render path — mirrors the standalone
   // adapter (src/standalone/adapter.ts). Memoized on prop identity so it runs
@@ -1323,9 +1307,7 @@ export function GraphViewer(props: GraphViewerProps) {
             consumer={detailSelection.consumer}
             graphspec={graphspec}
             theme={resolvedTheme}
-            contracts={contracts}
-            outputForm={outputForm}
-            inputForm={inputForm}
+            artifacts={graph}
             resolveUrl={resolveUrl}
             resolveShareUrl={resolveShareUrl}
             saveFiles={saveFiles}

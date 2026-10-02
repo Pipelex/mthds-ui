@@ -63,7 +63,7 @@ function GraphAndPanel() {
     <div style={{ display: "flex", height: "100vh", width: "100%" }}>
       <div style={{ flex: 1, position: "relative", minWidth: 0 }}>
         <GraphViewer
-          graphspec={DRY_CV_SCREENING}
+          graph={{ graphSpec: DRY_CV_SCREENING }}
           initialDirection="LR"
           initialShowControllers
           theme={GRAPH_THEME.DARK}

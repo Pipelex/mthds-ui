@@ -64,8 +64,12 @@ function applyPageChrome(mode: GraphThemeMode, resolvedTheme: GraphTheme): void 
 // ─── React app ──────────────────────────────────────────────────────────
 
 function App() {
+  // The standalone page embeds a spec and no descriptors, so its bundle is the
+  // spec alone and the detail panel shows structure tables.
+  const { graphspec, ...rest } = viewerProps;
   return React.createElement(GraphViewer, {
-    ...viewerProps,
+    ...rest,
+    graph: graphspec ? { graphSpec: graphspec } : null,
     onThemeChange: (mode: GraphThemeMode, resolvedTheme: GraphTheme) => {
       applyPageChrome(mode, resolvedTheme);
     },

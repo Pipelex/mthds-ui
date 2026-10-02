@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { artifactsFor } from "../pipelineArtifacts";
+import { graphFor } from "../pipelineArtifacts";
 import { GraphViewer } from "../../GraphViewer";
 import { DRY_ALL_PIPE_TYPES } from "./specs/_generated/dry/pipeline_14";
 import { LIVE_ALL_PIPE_TYPES } from "./specs/_generated/live/pipeline_14";
@@ -24,18 +24,17 @@ export default meta;
 type Story = StoryObj<typeof GraphViewer>;
 
 // Clicking a data node shows what this run actually produced, laid out from
-// the method's own `output_form` and `pipe_io_contracts` — the artifacts a
-// host holds beside the spec.
+// the method's own `output_form` and `pipe_io_contracts`, carried with the
+// spec in the one `graph` object `graphFor` builds.
 const D = {
   initialDirection: "LR" as const,
   initialShowControllers: true,
-  ...artifactsFor("ALL_PIPE_TYPES"),
 };
 
 export const DryRun: Story = {
-  args: { graphspec: DRY_ALL_PIPE_TYPES, ...D },
+  args: { graph: graphFor("ALL_PIPE_TYPES", DRY_ALL_PIPE_TYPES), ...D },
 };
 
 export const LiveRun: Story = {
-  args: { graphspec: LIVE_ALL_PIPE_TYPES, ...D },
+  args: { graph: graphFor("ALL_PIPE_TYPES", LIVE_ALL_PIPE_TYPES), ...D },
 };
