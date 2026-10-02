@@ -1,0 +1,182 @@
+src/graph/react/viewer/graphArtifacts.ts
+  s_05a530b5d83b6b::t_7b8ac16d7388e9 1-69
+  s_05a530b5d83b6b::t_3833e89b8fee29 70-92
+src/graph/react/viewer/__tests__/graphArtifacts.test.tsx
+  s_05a530b5d83b6b::t_0a4eb26adbca24 1-165
+CHANGELOG.md
+  s_05a530b5d83b6b::t_25e195f172af00 3-14
+.claude/skills/add-pipeline-story/SKILL.md
+  s_05a530b5d83b6b::t_243e3e395a222f 195,199
+CLAUDE.md
+  s_05a530b5d83b6b::t_893bc8afe08f01 40,329
+README.md
+  s_05a530b5d83b6b::t_4ef424a11f942f 40,44,66,70-83,88,254
+docs/stuff-result-panel.md
+  s_05a530b5d83b6b::t_a896a908c6984d 20,23,26-27,48,51,60,72,74
+docs/toolbar-position.md
+  s_05a530b5d83b6b::t_84ca0119461419 39
+docs/validation-widget.md
+  s_05a530b5d83b6b::t_a6906a534284ff 25
+package-lock.json
+  s_05a530b5d83b6b::t_24373f9fbad180 12,1219-1221,1236,1239,2923-2935,2963-2969,3794-3803,3948-3967,4224-4238,4254-4263,4529-4538,4918-4928,4987-4992,5414-5427,5488-5493,5744-5760,6197-6202,6466-6481,6556-6562,6849-6858,7074-7080,7164-7173,7380-7389,8086-8095,8106-8115,9084-9093
+package.json
+  s_05a530b5d83b6b::t_3d94b70f925f5c 81
+src/form/react/__stories__/GraphWithRunPanel.stories.tsx
+  s_05a530b5d83b6b::t_aa75cd06a832ba 66
+src/graph/react/detail/ConceptDetailPanel.tsx
+  s_05a530b5d83b6b::t_19fa89ba423f7f 16-17
+src/graph/react/detail/StuffResultPanel.tsx
+  s_05a530b5d83b6b::t_2e622e7d25f4a9 53-58,99-106,164,177-179
+src/graph/react/detail/__stories__/Stuff/ConceptDetail.stories.tsx
+  s_05a530b5d83b6b::t_afe9a1a4907c0c 67-68
+src/graph/react/index.ts
+  s_05a530b5d83b6b::t_ebe902b6ada222 31-37
+src/graph/react/nodes/pipe/__stories__/PipeCardNode.stories.tsx
+  s_05a530b5d83b6b::t_cbe34f9dc2aa7d 28,32,36,40,44,48,52,56
+src/graph/react/nodes/pipe/__stories__/PipeCardRendering.stories.tsx
+  s_05a530b5d83b6b::t_6d7283b08a378e 31,41,49,57,65,73,85,102,117,127,138,172,183
+src/graph/react/nodes/pipe/__stories__/PipeCardStatus.stories.tsx
+  s_05a530b5d83b6b::t_e5361b8d0b81b4 28,32,36
+src/graph/react/nodes/pipe/__stories__/edge-cases/EverythingAtOnce.stories.tsx
+  s_05a530b5d83b6b::t_f7abade96cc3b9 28,32
+src/graph/react/nodes/pipe/__stories__/edge-cases/LongDescription.stories.tsx
+  s_05a530b5d83b6b::t_4d132861606324 28,32
+src/graph/react/nodes/pipe/__stories__/edge-cases/LongInputNames.stories.tsx
+  s_05a530b5d83b6b::t_82335c2b38c866 28,32
+src/graph/react/nodes/pipe/__stories__/edge-cases/LongOutputName.stories.tsx
+  s_05a530b5d83b6b::t_5d8c9b332864b1 28,32
+src/graph/react/nodes/pipe/__stories__/edge-cases/LongPipeCode.stories.tsx
+  s_05a530b5d83b6b::t_ea156faa8a5617 28,32
+src/graph/react/nodes/pipe/__stories__/edge-cases/ManyInputs.stories.tsx
+  s_05a530b5d83b6b::t_d4f69daca9f714 28,32
+src/graph/react/nodes/pipe/__stories__/edge-cases/Minimal.stories.tsx
+  s_05a530b5d83b6b::t_662f67f80f9931 28,32
+src/graph/react/nodes/pipe/__stories__/edge-cases/TruncLongBoth.stories.tsx
+  s_05a530b5d83b6b::t_c2912771412af2 28,32
+src/graph/react/nodes/pipe/__stories__/edge-cases/TruncLongNameShortConcept.stories.tsx
+  s_05a530b5d83b6b::t_c26dc16e176007 28,32
+src/graph/react/nodes/pipe/__stories__/edge-cases/TruncMediumNameLongConcept.stories.tsx
+  s_05a530b5d83b6b::t_584eefed4d22c2 28,32
+src/graph/react/nodes/pipe/__stories__/edge-cases/TruncMixedSizes.stories.tsx
+  s_05a530b5d83b6b::t_43ca0af6d51dd3 28,32
+src/graph/react/nodes/pipe/__stories__/edge-cases/TruncShortBoth.stories.tsx
+  s_05a530b5d83b6b::t_7c2ac23c6bf1e6 28,32
+src/graph/react/viewer/GraphViewer.tsx
+  s_05a530b5d83b6b::t_70651c23e28edf 46,49,74-88,228,241-242,261-277,413,440-445,1310
+src/graph/react/viewer/__stories__/DryVsLive.stories.tsx
+  s_05a530b5d83b6b::t_d38327d53e9959 37,41
+src/graph/react/viewer/__stories__/FoldableControllers.stories.tsx
+  s_05a530b5d83b6b::t_3acbc3286d860e 43,54,95,131,169,202,244-260
+src/graph/react/viewer/__stories__/GraphWithResultPanel.stories.tsx
+  s_05a530b5d83b6b::t_9717407ad731cd 31-33,35,54-59,162-166
+src/graph/react/viewer/__stories__/NodeInteraction.stories.tsx
+  s_05a530b5d83b6b::t_9b4279772e1e7f 452
+src/graph/react/viewer/__stories__/PipelineSmoke.stories.tsx
+  s_05a530b5d83b6b::t_6efaf3731e32fb 44
+src/graph/react/viewer/__stories__/StaticGraphDev.stories.tsx
+  s_05a530b5d83b6b::t_2d0013434c07a7 91,100,125,129,133,138,143,148
+src/graph/react/viewer/__stories__/StaticGraphInvalid.stories.tsx
+  s_05a530b5d83b6b::t_1a5de74ea33777 38
+src/graph/react/viewer/__stories__/StaticVsLive.stories.tsx
+  s_05a530b5d83b6b::t_3108090133df88 37-41,45
+src/graph/react/viewer/__stories__/StatusMap.stories.tsx
+  s_05a530b5d83b6b::t_cf1cfb6b08026b 58,84,108
+src/graph/react/viewer/__stories__/ThemeToggle.stories.tsx
+  s_05a530b5d83b6b::t_ec1d1bc4ff94a6 43,95
+src/graph/react/viewer/__stories__/ToolbarPosition.stories.tsx
+  s_05a530b5d83b6b::t_820a008792d5a6 36
+src/graph/react/viewer/__stories__/ValidationDecorations.stories.tsx
+  s_05a530b5d83b6b::t_4a6e83842b0c73 106,141,158
+src/graph/react/viewer/__stories__/ValidationNoHostHandler.stories.tsx
+  s_05a530b5d83b6b::t_0c5c23be484ebe 41
+src/graph/react/viewer/__stories__/ValidationWidget.stories.tsx
+  s_05a530b5d83b6b::t_2cf8455d18409b 98,162
+src/graph/react/viewer/__stories__/pipelineArtifacts.ts
+  s_05a530b5d83b6b::t_9154e820eda411 1-3,6-7,11,18-24,26-34
+src/graph/react/viewer/__stories__/pipelines/Pipeline01.stories.tsx
+  s_05a530b5d83b6b::t_cf5e098e16053b 2,27-28,35,39
+src/graph/react/viewer/__stories__/pipelines/Pipeline02.stories.tsx
+  s_05a530b5d83b6b::t_73d1e8ebe6b40b 2,27-28,35,39
+src/graph/react/viewer/__stories__/pipelines/Pipeline03.stories.tsx
+  s_05a530b5d83b6b::t_7213eec652af28 2,27-28,35,39
+src/graph/react/viewer/__stories__/pipelines/Pipeline04.stories.tsx
+  s_05a530b5d83b6b::t_01f4beb24a0a11 2,27-28,35,39
+src/graph/react/viewer/__stories__/pipelines/Pipeline05.stories.tsx
+  s_05a530b5d83b6b::t_95290f65955e96 2,27-28,35,39
+src/graph/react/viewer/__stories__/pipelines/Pipeline06.stories.tsx
+  s_05a530b5d83b6b::t_4f9ee9b6ea3da5 2,27-28,35,39
+src/graph/react/viewer/__stories__/pipelines/Pipeline07.stories.tsx
+  s_05a530b5d83b6b::t_93e66098b2e5b3 2,27-28,35,39
+src/graph/react/viewer/__stories__/pipelines/Pipeline08.stories.tsx
+  s_05a530b5d83b6b::t_c1b256570b345e 2,27-28,35,39
+src/graph/react/viewer/__stories__/pipelines/Pipeline09.stories.tsx
+  s_05a530b5d83b6b::t_b7db8ad36e5847 2,27-28,35,39
+src/graph/react/viewer/__stories__/pipelines/Pipeline10.stories.tsx
+  s_05a530b5d83b6b::t_855ded9ef53140 2,27-28,35,39
+src/graph/react/viewer/__stories__/pipelines/Pipeline11.stories.tsx
+  s_05a530b5d83b6b::t_898fcfdf8f6b6a 2,27-28,35,39
+src/graph/react/viewer/__stories__/pipelines/Pipeline12.stories.tsx
+  s_05a530b5d83b6b::t_078b39329e6a7c 2,27-28,35,39
+src/graph/react/viewer/__stories__/pipelines/Pipeline13.stories.tsx
+  s_05a530b5d83b6b::t_38be0d02ccbbe5 2,27-28,35,39
+src/graph/react/viewer/__stories__/pipelines/Pipeline14.stories.tsx
+  s_05a530b5d83b6b::t_533a475931c263 2,27-28,35,39
+src/graph/react/viewer/__stories__/pipelines/Pipeline15.stories.tsx
+  s_05a530b5d83b6b::t_9eca27d12ec614 2,27-28,35,39
+src/graph/react/viewer/__stories__/pipelines/Pipeline16.stories.tsx
+  s_05a530b5d83b6b::t_226f691e92c5a6 2,27-28,35,39
+src/graph/react/viewer/__stories__/pipelines/Pipeline17.stories.tsx
+  s_05a530b5d83b6b::t_5fceb81ea5ae36 2,27-28,35,39
+src/graph/react/viewer/__stories__/pipelines/Pipeline18.stories.tsx
+  s_05a530b5d83b6b::t_1cef8a42fbf5d6 2,27-28,35,39
+src/graph/react/viewer/__stories__/pipelines/Pipeline19.stories.tsx
+  s_05a530b5d83b6b::t_223b7c79834e05 2,27-28,35,39
+src/graph/react/viewer/__stories__/pipelines/Pipeline20.stories.tsx
+  s_05a530b5d83b6b::t_f304054f90c417 2,27-28,35,39
+src/graph/react/viewer/__stories__/pipelines/Pipeline21.stories.tsx
+  s_05a530b5d83b6b::t_1b7dcf24a40d32 2,27-28,35,39
+src/graph/react/viewer/__stories__/pipelines/Pipeline22.stories.tsx
+  s_05a530b5d83b6b::t_784c487e0d25f5 2,27-28,35,39
+src/graph/react/viewer/__stories__/pipelines/Pipeline23.stories.tsx
+  s_05a530b5d83b6b::t_06d5ae3f002072 2,27-28,35,39
+src/graph/react/viewer/__stories__/pipelines/Pipeline24.stories.tsx
+  s_05a530b5d83b6b::t_797ce57a4e38e7 2,27-28,35,39
+src/graph/react/viewer/__stories__/pipelines/Pipeline25.stories.tsx
+  s_05a530b5d83b6b::t_20be7449d962e3 2,27-28,35,39
+src/graph/react/viewer/__stories__/pipelines/Pipeline26.stories.tsx
+  s_05a530b5d83b6b::t_b0989eef6a0fc2 27,31
+src/graph/react/viewer/__stories__/pipelines/Pipeline27.stories.tsx
+  s_05a530b5d83b6b::t_36c0b052aa2deb 27,31
+src/graph/react/viewer/__stories__/pipelines/Pipeline28.stories.tsx
+  s_05a530b5d83b6b::t_bf8cec60ccbca8 2,27-28,35,39
+src/graph/react/viewer/__stories__/pipelines/Pipeline29.stories.tsx
+  s_05a530b5d83b6b::t_19ccb974ac85ed 2,27-28,35,39
+src/graph/react/viewer/__stories__/pipelines/Pipeline30.stories.tsx
+  s_05a530b5d83b6b::t_99ed92b4130cde 2,27-28,35,39
+src/graph/react/viewer/__stories__/pipelines/Pipeline31.stories.tsx
+  s_05a530b5d83b6b::t_dabe8e48e0c7e7 2,27-28,35,39
+src/graph/react/viewer/__stories__/pipelines/Pipeline32.stories.tsx
+  s_05a530b5d83b6b::t_8613fe17a916e4 2,27-28,35,46
+src/graph/react/viewer/__stories__/pipelines/Pipeline33.stories.tsx
+  s_05a530b5d83b6b::t_3897854941adbc 2,27-28,35,43
+src/graph/react/viewer/__stories__/pipelines/Pipeline34.stories.tsx
+  s_05a530b5d83b6b::t_5b9110ea626f46 2,27-28,35,39
+src/standalone/adapter.ts
+  s_05a530b5d83b6b::t_11663465981c1e 67-69,71-72
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9a594a1b683b8a6fd21dc72b716e5992bfc7f5df",
+  "prompts": {},
+  "sessions": {
+    "s_05a530b5d83b6b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1a8010b7-8d27-4d36-9005-09d2ad4a427c",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "thomashebrard <thomas@pipelex.com>"
+    }
+  }
+}
