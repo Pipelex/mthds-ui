@@ -1,0 +1,72 @@
+README.md
+  f4a310cd1d195357 73
+  657ff193baf472bc 15-23,25-27,198,267,294-296
+src/graph/react/viewer/GraphViewer.tsx
+  f4a310cd1d195357 169-211,264-301,303-309,311-321,323-327
+src/graph/react/nodes/pipe/PipeCardNode.tsx
+  f4a310cd1d195357 5,13
+src/graph/__tests__/controllerToggle.test.ts
+  3ccca2b09c8d3569 6,88-149
+  f4a310cd1d195357 85-86
+src/graph/react/viewer/__stories__/pipelines/specs/longSequence.ts
+  f4a310cd1d195357 659,667,716,724
+src/graph/react/viewer/__stories__/pipelines/specs/twoPipeChain.ts
+  f4a310cd1d195357 327,335,384,392
+src/graph/graphControllers.ts
+  f4a310cd1d195357 279
+src/graph/elkGraphBuilder.ts
+  3ccca2b09c8d3569 2-8,20,46,51,171,190
+  f4a310cd1d195357 47-50,52-57,59,62-65,176,219,282,293,321
+NOTICE
+  657ff193baf472bc 1-18
+CLAUDE.md
+  657ff193baf472bc 14,27-28,75-76
+src/graph/graphLayout.ts
+  3ccca2b09c8d3569 2-8,30
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.23",
+  "base_commit_sha": "ef0a7d4f1d36bc99120f5b7ecb99db875c676a66",
+  "prompts": {
+    "3ccca2b09c8d3569": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9c935251-cf81-4fdd-9bf9-d5112ccc9bc4",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Louis Choquel <lchoquel@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 113,
+      "total_deletions": 45,
+      "accepted_lines": 84,
+      "overriden_lines": 0
+    },
+    "657ff193baf472bc": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5666007a-197c-45c5-a5c3-f8a392552dbe",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Louis Choquel <lchoquel@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 41,
+      "total_deletions": 14,
+      "accepted_lines": 40,
+      "overriden_lines": 1
+    },
+    "f4a310cd1d195357": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f70b539a-716c-4a94-9f08-37b6c393cd6d",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Louis Choquel <lchoquel@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 141,
+      "total_deletions": 121,
+      "accepted_lines": 138,
+      "overriden_lines": 0
+    }
+  }
+}

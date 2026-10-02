@@ -1,0 +1,29 @@
+src/graph/types.ts
+  4fad0ff61016cd3b 229-242
+src/graph/react/detail/__stories__/_shared.tsx
+  4fad0ff61016cd3b 116
+src/graph/react/detail/sections/PipeComposeDetail.tsx
+  4fad0ff61016cd3b 3,78,82,120,149,167-175,207
+src/graph/react/detail/__stories__/Pipes/PipeCompose/ConstructRenderedTemplates.stories.tsx
+  4fad0ff61016cd3b 7-10,56-59,89-98,101-102,128-131
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "ac8a0085721f631919aeaca1a74475dc2f9da0ec",
+  "prompts": {
+    "4fad0ff61016cd3b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9ef1749c-bc13-44f3-95f8-7fd9996b503c",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Louis Choquel",
+      "messages": [],
+      "total_additions": 54,
+      "total_deletions": 36,
+      "accepted_lines": 54,
+      "overriden_lines": 0
+    }
+  }
+}

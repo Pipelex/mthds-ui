@@ -1,0 +1,23 @@
+src/graph/react/graph-core.css
+  4fe171d76e2e49cb 233
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.23",
+  "base_commit_sha": "77b0c177839ab81f8ed193659978af9ebbc3f415",
+  "prompts": {
+    "4fe171d76e2e49cb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e37e6261-a2af-44b4-8a14-b29de39ecea1",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Louis Choquel <lchoquel@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 2,
+      "total_deletions": 2,
+      "accepted_lines": 1,
+      "overriden_lines": 0
+    }
+  }
+}

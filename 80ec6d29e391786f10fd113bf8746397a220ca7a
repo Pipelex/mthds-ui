@@ -1,0 +1,45 @@
+src/graph/react/index.ts
+  d2a314fd83212fe2 20-22
+tsup.config.ts
+  d2a314fd83212fe2 34-35
+src/graph/react/stuff/__tests__/stuffViewerUtils.test.ts
+  d2a314fd83212fe2 1-52,55-208
+src/graph/react/stuff/stuffViewerUtils.ts
+  d2a314fd83212fe2 1-79
+src/graph/react/stuff/index.ts
+  d2a314fd83212fe2 1-9
+src/graph/react/stuff/stuffViewerTypes.ts
+  d2a314fd83212fe2 1-10
+src/graph/react/stuff/__stories__/StuffViewer.stories.tsx
+  d2a314fd83212fe2 1-56,58-182
+wip/stuff-viewer-architecture.md
+  d2a314fd83212fe2 1-63,65-94,96-100,102-113,115-120
+src/graph/react/viewer/GraphViewer.tsx
+  d2a314fd83212fe2 19-21,44,92,370-373,378
+src/graph/types.ts
+  d2a314fd83212fe2 49-54
+src/graph/react/stuff/StuffViewer.css
+  d2a314fd83212fe2 1-233
+src/graph/react/stuff/StuffViewer.tsx
+  d2a314fd83212fe2 1-223,225-229,231-297
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.3",
+  "base_commit_sha": "80ec6d29e391786f10fd113bf8746397a220ca7a",
+  "prompts": {
+    "d2a314fd83212fe2": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6307a45b-96c7-4adf-b979-9c4855e22f0c",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Louis Choquel",
+      "messages": [],
+      "total_additions": 1155,
+      "total_deletions": 16,
+      "accepted_lines": 1150,
+      "overriden_lines": 8
+    }
+  }
+}

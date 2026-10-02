@@ -1,0 +1,43 @@
+src/graph/index.ts
+  a67c46a58204bec4 1-6
+src/index.ts
+  a67c46a58204bec4 1
+tsup.config.ts
+  a67c46a58204bec4 5,10
+src/graph/react/renderLabel.tsx
+  a67c46a58204bec4 1-166
+src/graph/react/GraphViewer.tsx
+  a67c46a58204bec4 1-12,15,18,21-30,32-33,35-56,60,67-99,103-106,108-120,123-129,136-155,158-159,161-171,173-175,178,180-184,186-190,192-225
+package.json
+  a67c46a58204bec4 22-30,41-42,51-52,54,62-63,67-69,76-77,80
+tsconfig.json
+  a67c46a58204bec4 4-5
+CLAUDE.md
+  a67c46a58204bec4 3,18-19,26,28-34,88
+src/graph/react/ControllerGroupNode.tsx
+  a67c46a58204bec4 1-2,9-18
+src/graph/react/index.ts
+  a67c46a58204bec4 1-2,4-5
+src/graph/react/graph-core.css
+  a67c46a58204bec4 1-66
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.12",
+  "base_commit_sha": "491a44d8fc50ffba3fd7234e01348fedc74b6ff5",
+  "prompts": {
+    "a67c46a58204bec4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "97e88e48-51ff-4d06-a9aa-b9b41213e1f1",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Louis Choquel <lchoquel@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 521,
+      "total_deletions": 31,
+      "accepted_lines": 481,
+      "overriden_lines": 31
+    }
+  }
+}

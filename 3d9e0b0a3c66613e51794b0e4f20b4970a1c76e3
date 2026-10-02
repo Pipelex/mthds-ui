@@ -1,0 +1,37 @@
+README.md
+  4cd76ca8fea0a6da 15-20,61-68,107-109,118-119,134-140,190-199,222-234,242,244,262
+src/graph/react/viewer/__stories__/pipelines/specs/imagePipeline.ts
+  4cd76ca8fea0a6da 551,562,611,622,667,681,712,723,772,783,830,841,856,870
+.gitignore
+  4cd76ca8fea0a6da 13-14
+src/graph/react/viewer/GraphViewer.tsx
+  4cd76ca8fea0a6da 56,63,195-200,229-231,273-279,297-302
+src/graph/__tests__/statusMap.test.ts
+  4cd76ca8fea0a6da 9
+src/graph/react/index.ts
+  4cd76ca8fea0a6da 6
+src/graph/react/viewer/__stories__/pipelines/specs/multiOutputFanout.ts
+  4cd76ca8fea0a6da 621,629,678,686
+CLAUDE.md
+  4cd76ca8fea0a6da 7-16,53,62,85,95-99,139-146,160-165,207,210,223-232
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.23",
+  "base_commit_sha": "3d9e0b0a3c66613e51794b0e4f20b4970a1c76e3",
+  "prompts": {
+    "4cd76ca8fea0a6da": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e27ed15e-cde6-499e-bf20-11193f826421",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Louis Choquel <lchoquel@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 143,
+      "total_deletions": 162,
+      "accepted_lines": 142,
+      "overriden_lines": 0
+    }
+  }
+}

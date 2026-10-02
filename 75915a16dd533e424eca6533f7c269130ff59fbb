@@ -1,0 +1,23 @@
+src/shiki/highlighter.ts
+  bcf35b89ca35ee7b 22-24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.12",
+  "base_commit_sha": "75915a16dd533e424eca6533f7c269130ff59fbb",
+  "prompts": {
+    "bcf35b89ca35ee7b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5a4d9923-1256-4a3d-9ce7-a72d93d62dce",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Louis Choquel <lchoquel@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 3,
+      "total_deletions": 0,
+      "accepted_lines": 3,
+      "overriden_lines": 0
+    }
+  }
+}

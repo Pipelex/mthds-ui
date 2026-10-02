@@ -1,0 +1,29 @@
+package.json
+  s_9edaf443b6802c::t_da2360925cf716 104
+  s_9edaf443b6802c::t_f24b8afa350696 82
+docs/run-form-panel.md
+  s_9edaf443b6802c::t_aff04a9efce33a 70
+  s_9edaf443b6802c::t_7941c842aebadd 86-88
+TODOS.md
+  s_9edaf443b6802c::t_30d70029654acf 423
+CHANGELOG.md
+  s_9edaf443b6802c::t_c87ebbe021447d 85-90
+  s_9edaf443b6802c::t_5dc5453af85a24 41
+  s_9edaf443b6802c::t_4475380b0726bf 21-25
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "1479ea5659f2e8215ef9ded8fe2cb0feb5e8d621",
+  "prompts": {},
+  "sessions": {
+    "s_9edaf443b6802c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4aa1c64b-998a-4b88-a78c-662dfcabfccf",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Louis Choquel <louis@pipelex.com>"
+    }
+  }
+}

@@ -1,0 +1,69 @@
+src/__tests__/graphBuilders.test.ts
+  6311353658302c3e 169-266
+src/__tests__/graphAnalysis.test.ts
+  6311353658302c3e 1-159,161-226
+src/graphControllers.ts
+  6311353658302c3e 13-15,38-42,182-186
+  cfb49e6c370b334a 104
+eslint.config.mjs
+  cfb49e6c370b334a 10-15,17-18
+src/types.ts
+  6311353658302c3e 168-171,180-184
+src/graphBuilders.ts
+  cfb49e6c370b334a 47
+  6311353658302c3e 233-237,254,257-258,260-262
+src/graphLayout.ts
+  6311353658302c3e 33-36,95,99-104
+src/__tests__/graphControllers.test.ts
+  6311353658302c3e 1-182
+package.json
+  8607f4da460da808 15-16
+src/__tests__/graphLayout.test.ts
+  6311353658302c3e 1-150
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.12",
+  "base_commit_sha": "2d85cf56d630facae8e307a804d0538aa26566a4",
+  "prompts": {
+    "6311353658302c3e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "30a43b9d-c4a9-4fd2-90c8-293320d1da31",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Louis Choquel <lchoquel@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 703,
+      "total_deletions": 8,
+      "accepted_lines": 699,
+      "overriden_lines": 2
+    },
+    "8607f4da460da808": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4c0404b9-7520-44c4-8c98-d9bc8971f346",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Louis Choquel <lchoquel@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 2,
+      "total_deletions": 0,
+      "accepted_lines": 2,
+      "overriden_lines": 0
+    },
+    "cfb49e6c370b334a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3505d4a4-b4f4-477c-b086-5a930f5f4650",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Louis Choquel <lchoquel@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 10,
+      "total_deletions": 6,
+      "accepted_lines": 10,
+      "overriden_lines": 0
+    }
+  }
+}
