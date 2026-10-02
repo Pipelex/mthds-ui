@@ -25,9 +25,9 @@ type Story = StoryObj<typeof GraphViewer>;
 const spec = toGraphSpec(everythingAtOnce);
 
 export const LR: Story = {
-  args: { graphspec: spec, initialDirection: "LR", initialShowControllers: false },
+  args: { graph: { graphSpec: spec }, initialDirection: "LR", initialShowControllers: false },
 };
 
 export const TB: Story = {
-  args: { graphspec: spec, initialDirection: "TB", initialShowControllers: false },
+  args: { graph: { graphSpec: spec }, initialDirection: "TB", initialShowControllers: false },
 };

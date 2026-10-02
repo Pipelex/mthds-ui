@@ -41,7 +41,7 @@ async function assertRendersNodes({ canvasElement }: { canvasElement: HTMLElemen
 
 function makeStory(spec: GraphSpec): Story {
   return {
-    args: { graphspec: spec, ...D },
+    args: { graph: { graphSpec: spec }, ...D },
     play: assertRendersNodes,
   };
 }

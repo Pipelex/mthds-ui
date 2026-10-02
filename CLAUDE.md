@@ -37,6 +37,7 @@ src/
       index.ts                    # Barrel export for React components
       viewer/
         GraphViewer.tsx           # Unified ReactFlow viewer component
+        graphArtifacts.ts         # GraphArtifacts: the spec + its descriptors, the viewer's one `graph` prop
         renderLabel.tsx           # Label rendering + hydration
       detail/
         StuffResultPanel.tsx      # The graph's data panel, through the kernel's ResultPanel
@@ -284,7 +285,7 @@ make fixtures-live ONLY=pipeline_NN # LIVE specs -> _generated.live.ts (real inf
 make fixtures-live-test            # smoke-test the live path on 3 small bundles, writes nothing
 ```
 
-**Always pass `ONLY=` to `make fixtures-live`.** A full-corpus live run sweeps every fixture onto whatever pipelex the local CLI happens to be, inside whatever change is in flight, and it has no skip path — any failure (network, quota, a model that will not produce a given output shape) aborts partway and leaves a half-swept, mixed-version tree. `make fixtures-live-missing` is the recovery, and only works when the failure was transient. See `wip/fixtures-live-corpus-regeneration.md`.
+**Always pass `ONLY=` to `make fixtures-live`.** A full-corpus live run sweeps every fixture onto whatever pipelex the local CLI happens to be, inside whatever change is in flight, and it has no skip path — any failure (network, quota, a model that will not produce a given output shape) aborts partway and leaves a half-swept, mixed-version tree. `make fixtures-live-missing` is the recovery, and only works when the failure was transient. Making the generator refuse such a run unless it is asked for by name is L-260929-6a07c8 in the workspace ledger.
 
 `make fixtures` also bootstraps the LIVE placeholder layer so a DRY-only run is enough to build Storybook: the stories import LIVE specs from the per-pipeline split modules (`_generated/live/pipeline_NN.ts`), not the barrel, so for every pipeline lacking real LIVE data it emits a placeholder split (re-exporting the DRY spec as LIVE) and re-exports them all from `_generated.live.ts`. Each placeholder is guarded by `existsSync`, so `make fixtures-live` (real inference) is never clobbered by a later DRY run. Adding/removing a pipeline means adding its `data/pipelines/pipeline_NN/` directory and an entry in the generator's `NAME_MAP`.
 
@@ -325,5 +326,5 @@ Coverage is configured at the top level of `vitest.config.mts` (not per-project)
 5. **Keep the type boundary clean** — domain types in pure modules, ReactFlow types in `react/` only.
 6. **Add tests when adding exported functions** — at minimum, test happy path and null/empty cases.
 7. **Never hand-write or hand-edit GraphSpec JSON** — regenerate pipeline fixtures with `make fixtures` (see "Regenerating fixtures"). The `_generated.*.ts` files are build artifacts; edit the `.mthds` bundle and regenerate instead.
-8. **The graph renders data only through the kernel's `output_form`.** `StuffViewer` is deleted. `GraphViewer` renders a stuff's value with `StuffResultPanel` when a host passes `contracts` and `outputForm`, and shows the structure table alone otherwise (see `docs/stuff-result-panel.md`). Do not add payload sniffing back to the graph entries: the standard states what a result IS in `output_form`, and guessing from the value is the mistake that component existed to demonstrate.
+8. **The graph renders data only through the kernel's `output_form`.** `StuffViewer` is deleted. `GraphViewer` renders a stuff's value with `StuffResultPanel` when the host's `graph` (`GraphArtifacts`: the spec and its descriptors, from one source) carries `pipeIoContracts` and `outputForm`, and shows the structure table alone otherwise (see `docs/stuff-result-panel.md`). Do not add payload sniffing back to the graph entries: the standard states what a result IS in `output_form`, and guessing from the value is the mistake that component existed to demonstrate.
 9. **Don't reinvent the wheel.** Before writing custom behavior, check whether a dependency already ships it — hooks, utilities, components, APIs. Reuse the library's logic aggressively. Only replace a library's UI chrome when it genuinely doesn't fit the design, and even then keep driving it with the library's behavior underneath.

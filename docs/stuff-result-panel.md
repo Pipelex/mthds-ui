@@ -17,11 +17,13 @@ The standard answers the question, in an artifact built for it:
 
 ## The kernel ships with this package, and that is the point
 
-Pass the artifacts; the viewer renders the result itself:
+Pass the artifacts with the graph they describe; the viewer renders the result itself:
 
 ```tsx
-<GraphViewer graphspec={spec} contracts={…} outputForm={…} inputForm={…} />
+<GraphViewer graph={{ graphSpec, pipeIoContracts, outputForm, inputForm }} />
 ```
+
+**One object, because the descriptors belong to one graph.** `GraphViewer` used to take `graphspec`, `contracts`, `outputForm` and `inputForm` as four props, and a host could fill them from two places. One did: it drew a past run's own `graph_spec` but passed the descriptors of the method as it stood now, and once the method's pipes had been renamed, every lookup by the run's `pipe_ref`s missed, so every data node said "No output descriptor for this pipe". The four now travel together as `GraphArtifacts`, so pairing two sources has to be written inside one object literal, where it is visible. A run's results carry all four (`graph_spec`, `pipe_io_contracts`, `output_form`, `input_form`), and `graphArtifactsFrom(results)` reads them in one call. A method that has not run takes its descriptors from the validate report of that same method, beside the dry or static graph built from it.
 
 There was a render prop here for about a day (`renderStuffData`), and it was the wrong shape. `@pipelex/mthds-form` was an **optional** peer isolated behind `./form/react`, so `./graph/react` had to keep resolving without it and `GraphViewer` could not import `ResultPanel` — hence a function passed in from outside.
 
@@ -43,10 +45,10 @@ The second pass exists for the items no pipe produced — a method's own declare
 
 ## The method's own inputs
 
-Those have no `producerPipeRef`, so no `output_form` entry describes them. What does describe them is the **consuming** pipe's `input_form` entry for the slot they arrive in: the same field, seen from the other side. `findStuffByDigest` therefore also reports the first consumer (`{ pipeRef, slotName }`), and `GraphViewer` takes an optional third artifact, the `input_form` from the same `/validate` call:
+Those have no `producerPipeRef`, so no `output_form` entry describes them. What does describe them is the **consuming** pipe's `input_form` entry for the slot they arrive in: the same field, seen from the other side. `findStuffByDigest` therefore also reports the first consumer (`{ pipeRef, slotName }`), and `graph` takes an optional third artifact, the `input_form` from the same source:
 
 ```tsx
-<GraphViewer graphspec={spec} contracts={…} outputForm={…} inputForm={…} />
+<GraphViewer graph={{ graphSpec, pipeIoContracts, outputForm, inputForm }} />
 ```
 
 **The fallback fires on single-valued slots only, and that is a correctness boundary rather than caution.** An input's `json_schema` describes what a caller **sends**, so a plural slot's is a bare array; a stuff's payload is what the runtime **holds**, which for a plural value is a `ListContent {items}` envelope. The two disagree exactly where the standard says they do, and rendering a plural input against its caller-side schema would unwrap by a property that is not there. On the single arm they are byte-identical by construction — both are `render_stuff_spec`'s output — so the fallback is exact there and declines everywhere else.
@@ -55,7 +57,7 @@ An input node is wrapped into the output descriptor's `{ field }` shape before `
 
 ## Saving a result
 
-The kernel draws a Download control on the panel's header and, since kernel 0.12, a download button on each file the result shows, and both save through the browser tab by default: an object URL and a clicked link. A host whose view runs in a sandboxed frame is refused both, so `GraphViewer` takes `saveFiles`, which receives the planned files (each named, typed, and carrying either the URL the kernel's gate admitted or inline text) and delivers them through the host's own bridge, and `downloads`, which shows or hides the whole-result control and the per-file buttons independently. They are threaded exactly as `resolveUrl` is and installed on the same provider, which is why they are props rather than something a host sets around the graph: the kernel's `ResultEnvProvider` replaces an outer one instead of merging with it, so a `saveFiles` on a provider wrapping the viewer never reaches a panel that installs its own for `resolveUrl`. When the host passes none of the four, the panel installs no provider, and an outer one still applies. Mixing the two does not work either: once the host passes any of the four to the graph, the panel's provider is the one its controls read, and every setting the host left off the graph is unset there, an outer provider's included, so a host passes all of its result settings through the graph. The kernel's `docs/result-view.md` has the plan, the delivery contract and the display settings.
+The kernel draws a Download control on the panel's header and, since kernel 0.12, a download button on each file the result shows, and both save through the browser tab by default: an object URL and a clicked link. A host whose view runs in a sandboxed frame is refused both, so `GraphViewer` takes `saveFiles`, which receives the planned files (each named, typed, and carrying either the URL the kernel's gate admitted or inline text) and delivers them through the host's own bridge, and `downloads`, which shows or hides the whole-result control and the per-file buttons independently. They are threaded exactly as `resolveUrl` is and installed on the same provider, which is why they are props rather than something a host sets around the graph: the kernel's `ResultEnvProvider` replaces an outer one instead of merging with it, so a `saveFiles` on a provider wrapping the viewer never reaches a panel that installs its own for `resolveUrl`. When the host passes none of the four, the panel installs no provider, and an outer one still applies. Mixing the two does not work either: once the host passes any of the four to the graph, the panel's provider is the one its controls read, and every setting the host left off the graph is unset there, an outer provider's included, so a host passes all of its result settings through the graph. Since kernel 0.14, `downloads` also takes `pdf: false`, which hides the "Download PDF" control a one-page HTML result carries, and `askFileName: true`, which asks for the file name before every download; the stored pictures inside such a page resolve through the same `resolveUrl`. The kernel's `docs/result-view.md` has the plan, the delivery contract and the display settings.
 
 ## What was given up
 
@@ -67,6 +69,6 @@ The kernel draws a Download control on the panel's header and, since kernel 0.12
 
 ## Stories
 
-`Graph/Result panel` is the demonstration: the LIVE `GraphSpec` of `data/pipelines/pipeline_09` beside its generated `pipe_io_contracts`, `output_form` and `input_form`, passed as the viewer's three artifact props. `A Method Input` opens a method's own input through the `input_form` fallback, `Without Artifacts` is the same graph with none, showing the floor, `Host Saves The Files` hands the panel's Download to a host's `saveFiles`, and `Downloads Hidden` draws no download control at all.
+`Graph/Result panel` is the demonstration: the LIVE `GraphSpec` of `data/pipelines/pipeline_09` beside its generated `pipe_io_contracts`, `output_form` and `input_form`, passed in the viewer's one `graph` object. `A Method Input` opens a method's own input through the `input_form` fallback, `Without Artifacts` is the same graph with none, showing the floor, `Host Saves The Files` hands the panel's Download to a host's `saveFiles`, and `Downloads Hidden` draws no download control at all.
 
-Every per-pipeline story carries it as well — all 34 `Graph - from run/NN …` stories spread `artifactsFor(name)` into their args, which looks the method up in the generated `ARTIFACT_SETS` map. Two exceptions, and correctly so: `26 Wide Parallel` and `27 Wide Batch` build their specs with generators rather than from a bundle, so no artifacts describe them and the helper returns `{}` — the viewer's own documented "no data view" path rather than a second one.
+Every per-pipeline story carries it as well: each `Graph - from run/NN …` story builds its `graph` with `graphFor(name, spec)`, which looks the method up in the generated `ARTIFACT_SETS` map and puts its descriptors in the same object as the spec. Two exceptions, and correctly so: `26 Wide Parallel` and `27 Wide Batch` build their specs with generators rather than from a bundle, so no artifacts describe them and their `graph` is the spec alone — the viewer's own documented "no data view" path rather than a second one.

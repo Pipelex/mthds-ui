@@ -73,8 +73,8 @@ describe("resolveConceptInfo — qualified native refs", () => {
 describe("a locally declared concept shadowing a native", () => {
   // Only reachable on a bundle pipelex rejects outright (the spec reserves the
   // native codes), so this pins current behavior rather than blessing it — see
-  // `wip/native-concept-shadowing.md`. Adding YesNo/Date/Time widened the set of
-  // names an author can collide with, which is why it is worth a test.
+  // L-260929-79b6e6. Adding YesNo/Date/Time widened the set of names an author
+  // can collide with, which is why it is worth a test.
   const localDate = {
     Date: {
       code: "Date",

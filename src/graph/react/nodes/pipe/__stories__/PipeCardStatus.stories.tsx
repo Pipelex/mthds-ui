@@ -25,13 +25,13 @@ type Story = StoryObj<typeof GraphViewer>;
 const D = { initialDirection: "LR" as const, initialShowControllers: false };
 
 export const Completed: Story = {
-  args: { graphspec: toGraphSpec(MOCK_PIPES.PipeLLM), ...D },
+  args: { graph: { graphSpec: toGraphSpec(MOCK_PIPES.PipeLLM) }, ...D },
 };
 
 export const Failed: Story = {
-  args: { graphspec: toGraphSpec(withStatus(MOCK_PIPES.PipeLLM, "failed")), ...D },
+  args: { graph: { graphSpec: toGraphSpec(withStatus(MOCK_PIPES.PipeLLM, "failed")) }, ...D },
 };
 
 export const Running: Story = {
-  args: { graphspec: toGraphSpec(withStatus(MOCK_PIPES.PipeLLM, "running")), ...D },
+  args: { graph: { graphSpec: toGraphSpec(withStatus(MOCK_PIPES.PipeLLM, "running")) }, ...D },
 };

@@ -88,4 +88,7 @@ template = """
 
 ## Analysis
 @result_x
+
+## Visualization
+![Data visualization]($result_y.url)
 """

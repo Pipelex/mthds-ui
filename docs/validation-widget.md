@@ -22,7 +22,7 @@ Constants and types are exported from the package root: `VALIDATION_STATE`, `Val
 
 ```tsx
 <GraphViewer
-  graphspec={spec}
+  graph={{ graphSpec: spec }}
   validationState="invalid"
   validationIssues={issues}
   onValidationIssueClick={(index, issue) => navigateToSource(index)}

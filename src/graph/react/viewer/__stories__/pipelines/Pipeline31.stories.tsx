@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { artifactsFor } from "../pipelineArtifacts";
+import { graphFor } from "../pipelineArtifacts";
 import { GraphViewer } from "../../GraphViewer";
 import { DRY_RFP_QUALIFIER } from "./specs/_generated/dry/pipeline_31";
 import { LIVE_RFP_QUALIFIER } from "./specs/_generated/live/pipeline_31";
@@ -24,18 +24,17 @@ export default meta;
 type Story = StoryObj<typeof GraphViewer>;
 
 // Clicking a data node shows what this run actually produced, laid out from
-// the method's own `output_form` and `pipe_io_contracts` — the artifacts a
-// host holds beside the spec.
+// the method's own `output_form` and `pipe_io_contracts`, carried with the
+// spec in the one `graph` object `graphFor` builds.
 const D = {
   initialDirection: "LR" as const,
   initialShowControllers: true,
-  ...artifactsFor("RFP_QUALIFIER"),
 };
 
 export const DryRun: Story = {
-  args: { graphspec: DRY_RFP_QUALIFIER, ...D },
+  args: { graph: graphFor("RFP_QUALIFIER", DRY_RFP_QUALIFIER), ...D },
 };
 
 export const LiveRun: Story = {
-  args: { graphspec: LIVE_RFP_QUALIFIER, ...D },
+  args: { graph: graphFor("RFP_QUALIFIER", LIVE_RFP_QUALIFIER), ...D },
 };

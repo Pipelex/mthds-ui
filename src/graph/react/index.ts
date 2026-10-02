@@ -28,6 +28,13 @@ import "./viewer/GraphToolbar.css";
 // Viewer
 export { GraphViewer, applyStatusOverrides } from "./viewer/GraphViewer";
 export type { GraphViewerProps } from "./viewer/GraphViewer";
+// The one object GraphViewer draws: a graph and the descriptors from its source.
+export { graphArtifactsFrom, resultDescriptors } from "./viewer/graphArtifacts";
+export type {
+  GraphArtifacts,
+  GraphArtifactsSource,
+  ResultDescriptors,
+} from "./viewer/graphArtifacts";
 export { renderLabel, hydrateLabels } from "./viewer/renderLabel";
 // Validation widget — the panel + its pure helpers (the widget itself is part
 // of GraphToolbar and enabled via GraphViewer's `validationState` prop).

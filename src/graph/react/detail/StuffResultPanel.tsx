@@ -50,10 +50,12 @@ import type { ConceptInfo, GraphSpecNodeIoItem, GraphTheme } from "@graph/types"
  *
  * ## What it needs from the host, and why
  *
- * The artifacts every `/validate` call returns beside the graph spec, keyed by
- * `pipe_ref`. The join is the producing pipe: the graph hands over
- * `producerPipeRef` (see `stuffLookup.ts`), and `output_form` plus the output
- * half of the contract are looked up by it.
+ * The artifacts a run's results (or a `/validate` call) return beside the graph
+ * spec, keyed by `pipe_ref`. The join is the producing pipe: the graph hands
+ * over `producerPipeRef` (see `stuffLookup.ts`), and `output_form` plus the
+ * output half of the contract are looked up by it. That join only holds when
+ * the artifacts and the graph come from the same source, which is why
+ * `GraphViewer` takes them as one `graph` object (`GraphArtifacts`).
  *
  * ## The method's own inputs, which no pipe produced
  *
@@ -94,9 +96,14 @@ import type { ConceptInfo, GraphSpecNodeIoItem, GraphTheme } from "@graph/types"
  * never reach a panel that installs its own.
  */
 export interface StuffResultRendererOptions {
-  /** `pipe_io_contracts` for the method being displayed. */
-  contracts: PipeIOContracts;
-  /** `output_form` for the same method — the SAME `/validate` call. */
+  /**
+   * `pipe_io_contracts` from the same source as the `producerPipeRef` and
+   * `consumer` below: the run, or the validate report, whose graph they were
+   * read from. Inside `GraphViewer` that pairing is guaranteed by its single
+   * `graph` prop; a host using this panel on its own owns it.
+   */
+  pipeIoContracts: PipeIOContracts;
+  /** `output_form` from that SAME source. */
   outputForm: OutputForm;
   /**
    * `input_form`, optional. Supplying it is what lets a method's own INPUTS
@@ -154,7 +161,7 @@ export interface StuffResultPanelProps extends StuffResultRendererOptions {
 }
 
 export function StuffResultPanel({
-  contracts,
+  pipeIoContracts,
   outputForm,
   inputForm,
   stuff,
@@ -167,9 +174,9 @@ export function StuffResultPanel({
 }: StuffResultPanelProps) {
   const field = React.useMemo(
     () =>
-      fromProducer(contracts, outputForm, producerPipeRef) ??
-      fromConsumer(contracts, inputForm, consumer),
-    [contracts, outputForm, inputForm, producerPipeRef, consumer],
+      fromProducer(pipeIoContracts, outputForm, producerPipeRef) ??
+      fromConsumer(pipeIoContracts, inputForm, consumer),
+    [pipeIoContracts, outputForm, inputForm, producerPipeRef, consumer],
   );
 
   if (field) {

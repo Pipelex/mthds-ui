@@ -25,33 +25,33 @@ type Story = StoryObj<typeof GraphViewer>;
 const D = { initialDirection: "LR" as const, initialShowControllers: false };
 
 export const LLM: Story = {
-  args: { graphspec: toGraphSpec(MOCK_PIPES.PipeLLM), ...D },
+  args: { graph: { graphSpec: toGraphSpec(MOCK_PIPES.PipeLLM) }, ...D },
 };
 
 export const Extract: Story = {
-  args: { graphspec: toGraphSpec(MOCK_PIPES.PipeExtract), ...D },
+  args: { graph: { graphSpec: toGraphSpec(MOCK_PIPES.PipeExtract) }, ...D },
 };
 
 export const Compose: Story = {
-  args: { graphspec: toGraphSpec(MOCK_PIPES.PipeCompose), ...D },
+  args: { graph: { graphSpec: toGraphSpec(MOCK_PIPES.PipeCompose) }, ...D },
 };
 
 export const ImgGen: Story = {
-  args: { graphspec: toGraphSpec(MOCK_PIPES.PipeImgGen), ...D },
+  args: { graph: { graphSpec: toGraphSpec(MOCK_PIPES.PipeImgGen) }, ...D },
 };
 
 export const Search: Story = {
-  args: { graphspec: toGraphSpec(MOCK_PIPES.PipeSearch), ...D },
+  args: { graph: { graphSpec: toGraphSpec(MOCK_PIPES.PipeSearch) }, ...D },
 };
 
 export const Func: Story = {
-  args: { graphspec: toGraphSpec(MOCK_PIPES.PipeFunc), ...D },
+  args: { graph: { graphSpec: toGraphSpec(MOCK_PIPES.PipeFunc) }, ...D },
 };
 
 export const Structure: Story = {
-  args: { graphspec: toGraphSpec(MOCK_PIPES.PipeStructure), ...D },
+  args: { graph: { graphSpec: toGraphSpec(MOCK_PIPES.PipeStructure) }, ...D },
 };
 
 export const Signature: Story = {
-  args: { graphspec: toGraphSpec(MOCK_PIPES.PipeSignature), ...D },
+  args: { graph: { graphSpec: toGraphSpec(MOCK_PIPES.PipeSignature) }, ...D },
 };

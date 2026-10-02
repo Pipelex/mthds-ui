@@ -85,4 +85,7 @@ template = """
 
 ## Risk Assessment
 @gamma_result
+
+## Visualization
+![Data visualization]($delta_result.url)
 """

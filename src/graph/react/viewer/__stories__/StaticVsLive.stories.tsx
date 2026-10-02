@@ -34,11 +34,15 @@ function SideBySide({ staticSpec, liveSpec }: { staticSpec: GraphSpec; liveSpec:
     >
       <div style={paneStyle}>
         <div style={labelStyle}>Static</div>
-        <GraphViewer graphspec={staticSpec} initialDirection="LR" initialShowControllers />
+        <GraphViewer
+          graph={{ graphSpec: staticSpec }}
+          initialDirection="LR"
+          initialShowControllers
+        />
       </div>
       <div style={paneStyle}>
         <div style={labelStyle}>Live</div>
-        <GraphViewer graphspec={liveSpec} initialDirection="LR" initialShowControllers />
+        <GraphViewer graph={{ graphSpec: liveSpec }} initialDirection="LR" initialShowControllers />
       </div>
     </div>
   );
@@ -84,6 +88,6 @@ export const WideParallel = compare("STATIC_WIDE_PARALLEL", "LIVE_WIDE_PARALLEL"
 /**
  * The natives side by side: static shows "Schema not available" for `Date` /
  * `Time` / `YesNo`, the pipelex-produced spec shows their field tables — the
- * gap tracked in wip/native-concept-shadowing.md §3.
+ * gap tracked as L-260929-09a64e.
  */
 export const MeetingTriage = compare("STATIC_MEETING_TRIAGE", "LIVE_MEETING_TRIAGE");

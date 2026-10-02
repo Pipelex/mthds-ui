@@ -35,5 +35,5 @@ const D = { initialDirection: "LR" as const, initialShowControllers: true };
  * the fixture generator can't run them through the pipelex CLI.
  */
 export const GarmentsFromMoodboard: Story = {
-  args: { graphspec: buildStaticGraphSpecFromToml(bundleGarments).spec, ...D },
+  args: { graph: { graphSpec: buildStaticGraphSpecFromToml(bundleGarments).spec }, ...D },
 };

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { artifactsFor } from "../pipelineArtifacts";
+import { graphFor } from "../pipelineArtifacts";
 import { GraphViewer } from "../../GraphViewer";
 import { DRY_AVAILABILITY_ROUTING } from "./specs/_generated/dry/pipeline_33";
 import { LIVE_AVAILABILITY_ROUTING } from "./specs/_generated/live/pipeline_33";
@@ -24,16 +24,15 @@ export default meta;
 type Story = StoryObj<typeof GraphViewer>;
 
 // Clicking a data node shows what this run actually produced, laid out from
-// the method's own `output_form` and `pipe_io_contracts` — the artifacts a
-// host holds beside the spec.
+// the method's own `output_form` and `pipe_io_contracts`, carried with the
+// spec in the one `graph` object `graphFor` builds.
 const D = {
   initialDirection: "LR" as const,
   initialShowControllers: true,
-  ...artifactsFor("AVAILABILITY_ROUTING"),
 };
 
 export const DryRun: Story = {
-  args: { graphspec: DRY_AVAILABILITY_ROUTING, ...D },
+  args: { graph: graphFor("AVAILABILITY_ROUTING", DRY_AVAILABILITY_ROUTING), ...D },
 };
 
 /**
@@ -41,5 +40,5 @@ export const DryRun: Story = {
  * `Date[]`), and here the batch fans out over live-produced dates.
  */
 export const LiveRun: Story = {
-  args: { graphspec: LIVE_AVAILABILITY_ROUTING, ...D },
+  args: { graph: graphFor("AVAILABILITY_ROUTING", LIVE_AVAILABILITY_ROUTING), ...D },
 };

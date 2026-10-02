@@ -95,7 +95,7 @@ const meta: Meta<typeof GraphViewer> = {
     },
   },
   args: {
-    graphspec: staticResult.spec,
+    graph: { graphSpec: staticResult.spec },
     initialDirection: "LR",
     initialShowControllers: true,
     // No-op: in a real host this navigates to the issue's source location.
@@ -159,7 +159,7 @@ export const ErrorState: Story = {
  */
 export const Unvalidated: Story = {
   args: {
-    graphspec: annotatedResult.spec,
+    graph: { graphSpec: annotatedResult.spec },
     validationState: "unvalidated",
     validationIssues: annotatedIssues,
   },

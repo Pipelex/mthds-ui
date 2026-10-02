@@ -28,7 +28,7 @@ const D = { direction: "LR" as const, showControllers: false };
 // Layout is async (ELK), so we use findByText (polls) instead of getByText.
 
 export const BadgeLLM: Story = {
-  args: { graphspec: toGraphSpec(MOCK_PIPES.PipeLLM), ...D },
+  args: { graph: { graphSpec: toGraphSpec(MOCK_PIPES.PipeLLM) }, ...D },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const badge = await canvas.findByText("LLM");
@@ -38,7 +38,7 @@ export const BadgeLLM: Story = {
 };
 
 export const BadgeExtract: Story = {
-  args: { graphspec: toGraphSpec(MOCK_PIPES.PipeExtract), ...D },
+  args: { graph: { graphSpec: toGraphSpec(MOCK_PIPES.PipeExtract) }, ...D },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(await canvas.findByText("Extract")).toBeInTheDocument();
@@ -46,7 +46,7 @@ export const BadgeExtract: Story = {
 };
 
 export const BadgeCompose: Story = {
-  args: { graphspec: toGraphSpec(MOCK_PIPES.PipeCompose), ...D },
+  args: { graph: { graphSpec: toGraphSpec(MOCK_PIPES.PipeCompose) }, ...D },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(await canvas.findByText("Compose")).toBeInTheDocument();
@@ -54,7 +54,7 @@ export const BadgeCompose: Story = {
 };
 
 export const BadgeFunc: Story = {
-  args: { graphspec: toGraphSpec(MOCK_PIPES.PipeFunc), ...D },
+  args: { graph: { graphSpec: toGraphSpec(MOCK_PIPES.PipeFunc) }, ...D },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(await canvas.findByText("Func")).toBeInTheDocument();
@@ -62,7 +62,7 @@ export const BadgeFunc: Story = {
 };
 
 export const BadgeSearch: Story = {
-  args: { graphspec: toGraphSpec(MOCK_PIPES.PipeSearch), ...D },
+  args: { graph: { graphSpec: toGraphSpec(MOCK_PIPES.PipeSearch) }, ...D },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(await canvas.findByText("Search")).toBeInTheDocument();
@@ -70,7 +70,7 @@ export const BadgeSearch: Story = {
 };
 
 export const BadgeImgGen: Story = {
-  args: { graphspec: toGraphSpec(MOCK_PIPES.PipeImgGen), ...D },
+  args: { graph: { graphSpec: toGraphSpec(MOCK_PIPES.PipeImgGen) }, ...D },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(await canvas.findByText("ImgGen")).toBeInTheDocument();
@@ -82,7 +82,7 @@ export const BadgeImgGen: Story = {
 // validate and render as an ordinary operator card instead of crashing the
 // viewer with GraphSpecValidationError.
 export const BadgeStructure: Story = {
-  args: { graphspec: toGraphSpec(MOCK_PIPES.PipeStructure), ...D },
+  args: { graph: { graphSpec: toGraphSpec(MOCK_PIPES.PipeStructure) }, ...D },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const badge = await canvas.findByText("Structure");
@@ -99,7 +99,7 @@ export const BadgeStructure: Story = {
 // must validate and render the stub style instead of crashing the viewer.
 
 export const BadgeSignature: Story = {
-  args: { graphspec: toGraphSpec(MOCK_PIPES.PipeSignature), ...D },
+  args: { graph: { graphSpec: toGraphSpec(MOCK_PIPES.PipeSignature) }, ...D },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const badge = await canvas.findByText("Signature");
@@ -114,7 +114,7 @@ export const BadgeSignature: Story = {
 // ─── Pipe code is displayed ────────────────────────────────────────────────
 
 export const PipeCodeDisplayed: Story = {
-  args: { graphspec: toGraphSpec(MOCK_PIPES.PipeLLM), ...D },
+  args: { graph: { graphSpec: toGraphSpec(MOCK_PIPES.PipeLLM) }, ...D },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(await canvas.findByText("analyze_match")).toBeInTheDocument();
@@ -124,7 +124,7 @@ export const PipeCodeDisplayed: Story = {
 // ─── INPUTS / OUTPUT labels ────────────────────────────────────────────────
 
 export const IOLabels: Story = {
-  args: { graphspec: toGraphSpec(MOCK_PIPES.PipeLLM), ...D },
+  args: { graph: { graphSpec: toGraphSpec(MOCK_PIPES.PipeLLM) }, ...D },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(await canvas.findByText("INPUTS")).toBeInTheDocument();
@@ -135,7 +135,7 @@ export const IOLabels: Story = {
 // ─── Expand/collapse many inputs ───────────────────────────────────────────
 
 export const ManyInputsExpandCollapse: Story = {
-  args: { graphspec: toGraphSpec(manyInputs), ...D },
+  args: { graph: { graphSpec: toGraphSpec(manyInputs) }, ...D },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
@@ -169,7 +169,7 @@ export const ManyInputsExpandCollapse: Story = {
 // ─── Minimal card renders without errors ───────────────────────────────────
 
 export const MinimalCard: Story = {
-  args: { graphspec: toGraphSpec(minimal), ...D },
+  args: { graph: { graphSpec: toGraphSpec(minimal) }, ...D },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(await canvas.findByText("Func")).toBeInTheDocument();
@@ -180,7 +180,7 @@ export const MinimalCard: Story = {
 // ─── Extreme card (many inputs + long names) renders ───────────────────────
 
 export const EverythingAtOnceCard: Story = {
-  args: { graphspec: toGraphSpec(everythingAtOnce), ...D },
+  args: { graph: { graphSpec: toGraphSpec(everythingAtOnce) }, ...D },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(await canvas.findByText("LLM")).toBeInTheDocument();

@@ -40,7 +40,7 @@ function getControllerGroupNodes(canvasElement: HTMLElement): HTMLElement[] {
 // ─── Baseline: nothing folded ───────────────────────────────────────────
 
 export const AllExpanded: Story = {
-  args: { graphspec: SPEC, ...D },
+  args: { graph: { graphSpec: SPEC }, ...D },
   play: async ({ canvasElement }) => {
     await waitForRender(canvasElement);
     // At least one controller group node is rendered
@@ -51,7 +51,7 @@ export const AllExpanded: Story = {
 // ─── Fold/expand interaction ────────────────────────────────────────────
 
 export const FoldAndExpand: Story = {
-  args: { graphspec: SPEC, ...D },
+  args: { graph: { graphSpec: SPEC }, ...D },
   play: async ({ canvasElement }) => {
     await waitForRender(canvasElement);
     const initialGroups = getControllerGroupNodes(canvasElement).length;
@@ -92,7 +92,7 @@ export const FoldAndExpand: Story = {
 // ─── Toolbar: Fold all / Expand all ─────────────────────────────────────
 
 export const ToolbarFoldAll: Story = {
-  args: { graphspec: SPEC, ...D },
+  args: { graph: { graphSpec: SPEC }, ...D },
   play: async ({ canvasElement }) => {
     await waitForRender(canvasElement);
     const canvas = within(canvasElement);
@@ -128,7 +128,7 @@ export const ToolbarFoldAll: Story = {
 };
 
 export const ToolbarDisabledStates: Story = {
-  args: { graphspec: SPEC, ...D },
+  args: { graph: { graphSpec: SPEC }, ...D },
   play: async ({ canvasElement }) => {
     await waitForRender(canvasElement);
     const canvas = within(canvasElement);
@@ -166,7 +166,7 @@ export const ToolbarDisabledStates: Story = {
  * affect the clicked one.
  */
 export const CousinFold_MirrorsAcrossBranches: Story = {
-  args: { graphspec: DRY_CV_MATCHING, ...D },
+  args: { graph: { graphSpec: DRY_CV_MATCHING }, ...D },
   play: async ({ canvasElement }) => {
     await waitForRender(canvasElement);
     const initialGroups = getControllerGroupNodes(canvasElement).length;
@@ -199,7 +199,7 @@ export const CousinFold_MirrorsAcrossBranches: Story = {
 };
 
 export const CousinFold_AltKeyFoldsSoloOnly: Story = {
-  args: { graphspec: DRY_CV_MATCHING, ...D },
+  args: { graph: { graphSpec: DRY_CV_MATCHING }, ...D },
   play: async ({ canvasElement }) => {
     await waitForRender(canvasElement);
 
@@ -241,21 +241,23 @@ export const CousinFold_AltKeyFoldsSoloOnly: Story = {
 
 export const FoldAllHiddenWhenNoControllers: Story = {
   args: {
-    graphspec: {
-      nodes: [
-        {
-          kind: "operator",
-          status: "succeeded",
-          id: "op1",
-          pipe_code: "single",
-          pipe_type: "PipeLLM",
-          description: "Single operator with no controllers",
-          domain_code: "test",
-          io: { inputs: [], outputs: [{ digest: "out", name: "result", concept: "Text" }] },
-        },
-      ],
-      edges: [],
-      meta: { format: "mthds" },
+    graph: {
+      graphSpec: {
+        nodes: [
+          {
+            kind: "operator",
+            status: "succeeded",
+            id: "op1",
+            pipe_code: "single",
+            pipe_type: "PipeLLM",
+            description: "Single operator with no controllers",
+            domain_code: "test",
+            io: { inputs: [], outputs: [{ digest: "out", name: "result", concept: "Text" }] },
+          },
+        ],
+        edges: [],
+        meta: { format: "mthds" },
+      },
     },
     ...D,
   },
