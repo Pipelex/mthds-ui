@@ -64,8 +64,8 @@ export const DryRunSchemaOnly: Story = {
  * around: `ConceptDetailPanel` owns the header, the structure table and the
  * tabs, and the data view arrives through `renderData`. The panel does not
  * render data — a renderer is passed in. In the graph, `GraphViewer` passes
- * `StuffResultPanel`'s kernel-driven view when a host supplies `contracts` and
- * `outputForm` — see `Graph/Result panel`.
+ * `StuffResultPanel`'s kernel-driven view when the host's `graph` carries
+ * `pipeIoContracts` and `outputForm` — see `Graph/Result panel`.
  */
 function PlainData() {
   return <div className="detail-not-available">(the host renders the data here)</div>;

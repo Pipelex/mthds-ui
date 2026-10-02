@@ -38,7 +38,7 @@ const meta: Meta<typeof GraphViewer> = {
     ),
   ],
   args: {
-    graphspec: garments.spec,
+    graph: { graphSpec: garments.spec },
     initialDirection: "LR",
     initialShowControllers: true,
     validationState: "invalid",

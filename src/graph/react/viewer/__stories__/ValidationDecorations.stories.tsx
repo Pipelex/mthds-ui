@@ -103,7 +103,7 @@ type Story = StoryObj<typeof GraphViewer>;
 
 /** Explicitly-targeted validator issues: rings + badges on three pipes. */
 export const ValidatorTargeted: Story = {
-  args: { graphspec: garments.spec, validationIssues: validatorIssues },
+  args: { graph: { graphSpec: garments.spec }, validationIssues: validatorIssues },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     // One badge per targeted pipe; layout is async, so wait for the nodes.
@@ -138,7 +138,7 @@ export const ValidatorTargeted: Story = {
 
 /** Static diagnostics auto-targeted by the mapper; skipped-node issues stay panel-only. */
 export const StaticAutoTargeted: Story = {
-  args: { graphspec: brokenStatic.spec, validationIssues: staticIssues },
+  args: { graph: { graphSpec: brokenStatic.spec }, validationIssues: staticIssues },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await waitFor(async () => {
@@ -155,7 +155,7 @@ export const StaticAutoTargeted: Story = {
 /** Folding rolls hidden descendants' issues up onto the folded card's badge. */
 export const FoldedRollUp: Story = {
   args: {
-    graphspec: garments.spec,
+    graph: { graphSpec: garments.spec },
     validationIssues: validatorIssues,
     initialFoldMode: "folded",
   },

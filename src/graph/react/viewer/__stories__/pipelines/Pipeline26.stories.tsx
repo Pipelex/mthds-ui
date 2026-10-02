@@ -24,9 +24,9 @@ type Story = StoryObj<typeof GraphViewer>;
 const D = { initialDirection: "LR" as const, initialShowControllers: true };
 
 export const FifteenBranches: Story = {
-  args: { graphspec: makeWideParallel(15), ...D },
+  args: { graph: { graphSpec: makeWideParallel(15) }, ...D },
 };
 
 export const ThirtyBranches: Story = {
-  args: { graphspec: makeWideParallel(30), ...D },
+  args: { graph: { graphSpec: makeWideParallel(30) }, ...D },
 };

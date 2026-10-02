@@ -24,9 +24,9 @@ type Story = StoryObj<typeof GraphViewer>;
 const D = { initialDirection: "LR" as const, initialShowControllers: true };
 
 export const FifteenIterations: Story = {
-  args: { graphspec: makeWideBatch(15), ...D },
+  args: { graph: { graphSpec: makeWideBatch(15) }, ...D },
 };
 
 export const ThirtyIterations: Story = {
-  args: { graphspec: makeWideBatch(30), ...D },
+  args: { graph: { graphSpec: makeWideBatch(30) }, ...D },
 };

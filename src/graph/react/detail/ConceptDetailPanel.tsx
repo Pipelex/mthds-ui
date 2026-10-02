@@ -13,8 +13,8 @@ export interface ConceptDetailPanelProps {
   isDryRun?: boolean;
   /**
    * Renders the data half. `GraphViewer` supplies it as a `StuffResultPanel`,
-   * the form kernel's descriptor-driven result view, when the host passed the
-   * `contracts` and `outputForm` artifacts; see `docs/stuff-result-panel.md`.
+   * the form kernel's descriptor-driven result view, when the host's `graph`
+   * carries `pipeIoContracts` and `outputForm`; see `docs/stuff-result-panel.md`.
    *
    * Without it — or when it returns nothing for this item — the panel shows the
    * structure table alone and no tabs, which is what a viewer that has not been

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { artifactsFor } from "../pipelineArtifacts";
+import { graphFor } from "../pipelineArtifacts";
 import { GraphViewer } from "../../GraphViewer";
 import { DRY_CV_MATCHING } from "./specs/_generated/dry/pipeline_26";
 import { LIVE_CV_MATCHING } from "./specs/_generated/live/pipeline_26";
@@ -24,18 +24,17 @@ export default meta;
 type Story = StoryObj<typeof GraphViewer>;
 
 // Clicking a data node shows what this run actually produced, laid out from
-// the method's own `output_form` and `pipe_io_contracts` — the artifacts a
-// host holds beside the spec.
+// the method's own `output_form` and `pipe_io_contracts`, carried with the
+// spec in the one `graph` object `graphFor` builds.
 const D = {
   initialDirection: "LR" as const,
   initialShowControllers: true,
-  ...artifactsFor("CV_MATCHING"),
 };
 
 export const DryRun: Story = {
-  args: { graphspec: DRY_CV_MATCHING, ...D },
+  args: { graph: graphFor("CV_MATCHING", DRY_CV_MATCHING), ...D },
 };
 
 export const LiveRun: Story = {
-  args: { graphspec: LIVE_CV_MATCHING, ...D },
+  args: { graph: graphFor("CV_MATCHING", LIVE_CV_MATCHING), ...D },
 };

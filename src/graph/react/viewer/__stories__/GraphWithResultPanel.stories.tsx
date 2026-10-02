@@ -28,9 +28,11 @@ import {
  * are its generated `pipe_io_contracts` and `output_form`, the views one
  * `/validate` call returns together.
  *
- * The whole wiring is the artifacts themselves:
+ * The whole wiring is the artifacts themselves, handed over as ONE object so
+ * the graph and the descriptors keyed by its pipes cannot come from two
+ * different sources:
  *
- *     <GraphViewer graphspec={spec} contracts={…} outputForm={…} inputForm={…} />
+ *     <GraphViewer graph={{ graphSpec, pipeIoContracts, outputForm, inputForm }} />
  *
  * The graph owns the selection, the lookup and the panel, and renders the result
  * itself — there is no render prop any more, because the form kernel stopped
@@ -49,12 +51,14 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const args = {
-  graphspec: LIVE_CV_SCREENING,
+  graph: {
+    graphSpec: LIVE_CV_SCREENING,
+    pipeIoContracts: CONTRACTS_CV_SCREENING,
+    inputForm: INPUT_FORM_CV_SCREENING,
+    outputForm: OUTPUT_FORM_CV_SCREENING,
+  },
   initialDirection: "LR" as const,
   initialShowControllers: true,
-  contracts: CONTRACTS_CV_SCREENING,
-  inputForm: INPUT_FORM_CV_SCREENING,
-  outputForm: OUTPUT_FORM_CV_SCREENING,
 };
 
 /** Pick the first data node the layout produced and open its detail panel. */
@@ -155,7 +159,11 @@ export const AMethodInput: Story = {
 };
 
 export const WithoutArtifacts: Story = {
-  args: { graphspec: LIVE_CV_SCREENING, initialDirection: "LR", theme: GRAPH_THEME.LIGHT },
+  args: {
+    graph: { graphSpec: LIVE_CV_SCREENING },
+    initialDirection: "LR",
+    theme: GRAPH_THEME.LIGHT,
+  },
   play: async ({ canvasElement }) => {
     await openFirstStuffNode(canvasElement);
     const canvas = within(canvasElement);

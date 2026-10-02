@@ -33,7 +33,7 @@ type Story = StoryObj<typeof GraphViewer>;
 // button set (fold/expand + controllers + direction + zoom + theme) — the best
 // stress case for the horizontal/vertical orientation switch.
 const SPEC = LIVE_CV_SCREENING;
-const BASE = { graphspec: SPEC, initialShowControllers: true } as const;
+const BASE = { graph: { graphSpec: SPEC }, initialShowControllers: true } as const;
 
 // ─── Helpers ────────────────────────────────────────────────────────────
 

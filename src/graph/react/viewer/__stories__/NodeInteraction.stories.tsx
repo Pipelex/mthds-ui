@@ -449,7 +449,7 @@ function RightPanelDemo() {
     <div style={{ display: "flex", width: "100%", height: "100vh", position: "relative" }}>
       <div style={{ flex: 1, height: "100%", position: "relative", transition: "flex 0.2s" }}>
         <GraphViewer
-          graphspec={DEMO_SPEC}
+          graph={{ graphSpec: DEMO_SPEC }}
           initialDirection="LR"
           initialShowControllers={true}
           onNodeSelect={(nodeId, nodeData) =>

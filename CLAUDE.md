@@ -37,6 +37,7 @@ src/
       index.ts                    # Barrel export for React components
       viewer/
         GraphViewer.tsx           # Unified ReactFlow viewer component
+        graphArtifacts.ts         # GraphArtifacts: the spec + its descriptors, the viewer's one `graph` prop
         renderLabel.tsx           # Label rendering + hydration
       detail/
         StuffResultPanel.tsx      # The graph's data panel, through the kernel's ResultPanel
@@ -325,5 +326,5 @@ Coverage is configured at the top level of `vitest.config.mts` (not per-project)
 5. **Keep the type boundary clean** — domain types in pure modules, ReactFlow types in `react/` only.
 6. **Add tests when adding exported functions** — at minimum, test happy path and null/empty cases.
 7. **Never hand-write or hand-edit GraphSpec JSON** — regenerate pipeline fixtures with `make fixtures` (see "Regenerating fixtures"). The `_generated.*.ts` files are build artifacts; edit the `.mthds` bundle and regenerate instead.
-8. **The graph renders data only through the kernel's `output_form`.** `StuffViewer` is deleted. `GraphViewer` renders a stuff's value with `StuffResultPanel` when a host passes `contracts` and `outputForm`, and shows the structure table alone otherwise (see `docs/stuff-result-panel.md`). Do not add payload sniffing back to the graph entries: the standard states what a result IS in `output_form`, and guessing from the value is the mistake that component existed to demonstrate.
+8. **The graph renders data only through the kernel's `output_form`.** `StuffViewer` is deleted. `GraphViewer` renders a stuff's value with `StuffResultPanel` when the host's `graph` (`GraphArtifacts`: the spec and its descriptors, from one source) carries `pipeIoContracts` and `outputForm`, and shows the structure table alone otherwise (see `docs/stuff-result-panel.md`). Do not add payload sniffing back to the graph entries: the standard states what a result IS in `output_form`, and guessing from the value is the mistake that component existed to demonstrate.
 9. **Don't reinvent the wheel.** Before writing custom behavior, check whether a dependency already ships it — hooks, utilities, components, APIs. Reuse the library's logic aggressively. Only replace a library's UI chrome when it genuinely doesn't fit the design, and even then keep driving it with the library's behavior underneath.

@@ -88,7 +88,7 @@ signature_for = "PipeLLM"
 `;
 
 export const CvScreening: Story = {
-  args: { graphspec: STATIC_CV_SCREENING, ...D },
+  args: { graph: { graphSpec: STATIC_CV_SCREENING }, ...D },
 };
 
 /**
@@ -97,7 +97,7 @@ export const CvScreening: Story = {
  * while the batch item `cv_pdf` stays a single `Document`.
  */
 export const CvBatchScreening: Story = {
-  args: { graphspec: STATIC_CV_BATCH_SCREENING, ...D },
+  args: { graph: { graphSpec: STATIC_CV_BATCH_SCREENING }, ...D },
   play: async ({ canvasElement }) => {
     const cvs = await waitFor(
       () => {
@@ -122,28 +122,28 @@ export const CvBatchScreening: Story = {
 };
 
 export const SimpleBatch: Story = {
-  args: { graphspec: STATIC_SIMPLE_BATCH, ...D },
+  args: { graph: { graphSpec: STATIC_SIMPLE_BATCH }, ...D },
 };
 
 export const SimpleCondition: Story = {
-  args: { graphspec: STATIC_SIMPLE_CONDITION, ...D },
+  args: { graph: { graphSpec: STATIC_SIMPLE_CONDITION }, ...D },
 };
 
 export const DeepNesting: Story = {
-  args: { graphspec: STATIC_DEEP_NESTING, ...D },
+  args: { graph: { graphSpec: STATIC_DEEP_NESTING }, ...D },
 };
 
 /** Best-effort path: unresolved step skipped, opaque dependency leaf, inline batch. */
 export const WipBrokenBundle: Story = {
-  args: { graphspec: buildStaticGraphSpecFromToml(WIP_BROKEN_BUNDLE).spec, ...D },
+  args: { graph: { graphSpec: buildStaticGraphSpecFromToml(WIP_BROKEN_BUNDLE).spec }, ...D },
 };
 
 /** Contract-only pipe: distinct signature badge/card and detail copy. */
 export const Signature: Story = {
-  args: { graphspec: buildStaticGraphSpecFromToml(SIGNATURE_BUNDLE).spec, ...D },
+  args: { graph: { graphSpec: buildStaticGraphSpecFromToml(SIGNATURE_BUNDLE).spec }, ...D },
 };
 
 /** Natives with no authored declaration: detail panels must show `native` plus a description. */
 export const NativeConcepts: Story = {
-  args: { graphspec: STATIC_MEETING_TRIAGE, ...D },
+  args: { graph: { graphSpec: STATIC_MEETING_TRIAGE }, ...D },
 };

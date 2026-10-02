@@ -1,5 +1,17 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+
+- **`graphArtifactsFrom` and `resultDescriptors` on `./graph/react`**: `graphArtifactsFrom(results)` reads a run's `graph_spec`, `pipe_io_contracts`, `output_form` and `input_form` in one call and returns the `GraphArtifacts` object `GraphViewer` takes, or `null` when the results carry no graph; `resultDescriptors(graph)` returns the pair the detail panel renders a value from, or `null`, for a host rendering `StuffResultPanel` itself.
+
+### Changed
+
+- **`GraphViewer` takes the graph and its descriptors as one `graph` object (Breaking)**: `graphspec`, `contracts`, `outputForm` and `inputForm` are replaced by `graph: GraphArtifacts | null`, carrying `graphSpec`, `pipeIoContracts`, `outputForm` and `inputForm` from one run or one validate report, because the panel looks each value's descriptor up by the `pipe_ref`s of that graph and a graph paired with another source's descriptors (a past run beside a method whose pipes were since renamed) showed "No output descriptor for this pipe" on every node. Write `graph={{ graphSpec: spec }}` for a bare spec and `graph={graphArtifactsFrom(results)}` for a run; a graph without descriptors still shows structure tables and no data tab. `StuffResultPanel`'s `contracts` prop is renamed `pipeIoContracts`.
+
+- **`@pipelex/mthds-form` moves to `^0.14.0` (Breaking)**: `./form` and `./form/react` now re-export the kernel's `useMethodForm`, `MethodForm`, `seedInputs`, `seedObjectValue`, `PdfDownloadButton`, `renderHtmlPdf`, `ResolveUrls`, the French `FR_FIELD_STRINGS` and `FieldStringsProvider`'s `locale`, and the graph's detail panel shows a one-page HTML result as that page with a "Download PDF" control made in the browser. A host supplying a complete `FieldStrings` adds `requiredField`, `incompleteField`, `uploadFailed`, `downloadPdf`, `downloadPdfBusy`, `downloadPdfFailed`, `downloadHtml`, `fileNameTitle`, `fileNameCancel`, `fileNameConfirm` and `pageLoading`, and a host calling `seedInputs` now gets an optional structure left closed unless it carries an authored default of its own.
+
 ## [v0.27.0] - 2026-09-27
 
 ### Added
