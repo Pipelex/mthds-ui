@@ -10,7 +10,7 @@ export function buildDataflowAnalysis(graphspec: GraphSpec | null): DataflowAnal
   if (!graphspec) return null;
 
   const stuffRegistry: Record<string, StuffRegistryEntry> = {};
-  const stuffProducers: Record<string, string> = {};
+  const stuffProducers: Record<string, string[]> = {};
   const stuffConsumers: Record<string, string[]> = {};
   const containmentTree: Record<string, string[]> = {};
   const childNodeIds = new Set<string>();
@@ -43,7 +43,8 @@ export function buildDataflowAnalysis(graphspec: GraphSpec | null): DataflowAnal
         };
       }
       if (output.digest && !isController) {
-        stuffProducers[output.digest] = node.id;
+        if (!stuffProducers[output.digest]) stuffProducers[output.digest] = [];
+        stuffProducers[output.digest].push(node.id);
       }
     }
 
@@ -95,10 +96,13 @@ export function buildChildToControllerMap(
     }
   }
 
-  // Stuff nodes produced by operators inside controllers
-  for (const [digest, producerId] of Object.entries(analysis.stuffProducers)) {
+  // Stuff nodes produced by operators inside controllers. A stuff with several
+  // producers (a condition's output, one per outcome) starts in the deepest
+  // controller holding all of them, so no outcome's edge has to leave its group
+  // to reach it.
+  for (const [digest, producerIds] of Object.entries(analysis.stuffProducers)) {
     const stuffId = "stuff_" + digest;
-    const ctrlId = childToController[producerId];
+    const ctrlId = commonController(producerIds, childToController);
     if (ctrlId) {
       childToController[stuffId] = ctrlId;
     }
@@ -183,6 +187,21 @@ export function buildChildToControllerMap(
   }
 
   return childToController;
+}
+
+/** The deepest controller every one of these nodes sits inside, or undefined at the root. */
+function commonController(
+  nodeIds: readonly string[],
+  childToController: Record<string, string>,
+): string | undefined {
+  if (nodeIds.length === 0) return undefined;
+  let candidate: string | undefined = childToController[nodeIds[0]];
+  while (candidate) {
+    const ctrl: string = candidate;
+    if (nodeIds.every((id) => isDescendantOf(id, ctrl, childToController))) return ctrl;
+    candidate = childToController[ctrl];
+  }
+  return undefined;
 }
 
 /** Check if nodeId is a descendant of ancestorCtrlId in the containment hierarchy. */

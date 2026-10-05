@@ -228,6 +228,16 @@ A list-valued stuff carries its marker wherever the graph names its concept. The
 Producer-less `parallel_combine` targets are classified as combined stuff rather
 than external inputs. This applies to both dry and static graphs.
 
+## Condition Outputs
+
+A `PipeCondition`'s output is one stuff that every outcome produces. Every outcome writes the condition's one slot, and only one of them runs, so a step after the condition reads that slot without knowing which outcome filled it. The static builder therefore mints the condition's output once, at `<condition node id>:<slot name>`, and renames each outcome's output onto it after walking the outcomes. When an outcome is itself a controller, the rename reaches the operator that wrote the stuff, and stuffs inside the outcome keep their own digests. The graph shows one card for the slot, with an edge from every outcome and an edge to every step reading it.
+
+The shared stuff is typed by the outcomes when they all write the same concept and multiplicity, since that is the most precise true answer. When they differ, it is typed by the condition's declared output, since the slot then holds either and only the declaration covers both. Each outcome's own io item keeps the concept that outcome declares, so its card still shows what it produces. It is named like the default route's output when there is one, otherwise like the first producing outcome's. An expression alias (`add_alias_from_expression_to`) is a separate stuff typed `Dynamic`, at `<condition node id>:alias:<alias name>`, so an alias named like the slot never merges with the condition's output.
+
+The renderer supports this with `DataflowAnalysis.stuffProducers`, which lists every operator writing each stuff. A stuff with several producers starts in the deepest controller holding all of them, which for a condition's output is the condition itself, and is then promoted like any other stuff until a step reading it is inside. Folding the condition makes its card the stuff's one producer.
+
+A dry run does not emit this shape yet. pipelex runs every outcome into the same slot and keeps a separate digest per outcome, reporting the last outcome in sorted pipe-code order as the condition's output, so only that outcome is wired to a step reading the slot and the others dead-end at the graph's edge. The parity harness renames the dry outcomes onto the condition's output before comparing (its rule 6), which is the shape pipelex is to emit itself. A live run is unaffected: only the chosen outcome runs, and its output is the condition's.
+
 ## Fixture Catalog
 
 Storybook and tests expose `STATIC_*` specs and `STATIC_RUN_CATALOG` from

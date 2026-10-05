@@ -501,7 +501,7 @@ function emitNode(
  * branch and merges back only the declared outputs, condition outcomes
  * because they are mutually exclusive alternatives (only one runs, so no
  * branch's writes may be visible to its siblings or, beyond the condition's
- * representative output, to the caller).
+ * one shared output, to the caller).
  */
 function walkPipe(
   ctx: WalkCtx,
@@ -746,10 +746,12 @@ function finishCondition(
   if (blueprint.add_alias_from_expression_to != null) {
     const alias = blueprint.add_alias_from_expression_to;
     // The alias points at whatever the expression evaluates to at run time —
-    // statically typed as native.Dynamic.
+    // statically typed as native.Dynamic. Its digest has its own namespace: the
+    // condition's shared output is `${nodeId}:<slot>`, and an alias named like
+    // the slot must stay a separate stuff rather than become that output.
     conditionScope.set(
       alias,
-      mintStuff(ctx, `${nodeId}:${alias}`, alias, nativeConceptInfo("Dynamic"), null),
+      mintStuff(ctx, `${nodeId}:alias:${alias}`, alias, nativeConceptInfo("Dynamic"), null),
     );
   }
 
@@ -808,16 +810,65 @@ function finishCondition(
     if (result !== null) results.push({ entry, result });
   }
 
-  // Statically all outcomes exist; pick one representative output for the
-  // controller (the default route when present, else the first producing
-  // outcome) so downstream consumers wire to a real producer.
-  const primary =
+  // Statically all outcomes exist, and each writes the condition's one slot: a
+  // step after the condition reads that slot without knowing which outcome
+  // filled it. So the condition's output is ONE stuff with a producer per
+  // outcome — every outcome's output is renamed onto it, and whatever reads the
+  // slot is wired to all of them.
+  const outputs = results.flatMap(({ result }) => (result.output === null ? [] : [result.output]));
+  // Named like the default route's output when there is one (the runtime names
+  // the slot after whichever outcome wrote it), else the first producing one.
+  const representative =
     results.find(({ entry, result }) => entry.viaDefault && result.output !== null)?.result
-      .output ??
-    results.find(({ result }) => result.output !== null)?.result.output ??
-    null;
-  node.io.outputs = primary === null ? [] : [ioItem(primary, inv.resultName)];
-  return { nodeId, output: primary, eachOutputs: [] };
+      .output ?? outputs[0];
+  if (representative === undefined) {
+    node.io.outputs = [];
+    return { nodeId, output: null, eachOutputs: [] };
+  }
+  // Typed by the outcomes when they all agree, which is the most precise true
+  // answer; by the condition's own declaration when they differ, since the slot
+  // then holds either and only the declaration covers both.
+  const outcomesAgree = outputs.every(
+    (output) =>
+      conceptKey(output.concept) === conceptKey(representative.concept) &&
+      output.multiplicity === representative.multiplicity,
+  );
+  const declaredMultiplicity =
+    typeof inv.outputMultiplicity === "number" || inv.outputMultiplicity === true
+      ? inv.outputMultiplicity
+      : blueprint.output.multiplicity;
+  const shared = mintStuff(
+    ctx,
+    `${nodeId}:${representative.name}`,
+    representative.name,
+    outcomesAgree ? representative.concept : blueprint.output.concept,
+    outcomesAgree ? representative.multiplicity : declaredMultiplicity,
+  );
+  for (const output of outputs) {
+    // Only a stuff minted inside this condition is renamed: its digest names
+    // its producer, so nothing outside the outcome's subtree can refer to it.
+    if (output.digest.startsWith(`${nodeId}/`)) renameStuff(ctx, output.digest, shared);
+  }
+  node.io.outputs = [ioItem(shared, inv.resultName)];
+  return { nodeId, output: shared, eachOutputs: [] };
+}
+
+/**
+ * Re-point every io item and stuff-to-stuff edge already emitted from one stuff
+ * to another. Only the digest moves: each io item keeps the concept its own
+ * pipe declared, so an outcome's card still shows what that outcome produces.
+ */
+function renameStuff(ctx: WalkCtx, from: string, to: StuffRecord): void {
+  for (const node of ctx.nodes) {
+    for (const item of [...node.io.inputs, ...node.io.outputs]) {
+      if (item.digest === from) item.digest = to.digest;
+    }
+  }
+  for (const edge of ctx.edges) {
+    if (edge.source_stuff_digest === from) edge.source_stuff_digest = to.digest;
+    if (edge.target_stuff_digest === from) edge.target_stuff_digest = to.digest;
+  }
+  ctx.stuffByDigest.delete(from);
 }
 
 function finishBatch(

@@ -10352,7 +10352,7 @@ exports[`snapshot regression — STATIC selected catalog > STATIC STATIC_AVAILAB
     {
       "id": "edge_3",
       "source": "availability.route_availability/step_4/outcome_true",
-      "target": "stuff_d7",
+      "target": "stuff_d1",
     },
     {
       "id": "edge_4",
@@ -10413,11 +10413,6 @@ exports[`snapshot regression — STATIC selected catalog > STATIC STATIC_AVAILAB
     },
     {
       "id": "stuff_d3",
-      "parentId": undefined,
-      "type": "default",
-    },
-    {
-      "id": "stuff_d7",
       "parentId": undefined,
       "type": "default",
     },
@@ -11052,12 +11047,12 @@ exports[`snapshot regression — STATIC selected catalog > STATIC STATIC_SIMPLE_
     {
       "id": "edge_1",
       "source": "translation.translate_pipeline/step_2/outcome_english",
-      "target": "stuff_d3",
+      "target": "stuff_d1",
     },
     {
       "id": "edge_2",
       "source": "translation.translate_pipeline/step_2/outcome_french",
-      "target": "stuff_d4",
+      "target": "stuff_d1",
     },
     {
       "id": "edge_3",
@@ -11098,16 +11093,6 @@ exports[`snapshot regression — STATIC selected catalog > STATIC STATIC_SIMPLE_
     },
     {
       "id": "stuff_d0",
-      "parentId": undefined,
-      "type": "default",
-    },
-    {
-      "id": "stuff_d3",
-      "parentId": undefined,
-      "type": "default",
-    },
-    {
-      "id": "stuff_d4",
       "parentId": undefined,
       "type": "default",
     },
