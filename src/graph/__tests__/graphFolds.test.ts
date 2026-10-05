@@ -1153,12 +1153,65 @@ describe("applyFolds — stuff producer/consumer rewriting", () => {
     const { analysis, graphData } = buildPipeline(spec);
 
     const result = applyFolds(graphData, analysis, spec, new Set(["inner_ctrl"]));
-    expect(result.analysis.stuffProducers["shared"]).toBe("inner_ctrl");
+    expect(result.analysis.stuffProducers["shared"]).toEqual(["inner_ctrl"]);
 
     // The stuff should now belong to outer_seq (lowest controller containing
     // both the rewritten producer and the visible consumer).
     const postFoldMap = buildChildToControllerMap(spec, result.analysis);
     expect(postFoldMap["stuff_shared"]).toBe("outer_seq");
+  });
+
+  it("dedups the outcomes of a folded condition into the one folded card", () => {
+    // Both outcomes write the condition's one output; folded, the card is its only producer.
+    const outcome = (id: string): GraphSpec["nodes"][number] => ({
+      kind: "operator",
+      status: "succeeded",
+      id,
+      pipe_code: id,
+      pipe_type: "PipeLLM",
+      io: { inputs: [], outputs: [{ digest: "shared", name: "shared", concept: "Text" }] },
+    });
+    const spec: GraphSpec = {
+      nodes: [
+        {
+          kind: "controller",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "outer_seq",
+          pipe_code: "outer_seq",
+          pipe_type: "PipeSequence",
+        },
+        {
+          kind: "controller",
+          status: "succeeded",
+          io: { inputs: [], outputs: [{ digest: "shared", name: "shared", concept: "Text" }] },
+          id: "inner_ctrl",
+          pipe_code: "inner_ctrl",
+          pipe_type: "PipeCondition",
+        },
+        outcome("outcome_a"),
+        outcome("outcome_b"),
+        {
+          kind: "operator",
+          status: "succeeded",
+          id: "outer_consumer",
+          pipe_code: "outer_consumer",
+          pipe_type: "PipeLLM",
+          io: { outputs: [], inputs: [{ digest: "shared", name: "shared", concept: "Text" }] },
+        },
+      ],
+      edges: [
+        { id: "e1", source: "outer_seq", target: "inner_ctrl", kind: "contains" },
+        { id: "e2", source: "outer_seq", target: "outer_consumer", kind: "contains" },
+        { id: "e3", source: "inner_ctrl", target: "outcome_a", kind: "contains" },
+        { id: "e4", source: "inner_ctrl", target: "outcome_b", kind: "contains" },
+      ],
+    };
+    const { analysis, graphData } = buildPipeline(spec);
+    expect(analysis.stuffProducers["shared"]).toEqual(["outcome_a", "outcome_b"]);
+
+    const result = applyFolds(graphData, analysis, spec, new Set(["inner_ctrl"]));
+    expect(result.analysis.stuffProducers["shared"]).toEqual(["inner_ctrl"]);
   });
 
   it("dedups when multiple hidden consumers collapse to the same folded card", () => {

@@ -74,7 +74,7 @@ function getStuffInfo(spec: GraphSpec, digest: string) {
   const info = analysis.stuffRegistry[digest];
   if (!info) return null;
 
-  const producerId = analysis.stuffProducers[digest];
+  const producerId = analysis.stuffProducers[digest]?.[0];
   const consumerIds = analysis.stuffConsumers[digest] ?? [];
   const producerNode = producerId ? spec.nodes.find((n) => n.id === producerId) : undefined;
   const consumerNodes = consumerIds

@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Fixed
+
+- **A condition's output reaches the step that reads it, and `DataflowAnalysis.stuffProducers` lists every producer (Breaking)**: in a static graph, a `PipeCondition`'s output is now one stuff that every outcome produces, so a later step reading it is wired to all outcomes; it used to be wired to the default route's output only, and every other outcome's output dead-ended at the graph's edge. To draw that, `DataflowAnalysis.stuffProducers` maps each digest to the list of operators writing it rather than to one id, so a host reading it takes `stuffProducers[digest]?.[0]` where it read `stuffProducers[digest]`.
+
 ## [v0.28.0] - 2026-10-02
 
 ### Added

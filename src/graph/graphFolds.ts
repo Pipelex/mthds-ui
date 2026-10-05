@@ -262,9 +262,15 @@ export function applyFolds(
   // edge-endpoint rewrite below. Without this, buildChildToControllerMap's
   // promotion loop loses the consumer/producer trail and stuff nodes get
   // ejected to the root level when their parent controller's sibling is folded.
-  const updatedStuffProducers: Record<string, string> = {};
-  for (const [digest, producerId] of Object.entries(analysis.stuffProducers)) {
-    updatedStuffProducers[digest] = effectiveId(producerId, childToCtrl, foldedSet);
+  // Deduplicated like the consumers: the outcomes of a folded condition all
+  // produce its one output, and the folded card is that output's one producer.
+  const updatedStuffProducers: Record<string, string[]> = {};
+  for (const [digest, producers] of Object.entries(analysis.stuffProducers)) {
+    const seen = new Set<string>();
+    for (const producerId of producers) {
+      seen.add(effectiveId(producerId, childToCtrl, foldedSet));
+    }
+    updatedStuffProducers[digest] = [...seen];
   }
 
   const updatedStuffConsumers: Record<string, string[]> = {};

@@ -36,8 +36,10 @@ export function buildDataflowGraph(
 
   // Find participating pipes (those that produce or consume data)
   const participatingPipes = new Set<string>();
-  for (const producer of Object.values(analysis.stuffProducers)) {
-    participatingPipes.add(producer);
+  for (const producers of Object.values(analysis.stuffProducers)) {
+    for (const producer of producers) {
+      participatingPipes.add(producer);
+    }
   }
   for (const consumers of Object.values(analysis.stuffConsumers)) {
     for (const consumer of consumers) {
@@ -88,7 +90,7 @@ export function buildDataflowGraph(
 
     // Classify: input (no producer), output (no consumer), or intermediate
     const isCombined = combinedStuffDigests.has(digest);
-    const isInput = !analysis.stuffProducers[digest] && !isCombined;
+    const isInput = !analysis.stuffProducers[digest]?.length && !isCombined;
     const isOutput = !isInput && !isCombined && !analysis.stuffConsumers[digest]?.length;
     const stuffRole = isCombined
       ? ("combined" as const)
@@ -131,20 +133,22 @@ export function buildDataflowGraph(
 
   // Create edges: producer -> stuff
   let edgeId = 0;
-  for (const [digest, producerNodeId] of Object.entries(analysis.stuffProducers)) {
+  for (const [digest, producers] of Object.entries(analysis.stuffProducers)) {
     const stuffId = stuffNodeId(digest);
-    edges.push({
-      id: "edge_" + edgeId++,
-      source: producerNodeId,
-      target: stuffId,
-      type: edgeType,
-      animated: false,
-      style: { stroke: "var(--color-edge)", strokeWidth: 2 },
-      markerEnd: {
-        type: ARROW_CLOSED_MARKER,
-        color: "var(--color-edge)",
-      },
-    });
+    for (const producerNodeId of producers) {
+      edges.push({
+        id: "edge_" + edgeId++,
+        source: producerNodeId,
+        target: stuffId,
+        type: edgeType,
+        animated: false,
+        style: { stroke: "var(--color-edge)", strokeWidth: 2 },
+        markerEnd: {
+          type: ARROW_CLOSED_MARKER,
+          color: "var(--color-edge)",
+        },
+      });
+    }
   }
 
   // Create edges: stuff -> consumer

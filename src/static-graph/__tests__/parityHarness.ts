@@ -34,16 +34,24 @@
 //    static builder writes the declared count for `Code[N]`. Both sides are
 //    compared on whether the renderer shows a list, which is what the runtime
 //    states; a declared count is a detail only the static side can carry.
+// 6. **Condition outcomes share the condition's output (dry side).** A dry run
+//    runs every outcome into the same slot, and each outcome's output keeps its
+//    own digest; the condition reports the last one as its output, so only
+//    that outcome is wired to a step reading the slot. The static side gives
+//    every outcome the condition's one output stuff. Every dry outcome's output
+//    is renamed onto the condition's, which is the shape pipelex is to emit
+//    itself (ledger L-261005-1f395b); once it does, this rule renames nothing.
 //
 // Stuff identity: digests are not comparable across sides (random dry strings
 // vs deterministic static strings), so a stuff is identified by its *relation
-// signature* — producer path (or `-` for producer-less stuff: external
+// signature* — producer paths (or `-` for producer-less stuff: external
 // inputs, batch items/aggregates, condition alias stuff), name, concept,
 // whether it is a list, and the sorted consumer paths. Signatures are compared
 // as multisets.
 
 import { buildDataflowAnalysis } from "@graph/graphAnalysis";
-import type { GraphSpec } from "@graph/types";
+import { pipeRefOf } from "@graph/stuffLookup";
+import type { GraphSpec, GraphSpecNodeIoItem } from "@graph/types";
 import { isPluralMultiplicity } from "@graph/types";
 
 // ─── Batch fan-out collapse ──────────────────────────────────────────────────
@@ -77,6 +85,77 @@ export function collapseBatchFanOut(spec: GraphSpec): GraphSpec {
     ...spec,
     nodes: spec.nodes.filter((node) => !dropped.has(node.id)),
     edges: spec.edges.filter((edge) => !dropped.has(edge.source) && !dropped.has(edge.target)),
+  };
+}
+
+// ─── Condition outcome merge ─────────────────────────────────────────────────
+
+/**
+ * Rename every condition outcome's output onto the condition's own output digest (rule 6).
+ * When the outcomes write different concepts, the shared stuff is typed by the condition's
+ * declared output, as on the static side, rather than by whichever outcome ran last.
+ */
+export function mergeConditionOutcomeOutputs(spec: GraphSpec): GraphSpec {
+  const children = containsChildren(spec);
+  const byId = new Map(spec.nodes.map((node) => [node.id, node]));
+  const renamed = new Map<string, string>();
+  const retyped = new Map<string, Pick<GraphSpecNodeIoItem, "concept" | "multiplicity">>();
+  for (const node of spec.nodes) {
+    if (node.pipe_type !== "PipeCondition") continue;
+    const shared = node.io.outputs[0]?.digest;
+    if (shared === undefined) continue;
+    const outcomeOutputs = (children.get(node.id) ?? []).flatMap(
+      (childId) => byId.get(childId)?.io.outputs ?? [],
+    );
+    for (const output of outcomeOutputs) {
+      if (output.digest !== undefined && output.digest !== shared) {
+        renamed.set(output.digest, shared);
+      }
+    }
+    const shapes = new Set(
+      outcomeOutputs.map(
+        (output) => `${output.concept}|${isPluralMultiplicity(output.multiplicity)}`,
+      ),
+    );
+    const ref = pipeRefOf(node);
+    const declared = ref === undefined ? undefined : spec.pipe_registry?.[ref]?.output;
+    if (shapes.size > 1 && declared !== undefined) {
+      retyped.set(shared, {
+        concept: declared.concept.code,
+        multiplicity: declared.multiplicity ?? undefined,
+      });
+    }
+  }
+  if (renamed.size === 0) return spec;
+  // Transitive, for a condition nested as another condition's outcome.
+  const resolve = <T extends string | undefined>(digest: T): T | string => {
+    if (digest === undefined) return digest;
+    let current: string = digest;
+    for (let next = renamed.get(current); next !== undefined; next = renamed.get(current)) {
+      current = next;
+    }
+    return current;
+  };
+  const rewrite = (item: GraphSpecNodeIoItem): GraphSpecNodeIoItem => {
+    const digest = resolve(item.digest);
+    const retype = digest === undefined ? undefined : retyped.get(digest);
+    return { ...item, digest, ...retype };
+  };
+  return {
+    ...spec,
+    nodes: spec.nodes.map((node) => ({
+      ...node,
+      io: { inputs: node.io.inputs.map(rewrite), outputs: node.io.outputs.map(rewrite) },
+    })),
+    edges: spec.edges.map((edge) => ({
+      ...edge,
+      ...(edge.source_stuff_digest !== undefined
+        ? { source_stuff_digest: resolve(edge.source_stuff_digest) }
+        : {}),
+      ...(edge.target_stuff_digest !== undefined
+        ? { target_stuff_digest: resolve(edge.target_stuff_digest) }
+        : {}),
+    })),
   };
 }
 
@@ -139,8 +218,10 @@ export function canonicalizeGraph(spec: GraphSpec): CanonicalGraph {
   >;
   const stuffSignatures = Object.entries(analysis.stuffRegistry)
     .map(([digest, info]) => {
-      const producerId = analysis.stuffProducers[digest];
-      const producer = producerId === undefined ? "-" : (pathOf.get(producerId) ?? producerId);
+      const producerPaths = [
+        ...new Set((analysis.stuffProducers[digest] ?? []).map((id) => pathOf.get(id) ?? id)),
+      ].sort();
+      const producer = producerPaths.length === 0 ? "-" : producerPaths.join(" + ");
       const consumers = [
         ...new Set((analysis.stuffConsumers[digest] ?? []).map((id) => pathOf.get(id) ?? id)),
       ].sort();
@@ -202,7 +283,7 @@ function dropAnythingWildcardPairs(divergences: string[]): string[] {
  */
 export function compareParity(staticSpec: GraphSpec, drySpec: GraphSpec): string[] {
   const staticCanon = canonicalizeGraph(staticSpec);
-  const dryCanon = canonicalizeGraph(collapseBatchFanOut(drySpec));
+  const dryCanon = canonicalizeGraph(mergeConditionOutcomeOutputs(collapseBatchFanOut(drySpec)));
   return [
     ...diffSignatures("node", staticCanon.nodeSignatures, dryCanon.nodeSignatures),
     ...dropAnythingWildcardPairs(

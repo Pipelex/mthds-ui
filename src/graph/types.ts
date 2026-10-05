@@ -610,7 +610,11 @@ export interface StuffRegistryEntry {
 
 export interface DataflowAnalysis {
   readonly stuffRegistry: Readonly<Record<string, StuffRegistryEntry>>;
-  readonly stuffProducers: Readonly<Record<string, string>>;
+  /**
+   * Every operator that writes each stuff. Usually one; a condition's output has one per
+   * outcome, because every outcome writes the condition's one slot and only one of them runs.
+   */
+  readonly stuffProducers: Readonly<Record<string, readonly string[]>>;
   readonly stuffConsumers: Readonly<Record<string, readonly string[]>>;
   readonly controllerNodeIds: ReadonlySet<string>;
   readonly childNodeIds: ReadonlySet<string>;
