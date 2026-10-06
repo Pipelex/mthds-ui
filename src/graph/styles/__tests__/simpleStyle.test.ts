@@ -10,7 +10,12 @@ import {
   STEP_CATEGORY,
 } from "@graph/types";
 import { buildGraph } from "@graph/graphBuilders";
-import { makeNestedSpec } from "@graph/__tests__/testUtils";
+import {
+  makeBatchedConditionSpec,
+  makeMinimalSpec,
+  makeNestedBatchSpec,
+  makeNestedSpec,
+} from "@graph/__tests__/testUtils";
 import { reviewSpec } from "@graph/react/viewer/__stories__/styleReviewFixtures";
 import { sentenceCase } from "../humanize";
 import {
@@ -154,6 +159,12 @@ describe("the simple projection: data", () => {
     expect(edges.length).toBeGreaterThan(0);
     for (const edge of edges) expect(edge.type).toBe(EDGE_TYPE_ROUTED);
   });
+
+  it("passes a value between top-level pipes as an arrow, not as an input or an output", () => {
+    const { nodes, edges } = projectStyle(makeMinimalSpec(3), "simple");
+    expect(nodes.filter((n) => n.type === NODE_TYPE_SIMPLE_TERMINAL)).toEqual([]);
+    expect(edges.map((e) => `${e.source}->${e.target}`).sort()).toEqual(["op0->op1", "op1->op2"]);
+  });
 });
 
 describe("the simple projection: decisions", () => {
@@ -225,6 +236,35 @@ describe("the simple projection: loops", () => {
     expect(aggregateStatus(["succeeded", "running"])).toBe("running");
     expect(aggregateStatus(["succeeded", "succeeded"])).toBe("succeeded");
     expect(aggregateStatus([])).toBeUndefined();
+  });
+
+  it("gives a step inside a batch inside a batch the statuses of every outer item's runs", () => {
+    const { nodes } = projectStyle(makeNestedBatchSpec("read_2_2"), "simple");
+    const steps = ofKind(nodes, "step");
+    expect(steps.map((s) => s.node.id).sort()).toEqual(["read_1_1", "split_1", "summarize_1"]);
+    expect(steps.find((s) => s.node.id === "read_1_1")?.simple.status).toBe("failed");
+    expect(steps.find((s) => s.node.id === "split_1")?.simple.status).toBe("succeeded");
+  });
+
+  it("draws a decision's branch that only a later item took", () => {
+    const { nodes, edges } = projectStyle(
+      makeBatchedConditionSpec(["refused", "matched", "matched"]),
+      "simple",
+    );
+    expect(ofKind(nodes, "step").map((s) => s.node.id)).toEqual([
+      "assess_1",
+      "write_refusal_1",
+      "write_questions_2",
+    ]);
+    const [decision] = ofKind(nodes, "decision");
+    expect(decision.node.id).toBe("route_1");
+    const outgoing = edges.filter((e) => e.source === "route_1");
+    expect(outgoing.map((e) => [e.target, e.label])).toEqual([
+      ["write_refusal_1", "Refused"],
+      ["write_questions_2", "Matched"],
+    ]);
+    const [frame] = ofKind(nodes, "frame");
+    expect(frame.node.id).toBe("screen");
   });
 });
 

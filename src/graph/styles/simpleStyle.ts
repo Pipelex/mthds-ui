@@ -324,6 +324,50 @@ function unique<T>(items: readonly T[]): T[] {
   return [...new Set(items)];
 }
 
+/**
+ * Which node of a run stands in for which: a batch runs its branch once per
+ * item, and the flowchart draws each step of it once. Two runs are the same
+ * step when the same pipes lead to them from the top of the method, siblings
+ * outside a batch told apart by their order among calls to the same pipe and
+ * the items of a batch not told apart at all; the first run in containment
+ * order stands in for the others. A static spec draws each batch's branch once,
+ * so nothing in it stands in for anything.
+ *
+ * `representativeOf` holds only the runs another stands in for; `order` is
+ * every node in containment order, parents first.
+ */
+function batchRepresentatives(
+  graphspec: GraphSpec,
+  analysis: DataflowAnalysis,
+): { representativeOf: Map<string, string>; order: string[] } {
+  const specById = new Map(graphspec.nodes.map((n) => [n.id, n]));
+  const firstWithPath = new Map<string, string>();
+  const representativeOf = new Map<string, string>();
+  const order: string[] = [];
+
+  function visit(ids: readonly string[], parentPath: string, inBatch: boolean): void {
+    const seen = new Map<string, number>();
+    for (const id of ids) {
+      const spec = specById.get(id);
+      const pipe = spec?.pipe_code ?? spec?.pipe_type ?? id;
+      const occurrence = seen.get(pipe) ?? 0;
+      seen.set(pipe, occurrence + 1);
+      const path = `${parentPath}/${pipe}#${inBatch ? "*" : occurrence}`;
+      const first = firstWithPath.get(path);
+      if (first === undefined) firstWithPath.set(path, id);
+      else representativeOf.set(id, first);
+      order.push(id);
+      visit(analysis.containmentTree[id] ?? [], path, spec?.pipe_type === "PipeBatch");
+    }
+  }
+  visit(
+    graphspec.nodes.filter((n) => !analysis.childNodeIds.has(n.id)).map((n) => n.id),
+    "",
+    false,
+  );
+  return { representativeOf, order };
+}
+
 /** "For each page": an item name inside a sentence, keeping an acronym's capitals. */
 function forEachLabel(itemName: string): string {
   const words = humanizeIdentifier(itemName);
@@ -345,7 +389,6 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
   const { graphspec, nodes, analysis, rawAnalysis } = input;
   const graphMode = graphSpecMode(graphspec);
   const specById = new Map<string, GraphSpecNode>(graphspec.nodes.map((n) => [n.id, n]));
-  const parentOf = parentMap(rawAnalysis.containmentTree);
 
   const cards = new Map<string, GraphNode>();
   for (const node of nodes) {
@@ -354,15 +397,24 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
   const liveControllers = analysis.controllerNodeIds;
   const pipeTypeOf = (id: string): string | undefined => specById.get(id)?.pipe_type;
 
-  function descendants(id: string): string[] {
-    const out: string[] = [];
-    const stack = [...(rawAnalysis.containmentTree[id] ?? [])];
-    while (stack.length > 0) {
-      const next = stack.pop() as string;
-      out.push(next);
-      stack.push(...(rawAnalysis.containmentTree[next] ?? []));
-    }
-    return out;
+  // ── A run draws a batch's branch once per item; the flowchart draws it once.
+  // Every run of a step stands in for the first run of the same step, and only
+  // that first run is drawn. A step only a later item reached, such as the
+  // branch of a decision the first item did not take, is drawn too, where its
+  // first run sits.
+  const { representativeOf, order } = batchRepresentatives(graphspec, rawAnalysis);
+  const repOf = (id: string): string => representativeOf.get(id) ?? id;
+  const hidden = new Set(representativeOf.keys());
+  // The containment the flowchart draws: a later run's own steps hang from the
+  // first run of what holds them.
+  const parentOf: Record<string, string> = {};
+  for (const [id, parent] of Object.entries(parentMap(rawAnalysis.containmentTree))) {
+    parentOf[id] = repOf(parent);
+  }
+  const childrenOf: Record<string, string[]> = {};
+  for (const id of order) {
+    const parent = parentOf[id];
+    if (parent && !hidden.has(id)) (childrenOf[parent] ??= []).push(id);
   }
 
   function isInside(id: string, ancestorId: string): boolean {
@@ -374,18 +426,11 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
     return false;
   }
 
-  // ── A run draws a batch's branch once per item; the flowchart draws it once.
-  const hidden = new Set<string>();
   const batchBranch: Record<string, string> = {};
   for (const ctrlId of liveControllers) {
-    if (pipeTypeOf(ctrlId) !== "PipeBatch") continue;
-    const branches = analysis.containmentTree[ctrlId] ?? [];
-    if (branches.length === 0) continue;
-    batchBranch[ctrlId] = branches[0];
-    for (const other of branches.slice(1)) {
-      hidden.add(other);
-      for (const d of descendants(other)) hidden.add(d);
-    }
+    if (hidden.has(ctrlId) || pipeTypeOf(ctrlId) !== "PipeBatch") continue;
+    const first = analysis.containmentTree[ctrlId]?.[0];
+    if (first) batchBranch[ctrlId] = first;
   }
 
   const decisions = [...liveControllers].filter(
@@ -409,23 +454,28 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
   );
   const drawnStepIds = new Set(drawnSteps.map((card) => card.id));
 
-  // ── The method's inputs and final outputs: the root pipes' io.
+  // ── The method's inputs and final outputs: the root pipes' io. Where a spec
+  // has several roots, a value one root writes and another reads passes
+  // between them, and is neither.
   const roots = graphspec.nodes.filter(
     (n) =>
       !rawAnalysis.childNodeIds.has(n.id) && (n.kind === "controller" || n.kind === "operator"),
   );
+  const rootReads = new Set(roots.flatMap((r) => r.io.inputs.map((item) => item.digest)));
+  const rootWrites = new Set(roots.flatMap((r) => r.io.outputs.map((item) => item.digest)));
   const inputItems = new Map<string, GraphSpecNodeIoItem>();
   const outputItems = new Map<string, GraphSpecNodeIoItem>();
   for (const root of roots) {
     for (const item of root.io.inputs) {
-      if (item.digest && !inputItems.has(item.digest)) inputItems.set(item.digest, item);
+      if (!item.digest || inputItems.has(item.digest) || rootWrites.has(item.digest)) continue;
+      inputItems.set(item.digest, item);
     }
   }
   for (const root of roots) {
     for (const item of root.io.outputs) {
-      if (item.digest && !inputItems.has(item.digest) && !outputItems.has(item.digest)) {
-        outputItems.set(item.digest, item);
-      }
+      if (!item.digest || inputItems.has(item.digest) || outputItems.has(item.digest)) continue;
+      if (rootReads.has(item.digest)) continue;
+      outputItems.set(item.digest, item);
     }
   }
 
@@ -440,8 +490,7 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
     const found: string[] = [];
     const producers = analysis.stuffProducers[digest] ?? [];
     for (const producerId of producers) {
-      if (hidden.has(producerId)) continue;
-      const card = cards.get(producerId);
+      const card = cards.get(repOf(producerId));
       if (!card) continue;
       if (card.data.pipeType === BINDING_STEP_TYPE) {
         // A binding passes its root through under a new name.
@@ -449,7 +498,7 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
           if (item.digest) found.push(...sourcesOf(item.digest, visiting));
         }
       } else {
-        found.push(producerId);
+        found.push(card.id);
       }
     }
     if (producers.length === 0) {
@@ -485,7 +534,8 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
     const tagged = branch?.tags?.outcome;
     if (tagged) return outcomeLabel(tagged);
     const contains = graphspec.edges.find(
-      (e) => e.kind === "contains" && e.source === decisionId && e.target === branchId && e.label,
+      (e) =>
+        e.kind === "contains" && repOf(e.source) === decisionId && e.target === branchId && e.label,
     );
     if (contains?.label) return outcomeLabel(contains.label);
     const decision = specById.get(decisionId);
@@ -561,15 +611,23 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
     return [stuffNodeId(digest)];
   }
 
+  // A later run reads its own item's values, which come from the same steps as
+  // the first run's, so it only adds an arrow where its item went another way.
+  // A value with nothing drawn behind it is shown once, for the first run.
+  function routeRead(digest: string, readerId: string): void {
+    const target = repOf(readerId);
+    if (target === readerId) route(sourcesOrDangling(digest), target);
+    else route(sourcesOf(digest), target);
+  }
   for (const [digest, consumers] of Object.entries(analysis.stuffConsumers)) {
     for (const consumerId of consumers) {
-      if (!drawnStepIds.has(consumerId)) continue;
-      route(sourcesOrDangling(digest), consumerId);
+      if (drawnStepIds.has(repOf(consumerId))) routeRead(digest, consumerId);
     }
   }
-  for (const decisionId of decisions) {
-    for (const item of specById.get(decisionId)?.io.inputs ?? []) {
-      if (item.digest) route(sourcesOrDangling(item.digest), decisionId);
+  for (const conditionId of liveControllers) {
+    if (!decisionSet.has(repOf(conditionId))) continue;
+    for (const item of specById.get(conditionId)?.io.inputs ?? []) {
+      if (item.digest) routeRead(item.digest, conditionId);
     }
   }
   for (const digest of outputItems.keys()) {
@@ -596,16 +654,14 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
   // nothing from before the decision.
   function firstDrawnIn(id: string): string | undefined {
     if (drawnStepIds.has(id) || decisionSet.has(id)) return id;
-    for (const child of rawAnalysis.containmentTree[id] ?? []) {
-      if (hidden.has(child)) continue;
+    for (const child of childrenOf[id] ?? []) {
       const found = firstDrawnIn(child);
       if (found) return found;
     }
     return undefined;
   }
   for (const decisionId of decisions) {
-    for (const branchId of rawAnalysis.containmentTree[decisionId] ?? []) {
-      if (hidden.has(branchId)) continue;
+    for (const branchId of childrenOf[decisionId] ?? []) {
       const reached = [...edges.values()].some(
         (e) => e.source === decisionId && (e.target === branchId || isInside(e.target, branchId)),
       );
@@ -655,24 +711,15 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
     simpleNodes.push(terminalNode(item, "input"));
   }
 
-  const nearestBatch = (id: string): string | undefined => {
-    let current = parentOf[id];
-    while (current) {
-      if (batchBranch[current] !== undefined) return current;
-      current = parentOf[current];
-    }
-    return undefined;
-  };
+  const runStatuses = new Map<string, PipeStatus[]>();
+  for (const spec of graphspec.nodes) {
+    const rep = repOf(spec.id);
+    runStatuses.set(rep, [...(runStatuses.get(rep) ?? []), spec.status]);
+  }
 
-  /** A step's status; a step drawn once for every batch item stands for all of its runs. */
+  /** A node's status; one drawn once for every batch item stands for all of its runs. */
   function stepStatus(spec: GraphSpecNode): PipeStatus {
-    const batchId = nearestBatch(spec.id);
-    if (!batchId || spec.pipe_code === undefined) return spec.status;
-    const runs = descendants(batchId)
-      .map((id) => specById.get(id))
-      .filter((n): n is GraphSpecNode => n !== undefined && n.pipe_code === spec.pipe_code)
-      .map((n) => n.status);
-    return aggregateStatus(runs) ?? spec.status;
+    return aggregateStatus(runStatuses.get(spec.id) ?? []) ?? spec.status;
   }
 
   function itemName(batchId: string): string | undefined {
@@ -778,7 +825,7 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
           simple: {
             kind: "decision",
             title,
-            status: spec.status,
+            status: stepStatus(spec),
             ...(graphMode !== undefined ? { graphMode } : {}),
           },
           layoutSize: simpleDecisionSize(title),
