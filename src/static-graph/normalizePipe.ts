@@ -178,6 +178,14 @@ function normalizeSubPipe(
  */
 const BINDING_PATH_RE = /^[A-Za-z][A-Za-z0-9_]*(?:\.[A-Za-z][A-Za-z0-9_]*)*$/;
 
+/**
+ * A binding step's `result`: a plain name, as an input name is (`^[a-z][a-z0-9_]*$`
+ * in the schema), since a later step reads the bound value through its inputs.
+ * The grammar has no leading underscore, which keeps the reserved private
+ * prefix out of an author's reach.
+ */
+const BINDING_RESULT_RE = /^[a-z][a-z0-9_]*$/;
+
 /** The keys a binding step may carry: `from` and `result`, both required, nothing else. */
 const BINDING_STEP_KEYS: ReadonlySet<string> = new Set(["from", "result"]);
 
@@ -217,6 +225,13 @@ function normalizeBindingStep(
   }
   const result = strOrNull(raw.result);
   if (result === null) return skip(`binds "${fromPath}" under no "result"`);
+  if (!BINDING_RESULT_RE.test(result)) {
+    return skip(
+      result.startsWith(PRIVATE_BINDING_NAME_PREFIX)
+        ? `binds "${fromPath}" under "${result}", which takes the prefix "${PRIVATE_BINDING_NAME_PREFIX}" the runtime reserves for its own names`
+        : `binds "${fromPath}" under "${result}", which is not a plain name (lowercase letters, digits and underscores, starting with a letter)`,
+    );
+  }
   const extraKeys = Object.keys(raw).filter((key) => !BINDING_STEP_KEYS.has(key));
   if (extraKeys.length > 0) {
     ctx.diagnostics.push({

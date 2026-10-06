@@ -31,7 +31,7 @@ import { isBindingNode, isBindingStepSpec } from "@graph/types";
 import { validateGraphSpec } from "@graph/validateGraphSpec";
 import { describe, expect, it } from "vitest";
 
-import { corpusCasesCovering, fixtureBundleCases } from "./fixtureBundles";
+import { corpusCasesCovering, corpusCasesExpecting, fixtureBundleCases } from "./fixtureBundles";
 
 import { buildStaticGraphSpecFromToml } from "../buildStaticGraphSpec";
 
@@ -88,6 +88,30 @@ describe("binding steps in the corpus", () => {
           result: binding.io.outputs[0].name,
         });
       }
+    },
+  );
+});
+
+// The invalid entries that pipelex refuses for a binding step it cannot take
+// are refusals this builder can see too, so it must report each one, and only
+// that: a malformed step is skipped with `invalid-binding-step`, and a path the
+// walk cannot follow binds `native.Anything` with `binding-path-unresolved`.
+const BINDING_ERROR_DIAGNOSTICS: Readonly<Record<string, string>> = {
+  binding_step_invalid: "invalid-binding-step",
+  binding_path_unresolved: "binding-path-unresolved",
+};
+
+describe("invalid binding steps in the corpus", () => {
+  it.each(corpusCasesExpecting(Object.keys(BINDING_ERROR_DIAGNOSTICS)))(
+    "reports %s",
+    (_name, bundlePaths, expectedError) => {
+      const tomls = bundlePaths.map((bundlePath) => readFileSync(bundlePath, "utf8"));
+      const { spec, diagnostics } = buildStaticGraphSpecFromToml(tomls);
+      expect(diagnostics.length).toBeGreaterThan(0);
+      expect(new Set(diagnostics.map((diagnostic) => diagnostic.code))).toEqual(
+        new Set([BINDING_ERROR_DIAGNOSTICS[expectedError]]),
+      );
+      expect(() => validateGraphSpec(spec)).not.toThrow();
     },
   );
 });

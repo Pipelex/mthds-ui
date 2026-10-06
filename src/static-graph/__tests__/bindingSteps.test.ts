@@ -103,6 +103,10 @@ describe("parsing a binding step", () => {
     ['{ from = "catalog..season", result = "season" }', "not a path"],
     ['{ from = "_private", result = "season" }', "not a path"],
     ['{ from = 42, result = "season" }', "not a path"],
+    ['{ from = "catalog.season", result = "Season" }', "not a plain name"],
+    ['{ from = "catalog.season", result = "the.season" }', "not a plain name"],
+    ['{ from = "catalog.season", result = "9season" }', "not a plain name"],
+    ['{ from = "catalog.pages", result = "_bound_catalog_pages" }', 'prefix "_bound_"'],
   ])("skips %s and says why", (step, why) => {
     const { steps, diagnostics } = stepsOf(sequenceOf(`  ${step},`));
     expect(steps).toEqual([]);
@@ -165,12 +169,18 @@ describe("parsing a dotted batch_over", () => {
     ]);
   });
 
-  it("keeps clear of a name a step already writes", () => {
+  it("keeps clear of a name the sequence already holds", () => {
+    // Only reachable on a bundle the runtime refuses, since no plain name takes
+    // the prefix, but the numbering still never reuses a name in scope.
     const { steps } = stepsOf(
-      sequenceOf(`  { from = "catalog.pages", result = "_bound_catalog_pages" },
-  { pipe = "write_line", batch_over = "catalog.pages", batch_as = "page", result = "lines" },`),
+      sequenceOf(
+        `  { pipe = "write_line", batch_over = "catalog.pages", batch_as = "page", result = "lines" },`,
+      ).replace(
+        'inputs = { catalog = "Catalog" }',
+        'inputs = { catalog = "Catalog", _bound_catalog_pages = "Text" }',
+      ),
     );
-    expect(steps[1]).toMatchObject({
+    expect(steps[0]).toMatchObject({
       output_name: "_bound_catalog_pages_2",
       is_dotted_batch_over: true,
     });
