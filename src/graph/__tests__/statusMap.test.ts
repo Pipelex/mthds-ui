@@ -7,7 +7,7 @@
  */
 import { describe, it, expect } from "vitest";
 import { applyStatusOverrides } from "@graph/react";
-import { makeMinimalSpec, runFullPipeline } from "./testUtils";
+import { makeBindingSpec, makeMinimalSpec, runFullPipeline } from "./testUtils";
 
 // ─── Tests ──────────────────────────────────────────────────────────────────
 
@@ -156,5 +156,19 @@ describe("statusMap reset via rebuild", () => {
 
     const step1Reset = reset.find((n) => n.data.pipeCode === "step_1");
     expect(step1Reset?.data.pipeCardData?.status).toBe("scheduled"); // Original status
+  });
+});
+
+describe("statusMap and binding cards", () => {
+  it("never sets a binding card's status from a pipe code its path spells", async () => {
+    // The binding's pipeCode is its `from` path, `catalog.pages`; a status keyed
+    // by that string is about a pipe, if anything, never about the binding.
+    const result = await runFullPipeline(makeBindingSpec());
+    const updated = applyStatusOverrides(result.appNodes, {
+      "catalog.pages": "failed",
+      write_index_line: "running",
+    });
+    expect(updated.find((n) => n.id === "bind")?.data.pipeCardData?.status).toBe("succeeded");
+    expect(updated.find((n) => n.id === "compose")?.data.pipeCardData?.status).toBe("running");
   });
 });

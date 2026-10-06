@@ -27,6 +27,7 @@ import type {
   ValidationState,
 } from "@graph/types";
 import {
+  BINDING_STEP_TYPE,
   stuffDigestFromId,
   EDGE_TYPE,
   FOLD_MODE,
@@ -149,7 +150,10 @@ export interface GraphViewerProps {
   onNavigateToPipe?: (pipeCode: string, status?: PipeStatus) => void;
   onStuffNodeClick?: (stuff: GraphSpecNodeIoItem) => void;
   onReactFlowInit?: (instance: AppRFInstance) => void;
-  /** Layer 2 execution state: pipe_code → current status. Updates node status dots in real-time. */
+  /**
+   * Layer 2 execution state: pipe_code → current status. Updates node status dots in real-time.
+   * A binding card is never matched: its `pipeCode` is the path it binds, not a pipe's code.
+   */
   statusMap?: Record<string, PipeStatus>;
   /** Called when any node is clicked with full node data. Use for detail/inspector panels. */
   onNodeSelect?: (nodeId: string, nodeData: GraphNodeData, event: React.MouseEvent) => void;
@@ -375,6 +379,10 @@ export function applyStatusOverrides(
     if (node.data.graphMode === "static" || node.data.pipeCardData?.graphMode === "static") {
       return node;
     }
+    // A binding card's `pipeCode` is its `from` path, which a pipe may share
+    // (`from = "summary"` beside a pipe coded `summary`): no status keyed by
+    // pipe code is about it.
+    if (node.data.pipeType === BINDING_STEP_TYPE) return node;
     const pipeCode = node.data.pipeCode;
     if (!pipeCode || !Object.hasOwn(statusMap, pipeCode)) return node;
     const newStatus = statusMap[pipeCode];
@@ -1114,7 +1122,8 @@ export function GraphViewer(props: GraphViewerProps) {
 
       // Fire external callbacks
       onNodeSelect?.(node.id, nodeData, event);
-      if (nodeData.isController || nodeData.isPipe) {
+      // A binding card names the path it binds, not a pipe, so there is no pipe to navigate to.
+      if ((nodeData.isController || nodeData.isPipe) && nodeData.pipeType !== BINDING_STEP_TYPE) {
         const code = nodeData.pipeCode || nodeData.labelText;
         if (code && onNavigateToPipe) {
           onNavigateToPipe(code, nodeData.pipeCardData?.status);
@@ -1182,10 +1191,13 @@ export function GraphViewer(props: GraphViewerProps) {
     [graphspec],
   );
 
-  // Resolve the selected pipe's GraphSpecNode for the detail panel
+  // Resolve the selected card's GraphSpecNode for the detail panel — by node id,
+  // since a pipe code does not name one node: two invocations of a pipe share
+  // it, and so do two bindings of one path. A pipe card, a controller group and
+  // a folded controller's card all carry their spec node's id.
   const selectedSpecNode =
     detailSelection?.kind === "pipe" && graphspec
-      ? graphspec.nodes.find((n) => n.pipe_code === detailSelection.nodeData.pipeCode)
+      ? graphspec.nodes.find((n) => n.id === detailSelection.nodeId)
       : undefined;
 
   const detailOpen = detailSelection !== null || conceptOverride !== null;

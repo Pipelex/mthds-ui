@@ -1,5 +1,6 @@
 import { makePipeRef } from "./pipeRefs";
 import type { GraphSpec, GraphSpecNode, GraphSpecNodeIoItem } from "./types";
+import { isBindingNode } from "./types";
 
 /**
  * Where a data item lives in a `GraphSpec`, and which pipe put it there.
@@ -18,8 +19,9 @@ export interface StuffLocation {
   /**
    * `domain.code` of the pipe whose OUTPUT this is, when the spec names one.
    *
-   * Absent for a pipeline-level input, which no pipe produced, and for a node
-   * missing either half of the ref. A consumer must treat it as optional: a
+   * Absent for a pipeline-level input, which no pipe produced, for a value a
+   * binding step bound, which no pipe produced either, and for a node missing
+   * either half of the ref. A consumer must treat it as optional: a
    * method's own inputs are stuff too, and they are the common case at the top
    * of every graph.
    */
@@ -41,14 +43,17 @@ export interface StuffLocation {
 }
 
 /**
- * `domain.code`, or nothing when the node does not carry both halves.
+ * `domain.code`, or nothing when the node does not carry both halves, or is a
+ * binding node: its `pipe_code` is the path it binds, so `domain.<path>` names
+ * no pipe, and a path spelled like a pipe's code would pick up that pipe's
+ * descriptors.
  *
  * Assembled with `makePipeRef` rather than a template literal so every consumer
  * agrees with the runtime on what a ref is — the domain path may be
  * multi-segment, and this repo has exactly one place that spelling lives.
  */
 export function pipeRefOf(node: GraphSpecNode): string | undefined {
-  if (!node.pipe_code || !node.domain_code) return undefined;
+  if (isBindingNode(node) || !node.pipe_code || !node.domain_code) return undefined;
   return makePipeRef(node.domain_code, node.pipe_code);
 }
 

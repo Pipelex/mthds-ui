@@ -4,7 +4,7 @@
 
 ### Added
 
-- **Binding steps, in static and run graphs**: the static builder parses a sequence's binding step (`{ from = "invoice.total", result = "total_amount" }`) and draws it as a node of kind `binding`, class `BindingStep`, between the root it reads and the value it binds, typed by walking the path through the structures the method's concepts declare, and draws a dotted `batch_over` as a binding followed by the batch. A run graph's binding nodes pass `validateGraphSpec` and render as a card badged `Binding`, whose detail panel names the path and the result; `BINDING_STEP_TYPE`, `NodePipeType`, `BindingNode`, `isBindingNode`, `CardNode`, `asCardNode`, `BindingStepSpec` and `isBindingStepSpec` are exported for a host reading them.
+- **Binding steps, in static and run graphs**: the static builder parses a sequence's binding step (`{ from = "invoice.total", result = "total_amount" }`) and draws it as a node of kind `binding`, class `BindingStep`, between the root it reads and the value it binds, typed by walking the path through the structures the method's concepts declare, and draws a dotted `batch_over` as a binding followed by the batch. A run graph's binding nodes pass `validateGraphSpec` and render as a card badged `Binding`, whose detail panel names the path and the result. A binding is never taken for a pipe: `pipeRefOf` returns nothing for it, and neither a validation issue keyed by pipe ref, a `statusMap` entry nor `onNavigateToPipe` treats its path as a pipe's code. `BINDING_STEP_TYPE`, `NodePipeType`, `BindingNode`, `isBindingNode`, `CardNode`, `asCardNode`, `BindingStepSpec` and `isBindingStepSpec` are exported for a host reading them.
 
 - **`PipeJudge` and `PipeDocGen`**: both operators parse into registry blueprints (`PipeJudgeBlueprint`, `PipeDocGenBlueprint`) and render as cards badged `Judge` and `DocGen`; a run graph carrying either used to fail `validateGraphSpec` as an unrecognized pipe class.
 
@@ -15,6 +15,8 @@
 - **The vendored schema and corpus**: `data/schema/mthds_schema.json` and `data/mthds-corpus/` are copied from the pipelex development branch, ahead of its release, so they carry binding steps, `PipeJudge`, `PipeDocGen` and plain input names before a released pipelex does.
 
 ### Fixed
+
+- **A card's detail panel shows the node clicked**: `GraphViewer` finds the selected card's node by node id; it found it by pipe code, so a second invocation of a pipe, or a second binding of one path, opened the first one's panel.
 
 - **`Choice`, `Rating` and `Markdown` resolve as natives**: in a static graph, a bare `Choice`, `Rating` or `Markdown` ref, and a `refines` naming one, resolve into the native domain with the runtime's description, `Markdown` refining `Text` as the runtime records it; they used to resolve as an empty stub in the authoring domain.
 

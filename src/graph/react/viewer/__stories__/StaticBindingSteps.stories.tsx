@@ -9,6 +9,7 @@ import { GraphViewer } from "../GraphViewer";
 // batch, a judge and an optional, and the entry batching over a dotted path.
 import catalogReviewBundle from "../../../../../data/mthds-corpus/entries/feature_binding_step_catalog_review/bundle.mthds?raw";
 import catalogPagesBundle from "../../../../../data/mthds-corpus/entries/feature_binding_step_batch_over_catalog_pages/bundle.mthds?raw";
+import equivalenceBundle from "../../../../../data/mthds-corpus/entries/feature_binding_step_batch_over_equivalence/bundle.mthds?raw";
 
 const meta: Meta<typeof GraphViewer> = {
   title: "Graph - static/Valid/Binding steps",
@@ -30,6 +31,19 @@ export default meta;
 type Story = StoryObj<typeof GraphViewer>;
 
 const D = { initialDirection: "LR" as const, initialShowControllers: true };
+
+/** The key/value rows of the open detail panel, once it shows `key` with a value. */
+async function detailRows(canvasElement: HTMLElement): Promise<(string | null | undefined)[][]> {
+  const panel = await waitFor(() => {
+    const el = canvasElement.querySelector<HTMLElement>(".detail-panel-content");
+    if (!el) throw new Error("no detail panel");
+    return el;
+  });
+  return Array.from(panel.querySelectorAll(".detail-kv-row")).map((row) => [
+    row.querySelector(".detail-kv-key")?.textContent,
+    row.querySelector(".detail-kv-value")?.textContent,
+  ]);
+}
 
 /** Wait for the binding cards the graph should draw, and return them. */
 async function bindingCards(canvasElement: HTMLElement, count: number): Promise<HTMLElement[]> {
@@ -90,5 +104,30 @@ export const DottedBatchOver: Story = {
     await expect(card.textContent).toContain("catalog.pages");
     await expect(card.textContent).toContain("_bound_catalog_pages");
     await expect(card.textContent).toContain("CatalogPage[]");
+  },
+};
+
+/**
+ * Corpus entry `feature_binding_step_batch_over_equivalence`: the path
+ * `order.lines` is bound twice, once under the private name a dotted
+ * `batch_over` takes and once by a binding step, so two cards share a code.
+ * Each card opens its own detail panel.
+ */
+export const BindingsOfOnePath: Story = {
+  args: { graph: { graphSpec: buildStaticGraphSpecFromToml(equivalenceBundle).spec }, ...D },
+  play: async ({ canvasElement }) => {
+    await bindingCards(canvasElement, 2);
+    const card = (id: string) =>
+      canvasElement.querySelector<HTMLElement>(`[data-id="order_pricing.price_order/${id}"]`);
+
+    await userEvent.click(card("step_3") as HTMLElement);
+    await waitFor(async () =>
+      expect(await detailRows(canvasElement)).toContainEqual(["Result", "lines"]),
+    );
+
+    await userEvent.click(card("step_1") as HTMLElement);
+    await waitFor(async () =>
+      expect(await detailRows(canvasElement)).toContainEqual(["Result", "_bound_order_lines"]),
+    );
   },
 };

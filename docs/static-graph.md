@@ -277,6 +277,8 @@ What the runtime refuses is reported with an `invalid-binding-step` warning: a s
 
 **In a run graph** the same node arrives from pipelex. `validateGraphSpec` accepts the `binding` kind with `BindingStep` as its class, and refuses any other class on it, and `BindingStep` on a pipe-call node. The dataflow graph draws it as a pipe card between the root it reads and the value it binds, with a `Binding` badge and a dashed accent, and its detail panel says what it binds (`From`, `Result`) in every mode. `NodePipeType` (`PipeType | "BindingStep"`) is the type of everything that names a card's class.
 
+A binding's `pipe_code` is a path, which a pipe's code may spell (`from = "summary"` beside a pipe coded `summary`), so nothing keyed by pipe code ever reaches a binding: `pipeRefOf` returns nothing for it, so the value it binds is described through the pipe reading it, a validation issue keyed by `pipeRef` decorates only pipe nodes, a `statusMap` entry never sets a binding card's status, and clicking one calls no `onNavigateToPipe`. A card's detail panel finds its node by node id, which is also what tells two bindings of one path apart.
+
 The corpus sweep asks more of the entries covering `feature.binding_step` than zero diagnostics: every sequence the walk reaches must draw one binding node per binding step it holds. The stories in `StaticBindingSteps.stories.tsx` draw two of those entries, and a screenshot test keeps their picture (see [Visual regression](#visual-regression)).
 
 ## PipeJudge and PipeDocGen

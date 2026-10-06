@@ -6,6 +6,7 @@
 
 import type { GraphNodeData, GraphSpec, NodeValidationSummary, ValidationIssue } from "./types";
 import { outermostFoldedAncestor } from "./graphFolds";
+import { isBindingNode } from "./types";
 import { makePipeRef } from "./pipeRefs";
 
 /**
@@ -15,7 +16,8 @@ import { makePipeRef } from "./pipeRefs";
  *   pipe (a pipe can appear in several places in the graph). The match is on
  *   the qualified ref — never on the bare code — so two domains declaring the
  *   same pipe code can never cross-decorate. A node missing either identity
- *   field cannot be qualified and is never matched;
+ *   field cannot be qualified and is never matched, and neither is a binding
+ *   node, whose `pipe_code` is the path it binds and names no pipe;
  * - neither → no targets (the issue stays panel-only).
  */
 function issueTargetIds(issue: ValidationIssue, graphspec: GraphSpec): string[] {
@@ -24,6 +26,7 @@ function issueTargetIds(issue: ValidationIssue, graphspec: GraphSpec): string[] 
     return graphspec.nodes
       .filter(
         (n) =>
+          !isBindingNode(n) &&
           n.domain_code !== undefined &&
           n.pipe_code !== undefined &&
           makePipeRef(n.domain_code, n.pipe_code) === issue.pipeRef,
