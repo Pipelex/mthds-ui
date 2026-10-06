@@ -518,6 +518,8 @@ describe("validateGraphSpec — unknown PipeType", () => {
       "PipeSearch",
       "PipeFunc",
       "PipeStructure",
+      "PipeJudge",
+      "PipeDocGen",
       "PipeSignature",
       "PipeSequence",
       "PipeParallel",
