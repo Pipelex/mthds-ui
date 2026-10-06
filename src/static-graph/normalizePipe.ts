@@ -8,11 +8,14 @@
 // `type` and is not a signature (see `resolvePipeTypeTag`).
 
 import type {
+  BindingStepSpec,
   ConceptInfo,
+  JudgmentQuestionSpec,
   PipeBlueprintUnion,
   PipeComposeConstructBlueprint,
   PipeComposeConstructField,
   PipeType,
+  SequenceStepSpec,
   StuffSpecInfo,
   SubPipeSpec,
   TemplateBlueprint,
@@ -78,26 +81,7 @@ function normalizeInputs(
     return inputs;
   }
   for (const [name, slot] of Object.entries(raw)) {
-    const { spec, missingConcept, unknownKeys, dottedName } = resolveInputSlot(
-      slot,
-      ctx.domain,
-      ctx.concepts,
-    );
-    if (dottedName) {
-      // Not a slot table at all — an unquoted dotted input name, which TOML
-      // nests and the expanded form would otherwise misread. Reported alone,
-      // because the two generic diagnostics below are both true of it and
-      // neither mentions the quoting rule that is the fix.
-      ctx.diagnostics.push({
-        severity: "warning",
-        code: "invalid-concept-ref",
-        message:
-          `pipe "${pipeCode}": input "${name}" reads as a slot table but looks like an unquoted ` +
-          `dotted input name — write it as one quoted key ("${name}.${unknownKeys.join(".")}" = …) — skipped`,
-        path: `pipe.${pipeCode}.inputs.${name}`,
-      });
-      continue;
-    }
+    const { spec, missingConcept, unknownKeys } = resolveInputSlot(slot, ctx.domain, ctx.concepts);
     if (unknownKeys.length > 0) {
       ctx.diagnostics.push({
         severity: "warning",
@@ -144,12 +128,12 @@ function normalizeOutput(raw: unknown, pipeCode: string, ctx: NormalizePipeConte
 // ─── Sub-pipe normalization (sequence steps, parallel branches) ──────────────
 
 function normalizeSubPipe(
-  raw: unknown,
+  raw: Record<string, unknown>,
   pipeCode: string,
   path: string,
   ctx: NormalizePipeContext,
 ): SubPipeSpec | null {
-  if (!isPlainObject(raw) || strOrNull(raw.pipe) === null) {
+  if (strOrNull(raw.pipe) === null) {
     ctx.diagnostics.push({
       severity: "warning",
       code: "invalid-sub-pipe",
@@ -186,10 +170,178 @@ function normalizeSubPipe(
   };
 }
 
-function normalizeSubPipeList(
+/**
+ * A binding step's `from` path, and a dotted `batch_over`: a name in working
+ * memory followed by zero or more field names, each segment an identifier that
+ * does not start with an underscore — the grammar of the standard and of the
+ * schema's `BindingStepBlueprint.from`.
+ */
+const BINDING_PATH_RE = /^[A-Za-z][A-Za-z0-9_]*(?:\.[A-Za-z][A-Za-z0-9_]*)*$/;
+
+/** The keys a binding step may carry: `from` and `result`, both required, nothing else. */
+const BINDING_STEP_KEYS: ReadonlySet<string> = new Set(["from", "result"]);
+
+/**
+ * The prefix of the private name a sequence binds a dotted `batch_over`'s list
+ * under — the runtime's own, reserved so no name an author writes takes it.
+ */
+export const PRIVATE_BINDING_NAME_PREFIX = "_bound_";
+
+/**
+ * Normalize one binding step, `{ from = "invoice.total", result = "total_amount" }`,
+ * to the shape the runtime holds it in. The runtime refuses a step carrying
+ * `pipe` beside `from`, one without `result`, and a `from` breaking the path
+ * grammar, so those are skipped with a diagnostic: none of them names a value
+ * a later step could read. A pipe step's key carried beside `from` is reported
+ * and the binding still drawn, since nothing about what it binds is in doubt.
+ */
+function normalizeBindingStep(
+  raw: Record<string, unknown>,
+  pipeCode: string,
+  path: string,
+  ctx: NormalizePipeContext,
+): BindingStepSpec | null {
+  const skip = (why: string): null => {
+    ctx.diagnostics.push({
+      severity: "warning",
+      code: "invalid-binding-step",
+      message: `pipe "${pipeCode}": binding step ${why} — skipped`,
+      path,
+    });
+    return null;
+  };
+  if (raw.pipe !== undefined) return skip(`carries both "from" and "pipe"`);
+  const fromPath = strOrNull(raw.from);
+  if (fromPath === null || !BINDING_PATH_RE.test(fromPath)) {
+    return skip(`has a "from" that is not a path of identifiers separated by dots`);
+  }
+  const result = strOrNull(raw.result);
+  if (result === null) return skip(`binds "${fromPath}" under no "result"`);
+  const extraKeys = Object.keys(raw).filter((key) => !BINDING_STEP_KEYS.has(key));
+  if (extraKeys.length > 0) {
+    ctx.diagnostics.push({
+      severity: "warning",
+      code: "invalid-binding-step",
+      message:
+        `pipe "${pipeCode}": binding step of "${fromPath}" carries ` +
+        `${extraKeys.map((key) => `"${key}"`).join(", ")}, which a binding step does not take — ignored`,
+      path,
+    });
+  }
+  return { from_path: fromPath, output_name: result, is_dotted_batch_over: false };
+}
+
+/** Every name a sequence's inputs and steps write or read — the names a private binding name must not take. */
+function namesInSequence(inputNames: string[], rawSteps: unknown[]): Set<string> {
+  const names = new Set(inputNames);
+  for (const step of rawSteps) {
+    if (!isPlainObject(step)) continue;
+    if (step.from !== undefined) {
+      const fromPath = strOrNull(step.from);
+      if (fromPath !== null) names.add(fromPath.split(".")[0]);
+      const result = strOrNull(step.result);
+      if (result !== null) names.add(result);
+      continue;
+    }
+    for (const name of [strOrNull(step.result), strOrNull(step.batch_as)]) {
+      if (name !== null) names.add(name);
+    }
+    const batchOver = strOrNull(step.batch_over);
+    if (batchOver !== null) names.add(batchOver.split(".")[0]);
+  }
+  return names;
+}
+
+/**
+ * The private name a dotted `batch_over`'s list is bound under: the prefix and
+ * the path with its dots turned into underscores (`_bound_catalog_pages`), with
+ * `_2`, `_3`… appended when a name of the sequence already holds that spelling.
+ * Mirrors the runtime's `make_private_binding_name`, so the static graph names
+ * the bound list as a run graph does.
+ */
+function makePrivateBindingName(path: string, takenNames: Set<string>): string {
+  const baseName = `${PRIVATE_BINDING_NAME_PREFIX}${path.replaceAll(".", "_")}`;
+  let name = baseName;
+  for (let suffix = 2; takenNames.has(name); suffix++) name = `${baseName}_${suffix}`;
+  return name;
+}
+
+/**
+ * Normalize a sequence's `steps` to the runtime's `sequential_sub_pipes`: a
+ * pipe step, or a binding step for a step carrying `from`. A pipe step whose
+ * `batch_over` is a dotted path is held as the runtime holds it — a binding of
+ * that path under a private name, followed by the same step batching over the
+ * name — so the graph draws a binding followed by the batch.
+ */
+function normalizeSequenceSteps(
   raw: unknown,
   pipeCode: string,
-  key: string,
+  inputNames: string[],
+  ctx: NormalizePipeContext,
+): SequenceStepSpec[] {
+  if (!Array.isArray(raw)) {
+    if (raw !== undefined) {
+      ctx.diagnostics.push({
+        severity: "warning",
+        code: "invalid-pipe-entry",
+        message: `pipe "${pipeCode}": steps is not an array — treated as empty`,
+        path: `pipe.${pipeCode}.steps`,
+      });
+    }
+    return [];
+  }
+  const takenNames = namesInSequence(inputNames, raw);
+  const steps: SequenceStepSpec[] = [];
+  raw.forEach((entry, index) => {
+    const path = `pipe.${pipeCode}.steps[${index}]`;
+    if (isPlainObject(entry) && entry.from !== undefined) {
+      const binding = normalizeBindingStep(entry, pipeCode, path, ctx);
+      if (binding !== null) steps.push(binding);
+      return;
+    }
+    if (!isPlainObject(entry)) {
+      ctx.diagnostics.push({
+        severity: "warning",
+        code: "invalid-sub-pipe",
+        message: `pipe "${pipeCode}": sub-pipe entry without a "pipe" ref — skipped`,
+        path,
+      });
+      return;
+    }
+    const step = normalizeSubPipe(entry, pipeCode, path, ctx);
+    if (step === null) return;
+    const listName = step.batch_params?.input_list_stuff_name;
+    if (step.batch_params != null && listName !== undefined && listName.includes(".")) {
+      if (!BINDING_PATH_RE.test(listName)) {
+        ctx.diagnostics.push({
+          severity: "warning",
+          code: "invalid-binding-step",
+          message:
+            `pipe "${pipeCode}": dotted batch_over "${listName}" is not a path of identifiers ` +
+            `separated by dots — batching over it as a name`,
+          path,
+        });
+      } else {
+        const privateName = makePrivateBindingName(listName, takenNames);
+        takenNames.add(privateName);
+        steps.push({ from_path: listName, output_name: privateName, is_dotted_batch_over: true });
+        step.batch_params = { ...step.batch_params, input_list_stuff_name: privateName };
+      }
+    }
+    steps.push(step);
+  });
+  return steps;
+}
+
+/**
+ * Normalize a parallel's `branches`. A branch is always a pipe step: the
+ * runtime refuses a binding step there, and a dotted `batch_over`, since only
+ * a sequence binds — a branch needing a field gets it bound by a sequence step
+ * before the parallel. Both are skipped with a diagnostic.
+ */
+function normalizeBranchList(
+  raw: unknown,
+  pipeCode: string,
   ctx: NormalizePipeContext,
 ): SubPipeSpec[] {
   if (!Array.isArray(raw)) {
@@ -197,17 +349,52 @@ function normalizeSubPipeList(
       ctx.diagnostics.push({
         severity: "warning",
         code: "invalid-pipe-entry",
-        message: `pipe "${pipeCode}": ${key} is not an array — treated as empty`,
-        path: `pipe.${pipeCode}.${key}`,
+        message: `pipe "${pipeCode}": branches is not an array — treated as empty`,
+        path: `pipe.${pipeCode}.branches`,
       });
     }
     return [];
   }
-  return raw
-    .map((entry, index) =>
-      normalizeSubPipe(entry, pipeCode, `pipe.${pipeCode}.${key}[${index}]`, ctx),
-    )
-    .filter((entry): entry is SubPipeSpec => entry !== null);
+  const branches: SubPipeSpec[] = [];
+  raw.forEach((entry, index) => {
+    const path = `pipe.${pipeCode}.branches[${index}]`;
+    if (!isPlainObject(entry)) {
+      ctx.diagnostics.push({
+        severity: "warning",
+        code: "invalid-sub-pipe",
+        message: `pipe "${pipeCode}": sub-pipe entry without a "pipe" ref — skipped`,
+        path,
+      });
+      return;
+    }
+    if (entry.from !== undefined) {
+      ctx.diagnostics.push({
+        severity: "warning",
+        code: "invalid-binding-step",
+        message:
+          `pipe "${pipeCode}": a parallel branch cannot be a binding step — ` +
+          `bind in a sequence step before the parallel — skipped`,
+        path,
+      });
+      return;
+    }
+    const branch = normalizeSubPipe(entry, pipeCode, path, ctx);
+    if (branch === null) return;
+    if (branch.batch_params?.input_list_stuff_name.includes(".")) {
+      ctx.diagnostics.push({
+        severity: "warning",
+        code: "invalid-binding-step",
+        message:
+          `pipe "${pipeCode}": a parallel branch cannot batch over the dotted path ` +
+          `"${branch.batch_params.input_list_stuff_name}" — bind it in a sequence step before ` +
+          `the parallel — skipped`,
+        path,
+      });
+      return;
+    }
+    branches.push(branch);
+  });
+  return branches;
 }
 
 // ─── Compose construct normalization ─────────────────────────────────────────
@@ -246,6 +433,38 @@ function normalizeConstruct(raw: unknown): PipeComposeConstructBlueprint | null 
     if (field !== null) fields[name] = field;
   }
   return Object.keys(fields).length > 0 ? { fields } : null;
+}
+
+// ─── PipeJudge question ──────────────────────────────────────────────────────
+
+/**
+ * The question a PipeJudge asks, in the runtime's shape. The kind is decided
+ * by which of `options` and `levels` the pipe declares, never by a field of its
+ * own, and `prompt` is read in place of `question`, as the runtime reads it.
+ */
+function normalizeJudgmentQuestion(raw: Record<string, unknown>): JudgmentQuestionSpec {
+  const instructions = strOrNull(raw.question) ?? strOrNull(raw.prompt) ?? "";
+  if (isPlainObject(raw.options)) {
+    const options: Record<string, string | null> = {};
+    for (const [key, description] of Object.entries(raw.options)) {
+      options[key] = typeof description === "string" ? description : null;
+    }
+    return { kind: "choice", instructions, options };
+  }
+  if (Array.isArray(raw.levels)) {
+    return {
+      kind: "rating",
+      instructions,
+      levels: raw.levels.filter((level): level is string => typeof level === "string"),
+    };
+  }
+  const criteria = isPlainObject(raw.criteria) ? raw.criteria : {};
+  return {
+    kind: "yes_no",
+    instructions,
+    yes_criterion: strOrNull(criteria.yes),
+    no_criterion: strOrNull(criteria.no),
+  };
 }
 
 // ─── The signature contract: `type` on two different surfaces ────────────────
@@ -353,14 +572,19 @@ export function normalizePipe(
         ...base,
         type,
         pipe_category: "PipeController",
-        sequential_sub_pipes: normalizeSubPipeList(raw.steps, code, "steps", ctx),
+        sequential_sub_pipes: normalizeSequenceSteps(
+          raw.steps,
+          code,
+          Object.keys(base.inputs),
+          ctx,
+        ),
       };
     case "PipeParallel":
       return {
         ...base,
         type,
         pipe_category: "PipeController",
-        parallel_sub_pipes: normalizeSubPipeList(raw.branches, code, "branches", ctx),
+        parallel_sub_pipes: normalizeBranchList(raw.branches, code, ctx),
         add_each_output: raw.add_each_output === true,
         combined_output: strOrNull(raw.combined_output),
       };
@@ -539,6 +763,26 @@ export function normalizePipe(
     }
     case "PipeFunc":
       return { ...base, type, pipe_category: "PipeOperator" };
+    case "PipeJudge":
+      return {
+        ...base,
+        type,
+        pipe_category: "PipeOperator",
+        judgment_choice: isPlainObject(raw.model) ? raw.model : strOrNull(raw.model),
+        judgment_question: normalizeJudgmentQuestion(raw),
+        threshold: typeof raw.threshold === "number" ? raw.threshold : null,
+      };
+    case "PipeDocGen":
+      return {
+        ...base,
+        type,
+        pipe_category: "PipeOperator",
+        doc_gen_format: strOrNull(raw.format) ?? "",
+        doc_gen_choice: isPlainObject(raw.model) ? raw.model : strOrNull(raw.model),
+        template: strOrNull(raw.template),
+        template_file: strOrNull(raw.template_file),
+        filename: strOrNull(raw.filename),
+      };
     case "PipeSignature": {
       const signatureFor = strOrNull(raw.signature_for);
       // `PipeSignature` itself is excluded: it is no longer a member of pipelex's

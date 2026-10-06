@@ -5,6 +5,7 @@
 import { describe, it, expect } from "vitest";
 import {
   validateGraphSpec,
+  asCardNode,
   asPipeCallNode,
   GraphSpecValidationError,
 } from "@graph/validateGraphSpec";
@@ -304,6 +305,46 @@ describe("validateGraphSpec — node fields", () => {
     expectInvalid(spec, "nodes[0].pipe_code");
   });
 
+  it("accepts a binding node, whose class is the binding step's own", () => {
+    // The shape a run gives a sequence's binding step: its `from` path as the
+    // pipe code, `BindingStep` as the class, the root read and the value bound.
+    const spec = makeValidSpec();
+    const node = (spec.nodes as Record<string, unknown>[])[0];
+    node.kind = "binding";
+    node.pipe_code = "invoice.total";
+    node.pipe_type = "BindingStep";
+    node.description = "Binds 'invoice.total' to 'total_amount'";
+    node.io = {
+      inputs: [{ name: "invoice", concept: "Invoice", digest: "abc" }],
+      outputs: [{ name: "total_amount", concept: "Number", digest: "def" }],
+    };
+    node.execution_data = { from: "invoice.total", result: "total_amount" };
+    expect(() => validateGraphSpec(spec)).not.toThrow();
+  });
+
+  it("rejects a binding node carrying a pipe class", () => {
+    const spec = makeValidSpec();
+    const node = (spec.nodes as Record<string, unknown>[])[0];
+    node.kind = "binding";
+    node.pipe_type = "PipeLLM";
+    expectInvalid(spec, "nodes[0].pipe_type");
+  });
+
+  it("rejects the binding step's class on a pipe-call node", () => {
+    const spec = makeValidSpec();
+    (spec.nodes as Record<string, unknown>[])[0].pipe_type = "BindingStep";
+    expectInvalid(spec, "nodes[0].pipe_type");
+  });
+
+  it("rejects a binding node with no from path", () => {
+    const spec = makeValidSpec();
+    const node = (spec.nodes as Record<string, unknown>[])[0];
+    node.kind = "binding";
+    node.pipe_type = "BindingStep";
+    node.pipe_code = "";
+    expectInvalid(spec, "nodes[0].pipe_code");
+  });
+
   it("rejects non-pipe-call NodeKind values (never serialized by a real run)", () => {
     for (const kind of ["pipe_call", "input", "output", "artifact", "error"]) {
       const spec = makeValidSpec();
@@ -541,6 +582,60 @@ describe("asPipeCallNode", () => {
     }
     expect(caught).toBeInstanceOf(GraphSpecValidationError);
     expect((caught as GraphSpecValidationError).path).toBe("nodes[op1].pipe_code");
+  });
+});
+
+// ─── asCardNode — the nodes the dataflow graph draws as a card ───────────
+
+describe("asCardNode", () => {
+  const bindingNode: GraphSpecNode = {
+    id: "b1",
+    kind: "binding",
+    pipe_code: "invoice.total",
+    pipe_type: "BindingStep",
+    status: "succeeded",
+    io: { inputs: [], outputs: [] },
+  };
+  const operatorNode: GraphSpecNode = {
+    id: "op1",
+    kind: "operator",
+    pipe_code: "summarize",
+    pipe_type: "PipeLLM",
+    status: "succeeded",
+    io: { inputs: [], outputs: [] },
+  };
+
+  function pathOfError(run: () => unknown): string | undefined {
+    try {
+      run();
+    } catch (err) {
+      expect(err).toBeInstanceOf(GraphSpecValidationError);
+      return (err as GraphSpecValidationError).path;
+    }
+    return undefined;
+  }
+
+  it("returns a binding node and a pipe-call node as they are", () => {
+    expect(asCardNode(bindingNode)).toBe(bindingNode);
+    expect(asCardNode(operatorNode)).toBe(operatorNode);
+  });
+
+  it("refuses a binding node without a from path or with a pipe class", () => {
+    expect(pathOfError(() => asCardNode({ ...bindingNode, pipe_code: "" }, "nodes[b1]"))).toBe(
+      "nodes[b1].pipe_code",
+    );
+    expect(
+      pathOfError(() => asCardNode({ ...bindingNode, pipe_type: "PipeLLM" }, "nodes[b1]")),
+    ).toBe("nodes[b1].pipe_type");
+  });
+
+  it("refuses a kind that is neither, as asPipeCallNode does", () => {
+    const node = { ...operatorNode, kind: "artifact" } as unknown as GraphSpecNode;
+    expect(pathOfError(() => asCardNode(node, "nodes[op1]"))).toBe("nodes[op1].kind");
+  });
+
+  it("keeps asPipeCallNode refusing a binding node, which runs no pipe", () => {
+    expect(pathOfError(() => asPipeCallNode(bindingNode, "nodes[b1]"))).toBe("nodes[b1].kind");
   });
 });
 

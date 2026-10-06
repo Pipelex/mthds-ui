@@ -139,8 +139,8 @@ export function isSweepable(validity: unknown, entryName: string): boolean {
   return validity === "valid";
 }
 
-/** Read one entry's `validity` off its `entry.toml` manifest. Throws if unreadable. */
-function validityOf(entryDir: string): unknown {
+/** Read one entry's `entry.toml` manifest. Throws if unreadable. */
+function manifestOf(entryDir: string): Record<string, unknown> {
   const manifest = path.join(entryDir, "entry.toml");
   let raw: string;
   try {
@@ -151,7 +151,12 @@ function validityOf(entryDir: string): unknown {
       { cause },
     );
   }
-  return (parseToml(raw) as Record<string, unknown>).validity;
+  return parseToml(raw) as Record<string, unknown>;
+}
+
+/** Read one entry's `validity` off its manifest. Throws if unreadable. */
+function validityOf(entryDir: string): unknown {
+  return manifestOf(entryDir).validity;
 }
 
 /**
@@ -176,4 +181,22 @@ export function fixtureBundleCases(): [string, string[]][] {
     name,
     bundlePaths,
   ]);
+}
+
+/**
+ * The `valid` corpus entries whose manifest says they cover a feature, as
+ * `it.each` rows. Discovered like the rest, and refusing to come back empty, so
+ * a sweep asking about one feature cannot pass on no entry at all.
+ */
+export function corpusCasesCovering(feature: string): [string, string[]][] {
+  const fixtures = corpusFixtures().filter(({ name }) => {
+    const covers = manifestOf(path.join(CORPUS_ENTRIES_DIR, name.slice("corpus/".length))).covers;
+    return Array.isArray(covers) && covers.includes(feature);
+  });
+  if (fixtures.length === 0) {
+    throw new Error(
+      `no valid corpus entry covers ${feature} — the sweep asking about it would pass vacuously`,
+    );
+  }
+  return fixtures.map(({ name, bundlePaths }) => [name, bundlePaths]);
 }

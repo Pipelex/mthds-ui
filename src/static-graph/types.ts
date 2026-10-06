@@ -23,6 +23,8 @@ export type DiagnosticCode =
   | "unknown-input-slot-key"
   | "missing-pipe-output"
   | "invalid-sub-pipe"
+  | "invalid-binding-step"
+  | "binding-path-unresolved"
   | "incomplete-batch-spec"
   | "duplicate-concept"
   | "duplicate-pipe"
@@ -59,6 +61,35 @@ export interface Diagnostic {
   domain_code?: string;
 }
 
+// ─── Concept structures ──────────────────────────────────────────────────────
+
+/**
+ * One field of a concept's declared structure, as the binding walk reads it:
+ * the four keys that decide what a path through the field reaches. A field
+ * written as a bare description string is a required text field, as pipelex
+ * reads that shorthand.
+ */
+export interface StructureField {
+  /** The declared `type`, or null when the field declares none (a field defined by its `choices`). */
+  type: string | null;
+  /** `concept_ref` of a `concept` field, as authored. */
+  conceptRef: string | null;
+  /** `item_type` of a `list` field. */
+  itemType: string | null;
+  /** `item_concept_ref` of a list of concepts, as authored. */
+  itemConceptRef: string | null;
+}
+
+/**
+ * What a concept declares for its structure, beside its `ConceptInfo`: its
+ * fields in declaration order, or the name of the Python class a
+ * `structure = "ClassName"` string points at, which a bundle does not show. A
+ * concept declaring no structure has no entry. This is kept apart from
+ * `ConceptInfo` on purpose: `ConceptInfo` is what a GraphSpec's
+ * `concept_registry` carries, and a dry or live spec carries no such field.
+ */
+export type ConceptStructure = Record<string, StructureField> | string;
+
 // ─── Parsed bundle ───────────────────────────────────────────────────────────
 
 /**
@@ -74,6 +105,8 @@ export interface ParsedBundle {
   system_prompt: string | null;
   /** Concepts declared in this bundle, keyed by bare concept code. */
   concepts: Record<string, ConceptInfo>;
+  /** The structures those concepts declare, keyed by bare concept code — what a binding step walks. */
+  structures: Record<string, ConceptStructure>;
   /** Pipes declared in this bundle, keyed by bare pipe code. */
   pipes: Record<string, PipeBlueprintUnion>;
 }
@@ -85,10 +118,11 @@ export interface ParseMthdsBundleResult {
 
 // ─── Merged method set ───────────────────────────────────────────────────────
 
-/** Namespace of one domain after merging bundles: concepts and pipes by bare code. */
+/** Namespace of one domain after merging bundles: concepts, their structures and pipes by bare code. */
 export interface DomainNamespace {
   domain: string;
   concepts: Record<string, ConceptInfo>;
+  structures: Record<string, ConceptStructure>;
   pipes: Record<string, PipeBlueprintUnion>;
 }
 

@@ -1,4 +1,4 @@
-import type { GraphSpecMode, GraphSpecNodeIoItem, PipeCallNode, PipeCardPayload } from "./types";
+import type { CardNode, GraphSpecMode, GraphSpecNodeIoItem, PipeCardPayload } from "./types";
 import { multiplicitySuffix } from "./types";
 
 /** An io item as a card pill: its name, and its concept with the multiplicity marker (`Document[]`). */
@@ -10,16 +10,14 @@ function ioPill(item: GraphSpecNodeIoItem): { name: string; concept: string } {
 }
 
 /**
- * Build a PipeCardPayload from a pipe-call node.
+ * Build a PipeCardPayload from a card node: a pipe-call node, or a binding
+ * node, whose card names its `from` path where a pipe card names its pipe code.
  *
- * `validateGraphSpec` guarantees the pipe-call node's `pipe_code`, `pipe_type`,
+ * `validateGraphSpec` guarantees the node's `pipe_code`, `pipe_type`,
  * `description`, `status`, and `io` are present and well-formed, so this
  * function reads them directly with no fallback synthesis.
  */
-export function buildPipeCardPayload(
-  node: PipeCallNode,
-  graphMode?: GraphSpecMode,
-): PipeCardPayload {
+export function buildPipeCardPayload(node: CardNode, graphMode?: GraphSpecMode): PipeCardPayload {
   const payload: PipeCardPayload = {
     pipeCode: node.pipe_code,
     pipeType: node.pipe_type,

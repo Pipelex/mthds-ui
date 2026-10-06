@@ -666,30 +666,13 @@ prompt = "Go"
   });
 });
 
-// ─── Unquoted dotted input names ─────────────────────────────────────────────
+// ─── Input slot tables ───────────────────────────────────────────────────────
 
-describe("unquoted dotted input names", () => {
-  const dotted = (key: string) => `
-domain = "d"
-[pipe.p]
-type = "PipeLLM"
-description = "P"
-inputs = { ${key} = "Text" }
-output = "Text"
-prompt = "Go"
-`;
-
-  it("names the quoting rule instead of blaming the slot form", () => {
-    const { diagnostics } = parseMthdsBundle(dotted("my_input.field_name"));
-    expect(diagnostics).toHaveLength(1);
-    expect(diagnostics[0].code).toBe("invalid-concept-ref");
-    expect(diagnostics[0].message).toContain("unquoted");
-    expect(diagnostics[0].message).toContain('"my_input.field_name"');
-  });
-
-  it("still reports a genuine unknown key, whose value is no concept code", () => {
-    // `textarea` cannot be a concept code (the standard pins them PascalCase),
-    // which is exactly what keeps this apart from the dotted-name case.
+describe("input slot tables", () => {
+  it("reports a slot table declaring an unknown key and no concept", () => {
+    // Also the shape TOML makes of an unquoted dotted name, which the
+    // standard no longer has: an input name is a plain name, and a field of an
+    // input is reached by a binding step.
     const { diagnostics } = parseMthdsBundle(`
 domain = "d"
 [pipe.p]

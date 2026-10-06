@@ -300,6 +300,103 @@ export function makeBatchSpec(iterationCount: number): GraphSpec {
   return finalizeSpec(nodes, edges);
 }
 
+/**
+ * Seq > [binding, Batch > Compose] — the shape a run gives a sequence step
+ * batching over a dotted path (`batch_over = "catalog.pages"`): a binding node
+ * reading the root and binding the list under a private name, then the batch
+ * over that name. Mirrors a real dry run of the corpus entry
+ * `feature_binding_step_batch_over_catalog_pages`, node for node.
+ */
+export function makeBindingSpec(): GraphSpec {
+  const nodes: GraphSpecNode[] = [
+    {
+      id: "seq",
+      kind: "controller",
+      status: "succeeded",
+      pipe_code: "index_catalog",
+      pipe_type: "PipeSequence",
+      io: {
+        inputs: [{ digest: "d_catalog", name: "catalog", concept: "Catalog" }],
+        outputs: [{ digest: "d_lines", name: "index_lines", concept: "Text", multiplicity: true }],
+      },
+    },
+    {
+      id: "bind",
+      kind: "binding",
+      status: "succeeded",
+      pipe_code: "catalog.pages",
+      pipe_type: "BindingStep",
+      description: "Binds 'catalog.pages' to '_bound_catalog_pages'",
+      io: {
+        inputs: [{ digest: "d_catalog", name: "catalog", concept: "Catalog" }],
+        outputs: [
+          {
+            digest: "d_pages",
+            name: "_bound_catalog_pages",
+            concept: "CatalogPage",
+            multiplicity: true,
+          },
+        ],
+      },
+      execution_data: { from: "catalog.pages", result: "_bound_catalog_pages" },
+    },
+    {
+      id: "batch",
+      kind: "controller",
+      status: "succeeded",
+      pipe_code: "write_index_line_batch",
+      pipe_type: "PipeBatch",
+      io: {
+        inputs: [
+          {
+            digest: "d_pages",
+            name: "_bound_catalog_pages",
+            concept: "CatalogPage",
+            multiplicity: true,
+          },
+        ],
+        outputs: [{ digest: "d_lines", name: "index_lines", concept: "Text", multiplicity: true }],
+      },
+    },
+    {
+      id: "compose",
+      kind: "operator",
+      status: "succeeded",
+      pipe_code: "write_index_line",
+      pipe_type: "PipeCompose",
+      io: {
+        inputs: [{ digest: "d_page", name: "page", concept: "CatalogPage" }],
+        outputs: [{ digest: "d_text", name: "text", concept: "Text" }],
+      },
+    },
+  ];
+  const edges: GraphSpecEdge[] = [
+    { id: "e_seq_bind", source: "seq", target: "bind", kind: "contains" },
+    { id: "e_seq_batch", source: "seq", target: "batch", kind: "contains" },
+    { id: "e_batch_compose", source: "batch", target: "compose", kind: "contains" },
+    { id: "e_data", source: "bind", target: "batch", kind: "data", label: "_bound_catalog_pages" },
+    {
+      id: "e_item",
+      source: "batch",
+      target: "compose",
+      kind: "batch_item",
+      source_stuff_digest: "d_pages",
+      target_stuff_digest: "d_page",
+      label: "[0]",
+    },
+    {
+      id: "e_agg",
+      source: "compose",
+      target: "batch",
+      kind: "batch_aggregate",
+      source_stuff_digest: "d_text",
+      target_stuff_digest: "d_lines",
+      label: "[0]",
+    },
+  ];
+  return finalizeSpec(nodes, edges);
+}
+
 /** N levels of nesting: Seq > Seq > ... > operator. */
 export function makeNestedSpec(depth: number): GraphSpec {
   const nodes: GraphSpecNode[] = [];

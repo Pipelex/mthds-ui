@@ -152,30 +152,6 @@ describe("buildStaticGraphSpec — PipeSequence", () => {
   });
 });
 
-// ─── Dotted-prefix input binding ─────────────────────────────────────────────
-
-const DOTTED = `
-domain = "dotted"
-main_pipe = "run_all"
-
-[concept.Profile]
-description = "A profile"
-
-[pipe.run_all]
-type = "PipeSequence"
-description = "Chain with dotted consumption"
-inputs = { profile = "Profile" }
-output = "Text"
-steps = [{ pipe = "use_name", result = "greeting" }]
-
-[pipe.use_name]
-type = "PipeLLM"
-description = "Consume a sub-path of profile"
-inputs = { "profile.name" = "Text" }
-output = "Text"
-prompt = "p"
-`;
-
 // ─── Input slot forms ────────────────────────────────────────────────────────
 //
 // The standard states the string form and the expanded form equivalent, so the
@@ -244,17 +220,6 @@ describe("buildStaticGraphSpec — input slot forms", () => {
       concept: { code: "Text", domain_code: "native" },
       presence: "optional",
     });
-  });
-});
-
-describe("buildStaticGraphSpec — dotted input names", () => {
-  it("satisfies a dotted input from a binding for its prefix", () => {
-    const { spec, diagnostics } = build(DOTTED);
-    expect(diagnostics).toEqual([]);
-    const consumer = nodeById(spec, "dotted.run_all/step_1");
-    // Bound to the "profile" scope entry, not a fresh dangling input.
-    expect(consumer.io.inputs[0].digest).toBe("input:profile");
-    expect(consumer.io.inputs[0].name).toBe("profile");
   });
 });
 

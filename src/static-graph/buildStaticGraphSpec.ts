@@ -10,29 +10,37 @@
 // digests as opaque unique keys, so the raw string — collision-free by
 // construction and readable in snapshots — is preferred over a hash.
 //
+// A sequence's binding step (`{ from = "invoice.total", result = "total" }`)
+// is a node of its own, of kind `binding`, as in a run graph: it reads the
+// root's stuff and produces the bound one, whose concept the binding walk
+// derives from declared structures (`bindingWalk.ts`).
+//
 // Everything is best-effort: unresolvable refs skip the child, cycles render
 // as leaves, dependency-alias refs (`alias->pipe`) render as opaque leaf
-// cards. This module never throws on content.
+// cards, and a path the walk cannot follow binds `native.Anything` with a
+// diagnostic. This module never throws on content.
 
 import type {
+  BindingStepSpec,
   ConceptInfo,
   GraphSpec,
   GraphSpecEdge,
   GraphSpecEdgeKind,
   GraphSpecNode,
   GraphSpecNodeIoItem,
+  NodePipeType,
   PipeBatchBlueprint,
   PipeBlueprintUnion,
   PipeConditionBlueprint,
   PipeParallelBlueprint,
   PipeSequenceBlueprint,
-  PipeType,
   StuffMultiplicity,
   StuffSpecInfo,
   SubPipeSpec,
 } from "@graph/types";
-import { isPluralMultiplicity } from "@graph/types";
+import { BINDING_STEP_TYPE, isBindingStepSpec, isPluralMultiplicity } from "@graph/types";
 
+import { deriveBinding } from "./bindingWalk";
 import { nativeConceptInfo } from "./conceptRefs";
 import { mergeBundles } from "./mergeBundles";
 import { parseMthdsBundle } from "./parseMthdsBundle";
@@ -209,7 +217,10 @@ function referencedPipeCodes(namespace: DomainNamespace): Set<string> {
   for (const pipe of Object.values(namespace.pipes)) {
     switch (pipe.type) {
       case "PipeSequence":
-        for (const sub of pipe.sequential_sub_pipes) add(sub.pipe_code);
+        for (const step of pipe.sequential_sub_pipes) {
+          // A binding step runs no pipe, so it references none.
+          if (!isBindingStepSpec(step)) add(step.pipe_code);
+        }
         break;
       case "PipeParallel":
         for (const sub of pipe.parallel_sub_pipes) add(sub.pipe_code);
@@ -383,21 +394,6 @@ function formatBatchMultiplicity(multiplicity: number | boolean | null | undefin
   return "x?";
 }
 
-/**
- * Working-memory name matching: exact name first, then dotted-prefix — an
- * input `a.b` is satisfied by a binding for `a`.
- */
-function lookupScope(scope: Scope, name: string): StuffRecord | undefined {
-  let candidate = name;
-  for (;;) {
-    const found = scope.get(candidate);
-    if (found !== undefined) return found;
-    const dot = candidate.lastIndexOf(".");
-    if (dot <= 0) return undefined;
-    candidate = candidate.slice(0, dot);
-  }
-}
-
 function conceptKey(concept: ConceptInfo): string {
   return `${concept.domain_code}.${concept.code}`;
 }
@@ -424,7 +420,7 @@ function bindInputs(
 ): GraphSpecNodeIoItem[] {
   const ioInputs: GraphSpecNodeIoItem[] = [];
   for (const [name, spec] of Object.entries(blueprint.inputs)) {
-    let bound = lookupScope(scope, name);
+    let bound = scope.get(name);
     if (bound === undefined) {
       bound = mintStuff(ctx, `input:${name}`, name, spec.concept, spec.multiplicity);
       scope.set(name, bound);
@@ -450,9 +446,9 @@ function emitNode(
   ctx: WalkCtx,
   args: {
     id: string;
-    kind: "controller" | "operator";
+    kind: "controller" | "operator" | "binding";
     pipeCode: string;
-    pipeType: PipeType;
+    pipeType: NodePipeType;
     description: string;
     domainCode: string;
     ioInputs: GraphSpecNodeIoItem[];
@@ -658,12 +654,23 @@ function finishSequence(
   inv: Invocation,
 ): WalkResult {
   let lastOutput: StuffRecord | null = null;
+  // Steps are numbered as the runtime holds them, so a dotted `batch_over`,
+  // held as a binding then the batch, takes two numbers.
   blueprint.sequential_sub_pipes.forEach((sub, index) => {
+    const stepId = `${nodeId}/step_${index + 1}`;
+    if (isBindingStepSpec(sub)) {
+      // A binding stores its result as the main stuff, so a sequence ending
+      // with one outputs what it binds.
+      const bound = walkBindingStep(ctx, sub, blueprint, stepId, nodeId, scope);
+      scope.set(sub.output_name, bound);
+      lastOutput = bound;
+      return;
+    }
     const result = walkSubPipe(
       ctx,
       sub,
       blueprint.domain_code,
-      `${nodeId}/step_${index + 1}`,
+      stepId,
       nodeId,
       scope,
       inv.outputMultiplicity,
@@ -680,6 +687,72 @@ function finishSequence(
   // producer (the UI only takes producers from non-controller nodes).
   node.io.outputs = lastOutput === null ? [] : [ioItem(lastOutput, inv.resultName)];
   return { nodeId, output: lastOutput, eachOutputs: [] };
+}
+
+/**
+ * Emit a binding step's node: it reads its root's stuff and produces the
+ * bound one, named by the step's `result` and typed by the binding walk —
+ * the shape a run graph gives a binding (`kind: "binding"`, `pipe_type:
+ * "BindingStep"`, the `from` path as its `pipe_code`, `{ from, result }` as its
+ * execution data). A root nothing in scope holds is a dangling input, as for
+ * any unbound name; a path the walk cannot follow binds `native.Anything` and
+ * is reported.
+ */
+function walkBindingStep(
+  ctx: WalkCtx,
+  step: BindingStepSpec,
+  sequence: PipeSequenceBlueprint,
+  nodeId: string,
+  parentId: string,
+  scope: Scope,
+): StuffRecord {
+  const rootName = step.from_path.split(".")[0];
+  let root = scope.get(rootName);
+  if (root === undefined) {
+    root = mintStuff(ctx, `input:${rootName}`, rootName, nativeConceptInfo("Anything"), null);
+    scope.set(rootName, root);
+  }
+  const node = emitNode(ctx, {
+    id: nodeId,
+    kind: "binding",
+    pipeCode: step.from_path,
+    pipeType: BINDING_STEP_TYPE,
+    description: `Binds '${step.from_path}' to '${step.output_name}'`,
+    domainCode: sequence.domain_code,
+    ioInputs: [ioItem(root, rootName)],
+    parentId,
+    inv: { resultName: step.output_name, outputMultiplicity: null },
+  });
+  node.execution_data = { from: step.from_path, result: step.output_name };
+
+  const derivation = deriveBinding(ctx.set, step.from_path, {
+    concept: root.concept,
+    multiplicity: root.multiplicity,
+  });
+  let concept: ConceptInfo;
+  let multiplicity: StuffMultiplicity;
+  if (derivation.kind === "derived") {
+    ({ concept, multiplicity } = derivation);
+  } else {
+    ctx.diagnostics.push({
+      severity: "warning",
+      code: "binding-path-unresolved",
+      message: `pipe "${sequence.code}": ${derivation.reason} — bound as native.Anything`,
+      path: nodeId,
+      domain_code: sequence.domain_code,
+    });
+    concept = nativeConceptInfo("Anything");
+    multiplicity = isPluralMultiplicity(root.multiplicity) ? true : null;
+  }
+  const output = mintStuff(
+    ctx,
+    `${nodeId}:${step.output_name}`,
+    step.output_name,
+    concept,
+    multiplicity,
+  );
+  node.io.outputs = [ioItem(output)];
+  return output;
 }
 
 function finishParallel(
@@ -883,7 +956,7 @@ function finishBatch(
 
   let listStuff: StuffRecord | null = null;
   if (params.input_list_stuff_name !== "") {
-    const bound = lookupScope(scope, params.input_list_stuff_name);
+    const bound = scope.get(params.input_list_stuff_name);
     if (bound !== undefined) {
       listStuff = bound;
     } else {
@@ -974,7 +1047,7 @@ function walkInlineBatch(
   const branchResolution = resolvePipeRef(ctx.set, sub.pipe_code, domain);
   const branchBlueprint = branchResolution.kind === "resolved" ? branchResolution.blueprint : null;
 
-  const listBinding = lookupScope(scope, params.input_list_stuff_name);
+  const listBinding = scope.get(params.input_list_stuff_name);
   const listConcept =
     listBinding?.concept ??
     branchBlueprint?.inputs[params.input_item_stuff_name]?.concept ??

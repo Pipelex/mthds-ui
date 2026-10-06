@@ -9,6 +9,8 @@ export type PipeOperatorType =
   | "PipeSearch"
   | "PipeFunc"
   | "PipeStructure" // turns Text into a structured concept via an LLM
+  | "PipeJudge" // asks a judging model one closed question, answered as a verdict native
+  | "PipeDocGen" // lays its inputs out as a stored document file, calling no AI model
   | "PipeSignature"; // contract-only stub — emitted under `--allow-signatures`
 
 export type PipeControllerType = "PipeSequence" | "PipeParallel" | "PipeCondition" | "PipeBatch";
@@ -27,6 +29,8 @@ const PIPE_TYPE_PRESENCE: Record<PipeType, true> = {
   PipeSearch: true,
   PipeFunc: true,
   PipeStructure: true,
+  PipeJudge: true,
+  PipeDocGen: true,
   PipeSignature: true,
   PipeSequence: true,
   PipeParallel: true,
@@ -36,6 +40,19 @@ const PIPE_TYPE_PRESENCE: Record<PipeType, true> = {
 
 /** Every pipe class name pipelex emits as `pipe_type`. Used by validateGraphSpec. */
 export const KNOWN_PIPE_TYPES: ReadonlySet<string> = new Set(Object.keys(PIPE_TYPE_PRESENCE));
+
+/**
+ * The `pipe_type` of a binding node. A PipeSequence's binding step
+ * (`{ from = "invoice.total", result = "total_amount" }`) runs no pipe, so the
+ * class it carries is not a pipe class: pipelex writes `BindingStep` beside the
+ * `binding` node kind, and the node's `pipe_code` is the step's `from` path.
+ */
+export const BINDING_STEP_TYPE = "BindingStep" as const;
+
+export type BindingStepType = typeof BINDING_STEP_TYPE;
+
+/** What a GraphSpec node's `pipe_type` names: a pipe class, or the binding step that runs none. */
+export type NodePipeType = PipeType | BindingStepType;
 
 export type PipeStatus = "succeeded" | "failed" | "running" | "scheduled" | "skipped" | "canceled";
 
@@ -139,7 +156,9 @@ export type NodeKind =
   | "input"
   | "output"
   | "artifact"
-  | "error";
+  | "error"
+  // A PipeSequence binding step: it runs no pipe, and produces the stuff it binds from a path in working memory.
+  | "binding";
 
 export interface GraphSpecNodeTiming {
   started_at: string;
@@ -249,7 +268,7 @@ export interface GraphSpecNode {
   id: string;
   kind: NodeKind;
   pipe_code?: string;
-  pipe_type: PipeType;
+  pipe_type: NodePipeType;
   description?: string;
   domain_code?: string;
   status: PipeStatus;
@@ -263,15 +282,36 @@ export interface GraphSpecNode {
 }
 
 /**
- * A pipe-call node — the only node kind a real pipelex run emits. Narrowed
- * from `GraphSpecNode` for code paths that only ever render pipe-call nodes,
- * where `pipe_code` is guaranteed (validateGraphSpec enforces this).
+ * A pipe-call node: a controller or an operator. Narrowed from `GraphSpecNode`
+ * for code paths that only ever render pipe-call nodes, where `pipe_code` is
+ * guaranteed (validateGraphSpec enforces this).
  */
 export type PipeCallNode = GraphSpecNode & {
   kind: "controller" | "operator";
   pipe_code: string;
   pipe_type: PipeType;
 };
+
+/**
+ * A binding node: a PipeSequence's binding step, which runs no pipe. Its
+ * `pipe_code` is the step's `from` path (`invoice.total`), its one input the
+ * root the path starts from, and its one output the stuff it binds, under the
+ * step's `result`. A binding that bound nothing, because the path held nothing,
+ * has no output. It is never a controller: nothing is contained in it.
+ */
+export type BindingNode = GraphSpecNode & {
+  kind: "binding";
+  pipe_code: string;
+  pipe_type: BindingStepType;
+};
+
+/** A node the graph draws as a card: a pipe-call node or a binding node. */
+export type CardNode = PipeCallNode | BindingNode;
+
+/** Whether a node is a binding step's node. */
+export function isBindingNode(node: Pick<GraphSpecNode, "kind">): boolean {
+  return node.kind === "binding";
+}
 
 export type GraphSpecEdgeKind =
   | "contains"
@@ -348,6 +388,27 @@ export interface SubPipeSpec {
   output_name?: string | null;
   output_multiplicity?: string | number | boolean | null;
   batch_params?: { input_list_stuff_name: string; input_item_stuff_name: string } | null;
+}
+
+/**
+ * A PipeSequence binding step, as the runtime holds it and the registry
+ * serializes it: the value at `from_path` stored under `output_name`. A step
+ * whose `batch_over` is a dotted path is held as such a binding, under a
+ * private `_bound_…` name and with `is_dotted_batch_over` set, followed by the
+ * same pipe step batching over that name.
+ */
+export interface BindingStepSpec {
+  from_path: string;
+  output_name: string;
+  is_dotted_batch_over?: boolean;
+}
+
+/** One step of a PipeSequence: a pipe step, or a binding step. */
+export type SequenceStepSpec = SubPipeSpec | BindingStepSpec;
+
+/** Whether a sequence step is a binding step, which carries a `from_path` and runs no pipe. */
+export function isBindingStepSpec(step: SequenceStepSpec): step is BindingStepSpec {
+  return "from_path" in step;
 }
 
 // ─── PipeAbstract base (common to all pipe types) ──────────────────────
@@ -500,6 +561,53 @@ export interface PipeStructureBlueprint extends PipeBlueprintBase {
 }
 
 /**
+ * The question a PipeJudge asks, as the runtime serializes it. Its `kind`
+ * decides the verdict native the judge answers with: `yes_no` → `YesNo`,
+ * `choice` → `Choice`, `rating` → `Rating`. `instructions` is the authored
+ * question, still a template.
+ */
+export interface JudgmentQuestionSpec {
+  kind: "yes_no" | "choice" | "rating";
+  instructions: string;
+  yes_criterion?: string | null;
+  no_criterion?: string | null;
+  options?: Record<string, string | null> | null;
+  levels?: string[] | null;
+}
+
+/**
+ * A PipeJudge: asks a judging model one closed question about its inputs and
+ * stores the verdict native it answers with. Serialized from the runtime
+ * `PipeJudge`.
+ */
+export interface PipeJudgeBlueprint extends PipeBlueprintBase {
+  type: "PipeJudge";
+  /** The judging model, a handle or an inline setting, or null for the deck's default. */
+  judgment_choice?: string | Record<string, unknown> | null;
+  judgment_question: JudgmentQuestionSpec;
+  /** The probability a yes/no verdict must reach to read as yes, when the pipe declares one. */
+  threshold?: number | null;
+}
+
+/**
+ * A PipeDocGen: lays its inputs out as a stored document file, in the declared
+ * format, and calls no AI model. Serialized from the runtime `PipeDocGen`.
+ */
+export interface PipeDocGenBlueprint extends PipeBlueprintBase {
+  type: "PipeDocGen";
+  /** `pdf`, `html`, `xlsx` or `docx`. */
+  doc_gen_format: string;
+  /** The engine the step names, or null for the deck's default. */
+  doc_gen_choice?: string | Record<string, unknown> | null;
+  /** The HTML template of a pdf step, inline or read from its template file. */
+  template?: string | null;
+  /** The template file as the method names it. */
+  template_file?: string | null;
+  /** The file name the document is stored under, a template. */
+  filename?: string | null;
+}
+
+/**
  * A contract-only pipe: declares inputs + output but has no implementation.
  * Emitted under `--allow-signatures` so an in-progress bundle still validates
  * (dry-run mocks the declared output) before every referenced pipe is built.
@@ -521,7 +629,8 @@ export interface PipeSignatureBlueprint extends Omit<PipeBlueprintBase, "pipe_ca
 
 export interface PipeSequenceBlueprint extends PipeBlueprintBase {
   type: "PipeSequence";
-  sequential_sub_pipes: SubPipeSpec[];
+  /** Pipe steps and binding steps, in order — a dotted `batch_over` held as a binding then a batch. */
+  sequential_sub_pipes: SequenceStepSpec[];
 }
 
 export interface PipeParallelBlueprint extends PipeBlueprintBase {
@@ -564,6 +673,8 @@ export type PipeBlueprintUnion =
   | PipeSearchBlueprint
   | PipeFuncBlueprint
   | PipeStructureBlueprint
+  | PipeJudgeBlueprint
+  | PipeDocGenBlueprint
   | PipeSignatureBlueprint
   | PipeSequenceBlueprint
   | PipeParallelBlueprint
@@ -872,7 +983,7 @@ export interface FoldToggleOptions {
 
 export interface PipeCardPayload {
   pipeCode: string;
-  pipeType: PipeType;
+  pipeType: NodePipeType;
   description?: string;
   status: PipeStatus;
   graphMode?: GraphSpecMode;
@@ -904,7 +1015,7 @@ export interface GraphNodeData extends Record<string, unknown> {
   isController?: boolean;
   labelText: string;
   pipeCode?: string;
-  pipeType?: PipeType;
+  pipeType?: NodePipeType;
   graphMode?: GraphSpecMode;
   pipeCardData?: PipeCardPayload;
   /** For stuff nodes: "input" (no producer), "output" (no consumer), or undefined (intermediate). */

@@ -4,13 +4,16 @@ import type {
   PipeBatchBlueprint,
   PipeComposeBlueprint,
   PipeConditionBlueprint,
+  PipeDocGenBlueprint,
   PipeExtractBlueprint,
   PipeImgGenBlueprint,
+  PipeJudgeBlueprint,
   PipeLLMBlueprint,
   PipeParallelBlueprint,
   PipeSequenceBlueprint,
   PipeSignatureBlueprint,
   PipeStructureBlueprint,
+  SubPipeSpec,
 } from "@graph/types";
 
 import { parseMthdsBundle } from "../parseMthdsBundle";
@@ -86,9 +89,11 @@ describe("parseMthdsBundle — happy path", () => {
       structure_class_name: "screening__Profile",
       refines: null,
     });
+    // `notes` is the shorthand `notes = "Free-form notes"`, a required text
+    // field as the runtime reads it.
     expect(profile.json_schema).toMatchObject({
       type: "object",
-      required: ["name"],
+      required: ["name", "notes"],
     });
     const properties = profile.json_schema?.properties as Record<string, Record<string, unknown>>;
     expect(properties.name).toMatchObject({ type: "string", description: "Full name" });
@@ -456,19 +461,19 @@ prompt = "Go"
     );
   });
 
-  it("keeps quoted dotted input names verbatim and skips nested-table inputs", () => {
+  it("skips an input whose value is neither a concept ref nor a slot table", () => {
     const { bundle, diagnostics } = parseMthdsBundle(`
 domain = "d"
 [pipe.uses_path]
 type = "PipeLLM"
-description = "Reads a sub-path"
-inputs = { "doc.title" = "Text", broken = 42 }
+description = "Reads a document"
+inputs = { doc = "Text", broken = 42 }
 output = "Text"
 prompt = "Go"
 `);
     const pipe = bundle.pipes.uses_path as PipeLLMBlueprint;
-    expect(Object.keys(pipe.inputs)).toEqual(["doc.title"]);
-    expect(pipe.inputs["doc.title"].concept.code).toBe("Text");
+    expect(Object.keys(pipe.inputs)).toEqual(["doc"]);
+    expect(pipe.inputs.doc.concept.code).toBe("Text");
     expect(diagnostics).toContainEqual(
       expect.objectContaining({
         code: "invalid-concept-ref",
@@ -489,8 +494,9 @@ steps = [
 ]
 `);
     const sequence = bundle.pipes.seq as PipeSequenceBlueprint;
-    expect(sequence.sequential_sub_pipes[0].batch_params).toBeNull();
-    expect(sequence.sequential_sub_pipes[0].output_multiplicity).toBeNull();
+    const step = sequence.sequential_sub_pipes[0] as SubPipeSpec;
+    expect(step.batch_params).toBeNull();
+    expect(step.output_multiplicity).toBeNull();
     expect(diagnostics).toContainEqual(expect.objectContaining({ code: "incomplete-batch-spec" }));
   });
 
@@ -507,7 +513,9 @@ steps = [
 ]
 `);
     const sequence = bundle.pipes.seq as PipeSequenceBlueprint;
-    expect(sequence.sequential_sub_pipes.map((sub) => sub.pipe_code)).toEqual(["real"]);
+    expect(sequence.sequential_sub_pipes).toEqual([
+      expect.objectContaining({ pipe_code: "real", output_name: "ok" }),
+    ]);
     expect(diagnostics).toContainEqual(expect.objectContaining({ code: "invalid-sub-pipe" }));
   });
 
@@ -551,6 +559,90 @@ Quick = "A quick concept"
       code: "Quick",
       description: "A quick concept",
       structure_class_name: "d__Quick",
+    });
+  });
+});
+
+describe("parseMthdsBundle — PipeJudge and PipeDocGen", () => {
+  const judge = (body: string) => {
+    const { bundle, diagnostics } = parseMthdsBundle(`
+domain = "d"
+[pipe.judge]
+type = "PipeJudge"
+description = "Judges"
+inputs = { message = "Text" }
+${body}
+`);
+    expect(diagnostics).toEqual([]);
+    return bundle.pipes.judge as PipeJudgeBlueprint;
+  };
+
+  it("reads a yes/no judge with its criteria, model and threshold", () => {
+    const pipe = judge(`output = "YesNo"
+question = "Does it need an answer today?"
+criteria = { yes = "It asks for a reply today", no = "It can wait" }
+model = "@default-judgment"
+threshold = 0.7`);
+    expect(pipe).toMatchObject({
+      type: "PipeJudge",
+      pipe_category: "PipeOperator",
+      judgment_choice: "@default-judgment",
+      threshold: 0.7,
+      judgment_question: {
+        kind: "yes_no",
+        instructions: "Does it need an answer today?",
+        yes_criterion: "It asks for a reply today",
+        no_criterion: "It can wait",
+      },
+    });
+    expect(pipe.output.concept).toMatchObject({ code: "YesNo", domain_code: "native" });
+  });
+
+  it("reads a choice judge off its options, and prompt as question", () => {
+    const pipe = judge(`output = "Choice"
+prompt = "Which team handles it?"
+options = { billing = "Money matters", support = "Everything else" }`);
+    expect(pipe.judgment_question).toEqual({
+      kind: "choice",
+      instructions: "Which team handles it?",
+      options: { billing: "Money matters", support: "Everything else" },
+    });
+    expect(pipe.judgment_choice).toBeNull();
+    expect(pipe.threshold).toBeNull();
+  });
+
+  it("reads a rating judge off its levels", () => {
+    const pipe = judge(`output = "Rating"
+question = "How bad is the damage?"
+levels = ["none", "light", "severe"]`);
+    expect(pipe.judgment_question).toEqual({
+      kind: "rating",
+      instructions: "How bad is the damage?",
+      levels: ["none", "light", "severe"],
+    });
+  });
+
+  it("reads a document generation step", () => {
+    const { bundle, diagnostics } = parseMthdsBundle(`
+domain = "d"
+[pipe.print_notice]
+type = "PipeDocGen"
+description = "Prints the notice"
+inputs = { notice = "Text" }
+output = "Document"
+format = "pdf"
+template = "<h1>{{ notice.text }}</h1>"
+filename = "notice.pdf"
+`);
+    expect(diagnostics).toEqual([]);
+    expect(bundle.pipes.print_notice as PipeDocGenBlueprint).toMatchObject({
+      type: "PipeDocGen",
+      pipe_category: "PipeOperator",
+      doc_gen_format: "pdf",
+      doc_gen_choice: null,
+      template: "<h1>{{ notice.text }}</h1>",
+      template_file: null,
+      filename: "notice.pdf",
     });
   });
 });

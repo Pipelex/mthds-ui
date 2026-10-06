@@ -26,10 +26,12 @@
 
 import { readFileSync } from "node:fs";
 
+import type { PipeSequenceBlueprint } from "@graph/types";
+import { isBindingNode, isBindingStepSpec } from "@graph/types";
 import { validateGraphSpec } from "@graph/validateGraphSpec";
 import { describe, expect, it } from "vitest";
 
-import { fixtureBundleCases } from "./fixtureBundles";
+import { corpusCasesCovering, fixtureBundleCases } from "./fixtureBundles";
 
 import { buildStaticGraphSpecFromToml } from "../buildStaticGraphSpec";
 
@@ -49,4 +51,43 @@ describe("buildStaticGraphSpecFromToml on fixture bundles", () => {
     const again = buildStaticGraphSpecFromToml(tomls).spec;
     expect(again).toEqual(spec);
   });
+});
+
+// Zero diagnostics says the builder understood every binding step; it does not
+// say the steps were drawn. So the entries covering binding steps are asked
+// that too: every sequence the walk reaches draws one binding node per binding
+// step it holds — a dotted `batch_over` among them — and each binds a value
+// whose concept the walk derived.
+describe("binding steps in the corpus", () => {
+  it.each(corpusCasesCovering("feature.binding_step"))(
+    "draws every binding step of %s",
+    (_name, bundlePaths) => {
+      const tomls = bundlePaths.map((bundlePath) => readFileSync(bundlePath, "utf8"));
+      const { spec } = buildStaticGraphSpecFromToml(tomls);
+
+      const bindings = spec.nodes.filter(isBindingNode);
+      expect(bindings.length).toBeGreaterThan(0);
+      for (const sequence of spec.nodes.filter((node) => node.pipe_type === "PipeSequence")) {
+        const blueprint = spec.pipe_registry?.[
+          `${sequence.domain_code}.${sequence.pipe_code}`
+        ] as PipeSequenceBlueprint;
+        const children = new Set(
+          spec.edges
+            .filter((edge) => edge.kind === "contains" && edge.source === sequence.id)
+            .map((edge) => edge.target),
+        );
+        expect(bindings.filter((node) => children.has(node.id))).toHaveLength(
+          blueprint.sequential_sub_pipes.filter(isBindingStepSpec).length,
+        );
+      }
+      for (const binding of bindings) {
+        expect(binding.io.inputs).toHaveLength(1);
+        expect(binding.io.outputs).toHaveLength(1);
+        expect(binding.execution_data).toEqual({
+          from: binding.pipe_code,
+          result: binding.io.outputs[0].name,
+        });
+      }
+    },
+  );
 });

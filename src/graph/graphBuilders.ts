@@ -8,7 +8,7 @@ import {
   stuffNodeId,
 } from "./types";
 import { buildDataflowAnalysis, buildChildToControllerMap } from "./graphAnalysis";
-import { asPipeCallNode } from "./validateGraphSpec";
+import { asCardNode } from "./validateGraphSpec";
 import { buildPipeCardPayload } from "./pipeCardPayload";
 
 const STUFF_CHAR_WIDTH_PX = 7;
@@ -47,12 +47,14 @@ export function buildDataflowGraph(
     }
   }
 
-  // Create pipe nodes (only those that participate in data flow)
+  // Create pipe nodes (only those that participate in data flow). A binding
+  // node participates like an operator — it reads its root and produces what it
+  // binds — so it is drawn as a card too, which says it binds rather than runs.
   for (const node of graphspec.nodes) {
     if (!participatingPipes.has(node.id)) continue;
-    // A participating pipe is always a pipe-call node; this guard turns a
-    // malformed spec into a loud, greppable error rather than a bare TypeError.
-    const pipeNode = asPipeCallNode(node, `nodes[${node.id}]`);
+    // A participating node is always a pipe-call or binding node; this guard
+    // turns a malformed spec into a loud, greppable error rather than a bare TypeError.
+    const pipeNode = asCardNode(node, `nodes[${node.id}]`);
 
     const isFailed = pipeNode.status === "failed";
     const label = pipeNode.pipe_code;

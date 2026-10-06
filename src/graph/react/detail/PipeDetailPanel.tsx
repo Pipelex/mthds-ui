@@ -2,15 +2,16 @@ import React from "react";
 import type {
   GraphSpecModelUsage,
   GraphSpecNode,
+  NodePipeType,
   PipeBlueprintUnion,
-  PipeType,
   GraphSpec,
 } from "@graph/types";
-import { isDryGraphSpec, isStaticGraphSpec, multiplicitySuffix } from "@graph/types";
+import { isBindingNode, isDryGraphSpec, isStaticGraphSpec, multiplicitySuffix } from "@graph/types";
 import { getPipeBlueprint } from "@graph/graphAnalysis";
 import {
   formatDuration,
   KV,
+  BindingStepSection,
   PipeLLMSection,
   PipeImgGenSection,
   PipeExtractSection,
@@ -29,7 +30,7 @@ import "./DetailPanel.css";
 
 // ─── Badge / Status config ─────────────────────────────────────────────
 
-const PIPE_TYPE_BADGES: Record<PipeType, string> = {
+const PIPE_TYPE_BADGES: Record<NodePipeType, string> = {
   PipeLLM: "LLM",
   PipeExtract: "Extract",
   PipeCompose: "Compose",
@@ -37,11 +38,14 @@ const PIPE_TYPE_BADGES: Record<PipeType, string> = {
   PipeSearch: "Search",
   PipeFunc: "Func",
   PipeStructure: "Structure",
+  PipeJudge: "Judge",
+  PipeDocGen: "DocGen",
   PipeSignature: "Signature",
   PipeSequence: "Seq",
   PipeParallel: "Par",
   PipeCondition: "Cond",
   PipeBatch: "Batch",
+  BindingStep: "Binding",
 };
 
 const CONTROLLER_TYPES = new Set<string>([
@@ -73,6 +77,9 @@ export interface PipeDetailPanelProps {
 export function PipeDetailPanel({ node, spec, onConceptClick }: PipeDetailPanelProps) {
   const pipeType = node.pipe_type;
   const isController = CONTROLLER_TYPES.has(pipeType);
+  // A binding step runs no pipe, so the registry holds no blueprint for it: its
+  // own section says what it binds, and no "Blueprint not available" is shown.
+  const isBinding = isBindingNode(node);
   const isStatic = isStaticGraphSpec(spec);
   const showsGeneratedData = !isStatic && !isDryGraphSpec(spec);
   const badge = PIPE_TYPE_BADGES[pipeType];
@@ -82,7 +89,7 @@ export function PipeDetailPanel({ node, spec, onConceptClick }: PipeDetailPanelP
   // Look up the full blueprint from registry — search by pipe_code suffix since
   // the registry key is domain.pipe_code and the node only has pipe_code
   const blueprint = React.useMemo(() => {
-    if (!node.pipe_code || !spec.pipe_registry) return undefined;
+    if (isBinding || !node.pipe_code || !spec.pipe_registry) return undefined;
     // Direct lookup with pipeline domain
     const directKey = `${spec.pipeline_ref?.domain ?? ""}.${node.pipe_code}`;
     const direct = getPipeBlueprint(spec, directKey);
@@ -92,7 +99,7 @@ export function PipeDetailPanel({ node, spec, onConceptClick }: PipeDetailPanelP
       if (ref.endsWith(`.${node.pipe_code}`)) return pipe;
     }
     return undefined;
-  }, [node.pipe_code, spec]);
+  }, [isBinding, node.pipe_code, spec]);
 
   const [usageExpanded, setUsageExpanded] = React.useState(false);
 
@@ -203,6 +210,9 @@ export function PipeDetailPanel({ node, spec, onConceptClick }: PipeDetailPanelP
         )}
       </div>
 
+      {/* What a binding step binds — structural, so shown in every mode */}
+      {isBinding && <BindingStepSection node={node} />}
+
       {/* Blueprint-specific sections */}
       {blueprint && (
         <BlueprintSection
@@ -218,14 +228,17 @@ export function PipeDetailPanel({ node, spec, onConceptClick }: PipeDetailPanelP
         />
       )}
 
-      {/* Execution data (runtime-resolved values) */}
-      {showsGeneratedData && node.execution_data && Object.keys(node.execution_data).length > 0 && (
-        <ExecutionDataSection
-          executionData={node.execution_data}
-          pipeType={pipeType}
-          hasBlueprint={!!blueprint}
-        />
-      )}
+      {/* Execution data (runtime-resolved values) — a binding's is its section above */}
+      {showsGeneratedData &&
+        !isBinding &&
+        node.execution_data &&
+        Object.keys(node.execution_data).length > 0 && (
+          <ExecutionDataSection
+            executionData={node.execution_data}
+            pipeType={pipeType}
+            hasBlueprint={!!blueprint}
+          />
+        )}
 
       {/* Error */}
       {node.error && (
@@ -266,7 +279,9 @@ export function PipeDetailPanel({ node, spec, onConceptClick }: PipeDetailPanelP
       )}
 
       {/* Blueprint not available */}
-      {!blueprint && <div className="detail-not-available">Blueprint not available</div>}
+      {!blueprint && !isBinding && (
+        <div className="detail-not-available">Blueprint not available</div>
+      )}
     </>
   );
 }
