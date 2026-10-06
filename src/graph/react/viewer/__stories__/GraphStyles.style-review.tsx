@@ -18,7 +18,13 @@ import type { GraphSpecMode, GraphStyleId, ToolbarPosition } from "@graph/types"
 import { TOOLBAR_POSITION } from "@graph/types";
 import { identifierTokens } from "@graph/styles/styleMetrics";
 import { StyleReview } from "./StyleReview";
-import { REVIEW_FIXTURE_IDS, REVIEW_SUBSET, type ReviewFixtureId } from "./styleReviewFixtures";
+import {
+  REALISTIC_FIXTURES,
+  REVIEW_FIXTURES,
+  REVIEW_FIXTURE_IDS,
+  REVIEW_SUBSET,
+  type ReviewFixtureId,
+} from "./styleReviewFixtures";
 
 declare const __STYLE_REVIEW_DIR__: string;
 declare const __STYLE_REVIEW_STYLES__: string;
@@ -178,6 +184,19 @@ function measure(target: HTMLElement, c: Capture) {
 }
 
 describe("graph styles review capture", () => {
+  // What the contact sheet lays out: the review set in order, with each fixture's group.
+  it("writes the review set's manifest", async () => {
+    const fixtures = REVIEW_FIXTURE_IDS.map((id) => ({
+      id,
+      label: REVIEW_FIXTURES[id].label,
+      group: REVIEW_FIXTURES[id].group,
+    }));
+    await commands.writeFile(
+      `${__STYLE_REVIEW_DIR__}/manifest.json`,
+      JSON.stringify({ fixtures, realistic: REALISTIC_FIXTURES }, null, 2),
+    );
+  });
+
   for (const c of captures()) {
     it(`${c.graphStyle} ${captureName(c)}`, async () => {
       container = document.createElement("div");
