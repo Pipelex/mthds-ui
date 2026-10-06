@@ -188,12 +188,7 @@ export function simpleStepSize(
   let width = SIMPLE_STEP_WIDTH;
   let wrap = simpleTitleWrap(title);
   if (wrap.clamped) {
-    const wide = estimateWrap(
-      title,
-      stepTitleWidth(SIMPLE_STEP_WIDE_WIDTH),
-      SIMPLE_STEP_TITLE_FONT_PX,
-      SIMPLE_TITLE_MAX_LINES,
-    );
+    const wide = simpleTitleWrap(title, SIMPLE_STEP_WIDE_WIDTH);
     // Only a title the wider box saves takes it: one cut either way is cut
     // at the narrow width, which keeps the drawing compact.
     if (!wide.clamped) {
@@ -258,11 +253,14 @@ export function simpleDecisionSize(title: string): { width: number; height: numb
   return { width, height };
 }
 
-/** How a step title wraps at the default box width: what the readability rubric checks. */
-export function simpleTitleWrap(title: string) {
+/**
+ * How a step title wraps in a box of a width (the default box unless given):
+ * what the readability rubric checks, at the width the step is drawn at.
+ */
+export function simpleTitleWrap(title: string, boxWidth: number = SIMPLE_STEP_WIDTH) {
   return estimateWrap(
     title,
-    stepTitleWidth(SIMPLE_STEP_WIDTH),
+    stepTitleWidth(boxWidth),
     SIMPLE_STEP_TITLE_FONT_PX,
     SIMPLE_TITLE_MAX_LINES,
   );

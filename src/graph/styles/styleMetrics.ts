@@ -70,7 +70,7 @@ export function simpleCanvasTexts(
 
 // ─── Geometry ───────────────────────────────────────────────────────────────
 
-interface Rect {
+export interface Rect {
   x: number;
   y: number;
   width: number;
@@ -178,15 +178,18 @@ export function countCrossings(
   return crossings;
 }
 
-/** The drawing's bounding box, groups included. */
-export function boundingBox(nodes: readonly GraphNode[]): Rect {
-  if (nodes.length === 0) return { x: 0, y: 0, width: 0, height: 0 };
+/**
+ * The drawing's bounding box: the nodes', and the rectangles of the groups
+ * drawn around them, which the layout returns apart from the nodes.
+ */
+export function boundingBox(nodes: readonly GraphNode[], groups: readonly Rect[] = []): Rect {
+  const rects = [...nodes.map(rectOf), ...groups];
+  if (rects.length === 0) return { x: 0, y: 0, width: 0, height: 0 };
   let minX = Infinity;
   let minY = Infinity;
   let maxX = -Infinity;
   let maxY = -Infinity;
-  for (const node of nodes) {
-    const r = rectOf(node);
+  for (const r of rects) {
     minX = Math.min(minX, r.x);
     minY = Math.min(minY, r.y);
     maxX = Math.max(maxX, r.x + r.width);
@@ -268,7 +271,7 @@ export interface StyleMetrics {
   counts: NodeCounts;
   /** Canvas texts that read as code (R1), each with its offending words. */
   identifierTexts: { text: string; tokens: string[] }[];
-  /** The step titles estimated to wrap past three lines at the default width (R3). */
+  /** The step titles estimated to wrap past three lines at the width they are drawn at (R3). */
   overlongTitles: { title: string; lines: number }[];
   /** The longest step title, and the lines it is estimated to wrap to. */
   longestTitle: { title: string; lines: number } | null;
@@ -282,26 +285,30 @@ export interface StyleMetrics {
 
 /**
  * Measure a laid-out drawing (positions absolute, as the layout returns them,
- * before frames make children relative). Text checks read the simple style's
+ * before frames make children relative), with the rectangles of its groups
+ * (the layout's `controllerPositions`). Text checks read the simple style's
  * payloads; geometry reads any style.
  */
 export function styleMetrics(
   nodes: readonly GraphNode[],
   edges: readonly GraphEdge[],
   direction: GraphDirection,
+  groups: readonly Rect[] = [],
 ): StyleMetrics {
   const identifierTexts = simpleCanvasTexts(nodes, edges)
     .map((text) => ({ text, tokens: identifierTokens(text) }))
     .filter((t) => t.tokens.length > 0);
   const titles = nodes
     .filter((n) => n.data.simple?.kind === "step")
-    .map((n) => n.data.simple?.title ?? "")
-    .map((title) => ({ title, lines: simpleTitleWrap(title).lines }));
+    .map((n) => {
+      const title = n.data.simple?.title ?? "";
+      return { title, lines: simpleTitleWrap(title, n.data.layoutSize?.width).lines };
+    });
   const longestTitle = titles.reduce<{ title: string; lines: number } | null>(
     (longest, t) => (!longest || t.title.length > longest.title.length ? t : longest),
     null,
   );
-  const box = boundingBox(nodes);
+  const box = boundingBox(nodes, groups);
   return {
     counts: countNodes(nodes),
     identifierTexts,
