@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { parseConceptRef, parseInputSlot } from "../conceptRefs";
+import { parseConceptRef, parseInputSlot, unquotedDottedInputNames } from "../conceptRefs";
 
 describe("parseConceptRef", () => {
   it("parses a bare concept code", () => {
@@ -125,7 +125,6 @@ describe("parseInputSlot", () => {
       ref: parseConceptRef("recruitment.CandidateProfile[]?"),
       missingConcept: false,
       unknownKeys: [],
-      dottedName: false,
     });
   });
 
@@ -134,7 +133,6 @@ describe("parseInputSlot", () => {
       ref: parseConceptRef("Text"),
       missingConcept: false,
       unknownKeys: [],
-      dottedName: false,
     });
   });
 
@@ -158,7 +156,6 @@ describe("parseInputSlot", () => {
       ref: parseConceptRef("Text"),
       missingConcept: false,
       unknownKeys: [],
-      dottedName: false,
     });
   });
 
@@ -192,40 +189,45 @@ describe("parseInputSlot", () => {
       ref: null,
       missingConcept: false,
       unknownKeys: [],
-      dottedName: false,
     });
     expect(parseInputSlot(["Text"])).toEqual({
       ref: null,
       missingConcept: false,
       unknownKeys: [],
-      dottedName: false,
     });
   });
 });
 
-describe("parseInputSlot — unquoted dotted input names", () => {
-  it("flags the shape TOML makes of an unquoted dotted name", () => {
-    // `inputs = { my_input.field_name = "Text" }` reaches this layer as the
-    // slot `my_input` holding `{ field_name: "Text" }`.
-    expect(parseInputSlot({ field_name: "Text" }).dottedName).toBe(true);
-    expect(parseInputSlot({ a: "legal.Clause[]", b: "Text?" }).dottedName).toBe(true);
+describe("unquotedDottedInputNames", () => {
+  // TOML nests an unquoted dotted key: `page.page_view = "Image"` arrives as an
+  // input `page` holding `{ page_view: "Image" }`.
+  it("reads the dotted name back out of the table TOML nested it into", () => {
+    expect(unquotedDottedInputNames("page", { page_view: "Image" })).toEqual(["page.page_view"]);
+    expect(unquotedDottedInputNames("page", { page_view: "Image[]?" })).toEqual(["page.page_view"]);
   });
 
-  it("does not flag a slot table that declares a concept", () => {
-    expect(parseInputSlot({ concept: "Text", field_name: "Text" }).dottedName).toBe(false);
+  it("follows deeper nestings and slot tables, and names every dotted name", () => {
+    expect(
+      unquotedDottedInputNames("page", {
+        view: { left: { concept: "Image" } },
+        title: "native.Text",
+      }),
+    ).toEqual(["page.view.left", "page.title"]);
   });
 
-  it("does not flag a genuine unknown key, whose value is no concept code", () => {
-    // The standard pins concept codes to PascalCase, which is the whole
-    // discriminator: `textarea` cannot be one, `Text` can only be one.
-    expect(parseInputSlot({ widget: "textarea" }).dottedName).toBe(false);
-    expect(parseInputSlot({ widget: 3 }).dottedName).toBe(false);
-    expect(parseInputSlot({ nested: { deeper: "Text" } }).dottedName).toBe(false);
+  it("returns null for a slot of its own", () => {
+    expect(unquotedDottedInputNames("notes", "Text")).toBeNull();
+    expect(unquotedDottedInputNames("notes", { concept: "Text" })).toBeNull();
+    expect(unquotedDottedInputNames("notes", {})).toBeNull();
   });
 
-  it("does not flag the string form or an empty table", () => {
-    expect(parseInputSlot("Text").dottedName).toBe(false);
-    expect(parseInputSlot({}).dottedName).toBe(false);
-    expect(parseInputSlot({ hints: { intent: "prose" } }).dottedName).toBe(false);
+  it("returns null for a slot table that names something other than a concept", () => {
+    // A concept code is PascalCase, so a lowercase value is an unknown slot
+    // key's value, never a nested field's concept.
+    expect(unquotedDottedInputNames("notes", { widget: "textarea" })).toBeNull();
+    expect(unquotedDottedInputNames("notes", { hints: { intent: "prose" } })).toBeNull();
+    expect(
+      unquotedDottedInputNames("notes", { page_view: "Image", widget: "textarea" }),
+    ).toBeNull();
   });
 });

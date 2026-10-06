@@ -18,7 +18,13 @@ import {
   qualifiedStructureClassName,
 } from "./conceptRefs";
 import { normalizePipe } from "./normalizePipe";
-import type { Diagnostic, ParseMthdsBundleResult, ParsedBundle } from "./types";
+import type {
+  ConceptStructure,
+  Diagnostic,
+  ParseMthdsBundleResult,
+  ParsedBundle,
+  StructureField,
+} from "./types";
 import { authoredRecord, isPlainObject, strOrNull, UNKNOWN_DOMAIN } from "./types";
 
 // ─── Concept structure → JSON schema (display-only, best-effort) ─────────────
@@ -72,7 +78,9 @@ function deriveJsonSchema(
   const required: string[] = [];
   for (const [name, spec] of Object.entries(structure)) {
     if (typeof spec === "string") {
+      // The shorthand is a required text field, as the runtime reads it.
       properties[name] = { type: "string", description: spec };
+      required.push(name);
       continue;
     }
     if (!isPlainObject(spec)) continue;
@@ -122,13 +130,39 @@ function qualifyRefines(
   return `${domain}.${parts.code}`;
 }
 
-function parseConcepts(
-  raw: unknown,
-  domain: string,
-  diagnostics: Diagnostic[],
-): Record<string, ConceptInfo> {
+/**
+ * Read a `[concept.X.structure]` table into the fields a binding step walks.
+ * A field written as a bare description string is a required text field, as
+ * the runtime reads that shorthand; a field that is neither is skipped, since
+ * it declares nothing a path could reach.
+ */
+function parseStructureFields(structure: Record<string, unknown>): Record<string, StructureField> {
+  const fields = authoredRecord<StructureField>();
+  for (const [name, spec] of Object.entries(structure)) {
+    if (typeof spec === "string") {
+      fields[name] = { type: "text", conceptRef: null, itemType: null, itemConceptRef: null };
+      continue;
+    }
+    if (!isPlainObject(spec)) continue;
+    fields[name] = {
+      type: strOrNull(spec.type),
+      conceptRef: strOrNull(spec.concept_ref),
+      itemType: strOrNull(spec.item_type),
+      itemConceptRef: strOrNull(spec.item_concept_ref),
+    };
+  }
+  return fields;
+}
+
+interface ParsedConcepts {
+  concepts: Record<string, ConceptInfo>;
+  structures: Record<string, ConceptStructure>;
+}
+
+function parseConcepts(raw: unknown, domain: string, diagnostics: Diagnostic[]): ParsedConcepts {
   const concepts = authoredRecord<ConceptInfo>();
-  if (raw === undefined) return concepts;
+  const structures = authoredRecord<ConceptStructure>();
+  if (raw === undefined) return { concepts, structures };
   if (!isPlainObject(raw)) {
     diagnostics.push({
       severity: "warning",
@@ -136,7 +170,7 @@ function parseConcepts(
       message: "concept section is not a table — ignored",
       path: "concept",
     });
-    return concepts;
+    return { concepts, structures };
   }
   const declaredCodes: ReadonlySet<string> = new Set(Object.keys(raw));
   for (const [code, entry] of Object.entries(raw)) {
@@ -173,8 +207,13 @@ function parseConcepts(
       refines: qualifyRefines(entry.refines, domain, declaredCodes, code, diagnostics),
       json_schema: deriveJsonSchema(entry.structure, structureClassName, description),
     };
+    if (isPlainObject(entry.structure)) {
+      structures[code] = parseStructureFields(entry.structure);
+    } else if (typeof entry.structure === "string") {
+      structures[code] = entry.structure;
+    }
   }
-  return concepts;
+  return { concepts, structures };
 }
 
 // ─── Bundle parsing ──────────────────────────────────────────────────────────
@@ -186,6 +225,7 @@ function emptyBundle(): ParsedBundle {
     main_pipe: null,
     system_prompt: null,
     concepts: authoredRecord<ConceptInfo>(),
+    structures: authoredRecord<ConceptStructure>(),
     pipes: authoredRecord<PipeBlueprintUnion>(),
   };
 }
@@ -223,7 +263,9 @@ export function parseMthdsBundle(tomlText: string): ParseMthdsBundleResult {
   }
   const domain = bundle.domain ?? UNKNOWN_DOMAIN;
 
-  bundle.concepts = parseConcepts(root.concept, domain, diagnostics);
+  const { concepts, structures } = parseConcepts(root.concept, domain, diagnostics);
+  bundle.concepts = concepts;
+  bundle.structures = structures;
 
   const pipeTable = root.pipe;
   if (pipeTable !== undefined) {

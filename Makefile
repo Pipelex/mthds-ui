@@ -1,4 +1,4 @@
-.PHONY: all install build lint format format-check typecheck test test-watch test-coverage check c clean smoke-pack storybook st fixtures fixtures-contracts fixtures-live fixtures-live-test fixtures-missing fixtures-live-missing schema-refresh t use-local use-npm ul un
+.PHONY: all install build lint format format-check typecheck test test-watch test-coverage test-screenshots update-screenshots check c clean smoke-pack storybook st fixtures fixtures-contracts fixtures-live fixtures-live-test fixtures-missing fixtures-live-missing schema-refresh t use-local use-npm ul un
 
 install:
 	npm install
@@ -28,6 +28,17 @@ test-watch:
 
 test-coverage:
 	npx vitest run --coverage
+
+# Visual regression: render the `*.screenshot.tsx` stories in Playwright Chromium
+# and compare them with the committed reference images. Not part of `test`: a
+# reference is one platform's rendering (`…-chromium-darwin.png`), so it runs
+# where the references were taken. `update-screenshots` rewrites them after an
+# intended change; review the new images before committing them.
+test-screenshots:
+	npx vitest run --config vitest.screenshots.config.mts
+
+update-screenshots:
+	npx vitest run --config vitest.screenshots.config.mts --update
 
 check: lint format-check typecheck
 	@echo "All checks passed."

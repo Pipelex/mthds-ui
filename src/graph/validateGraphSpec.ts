@@ -14,14 +14,16 @@
  * comment.
  */
 import type {
+  CardNode,
   GraphSpec,
   GraphSpecEdgeKind,
   GraphSpecMode,
   GraphSpecNode,
+  NodeKind,
   PipeCallNode,
   PipeStatus,
 } from "./types";
-import { KNOWN_PIPE_TYPES } from "./types";
+import { BINDING_STEP_TYPE, KNOWN_PIPE_TYPES } from "./types";
 
 /**
  * Thrown by `validateGraphSpec` when a spec violates a pipelex runtime
@@ -50,6 +52,13 @@ const PIPE_STATUSES: ReadonlySet<string> = new Set<PipeStatus>([
 ]);
 
 const GRAPH_SPEC_MODES: ReadonlySet<string> = new Set<GraphSpecMode>(["dry", "live", "static"]);
+
+/** The node kinds a spec may carry: the pipe-call kinds, and the binding kind. */
+const DRAWN_NODE_KINDS: ReadonlySet<string> = new Set<NodeKind>([
+  "controller",
+  "operator",
+  "binding",
+]);
 
 const EDGE_KINDS: ReadonlySet<string> = new Set<GraphSpecEdgeKind>([
   "contains",
@@ -246,15 +255,16 @@ function validateNode(node: unknown, path: string): void {
 
   requireNonEmptyString(node.id, `${path}.id`);
 
-  // Every node a real pipelex run serializes is a pipe-call node
-  // (`kind` is "controller" or "operator"). The other `NodeKind` values exist
-  // in the enum only for the mermaid renderer and never reach a graphspec.json
-  // — a spec carrying one is malformed or wrong-version, so reject it.
-  if (node.kind !== "controller" && node.kind !== "operator") {
+  // A real pipelex run serializes two families of node: pipe-call nodes
+  // (`kind` "controller" or "operator") and the binding nodes of a sequence's
+  // binding steps (`kind` "binding"). The other `NodeKind` values exist in the
+  // enum only for the mermaid renderer and never reach a graphspec.json — a
+  // spec carrying one is malformed or wrong-version, so reject it.
+  if (!DRAWN_NODE_KINDS.has(node.kind as string)) {
     fail(
       `${path}.kind`,
-      `expected "controller" or "operator" — a real pipelex run emits only ` +
-        `pipe-call nodes, got ${JSON.stringify(node.kind)}`,
+      `expected "controller", "operator" or "binding" — a real pipelex run emits only ` +
+        `pipe-call and binding nodes, got ${JSON.stringify(node.kind)}`,
     );
   }
 
@@ -265,9 +275,18 @@ function validateNode(node: unknown, path: string): void {
     );
   }
 
+  // A binding node's `pipe_code` is its step's `from` path, never empty.
   requireNonEmptyString(node.pipe_code, `${path}.pipe_code`);
   const pipeType = requireNonEmptyString(node.pipe_type, `${path}.pipe_type`);
-  if (!KNOWN_PIPE_TYPES.has(pipeType)) {
+  if (node.kind === "binding") {
+    // A binding step runs no pipe, so its class is the step's own and nothing else.
+    if (pipeType !== BINDING_STEP_TYPE) {
+      fail(
+        `${path}.pipe_type`,
+        `expected "${BINDING_STEP_TYPE}" on a binding node, got ${JSON.stringify(pipeType)}`,
+      );
+    }
+  } else if (!KNOWN_PIPE_TYPES.has(pipeType)) {
     fail(
       `${path}.pipe_type`,
       `unrecognized pipe class "${pipeType}" — add it to PipeOperatorType ` +
@@ -423,4 +442,27 @@ export function asPipeCallNode(node: GraphSpecNode, path = "node"): PipeCallNode
   }
   requireNonEmptyString(node.pipe_code, `${path}.pipe_code`);
   return node as PipeCallNode;
+}
+
+/**
+ * Narrow a `GraphSpecNode` to a `CardNode` — a pipe-call node or a binding
+ * node, the two families the graph draws as a card — throwing
+ * `GraphSpecValidationError` when the node is neither.
+ *
+ * The dataflow graph draws every node that produces or consumes a stuff, which
+ * a binding node does as much as an operator: it reads its root and produces
+ * what it binds. Same boundary contract as `asPipeCallNode`.
+ */
+export function asCardNode(node: GraphSpecNode, path = "node"): CardNode {
+  if (node.kind === "binding") {
+    requireNonEmptyString(node.pipe_code, `${path}.pipe_code`);
+    if (node.pipe_type !== BINDING_STEP_TYPE) {
+      fail(
+        `${path}.pipe_type`,
+        `expected "${BINDING_STEP_TYPE}" on a binding node, got ${JSON.stringify(node.pipe_type)}`,
+      );
+    }
+    return node as CardNode;
+  }
+  return asPipeCallNode(node, path);
 }

@@ -10,7 +10,13 @@
 
 import type { ConceptInfo, PipeBlueprintUnion, StuffSpecInfo } from "@graph/types";
 
-import type { Diagnostic, DomainNamespace, MergedMethodSet, ParsedBundle } from "./types";
+import type {
+  ConceptStructure,
+  Diagnostic,
+  DomainNamespace,
+  MergedMethodSet,
+  ParsedBundle,
+} from "./types";
 import { authoredRecord, UNKNOWN_DOMAIN } from "./types";
 
 function enrichPipeConcepts(
@@ -50,6 +56,7 @@ export function mergeBundles(bundles: ParsedBundle[]): MergedMethodSet {
     const namespace = (domains[domain] ??= {
       domain,
       concepts: authoredRecord<ConceptInfo>(),
+      structures: authoredRecord<ConceptStructure>(),
       pipes: authoredRecord<PipeBlueprintUnion>(),
     });
     if (mainDomain === null && bundle.domain !== null) mainDomain = bundle.domain;
@@ -73,6 +80,10 @@ export function mergeBundles(bundles: ParsedBundle[]): MergedMethodSet {
         continue;
       }
       namespace.concepts[code] = concept;
+      // The structure travels with the declaration it belongs to: keep-first, like the concept.
+      if (Object.hasOwn(bundle.structures, code)) {
+        namespace.structures[code] = bundle.structures[code];
+      }
     }
     for (const [code, pipe] of Object.entries(bundle.pipes)) {
       const existing = namespace.pipes[code];

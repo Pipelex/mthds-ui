@@ -1,3 +1,4 @@
+import { buildGraph } from "@graph/graphBuilders";
 import { validateGraphSpec } from "@graph/validateGraphSpec";
 import { describe, expect, it } from "vitest";
 
@@ -151,30 +152,6 @@ describe("buildStaticGraphSpec — PipeSequence", () => {
   });
 });
 
-// ─── Dotted-prefix input binding ─────────────────────────────────────────────
-
-const DOTTED = `
-domain = "dotted"
-main_pipe = "run_all"
-
-[concept.Profile]
-description = "A profile"
-
-[pipe.run_all]
-type = "PipeSequence"
-description = "Chain with dotted consumption"
-inputs = { profile = "Profile" }
-output = "Text"
-steps = [{ pipe = "use_name", result = "greeting" }]
-
-[pipe.use_name]
-type = "PipeLLM"
-description = "Consume a sub-path of profile"
-inputs = { "profile.name" = "Text" }
-output = "Text"
-prompt = "p"
-`;
-
 // ─── Input slot forms ────────────────────────────────────────────────────────
 //
 // The standard states the string form and the expanded form equivalent, so the
@@ -243,17 +220,6 @@ describe("buildStaticGraphSpec — input slot forms", () => {
       concept: { code: "Text", domain_code: "native" },
       presence: "optional",
     });
-  });
-});
-
-describe("buildStaticGraphSpec — dotted input names", () => {
-  it("satisfies a dotted input from a binding for its prefix", () => {
-    const { spec, diagnostics } = build(DOTTED);
-    expect(diagnostics).toEqual([]);
-    const consumer = nodeById(spec, "dotted.run_all/step_1");
-    // Bound to the "profile" scope entry, not a fresh dangling input.
-    expect(consumer.io.inputs[0].digest).toBe("input:profile");
-    expect(consumer.io.inputs[0].name).toBe("profile");
   });
 });
 
@@ -572,11 +538,12 @@ describe("buildStaticGraphSpec — PipeCondition", () => {
     expect(nodeById(spec, "cond.route/default").tags).toEqual({ outcome: "default" });
   });
 
-  it("uses the default outcome's output as the controller output", () => {
+  it("makes the controller's output one stuff that every outcome produces", () => {
     const { spec } = build(CONDITION);
-    const route = nodeById(spec, "cond.route");
-    const fallback = nodeById(spec, "cond.route/default");
-    expect(route.io.outputs).toEqual(fallback.io.outputs);
+    const shared = [{ name: "text", digest: "cond.route:text", concept: "Text" }];
+    expect(nodeById(spec, "cond.route").io.outputs).toEqual(shared);
+    expect(nodeById(spec, "cond.route/outcome_english").io.outputs).toEqual(shared);
+    expect(nodeById(spec, "cond.route/default").io.outputs).toEqual(shared);
   });
 });
 
@@ -1545,20 +1512,158 @@ describe("buildStaticGraphSpec — condition outcome merging and slot naming", (
     expect(rejectEdge?.label).toBe("no | default");
   });
 
-  it("names every branch's output after the condition's slot name", () => {
+  it("names the condition's one output after its slot, and every branch produces it", () => {
     const { spec } = build(CONDITION_MERGED);
-    const accept = nodeById(spec, "condm.screen/step_1/outcome_yes");
-    const reject = nodeById(spec, "condm.screen/step_1/outcome_no");
-    expect(accept.io.outputs).toEqual([
-      { name: "verdict", digest: "condm.screen/step_1/outcome_yes:verdict", concept: "Text" },
+    const shared = [{ name: "verdict", digest: "condm.screen/step_1:verdict", concept: "Text" }];
+    expect(nodeById(spec, "condm.screen/step_1").io.outputs).toEqual(shared);
+    expect(nodeById(spec, "condm.screen/step_1/outcome_yes").io.outputs).toEqual(shared);
+    expect(nodeById(spec, "condm.screen/step_1/outcome_no").io.outputs).toEqual(shared);
+  });
+});
+
+/** A later step reads the condition's output; the `fit` outcome is itself a sequence. */
+const CONDITION_READ_LATER = `
+domain = "condr"
+main_pipe = "screen"
+
+[pipe.screen]
+type = "PipeSequence"
+description = "Route, then assemble"
+inputs = { evaluation = "Text" }
+output = "Text"
+steps = [
+  { pipe = "route", result = "follow_up" },
+  { pipe = "assemble", result = "result" },
+]
+
+[pipe.route]
+type = "PipeCondition"
+description = "Questions for a fit, a rejection otherwise"
+inputs = { evaluation = "Text" }
+output = "Text"
+expression = "evaluation.verdict"
+outcomes = { fit = "questions", no_fit = "rejection" }
+default_outcome = "rejection"
+
+[pipe.questions]
+type = "PipeSequence"
+description = "Draft then polish the questions"
+inputs = { evaluation = "Text" }
+output = "Text"
+steps = [
+  { pipe = "draft", result = "draft" },
+  { pipe = "polish", result = "polished" },
+]
+
+[pipe.draft]
+type = "PipeLLM"
+description = "Draft"
+inputs = { evaluation = "Text" }
+output = "Text"
+prompt = "p"
+
+[pipe.polish]
+type = "PipeLLM"
+description = "Polish"
+inputs = { draft = "Text" }
+output = "Text"
+prompt = "p"
+
+[pipe.rejection]
+type = "PipeLLM"
+description = "Rejection"
+inputs = { evaluation = "Text" }
+output = "Text"
+prompt = "p"
+
+[pipe.assemble]
+type = "PipeCompose"
+description = "Assemble"
+inputs = { evaluation = "Text", follow_up = "Text" }
+output = "Text"
+template = "@follow_up"
+`;
+
+describe("buildStaticGraphSpec — a later step reading a condition's output", () => {
+  const ROUTE = "condr.screen/step_1";
+  const SHARED = `${ROUTE}:follow_up`;
+
+  it("reads the one stuff every outcome produces", () => {
+    const { spec, diagnostics } = build(CONDITION_READ_LATER);
+    expect(diagnostics).toEqual([]);
+    const assemble = nodeById(spec, "condr.screen/step_2");
+    expect(assemble.io.inputs.find((item) => item.name === "follow_up")?.digest).toBe(SHARED);
+    // The sequence outcome's last step produces the slot, and the sequence exposes it.
+    expect(nodeById(spec, `${ROUTE}/outcome_fit/step_2`).io.outputs[0].digest).toBe(SHARED);
+    expect(nodeById(spec, `${ROUTE}/outcome_fit`).io.outputs[0].digest).toBe(SHARED);
+    expect(nodeById(spec, `${ROUTE}/outcome_no_fit`).io.outputs[0].digest).toBe(SHARED);
+    // An intermediate stuff inside the outcome keeps its own digest.
+    expect(nodeById(spec, `${ROUTE}/outcome_fit/step_1`).io.outputs[0].digest).toBe(
+      `${ROUTE}/outcome_fit/step_1:draft`,
+    );
+  });
+
+  it("renders an edge from every outcome into the stuff, and from it to the step reading it", () => {
+    const { spec } = build(CONDITION_READ_LATER);
+    const { graphData } = buildGraph(spec, "bezier");
+    const stuffId = `stuff_${SHARED}`;
+    const into = graphData.edges
+      .filter((edge) => edge.target === stuffId)
+      .map((edge) => edge.source);
+    const outOf = graphData.edges
+      .filter((edge) => edge.source === stuffId)
+      .map((edge) => edge.target);
+    expect(into.sort()).toEqual([`${ROUTE}/outcome_fit/step_2`, `${ROUTE}/outcome_no_fit`]);
+    expect(outOf).toEqual(["condr.screen/step_2"]);
+    // No outcome's output is left as a separate stuff that nothing reads.
+    const followUps = graphData.nodes.filter((node) => node.data.labelText === "follow_up");
+    expect(followUps.map((node) => node.id)).toEqual([stuffId]);
+  });
+
+  it("types the stuff by the condition's declaration when the outcomes disagree", () => {
+    const disagreeing = CONDITION_READ_LATER.replace(
+      'description = "Questions for a fit, a rejection otherwise"\ninputs = { evaluation = "Text" }\noutput = "Text"',
+      'description = "Questions for a fit, a rejection otherwise"\ninputs = { evaluation = "Text" }\noutput = "Anything"',
+    ).replace(
+      'description = "Rejection"\ninputs = { evaluation = "Text" }\noutput = "Text"',
+      'description = "Rejection"\ninputs = { evaluation = "Text" }\noutput = "Text[2]"',
+    );
+    expect(disagreeing).not.toBe(CONDITION_READ_LATER);
+    const { spec } = build(disagreeing);
+    expect(nodeById(spec, ROUTE).io.outputs).toEqual([
+      { name: "follow_up", digest: SHARED, concept: "Anything" },
     ]);
-    expect(reject.io.outputs).toEqual([
-      { name: "verdict", digest: "condm.screen/step_1/outcome_no:verdict", concept: "Text" },
+    // Each outcome still declares what it produces.
+    expect(nodeById(spec, `${ROUTE}/outcome_no_fit`).io.outputs).toEqual([
+      { name: "follow_up", digest: SHARED, concept: "Text", multiplicity: 2 },
     ]);
-    // The controller's representative output is the default route's stuff,
-    // exposed under the slot name.
-    const route = nodeById(spec, "condm.screen/step_1");
-    expect(route.io.outputs).toEqual(reject.io.outputs);
+  });
+
+  it("keeps an expression alias named like the slot apart from the shared output", () => {
+    const aliased = CONDITION_READ_LATER.replace(
+      'expression = "evaluation.verdict"',
+      'expression = "evaluation.verdict"\nadd_alias_from_expression_to = "follow_up"',
+    ).replace(
+      'description = "Rejection"\ninputs = { evaluation = "Text" }',
+      'description = "Rejection"\ninputs = { evaluation = "Text", follow_up = "Text" }',
+    );
+    expect(aliased).not.toBe(CONDITION_READ_LATER);
+    const { spec, diagnostics } = build(aliased);
+    expect(diagnostics).toEqual([]);
+    // The step after the condition reads the outcomes' output, typed as they declare it.
+    expect(nodeById(spec, ROUTE).io.outputs).toEqual([
+      { name: "follow_up", digest: SHARED, concept: "Text" },
+    ]);
+    // The outcome reading the alias reads the alias, not its own output.
+    const rejection = nodeById(spec, `${ROUTE}/outcome_no_fit`);
+    expect(rejection.io.inputs.find((item) => item.name === "follow_up")?.digest).toBe(
+      `${ROUTE}:alias:follow_up`,
+    );
+    expect(rejection.io.outputs[0].digest).toBe(SHARED);
+    const { graphData } = buildGraph(spec, "bezier");
+    const stuffId = `stuff_${SHARED}`;
+    const outOf = graphData.edges.filter((edge) => edge.source === stuffId);
+    expect(outOf.map((edge) => edge.target)).toEqual(["condr.screen/step_2"]);
   });
 });
 
@@ -1654,8 +1759,7 @@ describe("buildStaticGraphSpec — authored outcome value named 'default'", () =
     const { spec, diagnostics } = build(CONDITION_DEFAULT_VALUE);
     expect(diagnostics).toEqual([]);
     // The authored "default" outcome and the default_outcome route target
-    // different pipes: two children with distinct ids, and the synthetic
-    // default route (not the authored value) drives the representative output.
+    // different pipes: two children with distinct ids.
     expect(spec.nodes.map((node) => node.id)).toEqual([
       "condd.route",
       "condd.route/outcome_default",
@@ -1663,8 +1767,5 @@ describe("buildStaticGraphSpec — authored outcome value named 'default'", () =
     ]);
     const ids = spec.nodes.map((node) => node.id);
     expect(new Set(ids).size).toBe(ids.length);
-    const route = nodeById(spec, "condd.route");
-    const reject = nodeById(spec, "condd.route/default");
-    expect(route.io.outputs).toEqual(reject.io.outputs);
   });
 });

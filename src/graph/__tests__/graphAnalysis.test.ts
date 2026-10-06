@@ -1,8 +1,58 @@
 import { describe, it, expect } from "vitest";
 import { buildDataflowAnalysis, buildChildToControllerMap } from "../graphAnalysis";
-import type { GraphSpec } from "../types";
+import type { GraphSpec, GraphSpecNode } from "../types";
+
+function pipeNode(
+  id: string,
+  pipeType: GraphSpecNode["pipe_type"],
+  io: GraphSpecNode["io"] = { inputs: [], outputs: [] },
+): GraphSpecNode {
+  return {
+    id,
+    pipe_code: id,
+    kind: pipeType === "PipeSequence" || pipeType === "PipeCondition" ? "controller" : "operator",
+    status: "scheduled",
+    pipe_type: pipeType,
+    io,
+  };
+}
+
+/** A sequence whose condition writes `follow_up` from either outcome, and a later step reads it. */
+const CONDITION_SHARED_OUTPUT: GraphSpec = {
+  nodes: [
+    pipeNode("seq", "PipeSequence"),
+    pipeNode("cond", "PipeCondition", {
+      inputs: [],
+      outputs: [{ digest: "follow_up", name: "follow_up" }],
+    }),
+    pipeNode("questions", "PipeLLM", {
+      inputs: [],
+      outputs: [{ digest: "follow_up", name: "follow_up" }],
+    }),
+    pipeNode("rejection", "PipeLLM", {
+      inputs: [],
+      outputs: [{ digest: "follow_up", name: "follow_up" }],
+    }),
+    pipeNode("assemble", "PipeCompose", {
+      inputs: [{ digest: "follow_up", name: "follow_up" }],
+      outputs: [{ digest: "result", name: "result" }],
+    }),
+  ],
+  edges: [
+    { id: "c1", source: "seq", target: "cond", kind: "contains" },
+    { id: "c2", source: "cond", target: "questions", kind: "contains" },
+    { id: "c3", source: "cond", target: "rejection", kind: "contains" },
+    { id: "c4", source: "seq", target: "assemble", kind: "contains" },
+  ],
+};
 
 describe("buildDataflowAnalysis", () => {
+  it("lists every operator that writes a stuff, and never the controller", () => {
+    const result = buildDataflowAnalysis(CONDITION_SHARED_OUTPUT)!;
+    expect(result.stuffProducers["follow_up"]).toEqual(["questions", "rejection"]);
+    expect(result.stuffConsumers["follow_up"]).toEqual(["assemble"]);
+  });
+
   it("returns null for null input", () => {
     expect(buildDataflowAnalysis(null)).toBeNull();
   });
@@ -107,7 +157,7 @@ describe("buildDataflowAnalysis", () => {
       concept: "Text",
       contentType: "text",
     });
-    expect(result.stuffProducers["d1"]).toBe("op1");
+    expect(result.stuffProducers["d1"]).toEqual(["op1"]);
   });
 
   it("registers stuff from node IO inputs", () => {
@@ -327,6 +377,14 @@ describe("buildChildToControllerMap", () => {
     const analysis = buildDataflowAnalysis(gs)!;
     const map = buildChildToControllerMap(gs, analysis);
     expect(map["stuff_d1"]).toBe("ctrl");
+  });
+
+  it("places a condition's shared output beside the step that reads it", () => {
+    const analysis = buildDataflowAnalysis(CONDITION_SHARED_OUTPUT)!;
+    const map = buildChildToControllerMap(CONDITION_SHARED_OUTPUT, analysis);
+    // Starts in the condition, which holds both producers, and is promoted to
+    // the sequence because the step reading it sits there.
+    expect(map["stuff_follow_up"]).toBe("seq");
   });
 
   it("handles nested controllers", () => {

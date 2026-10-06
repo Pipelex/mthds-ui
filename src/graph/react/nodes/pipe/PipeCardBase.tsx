@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import type { PipeCardData, PipeControllerType, PipeStatus, PipeType } from "./pipeCardTypes";
+import type { NodePipeType, PipeCardData, PipeControllerType, PipeStatus } from "./pipeCardTypes";
+import { BINDING_STEP_TYPE } from "@graph/types";
 import { NodeValidationBadge, validationRingClass } from "../NodeValidationBadge";
 
 // ─── Pipe type badge labels ──────────────────────────────────────────────
 
-const PIPE_TYPE_BADGES: Record<PipeType, string> = {
+const PIPE_TYPE_BADGES: Record<NodePipeType, string> = {
   PipeLLM: "LLM",
   PipeExtract: "Extract",
   PipeCompose: "Compose",
@@ -12,11 +13,14 @@ const PIPE_TYPE_BADGES: Record<PipeType, string> = {
   PipeSearch: "Search",
   PipeFunc: "Func",
   PipeStructure: "Structure",
+  PipeJudge: "Judge",
+  PipeDocGen: "DocGen",
   PipeSignature: "Signature",
   PipeSequence: "Sequence",
   PipeParallel: "Parallel",
   PipeCondition: "Condition",
   PipeBatch: "Batch",
+  BindingStep: "Binding",
 };
 
 // Derived from `PipeControllerType` so adding a new controller variant in
@@ -28,7 +32,7 @@ const CONTROLLER_TYPE_TABLE: Record<PipeControllerType, true> = {
   PipeBatch: true,
 };
 
-function isControllerType(pipeType: PipeType): pipeType is PipeControllerType {
+function isControllerType(pipeType: NodePipeType): pipeType is PipeControllerType {
   return pipeType in CONTROLLER_TYPE_TABLE;
 }
 
@@ -43,7 +47,7 @@ const STATUS_CONFIG: Record<PipeStatus, { color: string; label: string }> = {
 
 const MAX_VISIBLE_INPUTS = 4;
 
-function getBadge(pipeType: PipeType): string {
+function getBadge(pipeType: NodePipeType): string {
   return PIPE_TYPE_BADGES[pipeType];
 }
 
@@ -61,6 +65,8 @@ export function PipeCardBase({ data, children }: PipeCardBaseProps) {
   const isRunning = data.status === "running";
   const isController = isControllerType(data.pipeType);
   const isSignature = data.pipeType === "PipeSignature";
+  // A binding step runs no pipe: its card names the path it binds, and reads as data plumbing.
+  const isBinding = data.pipeType === BINDING_STEP_TYPE;
   const isStatic = data.graphMode === "static";
   const outcome = isStatic ? data.tags?.outcome : undefined;
   const batchMultiplicity = isStatic ? data.tags?.batch_multiplicity : undefined;
@@ -74,18 +80,21 @@ export function PipeCardBase({ data, children }: PipeCardBaseProps) {
   const dirClass = data.direction === "TB" ? "pipe-card--tb" : "pipe-card--lr";
   const controllerClass = isController ? " pipe-card--controller" : "";
   const signatureClass = isSignature ? " pipe-card--signature" : "";
+  const bindingClass = isBinding ? " pipe-card--binding" : "";
   const staticClass = isStatic ? " pipe-card--static" : "";
   const badgeClass = isController
     ? "pipe-card-badge pipe-card-badge--controller"
     : isSignature
       ? "pipe-card-badge pipe-card-badge--signature"
-      : "pipe-card-badge";
+      : isBinding
+        ? "pipe-card-badge pipe-card-badge--binding"
+        : "pipe-card-badge";
 
   const ringClass = validationRingClass(data.validation);
 
   return (
     <div
-      className={`pipe-card ${dirClass}${controllerClass}${signatureClass}${staticClass}${ringClass}`}
+      className={`pipe-card ${dirClass}${controllerClass}${signatureClass}${bindingClass}${staticClass}${ringClass}`}
     >
       {/* Header: badge + pipe code + status + (optional) expand + validation */}
       <div className="pipe-card-header">

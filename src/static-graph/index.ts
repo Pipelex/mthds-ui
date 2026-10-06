@@ -3,6 +3,7 @@
 // callers pass TOML strings.
 
 export type {
+  ConceptStructure,
   Diagnostic,
   DiagnosticCode,
   DiagnosticSeverity,
@@ -10,6 +11,7 @@ export type {
   MergedMethodSet,
   ParsedBundle,
   ParseMthdsBundleResult,
+  StructureField,
 } from "./types";
 export { UNKNOWN_DOMAIN } from "./types";
 export type { ConceptRefParts, InputSlotParts } from "./conceptRefs";

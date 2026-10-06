@@ -235,6 +235,45 @@ describe("buildValidationDecorations", () => {
   });
 });
 
+describe("validation targets and binding nodes", () => {
+  // A binding of the path `analyze` sits beside two invocations of the pipe
+  // `analyze`: an issue about the pipe is about those two, never the binding.
+  function withBinding(): GraphSpec {
+    const spec = makeSpec();
+    spec.nodes.push({
+      id: "demo.main/step_4",
+      kind: "binding",
+      status: "scheduled",
+      pipe_code: "analyze",
+      domain_code: "demo",
+      pipe_type: "BindingStep",
+      io: { inputs: [], outputs: [] },
+    });
+    return spec;
+  }
+  const childToCtrl = { ...CHILD_TO_CTRL, "demo.main/step_4": "demo.main" };
+
+  it("never decorates a binding for an issue keyed by pipe ref", () => {
+    const decorations = buildValidationDecorations(
+      [issue({ pipeRef: "demo.analyze" })],
+      withBinding(),
+      childToCtrl,
+      NO_FOLDS,
+    );
+    expect([...decorations.keys()].sort()).toEqual(["demo.main/step_1", "demo.main/step_2"]);
+  });
+
+  it("still decorates a binding an issue names by node id", () => {
+    const decorations = buildValidationDecorations(
+      [issue({ nodeId: "demo.main/step_4" })],
+      withBinding(),
+      childToCtrl,
+      NO_FOLDS,
+    );
+    expect([...decorations.keys()]).toEqual(["demo.main/step_4"]);
+  });
+});
+
 describe("resolveIssueTargetNodeId", () => {
   const rendered = new Set([
     "demo.main",

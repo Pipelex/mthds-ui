@@ -104,6 +104,31 @@ export const MOCK_PIPES: Record<PipeOperatorType, PipeCardData> = {
     },
   },
 
+  PipeJudge: {
+    pipeCode: "judge_is_urgent",
+    pipeType: "PipeJudge",
+    description: "Judges whether a message needs an answer today",
+    status: "succeeded",
+    inputs: [{ name: "message", concept: "Text" }],
+    outputs: [{ name: "is_urgent", concept: "YesNo" }],
+    tags: {
+      model: "@default-judgment",
+      question: "Does this message need an answer today?",
+    },
+  },
+
+  PipeDocGen: {
+    pipeCode: "print_notice",
+    pipeType: "PipeDocGen",
+    description: "Lays the opening hours out as a page to print",
+    status: "succeeded",
+    inputs: [{ name: "notice", concept: "OpeningNotice" }],
+    outputs: [{ name: "printed_notice", concept: "PrintedNotice" }],
+    tags: {
+      format: "pdf",
+    },
+  },
+
   PipeSignature: {
     pipeCode: "build_scorecard",
     pipeType: "PipeSignature",

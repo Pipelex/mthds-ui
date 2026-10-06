@@ -139,8 +139,8 @@ export function isSweepable(validity: unknown, entryName: string): boolean {
   return validity === "valid";
 }
 
-/** Read one entry's `validity` off its `entry.toml` manifest. Throws if unreadable. */
-function validityOf(entryDir: string): unknown {
+/** Read one entry's `entry.toml` manifest. Throws if unreadable. */
+function manifestOf(entryDir: string): Record<string, unknown> {
   const manifest = path.join(entryDir, "entry.toml");
   let raw: string;
   try {
@@ -151,7 +151,12 @@ function validityOf(entryDir: string): unknown {
       { cause },
     );
   }
-  return (parseToml(raw) as Record<string, unknown>).validity;
+  return parseToml(raw) as Record<string, unknown>;
+}
+
+/** Read one entry's `validity` off its manifest. Throws if unreadable. */
+function validityOf(entryDir: string): unknown {
+  return manifestOf(entryDir).validity;
 }
 
 /**
@@ -176,4 +181,56 @@ export function fixtureBundleCases(): [string, string[]][] {
     name,
     bundlePaths,
   ]);
+}
+
+/**
+ * The `valid` corpus entries whose manifest says they cover a feature, as
+ * `it.each` rows. Discovered like the rest, and refusing to come back empty, so
+ * a sweep asking about one feature cannot pass on no entry at all.
+ */
+export function corpusCasesCovering(feature: string): [string, string[]][] {
+  const fixtures = corpusFixtures().filter(({ name }) => {
+    const covers = manifestOf(path.join(CORPUS_ENTRIES_DIR, name.slice("corpus/".length))).covers;
+    return Array.isArray(covers) && covers.includes(feature);
+  });
+  if (fixtures.length === 0) {
+    throw new Error(
+      `no valid corpus entry covers ${feature} — the sweep asking about it would pass vacuously`,
+    );
+  }
+  return fixtures.map(({ name, bundlePaths }) => [name, bundlePaths]);
+}
+
+/**
+ * The `invalid` corpus entries whose manifest names one of `expectedErrors` as
+ * the error they are authored to trigger, as `it.each` rows of the entry's
+ * name, its files and that error. Refuses to come back empty, as the rest do.
+ */
+export function corpusCasesExpecting(
+  expectedErrors: readonly string[],
+): [string, string[], string][] {
+  const rows = readdirSync(CORPUS_ENTRIES_DIR, { withFileTypes: true })
+    .filter((item) => item.isDirectory())
+    .map((item) => ({
+      name: item.name,
+      manifest: manifestOf(path.join(CORPUS_ENTRIES_DIR, item.name)),
+    }))
+    .filter(
+      ({ manifest }) =>
+        manifest.validity === "invalid" &&
+        typeof manifest.expected_error === "string" &&
+        expectedErrors.includes(manifest.expected_error),
+    )
+    .sort((a, b) => byCodeUnit(a.name, b.name))
+    .map(({ name, manifest }): [string, string[], string] => [
+      `corpus/${name}`,
+      bundlePathsIn(path.join(CORPUS_ENTRIES_DIR, name)),
+      manifest.expected_error as string,
+    ]);
+  if (rows.length === 0) {
+    throw new Error(
+      `no invalid corpus entry expects ${expectedErrors.join(" or ")} — the sweep asking about it would pass vacuously`,
+    );
+  }
+  return rows;
 }
