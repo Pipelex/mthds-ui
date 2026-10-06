@@ -403,6 +403,16 @@ function cloneCachedNodes(nodes: GraphNode[]): GraphNode[] {
   }));
 }
 
+/**
+ * The run status a node shows, whatever the style: a card's, or a simple-style
+ * step's, decision's or frame's. Undefined for data and for a node without one.
+ */
+export function nodeRunStatus(data: AppNode["data"]): PipeStatus | undefined {
+  const simple = data.simple;
+  if (simple) return "status" in simple ? simple.status : undefined;
+  return data.pipeCardData?.status;
+}
+
 /** Apply Layer 2 execution state overrides to rendered nodes. */
 export function applyStatusOverrides(
   nodes: AppNode[],
@@ -423,10 +433,7 @@ export function applyStatusOverrides(
     const simple = node.data.simple;
     // The simple style's steps, decisions and frames carry a status; its inputs and outputs do not.
     const simpleWithStatus = simple && "status" in simple ? simple : undefined;
-    const currentStatus = simpleWithStatus
-      ? simpleWithStatus.status
-      : node.data.pipeCardData?.status;
-    if (currentStatus === newStatus) return node;
+    if (nodeRunStatus(node.data) === newStatus) return node;
     return {
       ...node,
       data: {
@@ -1229,7 +1236,7 @@ export function GraphViewer(props: GraphViewerProps) {
       if ((nodeData.isController || nodeData.isPipe) && nodeData.pipeType !== BINDING_STEP_TYPE) {
         const code = nodeData.pipeCode || nodeData.labelText;
         if (code && onNavigateToPipe) {
-          onNavigateToPipe(code, nodeData.pipeCardData?.status);
+          onNavigateToPipe(code, nodeRunStatus(nodeData));
         }
       } else if (nodeData.isStuff && onStuffNodeClick && graphspec) {
         const found = findStuffByDigest(graphspec, stuffDigestFromId(node.id));

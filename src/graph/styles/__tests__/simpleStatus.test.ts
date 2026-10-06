@@ -7,6 +7,7 @@ import { describe, it, expect } from "vitest";
 import type { PipeStatus } from "@graph/types";
 import { applyStatusOverrides } from "@graph/react";
 import { toAppNodes } from "@graph/react/rfTypes";
+import { nodeRunStatus } from "@graph/react/viewer/GraphViewer";
 import { reviewSpec } from "@graph/react/viewer/__stories__/styleReviewFixtures";
 import { projectStyle } from "./styleTestUtils";
 
@@ -58,5 +59,23 @@ describe("status on the simple style", () => {
     if (!step || !code) throw new Error("no step with a pipe code");
     const updated = applyStatusOverrides(appNodes, { [code]: "failed" });
     expect(updated.find((n) => n.id === step.id)).toBe(step);
+  });
+
+  it("reports the status a node shows, in either style, overrides included", () => {
+    const spec = reviewSpec("CV_SCREENING", "dry");
+    const simpleNodes = toAppNodes(projectStyle(spec, "simple").nodes);
+    const step = simpleNodes.find((n) => n.data.simple?.kind === "step" && n.data.pipeCode);
+    const input = simpleNodes.find((n) => n.data.simple?.kind === "input");
+    const code = step?.data.pipeCode;
+    if (!step || !input || !code) throw new Error("no step with a pipe code, or no input");
+    expect(nodeRunStatus(step.data)).toBe(statusOf(step.data.simple));
+    expect(nodeRunStatus(input.data)).toBeUndefined();
+    const updated = applyStatusOverrides(simpleNodes, { [code]: "failed" });
+    expect(nodeRunStatus(updated.find((n) => n.id === step.id)?.data ?? step.data)).toBe("failed");
+
+    const detailed = toAppNodes(projectStyle(spec, "detailed").nodes);
+    const card = detailed.find((n) => n.data.pipeCardData?.status);
+    if (!card) throw new Error("no card with a status");
+    expect(nodeRunStatus(card.data)).toBe(card.data.pipeCardData?.status);
   });
 });
