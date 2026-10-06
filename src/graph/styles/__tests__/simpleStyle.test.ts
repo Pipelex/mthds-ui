@@ -177,9 +177,11 @@ describe("the simple projection: decisions", () => {
     expect(new Set(outgoing.map((e) => e.label)).size).toBe(2);
   });
 
-  it("joins the outcomes of a branch taken on several", () => {
-    const { edges } = projectStyle(reviewSpec("EMAIL_TRIAGE", "static"), "simple");
-    expect(edges.map((e) => e.label)).toContain("Needs review or otherwise");
+  it("joins the outcomes of a branch taken on several, in every mode", () => {
+    for (const mode of ["static", "dry", "live"] as const) {
+      const { edges } = projectStyle(reviewSpec("EMAIL_TRIAGE", mode), "simple");
+      expect(edges.map((e) => e.label)).toContain("Needs review or otherwise");
+    }
   });
 });
 

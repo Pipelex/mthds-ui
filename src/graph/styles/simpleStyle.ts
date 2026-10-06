@@ -497,11 +497,11 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
     if (blueprint?.type !== "PipeCondition") return undefined;
     const outcomes = Object.entries(blueprint.outcome_map)
       .filter(([, pipeRef]) => stripDomain(pipeRef) === branch.pipe_code)
-      .map(([outcome]) => outcomeLabel(outcome));
+      .map(([outcome]) => outcome);
     if (blueprint.default_outcome && stripDomain(blueprint.default_outcome) === branch.pipe_code) {
-      outcomes.push(outcomeLabel("default"));
+      outcomes.push("default");
     }
-    return outcomes.length > 0 ? outcomes.join(" or ") : undefined;
+    return outcomes.length > 0 ? outcomeLabel(outcomes.join("|")) : undefined;
   }
 
   function decisionsAbove(nodeId: string): string[] {

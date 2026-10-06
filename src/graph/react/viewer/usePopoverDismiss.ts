@@ -8,6 +8,11 @@ export type PopoverDismissReason = "outside" | "escape";
  * outside its wrapper or on Escape, while it is open. The listeners live on the
  * document only while `open` is true. `onDismiss` may change between renders
  * without re-registering them.
+ *
+ * The press is heard in the capture phase: the graph's pane handles its own
+ * presses for panning and stops them there, so a listener waiting for them to
+ * bubble to the document never hears a press on the canvas, the most common
+ * place to click away from a popover.
  */
 export function usePopoverDismiss(
   open: boolean,
@@ -18,7 +23,7 @@ export function usePopoverDismiss(
   onDismissRef.current = onDismiss;
   React.useEffect(() => {
     if (!open) return;
-    const onPointerDown = (event: MouseEvent) => {
+    const onPointerDown = (event: PointerEvent) => {
       const wrapper = wrapperRef.current;
       if (wrapper && event.target instanceof Node && !wrapper.contains(event.target)) {
         onDismissRef.current("outside");
@@ -27,10 +32,10 @@ export function usePopoverDismiss(
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") onDismissRef.current("escape");
     };
-    document.addEventListener("mousedown", onPointerDown);
+    document.addEventListener("pointerdown", onPointerDown, true);
     document.addEventListener("keydown", onKeyDown);
     return () => {
-      document.removeEventListener("mousedown", onPointerDown);
+      document.removeEventListener("pointerdown", onPointerDown, true);
       document.removeEventListener("keydown", onKeyDown);
     };
   }, [open, wrapperRef]);
