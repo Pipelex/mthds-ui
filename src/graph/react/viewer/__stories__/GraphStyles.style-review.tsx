@@ -10,10 +10,12 @@
 import "../../graph-core.css";
 import { createRoot, type Root } from "react-dom/client";
 import { act } from "react";
+import { userEvent } from "vitest/browser";
 import { afterEach, describe, expect, it } from "vitest";
 import { commands, page } from "vitest/browser";
 
-import type { GraphSpecMode, GraphStyleId } from "@graph/types";
+import type { GraphSpecMode, GraphStyleId, ToolbarPosition } from "@graph/types";
+import { TOOLBAR_POSITION } from "@graph/types";
 import { identifierTokens } from "@graph/styles/styleMetrics";
 import { StyleReview } from "./StyleReview";
 import { REVIEW_FIXTURE_IDS, REVIEW_SUBSET, type ReviewFixtureId } from "./styleReviewFixtures";
@@ -193,4 +195,75 @@ describe("graph styles review capture", () => {
       await commands.writeFile(`${base}.json`, JSON.stringify(measure(target, c), null, 2));
     });
   }
+});
+
+/**
+ * The simple style's interactive states, which a capture of the drawing alone
+ * cannot show: the style menu open at each kind of toolbar anchor (scored for
+ * V3 and V4), and a step's detail panel (design decision 10).
+ */
+describe("graph styles review capture: interactions", () => {
+  const styles = __STYLE_REVIEW_STYLES__.split(",").map((s) => s.trim());
+  if (!styles.includes("simple")) return;
+
+  async function render(toolbarPosition?: ToolbarPosition): Promise<HTMLElement> {
+    container = document.createElement("div");
+    container.style.cssText = "width: 1280px; height: 800px; position: relative;";
+    document.body.style.margin = "0";
+    document.body.appendChild(container);
+    const target = container;
+    act(() => {
+      root = createRoot(target);
+      root.render(
+        <StyleReview
+          fixture="CV_SCREENING"
+          graphStyle="simple"
+          mode="live"
+          direction="LR"
+          theme="light"
+          toolbarPosition={toolbarPosition}
+        />,
+      );
+    });
+    await settle(target);
+    return target;
+  }
+
+  const anchors: ToolbarPosition[] = [
+    TOOLBAR_POSITION.TOP_RIGHT,
+    TOOLBAR_POSITION.BOTTOM_LEFT,
+    TOOLBAR_POSITION.CENTER_LEFT,
+  ];
+  for (const anchor of anchors) {
+    it(`simple menu open at ${anchor}`, async () => {
+      const target = await render(anchor);
+      const button = target.querySelector<HTMLElement>('[aria-haspopup="menu"]');
+      if (!button) throw new Error("no style menu button");
+      await userEvent.click(button);
+      await expect.poll(() => target.querySelector('[role="menu"]')).not.toBeNull();
+      await page.screenshot({
+        element: target,
+        path: `${__STYLE_REVIEW_DIR__}/interactions/menu-${anchor}.jpg`,
+        type: "jpeg",
+        quality: 82,
+      });
+    });
+  }
+
+  it("simple detail panel of a step", async () => {
+    const target = await render();
+    const step = target.querySelector<HTMLElement>(".react-flow__node-simpleStep");
+    if (!step) throw new Error("no step");
+    await userEvent.click(step);
+    await expect
+      .poll(() => target.querySelectorAll(".react-flow__node.selected").length)
+      .toBeGreaterThan(0);
+    await new Promise((resolve) => setTimeout(resolve, 400));
+    await page.screenshot({
+      element: target,
+      path: `${__STYLE_REVIEW_DIR__}/interactions/detail-step.jpg`,
+      type: "jpeg",
+      quality: 82,
+    });
+  });
 });

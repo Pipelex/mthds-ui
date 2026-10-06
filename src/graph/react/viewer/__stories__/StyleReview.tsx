@@ -1,4 +1,4 @@
-import type { GraphSpecMode, GraphStyleId } from "@graph/types";
+import type { GraphSpecMode, GraphStyleId, ToolbarPosition } from "@graph/types";
 import { GraphViewer } from "../GraphViewer";
 import { reviewSpec, reviewStatusMap, type ReviewFixtureId } from "./styleReviewFixtures";
 
@@ -10,6 +10,7 @@ export interface StyleReviewProps {
   theme: "light" | "dark";
   /** Offer the toolbar's style menu. */
   styleMenu?: boolean;
+  toolbarPosition?: ToolbarPosition;
 }
 
 /**
@@ -25,6 +26,7 @@ export function StyleReview({
   direction,
   theme,
   styleMenu = true,
+  toolbarPosition,
 }: StyleReviewProps) {
   const spec = reviewSpec(fixture, mode);
   return (
@@ -36,6 +38,7 @@ export function StyleReview({
         initialDirection={direction}
         theme={theme}
         styleMenu={styleMenu}
+        toolbarPosition={toolbarPosition}
         statusMap={mode === "live" ? reviewStatusMap(spec) : undefined}
       />
     </div>

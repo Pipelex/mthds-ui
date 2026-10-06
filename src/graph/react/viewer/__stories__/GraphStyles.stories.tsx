@@ -59,3 +59,6 @@ export const AllControllerTypes: Story = { args: { fixture: "ALL_CONTROLLER_TYPE
 export const AllPipeTypes: Story = { args: { fixture: "ALL_PIPE_TYPES" } };
 export const AllNativeConcepts: Story = { args: { fixture: "ALL_NATIVE_CONCEPTS" } };
 export const CatalogReview: Story = { args: { fixture: "CATALOG_REVIEW" } };
+
+/** A run caught midway: steps done, running and failed. */
+export const CvScreeningLive: Story = { args: { fixture: "CV_SCREENING", mode: "live" } };
