@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- **The vendored MTHDS Test Corpus**: `data/mthds-corpus/` is copied from pipelex v0.76.0, so the static sweeps also build the `markdown` filter of an HTML template and a sequence handing a Markdown input to a step that reads it as plain text, and the corpus gains the invalid entries for a sequence step reading a list as a single item and for a package dependency that cannot be resolved.
+
 ## [v0.29.0] - 2026-10-06
 
 ### Added
