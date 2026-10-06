@@ -29,14 +29,27 @@ src/
     graphControllers.ts           # Controller group node generation + collapse
     graphConfig.ts                # Default visual configuration + palette
     stuffLookup.ts                # Digest → data item + the pipe that produced it
+    edgeRoutes.ts                 # Drawing an edge along the route ELK computed for it
     index.ts                      # Barrel export for pure-TS graph logic
+    styles/                       # Graph styles (docs/graph-styles.md), pure and React-free:
+      graphStyles.ts              #   GRAPH_STYLES, the typed registry: name, description, capabilities, layout
+      stylePipelines.ts           #   Each style's default folds, projection and frame pass
+      simpleStyle.ts              #   The simple style's projection: steps, decisions, inputs, outputs
+      humanize.ts                 #   Identifiers → plain words
+      textMetrics.ts              #   Glyph-width table: text width and wrap estimates before render
+      styleMetrics.ts             #   The review rubric's measurements (tests and capture only; not exported)
     __tests__/                    # Unit tests (co-located)
     react/
       rfTypes.ts                  # Domain ↔ ReactFlow type bridge
       graph-core.css              # Shared node/edge/card styles
       index.ts                    # Barrel export for React components
+      edges/
+        RoutedEdge.tsx            # An edge drawn along its layout route
+      styles/
+        simple/                   # The simple style's node components and stylesheet
       viewer/
         GraphViewer.tsx           # Unified ReactFlow viewer component
+        StyleMenu.tsx             # The toolbar's opt-in graph style menu
         graphArtifacts.ts         # GraphArtifacts: the spec + its descriptors, the viewer's one `graph` prop
         renderLabel.tsx           # Label rendering + hydration
       detail/
@@ -156,19 +169,23 @@ GraphSpec (JSON from pipelex-agent, or static builder output)
 
 **Binding nodes** are a sequence's binding steps (`{ from = "invoice.total", result = "total" }`): a node of kind `binding` whose `pipe_type` is `BindingStep` (`BINDING_STEP_TYPE`), not a pipe. It is drawn as a pipe card, so a table keyed by a card's class is `Record<NodePipeType, …>` (`PipeType | BindingStepType`), and `asCardNode` / `CardNode` cover both families where `asPipeCallNode` / `PipeCallNode` cover pipes alone. See `docs/static-graph.md`, "Binding Steps".
 
-**Adding a new pipelex pipe class requires an mthds-ui update.** pipelex sets a node's `pipe_type` from the pipe's Python class name. `validateGraphSpec` checks `pipe_type` against `KNOWN_PIPE_TYPES` (derived from the `PipeType` union in `types.ts`) and throws on an unrecognized class. When pipelex ships a new pipe class, add it to `PipeOperatorType` or `PipeControllerType` — the exhaustiveness maps keyed by `PipeType` or `NodePipeType` in `types.ts`, `PipeCardBase.tsx`, `PipeDetailPanel.tsx` and `pipeCardRegistry.ts` will fail to compile until every badge/status table is updated.
+**Adding a new pipelex pipe class requires an mthds-ui update.** pipelex sets a node's `pipe_type` from the pipe's Python class name. `validateGraphSpec` checks `pipe_type` against `KNOWN_PIPE_TYPES` (derived from the `PipeType` union in `types.ts`) and throws on an unrecognized class. When pipelex ships a new pipe class, add it to `PipeOperatorType` or `PipeControllerType` — the exhaustiveness maps keyed by `PipeType` or `NodePipeType` in `types.ts`, `PipeCardBase.tsx`, `PipeDetailPanel.tsx`, `pipeCardRegistry.ts` and the simple style's `STEP_CATEGORY_BY_PIPE_TYPE` (`styles/simpleStyle.ts`) will fail to compile until every badge/status table is updated.
 
 **Stuff** = data nodes. Produced by one pipe, consumed by one or more pipes. Identified by digest. Node IDs use `stuff_<digest>` convention (use `stuffNodeId()`, `isStuffNodeId()`, `stuffDigestFromId()` helpers).
 
 **Controllers** contain child pipes via `contains` edges in GraphSpec. They render as group nodes wrapping their children. Parallel/Batch with >5 children auto-collapse.
 
-### Three Node Types
+### Node Types
+
+The detailed style, the default, draws these node types:
 
 | Constant               | Value               | Used By                                               |
 | ---------------------- | ------------------- | ----------------------------------------------------- |
 | `NODE_TYPE_PIPE_CARD`  | `"pipeCard"`        | Operator pipe nodes (custom PipeCardNode component)   |
 | `NODE_TYPE_STUFF`      | `"default"`         | Data nodes (ReactFlow default node with custom label) |
 | `NODE_TYPE_CONTROLLER` | `"controllerGroup"` | Controller group nodes (custom ControllerGroupNode)   |
+
+The simple style projects the same graph into node types of its own, `NODE_TYPE_SIMPLE_STEP`, `NODE_TYPE_SIMPLE_TERMINAL`, `NODE_TYPE_SIMPLE_DECISION` and `NODE_TYPE_SIMPLE_FRAME`, joined by `EDGE_TYPE_ROUTED` edges. A new style registers its descriptor, its pipeline and its node components, each keyed by `GraphStyleId`, so it fails to compile until all three exist; `docs/graph-styles.md` says how.
 
 ## Type System
 
