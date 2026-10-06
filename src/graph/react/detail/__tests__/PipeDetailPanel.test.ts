@@ -192,3 +192,51 @@ describe("PipeDetailPanel io pills", () => {
     expect(html).toContain('<span class="detail-io-concept">Score[4]</span>');
   });
 });
+
+describe("PipeDetailPanel on a binding node with empty IO", () => {
+  // pipelex closes a binding whose root was absent with no input and no output:
+  // failed when the absence was not recorded, skipped when it was. Its panel
+  // still says what it binds, and what became of it.
+  function renderBinding(status: "failed" | "skipped"): string {
+    const node: GraphSpecNode = {
+      id: "bind",
+      kind: "binding",
+      status,
+      pipe_code: "catalog.editor_note",
+      pipe_type: "BindingStep",
+      description: "Binds 'catalog.editor_note' to 'editor_note'",
+      domain_code: "demo",
+      io: { inputs: [], outputs: [] },
+      execution_data: { from: "catalog.editor_note", result: "editor_note" },
+      ...(status === "failed"
+        ? {
+            error: {
+              error_type: "PipeRunInputsError",
+              message: "The binding step reads 'catalog', which is not in working memory.",
+            },
+          }
+        : {}),
+    };
+    const spec: GraphSpec = { meta: { format: "mthds", mode: "live" }, nodes: [node], edges: [] };
+    return renderToStaticMarkup(React.createElement(PipeDetailPanel, { node, spec }));
+  }
+
+  it("shows a failed binding's status, its error, and what it binds", () => {
+    const html = renderBinding("failed");
+
+    expect(html).toContain('<span class="detail-status-label"');
+    expect(html).toContain(">failed</span>");
+    expect(html).toContain("PipeRunInputsError");
+    expect(html).toContain("which is not in working memory");
+    expect(html).toContain("catalog.editor_note");
+    expect(html).toContain("editor_note");
+  });
+
+  it("shows a skipped binding's status and what it binds", () => {
+    const html = renderBinding("skipped");
+
+    expect(html).toContain(">skipped</span>");
+    expect(html).not.toContain("detail-error");
+    expect(html).toContain("catalog.editor_note");
+  });
+});

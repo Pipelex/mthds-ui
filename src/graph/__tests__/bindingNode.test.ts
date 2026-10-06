@@ -10,7 +10,8 @@ import type { BindingNode } from "@graph/types";
 import { BINDING_STEP_TYPE, isBindingNode, NODE_TYPE_PIPE_CARD, stuffNodeId } from "@graph/types";
 import { validateGraphSpec } from "@graph/validateGraphSpec";
 
-import { makeBindingSpec, runFullPipeline } from "./testUtils";
+import { buildGraph } from "../graphBuilders";
+import { makeBindingSpec, makeEmptyBindingSpec, runFullPipeline } from "./testUtils";
 
 describe("a binding node in a run graph", () => {
   it("passes the boundary validator", () => {
@@ -51,6 +52,48 @@ describe("a binding node in a run graph", () => {
     expect(card?.parentId).toBe("seq");
     expect(Number.isFinite(card?.position.x)).toBe(true);
   });
+});
+
+// pipelex closes a binding whose root was absent with empty IO, skipped when
+// the absence was recorded and failed when it was not. Such a binding carries
+// no data flow, and the graph must still draw it: it is a step of its sequence,
+// and its status and error are what the viewer has to show.
+describe.each(["failed", "skipped"] as const)("a %s binding node with empty IO", (status) => {
+  it("passes the boundary validator", () => {
+    expect(() => validateGraphSpec(makeEmptyBindingSpec(status))).not.toThrow();
+  });
+
+  it("is drawn when it is all its graph holds", () => {
+    const { graphData, analysis } = buildGraph(makeEmptyBindingSpec(status), "bezier");
+    expect(analysis).not.toBeNull();
+    expect(graphData.nodes.map((node) => node.id)).toEqual(["bind"]);
+    expect(graphData.nodes[0].data.nodeData?.status).toBe(status);
+  });
+
+  it("is drawn beside a pipe that produces a stuff", () => {
+    const { graphData } = buildGraph(
+      makeEmptyBindingSpec(status, { besideProducer: true }),
+      "bezier",
+    );
+    const drawn = graphData.nodes.map((node) => node.id);
+    expect(drawn).toContain("bind");
+    expect(drawn).toContain("title");
+    expect(graphData.edges.some((edge) => edge.source === "bind" || edge.target === "bind")).toBe(
+      false,
+    );
+  });
+
+  it.each([false, true])(
+    "lands inside its sequence's group after layout (beside a producer: %s)",
+    async (besideProducer) => {
+      const { appNodes } = await runFullPipeline(makeEmptyBindingSpec(status, { besideProducer }));
+      const card = appNodes.find((node) => node.id === "bind");
+      expect(card?.type).toBe(NODE_TYPE_PIPE_CARD);
+      expect(card?.parentId).toBe("seq");
+      expect(appNodes.some((node) => node.id === "seq")).toBe(true);
+      expect(Number.isFinite(card?.position.x)).toBe(true);
+    },
+  );
 });
 
 describe("buildPipeCardPayload on a binding node", () => {

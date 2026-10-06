@@ -297,7 +297,9 @@ export type PipeCallNode = GraphSpecNode & {
  * `pipe_code` is the step's `from` path (`invoice.total`), its one input the
  * root the path starts from, and its one output the stuff it binds, under the
  * step's `result`. A binding that bound nothing, because the path held nothing,
- * has no output. It is never a controller: nothing is contained in it.
+ * has no output; one whose root was absent has no input; a failed one may have
+ * neither. The graph draws it all the same. It is never a controller: nothing
+ * is contained in it.
  */
 export type BindingNode = GraphSpecNode & {
   kind: "binding";
