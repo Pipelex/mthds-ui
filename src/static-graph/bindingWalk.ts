@@ -24,7 +24,12 @@
 import type { ConceptInfo, StuffMultiplicity } from "@graph/types";
 import { isPluralMultiplicity } from "@graph/types";
 
-import { NATIVE_DOMAIN, resolveConceptInfo } from "./conceptRefs";
+import {
+  isNativeConceptCode,
+  NATIVE_DOMAIN,
+  nativeConceptFields,
+  resolveConceptInfo,
+} from "./conceptRefs";
 import type { MergedMethodSet, StructureField } from "./types";
 
 /** The root's concept and multiplicity, as the sequence knows them at the binding step. */
@@ -37,92 +42,10 @@ export type BindingDerivation =
   | { kind: "derived"; concept: ConceptInfo; multiplicity: StuffMultiplicity }
   | { kind: "unresolved"; reason: string };
 
-// ─── The natives, read off their pinned definitions ──────────────────────────
-
-const field = (type: string): StructureField => ({
-  type,
-  conceptRef: null,
-  itemType: null,
-  itemConceptRef: null,
-});
-const conceptField = (conceptRef: string): StructureField => ({
-  type: "concept",
-  conceptRef,
-  itemType: null,
-  itemConceptRef: null,
-});
-const conceptListField = (itemConceptRef: string): StructureField => ({
-  type: "list",
-  conceptRef: null,
-  itemType: "concept",
-  itemConceptRef,
-});
-
-/**
- * The fields of each native concept, as the MTHDS standard pins them
- * (`docs/spec/native-concepts.md` in the standard's repository), with
- * Markdown, which the runtime defines ahead of the standard, as the runtime
- * pins it. `null` is a native structureless by definition. Only what the walk
- * reads is kept: each field's type and the concept it names.
- */
-const PINNED_NATIVE_FIELDS: Readonly<Record<string, Record<string, StructureField> | null>> = {
-  Dynamic: null,
-  Text: { text: field("text") },
-  Markdown: { text: field("text") },
-  Image: {
-    url: field("text"),
-    public_url: field("text"),
-    source_prompt: field("text"),
-    source_negative_prompt: field("text"),
-    caption: field("text"),
-    mime_type: field("text"),
-    width: field("integer"),
-    height: field("integer"),
-    filename: field("text"),
-  },
-  Document: {
-    url: field("text"),
-    public_url: field("text"),
-    mime_type: field("text"),
-    filename: field("text"),
-    title: field("text"),
-    snippet: field("text"),
-  },
-  Html: { inner_html: field("text"), css_class: field("text") },
-  TextAndImages: {
-    text: conceptField("native.Text"),
-    images: conceptListField("native.Image"),
-    raw_html: field("text"),
-  },
-  Number: { number: field("number") },
-  YesNo: { yes_no: field("boolean"), probability: field("number") },
-  Choice: { choice: field("text"), confidence: field("number"), probabilities: field("dict") },
-  Rating: {
-    level: field("integer"),
-    confidence: field("number"),
-    probabilities: field("dict"),
-    position: field("number"),
-  },
-  Date: { date: field("date"), time: field("time") },
-  Time: { time: field("time") },
-  Page: {
-    text_and_images: conceptField("native.TextAndImages"),
-    page_view: conceptField("native.Image"),
-  },
-  JSON: { json_obj: field("dict") },
-  SearchResult: { answer: field("text"), sources: conceptListField("native.Document") },
-  Anything: null,
-  Composite: null,
-};
-
-function isPinnedNativeCode(code: string): boolean {
-  return Object.hasOwn(PINNED_NATIVE_FIELDS, code);
-}
-
 // ─── What the walk sees of a concept ─────────────────────────────────────────
 
 type WalkableConcept =
-  | { shape: "structure"; ref: string; fields: Record<string, StructureField> }
+  | { shape: "structure"; ref: string; fields: Readonly<Record<string, StructureField>> }
   /** A leaf: a single-field native, or a concept refining one, with why. */
   | { shape: "value"; ref: string; reason: string }
   /** Nothing to walk: a structureless native, a concept declaring no structure, or one nothing resolves, with why. */
@@ -148,7 +71,7 @@ function qualifyFieldRef(ref: string, domain: string): string {
   if (ref.includes("->")) return ref;
   if (ref.startsWith(`${NATIVE_DOMAIN}.`)) return ref;
   if (!ref.includes("."))
-    return isPinnedNativeCode(ref) ? `${NATIVE_DOMAIN}.${ref}` : `${domain}.${ref}`;
+    return isNativeConceptCode(ref) ? `${NATIVE_DOMAIN}.${ref}` : `${domain}.${ref}`;
   return ref;
 }
 
@@ -166,11 +89,15 @@ function resolveWalkable(
   }
   const { domain, code } = splitRef(ref);
   if (domain === NATIVE_DOMAIN) {
-    if (!isPinnedNativeCode(code))
+    // A native is walked through its pinned fields, which the catalog holds
+    // beside its description, so what resolves as a native is what walks as one.
+    if (!isNativeConceptCode(code)) {
       return { shape: "no-structure", ref, reason: "is not a native concept" };
-    const fields = PINNED_NATIVE_FIELDS[code];
-    if (fields === null)
+    }
+    const fields = nativeConceptFields(code);
+    if (fields === null) {
       return { shape: "no-structure", ref, reason: "is structureless by definition" };
+    }
     if (Object.keys(fields).length === 1) {
       return { shape: "value", ref, reason: SINGLE_FIELD_NATIVE_REASON };
     }

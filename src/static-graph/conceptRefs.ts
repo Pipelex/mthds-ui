@@ -11,46 +11,161 @@
 
 import type { ConceptInfo, PresenceMarker, StuffSpecInfo } from "@graph/types";
 
+import type { StructureField } from "./types";
 import { isPlainObject } from "./types";
 
 export const NATIVE_DOMAIN = "native";
 
+// ─── The native concept catalog ──────────────────────────────────────────────
+
+const field = (type: string): StructureField => ({
+  type,
+  conceptRef: null,
+  itemType: null,
+  itemConceptRef: null,
+});
+const conceptField = (conceptRef: string): StructureField => ({
+  type: "concept",
+  conceptRef,
+  itemType: null,
+  itemConceptRef: null,
+});
+const conceptListField = (itemConceptRef: string): StructureField => ({
+  type: "list",
+  conceptRef: null,
+  itemType: "concept",
+  itemConceptRef,
+});
+
+/** What the catalog holds of one native. */
+interface NativeConceptDefinition {
+  description: string;
+  /** The native it refines, as the runtime records it: `Markdown` refines `Text`. */
+  refines?: string;
+  /**
+   * Its pinned fields, as the binding walk reads them (each field's type and the
+   * concept it names), or null for a native structureless by definition.
+   */
+  fields: Readonly<Record<string, StructureField>> | null;
+}
+
 /**
- * The native concept catalog. Codes and descriptions are copied from the MTHDS
- * standard's pinned set — `docs/spec/native-concepts.md` in the sibling `mthds/`
- * repo — which pipelex mirrors in `pipelex/core/concepts/native/concept_native.py`
- * and `native/pinned_blueprints.py`. Structure class names follow the runtime's
- * `<Code>Content` rule. Keep this table in the spec's canonical order; a code
- * missing here silently degrades to a stub. See `docs/static-graph.md`.
+ * The native concept catalog, the one source of what this module knows of a
+ * native: its code, description and refinement, which resolve a ref, and its
+ * pinned fields, which the binding walk reads. Copied from the MTHDS standard's
+ * pinned set — `docs/spec/native-concepts.md` in the sibling `mthds/` repo —
+ * which pipelex mirrors in `pipelex/core/concepts/native/concept_native.py`
+ * (`NativeConceptCode`) and `native/pinned_blueprints.py`, together with
+ * `Markdown`, which pipelex defines ahead of the standard. Structure class
+ * names follow the runtime's `<Code>Content` rule. Keep this table in
+ * `NativeConceptCode`'s order; a code missing here silently degrades to a stub.
+ * See `docs/static-graph.md`.
  */
-const NATIVE_CONCEPT_DESCRIPTIONS = {
-  Dynamic: "A dynamic concept",
-  Text: "A text",
-  Image: "An image",
-  Document: "A document",
-  Html: "HTML content",
-  TextAndImages: "A text and an image",
-  Number: "A number",
-  YesNo: "The answer to a yes/no question",
-  Date: "A calendar date, optionally with a time of day — as precise as its source states.",
-  Time: "A time of day, optionally with a UTC offset — as precise as its source states.",
-  Page: "The content of a page of a document, comprising text and linked images and an optional page view image",
-  JSON: "A JSON object",
-  SearchResult: "A search result with answer and sources",
-  Anything: "Anything",
-  Composite: "A named composition of contents",
-} satisfies Record<string, string>;
+const NATIVE_CONCEPTS = {
+  Dynamic: { description: "A dynamic concept", fields: null },
+  Text: { description: "A text", fields: { text: field("text") } },
+  Markdown: {
+    description: "A text written in Markdown",
+    refines: "native.Text",
+    fields: { text: field("text") },
+  },
+  Image: {
+    description: "An image",
+    fields: {
+      url: field("text"),
+      public_url: field("text"),
+      source_prompt: field("text"),
+      source_negative_prompt: field("text"),
+      caption: field("text"),
+      mime_type: field("text"),
+      width: field("integer"),
+      height: field("integer"),
+      filename: field("text"),
+    },
+  },
+  Document: {
+    description: "A document",
+    fields: {
+      url: field("text"),
+      public_url: field("text"),
+      mime_type: field("text"),
+      filename: field("text"),
+      title: field("text"),
+      snippet: field("text"),
+    },
+  },
+  Html: {
+    description: "HTML content",
+    fields: { inner_html: field("text"), css_class: field("text") },
+  },
+  TextAndImages: {
+    description: "A text and an image",
+    fields: {
+      text: conceptField("native.Text"),
+      images: conceptListField("native.Image"),
+      raw_html: field("text"),
+    },
+  },
+  Number: { description: "A number", fields: { number: field("number") } },
+  YesNo: {
+    description: "The answer to a yes/no question",
+    fields: { yes_no: field("boolean"), probability: field("number") },
+  },
+  Choice: {
+    description: "One option picked out of a declared set",
+    fields: { choice: field("text"), confidence: field("number"), probabilities: field("dict") },
+  },
+  Rating: {
+    description: "A position on an ordered scale of described levels",
+    fields: {
+      level: field("integer"),
+      confidence: field("number"),
+      probabilities: field("dict"),
+      position: field("number"),
+    },
+  },
+  Date: {
+    description:
+      "A calendar date, optionally with a time of day — as precise as its source states.",
+    fields: { date: field("date"), time: field("time") },
+  },
+  Time: {
+    description: "A time of day, optionally with a UTC offset — as precise as its source states.",
+    fields: { time: field("time") },
+  },
+  Page: {
+    description:
+      "The content of a page of a document, comprising text and linked images and an optional page view image",
+    fields: {
+      text_and_images: conceptField("native.TextAndImages"),
+      page_view: conceptField("native.Image"),
+    },
+  },
+  JSON: { description: "A JSON object", fields: { json_obj: field("dict") } },
+  SearchResult: {
+    description: "A search result with answer and sources",
+    fields: { answer: field("text"), sources: conceptListField("native.Document") },
+  },
+  Anything: { description: "Anything", fields: null },
+  Composite: { description: "A named composition of contents", fields: null },
+} satisfies Record<string, NativeConceptDefinition>;
 
 /** A code the catalog knows. Derived from the catalog so the two cannot disagree. */
-export type NativeConceptCode = keyof typeof NATIVE_CONCEPT_DESCRIPTIONS;
+export type NativeConceptCode = keyof typeof NATIVE_CONCEPTS;
 
-export const NATIVE_CONCEPT_CODES: ReadonlySet<string> = new Set(
-  Object.keys(NATIVE_CONCEPT_DESCRIPTIONS),
-);
+export const NATIVE_CONCEPT_CODES: ReadonlySet<string> = new Set(Object.keys(NATIVE_CONCEPTS));
 
 /** Narrow an arbitrary code to the catalog, so callers cannot mint a native the catalog lacks. */
 export function isNativeConceptCode(code: string): code is NativeConceptCode {
-  return Object.hasOwn(NATIVE_CONCEPT_DESCRIPTIONS, code);
+  return Object.hasOwn(NATIVE_CONCEPTS, code);
+}
+
+/** A native's pinned fields, or null for a native structureless by definition. */
+export function nativeConceptFields(
+  code: NativeConceptCode,
+): Readonly<Record<string, StructureField>> | null {
+  const definition: NativeConceptDefinition = NATIVE_CONCEPTS[code];
+  return definition.fields;
 }
 
 // ─── Ref parsing ─────────────────────────────────────────────────────────────
@@ -158,12 +273,13 @@ export function qualifiedStructureClassName(domain: string, code: string): strin
 }
 
 export function nativeConceptInfo(code: NativeConceptCode): ConceptInfo {
+  const definition: NativeConceptDefinition = NATIVE_CONCEPTS[code];
   return {
     code,
     domain_code: NATIVE_DOMAIN,
-    description: NATIVE_CONCEPT_DESCRIPTIONS[code],
+    description: definition.description,
     structure_class_name: `${code}Content`,
-    refines: null,
+    refines: definition.refines ?? null,
   };
 }
 

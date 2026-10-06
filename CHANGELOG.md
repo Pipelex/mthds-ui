@@ -16,6 +16,8 @@
 
 ### Fixed
 
+- **`Choice`, `Rating` and `Markdown` resolve as natives**: in a static graph, a bare `Choice`, `Rating` or `Markdown` ref, and a `refines` naming one, resolve into the native domain with the runtime's description, `Markdown` refining `Text` as the runtime records it; they used to resolve as an empty stub in the authoring domain.
+
 - **A shorthand structure field is required**: a concept field written `name = "description"` is listed in the concept's `json_schema.required`, as the runtime reads it; it used to read as optional in the concept's detail panel.
 
 - **A condition's output reaches the step that reads it, and `DataflowAnalysis.stuffProducers` lists every producer (Breaking)**: in a static graph, a `PipeCondition`'s output is now one stuff that every outcome produces, so a later step reading it is wired to all outcomes; it used to be wired to the default route's output only, and every other outcome's output dead-ended at the graph's edge. To draw that, `DataflowAnalysis.stuffProducers` maps each digest to the list of operators writing it rather than to one id, so a host reading it takes `stuffProducers[digest]?.[0]` where it read `stuffProducers[digest]`.

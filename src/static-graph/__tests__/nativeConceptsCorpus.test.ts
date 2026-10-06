@@ -38,7 +38,9 @@ const PIPELINES_DIR = path.resolve(__dirname, "../../../data/pipelines");
  * than counted so that deleting a fixture fails here instead of silently
  * shrinking the oracle's coverage to nothing.
  *
- * Every catalog code except `Dynamic`, which has no authorable output position.
+ * Every catalog code except `Dynamic`, which has no authorable output position,
+ * and `Markdown`, `Choice` and `Rating`, which no fixture here uses yet: the
+ * vendored MTHDS Test Corpus reaches them, but carries no dry spec to compare with.
  */
 const CORPUS_NATIVE_CODES = [
   "Anything",

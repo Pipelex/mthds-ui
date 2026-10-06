@@ -159,11 +159,22 @@ describe("deriveBinding — the field types", () => {
     });
   });
 
-  it("names a native the static catalog lacks in the native domain all the same", () => {
+  it("binds a field holding a Choice as the native, with its description", () => {
     const derivation = derive("order.mood", order());
     expect(derivation).toMatchObject({
       kind: "derived",
-      concept: { code: "Choice", domain_code: "native" },
+      concept: {
+        code: "Choice",
+        domain_code: "native",
+        description: "One option picked out of a declared set",
+      },
+    });
+  });
+
+  it("walks on through a field holding a Choice", () => {
+    expect(derivedRef("order.mood.confidence", order())).toEqual({
+      ref: "native.Number",
+      multiplicity: null,
     });
   });
 });
@@ -180,6 +191,10 @@ describe("deriveBinding — natives, walked through their pinned definitions", (
     ["YesNo", "answer.yes_no", "native.YesNo", null],
     ["Date", "day.time", "native.Time", null],
     ["Html", "html.inner_html", "native.Text", null],
+    ["Choice", "verdict.choice", "native.Text", null],
+    ["Choice", "verdict.probabilities", "native.JSON", null],
+    ["Rating", "damage.level", "native.Number", null],
+    ["Rating", "damage.position", "native.Number", null],
   ] as const)("walks a %s through %s to %s", (code, path, ref, multiplicity) => {
     expect(derivedRef(path, nativeConceptInfo(code))).toEqual({ ref, multiplicity });
   });
@@ -196,6 +211,9 @@ describe("deriveBinding — natives, walked through their pinned definitions", (
       "holds its value in a single field",
     );
     expect(unresolvedReason("count.number", nativeConceptInfo("Number"))).toContain("single field");
+    expect(unresolvedReason("report.text", nativeConceptInfo("Markdown"))).toContain(
+      "single field",
+    );
   });
 
   it("refuses to enter a structureless native", () => {
