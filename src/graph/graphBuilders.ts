@@ -4,11 +4,12 @@ import {
   NODE_TYPE_PIPE_CARD,
   NODE_TYPE_STUFF,
   graphSpecMode,
+  isBindingNode,
   multiplicitySuffix,
   stuffNodeId,
 } from "./types";
 import { buildDataflowAnalysis, buildChildToControllerMap } from "./graphAnalysis";
-import { asPipeCallNode } from "./validateGraphSpec";
+import { asCardNode } from "./validateGraphSpec";
 import { buildPipeCardPayload } from "./pipeCardPayload";
 
 const STUFF_CHAR_WIDTH_PX = 7;
@@ -47,12 +48,17 @@ export function buildDataflowGraph(
     }
   }
 
-  // Create pipe nodes (only those that participate in data flow)
+  // Create pipe nodes (only those that participate in data flow). A binding
+  // node participates like an operator — it reads its root and produces what it
+  // binds — so it is drawn as a card too, which says it binds rather than runs.
+  // A binding is drawn even with no data flow: one that failed, or was skipped
+  // because its root or its single result was absent, closes with empty IO, and
+  // it is still a step of its sequence whose status and error the viewer shows.
   for (const node of graphspec.nodes) {
-    if (!participatingPipes.has(node.id)) continue;
-    // A participating pipe is always a pipe-call node; this guard turns a
+    if (!participatingPipes.has(node.id) && !isBindingNode(node)) continue;
+    // A drawn node is always a pipe-call or binding node; this guard turns a
     // malformed spec into a loud, greppable error rather than a bare TypeError.
-    const pipeNode = asPipeCallNode(node, `nodes[${node.id}]`);
+    const pipeNode = asCardNode(node, `nodes[${node.id}]`);
 
     const isFailed = pipeNode.status === "failed";
     const label = pipeNode.pipe_code;
@@ -281,10 +287,13 @@ export function buildGraph(
 ): { graphData: GraphData; analysis: DataflowAnalysis | null } {
   if (graphspec) {
     const analysis = buildDataflowAnalysis(graphspec);
+    // A graph with no data flow at all is still drawn when it holds a binding
+    // node, which `buildDataflowGraph` draws whatever its IO.
     if (
       analysis &&
       (Object.keys(analysis.stuffProducers).length > 0 ||
-        Object.keys(analysis.stuffConsumers).length > 0)
+        Object.keys(analysis.stuffConsumers).length > 0 ||
+        graphspec.nodes.some(isBindingNode))
     ) {
       return { graphData: buildDataflowGraph(graphspec, analysis, edgeType), analysis };
     }

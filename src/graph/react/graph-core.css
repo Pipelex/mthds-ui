@@ -440,6 +440,18 @@
   color: var(--text-muted);
   border: 1px dashed var(--text-muted);
 }
+/* Binding step card — a sequence step that runs no pipe and binds a path of
+   working memory to a new name. Drawn in the data color, with a dashed accent,
+   so it reads as plumbing between the pipes rather than as one of them. */
+.pipe-card--binding {
+  --pipe-card-accent: var(--color-stuff-border);
+  border-left-style: dashed;
+}
+.pipe-card-badge--binding {
+  background: transparent;
+  color: var(--color-stuff-border);
+  border: 1px solid var(--color-stuff-border);
+}
 @keyframes pipe-card-pulse {
   0%,
   100% {

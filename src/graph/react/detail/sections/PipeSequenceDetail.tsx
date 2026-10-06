@@ -1,5 +1,6 @@
 import React from "react";
 import type { PipeBlueprintUnion } from "@graph/types";
+import { isBindingStepSpec } from "@graph/types";
 
 export function PipeSequenceSection({
   blueprint,
@@ -14,7 +15,14 @@ export function PipeSequenceSection({
         {blueprint.sequential_sub_pipes.map((step, idx) => (
           <div key={idx} className="detail-step-item">
             <span className="detail-step-index">{idx + 1}</span>
-            <span className="detail-step-code">{step.pipe_code}</span>
+            {isBindingStepSpec(step) ? (
+              // A binding step runs no pipe: it names the path it binds.
+              <span className="detail-step-code" title="Binding step">
+                from {step.from_path}
+              </span>
+            ) : (
+              <span className="detail-step-code">{step.pipe_code}</span>
+            )}
             {step.output_name && (
               <span className="detail-io-concept">-&gt; {step.output_name}</span>
             )}

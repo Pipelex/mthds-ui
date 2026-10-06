@@ -247,10 +247,12 @@ export function applyControllers(
   const childCounts: Record<string, number> = {};
   const collapsedSet = new Set<string>();
 
+  // A controller is a pipe-call node; the guard narrows its type the way
+  // `buildControllerNodes` does, and fails loudly on a malformed spec.
   const controllerTypeMap: Record<string, PipeType> = {};
   for (const node of graphspec.nodes) {
     if (analysis.controllerNodeIds.has(node.id)) {
-      controllerTypeMap[node.id] = node.pipe_type;
+      controllerTypeMap[node.id] = asPipeCallNode(node, `nodes[${node.id}]`).pipe_type;
     }
   }
 

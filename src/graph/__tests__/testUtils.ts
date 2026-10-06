@@ -300,6 +300,164 @@ export function makeBatchSpec(iterationCount: number): GraphSpec {
   return finalizeSpec(nodes, edges);
 }
 
+/**
+ * Seq > [binding, Batch > Compose] — the shape a run gives a sequence step
+ * batching over a dotted path (`batch_over = "catalog.pages"`): a binding node
+ * reading the root and binding the list under a private name, then the batch
+ * over that name. Mirrors a real dry run of the corpus entry
+ * `feature_binding_step_batch_over_catalog_pages`, node for node.
+ */
+export function makeBindingSpec(): GraphSpec {
+  const nodes: GraphSpecNode[] = [
+    {
+      id: "seq",
+      kind: "controller",
+      status: "succeeded",
+      pipe_code: "index_catalog",
+      pipe_type: "PipeSequence",
+      io: {
+        inputs: [{ digest: "d_catalog", name: "catalog", concept: "Catalog" }],
+        outputs: [{ digest: "d_lines", name: "index_lines", concept: "Text", multiplicity: true }],
+      },
+    },
+    {
+      id: "bind",
+      kind: "binding",
+      status: "succeeded",
+      pipe_code: "catalog.pages",
+      pipe_type: "BindingStep",
+      description: "Binds 'catalog.pages' to '_bound_catalog_pages'",
+      io: {
+        inputs: [{ digest: "d_catalog", name: "catalog", concept: "Catalog" }],
+        outputs: [
+          {
+            digest: "d_pages",
+            name: "_bound_catalog_pages",
+            concept: "CatalogPage",
+            multiplicity: true,
+          },
+        ],
+      },
+      execution_data: { from: "catalog.pages", result: "_bound_catalog_pages" },
+    },
+    {
+      id: "batch",
+      kind: "controller",
+      status: "succeeded",
+      pipe_code: "write_index_line_batch",
+      pipe_type: "PipeBatch",
+      io: {
+        inputs: [
+          {
+            digest: "d_pages",
+            name: "_bound_catalog_pages",
+            concept: "CatalogPage",
+            multiplicity: true,
+          },
+        ],
+        outputs: [{ digest: "d_lines", name: "index_lines", concept: "Text", multiplicity: true }],
+      },
+    },
+    {
+      id: "compose",
+      kind: "operator",
+      status: "succeeded",
+      pipe_code: "write_index_line",
+      pipe_type: "PipeCompose",
+      io: {
+        inputs: [{ digest: "d_page", name: "page", concept: "CatalogPage" }],
+        outputs: [{ digest: "d_text", name: "text", concept: "Text" }],
+      },
+    },
+  ];
+  const edges: GraphSpecEdge[] = [
+    { id: "e_seq_bind", source: "seq", target: "bind", kind: "contains" },
+    { id: "e_seq_batch", source: "seq", target: "batch", kind: "contains" },
+    { id: "e_batch_compose", source: "batch", target: "compose", kind: "contains" },
+    { id: "e_data", source: "bind", target: "batch", kind: "data", label: "_bound_catalog_pages" },
+    {
+      id: "e_item",
+      source: "batch",
+      target: "compose",
+      kind: "batch_item",
+      source_stuff_digest: "d_pages",
+      target_stuff_digest: "d_page",
+      label: "[0]",
+    },
+    {
+      id: "e_agg",
+      source: "compose",
+      target: "batch",
+      kind: "batch_aggregate",
+      source_stuff_digest: "d_text",
+      target_stuff_digest: "d_lines",
+      label: "[0]",
+    },
+  ];
+  return finalizeSpec(nodes, edges);
+}
+
+/**
+ * A sequence whose binding step closed with empty IO, the way pipelex closes
+ * one whose root `catalog` was absent: skipped when the root's absence was
+ * recorded (`trace_start` passes no input then, and `trace_end` no output for a
+ * single result), failed when it was not (`trace_error` adds none either). With
+ * `besideProducer`, an operator of the same sequence produces a stuff, so the
+ * graph has data flow of its own; without it, the binding is all it holds.
+ */
+export function makeEmptyBindingSpec(
+  status: "failed" | "skipped",
+  { besideProducer = false }: { besideProducer?: boolean } = {},
+): GraphSpec {
+  const nodes: GraphSpecNode[] = [
+    {
+      id: "seq",
+      kind: "controller",
+      status: status === "failed" ? "failed" : "succeeded",
+      pipe_code: "review_catalog",
+      pipe_type: "PipeSequence",
+      io: { inputs: [], outputs: [] },
+    },
+    {
+      id: "bind",
+      kind: "binding",
+      status,
+      pipe_code: "catalog.editor_note",
+      pipe_type: "BindingStep",
+      description: "Binds 'catalog.editor_note' to 'editor_note'",
+      io: { inputs: [], outputs: [] },
+      execution_data: { from: "catalog.editor_note", result: "editor_note" },
+      ...(status === "failed"
+        ? {
+            error: {
+              error_type: "PipeRunInputsError",
+              message:
+                "The binding step of pipe 'review_catalog' reads 'catalog', which is not in working memory and has no recorded absence.",
+            },
+          }
+        : {}),
+    },
+  ];
+  const edges: GraphSpecEdge[] = [
+    { id: "e_seq_bind", source: "seq", target: "bind", kind: "contains" },
+  ];
+  if (besideProducer) {
+    nodes.push({
+      id: "title",
+      kind: "operator",
+      status: "succeeded",
+      pipe_code: "write_title",
+      pipe_type: "PipeLLM",
+      io: {
+        inputs: [{ digest: "d_brief", name: "brief", concept: "Text" }],
+        outputs: [{ digest: "d_title", name: "title", concept: "Text" }],
+      },
+    });
+    edges.unshift({ id: "e_seq_title", source: "seq", target: "title", kind: "contains" });
+  }
+  return finalizeSpec(nodes, edges);
+}
+
 /** N levels of nesting: Seq > Seq > ... > operator. */
 export function makeNestedSpec(depth: number): GraphSpec {
   const nodes: GraphSpecNode[] = [];

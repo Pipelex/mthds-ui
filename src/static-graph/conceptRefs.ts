@@ -11,46 +11,161 @@
 
 import type { ConceptInfo, PresenceMarker, StuffSpecInfo } from "@graph/types";
 
+import type { StructureField } from "./types";
 import { isPlainObject } from "./types";
 
 export const NATIVE_DOMAIN = "native";
 
+// ─── The native concept catalog ──────────────────────────────────────────────
+
+const field = (type: string): StructureField => ({
+  type,
+  conceptRef: null,
+  itemType: null,
+  itemConceptRef: null,
+});
+const conceptField = (conceptRef: string): StructureField => ({
+  type: "concept",
+  conceptRef,
+  itemType: null,
+  itemConceptRef: null,
+});
+const conceptListField = (itemConceptRef: string): StructureField => ({
+  type: "list",
+  conceptRef: null,
+  itemType: "concept",
+  itemConceptRef,
+});
+
+/** What the catalog holds of one native. */
+interface NativeConceptDefinition {
+  description: string;
+  /** The native it refines, as the runtime records it: `Markdown` refines `Text`. */
+  refines?: string;
+  /**
+   * Its pinned fields, as the binding walk reads them (each field's type and the
+   * concept it names), or null for a native structureless by definition.
+   */
+  fields: Readonly<Record<string, StructureField>> | null;
+}
+
 /**
- * The native concept catalog. Codes and descriptions are copied from the MTHDS
- * standard's pinned set — `docs/spec/native-concepts.md` in the sibling `mthds/`
- * repo — which pipelex mirrors in `pipelex/core/concepts/native/concept_native.py`
- * and `native/pinned_blueprints.py`. Structure class names follow the runtime's
- * `<Code>Content` rule. Keep this table in the spec's canonical order; a code
- * missing here silently degrades to a stub. See `docs/static-graph.md`.
+ * The native concept catalog, the one source of what this module knows of a
+ * native: its code, description and refinement, which resolve a ref, and its
+ * pinned fields, which the binding walk reads. Copied from the MTHDS standard's
+ * pinned set — `docs/spec/native-concepts.md` in the sibling `mthds/` repo —
+ * which pipelex mirrors in `pipelex/core/concepts/native/concept_native.py`
+ * (`NativeConceptCode`) and `native/pinned_blueprints.py`, together with
+ * `Markdown`, which pipelex defines ahead of the standard. Structure class
+ * names follow the runtime's `<Code>Content` rule. Keep this table in
+ * `NativeConceptCode`'s order; a code missing here silently degrades to a stub.
+ * See `docs/static-graph.md`.
  */
-const NATIVE_CONCEPT_DESCRIPTIONS = {
-  Dynamic: "A dynamic concept",
-  Text: "A text",
-  Image: "An image",
-  Document: "A document",
-  Html: "HTML content",
-  TextAndImages: "A text and an image",
-  Number: "A number",
-  YesNo: "The answer to a yes/no question",
-  Date: "A calendar date, optionally with a time of day — as precise as its source states.",
-  Time: "A time of day, optionally with a UTC offset — as precise as its source states.",
-  Page: "The content of a page of a document, comprising text and linked images and an optional page view image",
-  JSON: "A JSON object",
-  SearchResult: "A search result with answer and sources",
-  Anything: "Anything",
-  Composite: "A named composition of contents",
-} satisfies Record<string, string>;
+const NATIVE_CONCEPTS = {
+  Dynamic: { description: "A dynamic concept", fields: null },
+  Text: { description: "A text", fields: { text: field("text") } },
+  Markdown: {
+    description: "A text written in Markdown",
+    refines: "native.Text",
+    fields: { text: field("text") },
+  },
+  Image: {
+    description: "An image",
+    fields: {
+      url: field("text"),
+      public_url: field("text"),
+      source_prompt: field("text"),
+      source_negative_prompt: field("text"),
+      caption: field("text"),
+      mime_type: field("text"),
+      width: field("integer"),
+      height: field("integer"),
+      filename: field("text"),
+    },
+  },
+  Document: {
+    description: "A document",
+    fields: {
+      url: field("text"),
+      public_url: field("text"),
+      mime_type: field("text"),
+      filename: field("text"),
+      title: field("text"),
+      snippet: field("text"),
+    },
+  },
+  Html: {
+    description: "HTML content",
+    fields: { inner_html: field("text"), css_class: field("text") },
+  },
+  TextAndImages: {
+    description: "A text and an image",
+    fields: {
+      text: conceptField("native.Text"),
+      images: conceptListField("native.Image"),
+      raw_html: field("text"),
+    },
+  },
+  Number: { description: "A number", fields: { number: field("number") } },
+  YesNo: {
+    description: "The answer to a yes/no question",
+    fields: { yes_no: field("boolean"), probability: field("number") },
+  },
+  Choice: {
+    description: "One option picked out of a declared set",
+    fields: { choice: field("text"), confidence: field("number"), probabilities: field("dict") },
+  },
+  Rating: {
+    description: "A position on an ordered scale of described levels",
+    fields: {
+      level: field("integer"),
+      confidence: field("number"),
+      probabilities: field("dict"),
+      position: field("number"),
+    },
+  },
+  Date: {
+    description:
+      "A calendar date, optionally with a time of day — as precise as its source states.",
+    fields: { date: field("date"), time: field("time") },
+  },
+  Time: {
+    description: "A time of day, optionally with a UTC offset — as precise as its source states.",
+    fields: { time: field("time") },
+  },
+  Page: {
+    description:
+      "The content of a page of a document, comprising text and linked images and an optional page view image",
+    fields: {
+      text_and_images: conceptField("native.TextAndImages"),
+      page_view: conceptField("native.Image"),
+    },
+  },
+  JSON: { description: "A JSON object", fields: { json_obj: field("dict") } },
+  SearchResult: {
+    description: "A search result with answer and sources",
+    fields: { answer: field("text"), sources: conceptListField("native.Document") },
+  },
+  Anything: { description: "Anything", fields: null },
+  Composite: { description: "A named composition of contents", fields: null },
+} satisfies Record<string, NativeConceptDefinition>;
 
 /** A code the catalog knows. Derived from the catalog so the two cannot disagree. */
-export type NativeConceptCode = keyof typeof NATIVE_CONCEPT_DESCRIPTIONS;
+export type NativeConceptCode = keyof typeof NATIVE_CONCEPTS;
 
-export const NATIVE_CONCEPT_CODES: ReadonlySet<string> = new Set(
-  Object.keys(NATIVE_CONCEPT_DESCRIPTIONS),
-);
+export const NATIVE_CONCEPT_CODES: ReadonlySet<string> = new Set(Object.keys(NATIVE_CONCEPTS));
 
 /** Narrow an arbitrary code to the catalog, so callers cannot mint a native the catalog lacks. */
 export function isNativeConceptCode(code: string): code is NativeConceptCode {
-  return Object.hasOwn(NATIVE_CONCEPT_DESCRIPTIONS, code);
+  return Object.hasOwn(NATIVE_CONCEPTS, code);
+}
+
+/** A native's pinned fields, or null for a native structureless by definition. */
+export function nativeConceptFields(
+  code: NativeConceptCode,
+): Readonly<Record<string, StructureField>> | null {
+  const definition: NativeConceptDefinition = NATIVE_CONCEPTS[code];
+  return definition.fields;
 }
 
 // ─── Ref parsing ─────────────────────────────────────────────────────────────
@@ -120,39 +235,47 @@ export interface InputSlotParts {
   missingConcept: boolean;
   /** Keys of an expanded slot table this version of the standard does not define. */
   unknownKeys: string[];
-  /**
-   * True when the table is not a slot table at all but the wreckage of an
-   * unquoted dotted input name — see {@link looksLikeUnquotedDottedName}.
-   */
-  dottedName: boolean;
 }
 
 /** A concept code as the standard pins it: `[A-Z][a-zA-Z0-9]*`. */
 const CONCEPT_CODE_RE = /^[A-Z][A-Za-z0-9]*$/;
 
+/** Whether a value is a concept ref whose code has the shape the standard pins. */
+function isConceptCodeRef(raw: unknown): boolean {
+  const parts = parseConceptRef(raw);
+  return parts !== null && CONCEPT_CODE_RE.test(parts.code);
+}
+
 /**
- * Recognize the slip the standard names explicitly: "A dotted input name MUST
- * be written as a single quoted TOML key (`"my_input.field_name" = "Text"`),
- * never as an unquoted dotted path: TOML parses the latter as nested tables,
- * which the expanded slot form would misread as a slot table"
- * (`docs/spec/mthds-format.md`, "Input names").
+ * The dotted names an `inputs` entry was written as, when TOML nested an
+ * unquoted dotted key into it, or null when the entry is a slot of its own.
  *
- * `inputs = { my_input.field_name = "Text" }` arrives here as a slot named
- * `my_input` holding `{ field_name: "Text" }` — a table with no `concept` whose
- * every undefined key names a concept ref. Without this the author is told the
- * slot declares an undefined key and then that it has no `concept`, two true
- * sentences that between them never mention the quoting rule that is the fix.
- *
- * The concept-code rule is what keeps this apart from a genuine unknown key: a
- * code MUST be `PascalCase`, so `{ widget = "textarea" }` cannot be mistaken
- * for a nested field, while `{ field_name = "Text" }` can only be one.
+ * `inputs = { page.page_view = "Image" }` arrives as an input named `page`
+ * holding `{ page_view: "Image" }`, which the expanded slot form would read as
+ * a slot table with an unknown key and no `concept`: two true sentences that
+ * never say what is wrong, a dotted input name. A table with no `concept`
+ * whose every key leads, through more such tables, to a concept ref (a string,
+ * or a slot table's `concept`) can only be that, because a concept code MUST
+ * be PascalCase: `{ widget = "textarea" }` is a slot with an unknown key, and
+ * `{ page_view = "Image" }` can only be a field.
  */
-function looksLikeUnquotedDottedName(raw: Record<string, unknown>, unknownKeys: string[]): boolean {
-  if (raw.concept !== undefined || unknownKeys.length === 0) return false;
-  return unknownKeys.every((key) => {
-    const parts = parseConceptRef(raw[key]);
-    return parts !== null && CONCEPT_CODE_RE.test(parts.code);
-  });
+export function unquotedDottedInputNames(name: string, raw: unknown): string[] | null {
+  if (!isPlainObject(raw) || raw.concept !== undefined) return null;
+  const keys = Object.keys(raw);
+  if (keys.length === 0) return null;
+  const dottedNames: string[] = [];
+  for (const key of keys) {
+    const value = raw[key];
+    const dottedName = `${name}.${key}`;
+    if (isConceptCodeRef(value) || (isPlainObject(value) && isConceptCodeRef(value.concept))) {
+      dottedNames.push(dottedName);
+      continue;
+    }
+    const nested = unquotedDottedInputNames(dottedName, value);
+    if (nested === null) return null;
+    dottedNames.push(...nested);
+  }
+  return dottedNames;
 }
 
 /**
@@ -169,19 +292,12 @@ function looksLikeUnquotedDottedName(raw: Record<string, unknown>, unknownKeys: 
  */
 export function parseInputSlot(raw: unknown): InputSlotParts {
   if (!isPlainObject(raw)) {
-    return {
-      ref: parseConceptRef(raw),
-      missingConcept: false,
-      unknownKeys: [],
-      dottedName: false,
-    };
+    return { ref: parseConceptRef(raw), missingConcept: false, unknownKeys: [] };
   }
-  const unknownKeys = Object.keys(raw).filter((key) => !INPUT_SLOT_KEYS.has(key));
   return {
     ref: parseConceptRef(raw.concept),
     missingConcept: raw.concept === undefined,
-    unknownKeys,
-    dottedName: looksLikeUnquotedDottedName(raw, unknownKeys),
+    unknownKeys: Object.keys(raw).filter((key) => !INPUT_SLOT_KEYS.has(key)),
   };
 }
 
@@ -198,12 +314,13 @@ export function qualifiedStructureClassName(domain: string, code: string): strin
 }
 
 export function nativeConceptInfo(code: NativeConceptCode): ConceptInfo {
+  const definition: NativeConceptDefinition = NATIVE_CONCEPTS[code];
   return {
     code,
     domain_code: NATIVE_DOMAIN,
-    description: NATIVE_CONCEPT_DESCRIPTIONS[code],
+    description: definition.description,
     structure_class_name: `${code}Content`,
-    refines: null,
+    refines: definition.refines ?? null,
   };
 }
 
@@ -283,8 +400,6 @@ export interface ResolvedInputSlot {
   missingConcept: boolean;
   /** Keys of an expanded slot table this version of the standard does not define. */
   unknownKeys: string[];
-  /** True when the table is the wreckage of an unquoted dotted input name — see {@link InputSlotParts}. */
-  dottedName: boolean;
 }
 
 /**
@@ -298,11 +413,10 @@ export function resolveInputSlot(
   currentDomain: string,
   localConcepts: Record<string, ConceptInfo>,
 ): ResolvedInputSlot {
-  const { ref, missingConcept, unknownKeys, dottedName } = parseInputSlot(raw);
+  const { ref, missingConcept, unknownKeys } = parseInputSlot(raw);
   return {
     spec: ref === null ? null : stuffSpecFromParts(ref, currentDomain, localConcepts),
     missingConcept,
     unknownKeys,
-    dottedName,
   };
 }

@@ -1,6 +1,7 @@
 node_modules/
 dist/
 coverage/
+.vitest-attachments/
 *.tsbuildinfo
 .DS_Store
 .vscode/

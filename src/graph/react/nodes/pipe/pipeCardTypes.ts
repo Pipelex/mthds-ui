@@ -1,6 +1,7 @@
 import type {
   FoldToggleOptions,
   GraphSpecMode,
+  NodePipeType,
   NodeValidationSummary,
   PipeControllerType,
   PipeOperatorType,
@@ -11,6 +12,7 @@ import type {
 export type {
   FoldToggleOptions,
   GraphSpecMode,
+  NodePipeType,
   NodeValidationSummary,
   PipeControllerType,
   PipeOperatorType,
@@ -21,8 +23,9 @@ export type {
 export type PipeCardDirection = "LR" | "TB";
 
 export interface PipeCardData {
+  /** The pipe code, or the `from` path of a binding step's card. */
   pipeCode: string;
-  pipeType: PipeType;
+  pipeType: NodePipeType;
   description?: string;
   status: PipeStatus;
   graphMode?: GraphSpecMode;

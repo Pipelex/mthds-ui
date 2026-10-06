@@ -34,6 +34,7 @@ export default defineConfig({
         "src/static-graph/types.ts",
         "src/static-graph/conceptRefs.ts",
         "src/static-graph/normalizePipe.ts",
+        "src/static-graph/bindingWalk.ts",
         "src/static-graph/parseMthdsBundle.ts",
         "src/static-graph/mergeBundles.ts",
         "src/static-graph/sourceOrder.ts",

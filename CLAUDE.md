@@ -63,7 +63,8 @@ src/
   static-graph/                   # Static method-graph module (separate entry point, pure TS, no React):
     types.ts                      #   Diagnostic, ParsedBundle, MergedMethodSet + narrowing helpers
     conceptRefs.ts                #   Concept-ref + input-slot parsing/resolution + native concept catalog
-    normalizePipe.ts              #   Authored TOML pipe shape → PipeBlueprintUnion registry shape
+    normalizePipe.ts              #   Authored TOML pipe shape → PipeBlueprintUnion registry shape (binding steps included)
+    bindingWalk.ts                #   The concept a binding step's `from` path reaches, off declared structures
     parseMthdsBundle.ts           #   .mthds TOML text → ParsedBundle (lenient, never throws)
     mergeBundles.ts               #   ParsedBundle[] → MergedMethodSet (per-domain namespaces)
     sourceOrder.ts                #   Which file of a multi-file method leads the merge (shared with hosts)
@@ -150,10 +151,12 @@ GraphSpec (JSON from pipelex-agent, or static builder output)
 
 **Pipes** have two semantic categories:
 
-- **Operators** (`PipeOperatorType`): Do work — `PipeLLM`, `PipeExtract`, `PipeCompose`, `PipeImgGen`, `PipeSearch`, `PipeFunc`
+- **Operators** (`PipeOperatorType`): Do work — `PipeLLM`, `PipeExtract`, `PipeCompose`, `PipeImgGen`, `PipeSearch`, `PipeFunc`, `PipeStructure`, `PipeJudge`, `PipeDocGen`
 - **Controllers** (`PipeControllerType`): Orchestrate other pipes — `PipeSequence`, `PipeParallel`, `PipeCondition`, `PipeBatch`
 
-**Adding a new pipelex pipe class requires an mthds-ui update.** pipelex sets a node's `pipe_type` from the pipe's Python class name. `validateGraphSpec` checks `pipe_type` against `KNOWN_PIPE_TYPES` (derived from the `PipeType` union in `types.ts`) and throws on an unrecognized class. When pipelex ships a new pipe class, add it to `PipeOperatorType` or `PipeControllerType` — the `Record<PipeType, true>` exhaustiveness maps in `types.ts`, `PipeCardBase.tsx`, and `PipeDetailPanel.tsx` will fail to compile until every badge/status table is updated.
+**Binding nodes** are a sequence's binding steps (`{ from = "invoice.total", result = "total" }`): a node of kind `binding` whose `pipe_type` is `BindingStep` (`BINDING_STEP_TYPE`), not a pipe. It is drawn as a pipe card, so a table keyed by a card's class is `Record<NodePipeType, …>` (`PipeType | BindingStepType`), and `asCardNode` / `CardNode` cover both families where `asPipeCallNode` / `PipeCallNode` cover pipes alone. See `docs/static-graph.md`, "Binding Steps".
+
+**Adding a new pipelex pipe class requires an mthds-ui update.** pipelex sets a node's `pipe_type` from the pipe's Python class name. `validateGraphSpec` checks `pipe_type` against `KNOWN_PIPE_TYPES` (derived from the `PipeType` union in `types.ts`) and throws on an unrecognized class. When pipelex ships a new pipe class, add it to `PipeOperatorType` or `PipeControllerType` — the exhaustiveness maps keyed by `PipeType` or `NodePipeType` in `types.ts`, `PipeCardBase.tsx`, `PipeDetailPanel.tsx` and `pipeCardRegistry.ts` will fail to compile until every badge/status table is updated.
 
 **Stuff** = data nodes. Produced by one pipe, consumed by one or more pipes. Identified by digest. Node IDs use `stuff_<digest>` convention (use `stuffNodeId()`, `isStuffNodeId()`, `stuffDigestFromId()` helpers).
 
@@ -307,6 +310,8 @@ Coverage is configured at the top level of `vitest.config.mts` (not per-project)
 | `make format`             | Prettier write                                                  |
 | `make storybook`          | Storybook dev server                                            |
 | `make test-coverage`      | Vitest with coverage report                                     |
+| `make test-screenshots`   | Compare `*.screenshot.tsx` renders with their committed references (not in `test`) |
+| `make update-screenshots` | Rewrite those references after an intended change               |
 | `make fixtures`           | Regenerate DRY pipeline fixtures                                |
 | `make fixtures-contracts` | Regenerate the `pipe_io_contracts` + `input_form` fixtures (offline, fast) |
 | `make fixtures-live`      | Regenerate LIVE fixtures (real inference) — always with `ONLY=` |

@@ -49,6 +49,64 @@ describe("pipeRefOf", () => {
   });
 });
 
+describe("pipeRefOf on a binding node", () => {
+  it("reports nothing, even when the path is spelled like a pipe's code", () => {
+    // A binding's pipe_code is the path it binds; `domain.summary` would name
+    // the pipe `summary` and hand the panel that pipe's descriptors.
+    expect(
+      pipeRefOf(
+        node({
+          kind: "binding",
+          pipe_type: "BindingStep",
+          domain_code: "news",
+          pipe_code: "summary",
+        }),
+      ),
+    ).toBeUndefined();
+  });
+});
+
+describe("findStuffByDigest with a binding", () => {
+  // `from = "summary"` binds the stuff named `summary` under `brief`; the
+  // method also has a pipe coded `summary`. The bound value is described by
+  // the pipe that reads it, never by the pipe its path happens to spell.
+  const summarize = node({
+    id: "summarize",
+    domain_code: "news",
+    pipe_code: "summary",
+    io: { inputs: [], outputs: [{ name: "summary", concept: "Text", digest: "d_summary" }] },
+  });
+  const binding = node({
+    id: "bind",
+    kind: "binding",
+    pipe_type: "BindingStep",
+    domain_code: "news",
+    pipe_code: "summary",
+    io: {
+      inputs: [{ name: "summary", concept: "Text", digest: "d_summary" }],
+      outputs: [{ name: "brief", concept: "Text", digest: "d_brief" }],
+    },
+  });
+  const reader = node({
+    id: "reader",
+    domain_code: "news",
+    pipe_code: "publish",
+    io: { inputs: [{ name: "brief", concept: "Text", digest: "d_brief" }], outputs: [] },
+  });
+
+  it("names no producer pipe for a bound value, and the pipe reading it as its consumer", () => {
+    const found = findStuffByDigest(spec([summarize, binding, reader]), "d_brief");
+    expect(found?.producerPipeRef).toBeUndefined();
+    expect(found?.consumer).toEqual({ pipeRef: "news.publish", slotName: "brief" });
+  });
+
+  it("never takes a binding as the consumer of the root it reads", () => {
+    const found = findStuffByDigest(spec([summarize, binding, reader]), "d_summary");
+    expect(found?.producerPipeRef).toBe("news.summary");
+    expect(found?.consumer).toBeUndefined();
+  });
+});
+
 describe("findStuffByDigest", () => {
   it("prefers the PRODUCER's copy over a consumer's, whatever the node order", () => {
     // The same digest appears on the producer's outputs and again on every
