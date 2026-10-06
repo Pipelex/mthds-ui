@@ -12,7 +12,7 @@
 
 - **A sequence's steps include binding steps (Breaking)**: `PipeSequenceBlueprint.sequential_sub_pipes` is a `SequenceStepSpec[]`, each step a `SubPipeSpec` or a `BindingStepSpec`, so a host reading `pipe_code` off a step narrows with `isBindingStepSpec` first; `GraphSpecNode.pipe_type`, `PipeCardPayload.pipeType` and `GraphNodeData.pipeType` are a `NodePipeType`, `NodeKind` has `binding`, and the static module's `ParsedBundle` and `DomainNamespace` carry the `structures` their concepts declare, which a binding step walks.
 
-- **The vendored schema and corpus**: `data/schema/mthds_schema.json` and `data/mthds-corpus/` are copied from the pipelex development branch, ahead of its release, so they carry binding steps, `PipeJudge`, `PipeDocGen` and plain input names before a released pipelex does.
+- **The vendored schema and corpus**: `data/schema/mthds_schema.json` and `data/mthds-corpus/` are copied from pipelex v0.75.0, so they carry binding steps, `PipeJudge`, `PipeDocGen` and plain input names.
 
 ### Fixed
 
