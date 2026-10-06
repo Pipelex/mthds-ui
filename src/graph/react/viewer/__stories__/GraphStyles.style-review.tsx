@@ -14,10 +14,16 @@ import { userEvent } from "vitest/browser";
 import { afterEach, describe, expect, it } from "vitest";
 import { commands, page } from "vitest/browser";
 
-import type { GraphSpecMode, GraphStyleId, ToolbarPosition } from "@graph/types";
+import type { GraphSpecMode, GraphStyleId, ToolbarPosition, ValidationIssue } from "@graph/types";
+import { makePipeRef } from "@graph/pipeRefs";
 import { TOOLBAR_POSITION } from "@graph/types";
 import { identifierTokens } from "@graph/styles/styleMetrics";
+import { buildStaticGraphSpecFromToml } from "@static-graph/buildStaticGraphSpec";
+import { staticDiagnosticsToValidationIssues } from "@static-graph/validationIssues";
+import { GraphViewer } from "../GraphViewer";
 import { StyleReview } from "./StyleReview";
+// Asset path, not a module import — the `@graph/*` alias rule does not apply.
+import bundleGarments from "../../../../../data/static/garments_from_moodboard/bundle_with_error.mthds?raw";
 import {
   REALISTIC_FIXTURES,
   REVIEW_FIXTURES,
@@ -268,6 +274,57 @@ describe("graph styles review capture: interactions", () => {
       });
     });
   }
+
+  it("simple validation rings and badges", async () => {
+    const built = buildStaticGraphSpecFromToml(bundleGarments);
+    const refOf = (code: string) => {
+      const node = built.spec.nodes.find((n) => n.pipe_code === code);
+      return node?.domain_code && node.pipe_code
+        ? makePipeRef(node.domain_code, node.pipe_code)
+        : undefined;
+    };
+    const issues: ValidationIssue[] = [
+      ...staticDiagnosticsToValidationIssues(built.diagnostics),
+      {
+        severity: "error",
+        message: 'Output concept "MoodboardAnalysis" does not match the declared output.',
+        context: "pipe.analyze_moodboard",
+        pipeRef: refOf("analyze_moodboard"),
+        origin: "validator",
+      },
+      {
+        severity: "warning",
+        message: "The prompt names no output format.",
+        context: "pipe.propose_designs",
+        pipeRef: refOf("propose_designs"),
+        origin: "validator",
+      },
+    ];
+    container = document.createElement("div");
+    container.style.cssText = "width: 1280px; height: 800px; position: relative;";
+    document.body.style.margin = "0";
+    document.body.appendChild(container);
+    const target = container;
+    act(() => {
+      root = createRoot(target);
+      root.render(
+        <GraphViewer
+          graph={{ graphSpec: built.spec }}
+          graphStyle="simple"
+          theme="light"
+          validationState="invalid"
+          validationIssues={issues}
+        />,
+      );
+    });
+    await settle(target);
+    await page.screenshot({
+      element: target,
+      path: `${__STYLE_REVIEW_DIR__}/interactions/validation.jpg`,
+      type: "jpeg",
+      quality: 82,
+    });
+  });
 
   it("simple detail panel of a step", async () => {
     const target = await render();
