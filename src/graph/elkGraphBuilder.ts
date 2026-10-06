@@ -4,6 +4,8 @@ import type {
   GraphEdge,
   GraphSpec,
   DataflowAnalysis,
+  EdgeRoute,
+  GraphPoint,
   LayoutConfig,
   GraphDirection,
 } from "./types";
@@ -306,6 +308,32 @@ function makeLeafNode(nodeId: string, dims: NodeDimensions, direction: GraphDire
   };
 }
 
+// ─── Edge builder ───────────────────────────────────────────────────────────
+
+/**
+ * An edge from its source's output port to its target's input port. When the
+ * layout routes edges, a labelled edge with a known label size carries its
+ * label, so the layout reserves room for it.
+ */
+function makeElkEdge(edge: GraphEdge, routeEdges: boolean): ElkExtendedEdge {
+  const elkEdge: ElkExtendedEdge = {
+    id: edge.id,
+    sources: [outputPortId(edge.source)],
+    targets: [inputPortId(edge.target)],
+  };
+  if (routeEdges && edge.label && edge.labelSize) {
+    elkEdge.labels = [
+      {
+        id: `${edge.id}_label`,
+        text: edge.label,
+        width: edge.labelSize.width,
+        height: edge.labelSize.height,
+      },
+    ];
+  }
+  return elkEdge;
+}
+
 // ─── Build ELK graph ────────────────────────────────────────────────────────
 
 export function buildElkGraph(
@@ -319,6 +347,12 @@ export function buildElkGraph(
   const isHorizontal = direction === "LR" || direction === "RL";
   const nodesep = layoutConfig?.nodesep ?? 80;
   const ranksep = layoutConfig?.ranksep ?? 70;
+  const routeEdges = layoutConfig?.routeEdges ?? false;
+  const groupPadding = layoutConfig?.groupPadding ?? {
+    x: CONTROLLER_PADDING_X,
+    top: CONTROLLER_PADDING_TOP,
+    bottom: CONTROLLER_PADDING_BOTTOM,
+  };
   const elkDir = elkDirection(direction);
 
   const edgeNodeSpacing = "30";
@@ -335,6 +369,11 @@ export function buildElkGraph(
     "elk.layered.spacing.edgeEdgeBetweenLayers": "15",
     "elk.layered.nodePlacement.favorStraightEdges": "true",
   };
+  if (routeEdges) {
+    // Routes and label boxes in root coordinates, whatever node an edge's
+    // route is computed in, so a drawn route needs no offset.
+    rootLayoutOptions["elk.json.edgeCoords"] = "ROOT";
+  }
 
   // Fast path: no hierarchy info → flat layout
   if (!graphspec || !analysis || analysis.controllerNodeIds.size === 0) {
@@ -345,11 +384,7 @@ export function buildElkGraph(
       return makeLeafNode(node.id, dims, direction);
     });
 
-    const elkEdges: ElkExtendedEdge[] = edges.map((edge) => ({
-      id: edge.id,
-      sources: [outputPortId(edge.source)],
-      targets: [inputPortId(edge.target)],
-    }));
+    const elkEdges: ElkExtendedEdge[] = edges.map((edge) => makeElkEdge(edge, routeEdges));
 
     return {
       elkGraph: {
@@ -379,9 +414,9 @@ export function buildElkGraph(
   for (const ctrlId of controllerIds) {
     const depth = depths[ctrlId] ?? 0;
     const depthScale = 1 + depth * 0.15;
-    const padX = Math.round(CONTROLLER_PADDING_X * depthScale);
-    const padTop = Math.round(CONTROLLER_PADDING_TOP * depthScale);
-    const padBottom = Math.round(CONTROLLER_PADDING_BOTTOM * depthScale);
+    const padX = Math.round(groupPadding.x * depthScale);
+    const padTop = Math.round(groupPadding.top * depthScale);
+    const padBottom = Math.round(groupPadding.bottom * depthScale);
 
     const ctrlLayoutOptions: LayoutOptions = {
       "elk.padding": `[top=${padTop},left=${padX},bottom=${padBottom},right=${padX}]`,
@@ -452,11 +487,7 @@ export function buildElkGraph(
   const nodeIdSet = new Set(nodes.map((n) => n.id));
   const elkEdges: ElkExtendedEdge[] = edges
     .filter((e) => nodeIdSet.has(e.source) && nodeIdSet.has(e.target))
-    .map((edge) => ({
-      id: edge.id,
-      sources: [outputPortId(edge.source)],
-      targets: [inputPortId(edge.target)],
-    }));
+    .map((edge) => makeElkEdge(edge, routeEdges));
 
   return {
     elkGraph: {
@@ -501,4 +532,45 @@ export function extractAbsolutePositions(elkResult: ElkNode): Record<string, Elk
 
   walk(elkResult, 0, 0);
   return positions;
+}
+
+// ─── Extract edge routes from ELK output ────────────────────────────────────
+
+/**
+ * Every edge's route, keyed by edge id, from a layout run with `routeEdges`
+ * (its coordinates are then the root's). An edge ELK reports no section for is
+ * left out, and is drawn as a free curve.
+ */
+export function extractEdgeRoutes(elkResult: ElkNode): Record<string, EdgeRoute> {
+  const routes: Record<string, EdgeRoute> = {};
+
+  function walk(node: ElkNode) {
+    for (const edge of node.edges ?? []) {
+      const points: GraphPoint[] = [];
+      for (const section of edge.sections ?? []) {
+        for (const point of [section.startPoint, ...(section.bendPoints ?? []), section.endPoint]) {
+          const last = points[points.length - 1];
+          if (!last || last.x !== point.x || last.y !== point.y) {
+            points.push({ x: point.x, y: point.y });
+          }
+        }
+      }
+      if (points.length < 2) continue;
+      const route: EdgeRoute = { points };
+      const label = edge.labels?.[0];
+      if (label && label.x !== undefined && label.y !== undefined) {
+        route.label = {
+          x: label.x,
+          y: label.y,
+          width: label.width ?? 0,
+          height: label.height ?? 0,
+        };
+      }
+      routes[edge.id] = route;
+    }
+    for (const child of node.children ?? []) walk(child);
+  }
+
+  walk(elkResult);
+  return routes;
 }

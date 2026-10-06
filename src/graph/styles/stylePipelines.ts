@@ -20,7 +20,6 @@ export interface StyleProjectionArgs {
   analysis: DataflowAnalysis | null;
   /** The analysis before the folds; null for a spec with no data flow. */
   rawAnalysis: DataflowAnalysis | null;
-  edgeType: string;
 }
 
 /** What the layout lays out for a style, and the analysis its frames are built from. */
@@ -77,9 +76,9 @@ export const GRAPH_STYLE_PIPELINES: Record<GraphStyleId, GraphStylePipeline> = {
   },
   [GRAPH_STYLE.SIMPLE]: {
     defaultFolds: simpleDefaultFolds,
-    project: ({ graphspec, nodes, analysis, rawAnalysis, edgeType }) =>
+    project: ({ graphspec, nodes, analysis, rawAnalysis }) =>
       analysis && rawAnalysis
-        ? projectSimpleGraph({ graphspec, nodes, analysis, rawAnalysis, edgeType })
+        ? projectSimpleGraph({ graphspec, nodes, analysis, rawAnalysis })
         : { nodes: [], edges: [], analysis: null },
     // Its frames are its own decision, whatever the controllers toggle says.
     frame: (args) =>

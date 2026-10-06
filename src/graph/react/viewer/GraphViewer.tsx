@@ -31,6 +31,7 @@ import {
   BINDING_STEP_TYPE,
   stuffDigestFromId,
   EDGE_TYPE,
+  EDGE_TYPE_ROUTED,
   FOLD_MODE,
   GRAPH_SPEC_MODE,
   GRAPH_DIRECTION,
@@ -68,6 +69,7 @@ import { GraphToolbar } from "./GraphToolbar";
 import { controllerNodeTypes } from "../nodes/controller/ControllerGroupNode";
 import { PipeCardRFNode } from "../nodes/pipe/PipeCardNode";
 import { simpleNodeTypes } from "../styles/simple/SimpleNodes";
+import { RoutedEdge } from "../edges/RoutedEdge";
 
 // Stable reference — must be declared outside the component to avoid ReactFlow
 // re-mounts. Every style's node components are registered once, here.
@@ -76,6 +78,10 @@ const nodeTypes = {
   pipeCard: PipeCardRFNode,
   ...simpleNodeTypes,
 };
+
+// Likewise for edge components: the built-in curves, plus the edge drawn along
+// the layout's route, for the styles that ask the layout to route edges.
+const edgeTypes = { [EDGE_TYPE_ROUTED]: RoutedEdge };
 
 export interface GraphViewerProps {
   /**
@@ -1020,7 +1026,6 @@ export function GraphViewer(props: GraphViewerProps) {
       edges: folded.edges,
       analysis: folded.analysis,
       rawAnalysis: analysis,
-      edgeType,
     });
 
     initialDataRef.current = {
@@ -1136,7 +1141,6 @@ export function GraphViewer(props: GraphViewerProps) {
       edges: folded.edges,
       analysis: folded.analysis,
       rawAnalysis: currentAnalysis,
-      edgeType,
     });
     initialDataRef.current = {
       nodes: projected.nodes,
@@ -1344,6 +1348,7 @@ export function GraphViewer(props: GraphViewerProps) {
         nodes={nodes}
         edges={edges}
         nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onNodeClick={onNodeClick}

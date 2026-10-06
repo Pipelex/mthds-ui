@@ -20,7 +20,7 @@
  */
 import type { CSSProperties } from "react";
 import type { Node, Edge, ReactFlowInstance, EdgeMarkerType, Position } from "@xyflow/react";
-import type { GraphNode, GraphEdge, GraphNodeData } from "../types";
+import type { EdgeRoute, GraphNode, GraphEdge, GraphNodeData } from "../types";
 
 /** ReactFlow node parameterized with our domain data. */
 export type AppNode = Node<GraphNodeData>;
@@ -59,6 +59,8 @@ export function toAppNodes(nodes: GraphNode[]): AppNode[] {
  * Domain-only fields (_batchEdge, _crossGroup) are dropped — they're only used
  * by pure graph logic (layout weight calculation), not by ReactFlow rendering.
  * The markerEnd cast is safe: our { type: "arrowclosed", color } satisfies EdgeMarker.
+ * A route the layout computed travels in `data.route`, where the routed edge
+ * component reads it (see `RoutedEdgeData`).
  */
 export function toAppEdges(edges: GraphEdge[]): AppEdge[] {
   return edges.map((e) => ({
@@ -74,5 +76,11 @@ export function toAppEdges(edges: GraphEdge[]): AppEdge[] {
     labelBgBorderRadius: e.labelBgBorderRadius,
     style: e.style as CSSProperties | undefined,
     markerEnd: e.markerEnd as EdgeMarkerType | undefined,
+    ...(e.route ? { data: { route: e.route } satisfies RoutedEdgeData } : {}),
   }));
+}
+
+/** What a routed edge carries in its ReactFlow `data`. */
+export interface RoutedEdgeData extends Record<string, unknown> {
+  route?: EdgeRoute;
 }

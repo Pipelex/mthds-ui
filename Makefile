@@ -1,4 +1,4 @@
-.PHONY: all install build lint format format-check typecheck test test-watch test-coverage test-screenshots update-screenshots check c clean smoke-pack storybook st fixtures fixtures-contracts fixtures-live fixtures-live-test fixtures-missing fixtures-live-missing schema-refresh t use-local use-npm ul un
+.PHONY: all install build lint format format-check typecheck test test-watch test-coverage test-screenshots update-screenshots style-review style-contact-sheet check c clean smoke-pack storybook st fixtures fixtures-contracts fixtures-live fixtures-live-test fixtures-missing fixtures-live-missing schema-refresh t use-local use-npm ul un
 
 install:
 	npm install
@@ -39,6 +39,17 @@ test-screenshots:
 
 update-screenshots:
 	npx vitest run --config vitest.screenshots.config.mts --update
+
+# The graph styles' review loop (wip/graph-styles/plan.md): capture every fixture
+# of the review set in each style into .style-review/$(ITERATION)/, pictures and
+# measurements for reading, nothing compared. STYLES=simple limits the styles,
+# ONLY=CV_SCREENING,EMAIL_TRIAGE the fixtures. `style-contact-sheet` lays one
+# capture out as a single page, detailed beside simple.
+style-review:
+	ITERATION=$(or $(ITERATION),scratch) STYLES=$(STYLES) ONLY=$(ONLY) npx vitest run --config vitest.style-review.config.mts
+
+style-contact-sheet:
+	node scripts/style-contact-sheet.mjs .style-review/$(or $(ITERATION),scratch)
 
 check: lint format-check typecheck
 	@echo "All checks passed."

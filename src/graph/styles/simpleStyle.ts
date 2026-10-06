@@ -35,6 +35,7 @@ import type {
 import {
   ARROW_CLOSED_MARKER,
   BINDING_STEP_TYPE,
+  EDGE_TYPE_ROUTED,
   NODE_TYPE_PIPE_CARD,
   NODE_TYPE_SIMPLE_DECISION,
   NODE_TYPE_SIMPLE_FRAME,
@@ -51,24 +52,28 @@ import { buildControllerNodes, sortParentsFirst } from "@graph/graphControllers"
 import type { ControllerRect } from "@graph/graphControllers";
 import {
   conceptPlainName,
-  estimateWrap,
   humanizeIdentifier,
   isGenericConcept,
   outcomeLabel,
   sentenceCase,
   stripDomain,
 } from "./humanize";
+import { estimateWrap, textWidthPx } from "./textMetrics";
 
 // ─── Metrics (keep in sync with SimpleStyle.css) ────────────────────────────
 // The layout sizes every node before the DOM exists, so these mirror the
 // stylesheet: box widths, paddings, font sizes and line heights.
 
-/** Average advance of a character, as a fraction of the font size, for the sans stack. */
-const CHAR_EM = 0.5;
-
 export const SIMPLE_STEP_WIDTH = 160;
+/**
+ * The wider box a step takes when its title would need more lines than
+ * `SIMPLE_TITLE_MAX_LINES` at `SIMPLE_STEP_WIDTH` and fits them at this one:
+ * one step of width, not a box per title, so a column of steps keeps its rhythm.
+ */
+export const SIMPLE_STEP_WIDE_WIDTH = 200;
 const STEP_PADDING_X = 12;
 const STEP_PADDING_Y = 10;
+const STEP_BORDER = 1.5;
 const STEP_HEADER_HEIGHT = 16;
 const STEP_GAP = 6;
 export const SIMPLE_STEP_TITLE_FONT_PX = 15;
@@ -76,6 +81,11 @@ const STEP_TITLE_LINE_HEIGHT = 20;
 export const SIMPLE_TITLE_MAX_LINES = 3;
 const STEP_MARKER_HEIGHT = 18;
 const STEP_INNER_HEIGHT = 22;
+
+// An arrow's label: an outcome of a decision.
+const EDGE_LABEL_FONT_PX = 11;
+const EDGE_LABEL_LINE_HEIGHT = 13;
+const EDGE_LABEL_PADDING: readonly [number, number] = [5, 3];
 
 export const SIMPLE_TERMINAL_WIDTH = 124;
 const TERMINAL_PADDING_X = 12;
@@ -88,7 +98,12 @@ const TERMINAL_TITLE_MAX_LINES = 2;
 const TERMINAL_SUBTITLE_HEIGHT = 17;
 const TERMINAL_MIN_HEIGHT = 52;
 
-export const SIMPLE_DECISION_WIDTH = 188;
+/**
+ * The widths a decision diamond may take, narrowest first: it takes the first
+ * at which its text fits in `SIMPLE_TITLE_MAX_LINES`, so a long question
+ * widens the diamond rather than losing its end.
+ */
+export const SIMPLE_DECISION_WIDTHS: readonly number[] = [188, 220, 252, 284];
 const DECISION_TITLE_FONT_PX = 13;
 const DECISION_TITLE_LINE_HEIGHT = 16;
 /**
@@ -99,6 +114,23 @@ const DECISION_TITLE_LINE_HEIGHT = 16;
 const DECISION_TEXT_WIDTH_SHARE = 0.56;
 const DECISION_TEXT_HEIGHT_SHARE = 0.4;
 const DECISION_MIN_HEIGHT = 84;
+
+/**
+ * Room kept free at the end of every line the layout wraps text for: the
+ * browser breaks a line the moment it overflows, and a fraction of a pixel of
+ * rounding must not cost a title its last line.
+ */
+const WRAP_SLACK_PX = 2;
+
+/** The width a step's title wraps at in a box of a width: inside its border and padding. */
+function stepTitleWidth(boxWidth: number): number {
+  return boxWidth - 2 * (STEP_PADDING_X + STEP_BORDER) - WRAP_SLACK_PX;
+}
+const TERMINAL_TITLE_WIDTH = SIMPLE_TERMINAL_WIDTH - 2 * TERMINAL_PADDING_X - WRAP_SLACK_PX;
+
+function decisionTextWidth(diamondWidth: number): number {
+  return Math.floor(diamondWidth * DECISION_TEXT_WIDTH_SHARE) - WRAP_SLACK_PX;
+}
 
 /**
  * The controller depth from which the simple style folds a sub-method by
@@ -148,21 +180,27 @@ export const STEP_CATEGORY_WORDS: Record<StepCategory, string> = {
 
 // ─── Sizes ──────────────────────────────────────────────────────────────────
 
-function charWidth(fontPx: number): number {
-  return fontPx * CHAR_EM;
-}
-
 /** The size of a step box for its title and markers. */
 export function simpleStepSize(
   title: string,
   options: { forEach?: boolean; innerSteps?: boolean } = {},
 ): { width: number; height: number } {
-  const wrap = estimateWrap(
-    title,
-    SIMPLE_STEP_WIDTH - 2 * STEP_PADDING_X,
-    charWidth(SIMPLE_STEP_TITLE_FONT_PX),
-    SIMPLE_TITLE_MAX_LINES,
-  );
+  let width = SIMPLE_STEP_WIDTH;
+  let wrap = simpleTitleWrap(title);
+  if (wrap.clamped) {
+    const wide = estimateWrap(
+      title,
+      stepTitleWidth(SIMPLE_STEP_WIDE_WIDTH),
+      SIMPLE_STEP_TITLE_FONT_PX,
+      SIMPLE_TITLE_MAX_LINES,
+    );
+    // Only a title the wider box saves takes it: one cut either way is cut
+    // at the narrow width, which keeps the drawing compact.
+    if (!wide.clamped) {
+      width = SIMPLE_STEP_WIDE_WIDTH;
+      wrap = wide;
+    }
+  }
   let height =
     2 * STEP_PADDING_Y +
     STEP_HEADER_HEIGHT +
@@ -170,7 +208,7 @@ export function simpleStepSize(
     Math.max(1, wrap.drawnLines) * STEP_TITLE_LINE_HEIGHT;
   if (options.forEach) height += STEP_GAP + STEP_MARKER_HEIGHT;
   if (options.innerSteps) height += STEP_GAP + STEP_INNER_HEIGHT;
-  return { width: SIMPLE_STEP_WIDTH, height };
+  return { width, height: Math.ceil(height + 2 * STEP_BORDER) };
 }
 
 /** The size of an input or output's document shape. */
@@ -180,8 +218,8 @@ export function simpleTerminalSize(
 ): { width: number; height: number } {
   const wrap = estimateWrap(
     title,
-    SIMPLE_TERMINAL_WIDTH - 2 * TERMINAL_PADDING_X,
-    charWidth(TERMINAL_TITLE_FONT_PX),
+    TERMINAL_TITLE_WIDTH,
+    TERMINAL_TITLE_FONT_PX,
     TERMINAL_TITLE_MAX_LINES,
   );
   const height =
@@ -192,25 +230,40 @@ export function simpleTerminalSize(
   return { width: SIMPLE_TERMINAL_WIDTH, height: Math.max(TERMINAL_MIN_HEIGHT, height) };
 }
 
-/** The size of a decision diamond for its text. */
+/**
+ * The size of a decision diamond for its text: the narrowest of
+ * `SIMPLE_DECISION_WIDTHS` its text fits in, and the height that keeps the
+ * text block inside the rhombus.
+ */
 export function simpleDecisionSize(title: string): { width: number; height: number } {
-  const wrap = estimateWrap(
+  let width = SIMPLE_DECISION_WIDTHS[0];
+  let wrap = estimateWrap(
     title,
-    SIMPLE_DECISION_WIDTH * DECISION_TEXT_WIDTH_SHARE,
-    charWidth(DECISION_TITLE_FONT_PX),
+    decisionTextWidth(width),
+    DECISION_TITLE_FONT_PX,
     SIMPLE_TITLE_MAX_LINES,
   );
+  for (const candidate of SIMPLE_DECISION_WIDTHS.slice(1)) {
+    if (!wrap.clamped) break;
+    width = candidate;
+    wrap = estimateWrap(
+      title,
+      decisionTextWidth(width),
+      DECISION_TITLE_FONT_PX,
+      SIMPLE_TITLE_MAX_LINES,
+    );
+  }
   const textHeight = Math.max(1, wrap.drawnLines) * DECISION_TITLE_LINE_HEIGHT;
   const height = Math.max(DECISION_MIN_HEIGHT, Math.ceil(textHeight / DECISION_TEXT_HEIGHT_SHARE));
-  return { width: SIMPLE_DECISION_WIDTH, height };
+  return { width, height };
 }
 
 /** How a step title wraps at the default box width: what the readability rubric checks. */
 export function simpleTitleWrap(title: string) {
   return estimateWrap(
     title,
-    SIMPLE_STEP_WIDTH - 2 * STEP_PADDING_X,
-    charWidth(SIMPLE_STEP_TITLE_FONT_PX),
+    stepTitleWidth(SIMPLE_STEP_WIDTH),
+    SIMPLE_STEP_TITLE_FONT_PX,
     SIMPLE_TITLE_MAX_LINES,
   );
 }
@@ -245,7 +298,6 @@ export interface SimpleProjectionInput {
   analysis: DataflowAnalysis;
   /** The analysis before the folds: the full containment, which a fold hides. */
   rawAnalysis: DataflowAnalysis;
-  edgeType: string;
 }
 
 export interface SimpleProjection {
@@ -292,7 +344,7 @@ function forEachLabel(itemName: string): string {
  * panel, run status and validation decorations find them as in any style.
  */
 export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjection {
-  const { graphspec, nodes, analysis, rawAnalysis, edgeType } = input;
+  const { graphspec, nodes, analysis, rawAnalysis } = input;
   const graphMode = graphSpecMode(graphspec);
   const specById = new Map<string, GraphSpecNode>(graphspec.nodes.map((n) => [n.id, n]));
   const parentOf = parentMap(rawAnalysis.containmentTree);
@@ -466,6 +518,7 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
 
   // ── Edges.
   const edges = new Map<string, GraphEdge>();
+  let edgeCount = 0;
   function addEdge(source: string, target: string): void {
     if (source === target) return;
     const key = `${source}->${target}`;
@@ -473,7 +526,7 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
     const label = decisionSet.has(source)
       ? outcomeFor(source, branchOf(source, target))
       : undefined;
-    edges.set(key, simpleEdge(`simple_edge_${edges.size}`, source, target, edgeType, label));
+    edges.set(key, simpleEdge(`simple_edge_${edgeCount++}`, source, target, label));
   }
 
   /**
@@ -523,6 +576,22 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
   }
   for (const digest of outputItems.keys()) {
     for (const source of sourcesOf(digest)) addEdge(source, stuffNodeId(digest));
+  }
+
+  // A decision's arrow goes to the first steps of a branch only. A later step
+  // of the branch that also reads a value from before the decision is reached
+  // through the steps before it, so a second arrow with the same outcome would
+  // say the branch is taken twice.
+  for (const [key, edge] of [...edges]) {
+    if (!decisionSet.has(edge.source)) continue;
+    const branchId = branchOf(edge.source, edge.target);
+    const followsInBranch = [...edges.values()].some(
+      (other) =>
+        other.target === edge.target &&
+        other.source !== edge.source &&
+        isInside(other.source, branchId),
+    );
+    if (followsInBranch) edges.delete(key);
   }
 
   // Every branch a decision can take gets its arrow, even one that reads
@@ -789,18 +858,33 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
   };
 }
 
+/**
+ * The size an arrow label is drawn at, background included, so the layout
+ * reserves room for it: the text at `EDGE_LABEL_FONT_PX`, padded by
+ * `EDGE_LABEL_PADDING`.
+ */
+export function simpleEdgeLabelSize(label: string): { width: number; height: number } {
+  const [padX, padY] = EDGE_LABEL_PADDING;
+  return {
+    width: Math.ceil(textWidthPx(label, EDGE_LABEL_FONT_PX)) + 2 * padX,
+    height: EDGE_LABEL_LINE_HEIGHT + 2 * padY,
+  };
+}
+
+// The simple style draws every arrow along the layout's route (`EDGE_TYPE_ROUTED`),
+// whatever curve the host picked for the detailed style: a flowchart's arrows
+// go around the steps between their ends, never through them.
 function simpleEdge(
   id: string,
   source: string,
   target: string,
-  edgeType: string,
   label: string | undefined,
 ): GraphEdge {
   const edge: GraphEdge = {
     id,
     source,
     target,
-    type: edgeType,
+    type: EDGE_TYPE_ROUTED,
     animated: false,
     style: { stroke: "var(--color-edge)", strokeWidth: 1.5 },
     markerEnd: { type: ARROW_CLOSED_MARKER, color: "var(--color-edge)" },
@@ -808,14 +892,15 @@ function simpleEdge(
   if (label) {
     edge.label = label;
     edge.labelStyle = {
-      fontSize: "11px",
+      fontSize: `${EDGE_LABEL_FONT_PX}px`,
       fontFamily: "var(--font-sans)",
       fontWeight: 600,
       fill: "var(--ctrl-condition-text)",
     };
     edge.labelBgStyle = { fill: "var(--color-bg)", fillOpacity: 0.92 };
-    edge.labelBgPadding = [5, 3];
+    edge.labelBgPadding = [...EDGE_LABEL_PADDING];
     edge.labelBgBorderRadius = 4;
+    edge.labelSize = simpleEdgeLabelSize(label);
   }
   return edge;
 }

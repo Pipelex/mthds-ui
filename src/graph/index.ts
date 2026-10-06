@@ -9,6 +9,7 @@ export * from "./pipeRefs";
 export * from "./stuffLookup";
 export * from "./elkGraphBuilder";
 export * from "./graphLayout";
+export * from "./edgeRoutes";
 export * from "./graphControllers";
 export * from "./graphConfig";
 export * from "./styles";

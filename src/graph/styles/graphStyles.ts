@@ -32,8 +32,11 @@ export interface GraphStyleDescriptor {
   description: string;
   capabilities: GraphStyleCapabilities;
   /**
-   * The spacing the style lays out with, which replaces `config.nodesep` and
-   * `config.ranksep` for it. A style that leaves it undefined keeps the host's.
+   * How the style lays out: its spacing, which replaces `config.nodesep` and
+   * `config.ranksep` for it, the room its frames keep around their steps, and
+   * whether its edges follow routes around the nodes in their way. A style
+   * that leaves it undefined keeps the host's spacing and the controller
+   * groups' padding, and draws free curves of the host's `edgeType`.
    */
   layout?: Required<LayoutConfig>;
 }
@@ -50,7 +53,12 @@ export const GRAPH_STYLES: Record<GraphStyleId, GraphStyleDescriptor> = {
     name: "Simple",
     description: "The method's steps in plain words",
     capabilities: { controllerFrameToggle: false, foldAll: true },
-    layout: { nodesep: 28, ranksep: 44 },
+    layout: {
+      nodesep: 28,
+      ranksep: 44,
+      routeEdges: true,
+      groupPadding: { x: 20, top: 40, bottom: 16 },
+    },
   },
 };
 

@@ -50,7 +50,9 @@ export default defineConfig({
     /graph-core\.css$/,
     /detail\/DetailPanel\.css$/,
     /viewer\/GraphToolbar\.css$/,
-    /styles\/simple\/SimpleStyle\.css$/,
+    // Imported as "./styles/simple/SimpleStyle.css" by the barrel and as
+    // "./SimpleStyle.css" by the node components: the pattern matches both.
+    /SimpleStyle\.css$/,
     /RunPanel\.css$/,
   ],
   esbuildOptions(options) {
