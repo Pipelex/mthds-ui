@@ -169,7 +169,7 @@ The expanded form is **inputs only**. `output` is always a string, so `output = 
 
 `concept` being required means a slot can fail two ways, and the `invalid-concept-ref` warning words itself for the one that happened: a slot table with no `concept` key at all is told the key is required, while a `concept` that was written and will not parse is told its ref is uninterpretable. The distinction matters because a hints-only slot — `notes = { hints = { intent = "prose" } }` — is the natural slip when reaching for the expanded form, and blaming a ref the author never wrote reads as a grammar problem when the fix is to add the key.
 
-An input name written as an unquoted dotted path is the one shape that reads as a slot table without being one. The standard requires `"my_input.field_name" = "Text"` as a single quoted key, because TOML parses the unquoted form as a nested table — `my_input = { field_name = "Text" }` — which the expanded form would otherwise misread. That case is recognized and reported as itself: one warning naming the quoting rule, rather than an undefined-key warning plus a missing-`concept` warning, both true and neither mentioning the fix. What separates it from a genuine unknown key is the concept-code rule: a code MUST be `PascalCase`, so `{ field_name = "Text" }` can only be a nested field while `{ widget = "textarea" }` can only be a slot table with a key the form does not define.
+An input name is a plain name (`^[a-z][a-z0-9_]*$` in the schema), and a field of an input is reached by a [binding step](#binding-steps), never by a dotted input name. The builder gives a dotted name no meaning of its own: quoted (`"doc.title" = "Text"`), it is a name nothing in scope holds, so it draws a dangling input; unquoted, TOML nests it into a slot table with an unknown key and no `concept`, which is reported as exactly that.
 
 `hints` is read as a known key and then dropped. Its shape is not checked here either, and both of those are the same decision: **intent hints do not travel on the GraphSpec.**
 
@@ -238,6 +238,51 @@ The renderer supports this with `DataflowAnalysis.stuffProducers`, which lists e
 
 A dry run does not emit this shape yet. pipelex runs every outcome into the same slot and keeps a separate digest per outcome, reporting the last outcome in sorted pipe-code order as the condition's output, so only that outcome is wired to a step reading the slot and the others dead-end at the graph's edge. The parity harness renames the dry outcomes onto the condition's output before comparing (its rule 6), which is the shape pipelex is to emit itself. A live run is unaffected: only the chosen outcome runs, and its output is the condition's.
 
+## Binding Steps
+
+A sequence step written `{ from = "invoice.total", result = "total_amount" }` runs no pipe: it stores the value at a path under a new name, for the steps after it to read. The static builder draws it as a run graph does, as a node of its own:
+
+| Field | Value |
+| --- | --- |
+| `kind` | `"binding"` |
+| `pipe_type` | `"BindingStep"` (`BINDING_STEP_TYPE`), the step's own class, never a pipe's |
+| `pipe_code` | the `from` path |
+| `description` | `Binds '<from>' to '<result>'` |
+| `domain_code` | the sequence's domain |
+| `execution_data` | `{ from, result }` |
+| `io.inputs` | the root's stuff, under the root's name |
+| `io.outputs` | the bound stuff, under the `result` name, at `<node id>:<result>` |
+
+A `contains` edge joins it to its sequence, and the registry holds no entry for it, since no pipe declares it. The bound stuff is written into scope under its `result` name, so a later step reading that name is wired to the binding, and a binding that ends its sequence is the sequence's output, as the runtime stores it as the main stuff. A root nothing in scope holds draws a dangling input, as any unbound name does. Working memory is matched by exact name: an input is satisfied by a stuff of the same name, and by nothing else.
+
+**What a binding binds is derived, never declared.** `src/static-graph/bindingWalk.ts` walks the path through the structures the method's concepts declare, as the runtime does, one segment at a time:
+
+| The segment names a field declared as | The walk continues into, or the result is |
+| --- | --- |
+| `concept`, `concept_ref = X` | `X`, whose structure the next segment walks |
+| `list`, `item_type = "concept"`, `item_concept_ref = X` | `X`, crossing a list |
+| `text`, or no `type` (a field of `choices`), or a shorthand string | `native.Text`, a leaf |
+| `number` or `integer` | `native.Number`, a leaf |
+| `boolean` | `native.YesNo`, a leaf |
+| `date` or `datetime` | `native.Date`, a leaf |
+| `time` | `native.Time`, a leaf |
+| `dict` | `native.JSON`, a leaf |
+| `list` with a scalar `item_type` | that scalar's native, a leaf, crossing a list |
+
+Crossing any list, or starting from a plural root, makes the result a list (`true`); a bare name keeps its root's concept and multiplicity. A refinement inherits the structure it refines. Natives are walked through their pinned definitions, kept in `bindingWalk.ts` beside the walk: a single-field native (`Text`, `Number`, `Time`, `JSON`, `Markdown`) is a leaf a path may end on but never enter, and `Dynamic`, `Anything` and `Composite` have no structure. A concept declared with a description alone, one whose `structure` names a Python class, and one of a dependency have nothing a bundle shows, so a path cannot walk into them. A path the walk cannot follow binds `native.Anything` and reports a `binding-path-unresolved` warning naming the segment that failed and, where there is one, the fields available there.
+
+**A dotted `batch_over` is a binding followed by the batch.** A pipe step batching over `catalog.pages` is held as the runtime holds it: a binding of the path under the private name `_bound_catalog_pages` (the path's dots as underscores, with `_2`, `_3`… appended when a name the sequence's inputs and steps write or read already holds that spelling), then the same step batching over that name, drawn as the usual `<pipe>_batch` controller. Steps are numbered in that runtime list, so a dotted `batch_over` takes two numbers: `…/step_1` is the binding and `…/step_2` the batch.
+
+What the runtime refuses is reported with an `invalid-binding-step` warning: a step carrying both `from` and `pipe`, one with no `result`, a `from` that is not a path of identifiers separated by dots, and, since only a sequence binds, a binding step or a dotted `batch_over` as a parallel branch. Each is skipped, as none names a value a later step could read. A pipe step's key carried beside `from` (`batch_as`, `nb_output`…) is reported and the binding still drawn.
+
+**In a run graph** the same node arrives from pipelex. `validateGraphSpec` accepts the `binding` kind with `BindingStep` as its class, and refuses any other class on it, and `BindingStep` on a pipe-call node. The dataflow graph draws it as a pipe card between the root it reads and the value it binds, with a `Binding` badge and a dashed accent, and its detail panel says what it binds (`From`, `Result`) in every mode. `NodePipeType` (`PipeType | "BindingStep"`) is the type of everything that names a card's class.
+
+The corpus sweep asks more of the entries covering `feature.binding_step` than zero diagnostics: every sequence the walk reaches must draw one binding node per binding step it holds. The stories in `StaticBindingSteps.stories.tsx` draw two of those entries, and a screenshot test keeps their picture (see [Visual regression](#visual-regression)).
+
+## PipeJudge and PipeDocGen
+
+Both operators parse into registry blueprints shaped as pipelex serializes them, and draw as operator cards badged `Judge` and `DocGen`. A judge's question is read into `judgment_question`, whose `kind` is decided by what the pipe declares: `options` make a choice, `levels` a rating, and neither a yes/no question with its `criteria`. `prompt` is read in place of `question`, as the runtime reads it. A document generation step keeps its `format`, `model`, `template`, `template_file` and `filename`. The cards show neither a judge's verdict nor a document's format yet.
+
 ## Fixture Catalog
 
 Storybook and tests expose `STATIC_*` specs and `STATIC_RUN_CATALOG` from
@@ -251,6 +296,19 @@ Representative static-vs-live stories live in:
 - `StaticGraphDev.stories.tsx`
 - `StaticVsLive.stories.tsx`
 - `StaticGraphInvalid.stories.tsx`
+
+`StaticBindingSteps.stories.tsx` builds two entries of the vendored corpus (below) through the same builder, importing their `bundle.mthds` as raw text: `feature_binding_step_catalog_review`, the composite binding a catalog's title, the page view of every page, its cheapest price and its optional note around a batch, a judge and a compose, and `feature_binding_step_batch_over_catalog_pages`, a dotted `batch_over`.
+
+### Visual regression
+
+`*.screenshot.tsx` files render a story in Playwright Chromium, with the project annotations of `.storybook/preview.ts` so with Storybook's stylesheets, and compare it with a reference image committed beside the test under `__screenshots__/`. `StaticBindingSteps.screenshot.tsx` keeps the picture of both binding stories.
+
+```bash
+make test-screenshots    # compare with the references
+make update-screenshots  # rewrite them after an intended change, then review the new images
+```
+
+They run from their own config, `vitest.screenshots.config.mts`, and so outside `make test` and CI. A reference is one platform's font rendering, named for it (`catalog-review-chromium-darwin.png`), and a machine of another platform has no reference to compare with: the first run there writes one and fails, asking for a review. The comparison is strict, since a dashed accent turned solid differs in too few pixels for any tolerance to see. On a mismatch, the actual and diff images land in `.vitest-attachments/`, which git ignores.
 
 Three bundles exist specifically to give the native concepts fixture coverage, so that the sweeps which auto-discover `data/pipelines/pipeline_*` (parse, build, parity, and the corpus oracle above) actually see them:
 
@@ -278,6 +336,8 @@ That is the valuable half. Running this repo's builder — a second, independent
 `parity` and `nativeConceptsCorpus` keep reading `data/pipelines/` only, because both need a `dry_run_graph_spec.json` produced by actually running pipelex, and the corpus has none. **`data/pipelines/` is therefore not superseded and is not going away**; the two piles answer different questions, which is why `fixtureBundles.ts` keeps them apart rather than merging them into one list.
 
 A fixture is a set of files, not a file. A multi-file entry keeps its library files beside the entry point — forward-declared signatures and the pipes that fill them — and those are fragments that only mean something merged, so both sweeps take every `.mthds` file in the entry directory. `parseFixtureBundles` reads them one at a time, because each file must parse on its own; `buildFixtureGraphs` passes the whole set in, with `bundle.mthds` (when there is one) leading so the merge is deterministic. Sweeping the entry point alone would build the corpus's multi-file entry into a one-node signature stub and report it as a pass.
+
+The corpus brings operators and steps this builder has to keep up with: the binding entries are why it draws [binding steps](#binding-steps), and a judge or document generation entry is why it parses [PipeJudge and PipeDocGen](#pipejudge-and-pipedocgen). Three entries reach natives the catalog below lacks (`Choice`, `Rating`, `Markdown`) and pass as stubs.
 
 That is also why `buildFixtureGraphs` tolerates no diagnostic whatsoever, warnings included. Every entry is a canonical, runnable method, and almost every diagnostic means the builder could not read what the method wrote — so on this material a warning and an error are the same news: either the builder has a gap or a fixture regressed. `unknown-input-slot-key` is the one exception and the one to watch, because it reports a slot the builder read perfectly: when the standard adds a slot-table key and pipelex ships a `valid` entry using it, this sweep goes red on a bundle nothing is wrong with, and the cure is to teach `INPUT_SLOT_KEYS` the new key. A `duplicate-pipe` warning would mean the merge stopped reading a signature and its concrete definition as one pipe; an `invalid-concept-ref` warning would mean a declared input silently vanished. Both pass every other assertion in the sweep, which is why severity is not the bar here.
 

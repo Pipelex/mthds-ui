@@ -2,9 +2,27 @@
 
 ## [Unreleased]
 
+### Added
+
+- **Binding steps, in static and run graphs**: the static builder parses a sequence's binding step (`{ from = "invoice.total", result = "total_amount" }`) and draws it as a node of kind `binding`, class `BindingStep`, between the root it reads and the value it binds, typed by walking the path through the structures the method's concepts declare, and draws a dotted `batch_over` as a binding followed by the batch. A run graph's binding nodes pass `validateGraphSpec` and render as a card badged `Binding`, whose detail panel names the path and the result; `BINDING_STEP_TYPE`, `NodePipeType`, `BindingNode`, `isBindingNode`, `CardNode`, `asCardNode`, `BindingStepSpec` and `isBindingStepSpec` are exported for a host reading them.
+
+- **`PipeJudge` and `PipeDocGen`**: both operators parse into registry blueprints (`PipeJudgeBlueprint`, `PipeDocGenBlueprint`) and render as cards badged `Judge` and `DocGen`; a run graph carrying either used to fail `validateGraphSpec` as an unrecognized pipe class.
+
+### Changed
+
+- **A sequence's steps include binding steps (Breaking)**: `PipeSequenceBlueprint.sequential_sub_pipes` is a `SequenceStepSpec[]`, each step a `SubPipeSpec` or a `BindingStepSpec`, so a host reading `pipe_code` off a step narrows with `isBindingStepSpec` first; `GraphSpecNode.pipe_type`, `PipeCardPayload.pipeType` and `GraphNodeData.pipeType` are a `NodePipeType`, `NodeKind` has `binding`, and the static module's `ParsedBundle` and `DomainNamespace` carry the `structures` their concepts declare, which a binding step walks.
+
+- **The vendored schema and corpus**: `data/schema/mthds_schema.json` and `data/mthds-corpus/` are copied from the pipelex development branch, ahead of its release, so they carry binding steps, `PipeJudge`, `PipeDocGen` and plain input names before a released pipelex does.
+
 ### Fixed
 
+- **A shorthand structure field is required**: a concept field written `name = "description"` is listed in the concept's `json_schema.required`, as the runtime reads it; it used to read as optional in the concept's detail panel.
+
 - **A condition's output reaches the step that reads it, and `DataflowAnalysis.stuffProducers` lists every producer (Breaking)**: in a static graph, a `PipeCondition`'s output is now one stuff that every outcome produces, so a later step reading it is wired to all outcomes; it used to be wired to the default route's output only, and every other outcome's output dead-ended at the graph's edge. To draw that, `DataflowAnalysis.stuffProducers` maps each digest to the list of operators writing it rather than to one id, so a host reading it takes `stuffProducers[digest]?.[0]` where it read `stuffProducers[digest]`.
+
+### Removed
+
+- **Dotted input names (Breaking)**: the static builder no longer satisfies an input named `doc.title` from the stuff named `doc`, and no longer reports an unquoted dotted input name as one: an input name is a plain name, and a field of an input is reached by a binding step. A dotted name now draws a dangling input.
 
 ## [v0.28.0] - 2026-10-02
 
