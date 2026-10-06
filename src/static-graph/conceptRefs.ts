@@ -237,6 +237,47 @@ export interface InputSlotParts {
   unknownKeys: string[];
 }
 
+/** A concept code as the standard pins it: `[A-Z][a-zA-Z0-9]*`. */
+const CONCEPT_CODE_RE = /^[A-Z][A-Za-z0-9]*$/;
+
+/** Whether a value is a concept ref whose code has the shape the standard pins. */
+function isConceptCodeRef(raw: unknown): boolean {
+  const parts = parseConceptRef(raw);
+  return parts !== null && CONCEPT_CODE_RE.test(parts.code);
+}
+
+/**
+ * The dotted names an `inputs` entry was written as, when TOML nested an
+ * unquoted dotted key into it, or null when the entry is a slot of its own.
+ *
+ * `inputs = { page.page_view = "Image" }` arrives as an input named `page`
+ * holding `{ page_view: "Image" }`, which the expanded slot form would read as
+ * a slot table with an unknown key and no `concept`: two true sentences that
+ * never say what is wrong, a dotted input name. A table with no `concept`
+ * whose every key leads, through more such tables, to a concept ref (a string,
+ * or a slot table's `concept`) can only be that, because a concept code MUST
+ * be PascalCase: `{ widget = "textarea" }` is a slot with an unknown key, and
+ * `{ page_view = "Image" }` can only be a field.
+ */
+export function unquotedDottedInputNames(name: string, raw: unknown): string[] | null {
+  if (!isPlainObject(raw) || raw.concept !== undefined) return null;
+  const keys = Object.keys(raw);
+  if (keys.length === 0) return null;
+  const dottedNames: string[] = [];
+  for (const key of keys) {
+    const value = raw[key];
+    const dottedName = `${name}.${key}`;
+    if (isConceptCodeRef(value) || (isPlainObject(value) && isConceptCodeRef(value.concept))) {
+      dottedNames.push(dottedName);
+      continue;
+    }
+    const nested = unquotedDottedInputNames(dottedName, value);
+    if (nested === null) return null;
+    dottedNames.push(...nested);
+  }
+  return dottedNames;
+}
+
 /**
  * Read one `inputs` value, whichever form authored it.
  *

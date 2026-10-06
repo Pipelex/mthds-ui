@@ -27,6 +27,7 @@ import {
   nativeConceptInfo,
   resolveInputSlot,
   resolveStuffSpec,
+  unquotedDottedInputNames,
 } from "./conceptRefs";
 import type { Diagnostic } from "./types";
 import { authoredRecord, boolOrNull, intOrNull, isPlainObject, strOrNull } from "./types";
@@ -64,6 +65,45 @@ function stringArrayOrNull(value: unknown): string[] | null {
 
 // ─── IO normalization ────────────────────────────────────────────────────────
 
+/**
+ * A plain name (`^[a-z][a-z0-9_]*$` in the schema): the grammar of an input
+ * name, and of a binding step's `result`, since a later step reads the bound
+ * value through its inputs. It has no dot, so a name never reaches into a
+ * field, and no leading underscore, which keeps the reserved private prefix
+ * out of an author's reach.
+ */
+const PLAIN_NAME_RE = /^[a-z][a-z0-9_]*$/;
+
+/** The binding step that hands the field a dotted path reaches to a pipe under a plain name. */
+function bindingStepFor(dottedPath: string): string {
+  const plainName = dottedPath.slice(dottedPath.lastIndexOf(".") + 1);
+  return `{ from = "${dottedPath}", result = "${plainName}" }`;
+}
+
+/** What to do about a dotted input name, as the runtime says it when it refuses one. */
+function dottedInputNameRemedy(dottedName: string): string {
+  const root = dottedName.slice(0, dottedName.indexOf("."));
+  return (
+    `an input names one whole value, so its name cannot reach into a field with a dot; declare "${root}" ` +
+    `with its whole concept and read the field through it, or have the calling sequence bind the field ` +
+    `to a plain name with a binding step (${bindingStepFor(dottedName)}) and declare that name`
+  );
+}
+
+/** Why an input name breaking the plain-name grammar is refused. */
+function invalidInputNameReason(name: string): string {
+  const segments = name.split(".");
+  if (segments.length > 1 && segments.every((segment) => PLAIN_NAME_RE.test(segment))) {
+    return `is not a plain input name: ${dottedInputNameRemedy(name)}`;
+  }
+  return "is not a plain input name, which is a lowercase letter followed by lowercase letters, digits and underscores";
+}
+
+/** A TOML-style locator segment for a key, quoted when a bare key cannot spell it. */
+function tomlKey(key: string): string {
+  return /^[A-Za-z0-9_-]+$/.test(key) ? key : JSON.stringify(key);
+}
+
 function normalizeInputs(
   raw: unknown,
   pipeCode: string,
@@ -81,6 +121,36 @@ function normalizeInputs(
     return inputs;
   }
   for (const [name, slot] of Object.entries(raw)) {
+    const path = `pipe.${pipeCode}.inputs.${tomlKey(name)}`;
+    // The runtime refuses a name breaking the plain-name grammar, a quoted
+    // dotted one among them, so it is skipped: nothing in scope holds it, and
+    // drawing it would draw a dangling input for a bundle that never runs.
+    if (!PLAIN_NAME_RE.test(name)) {
+      ctx.diagnostics.push({
+        severity: "warning",
+        code: "invalid-input-name",
+        message: `pipe "${pipeCode}": input "${name}" ${invalidInputNameReason(name)} — skipped`,
+        path,
+      });
+      continue;
+    }
+    // The same name unquoted is a nesting in TOML, which reads as a slot table
+    // with an unknown key and no `concept`. Reported alone and as what it is,
+    // since the two generic diagnostics below never mention the dot.
+    const dottedNames = unquotedDottedInputNames(name, slot);
+    if (dottedNames !== null) {
+      ctx.diagnostics.push({
+        severity: "warning",
+        code: "invalid-input-name",
+        message:
+          `pipe "${pipeCode}": input "${name}" is a table with no "concept", which is how TOML reads the ` +
+          `unquoted dotted input ${dottedNames.length === 1 ? "name" : "names"} ` +
+          `${dottedNames.map((dotted) => `"${dotted}"`).join(", ")}; ` +
+          `${dottedInputNameRemedy(dottedNames[0])} — skipped`,
+        path,
+      });
+      continue;
+    }
     const { spec, missingConcept, unknownKeys } = resolveInputSlot(slot, ctx.domain, ctx.concepts);
     if (unknownKeys.length > 0) {
       ctx.diagnostics.push({
@@ -89,7 +159,7 @@ function normalizeInputs(
         message:
           `pipe "${pipeCode}": input "${name}" declares ${unknownKeys.map((key) => `"${key}"`).join(", ")}, ` +
           "which the input slot form does not define — ignored here, and the runtime refuses the bundle",
-        path: `pipe.${pipeCode}.inputs.${name}`,
+        path,
       });
     }
     if (spec === null) {
@@ -104,7 +174,7 @@ function normalizeInputs(
         message: missingConcept
           ? `pipe "${pipeCode}": input "${name}" is a slot table with no "concept" — the key is required — skipped`
           : `pipe "${pipeCode}": input "${name}" has an uninterpretable concept ref — skipped`,
-        path: `pipe.${pipeCode}.inputs.${name}`,
+        path,
       });
       continue;
     }
@@ -178,14 +248,6 @@ function normalizeSubPipe(
  */
 const BINDING_PATH_RE = /^[A-Za-z][A-Za-z0-9_]*(?:\.[A-Za-z][A-Za-z0-9_]*)*$/;
 
-/**
- * A binding step's `result`: a plain name, as an input name is (`^[a-z][a-z0-9_]*$`
- * in the schema), since a later step reads the bound value through its inputs.
- * The grammar has no leading underscore, which keeps the reserved private
- * prefix out of an author's reach.
- */
-const BINDING_RESULT_RE = /^[a-z][a-z0-9_]*$/;
-
 /** The keys a binding step may carry: `from` and `result`, both required, nothing else. */
 const BINDING_STEP_KEYS: ReadonlySet<string> = new Set(["from", "result"]);
 
@@ -225,7 +287,7 @@ function normalizeBindingStep(
   }
   const result = strOrNull(raw.result);
   if (result === null) return skip(`binds "${fromPath}" under no "result"`);
-  if (!BINDING_RESULT_RE.test(result)) {
+  if (!PLAIN_NAME_RE.test(result)) {
     return skip(
       result.startsWith(PRIVATE_BINDING_NAME_PREFIX)
         ? `binds "${fromPath}" under "${result}", which takes the prefix "${PRIVATE_BINDING_NAME_PREFIX}" the runtime reserves for its own names`

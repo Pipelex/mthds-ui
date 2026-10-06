@@ -21,6 +21,7 @@ export type DiagnosticCode =
   | "retired-signature-tag"
   | "invalid-concept-ref"
   | "unknown-input-slot-key"
+  | "invalid-input-name"
   | "missing-pipe-output"
   | "invalid-sub-pipe"
   | "invalid-binding-step"

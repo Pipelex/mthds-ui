@@ -34,6 +34,7 @@ import { describe, expect, it } from "vitest";
 import { corpusCasesCovering, corpusCasesExpecting, fixtureBundleCases } from "./fixtureBundles";
 
 import { buildStaticGraphSpecFromToml } from "../buildStaticGraphSpec";
+import type { DiagnosticCode } from "../types";
 
 const bundleCases = fixtureBundleCases();
 
@@ -92,24 +93,33 @@ describe("binding steps in the corpus", () => {
   );
 });
 
-// The invalid entries that pipelex refuses for a binding step it cannot take
-// are refusals this builder can see too, so it must report each one, and only
-// that: a malformed step is skipped with `invalid-binding-step`, and a path the
-// walk cannot follow binds `native.Anything` with `binding-path-unresolved`.
-const BINDING_ERROR_DIAGNOSTICS: Readonly<Record<string, string>> = {
+// The invalid entries pipelex refuses for an error this builder can see too
+// must report it, and only it: a malformed binding step is skipped with
+// `invalid-binding-step`, a path the walk cannot follow binds `native.Anything`
+// with `binding-path-unresolved`, and an input name that is not a plain name,
+// a dotted one among them, is skipped with `invalid-input-name`.
+const REFUSAL_DIAGNOSTICS: Readonly<Record<string, DiagnosticCode>> = {
   binding_step_invalid: "invalid-binding-step",
   binding_path_unresolved: "binding-path-unresolved",
+  invalid_input_name: "invalid-input-name",
 };
 
-describe("invalid binding steps in the corpus", () => {
-  it.each(corpusCasesExpecting(Object.keys(BINDING_ERROR_DIAGNOSTICS)))(
+describe("invalid entries in the corpus that the builder refuses as well", () => {
+  it("covers every error the map names", () => {
+    const expected = new Set(
+      corpusCasesExpecting(Object.keys(REFUSAL_DIAGNOSTICS)).map(([, , error]) => error),
+    );
+    expect(expected).toEqual(new Set(Object.keys(REFUSAL_DIAGNOSTICS)));
+  });
+
+  it.each(corpusCasesExpecting(Object.keys(REFUSAL_DIAGNOSTICS)))(
     "reports %s",
     (_name, bundlePaths, expectedError) => {
       const tomls = bundlePaths.map((bundlePath) => readFileSync(bundlePath, "utf8"));
       const { spec, diagnostics } = buildStaticGraphSpecFromToml(tomls);
       expect(diagnostics.length).toBeGreaterThan(0);
       expect(new Set(diagnostics.map((diagnostic) => diagnostic.code))).toEqual(
-        new Set([BINDING_ERROR_DIAGNOSTICS[expectedError]]),
+        new Set([REFUSAL_DIAGNOSTICS[expectedError]]),
       );
       expect(() => validateGraphSpec(spec)).not.toThrow();
     },

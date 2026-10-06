@@ -637,14 +637,26 @@ output = "Text"
 prompt = "Go"
 `;
 
-  it("keeps an input named __proto__ instead of dropping it silently", () => {
+  it("keeps an input named constructor instead of dropping it silently", () => {
+    const { bundle, diagnostics } = parseMthdsBundle(
+      pipeWith('{ constructor = "Text", ok = "Text" }'),
+    );
+    const inputs = (bundle.pipes.p as PipeLLMBlueprint).inputs;
+    expect(Object.keys(inputs).sort()).toEqual(["constructor", "ok"]);
+    expect(Object.getPrototypeOf(inputs)).not.toBe(Object.prototype);
+    expect(diagnostics).toEqual([]);
+  });
+
+  it("reports an input named __proto__ as no plain name, never drops it silently", () => {
     const { bundle, diagnostics } = parseMthdsBundle(
       pipeWith('{ __proto__ = "Text", ok = "Text" }'),
     );
     const inputs = (bundle.pipes.p as PipeLLMBlueprint).inputs;
-    expect(Object.keys(inputs).sort()).toEqual(["__proto__", "ok"]);
+    expect(Object.keys(inputs)).toEqual(["ok"]);
     expect(Object.getPrototypeOf(inputs)).not.toBe(Object.prototype);
-    expect(diagnostics).toEqual([]);
+    expect(diagnostics.map((d) => [d.code, d.path])).toEqual([
+      ["invalid-input-name", "pipe.p.inputs.__proto__"],
+    ]);
   });
 
   it("does not resolve a concept code off Object.prototype", () => {
@@ -670,9 +682,6 @@ prompt = "Go"
 
 describe("input slot tables", () => {
   it("reports a slot table declaring an unknown key and no concept", () => {
-    // Also the shape TOML makes of an unquoted dotted name, which the
-    // standard no longer has: an input name is a plain name, and a field of an
-    // input is reached by a binding step.
     const { diagnostics } = parseMthdsBundle(`
 domain = "d"
 [pipe.p]
@@ -686,5 +695,70 @@ prompt = "Go"
       "invalid-concept-ref",
       "unknown-input-slot-key",
     ]);
+  });
+});
+
+// ─── Input names ─────────────────────────────────────────────────────────────
+
+describe("input names", () => {
+  // An input name is a plain name (`^[a-z][a-z0-9_]*$` in the schema), and the
+  // runtime refuses any other with `invalid_input_name`; a field of an input
+  // is reached by a binding step.
+  function parseInputs(inputs: string) {
+    const { bundle, diagnostics } = parseMthdsBundle(`
+domain = "d"
+[pipe.p]
+type = "PipeLLM"
+description = "P"
+inputs = ${inputs}
+output = "Text"
+prompt = "Go"
+`);
+    return { inputs: (bundle.pipes.p as PipeLLMBlueprint).inputs, diagnostics };
+  }
+
+  it("skips a quoted dotted name, and says to bind the field", () => {
+    const { inputs, diagnostics } = parseInputs(`{ "page.page_view" = "Image" }`);
+    expect(inputs).toEqual({});
+    expect(diagnostics).toEqual([
+      expect.objectContaining({
+        severity: "warning",
+        code: "invalid-input-name",
+        path: 'pipe.p.inputs."page.page_view"',
+      }),
+    ]);
+    expect(diagnostics[0].message).toContain('input "page.page_view" is not a plain input name');
+    expect(diagnostics[0].message).toContain('{ from = "page.page_view", result = "page_view" }');
+  });
+
+  it("keeps the root declared beside a quoted dotted name", () => {
+    const { inputs, diagnostics } = parseInputs(`{ "page.page_view" = "Image", page = "Page" }`);
+    expect(Object.keys(inputs)).toEqual(["page"]);
+    expect(diagnostics.map((d) => d.code)).toEqual(["invalid-input-name"]);
+  });
+
+  it("names an unquoted dotted name as one, and nothing else", () => {
+    // TOML nests it into a table with no `concept`, which the slot form would
+    // otherwise report as an unknown key and a missing concept.
+    const { inputs, diagnostics } = parseInputs(`{ page.page_view = "Image" }`);
+    expect(inputs).toEqual({});
+    expect(diagnostics).toEqual([
+      expect.objectContaining({ code: "invalid-input-name", path: "pipe.p.inputs.page" }),
+    ]);
+    expect(diagnostics[0].message).toContain('unquoted dotted input name "page.page_view"');
+    expect(diagnostics[0].message).toContain('{ from = "page.page_view", result = "page_view" }');
+  });
+
+  it("skips a name that is not dotted and breaks the grammar all the same", () => {
+    const { inputs, diagnostics } = parseInputs(
+      `{ Page = "Image", "my-input" = "Text", ok = "Text" }`,
+    );
+    expect(Object.keys(inputs)).toEqual(["ok"]);
+    expect(diagnostics.map((d) => [d.code, d.path])).toEqual([
+      ["invalid-input-name", "pipe.p.inputs.Page"],
+      ["invalid-input-name", "pipe.p.inputs.my-input"],
+    ]);
+    expect(diagnostics[0].message).toContain("is not a plain input name");
+    expect(diagnostics[0].message).not.toContain("binding step");
   });
 });

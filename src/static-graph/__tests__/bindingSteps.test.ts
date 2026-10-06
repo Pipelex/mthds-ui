@@ -171,16 +171,13 @@ describe("parsing a dotted batch_over", () => {
 
   it("keeps clear of a name the sequence already holds", () => {
     // Only reachable on a bundle the runtime refuses, since no plain name takes
-    // the prefix, but the numbering still never reuses a name in scope.
+    // the prefix, and an input named so is skipped as no plain name, but the
+    // numbering still never reuses a name in scope.
     const { steps } = stepsOf(
-      sequenceOf(
-        `  { pipe = "write_line", batch_over = "catalog.pages", batch_as = "page", result = "lines" },`,
-      ).replace(
-        'inputs = { catalog = "Catalog" }',
-        'inputs = { catalog = "Catalog", _bound_catalog_pages = "Text" }',
-      ),
+      sequenceOf(`  { pipe = "write_line", result = "_bound_catalog_pages" },
+  { pipe = "write_line", batch_over = "catalog.pages", batch_as = "page", result = "lines" },`),
     );
-    expect(steps[0]).toMatchObject({
+    expect(steps[1]).toMatchObject({
       output_name: "_bound_catalog_pages_2",
       is_dotted_batch_over: true,
     });

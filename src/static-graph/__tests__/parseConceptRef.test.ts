@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { parseConceptRef, parseInputSlot } from "../conceptRefs";
+import { parseConceptRef, parseInputSlot, unquotedDottedInputNames } from "../conceptRefs";
 
 describe("parseConceptRef", () => {
   it("parses a bare concept code", () => {
@@ -195,5 +195,39 @@ describe("parseInputSlot", () => {
       missingConcept: false,
       unknownKeys: [],
     });
+  });
+});
+
+describe("unquotedDottedInputNames", () => {
+  // TOML nests an unquoted dotted key: `page.page_view = "Image"` arrives as an
+  // input `page` holding `{ page_view: "Image" }`.
+  it("reads the dotted name back out of the table TOML nested it into", () => {
+    expect(unquotedDottedInputNames("page", { page_view: "Image" })).toEqual(["page.page_view"]);
+    expect(unquotedDottedInputNames("page", { page_view: "Image[]?" })).toEqual(["page.page_view"]);
+  });
+
+  it("follows deeper nestings and slot tables, and names every dotted name", () => {
+    expect(
+      unquotedDottedInputNames("page", {
+        view: { left: { concept: "Image" } },
+        title: "native.Text",
+      }),
+    ).toEqual(["page.view.left", "page.title"]);
+  });
+
+  it("returns null for a slot of its own", () => {
+    expect(unquotedDottedInputNames("notes", "Text")).toBeNull();
+    expect(unquotedDottedInputNames("notes", { concept: "Text" })).toBeNull();
+    expect(unquotedDottedInputNames("notes", {})).toBeNull();
+  });
+
+  it("returns null for a slot table that names something other than a concept", () => {
+    // A concept code is PascalCase, so a lowercase value is an unknown slot
+    // key's value, never a nested field's concept.
+    expect(unquotedDottedInputNames("notes", { widget: "textarea" })).toBeNull();
+    expect(unquotedDottedInputNames("notes", { hints: { intent: "prose" } })).toBeNull();
+    expect(
+      unquotedDottedInputNames("notes", { page_view: "Image", widget: "textarea" }),
+    ).toBeNull();
   });
 });

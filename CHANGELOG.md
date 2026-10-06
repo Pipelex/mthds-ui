@@ -26,7 +26,7 @@
 
 ### Removed
 
-- **Dotted input names (Breaking)**: the static builder no longer satisfies an input named `doc.title` from the stuff named `doc`, and no longer reports an unquoted dotted input name as one: an input name is a plain name, and a field of an input is reached by a binding step. A dotted name now draws a dangling input.
+- **Dotted input names (Breaking)**: the static builder no longer satisfies an input named `doc.title` from the stuff named `doc`: an input name is a plain name, and a field of an input is reached by a binding step. A name breaking the plain-name grammar, a dotted one quoted or unquoted among them, is skipped with an `invalid-input-name` warning, as the runtime refuses it with `invalid_input_name`, and the warning says to read the field through its root or to bind it.
 
 ## [v0.28.0] - 2026-10-02
 
