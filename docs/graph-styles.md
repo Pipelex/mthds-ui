@@ -1,0 +1,79 @@
+# Graph styles
+
+`GraphViewer` draws a method in one of several styles, picked from a typed registry. The same `GraphSpec` feeds every style; a style only decides how it is drawn.
+
+| Style    | Id         | What it draws                                                                                                                                                         |
+| -------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Detailed | `detailed` | Every pipe with its inputs, outputs and settings: pipe cards, a node for every value, controller groups. The default, and what the viewer drew before styles existed. |
+| Simple   | `simple`   | The method's steps in plain words: a flowchart for a reader who does not write methods.                                                                               |
+
+## Choosing a style
+
+A host picks the style with the `graphStyle` prop or `config.graphStyle`, and may let the reader change it from a menu in the toolbar.
+
+```tsx
+const [style, setStyle] = useState<GraphStyleId>(loadSavedStyle() ?? "simple");
+
+<GraphViewer
+  graph={{ graphSpec }}
+  graphStyle={style}
+  styleMenu
+  onGraphStyleChange={(next) => {
+    setStyle(next);
+    saveStyle(next);
+  }}
+/>;
+```
+
+- **`graphStyle`** is reactive, like `theme` and `toolbarPosition`. Passing it drives the active style; clearing it back to `undefined` hands control to `config.graphStyle`, then to the default, `detailed`. The precedence is resolved on every render by `resolveGraphStyle(prop, configStyle)`. A value naming no registered style is treated as unset rather than thrown on, so a host relaying a setting written for a newer version of this package still gets a graph.
+- **`onGraphStyleChange(style)`** is called whenever the active style changes, from the menu or from a prop or config update, and never on mount. This library stores nothing: the host keeps the choice.
+- **`styleMenu`** shows the style menu in the toolbar. It is opt-in, for a host that fixes the style for its audience: `true` offers every registered style in registry order, a list such as `["simple", "detailed"]` offers those in that order, and anything that leaves fewer than two styles to choose between offers no menu (`resolveStyleMenu`).
+
+`isGraphStyleId(value)` narrows an untrusted value, such as a setting read from storage, and `GRAPH_STYLES[id]` gives a style's `name` and one-line `description` for a host that lists the styles itself.
+
+## The toolbar menu
+
+The menu's button shows the active style's icon. It opens a list of `menuitemradio` rows, one per offered style, each with the style's icon, name and description, and a check on the active one. Arrow keys, Home and End move between rows, Enter or Space chooses, and Tab or Escape closes it, Escape returning focus to the button. A press anywhere outside it closes it, including a press on the graph's canvas. It opens away from the toolbar's anchor, the way the validation dropdown does, in both the horizontal and the vertical toolbar (see [toolbar-position.md](toolbar-position.md)).
+
+A style declares what it supports, and the toolbar hides the controls it does not: the simple style has no controller groups, so the button that shows and hides them is not drawn while it is active. Folding and unfolding all controllers stays.
+
+## What the simple style draws
+
+The simple style is a projection of the same `GraphSpec`: it shows only what the method declares, in the words its author wrote, and guesses nothing.
+
+| In the method                                   | In the simple style                                                                                                                                                                                                                                                                                                                                                                                                              |
+| ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| An operator                                     | A step, titled by its pipe's `description` (whitespace collapsed, one closing period dropped). A pipe without a description is titled by its humanized code (`extract_cv` reads "Extract CV"). A small icon and word say what kind of step it is: AI, Extract, Image, Search, Code, Template, Document, Judge, or "To build" for a signature not yet implemented. AI and judge steps are tinted, templates and code are quieter. |
+| The method's inputs                             | A document shape at the start, titled by the input's humanized name, with its concept's plain name beneath when that says more (a `query` of concept `Text` reads "Query", "Text"). A list is drawn as a stack of documents.                                                                                                                                                                                                     |
+| The method's final output                       | A document shape at the end, titled by its concept's plain name, or by its name when the concept is a generic native (`Anything`, `Dynamic`, `Composite`). Only the main output is drawn: any other value no step reads is not.                                                                                                                                                                                                  |
+| Every other value                               | No node. It becomes an arrow from the step that produced it to each step that reads it, so a value with two readers is two arrows.                                                                                                                                                                                                                                                                                               |
+| A binding step                                  | No node: picking a field is plumbing, so the arrow passes through it from the step behind it.                                                                                                                                                                                                                                                                                                                                    |
+| A sequence                                      | No frame: the arrows are the order.                                                                                                                                                                                                                                                                                                                                                                                              |
+| A parallel                                      | No frame: its branches sit side by side because nothing joins them until a step reads their results.                                                                                                                                                                                                                                                                                                                             |
+| A condition                                     | A decision diamond carrying the condition's description. Its arrows carry the outcomes, humanized from the outcome names (`needs_review` reads "Needs review", the default outcome reads "Otherwise", a branch taken on several reads "Needs review or otherwise"). A decision's arrow goes to the first steps of each branch only; the steps after them follow by their own arrows.                                             |
+| A batch                                         | "For each". A branch of one step is that step, drawn once, marked "For each page" (the item's name, humanized). A branch of several steps is drawn once inside a light frame titled "For each…". In a run, where the branch ran once per item, it is still drawn once, and its status is the worst of its runs (failed, then running, then scheduled, canceled, skipped, succeeded).                                             |
+| A sub-method nested three levels down or deeper | Folded into one step, saying how many steps it holds, which the reader can open. Only sequences fold this way: a decision, a loop or a parallel is structure the reader came to see, however deep it sits. The host's own `foldMode` applies on top.                                                                                                                                                                             |
+
+A step, a decision and a frame show a run's status in `dry` and `live` mode (done, running, failed and the others, by `statusMap` as in the detailed style) and the validation ring and badge of an issue pinned to their pipe. A static graph shows neither status nor spinner. Every node keeps its id from the spec, so clicking a step opens the same detail panel as in the detailed style, with the pipe's code, inputs, outputs and settings for the reader who wants them.
+
+### Legibility
+
+The layout sizes every box before the browser has drawn any text, so the simple style estimates how its text wraps from a table of glyph widths measured for its font stack, kept at the widest of the fonts the stack may fall back to. A step title wraps to at most three lines in a box 160 pixels wide. A title that needs a fourth line takes a box 200 pixels wide when that keeps it whole; one that is longer still stays at the narrow width and is cut at three lines with an ellipsis, its full text in a tooltip. A decision's diamond widens in steps for a longer question. Arrows are drawn along the route the layout computed for them, so an arrow skipping a column bends around the steps between its ends rather than crossing them, and an outcome label sits in the room the layout reserved for it. Once a node has been dragged away from where the layout put it, its arrows fall back to a rounded step between their ends.
+
+## How a style is built
+
+A style is three registrations, all keyed by its `GraphStyleId`:
+
+1. **The descriptor**, in `GRAPH_STYLES` (`src/graph/styles/graphStyles.ts`): its name and description for the menu, its `capabilities` (`controllerFrameToggle`, `foldAll`) for the toolbar, and optionally its own `layout`: spacing that replaces the host's `nodesep` and `ranksep`, `groupPadding` for its frames, and `routeEdges` to draw its arrows along the layout's routes.
+2. **The pipeline**, in `GRAPH_STYLE_PIPELINES` (`src/graph/styles/stylePipelines.ts`), pure and React-free. The viewer builds the dataflow graph, folds the controllers in the style's `defaultFolds` plus the host's fold mode, hands the result to the style's `project`, lays out what it returns with ELK, and wraps the laid-out nodes with the style's `frame` pass. The detailed style's projection is the identity and its frame pass is the controller groups; the simple style's projection is `projectSimpleGraph`.
+3. **The node components**, registered in the viewer's `nodeTypes`, with an icon in the menu's `STYLE_ICONS`. A projection gives each of its nodes a fixed `layoutSize`, since only the style knows its own text metrics, and a labelled edge a `labelSize`. A style's stylesheet follows the repository's CSS packaging rules: an `external` pattern and a copy in `tsup.config.ts`, and an entry in `scripts/standaloneCssFiles.mjs`.
+
+`GraphStyleId` and the records keyed by it are exhaustive, so a new style fails to compile until every one of them has an entry.
+
+The pure helpers the simple style is built from are exported from the graph entry for a host that wants the same words elsewhere: `humanizeIdentifier`, `conceptPlainName`, `outcomeLabel`, `sentenceCase`, and `estimateWrap` and `textWidthPx` for sizing text.
+
+## The review loop
+
+A style is judged on pictures as much as on tests. `make style-review ITERATION=<n>` draws every fixture of the review set (`src/graph/react/viewer/__stories__/styleReviewFixtures.ts`) in each style at 1280 by 800, static and left to right, and a subset also top to bottom, dark and in a live run caught midway. It saves each picture with its measurements (the title size at fit view, overlaps, clipped text, identifiers on the canvas) into `.style-review/<n>/`, which git ignores; `STYLES=simple` and `ONLY=CV_SCREENING,EMAIL_TRIAGE` narrow it. `make style-contact-sheet ITERATION=<n>` lays a capture out as one self-contained HTML page, each fixture's detailed and simple pictures side by side, with a `review.json` beside the capture adding a summary, cold-read results and notes.
+
+The automated half of the rubric runs in `make test`, over every fixture of the review set (`src/graph/styles/__tests__/styleRubric.test.ts`): no identifier drawn in the simple style, fewer nodes than the detailed drawing, step titles in at most three lines at the width they are drawn at unless their author wrote more, titles at least 11 pixels tall at fit view, no overlap, and no more arrow crossings than the detailed drawing. `make test-screenshots` compares the simple style over the review set with committed references (`GraphStyles.screenshot.tsx`), so a change to the viewer that breaks it fails visibly; `make update-screenshots` rewrites them after an intended change, once each new picture has been read.

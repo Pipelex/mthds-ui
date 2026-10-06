@@ -1,5 +1,19 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+
+- **Graph styles, and a `simple` style**: `GraphViewer` draws a method in a style picked from a typed registry, through the `graphStyle` prop or `config.graphStyle` (resolved prop, then config, then the default by `resolveGraphStyle`, a value naming no style treated as unset), and reports every change through `onGraphStyleChange`. `detailed`, the default, is the drawing as it was. `simple` draws a flowchart in plain words: each step titled by its pipe's description, only the method's inputs and its final output as data, every other value as arrows from the step that produced it to each step that reads it, binding steps passed through, a condition as a decision whose arrows carry the humanized outcomes, a batch as "for each" (a marked step or a frame, drawn once in a run), and sub-methods three levels down folded into one step; its arrows are routed around the steps between their ends. `GRAPH_STYLE`, `GraphStyleId`, `GRAPH_STYLES`, `GRAPH_STYLE_PIPELINES`, `isGraphStyleId` and the plain-words helpers (`humanizeIdentifier`, `conceptPlainName`, `outcomeLabel`, `sentenceCase`, `estimateWrap`, `textWidthPx`) are exported. See `docs/graph-styles.md`.
+
+- **A style menu in the toolbar**: `styleMenu` (`true`, or a list of styles in the order to offer them) adds a menu listing each style with its name and description, operable from the keyboard and placed by the toolbar's anchor. It is opt-in, and a style's unsupported controls leave the toolbar while it is active: the simple style has no controller groups to show.
+
+- **Edges drawn along the layout's routes**: `LayoutConfig.routeEdges` has the layout return each edge's route (`GraphEdge.route`, points and label box in absolute coordinates) and reserve room for labels sized by `GraphEdge.labelSize`, and the `routed` edge type (`EDGE_TYPE_ROUTED`) draws an edge along it, falling back to a rounded step once a node is dragged away. `LayoutConfig.groupPadding` sets the room a group keeps around its children, and a node's `layoutSize` fixes the size it is laid out at.
+
+### Fixed
+
+- **A press on the graph's canvas closes the validation dropdown**: the pane stops its presses for panning before they bubble, so the dropdown stayed open until a press elsewhere or Escape; it now listens in the capture phase.
+
 ## [v0.29.1] - 2026-10-06
 
 ### Changed

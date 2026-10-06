@@ -56,7 +56,7 @@ The decoration internals (`buildValidationDecorations`, `applyValidationDecorati
 
 ## Dropdown panel
 
-Clicking the widget toggles a dropdown (`ValidationPanel`, exported with its pure helpers `validationLabel` and `validationPanelPlacement`) listing the issues with severity accent, locator chip, message, and `Fix:` line. It closes on outside click or Escape. Placement is derived from the toolbar anchor so the panel always unfolds toward the graph: top anchors drop down, bottom anchors open up, the vertical `center-left`/`center-right` bars open sideways away from their edge.
+Clicking the widget toggles a dropdown (`ValidationPanel`, exported with its pure helpers `validationLabel` and `validationPanelPlacement`) listing the issues with severity accent, locator chip, message, and `Fix:` line. It closes on Escape or a press outside it, the graph's canvas included: the dismissal (`usePopoverDismiss`, shared with the style menu) listens in the capture phase, since the pane stops its own presses for panning before they bubble. Placement is derived from the toolbar anchor so the panel always unfolds toward the graph: top anchors drop down, bottom anchors open up, the vertical `center-left`/`center-right` bars open sideways away from their edge.
 
 ## Static diagnostics
 

@@ -83,14 +83,19 @@ Without `pipeIoContracts` and `outputForm` the panel shows each concept's struct
 
 ### GraphViewer props
 
-| Prop               | Type                                              | Default                | Description                              |
-| ------------------ | ------------------------------------------------- | ---------------------- | ---------------------------------------- |
-| `graph`            | `GraphArtifacts \| null`                          | —                      | The spec and its descriptors, one source |
-| `config`           | `GraphConfig`                                     | `DEFAULT_GRAPH_CONFIG` | Layout and visual configuration          |
-| `direction`        | `GraphDirection`                                  | `"LR"`                 | Layout direction: `TB`, `LR`, `RL`, `BT` |
-| `showControllers`  | `boolean`                                         | `false`                | Show controller group outlines           |
-| `onNavigateToPipe` | `(pipeCode: string, status?: PipeStatus) => void` | —                      | Callback when a pipe node is clicked     |
-| `onReactFlowInit`  | `(instance: AppRFInstance) => void`               | —                      | Access the underlying ReactFlow instance |
+| Prop                 | Type                                              | Default                | Description                                                    |
+| -------------------- | ------------------------------------------------- | ---------------------- | -------------------------------------------------------------- |
+| `graph`              | `GraphArtifacts \| null`                          | —                      | The spec and its descriptors, one source                       |
+| `config`             | `GraphConfig`                                     | `DEFAULT_GRAPH_CONFIG` | Layout and visual configuration                                |
+| `direction`          | `GraphDirection`                                  | `"LR"`                 | Layout direction: `TB`, `LR`, `RL`, `BT`                       |
+| `showControllers`    | `boolean`                                         | `false`                | Show controller group outlines                                 |
+| `onNavigateToPipe`   | `(pipeCode: string, status?: PipeStatus) => void` | —                      | Callback when a pipe node is clicked                           |
+| `onReactFlowInit`    | `(instance: AppRFInstance) => void`               | —                      | Access the underlying ReactFlow instance                       |
+| `graphStyle`         | `GraphStyleId`                                    | `"detailed"`           | The style the graph is drawn in: `detailed` or `simple`        |
+| `styleMenu`          | `boolean \| GraphStyleId[]`                       | —                      | Offer a style menu in the toolbar (opt-in)                     |
+| `onGraphStyleChange` | `(style: GraphStyleId) => void`                   | —                      | Called when the style changes, so the host can keep the choice |
+
+The `simple` style draws the method as a flowchart in plain words: steps titled by their descriptions, only the method's inputs and final output as data, decisions with their outcomes, and loops as "for each". See [docs/graph-styles.md](docs/graph-styles.md).
 
 ### Container sizing
 
@@ -237,6 +242,7 @@ const myConfig = {
 | Field             | Type                     | Default       | Description                            |
 | ----------------- | ------------------------ | ------------- | -------------------------------------- |
 | `direction`       | `GraphDirection`         | `"LR"`        | Layout direction                       |
+| `graphStyle`      | `GraphStyleId`           | `"detailed"`  | The style the graph is drawn in        |
 | `showControllers` | `boolean`                | `false`       | Show controller group boxes            |
 | `nodesep`         | `number`                 | `50`          | Horizontal spacing between nodes       |
 | `ranksep`         | `number`                 | `100`         | Vertical spacing between ranks         |
