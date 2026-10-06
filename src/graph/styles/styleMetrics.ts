@@ -1,5 +1,5 @@
 // Readability measurements for a drawn graph: what the graph styles' review
-// rubric asserts on (`wip/graph-styles/plan.md`, R1 to R5). Pure and
+// rubric asserts on (R1 to R5, in `docs/graph-styles.md`). Pure and
 // React-free: it reads laid-out nodes and edges, whatever the style.
 
 import type { GraphDirection, GraphEdge, GraphNode } from "@graph/types";

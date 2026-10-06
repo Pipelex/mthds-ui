@@ -40,7 +40,7 @@ test-screenshots:
 update-screenshots:
 	npx vitest run --config vitest.screenshots.config.mts --update
 
-# The graph styles' review loop (wip/graph-styles/plan.md): capture every fixture
+# The graph styles' review loop (docs/graph-styles.md): capture every fixture
 # of the review set in each style into .style-review/$(ITERATION)/, pictures and
 # measurements for reading, nothing compared. STYLES=simple limits the styles,
 # ONLY=CV_SCREENING,EMAIL_TRIAGE the fixtures. `style-contact-sheet` lays one

@@ -6,7 +6,7 @@ import { playwright } from "@vitest/browser-playwright";
 const dirname =
   typeof __dirname !== "undefined" ? __dirname : path.dirname(fileURLToPath(import.meta.url));
 
-// The graph styles' review loop (`wip/graph-styles/plan.md`): render every
+// The graph styles' review loop (`docs/graph-styles.md`): render every
 // fixture of the review set in each style, and save each picture with its
 // measurements into `.style-review/<ITERATION>/<style>/`, for reading — nothing
 // is compared. Kept out of `vitest.config.mts`, and so out of `make test`, like
