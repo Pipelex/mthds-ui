@@ -11,3 +11,4 @@ export * from "./elkGraphBuilder";
 export * from "./graphLayout";
 export * from "./graphControllers";
 export * from "./graphConfig";
+export * from "./styles";

@@ -185,6 +185,8 @@ function countTbPillRows(
 
 export function estimateNodeDimensions(node: GraphNode, isHorizontal: boolean): NodeDimensions {
   const nodeData = node.data || {};
+  // A producer that knows its node's text metrics fixes the size itself.
+  if (nodeData.layoutSize) return { ...nodeData.layoutSize };
   const isStuff = nodeData.isStuff;
   const labelText = nodeData.labelText || "";
   const isPipeCard = node.type === NODE_TYPE_PIPE_CARD;

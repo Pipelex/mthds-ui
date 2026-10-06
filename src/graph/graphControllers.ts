@@ -351,11 +351,17 @@ export function applyControllers(
     }
   }
 
-  const allNodes = [...controllerNodes, ...filteredNodes];
+  return { nodes: sortParentsFirst([...controllerNodes, ...filteredNodes]), edges: filteredEdges };
+}
 
-  // Sort: ReactFlow requires parent group nodes before their children.
+/**
+ * Order nodes so every group node comes before its children, which ReactFlow
+ * requires. Stable within a nesting depth. Throws on a cycle in the parent
+ * chain rather than looping.
+ */
+export function sortParentsFirst(nodes: GraphNode[]): GraphNode[] {
   const nodeMap: Record<string, GraphNode> = {};
-  for (const n of allNodes) nodeMap[n.id] = n;
+  for (const n of nodes) nodeMap[n.id] = n;
   const depthOf: Record<string, number> = {};
   const depthVisiting = new Set<string>();
   function getContainmentDepth(id: string): number {
@@ -371,8 +377,6 @@ export function applyControllers(
     depthVisiting.delete(id);
     return depthOf[id];
   }
-  for (const n of allNodes) getContainmentDepth(n.id);
-  allNodes.sort((a, b) => depthOf[a.id] - depthOf[b.id]);
-
-  return { nodes: allNodes, edges: filteredEdges };
+  for (const n of nodes) getContainmentDepth(n.id);
+  return [...nodes].sort((a, b) => depthOf[a.id] - depthOf[b.id]);
 }

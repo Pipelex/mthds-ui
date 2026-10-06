@@ -83,6 +83,13 @@ export const NODE_TYPE_PIPE_CARD = "pipeCard" as const;
 export const NODE_TYPE_STUFF = "default" as const;
 export const NODE_TYPE_CONTROLLER = "controllerGroup" as const;
 
+// The simple style's node types: a step, a method input or final output, a
+// decision, and a "for each" frame. See `SimpleNodePayload`.
+export const NODE_TYPE_SIMPLE_STEP = "simpleStep" as const;
+export const NODE_TYPE_SIMPLE_TERMINAL = "simpleTerminal" as const;
+export const NODE_TYPE_SIMPLE_DECISION = "simpleDecision" as const;
+export const NODE_TYPE_SIMPLE_FRAME = "simpleFrame" as const;
+
 // ─── Stuff node ID helpers ──────────────────────────────────────────────────
 // Stuff (data) nodes use a "stuff_<digest>" convention throughout the graph.
 
@@ -833,6 +840,24 @@ export function toolbarOrientation(position: ToolbarPosition): ToolbarOrientatio
 
 export type ToolbarSide = "left" | "center" | "right";
 
+// ─── Graph style ─────────────────────────────────────────────────────────────
+
+/**
+ * How a graph is drawn: which nodes exist, what they say, what shapes they take
+ * and how they are spaced. Orthogonal to the theme, the direction and the spec's
+ * mode. `detailed` is the author's drawing (every pipe as a card with its slots,
+ * every value as a node) and the default; `simple` is a flowchart of the
+ * method's steps in the words its author declared, for a reader who designs or
+ * reviews the method without reading its code. The registry of what each style
+ * is called and supports is `GRAPH_STYLES` in `styles/graphStyles.ts`.
+ */
+export const GRAPH_STYLE = {
+  DETAILED: "detailed",
+  SIMPLE: "simple",
+} as const;
+
+export type GraphStyleId = (typeof GRAPH_STYLE)[keyof typeof GRAPH_STYLE];
+
 /**
  * Derive which edge the anchor hugs. The built-in `DetailPanel` overlays the
  * right edge, so only right-side anchors (`*-right`) need to dodge it — the
@@ -951,7 +976,17 @@ export interface GraphConfig {
    * are reactive and persistence is the host's responsibility.
    */
   toolbarPosition?: ToolbarPosition;
+  /**
+   * The style the graph is drawn in (default `detailed`). The `graphStyle` prop
+   * on `GraphViewer` takes precedence over this; both are reactive, and a value
+   * that names no registered style falls back to the default rather than
+   * throwing, since it may come from an untyped source such as an editor
+   * setting. Persistence is the host's responsibility.
+   */
+  graphStyle?: GraphStyleId;
+  /** Space between sibling nodes, for the styles that keep the host's spacing (`detailed`). */
   nodesep?: number;
+  /** Space between ranks, for the styles that keep the host's spacing (`detailed`). */
   ranksep?: number;
   edgeType?: EdgeType;
   initialZoom?: number | null;
@@ -1003,6 +1038,73 @@ export interface PipeCardPayload {
   onValidationBadgeClick?: () => void;
 }
 
+// ─── Simple style payload ───────────────────────────────────────────────────
+// Built by the simple style's projection (`styles/simpleStyle.ts`), consumed by
+// its node components in the React layer.
+
+/**
+ * What a step of the simple style is, in a reader's terms rather than a pipe
+ * class's: each category has a plain word and an icon. `steps`, `parallel`,
+ * `decision` and `repeat` name a folded controller, drawn as one step.
+ */
+export const STEP_CATEGORY = {
+  AI: "ai",
+  EXTRACT: "extract",
+  IMAGE: "image",
+  SEARCH: "search",
+  CODE: "code",
+  TEMPLATE: "template",
+  DOCUMENT: "document",
+  JUDGE: "judge",
+  PLANNED: "planned",
+  STEPS: "steps",
+  PARALLEL: "parallel",
+  DECISION: "decision",
+  REPEAT: "repeat",
+} as const;
+
+export type StepCategory = (typeof STEP_CATEGORY)[keyof typeof STEP_CATEGORY];
+
+/** What one node of the simple style says, discriminated on `kind`. All text is plain, never an identifier. */
+export type SimpleNodePayload =
+  | {
+      kind: "step";
+      /** The pipe's authored description, or its humanized code when it has none. */
+      title: string;
+      category: StepCategory;
+      status: PipeStatus;
+      graphMode?: GraphSpecMode;
+      /** "For each page" when the step runs once per item of a list. */
+      forEach?: string;
+      /** For a folded controller: how many steps it holds. */
+      innerStepCount?: number;
+      /** For a folded controller: unfolds it. */
+      onExpand?: (options?: FoldToggleOptions) => void;
+    }
+  | {
+      kind: "input" | "output";
+      title: string;
+      /** The concept's plain name, when it says something the title does not. */
+      subtitle?: string;
+      /** Whether the value is a list, drawn as a stack. */
+      isList: boolean;
+    }
+  | {
+      kind: "decision";
+      title: string;
+      status: PipeStatus;
+      graphMode?: GraphSpecMode;
+    }
+  | {
+      kind: "frame";
+      /** "For each record". */
+      title: string;
+      status: PipeStatus;
+      graphMode?: GraphSpecMode;
+      /** Folds the frame into one step. */
+      onFold?: (options?: FoldToggleOptions) => void;
+    };
+
 // ─── Graph node data ────────────────────────────────────────────────────────
 // Extends Record<string, unknown> for ReactFlow's Node<T> generic parameter.
 
@@ -1028,6 +1130,14 @@ export interface GraphNodeData extends Record<string, unknown> {
   validation?: NodeValidationSummary;
   /** Badge click handler (opens the validation panel), stamped alongside `validation`. */
   onValidationBadgeClick?: () => void;
+  /** What a node of the simple style says (see `SimpleNodePayload`); absent in the detailed style. */
+  simple?: SimpleNodePayload;
+  /**
+   * A size the node's producer fixed for layout, used instead of the estimate
+   * `estimateNodeDimensions` makes from the node's content. The simple style
+   * fixes the size of each of its nodes, because it knows its own text metrics.
+   */
+  layoutSize?: { width: number; height: number };
 }
 
 // ─── Graph node / edge / data ───────────────────────────────────────────────

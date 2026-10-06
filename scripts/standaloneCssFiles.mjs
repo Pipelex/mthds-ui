@@ -28,5 +28,8 @@ export const STANDALONE_CSS_FILES = [
   "src/graph/react/graph-core.css",
   "src/graph/react/detail/DetailPanel.css",
   "src/graph/react/viewer/GraphToolbar.css",
+  // The standalone page can be told to draw the simple style through its
+  // config embed (`graphStyle`), so its node sheet ships with the viewer.
+  "src/graph/react/styles/simple/SimpleStyle.css",
   "src/standalone/standalone.css",
 ];
