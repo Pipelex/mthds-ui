@@ -333,8 +333,10 @@ function unique<T>(items: readonly T[]): T[] {
  * step when the same pipes lead to them from the top of the method, siblings
  * outside a batch told apart by their order among calls to the same pipe and
  * the items of a batch not told apart at all; the first run in containment
- * order stands in for the others. A static spec draws each batch's branch once,
- * so nothing in it stands in for anything.
+ * order that can be drawn stands in for the others, so a first item that
+ * skipped a step, leaving it nothing to show, does not hide the items that ran
+ * it. A static spec draws each batch's branch once, so nothing in it stands in
+ * for anything.
  *
  * `representativeOf` holds only the runs another stands in for; `order` is
  * every node in containment order, parents first.
@@ -342,9 +344,10 @@ function unique<T>(items: readonly T[]): T[] {
 function batchRepresentatives(
   graphspec: GraphSpec,
   analysis: DataflowAnalysis,
+  canBeDrawn: (id: string) => boolean,
 ): { representativeOf: Map<string, string>; order: string[] } {
   const specById = new Map(graphspec.nodes.map((n) => [n.id, n]));
-  const firstWithPath = new Map<string, string>();
+  const runsWithPath = new Map<string, string[]>();
   const representativeOf = new Map<string, string>();
   const order: string[] = [];
 
@@ -356,9 +359,9 @@ function batchRepresentatives(
       const occurrence = seen.get(pipe) ?? 0;
       seen.set(pipe, occurrence + 1);
       const path = `${parentPath}/${pipe}#${inBatch ? "*" : occurrence}`;
-      const first = firstWithPath.get(path);
-      if (first === undefined) firstWithPath.set(path, id);
-      else representativeOf.set(id, first);
+      const runs = runsWithPath.get(path);
+      if (runs) runs.push(id);
+      else runsWithPath.set(path, [id]);
       order.push(id);
       visit(analysis.containmentTree[id] ?? [], path, spec?.pipe_type === "PipeBatch");
     }
@@ -368,6 +371,11 @@ function batchRepresentatives(
     "",
     false,
   );
+  for (const runs of runsWithPath.values()) {
+    if (runs.length < 2) continue;
+    const representative = runs.find(canBeDrawn) ?? runs[0]!;
+    for (const id of runs) if (id !== representative) representativeOf.set(id, representative);
+  }
   return { representativeOf, order };
 }
 
@@ -401,11 +409,15 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
   const pipeTypeOf = (id: string): string | undefined => specById.get(id)?.pipe_type;
 
   // ── A run draws a batch's branch once per item; the flowchart draws it once.
-  // Every run of a step stands in for the first run of the same step, and only
-  // that first run is drawn. A step only a later item reached, such as the
+  // Every run of a step stands in for the first drawable run of the same step,
+  // and only that run is drawn. A step only a later item reached, such as the
   // branch of a decision the first item did not take, is drawn too, where its
   // first run sits.
-  const { representativeOf, order } = batchRepresentatives(graphspec, rawAnalysis);
+  const { representativeOf, order } = batchRepresentatives(
+    graphspec,
+    rawAnalysis,
+    (id) => cards.has(id) || rawAnalysis.controllerNodeIds.has(id),
+  );
   const repOf = (id: string): string => representativeOf.get(id) ?? id;
   const hidden = new Set(representativeOf.keys());
   // The containment the flowchart draws: a later run's own steps hang from the

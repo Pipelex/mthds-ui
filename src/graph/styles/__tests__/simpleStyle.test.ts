@@ -268,6 +268,30 @@ describe("the simple projection: loops", () => {
     expect(steps.find((s) => s.node.id === "split_1")?.simple.status).toBe("succeeded");
   });
 
+  it("draws a step through a later item's run when the first item's run has nothing to show", () => {
+    // The first document is skipped at its first step, which leaves that run
+    // no inputs or outputs, and runs nothing after it.
+    const spec = makeNestedBatchSpec();
+    const gone = new Set(["pages_1", "read_1_1", "read_1_2", "summarize_1"]);
+    spec.nodes = spec.nodes
+      .filter((n) => !gone.has(n.id))
+      .map((n) =>
+        n.id === "split_1"
+          ? { ...n, status: "skipped" as const, io: { inputs: [], outputs: [] } }
+          : n,
+      );
+    spec.edges = spec.edges.filter((e) => !gone.has(e.source) && !gone.has(e.target));
+
+    const { nodes, edges } = projectStyle(spec, "simple");
+    const steps = ofKind(nodes, "step");
+    expect(steps.map((s) => s.node.id).sort()).toEqual(["read_2_1", "split_2", "summarize_2"]);
+    expect(steps.find((s) => s.node.id === "split_2")?.simple.status).toBe(
+      aggregateStatus(["skipped", "succeeded"]),
+    );
+    expect(ofKind(nodes, "input").map((i) => i.node.id)).toEqual(["stuff_documents"]);
+    expect(edges.some((e) => e.source === "stuff_documents" && e.target === "split_2")).toBe(true);
+  });
+
   it("draws a decision's branch that only a later item took", () => {
     const { nodes, edges } = projectStyle(
       makeBatchedConditionSpec(["refused", "matched", "matched"]),
