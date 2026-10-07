@@ -29,14 +29,27 @@ src/
     graphControllers.ts           # Controller group node generation + collapse
     graphConfig.ts                # Default visual configuration + palette
     stuffLookup.ts                # Digest → data item + the pipe that produced it
+    edgeRoutes.ts                 # Drawing an edge along the route ELK computed for it
     index.ts                      # Barrel export for pure-TS graph logic
+    styles/                       # Graph styles (docs/graph-styles.md), pure and React-free:
+      graphStyles.ts              #   GRAPH_STYLES, the typed registry: name, description, capabilities, layout
+      stylePipelines.ts           #   Each style's default folds, projection and frame pass
+      simpleStyle.ts              #   The simple style's projection: steps, decisions, inputs, outputs
+      humanize.ts                 #   Identifiers → plain words
+      textMetrics.ts              #   Glyph-width table: text width and wrap estimates before render
+      styleMetrics.ts             #   The review rubric's measurements (tests and capture only; not exported)
     __tests__/                    # Unit tests (co-located)
     react/
       rfTypes.ts                  # Domain ↔ ReactFlow type bridge
       graph-core.css              # Shared node/edge/card styles
       index.ts                    # Barrel export for React components
+      edges/
+        RoutedEdge.tsx            # An edge drawn along its layout route
+      styles/
+        simple/                   # The simple style's node components and stylesheet
       viewer/
         GraphViewer.tsx           # Unified ReactFlow viewer component
+        StyleMenu.tsx             # The toolbar's opt-in graph style menu
         graphArtifacts.ts         # GraphArtifacts: the spec + its descriptors, the viewer's one `graph` prop
         renderLabel.tsx           # Label rendering + hydration
       detail/
@@ -107,6 +120,8 @@ When you add `import "./Foo.css"` to any source file, you MUST also:
 
 Verify after building: `grep "Foo.css" dist/graph/react/index.js` must show the import, and the file must exist at `dist/<same-relative-path>/Foo.css`. If either is missing, the bundler ate the stylesheet.
 
+**In `./graph/react`, the entry imports a stylesheet, never the component that uses it.** The import goes in `src/graph/react/index.ts`, and the same one in `.storybook/preview.ts` for the stories. The entry's specifier is the one the `external` pattern matches and the one that resolves from `dist/graph/react/index.js`; a component's own `"./Foo.css"` in a subdirectory resolves to neither, so tsup bundles a second copy into a `dist/graph/react/index.css` that nothing loads. `make smoke-pack` fails on any shipped stylesheet that is neither exported nor the standalone bundle's.
+
 **A stylesheet a HOST imports itself is the other case, and it takes neither step 1 nor a JavaScript importer.** `src/styles/tailwind.css` and `src/styles/form-kernel.css` are loaded by the host's own build, never by this package's JavaScript, so they get a `cpSync` in `onSuccess` and an entry in `package.json` `exports`, and NO `external` pattern. `make smoke-pack` asserts the inverse for them: no JavaScript in the package imports either. The React entries import no kernel stylesheet on purpose — injecting one into every host is what v0.20.0 through v0.24.0 did, and no cascade position for it served a Tailwind 4 host (`docs/run-form-panel.md`). `tailwind.css`'s `@source` paths are relative to `dist/styles/`, so its copy must land exactly there.
 
 **There is a THIRD place to consider, and it is a decision rather than a registration:** `scripts/standaloneCssFiles.mjs`, the hand-maintained manifest for the standalone IIFE bundle, guarded by `src/standalone/__tests__/cssManifest.test.ts`. That bundle has exactly one entry point (`src/standalone/adapter.ts`, the graph viewer), so a stylesheet it cannot reach must be EXCLUDED rather than listed — `src/form/` is excluded there because the standalone build by construction has no run panel, and listing `RunPanel.css` would inline dead CSS into every standalone HTML. The test names whichever choice you have not made yet.
@@ -156,19 +171,23 @@ GraphSpec (JSON from pipelex-agent, or static builder output)
 
 **Binding nodes** are a sequence's binding steps (`{ from = "invoice.total", result = "total" }`): a node of kind `binding` whose `pipe_type` is `BindingStep` (`BINDING_STEP_TYPE`), not a pipe. It is drawn as a pipe card, so a table keyed by a card's class is `Record<NodePipeType, …>` (`PipeType | BindingStepType`), and `asCardNode` / `CardNode` cover both families where `asPipeCallNode` / `PipeCallNode` cover pipes alone. See `docs/static-graph.md`, "Binding Steps".
 
-**Adding a new pipelex pipe class requires an mthds-ui update.** pipelex sets a node's `pipe_type` from the pipe's Python class name. `validateGraphSpec` checks `pipe_type` against `KNOWN_PIPE_TYPES` (derived from the `PipeType` union in `types.ts`) and throws on an unrecognized class. When pipelex ships a new pipe class, add it to `PipeOperatorType` or `PipeControllerType` — the exhaustiveness maps keyed by `PipeType` or `NodePipeType` in `types.ts`, `PipeCardBase.tsx`, `PipeDetailPanel.tsx` and `pipeCardRegistry.ts` will fail to compile until every badge/status table is updated.
+**Adding a new pipelex pipe class requires an mthds-ui update.** pipelex sets a node's `pipe_type` from the pipe's Python class name. `validateGraphSpec` checks `pipe_type` against `KNOWN_PIPE_TYPES` (derived from the `PipeType` union in `types.ts`) and throws on an unrecognized class. When pipelex ships a new pipe class, add it to `PipeOperatorType` or `PipeControllerType` — the exhaustiveness maps keyed by `PipeType` or `NodePipeType` in `types.ts`, `PipeCardBase.tsx`, `PipeDetailPanel.tsx`, `pipeCardRegistry.ts` and the simple style's `STEP_CATEGORY_BY_PIPE_TYPE` (`styles/simpleStyle.ts`) will fail to compile until every badge/status table is updated.
 
 **Stuff** = data nodes. Produced by one pipe, consumed by one or more pipes. Identified by digest. Node IDs use `stuff_<digest>` convention (use `stuffNodeId()`, `isStuffNodeId()`, `stuffDigestFromId()` helpers).
 
 **Controllers** contain child pipes via `contains` edges in GraphSpec. They render as group nodes wrapping their children. Parallel/Batch with >5 children auto-collapse.
 
-### Three Node Types
+### Node Types
+
+The detailed style, the default, draws these node types:
 
 | Constant               | Value               | Used By                                               |
 | ---------------------- | ------------------- | ----------------------------------------------------- |
 | `NODE_TYPE_PIPE_CARD`  | `"pipeCard"`        | Operator pipe nodes (custom PipeCardNode component)   |
 | `NODE_TYPE_STUFF`      | `"default"`         | Data nodes (ReactFlow default node with custom label) |
 | `NODE_TYPE_CONTROLLER` | `"controllerGroup"` | Controller group nodes (custom ControllerGroupNode)   |
+
+The simple style projects the same graph into node types of its own, `NODE_TYPE_SIMPLE_STEP`, `NODE_TYPE_SIMPLE_TERMINAL`, `NODE_TYPE_SIMPLE_DECISION` and `NODE_TYPE_SIMPLE_FRAME`, joined by `EDGE_TYPE_ROUTED` edges. A new style registers its descriptor, its pipeline and its node components, each keyed by `GraphStyleId`, so it fails to compile until all three exist; `docs/graph-styles.md` says how.
 
 ## Type System
 

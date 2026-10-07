@@ -7,7 +7,12 @@ import type {
   LayoutConfig,
   GraphDirection,
 } from "./types";
-import { buildElkGraph, extractAbsolutePositions, estimateNodeDimensions } from "./elkGraphBuilder";
+import {
+  buildElkGraph,
+  extractAbsolutePositions,
+  extractEdgeRoutes,
+  estimateNodeDimensions,
+} from "./elkGraphBuilder";
 import type { ElkPositionResult } from "./elkGraphBuilder";
 
 // Cache ELK instance at module level to avoid repeated WASM initialization
@@ -109,5 +114,11 @@ export async function getLayoutedElements(
     };
   });
 
-  return { nodes: result, edges, controllerPositions };
+  if (!layoutConfig?.routeEdges) return { nodes: result, edges, controllerPositions };
+  const routes = extractEdgeRoutes(layoutResult);
+  const routedEdges = edges.map((edge) => {
+    const route = routes[edge.id];
+    return route ? { ...edge, route } : edge;
+  });
+  return { nodes: result, edges: routedEdges, controllerPositions };
 }

@@ -35,6 +35,7 @@
     "./graph/react/graph-core.css": "./dist/graph/react/graph-core.css",
     "./graph/react/detail/DetailPanel.css": "./dist/graph/react/detail/DetailPanel.css",
     "./graph/react/viewer/GraphToolbar.css": "./dist/graph/react/viewer/GraphToolbar.css",
+    "./graph/react/styles/simple/SimpleStyle.css": "./dist/graph/react/styles/simple/SimpleStyle.css",
     "./form": {
       "import": "./dist/form/index.js",
       "types": "./dist/form/index.d.ts"

@@ -492,6 +492,234 @@ export function makeNestedSpec(depth: number): GraphSpec {
   return finalizeSpec(nodes, edges);
 }
 
+/** Push the two edges that hand a batch's item to one branch and collect its result. */
+function batchItemEdges(
+  edges: GraphSpecEdge[],
+  batchId: string,
+  branchId: string,
+  digests: { list: string; item: string; result: string; results: string },
+): void {
+  edges.push(
+    { id: `e_contains_${branchId}`, source: batchId, target: branchId, kind: "contains" },
+    {
+      id: `e_item_${branchId}`,
+      source: batchId,
+      target: branchId,
+      kind: "batch_item",
+      source_stuff_digest: digests.list,
+      target_stuff_digest: digests.item,
+    },
+    {
+      id: `e_agg_${branchId}`,
+      source: branchId,
+      target: batchId,
+      kind: "batch_aggregate",
+      source_stuff_digest: digests.result,
+      target_stuff_digest: digests.results,
+    },
+  );
+}
+
+/**
+ * A run of Batch(documents) > Seq(split, Batch(pages) > read, summarize), two
+ * documents of two pages each: a batch inside a batch. Every run succeeded but
+ * the operator named by `failedId`, if any (`read_2_2` is the second page of
+ * the second document).
+ */
+export function makeNestedBatchSpec(failedId?: string): GraphSpec {
+  const nodes: GraphSpecNode[] = [];
+  const edges: GraphSpecEdge[] = [];
+  const status = (id: string): PipeStatus => (id === failedId ? "failed" : "succeeded");
+  nodes.push({
+    id: "docs",
+    kind: "controller",
+    pipe_type: "PipeBatch",
+    pipe_code: "each_document",
+    status: "succeeded",
+    io: {
+      inputs: [{ digest: "documents", name: "documents", concept: "Document", multiplicity: true }],
+      outputs: [{ digest: "summaries", name: "summaries", concept: "Text", multiplicity: true }],
+    },
+  });
+  for (const d of [1, 2]) {
+    nodes.push({
+      id: `doc_${d}`,
+      kind: "controller",
+      pipe_type: "PipeSequence",
+      pipe_code: "process_document",
+      status: "succeeded",
+      io: {
+        inputs: [{ digest: `document_${d}`, name: "document", concept: "Document" }],
+        outputs: [{ digest: `summary_${d}`, name: "summary", concept: "Text" }],
+      },
+    });
+    batchItemEdges(edges, "docs", `doc_${d}`, {
+      list: "documents",
+      item: `document_${d}`,
+      result: `summary_${d}`,
+      results: "summaries",
+    });
+    nodes.push({
+      id: `split_${d}`,
+      kind: "operator",
+      pipe_type: "PipeExtract",
+      pipe_code: "split_pages",
+      status: status(`split_${d}`),
+      io: {
+        inputs: [{ digest: `document_${d}`, name: "document", concept: "Document" }],
+        outputs: [{ digest: `pages_${d}`, name: "pages", concept: "Page", multiplicity: true }],
+      },
+    });
+    edges.push({ id: `e_split_${d}`, source: `doc_${d}`, target: `split_${d}`, kind: "contains" });
+    nodes.push({
+      id: `pages_${d}`,
+      kind: "controller",
+      pipe_type: "PipeBatch",
+      pipe_code: "each_page",
+      status: "succeeded",
+      io: {
+        inputs: [{ digest: `pages_${d}`, name: "pages", concept: "Page", multiplicity: true }],
+        outputs: [{ digest: `notes_${d}`, name: "notes", concept: "Text", multiplicity: true }],
+      },
+    });
+    edges.push({ id: `e_pages_${d}`, source: `doc_${d}`, target: `pages_${d}`, kind: "contains" });
+    for (const p of [1, 2]) {
+      const id = `read_${d}_${p}`;
+      nodes.push({
+        id,
+        kind: "operator",
+        pipe_type: "PipeLLM",
+        pipe_code: "read_page",
+        status: status(id),
+        io: {
+          inputs: [{ digest: `page_${d}_${p}`, name: "page", concept: "Page" }],
+          outputs: [{ digest: `note_${d}_${p}`, name: "note", concept: "Text" }],
+        },
+      });
+      batchItemEdges(edges, `pages_${d}`, id, {
+        list: `pages_${d}`,
+        item: `page_${d}_${p}`,
+        result: `note_${d}_${p}`,
+        results: `notes_${d}`,
+      });
+    }
+    nodes.push({
+      id: `summarize_${d}`,
+      kind: "operator",
+      pipe_type: "PipeLLM",
+      pipe_code: "summarize",
+      status: status(`summarize_${d}`),
+      io: {
+        inputs: [{ digest: `notes_${d}`, name: "notes", concept: "Text", multiplicity: true }],
+        outputs: [{ digest: `summary_${d}`, name: "summary", concept: "Text" }],
+      },
+    });
+    edges.push({
+      id: `e_summarize_${d}`,
+      source: `doc_${d}`,
+      target: `summarize_${d}`,
+      kind: "contains",
+    });
+  }
+  return finalizeSpec(nodes, edges);
+}
+
+/**
+ * A run of Batch(candidates) > Seq(assess, Condition(route) > the branch taken),
+ * one item per outcome in `outcomes`, in order: `"matched"` takes the branch
+ * `write_questions`, anything else `write_refusal`. A run's condition holds only
+ * the branch its item took, so items with different outcomes hold different steps.
+ */
+export function makeBatchedConditionSpec(outcomes: readonly string[]): GraphSpec {
+  const nodes: GraphSpecNode[] = [];
+  const edges: GraphSpecEdge[] = [];
+  nodes.push({
+    id: "screen",
+    kind: "controller",
+    pipe_type: "PipeBatch",
+    pipe_code: "screen_candidates",
+    status: "succeeded",
+    io: {
+      inputs: [{ digest: "candidates", name: "candidates", concept: "Text", multiplicity: true }],
+      outputs: [{ digest: "answers", name: "answers", concept: "Text", multiplicity: true }],
+    },
+  });
+  outcomes.forEach((outcome, index) => {
+    const i = index + 1;
+    nodes.push({
+      id: `candidate_${i}`,
+      kind: "controller",
+      pipe_type: "PipeSequence",
+      pipe_code: "screen_candidate",
+      status: "succeeded",
+      io: {
+        inputs: [{ digest: `candidate_${i}`, name: "candidate", concept: "Text" }],
+        outputs: [{ digest: `answer_${i}`, name: "answer", concept: "Text" }],
+      },
+    });
+    batchItemEdges(edges, "screen", `candidate_${i}`, {
+      list: "candidates",
+      item: `candidate_${i}`,
+      result: `answer_${i}`,
+      results: "answers",
+    });
+    nodes.push({
+      id: `assess_${i}`,
+      kind: "operator",
+      pipe_type: "PipeLLM",
+      pipe_code: "assess_match",
+      status: "succeeded",
+      io: {
+        inputs: [{ digest: `candidate_${i}`, name: "candidate", concept: "Text" }],
+        outputs: [{ digest: `match_${i}`, name: "match", concept: "Text" }],
+      },
+    });
+    edges.push({
+      id: `e_assess_${i}`,
+      source: `candidate_${i}`,
+      target: `assess_${i}`,
+      kind: "contains",
+    });
+    nodes.push({
+      id: `route_${i}`,
+      kind: "controller",
+      pipe_type: "PipeCondition",
+      pipe_code: "route_by_match",
+      status: "succeeded",
+      io: {
+        inputs: [{ digest: `match_${i}`, name: "match", concept: "Text" }],
+        outputs: [{ digest: `answer_${i}`, name: "answer", concept: "Text" }],
+      },
+    });
+    edges.push({
+      id: `e_route_${i}`,
+      source: `candidate_${i}`,
+      target: `route_${i}`,
+      kind: "contains",
+    });
+    const branch = outcome === "matched" ? "write_questions" : "write_refusal";
+    nodes.push({
+      id: `${branch}_${i}`,
+      kind: "operator",
+      pipe_type: "PipeLLM",
+      pipe_code: branch,
+      status: "succeeded",
+      io: {
+        inputs: [{ digest: `match_${i}`, name: "match", concept: "Text" }],
+        outputs: [{ digest: `answer_${i}`, name: "answer", concept: "Text" }],
+      },
+    });
+    edges.push({
+      id: `e_branch_${i}`,
+      source: `route_${i}`,
+      target: `${branch}_${i}`,
+      kind: "contains",
+      label: outcome,
+    });
+  });
+  return finalizeSpec(nodes, edges);
+}
+
 /** Malformed spec with circular containment: A contains B, B contains A. */
 export function makeCycleSpec(): GraphSpec {
   const nodes: GraphSpecNode[] = [

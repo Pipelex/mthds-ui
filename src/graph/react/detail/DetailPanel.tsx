@@ -1,5 +1,4 @@
 import React from "react";
-import "./DetailPanel.css";
 
 export interface DetailPanelProps {
   isOpen: boolean;

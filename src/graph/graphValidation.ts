@@ -42,7 +42,10 @@ function issueTargetIds(issue: ValidationIssue, graphspec: GraphSpec): string[] 
  * Each issue's target ids are remapped through the fold containment
  * (`outermostFoldedAncestor`): an issue on a node hidden inside a folded
  * controller decorates the folded controller's card instead, so folding never
- * hides an error. Targets that don't resolve to a rendered node (e.g. a
+ * hides an error. They then go through the style's `standIns`: an issue on a
+ * node the style does not draw decorates the drawn node standing for it, such
+ * as a batch item's run in the simple style, drawn once for every item. Targets
+ * that don't resolve to a rendered node (e.g. a
  * diagnostic about a pipe that was skipped during the static walk) simply
  * produce no decoration — those issues stay panel-only.
  *
@@ -55,13 +58,14 @@ export function buildValidationDecorations(
   graphspec: GraphSpec | null,
   childToCtrl: Readonly<Record<string, string>>,
   foldedSet: ReadonlySet<string>,
+  standIns?: ReadonlyMap<string, string>,
 ): Map<string, NodeValidationSummary> {
   const decorations = new Map<string, NodeValidationSummary>();
   if (!issues || issues.length === 0 || !graphspec) return decorations;
 
   for (const issue of issues) {
     for (const targetId of issueTargetIds(issue, graphspec)) {
-      const visibleId = outermostFoldedAncestor(targetId, childToCtrl, foldedSet) ?? targetId;
+      const visibleId = visibleNodeId(targetId, childToCtrl, foldedSet, standIns);
       const existing = decorations.get(visibleId);
       const lines = [issue.message, ...(issue.suggestedFix ? [`Fix: ${issue.suggestedFix}`] : [])];
       if (existing) {
@@ -77,10 +81,24 @@ export function buildValidationDecorations(
 }
 
 /**
+ * The node drawn for a target: its outermost folded ancestor when it is folded
+ * away, then whatever the style draws in its place (`StyleProjection.standIns`).
+ */
+function visibleNodeId(
+  targetId: string,
+  childToCtrl: Readonly<Record<string, string>>,
+  foldedSet: ReadonlySet<string>,
+  standIns: ReadonlyMap<string, string> | undefined,
+): string {
+  const unfolded = outermostFoldedAncestor(targetId, childToCtrl, foldedSet) ?? targetId;
+  return standIns?.get(unfolded) ?? unfolded;
+}
+
+/**
  * Resolve the rendered node a panel row should navigate to: the issue's first
- * target, remapped through the fold containment, and only if that id is
- * actually rendered. `null` for panel-only issues (no target, or the target
- * never became a node).
+ * target, remapped through the fold containment and the style's stand-ins, and
+ * only if that id is actually rendered. `null` for panel-only issues (no
+ * target, or the target never became a node).
  */
 export function resolveIssueTargetNodeId(
   issue: ValidationIssue,
@@ -88,10 +106,11 @@ export function resolveIssueTargetNodeId(
   childToCtrl: Readonly<Record<string, string>>,
   foldedSet: ReadonlySet<string>,
   renderedNodeIds: ReadonlySet<string>,
+  standIns?: ReadonlyMap<string, string>,
 ): string | null {
   if (!graphspec) return null;
   for (const targetId of issueTargetIds(issue, graphspec)) {
-    const visibleId = outermostFoldedAncestor(targetId, childToCtrl, foldedSet) ?? targetId;
+    const visibleId = visibleNodeId(targetId, childToCtrl, foldedSet, standIns);
     if (renderedNodeIds.has(visibleId)) return visibleId;
   }
   return null;

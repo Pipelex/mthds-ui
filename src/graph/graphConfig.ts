@@ -1,5 +1,12 @@
-import type { GraphConfig, GraphTheme, ToolbarPosition } from "./types";
-import { EDGE_TYPE, FOLD_MODE, GRAPH_THEME, GRAPH_THEME_MODE, TOOLBAR_POSITION } from "./types";
+import type { GraphConfig, GraphStyleId, GraphTheme, ToolbarPosition } from "./types";
+import {
+  EDGE_TYPE,
+  FOLD_MODE,
+  GRAPH_STYLE,
+  GRAPH_THEME,
+  GRAPH_THEME_MODE,
+  TOOLBAR_POSITION,
+} from "./types";
 
 /**
  * Semantic design tokens consumed by every component CSS file.
@@ -188,10 +195,13 @@ export function getPaletteForTheme(theme: GraphTheme): Record<string, string> {
   return theme === GRAPH_THEME.LIGHT ? LIGHT_PALETTE_COLORS : DARK_PALETTE_COLORS;
 }
 
-// `toolbarPosition` is narrowed to required: the default always sets it, so
-// `resolveToolbarPosition` can terminate its fallback chain here without a
-// redundant literal floor.
-export const DEFAULT_GRAPH_CONFIG: GraphConfig & { toolbarPosition: ToolbarPosition } = {
+// `toolbarPosition` and `graphStyle` are narrowed to required: the default
+// always sets them, so `resolveToolbarPosition` and `resolveGraphStyle` can
+// terminate their fallback chains here without a redundant literal floor.
+export const DEFAULT_GRAPH_CONFIG: GraphConfig & {
+  toolbarPosition: ToolbarPosition;
+  graphStyle: GraphStyleId;
+} = {
   direction: "LR",
   showControllers: false,
   foldMode: FOLD_MODE.EXPANDED,
@@ -202,6 +212,8 @@ export const DEFAULT_GRAPH_CONFIG: GraphConfig & { toolbarPosition: ToolbarPosit
   // Backward-compatible default: the toolbar stays pinned top-right unless the
   // host overrides it via `config.toolbarPosition` or the `toolbarPosition` prop.
   toolbarPosition: TOOLBAR_POSITION.TOP_RIGHT,
+  // Today's drawing stays the default, so no existing host sees a change.
+  graphStyle: GRAPH_STYLE.DETAILED,
   nodesep: 50,
   ranksep: 100,
   edgeType: EDGE_TYPE.DEFAULT,

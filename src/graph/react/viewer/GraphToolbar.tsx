@@ -1,6 +1,5 @@
 import React from "react";
 import { Panel, type PanelPosition } from "@xyflow/react";
-import "./GraphToolbar.css";
 import {
   GRAPH_DIRECTION,
   GRAPH_THEME_MODE,
@@ -8,12 +7,15 @@ import {
   toolbarOrientation,
   toolbarSide,
   type GraphDirection,
+  type GraphStyleId,
   type GraphThemeMode,
   type ToolbarPosition,
   type ValidationIssue,
   type ValidationState,
 } from "@graph/types";
 import { ValidationPanel, validationLabel, validationPanelPlacement } from "./ValidationPanel";
+import { StyleMenu } from "./StyleMenu";
+import { usePopoverDismiss } from "./usePopoverDismiss";
 
 /**
  * ReactFlow's default `<Panel>` margin (`.react-flow__panel { margin: 15px }`).
@@ -35,7 +37,20 @@ export interface GraphToolbarProps {
   direction: GraphDirection;
   onDirectionChange: (direction: GraphDirection) => void;
   showControllers: boolean;
-  onShowControllersChange: (showControllers: boolean) => void;
+  /**
+   * Toggle handler for the controller frames. The toggle renders only when this
+   * is set: a style that decides its own frames leaves it unset.
+   */
+  onShowControllersChange?: (showControllers: boolean) => void;
+  /** The active graph style, shown on the style menu's button. */
+  graphStyle?: GraphStyleId;
+  /**
+   * The styles the menu offers, in order. The menu renders when this holds at
+   * least two styles and `graphStyle` and `onGraphStyleChange` are set.
+   */
+  styleMenuOptions?: readonly GraphStyleId[];
+  /** Style change handler, called with the style chosen in the menu. */
+  onGraphStyleChange?: (style: GraphStyleId) => void;
   onZoomIn?: () => void;
   onZoomOut?: () => void;
   onFitView?: () => void;
@@ -423,6 +438,9 @@ export function GraphToolbar({
   onDirectionChange,
   showControllers,
   onShowControllersChange,
+  graphStyle,
+  styleMenuOptions = [],
+  onGraphStyleChange,
   onZoomIn,
   onZoomOut,
   onFitView,
@@ -457,24 +475,9 @@ export function GraphToolbar({
   React.useEffect(() => {
     if (validationState === undefined) setValidationOpenRef.current(false);
   }, [validationState]);
-  React.useEffect(() => {
-    if (!validationOpen) return;
-    const onPointerDown = (event: MouseEvent) => {
-      const wrapper = validationRef.current;
-      if (wrapper && event.target instanceof Node && !wrapper.contains(event.target)) {
-        setValidationOpenRef.current(false);
-      }
-    };
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setValidationOpenRef.current(false);
-    };
-    document.addEventListener("mousedown", onPointerDown);
-    document.addEventListener("keydown", onKeyDown);
-    return () => {
-      document.removeEventListener("mousedown", onPointerDown);
-      document.removeEventListener("keydown", onKeyDown);
-    };
-  }, [validationOpen]);
+  usePopoverDismiss(validationOpen, validationRef, () => setValidationOpenRef.current(false));
+  const styleMenuEnabled =
+    graphStyle !== undefined && onGraphStyleChange !== undefined && styleMenuOptions.length >= 2;
   // ReactFlow's <Panel> owns all base positioning: the anchor, its default 15px
   // margin, and the center-anchor transforms calibrated to cancel exactly that
   // margin. We deliberately do NOT set the `margin` shorthand here —
@@ -543,6 +546,18 @@ export function GraphToolbar({
           </>
         )}
 
+        {styleMenuEnabled && (
+          <>
+            <StyleMenu
+              value={graphStyle}
+              options={styleMenuOptions}
+              onChange={onGraphStyleChange}
+              placement={validationPanelPlacement(position)}
+            />
+            <div className="graph-toolbar-separator" />
+          </>
+        )}
+
         {onFoldAll && (
           <button
             type="button"
@@ -571,15 +586,17 @@ export function GraphToolbar({
 
         {foldAllSection && <div className="graph-toolbar-separator" />}
 
-        <button
-          type="button"
-          className={`graph-toolbar-btn${showControllers ? " graph-toolbar-btn--active" : ""}`}
-          onClick={() => onShowControllersChange(!showControllers)}
-          title={controllersLabel}
-          aria-label={controllersLabel}
-        >
-          {BOXES_ICON}
-        </button>
+        {onShowControllersChange && (
+          <button
+            type="button"
+            className={`graph-toolbar-btn${showControllers ? " graph-toolbar-btn--active" : ""}`}
+            onClick={() => onShowControllersChange(!showControllers)}
+            title={controllersLabel}
+            aria-label={controllersLabel}
+          >
+            {BOXES_ICON}
+          </button>
+        )}
 
         <button
           type="button"
