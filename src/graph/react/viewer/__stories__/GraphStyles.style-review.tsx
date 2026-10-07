@@ -8,6 +8,9 @@
  * review, detailed beside simple.
  */
 import "../../graph-core.css";
+import "../../detail/DetailPanel.css";
+import "../GraphToolbar.css";
+import "../../styles/simple/SimpleStyle.css";
 import { createRoot, type Root } from "react-dom/client";
 import { act } from "react";
 import { userEvent } from "vitest/browser";

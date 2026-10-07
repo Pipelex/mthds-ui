@@ -50,10 +50,6 @@ export default defineConfig({
     /graph-core\.css$/,
     /detail\/DetailPanel\.css$/,
     /viewer\/GraphToolbar\.css$/,
-    // The barrel's specifier only, like the two above: the node components'
-    // own "./SimpleStyle.css" (for the stories that import them directly) is
-    // bundled instead, since kept verbatim in the bundled entry it would point
-    // at a file that is not there.
     /styles\/simple\/SimpleStyle\.css$/,
     /RunPanel\.css$/,
   ],

@@ -14,6 +14,8 @@
 
 - **Redrawing the same spec keeps the reader's folds**: a change of `config.edgeType` rebuilt the graph from the host's fold mode, unfolding every controller the reader had folded and closing every one they had opened. A change of edge type or of style now keeps both, swapping only the folds a style adds by itself; a new spec still starts afresh.
 
+- **No unloaded stylesheet in the package**: the graph entry's components imported their own stylesheets, which the build bundled a second time into a `dist/graph/react/index.css` that nothing imports. Only the entry imports them now, and the package no longer ships that file.
+
 - **A press on the graph's canvas closes the validation dropdown**: the pane stops its presses for panning before they bubble, so the dropdown stayed open until a press elsewhere or Escape; it now listens in the capture phase.
 
 ## [v0.29.1] - 2026-10-06

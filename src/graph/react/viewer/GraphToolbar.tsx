@@ -1,6 +1,5 @@
 import React from "react";
 import { Panel, type PanelPosition } from "@xyflow/react";
-import "./GraphToolbar.css";
 import {
   GRAPH_DIRECTION,
   GRAPH_THEME_MODE,

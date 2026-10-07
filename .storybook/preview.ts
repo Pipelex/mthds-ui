@@ -1,5 +1,10 @@
 import type { Preview } from "@storybook/react-vite";
+// The graph's stylesheets, in the order the `./graph/react` entry imports them:
+// only that entry imports them, never the components, so a story gets them here.
 import "../src/graph/react/graph-core.css";
+import "../src/graph/react/detail/DetailPanel.css";
+import "../src/graph/react/viewer/GraphToolbar.css";
+import "../src/graph/react/styles/simple/SimpleStyle.css";
 // Storybook is a host WITHOUT Tailwind (this repo runs none of its own, design
 // Decision D), so it styles the form kernel's controls the way such a host does.
 //

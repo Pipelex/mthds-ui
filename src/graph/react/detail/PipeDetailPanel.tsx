@@ -26,7 +26,6 @@ import {
   UsageDetails,
   shouldDumpExecutionData,
 } from "./sections";
-import "./DetailPanel.css";
 
 // ─── Badge / Status config ─────────────────────────────────────────────
 

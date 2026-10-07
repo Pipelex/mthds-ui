@@ -1,7 +1,6 @@
 import React from "react";
 import type { ConceptInfo, GraphSpecNodeIoItem } from "@graph/types";
 import { isPluralMultiplicity, multiplicitySuffix } from "@graph/types";
-import "./DetailPanel.css";
 
 // ─── Props ──────────────────────────────────────────────────────────────
 

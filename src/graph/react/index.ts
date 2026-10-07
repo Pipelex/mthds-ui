@@ -1,5 +1,8 @@
 "use client";
 
+// The graph's stylesheets are imported here and nowhere else. A component
+// importing its own would be bundled into a `dist/graph/react/index.css` that
+// nothing loads, beside the copy this import keeps (`make smoke-pack` checks).
 import "./graph-core.css";
 import "./detail/DetailPanel.css";
 import "./viewer/GraphToolbar.css";

@@ -1,6 +1,5 @@
 import React from "react";
 import { Handle, Position } from "@xyflow/react";
-import "./SimpleStyle.css";
 import type {
   GraphNodeData,
   NodeValidationSummary,

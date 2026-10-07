@@ -27,7 +27,9 @@
  *    `./tailwind.css` and `./form-kernel.css`, are the inverse case: no
  *    JavaScript in the package may import either, because injecting the form
  *    kernel's sheet into every host is what v0.20.0 through v0.24.0 did, and
- *    no cascade position for it served a host with Tailwind 4.
+ *    no cascade position for it served a host with Tailwind 4. And no other
+ *    stylesheet ships: a component importing its own stylesheet gets it
+ *    bundled into an `index.css` beside its entry that nothing loads.
  * 2. Every React entry carries `"use client"`. Both of them: the toolchain
  *    currently preserves the directive on its own, and `prependUseClient` only
  *    re-adds it to `./form/react`, so `./graph/react` is the entry standing on
@@ -414,6 +416,27 @@ try {
       `${subpath} is imported by the built JS`,
       reachedFiles.has(path.resolve(path.join(installed, target))),
       "the file ships and the export resolves, but no entry imports it — tsup most likely bundled it into an unreferenced index.css because its specifier is missing from `external`",
+    );
+  }
+
+  process.stdout.write("\nEvery stylesheet the package ships is one somebody loads\n");
+  // An exported stylesheet, or the standalone bundle's own, which its HTML
+  // loads. Anything else is the copy tsup bundles when a component imports a
+  // stylesheet itself: an `index.css` beside an entry, dead weight in every host.
+  const exportedStylesheets = new Set(
+    Object.values(manifest.exports)
+      .filter((target) => typeof target === "string" && target.endsWith(".css"))
+      .map((target) => path.resolve(path.join(installed, target))),
+  );
+  const standaloneDir = path.resolve(path.join(installed, "dist/standalone"));
+  for (const file of readdirSync(path.join(installed, "dist"), { recursive: true })) {
+    if (!String(file).endsWith(".css")) continue;
+    const absolute = path.resolve(path.join(installed, "dist", String(file)));
+    if (absolute.startsWith(standaloneDir + path.sep)) continue;
+    check(
+      `dist/${file} is exported`,
+      exportedStylesheets.has(absolute),
+      "nothing imports or exports it — a component most likely imports a stylesheet itself rather than leaving it to its entry",
     );
   }
 
