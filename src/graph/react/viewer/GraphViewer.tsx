@@ -694,7 +694,17 @@ export function GraphViewer(props: GraphViewerProps) {
   const [foldedControllers, setFoldedControllers] = React.useState<Set<string>>(new Set());
   // The folds the current style added on its own, as opposed to the host's fold
   // mode and the reader's: a style switch swaps these and keeps the others.
-  const styleDefaultFoldsRef = React.useRef<ReadonlySet<string>>(new Set());
+  // Once the reader folds or opens a controller, the choice is theirs, and a
+  // controller they opened stays open whatever a later style folds by itself.
+  const styleDefaultFoldsRef = React.useRef<Set<string>>(new Set());
+  const readerOpenedRef = React.useRef<Set<string>>(new Set());
+  const markReaderFolds = React.useCallback((ids: Iterable<string>, folded: boolean) => {
+    for (const id of ids) {
+      styleDefaultFoldsRef.current.delete(id);
+      if (folded) readerOpenedRef.current.delete(id);
+      else readerOpenedRef.current.add(id);
+    }
+  }, []);
 
   const toggleFold = React.useCallback((controllerId: string, options?: FoldToggleOptions) => {
     setFoldedControllers((prev) => {
@@ -713,9 +723,10 @@ export function GraphViewer(props: GraphViewerProps) {
         if (shouldFold) next.add(id);
         else next.delete(id);
       }
+      markReaderFolds(targets, shouldFold);
       return next;
     });
-  }, []);
+  }, [markReaderFolds]);
 
   const edgeType = config.edgeType || EDGE_TYPE.DEFAULT;
   const layoutConfig = React.useMemo(
@@ -997,22 +1008,23 @@ export function GraphViewer(props: GraphViewerProps) {
     // expanded/auto cases) or analysis is null (degenerate spec — no
     // controllers to fold), the input is the unfolded graph as-is.
     // The host's fold mode on a new spec, or the folds already there on a
-    // switch less the previous style's own, plus whatever this style folds.
+    // switch less the previous style's own, plus whatever this style folds
+    // that the reader has not opened.
+    if (!sameSpec) readerOpenedRef.current = new Set();
     let seedSet = new Set<string>();
+    const styleDefaults = new Set<string>();
     if (analysis) {
       const kept = sameSpec
         ? [...foldedRef.current].filter((id) => !styleDefaultFoldsRef.current.has(id))
         : [...seedFoldedControllers(foldModeRef.current, analysis.controllerNodeIds)];
       seedSet = new Set(kept);
-      const styleDefaults = new Set<string>();
       for (const id of pipeline.defaultFolds(graphspec, analysis)) {
-        if (!seedSet.has(id)) styleDefaults.add(id);
+        if (seedSet.has(id) || readerOpenedRef.current.has(id)) continue;
+        styleDefaults.add(id);
         seedSet.add(id);
       }
-      styleDefaultFoldsRef.current = styleDefaults;
-    } else {
-      styleDefaultFoldsRef.current = new Set();
     }
+    styleDefaultFoldsRef.current = styleDefaults;
     setFoldedControllers(seedSet);
     foldedRef.current = seedSet;
     // The state update above schedules a re-render that would fire the
@@ -1356,12 +1368,18 @@ export function GraphViewer(props: GraphViewerProps) {
       };
     }
     return {
-      onFoldAll: () => setFoldedControllers(new Set(allControllerIds)),
-      onExpandAll: () => setFoldedControllers(new Set()),
+      onFoldAll: () => {
+        markReaderFolds(allControllerIds, true);
+        setFoldedControllers(new Set(allControllerIds));
+      },
+      onExpandAll: () => {
+        markReaderFolds(allControllerIds, false);
+        setFoldedControllers(new Set());
+      },
       foldAllDisabled: foldedControllers.size === allControllerIds.size,
       expandAllDisabled: foldedControllers.size === 0,
     };
-  }, [foldControlsAvailable, allControllerIds, foldedControllers]);
+  }, [foldControlsAvailable, allControllerIds, foldedControllers, markReaderFolds]);
 
   const styleMenuOptions = React.useMemo(() => resolveStyleMenu(styleMenu), [styleMenu]);
 

@@ -128,6 +128,45 @@ export const SwitchSwapsTheStylesOwnFolds: Story = {
   },
 };
 
+function openButtons(canvasElement: HTMLElement): HTMLElement[] {
+  return Array.from(canvasElement.querySelectorAll<HTMLElement>(".simple-step-open"));
+}
+
+/** The reader opens the sub-method the simple style folded: it stays open across a switch. */
+export const SwitchKeepsWhatTheReaderOpened: Story = {
+  args: SwitchSwapsTheStylesOwnFolds.args,
+  play: async ({ canvasElement }) => {
+    await waitForGraphRender(canvasElement);
+    await waitFor(() => expect(openButtons(canvasElement)).toHaveLength(1));
+    await userEvent.click(openButtons(canvasElement)[0]!);
+    await waitFor(() => expect(openButtons(canvasElement)).toHaveLength(0));
+
+    await chooseStyle(canvasElement, "Detailed");
+    await waitFor(() => expect(simpleNodeCount(canvasElement)).toBe(0));
+    await chooseStyle(canvasElement, "Simple");
+    await waitFor(() => expect(simpleNodeCount(canvasElement)).toBeGreaterThan(0));
+    expect(openButtons(canvasElement)).toHaveLength(0);
+  },
+};
+
+/** Expand-all is the reader opening everything: a switch there and back keeps it open. */
+export const SwitchKeepsWhatTheReaderExpanded: Story = {
+  args: SwitchSwapsTheStylesOwnFolds.args,
+  play: async ({ canvasElement }) => {
+    await waitForGraphRender(canvasElement);
+    await waitFor(() => expect(openButtons(canvasElement)).toHaveLength(1));
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole("button", { name: "Expand all controllers" }));
+    await waitFor(() => expect(openButtons(canvasElement)).toHaveLength(0));
+
+    await chooseStyle(canvasElement, "Detailed");
+    await waitFor(() => expect(simpleNodeCount(canvasElement)).toBe(0));
+    await chooseStyle(canvasElement, "Simple");
+    await waitFor(() => expect(simpleNodeCount(canvasElement)).toBeGreaterThan(0));
+    expect(openButtons(canvasElement)).toHaveLength(0);
+  },
+};
+
 export const KeyboardOnly: Story = {
   play: async ({ canvasElement, args }) => {
     const { canvas, menu } = await openMenu(canvasElement);
