@@ -290,8 +290,8 @@ Both operators parse into registry blueprints shaped as pipelex serializes them,
 Storybook and tests expose `STATIC_*` specs and `STATIC_RUN_CATALOG` from
 `src/graph/react/viewer/__stories__/staticGraphSpec.ts`. The catalog is built
 from checked-in raw `.mthds` fixture bundles through the TypeScript static
-builder. It does not require the Pipelex CLI, Python, a gateway key, or network
-access.
+builder. It does not require the Pipelex CLI, Python, a provider API key, or
+network access.
 
 Representative static-vs-live stories live in:
 

@@ -31,7 +31,7 @@ export interface ScopedUsage {
    * Extract, search and image generation are billed per request, and pipelex
    * encodes that price by putting exactly `1_000_000` in each token category:
    * rates are per-million, so `1_000_000 x rate/1e6` reproduces the per-request
-   * price exactly (see `linkup_extract_worker.py`, `gateway_extract_worker.py`).
+   * price exactly (see `linkup_extract_worker.py`, `extract_worker_abstract.py`).
    * A one-page extract therefore reports 2,000,000 "tokens".
    *
    * A controller's subtree total sums those sentinels with real LLM tokens, so
