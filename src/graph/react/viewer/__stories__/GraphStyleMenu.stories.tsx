@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, fn, userEvent, waitFor, within } from "storybook/test";
-import { TOOLBAR_POSITION, type ToolbarPosition } from "@graph/types";
+import { GRAPH_STYLE, TOOLBAR_POSITION, type ToolbarPosition } from "@graph/types";
+import { makeNestedSpec } from "@graph/__tests__/testUtils";
 import { GraphViewer } from "../GraphViewer";
 import { validationPanelPlacement } from "../ValidationPanel";
 import { waitForGraphRender } from "./storyTestUtils";
@@ -71,6 +72,59 @@ export const ChooseAStyle: Story = {
     expect(canvas.getByRole("button", { name: /^Graph style: Simple/ })).toBeInTheDocument();
     // The simple style has no controller frames to toggle.
     expect(canvas.queryByRole("button", { name: /pipe controllers/ })).toBeNull();
+  },
+};
+
+async function chooseStyle(canvasElement: HTMLElement, name: string) {
+  const { menu } = await openMenu(canvasElement);
+  await userEvent.click(within(menu).getByRole("menuitemradio", { name: new RegExp(name) }));
+}
+
+function foldedCardCount(canvasElement: HTMLElement): number {
+  return canvasElement.querySelectorAll(".pipe-card--controller").length;
+}
+
+export const SwitchKeepsTheReadersFolds: Story = {
+  args: { initialShowControllers: true },
+  play: async ({ canvasElement }) => {
+    await waitForGraphRender(canvasElement);
+    expect(foldedCardCount(canvasElement)).toBe(0);
+    const foldButton = await waitFor(() => {
+      const button = canvasElement.querySelector<HTMLElement>(".controller-group-fold");
+      expect(button).not.toBeNull();
+      return button!;
+    });
+    await userEvent.click(foldButton);
+    await waitFor(() => expect(foldedCardCount(canvasElement)).toBeGreaterThan(0));
+    const folded = foldedCardCount(canvasElement);
+
+    // To the simple style and back: the controller the reader folded is still folded.
+    await chooseStyle(canvasElement, "Simple");
+    await waitFor(() => expect(simpleNodeCount(canvasElement)).toBeGreaterThan(0));
+    await chooseStyle(canvasElement, "Detailed");
+    await waitFor(() => expect(simpleNodeCount(canvasElement)).toBe(0));
+    await waitFor(() => expect(foldedCardCount(canvasElement)).toBe(folded));
+  },
+};
+
+/** Four sequences deep: the simple style folds the innermost one by itself. */
+export const SwitchSwapsTheStylesOwnFolds: Story = {
+  args: {
+    graph: { graphSpec: makeNestedSpec(4) },
+    config: { graphStyle: GRAPH_STYLE.SIMPLE },
+    initialShowControllers: true,
+  },
+  play: async ({ canvasElement }) => {
+    await waitForGraphRender(canvasElement);
+    await waitFor(() => expect(simpleNodeCount(canvasElement)).toBeGreaterThan(0));
+
+    // The detailed style folds nothing by itself, so nothing stays folded.
+    await chooseStyle(canvasElement, "Detailed");
+    await waitFor(() => expect(simpleNodeCount(canvasElement)).toBe(0));
+    await waitFor(() =>
+      expect(canvasElement.querySelectorAll(".controller-group-node").length).toBe(4),
+    );
+    expect(foldedCardCount(canvasElement)).toBe(0);
   },
 };
 

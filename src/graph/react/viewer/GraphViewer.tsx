@@ -692,6 +692,9 @@ export function GraphViewer(props: GraphViewerProps) {
   // Fold state: tracks which controllers the user has folded into pipe cards.
   // Empty by default. Reset when graphspec changes.
   const [foldedControllers, setFoldedControllers] = React.useState<Set<string>>(new Set());
+  // The folds the current style added on its own, as opposed to the host's fold
+  // mode and the reader's: a style switch swaps these and keeps the others.
+  const styleDefaultFoldsRef = React.useRef<ReadonlySet<string>>(new Set());
 
   const toggleFold = React.useCallback((controllerId: string, options?: FoldToggleOptions) => {
     setFoldedControllers((prev) => {
@@ -966,11 +969,17 @@ export function GraphViewer(props: GraphViewerProps) {
 
     let cancelled = false;
 
+    // A style or edge-type switch redraws the same spec, and keeps what the
+    // reader opened and folded; only a new spec starts afresh.
+    const sameSpec = rawGraphDataRef.current?.graphspec === graphspec;
+
     // Reset expand overrides when graph changes. Update the ref synchronously
     // so any in-flight reads see the cleared state, not the previous graphspec's
     // expand set. Fold state is seeded below after we know the controller IDs.
-    setExpandedControllers(new Set());
-    expandedRef.current = new Set();
+    if (!sameSpec) {
+      setExpandedControllers(new Set());
+      expandedRef.current = new Set();
+    }
 
     const style = graphStyleRef.current;
     const pipeline = GRAPH_STYLE_PIPELINES[style];
@@ -987,13 +996,23 @@ export function GraphViewer(props: GraphViewerProps) {
     // controllers exist for this graph. When seedSet is empty (the
     // expanded/auto cases) or analysis is null (degenerate spec — no
     // controllers to fold), the input is the unfolded graph as-is.
-    // The host's fold mode, plus whatever the style folds on a fresh graph.
-    const seedSet = analysis
-      ? new Set([
-          ...seedFoldedControllers(foldModeRef.current, analysis.controllerNodeIds),
-          ...pipeline.defaultFolds(graphspec, analysis),
-        ])
-      : new Set<string>();
+    // The host's fold mode on a new spec, or the folds already there on a
+    // switch less the previous style's own, plus whatever this style folds.
+    let seedSet = new Set<string>();
+    if (analysis) {
+      const kept = sameSpec
+        ? [...foldedRef.current].filter((id) => !styleDefaultFoldsRef.current.has(id))
+        : [...seedFoldedControllers(foldModeRef.current, analysis.controllerNodeIds)];
+      seedSet = new Set(kept);
+      const styleDefaults = new Set<string>();
+      for (const id of pipeline.defaultFolds(graphspec, analysis)) {
+        if (!seedSet.has(id)) styleDefaults.add(id);
+        seedSet.add(id);
+      }
+      styleDefaultFoldsRef.current = styleDefaults;
+    } else {
+      styleDefaultFoldsRef.current = new Set();
+    }
     setFoldedControllers(seedSet);
     foldedRef.current = seedSet;
     // The state update above schedules a re-render that would fire the

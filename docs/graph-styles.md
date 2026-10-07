@@ -37,6 +37,8 @@ The menu's button shows the active style's icon. It opens a list of `menuitemrad
 
 A style declares what it supports, and the toolbar hides the controls it does not: the simple style has no controller groups, so the button that shows and hides them is not drawn while it is active. Folding and unfolding all controllers stays.
 
+A switch redraws the same graph, so it keeps what the reader folded and opened. Only the folds a style adds by itself are swapped for the new style's: the simple style's folded sub-methods are unfolded again on a switch to the detailed style, and a controller the reader folded stays folded in both. A new spec starts afresh, from the host's `foldMode` and the style's own folds.
+
 ## What the simple style draws
 
 The simple style is a projection of the same `GraphSpec`: it shows only what the method declares, in the words its author wrote, and guesses nothing.
