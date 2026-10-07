@@ -2,7 +2,8 @@
 // The graph styles' contact sheet: one capture of `make style-review` laid out
 // as a single self-contained HTML page, each fixture's detailed and simple
 // pictures side by side with the rubric's measurements beneath, for a reviewer
-// to read anywhere. The pictures are inlined, so the page is one file.
+// to read anywhere. The pictures are inlined, so the page is one file; its
+// fonts load from Google Fonts and fall back to the system's offline.
 //
 //   node scripts/style-contact-sheet.mjs .style-review/<iteration> [out.html]
 //
@@ -166,7 +167,11 @@ const coldReads = (review.coldReads ?? [])
 const summary = (review.summary ?? []).map((p) => `<p>${escapeHtml(p)}</p>`).join("");
 const title = review.title ?? "Graph styles contact sheet";
 
-const html = `<title>${escapeHtml(title)}</title>
+const html = `<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${escapeHtml(title)}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
