@@ -53,7 +53,7 @@ Code downstream therefore always sees `null`, never `undefined`, for an unrated 
 
 `GraphSpecNodeUsage` carries token figures and this repo renders none of them. That is deliberate.
 
-Extract, search and image generation are billed **per request**, and pipelex encodes that price through the token field: rates are configured per million tokens, so putting exactly `1_000_000` in each category makes `1_000_000 x rate/1e6` reproduce the per-request price verbatim (`linkup_extract_worker.py`, `linkup_search_worker.py`, `gateway_extract_worker.py` — each says so in a comment). A one-page extract therefore reports **2,000,000 "tokens"**, which is a scaled request counter, not a measurement.
+Extract, search and image generation are billed **per request**, and pipelex encodes that price through the token field: rates are configured per million tokens, so putting exactly `1_000_000` in each category makes `1_000_000 x rate/1e6` reproduce the per-request price verbatim (`linkup_extract_worker.py` and `linkup_search_worker.py` say so in a comment, and `extract_worker_abstract.py` applies it per page to every extract model that reports no usage of its own). A one-page extract therefore reports **2,000,000 "tokens"**, which is a scaled request counter, not a measurement.
 
 It does not stay contained: a controller's `subtree_total_tokens` sums those sentinels together with real LLM tokens, so no token figure is trustworthy at any level of a graph. `cost` is the number that survives the encoding, so cost is the only thing shown. The warning lives on `ScopedUsage` in `usageFormat.ts` so the next person does not render them.
 
