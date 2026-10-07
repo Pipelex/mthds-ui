@@ -9,6 +9,7 @@ import type { ValidationIssue } from "@graph/types";
 import { buildStaticGraphSpecFromToml } from "@static-graph/buildStaticGraphSpec";
 import { staticDiagnosticsToValidationIssues } from "@static-graph/validationIssues";
 import { GraphViewer } from "../GraphViewer";
+import { reviewSpec } from "./styleReviewFixtures";
 
 // Asset path, not a module import — the `@graph/*` alias rule does not apply.
 import bundleGarments from "../../../../../data/static/garments_from_moodboard/bundle_with_error.mthds?raw";
@@ -149,6 +150,33 @@ export const StaticAutoTargeted: Story = {
     });
     const summarizeCode = await canvas.findByTitle("summarize");
     await expect(summarizeCode.closest(".pipe-card")).toHaveClass("node-validation-ring--warning");
+  },
+};
+
+/**
+ * The simple style draws no binding step: an issue pinned to one badges the
+ * step that reads what it picked, and its panel row pans there.
+ */
+export const SimpleStyleBindingIssue: Story = {
+  args: {
+    graph: { graphSpec: reviewSpec("CATALOG_REVIEW", "static") },
+    graphStyle: "simple",
+    validationIssues: [
+      {
+        severity: "error",
+        message: "The binding's path reaches no field.",
+        origin: "validator",
+        nodeId: "catalog_review.review_catalog/step_3",
+      },
+    ],
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await waitFor(async () => {
+      await expect(canvas.getAllByLabelText(/validation issue/)).toHaveLength(1);
+    });
+    const ringed = canvasElement.querySelectorAll(".simple-step.node-validation-ring--error");
+    await expect(ringed).toHaveLength(1);
   },
 };
 

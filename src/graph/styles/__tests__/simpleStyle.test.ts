@@ -11,6 +11,7 @@ import {
 } from "@graph/types";
 import { buildGraph } from "@graph/graphBuilders";
 import {
+  makeBatchSpec,
   makeBatchedConditionSpec,
   makeMinimalSpec,
   makeNestedBatchSpec,
@@ -167,6 +168,38 @@ describe("the simple projection: data", () => {
     // The review step reads what the bindings picked: its arrows come from the steps behind them.
     const review = stepByTitle(nodes, "Writes the review sent back to the supplier");
     expect(edges.filter((e) => e.target === review.id).length).toBeGreaterThanOrEqual(2);
+  });
+
+  it("names, for each node it does not draw, the drawn node standing for it", () => {
+    // A batch of one step is drawn as that step, marked "for each".
+    const batch = projectStyle(makeBatchSpec(3), "simple");
+    expect(batch.standIns?.get("batch")).toBe("iter_0");
+    // A sub-method drawn as its steps stands for the first it contains, which
+    // in this spec is the batch.
+    expect(batch.standIns?.get("root_seq")).toBe("iter_0");
+
+    // A later item's run of a sub-method stands for the first run's first step.
+    const nested = projectStyle(makeNestedBatchSpec(), "simple");
+    expect(nested.standIns?.get("read_2_2")).toBe("read_1_1");
+    expect(nested.standIns?.get("doc_2")).toBe("split_1");
+
+    // A binding step stands for the drawn step that reads what it picked, and
+    // one whose result nothing reads for what stands for its sub-method.
+    const spec = reviewSpec("CATALOG_REVIEW", "static");
+    const catalog = projectStyle(spec, "simple");
+    const drawn = new Set(catalog.nodes.map((n) => n.id));
+    const bindings = spec.nodes.filter((n) => n.pipe_type === BINDING_STEP_TYPE);
+    const consumers = buildGraph(spec, "default").analysis?.stuffConsumers ?? {};
+    const readersOf = (binding: (typeof bindings)[number]) =>
+      binding.io.outputs.flatMap((o) => consumers[o.digest ?? ""] ?? []);
+    expect(bindings.some((b) => readersOf(b).length === 0)).toBe(true);
+    for (const binding of bindings) {
+      const standIn = catalog.standIns?.get(binding.id);
+      expect(standIn).toBeDefined();
+      if (readersOf(binding).length > 0) expect(readersOf(binding)).toContain(standIn);
+      else expect(standIn).toBe(catalog.standIns?.get("catalog_review.review_catalog"));
+    }
+    for (const id of catalog.standIns?.values() ?? []) expect(drawn.has(id)).toBe(true);
   });
 
   it("routes every arrow around the steps in its way", () => {

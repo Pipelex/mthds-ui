@@ -645,6 +645,8 @@ export function GraphViewer(props: GraphViewerProps) {
     _graphspec: GraphSpec | null;
     /** The style these nodes were projected for. */
     _graphStyle: GraphStyleId;
+    /** What the style draws for each spec node it does not draw. */
+    _standIns?: ReadonlyMap<string, string>;
   } | null>(null);
   /** Un-folded build output, cached so fold-state changes can re-derive without rebuilding. */
   const rawGraphDataRef = React.useRef<{
@@ -706,27 +708,30 @@ export function GraphViewer(props: GraphViewerProps) {
     }
   }, []);
 
-  const toggleFold = React.useCallback((controllerId: string, options?: FoldToggleOptions) => {
-    setFoldedControllers((prev) => {
-      const next = new Set(prev);
-      const shouldFold = !next.has(controllerId);
+  const toggleFold = React.useCallback(
+    (controllerId: string, options?: FoldToggleOptions) => {
+      setFoldedControllers((prev) => {
+        const next = new Set(prev);
+        const shouldFold = !next.has(controllerId);
 
-      // Solo mode (alt/option click) → only the clicked controller.
-      // Default → mirror to cousins (controllers sharing the same pipe_code).
-      const raw = rawGraphDataRef.current;
-      const targets =
-        !options?.soloMode && raw?.graphspec && raw.analysis
-          ? findCousinControllers(controllerId, raw.graphspec, raw.analysis.controllerNodeIds)
-          : new Set<string>([controllerId]);
+        // Solo mode (alt/option click) → only the clicked controller.
+        // Default → mirror to cousins (controllers sharing the same pipe_code).
+        const raw = rawGraphDataRef.current;
+        const targets =
+          !options?.soloMode && raw?.graphspec && raw.analysis
+            ? findCousinControllers(controllerId, raw.graphspec, raw.analysis.controllerNodeIds)
+            : new Set<string>([controllerId]);
 
-      for (const id of targets) {
-        if (shouldFold) next.add(id);
-        else next.delete(id);
-      }
-      markReaderFolds(targets, shouldFold);
-      return next;
-    });
-  }, [markReaderFolds]);
+        for (const id of targets) {
+          if (shouldFold) next.add(id);
+          else next.delete(id);
+        }
+        markReaderFolds(targets, shouldFold);
+        return next;
+      });
+    },
+    [markReaderFolds],
+  );
 
   const edgeType = config.edgeType || EDGE_TYPE.DEFAULT;
   const layoutConfig = React.useMemo(
@@ -789,6 +794,7 @@ export function GraphViewer(props: GraphViewerProps) {
         raw?.graphspec ?? null,
         raw?.childToCtrl ?? {},
         foldedRef.current,
+        initialDataRef.current?._standIns,
       );
       const decorated = applyValidationDecorations(
         applyStatusOverrides(toAppNodes(hydrateLabels(nodes)), statusMapRef.current),
@@ -796,7 +802,8 @@ export function GraphViewer(props: GraphViewerProps) {
         validationWidgetAvailableRef.current ? openValidationPanel : undefined,
       );
       // The node open in the detail panel stays selected through a rebuild —
-      // a style switch, a re-layout — since every style keeps the spec's ids.
+      // a style switch, a re-layout — since a node drawn in every style keeps
+      // its spec id. One the new style does not draw stays open, unselected.
       const selectedId = selectedNodeIdRef.current;
       return selectedId
         ? decorated.map((n) => (n.id === selectedId ? { ...n, selected: true } : n))
@@ -873,6 +880,7 @@ export function GraphViewer(props: GraphViewerProps) {
         raw.childToCtrl,
         foldedRef.current,
         new Set(nodesRef.current.map((n) => n.id)),
+        initialDataRef.current?._standIns,
       );
       if (!targetId) return;
       void reactFlowRef.current?.fitView({
@@ -1072,6 +1080,7 @@ export function GraphViewer(props: GraphViewerProps) {
       _analysis: projected.analysis,
       _graphspec: graphspec,
       _graphStyle: style,
+      ...(projected.standIns ? { _standIns: projected.standIns } : {}),
     };
 
     void (async () => {
@@ -1186,6 +1195,7 @@ export function GraphViewer(props: GraphViewerProps) {
       _analysis: projected.analysis,
       _graphspec: currentGraphspec,
       _graphStyle: style,
+      ...(projected.standIns ? { _standIns: projected.standIns } : {}),
     };
 
     void (async () => {

@@ -27,6 +27,12 @@ export interface StyleProjection {
   nodes: GraphNode[];
   edges: GraphEdge[];
   analysis: DataflowAnalysis | null;
+  /**
+   * For a style that draws some of the spec's nodes through others: each node
+   * it does not draw, mapped to the drawn node that stands for it, so that a
+   * validation issue pinned to the first still badges the second.
+   */
+  standIns?: ReadonlyMap<string, string>;
 }
 
 /** What a style's frame pass receives: the laid-out nodes, and the viewer's frame and fold state. */

@@ -311,6 +311,8 @@ export interface SimpleProjection {
    * or a final output and sits outside every frame.
    */
   analysis: DataflowAnalysis;
+  /** Each spec node the style does not draw, mapped to the drawn node that stands for it. */
+  standIns: ReadonlyMap<string, string>;
 }
 
 function parentMap(
@@ -373,7 +375,7 @@ function batchRepresentatives(
   );
   for (const runs of runsWithPath.values()) {
     if (runs.length < 2) continue;
-    const representative = runs.find(canBeDrawn) ?? runs[0]!;
+    const representative = runs.find(canBeDrawn) ?? runs[0];
     for (const id of runs) if (id !== representative) representativeOf.set(id, representative);
   }
   return { representativeOf, order };
@@ -927,9 +929,55 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
     });
   }
 
+  // ── What stands for a node the flowchart does not draw, so that a validation
+  // issue pinned to it still badges a drawn node: a later item's run stands for
+  // the run drawn, a batch of one step for its marked step, a binding step for
+  // the first drawn node that reads its result (or, when nothing does, for what
+  // stands for the sub-method holding it), and a sub-method drawn as its steps
+  // for the first of them.
+  const drawnIds = new Set(simpleNodes.map((n) => n.id));
+  const standIns = new Map<string, string>();
+  const resolving = new Set<string>();
+  function standIn(id: string): string | undefined {
+    if (drawnIds.has(id)) return id;
+    if (standIns.has(id)) return standIns.get(id);
+    if (resolving.has(id)) return undefined;
+    resolving.add(id);
+    let found: string | undefined;
+    const representative = representativeOf.get(id);
+    const branch = batchBranch[id];
+    if (representative) {
+      found = standIn(representative);
+    } else if (branch && markedSteps[branch] === id) {
+      found = standIn(branch);
+    } else if (pipeTypeOf(id) === BINDING_STEP_TYPE) {
+      for (const item of specById.get(id)?.io.outputs ?? []) {
+        if (!item.digest) continue;
+        for (const reader of rawAnalysis.stuffConsumers[item.digest] ?? []) {
+          found ??= standIn(reader);
+        }
+        if (!found && drawnIds.has(stuffNodeId(item.digest))) found = stuffNodeId(item.digest);
+        if (found) break;
+      }
+      // A result nothing reads: what stands for the sub-method holding it.
+      const parent = parentOf[id];
+      if (!found && parent) found = standIn(parent);
+    } else {
+      for (const child of childrenOf[id] ?? []) {
+        found = standIn(child);
+        if (found) break;
+      }
+    }
+    resolving.delete(id);
+    if (found) standIns.set(id, found);
+    return found;
+  }
+  for (const spec of graphspec.nodes) standIn(spec.id);
+
   return {
     nodes: simpleNodes,
     edges: [...edges.values()],
+    standIns,
     analysis: {
       stuffRegistry: analysis.stuffRegistry,
       stuffProducers: {},
