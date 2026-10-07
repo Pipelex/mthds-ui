@@ -125,6 +125,12 @@ const CATEGORY_ICONS: Record<StepCategory, React.ReactNode> = {
       <path d="M21 13v1a4 4 0 0 1-4 4H3" />
     </>
   ),
+  pick: (
+    <>
+      <polyline points="15 10 20 15 15 20" />
+      <path d="M4 4v7a4 4 0 0 0 4 4h12" />
+    </>
+  ),
 };
 
 const EXPAND_ICON = (

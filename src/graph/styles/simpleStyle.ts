@@ -12,7 +12,8 @@
 // - sequences and parallels have no frame: the arrows are the order, and
 //   parallel branches are side by side because nothing joins them until a step
 //   reads both;
-// - a binding step is plumbing: the arrow passes through it;
+// - a binding step is plumbing: the arrow passes through it, unless it failed,
+//   when it is a step, so a run that stopped there shows where;
 // - a folded controller is one step, saying how many it holds.
 //
 // Pure and React-free. It runs on the dataflow graph after the folds, so the
@@ -27,8 +28,8 @@ import type {
   GraphSpec,
   GraphSpecNode,
   GraphSpecNodeIoItem,
+  NodePipeType,
   PipeStatus,
-  PipeType,
   SimpleNodePayload,
   StepCategory,
 } from "@graph/types";
@@ -47,7 +48,7 @@ import {
   stuffNodeId,
 } from "@graph/types";
 import { getPipeBlueprint, resolveConceptRef } from "@graph/graphAnalysis";
-import { makePipeRef } from "@graph/pipeRefs";
+import { makePipeRef, parsePipeRef } from "@graph/pipeRefs";
 import { buildControllerNodes, sortParentsFirst } from "@graph/graphControllers";
 import type { ControllerRect } from "@graph/graphControllers";
 import {
@@ -146,8 +147,12 @@ export const SIMPLE_FOLD_DEPTH = 3;
 
 // ─── Step categories ────────────────────────────────────────────────────────
 
-/** The category each pipe class reads as. Exhaustive over `PipeType`, so a new pipe class must say what it is. */
-export const STEP_CATEGORY_BY_PIPE_TYPE: Record<PipeType, StepCategory> = {
+/**
+ * The category each card class reads as. Exhaustive over `NodePipeType`, so a
+ * new pipe class must say what it is. A binding step is drawn only when it
+ * failed, as the field it was picking.
+ */
+export const STEP_CATEGORY_BY_PIPE_TYPE: Record<NodePipeType, StepCategory> = {
   PipeLLM: STEP_CATEGORY.AI,
   PipeStructure: STEP_CATEGORY.AI,
   PipeJudge: STEP_CATEGORY.JUDGE,
@@ -162,6 +167,7 @@ export const STEP_CATEGORY_BY_PIPE_TYPE: Record<PipeType, StepCategory> = {
   PipeParallel: STEP_CATEGORY.PARALLEL,
   PipeCondition: STEP_CATEGORY.DECISION,
   PipeBatch: STEP_CATEGORY.REPEAT,
+  BindingStep: STEP_CATEGORY.PICK,
 };
 
 /** The plain word each category is shown with. */
@@ -179,6 +185,7 @@ export const STEP_CATEGORY_WORDS: Record<StepCategory, string> = {
   parallel: "Side by side",
   decision: "Decision",
   repeat: "For each",
+  pick: "Pick",
 };
 
 // ─── Sizes ──────────────────────────────────────────────────────────────────
@@ -332,21 +339,24 @@ function unique<T>(items: readonly T[]): T[] {
 /**
  * Which node of a run stands in for which: a batch runs its branch once per
  * item, and the flowchart draws each step of it once. Two runs are the same
- * step when the same pipes lead to them from the top of the method, siblings
- * outside a batch told apart by their order among calls to the same pipe and
- * the items of a batch not told apart at all; the first run in containment
- * order that can be drawn stands in for the others, so a first item that
- * skipped a step, leaving it nothing to show, does not hide the items that ran
- * it. A static spec draws each batch's branch once, so nothing in it stands in
- * for anything.
+ * step when the same pipes lead to them from the top of the method, a pipe
+ * known by its full reference so that two domains' pipes of one code stay two
+ * steps, siblings outside a batch told apart by their order among calls to the
+ * same pipe and the items of a batch not told apart at all. The run that shows
+ * the step best stands in for the others, the first in containment order among
+ * equals, so a first item that skipped a step, leaving it nothing to show, or
+ * whose loop ran over an empty list, does not hide the items that ran it. A
+ * static spec draws each batch's branch once, so nothing in it stands in for
+ * anything.
  *
- * `representativeOf` holds only the runs another stands in for; `order` is
- * every node in containment order, parents first.
+ * `drawability` ranks a run: 0 when it cannot be drawn, higher the more of the
+ * step it shows. `representativeOf` holds only the runs another stands in for;
+ * `order` is every node in containment order, parents first.
  */
 function batchRepresentatives(
   graphspec: GraphSpec,
   analysis: DataflowAnalysis,
-  canBeDrawn: (id: string) => boolean,
+  drawability: (id: string) => number,
 ): { representativeOf: Map<string, string>; order: string[] } {
   const specById = new Map(graphspec.nodes.map((n) => [n.id, n]));
   const runsWithPath = new Map<string, string[]>();
@@ -357,7 +367,7 @@ function batchRepresentatives(
     const seen = new Map<string, number>();
     for (const id of ids) {
       const spec = specById.get(id);
-      const pipe = spec?.pipe_code ?? spec?.pipe_type ?? id;
+      const pipe = spec ? stepIdentity(spec) : id;
       const occurrence = seen.get(pipe) ?? 0;
       seen.set(pipe, occurrence + 1);
       const path = `${parentPath}/${pipe}#${inBatch ? "*" : occurrence}`;
@@ -375,10 +385,23 @@ function batchRepresentatives(
   );
   for (const runs of runsWithPath.values()) {
     if (runs.length < 2) continue;
-    const representative = runs.find(canBeDrawn) ?? runs[0];
+    const best = Math.max(...runs.map(drawability));
+    const representative = runs.find((id) => drawability(id) === best) ?? runs[0];
     for (const id of runs) if (id !== representative) representativeOf.set(id, representative);
   }
   return { representativeOf, order };
+}
+
+/**
+ * What makes two runs the same step: the node's kind and the pipe it calls, by
+ * its full reference where the spec gives a domain, or a binding's path.
+ */
+function stepIdentity(spec: GraphSpecNode): string {
+  const ref =
+    spec.domain_code && spec.pipe_code
+      ? makePipeRef(spec.domain_code, spec.pipe_code)
+      : (spec.pipe_code ?? spec.pipe_type);
+  return `${spec.kind}:${ref}`;
 }
 
 /** "For each page": an item name inside a sentence, keeping an acronym's capitals. */
@@ -411,23 +434,42 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
   const pipeTypeOf = (id: string): string | undefined => specById.get(id)?.pipe_type;
 
   // ── A run draws a batch's branch once per item; the flowchart draws it once.
-  // Every run of a step stands in for the first drawable run of the same step,
-  // and only that run is drawn. A step only a later item reached, such as the
-  // branch of a decision the first item did not take, is drawn too, where its
-  // first run sits.
-  const { representativeOf, order } = batchRepresentatives(
-    graphspec,
-    rawAnalysis,
-    (id) => cards.has(id) || rawAnalysis.controllerNodeIds.has(id),
-  );
+  // Every run of a step stands in for the run of the same step that shows it
+  // best, and only that run is drawn. A step only a later item reached, such as
+  // the branch of a decision the first item did not take, is drawn too, where
+  // its first run sits. A run shows its step fully when it is drawn with what
+  // it holds: an operator, a folded step, or a controller the folds left open.
+  // A controller run that held nothing, such as a loop over an empty list, is
+  // drawn empty, so it stands in only where no run held anything. A controller
+  // hidden inside a fold cannot be drawn at all.
+  const { representativeOf, order } = batchRepresentatives(graphspec, rawAnalysis, (id) => {
+    if (liveControllers.has(id)) return 2;
+    const card = cards.get(id);
+    if (!card) return 0;
+    return card.data.isController !== true && specById.get(id)?.kind === "controller" ? 1 : 2;
+  });
   const repOf = (id: string): string => representativeOf.get(id) ?? id;
-  const hidden = new Set(representativeOf.keys());
   // The containment the flowchart draws: a later run's own steps hang from the
-  // first run of what holds them.
+  // run drawn for what holds them.
   const parentOf: Record<string, string> = {};
   for (const [id, parent] of Object.entries(parentMap(rawAnalysis.containmentTree))) {
     parentOf[id] = repOf(parent);
   }
+  // A fold hides what it holds in every item. Where the run drawn for a step is
+  // folded and a later item's run of it is not, as after a fold of that run
+  // alone, the later run's steps hang from the folded step and are drawn as it.
+  const foldedAbove = new Map<string, string>();
+  for (const id of order) {
+    for (let current = parentOf[id]; current; current = parentOf[current]) {
+      if (cards.get(current)?.data.isController === true) {
+        foldedAbove.set(id, current);
+        break;
+      }
+    }
+  }
+  /** The drawn node a run of the spec is drawn as. */
+  const drawnAs = (id: string): string => foldedAbove.get(id) ?? repOf(id);
+  const hidden = new Set([...representativeOf.keys(), ...foldedAbove.keys()]);
   const childrenOf: Record<string, string[]> = {};
   for (const id of order) {
     const parent = parentOf[id];
@@ -443,11 +485,13 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
     return false;
   }
 
+  // A batch's branch is the run drawn for its first item's: a later item's
+  // when the first one's has nothing to show.
   const batchBranch: Record<string, string> = {};
   for (const ctrlId of liveControllers) {
     if (hidden.has(ctrlId) || pipeTypeOf(ctrlId) !== "PipeBatch") continue;
     const first = analysis.containmentTree[ctrlId]?.[0];
-    if (first) batchBranch[ctrlId] = first;
+    if (first) batchBranch[ctrlId] = repOf(first);
   }
 
   const decisions = [...liveControllers].filter(
@@ -466,8 +510,26 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
     if (!hidden.has(batchId) && cards.has(branchId)) markedSteps[branchId] = batchId;
   }
 
+  const runStatuses = new Map<string, PipeStatus[]>();
+  for (const spec of graphspec.nodes) {
+    const rep = repOf(spec.id);
+    const statuses = runStatuses.get(rep);
+    if (statuses) statuses.push(spec.status);
+    else runStatuses.set(rep, [spec.status]);
+  }
+
+  /** A node's status; one drawn once for every batch item stands for all of its runs. */
+  function stepStatus(spec: GraphSpecNode): PipeStatus {
+    return aggregateStatus(runStatuses.get(spec.id) ?? []) ?? spec.status;
+  }
+
+  // A binding step is plumbing, drawn only when it failed: the run stopped
+  // there, and the step is where a reader finds the error.
   const drawnSteps = [...cards.values()].filter(
-    (card) => !hidden.has(card.id) && card.data.pipeType !== BINDING_STEP_TYPE,
+    (card) =>
+      !hidden.has(card.id) &&
+      (card.data.pipeType !== BINDING_STEP_TYPE ||
+        aggregateStatus(runStatuses.get(card.id) ?? []) === "failed"),
   );
   const drawnStepIds = new Set(drawnSteps.map((card) => card.id));
 
@@ -526,9 +588,9 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
     const found: string[] = [];
     const producers = analysis.stuffProducers[digest] ?? [];
     for (const producerId of producers) {
-      const card = cards.get(repOf(producerId));
+      const card = cards.get(drawnAs(producerId));
       if (!card) continue;
-      if (card.data.pipeType === BINDING_STEP_TYPE) {
+      if (card.data.pipeType === BINDING_STEP_TYPE && !drawnStepIds.has(card.id)) {
         // A binding passes its root through under a new name.
         for (const item of specById.get(producerId)?.io.inputs ?? []) {
           if (item.digest) found.push(...sourcesOf(item.digest, visiting));
@@ -569,10 +631,21 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
       makePipeRef(decision.domain_code, decision.pipe_code),
     );
     if (blueprint?.type !== "PipeCondition") return undefined;
+    // An outcome is the branch's when it names the branch's pipe: its code, and
+    // its domain, which a bare reference takes from the condition's own.
+    const conditionDomain = decision.domain_code;
+    const branchCode = branch.pipe_code;
+    function namesBranch(pipeRef: string): boolean {
+      const parsed = parsePipeRef(pipeRef);
+      if (!parsed) return stripDomain(pipeRef) === branchCode;
+      if (parsed.pipeCode !== branchCode) return false;
+      const domain = parsed.domainPath ?? conditionDomain;
+      return branch?.domain_code === undefined || branch.domain_code === domain;
+    }
     const outcomes = Object.entries(blueprint.outcome_map)
-      .filter(([, pipeRef]) => stripDomain(pipeRef) === branch.pipe_code)
+      .filter(([, pipeRef]) => namesBranch(pipeRef))
       .map(([outcome]) => outcome);
-    if (blueprint.default_outcome && stripDomain(blueprint.default_outcome) === branch.pipe_code) {
+    if (blueprint.default_outcome && namesBranch(blueprint.default_outcome)) {
       outcomes.push("default");
     }
     return outcomes.length > 0 ? outcomeLabel(outcomes.join("|")) : undefined;
@@ -639,17 +712,17 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
   // the first run's, so it only adds an arrow where its item went another way.
   // A value with nothing drawn behind it is shown once, for the first run.
   function routeRead(digest: string, readerId: string): void {
-    const target = repOf(readerId);
+    const target = drawnAs(readerId);
     if (target === readerId) route(sourcesOrDangling(digest), target);
     else route(sourcesOf(digest), target);
   }
   for (const [digest, consumers] of Object.entries(analysis.stuffConsumers)) {
     for (const consumerId of consumers) {
-      if (drawnStepIds.has(repOf(consumerId))) routeRead(digest, consumerId);
+      if (drawnStepIds.has(drawnAs(consumerId))) routeRead(digest, consumerId);
     }
   }
   for (const conditionId of liveControllers) {
-    if (!decisionSet.has(repOf(conditionId))) continue;
+    if (!decisionSet.has(drawnAs(conditionId))) continue;
     for (const item of specById.get(conditionId)?.io.inputs ?? []) {
       if (item.digest) routeRead(item.digest, conditionId);
     }
@@ -749,19 +822,11 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
     simpleNodes.push(terminalNode(item, "input"));
   }
 
-  const runStatuses = new Map<string, PipeStatus[]>();
-  for (const spec of graphspec.nodes) {
-    const rep = repOf(spec.id);
-    const statuses = runStatuses.get(rep);
-    if (statuses) statuses.push(spec.status);
-    else runStatuses.set(rep, [spec.status]);
-  }
-
-  /** A node's status; one drawn once for every batch item stands for all of its runs. */
-  function stepStatus(spec: GraphSpecNode): PipeStatus {
-    return aggregateStatus(runStatuses.get(spec.id) ?? []) ?? spec.status;
-  }
-
+  /**
+   * The name of the item a batch hands its branch: the blueprint's, unless it
+   * is unwritten yet, else the name the branch reads its item under, else the
+   * item's own.
+   */
   function itemName(batchId: string): string | undefined {
     const batch = specById.get(batchId);
     if (batch?.domain_code && batch.pipe_code) {
@@ -769,17 +834,27 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
         graphspec,
         makePipeRef(batch.domain_code, batch.pipe_code),
       );
-      if (blueprint?.type === "PipeBatch") return blueprint.batch_params.input_item_stuff_name;
+      if (blueprint?.type === "PipeBatch" && blueprint.batch_params.input_item_stuff_name) {
+        return blueprint.batch_params.input_item_stuff_name;
+      }
     }
-    const branchId = batchBranch[batchId] ?? rawAnalysis.containmentTree[batchId]?.[0];
-    const itemEdge = graphspec.edges.find(
-      (e) => e.kind === "batch_item" && e.source === batchId && e.target_stuff_digest,
+    // The branch drawn may be a later item's run, so the items of every run of
+    // the batch are looked for, not only the first run's.
+    const runsOfBatch = new Set([batchId]);
+    for (const [id, representative] of representativeOf) {
+      if (representative === batchId) runsOfBatch.add(id);
+    }
+    const itemEdges = graphspec.edges.filter(
+      (e) => e.kind === "batch_item" && runsOfBatch.has(e.source) && e.target_stuff_digest,
     );
+    const itemDigests = new Set(itemEdges.map((e) => e.target_stuff_digest));
+    const branchId = batchBranch[batchId] ?? rawAnalysis.containmentTree[batchId]?.[0];
     const branch = branchId ? specById.get(branchId) : undefined;
-    const read = branch?.io.inputs.find((i) => i.digest === itemEdge?.target_stuff_digest);
-    if (read) return read.name;
-    return itemEdge?.target_stuff_digest
-      ? analysis.stuffRegistry[itemEdge.target_stuff_digest]?.name
+    const read = branch?.io.inputs.find((i) => itemDigests.has(i.digest));
+    if (read?.name) return read.name;
+    const firstItem = itemEdges.find((e) => e.source === batchId) ?? itemEdges[0];
+    return firstItem?.target_stuff_digest
+      ? analysis.stuffRegistry[firstItem.target_stuff_digest]?.name || undefined
       : undefined;
   }
 
@@ -791,8 +866,16 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
     return counted.reduce((sum, child) => sum + stepsInside(child), 0);
   }
 
-  /** What a step box says: its description, or for a folded batch, its branch's. */
+  /**
+   * What a step box says: its description, or for a folded batch, its
+   * branch's. A binding step, drawn only when it failed, names the field it was
+   * picking, the last segment of its path, since its description is the
+   * runtime's own sentence about names.
+   */
   function stepTitle(spec: GraphSpecNode, folded: boolean): string {
+    if (spec.pipe_type === BINDING_STEP_TYPE) {
+      return humanizeIdentifier(spec.pipe_code?.split(".").pop() ?? "");
+    }
     let source = spec;
     if (folded && spec.pipe_type === "PipeBatch") {
       const branch = specById.get(rawAnalysis.containmentTree[spec.id]?.[0] ?? "");
@@ -807,12 +890,12 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
     const card = stepById.get(spec.id);
     if (card) {
       const folded = card.data.isController === true;
-      const pipeType = spec.pipe_type as PipeType;
+      const pipeType: NodePipeType = spec.pipe_type;
       const title = stepTitle(spec, folded);
       const markerBatch =
         markedSteps[spec.id] ?? (folded && pipeType === "PipeBatch" ? spec.id : undefined);
       const markerItem = markerBatch ? itemName(markerBatch) : undefined;
-      const forEach = markerBatch ? forEachLabel(markerItem ?? "item") : undefined;
+      const forEach = markerBatch ? forEachLabel(markerItem || "item") : undefined;
       const innerStepCount = folded ? stepsInside(spec.id) : undefined;
       const onExpand = card.data.pipeCardData?.onExpand;
       const simple: SimpleNodePayload = {
@@ -905,7 +988,7 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
   for (const frameId of frameSet) {
     const spec = specById.get(frameId);
     if (!spec) continue;
-    const title = forEachLabel(itemName(frameId) ?? "item");
+    const title = forEachLabel(itemName(frameId) || "item");
     simpleNodes.push({
       id: frameId,
       type: NODE_TYPE_SIMPLE_FRAME,
@@ -931,7 +1014,8 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
 
   // ── What stands for a node the flowchart does not draw, so that a validation
   // issue pinned to it still badges a drawn node: a later item's run stands for
-  // the run drawn, a batch of one step for its marked step, a binding step for
+  // the run drawn, or for the folded step it is drawn as, a batch of one step
+  // for its marked step, a binding step for
   // the first drawn node that reads its result (or, when nothing does, for what
   // stands for the sub-method holding it), and a sub-method drawn as its steps
   // for the first of them.
@@ -944,7 +1028,7 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
     if (resolving.has(id)) return undefined;
     resolving.add(id);
     let found: string | undefined;
-    const representative = representativeOf.get(id);
+    const representative = foldedAbove.get(id) ?? representativeOf.get(id);
     const branch = batchBranch[id];
     if (representative) {
       found = standIn(representative);

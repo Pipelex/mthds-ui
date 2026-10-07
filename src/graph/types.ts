@@ -1052,7 +1052,8 @@ export interface PipeCardPayload {
 /**
  * What a step of the simple style is, in a reader's terms rather than a pipe
  * class's: each category has a plain word and an icon. `steps`, `parallel`,
- * `decision` and `repeat` name a folded controller, drawn as one step.
+ * `decision` and `repeat` name a folded controller, drawn as one step, and
+ * `pick` a binding step, drawn only when it failed.
  */
 export const STEP_CATEGORY = {
   AI: "ai",
@@ -1068,6 +1069,7 @@ export const STEP_CATEGORY = {
   PARALLEL: "parallel",
   DECISION: "decision",
   REPEAT: "repeat",
+  PICK: "pick",
 } as const;
 
 export type StepCategory = (typeof STEP_CATEGORY)[keyof typeof STEP_CATEGORY];

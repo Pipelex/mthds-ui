@@ -13,6 +13,7 @@ import { buildGraph } from "@graph/graphBuilders";
 import {
   makeBatchSpec,
   makeBatchedConditionSpec,
+  makeEmptyBindingSpec,
   makeMinimalSpec,
   makeNestedBatchSpec,
   makeNestedSpec,
@@ -54,6 +55,40 @@ function stepByTitle(nodes: GraphNode[], title: string) {
   const found = ofKind(nodes, "step").find((s) => s.simple.title === title);
   if (!found) throw new Error(`no step titled "${title}"`);
   return found.node;
+}
+
+/**
+ * A batch of two candidates whose decisions take two branches calling pipes of
+ * one code, `respond`, in two domains. Without `outcomes`, each branch carries
+ * its outcome on its `contains` edge; with them, the edges carry none, as in a
+ * pipelex run, and the condition's blueprint maps each outcome to its pipe.
+ */
+function twoDomainBranchesSpec(outcomes?: Record<string, string>): GraphSpec {
+  const spec = makeBatchedConditionSpec(["refused", "matched"]);
+  const domainOf: Record<string, string> = {
+    write_refusal: "refusals",
+    write_questions: "questions",
+  };
+  spec.nodes = spec.nodes.map((n) => {
+    const domain = n.pipe_code ? domainOf[n.pipe_code] : undefined;
+    return domain ? { ...n, pipe_code: "respond", domain_code: domain } : n;
+  });
+  if (!outcomes) return spec;
+  spec.edges = spec.edges.map(({ label: _label, ...edge }) => edge);
+  const condition = Object.values(reviewSpec("EMAIL_TRIAGE", "live").pipe_registry ?? {}).find(
+    (b) => b.type === "PipeCondition",
+  );
+  if (condition?.type !== "PipeCondition") throw new Error("no condition blueprint");
+  spec.pipe_registry = {
+    "test.route_by_match": {
+      ...condition,
+      code: "route_by_match",
+      domain_code: "test",
+      outcome_map: outcomes,
+      default_outcome: "fail",
+    },
+  };
+  return spec;
 }
 
 function operators(spec: GraphSpec) {
@@ -171,6 +206,28 @@ describe("the simple projection: data", () => {
     expect(edges.filter((e) => e.target === review.id).length).toBeGreaterThanOrEqual(2);
   });
 
+  it("draws a binding step that failed, naming the field it was picking", () => {
+    const alone = ofKind(projectStyle(makeEmptyBindingSpec("failed"), "simple").nodes, "step");
+    expect(alone.map((s) => s.node.id)).toEqual(["bind"]);
+    expect(alone[0].simple).toMatchObject({
+      title: "Editor note",
+      category: STEP_CATEGORY.PICK,
+      status: "failed",
+    });
+    const beside = projectStyle(makeEmptyBindingSpec("failed", { besideProducer: true }), "simple");
+    expect(
+      ofKind(beside.nodes, "step")
+        .map((s) => s.node.id)
+        .sort(),
+    ).toEqual(["bind", "title"]);
+    // One that was skipped is plumbing like any other.
+    const skipped = projectStyle(
+      makeEmptyBindingSpec("skipped", { besideProducer: true }),
+      "simple",
+    );
+    expect(ofKind(skipped.nodes, "step").map((s) => s.node.id)).toEqual(["title"]);
+  });
+
   it("names, for each node it does not draw, the drawn node standing for it", () => {
     // A batch of one step is drawn as that step, marked "for each".
     const batch = projectStyle(makeBatchSpec(3), "simple");
@@ -249,6 +306,17 @@ describe("the simple projection: decisions", () => {
       const { edges } = projectStyle(reviewSpec("EMAIL_TRIAGE", mode), "simple");
       expect(edges.map((e) => e.label)).toContain("Needs review or otherwise");
     }
+  });
+
+  it("labels a branch with the outcomes naming its pipe, domain included", () => {
+    const { edges } = projectStyle(
+      twoDomainBranchesSpec({ refused: "refusals.respond", matched: "questions.respond" }),
+      "simple",
+    );
+    expect(edges.filter((e) => e.source === "route_1").map((e) => [e.target, e.label])).toEqual([
+      ["write_refusal_1", "Refused"],
+      ["write_questions_2", "Matched"],
+    ]);
   });
 });
 
@@ -346,6 +414,60 @@ describe("the simple projection: loops", () => {
     const [frame] = ofKind(nodes, "frame");
     expect(frame.node.id).toBe("screen");
   });
+
+  it("keeps two domains' pipes of one code two steps when different items take them", () => {
+    const { nodes, edges } = projectStyle(twoDomainBranchesSpec(), "simple");
+    expect(ofKind(nodes, "step").map((s) => s.node.id)).toEqual([
+      "assess_1",
+      "write_refusal_1",
+      "write_questions_2",
+    ]);
+    expect(edges.filter((e) => e.source === "route_1").map((e) => [e.target, e.label])).toEqual([
+      ["write_refusal_1", "Refused"],
+      ["write_questions_2", "Matched"],
+    ]);
+  });
+
+  it("marks the step drawn for a later item 'for each' when the first item's has nothing to show", () => {
+    const spec = makeNestedBatchSpec();
+    spec.nodes = spec.nodes.map((n) =>
+      n.id === "read_1_1"
+        ? { ...n, status: "skipped" as const, io: { inputs: [], outputs: [] } }
+        : n,
+    );
+    const steps = ofKind(projectStyle(spec, "simple").nodes, "step");
+    const read = steps.find((s) => s.node.id === "read_1_2");
+    expect(read?.simple.forEach).toBe("For each page");
+  });
+
+  it("draws an inner loop through an item whose list was not empty", () => {
+    // The first document has no pages, so its inner loop ran over nothing.
+    const spec = makeNestedBatchSpec();
+    const gone = new Set(["read_1_1", "read_1_2"]);
+    spec.nodes = spec.nodes.filter((n) => !gone.has(n.id));
+    spec.edges = spec.edges.filter((e) => !gone.has(e.source) && !gone.has(e.target));
+
+    const { nodes } = projectStyle(spec, "simple");
+    const steps = ofKind(nodes, "step");
+    expect(steps.map((s) => s.node.id).sort()).toEqual(["read_2_1", "split_1", "summarize_1"]);
+    expect(steps.find((s) => s.node.id === "read_2_1")?.simple.forEach).toBe("For each page");
+  });
+
+  it("falls back to 'item' while a batch's item name is unwritten", () => {
+    // A bundle whose batch has no item name yet: the blueprint holds an empty
+    // name, and the static walk draws no item edge.
+    const spec = structuredClone(reviewSpec("SIMPLE_BATCH", "static"));
+    const batches = Object.values(spec.pipe_registry ?? {}).filter((b) => b.type === "PipeBatch");
+    expect(batches.length).toBeGreaterThan(0);
+    for (const batch of batches) {
+      if (batch.type === "PipeBatch") batch.batch_params.input_item_stuff_name = "";
+    }
+    spec.edges = spec.edges.filter((e) => e.kind !== "batch_item");
+    const marked = ofKind(projectStyle(spec, "simple").nodes, "step").filter(
+      (s) => s.simple.forEach,
+    );
+    expect(marked.map((s) => s.simple.forEach)).toEqual(["For each item"]);
+  });
 });
 
 describe("the simple projection: folds", () => {
@@ -371,6 +493,27 @@ describe("the simple projection: folds", () => {
     const folded = ofKind(nodes, "step").find((s) => s.node.id === inner.id);
     expect(folded?.simple.category).toBe(STEP_CATEGORY.STEPS);
     expect(folded?.simple.innerStepCount).toBeGreaterThanOrEqual(1);
+  });
+
+  it("hides what a fold of the drawn run alone holds in every item", () => {
+    // Folding the first document's page loop alone leaves the second's open.
+    const pages = projectStyle(makeNestedBatchSpec(), "simple", ["pages_1"]);
+    const pageSteps = ofKind(pages.nodes, "step");
+    expect(pageSteps.map((s) => s.node.id).sort()).toEqual(["pages_1", "split_1", "summarize_1"]);
+    expect(pageSteps.find((s) => s.node.id === "pages_1")?.simple.forEach).toBe("For each page");
+    const pageIds = new Set(pages.nodes.map((n) => n.id));
+    for (const edge of pages.edges) {
+      expect(pageIds.has(edge.source) && pageIds.has(edge.target)).toBe(true);
+    }
+    expect(pages.standIns?.get("read_2_1")).toBe("pages_1");
+
+    // Folding the first document alone draws the loop over documents as one step.
+    const docs = projectStyle(makeNestedBatchSpec(), "simple", ["doc_1"]);
+    const docSteps = ofKind(docs.nodes, "step");
+    expect(docSteps.map((s) => s.node.id)).toEqual(["doc_1"]);
+    expect(docSteps[0].simple.forEach).toBe("For each document");
+    expect(ofKind(docs.nodes, "frame")).toHaveLength(0);
+    expect(docs.standIns?.get("split_2")).toBe("doc_1");
   });
 });
 
