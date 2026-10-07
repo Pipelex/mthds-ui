@@ -24,13 +24,14 @@ import {
   SIMPLE_STEP_WIDE_WIDTH,
   SIMPLE_STEP_WIDTH,
   aggregateStatus,
+  applySimpleFrames,
   simpleDecisionSize,
   simpleDefaultFolds,
   simpleEdgeLabelSize,
   simpleStepSize,
   simpleTerminalSize,
 } from "../simpleStyle";
-import { projectStyle } from "./styleTestUtils";
+import { layoutStyle, projectStyle } from "./styleTestUtils";
 
 type Kind = SimpleNodePayload["kind"];
 
@@ -403,5 +404,52 @@ describe("the simple style's sizes", () => {
     expect(simpleTerminalSize("CV", true).height).toBeGreaterThanOrEqual(
       simpleTerminalSize("CV", false).height,
     );
+  });
+});
+
+describe("applySimpleFrames", () => {
+  it("turns each frame placeholder into a sized group, holding its steps, parents first", async () => {
+    const spec = makeNestedBatchSpec();
+    const laid = await layoutStyle(spec, "simple");
+    const analysis = laid.analysis;
+    if (!analysis) throw new Error("no analysis");
+    const folded: string[] = [];
+    const { nodes } = applySimpleFrames({
+      nodes: laid.nodes,
+      edges: laid.edges,
+      graphspec: spec,
+      analysis,
+      controllerPositions: laid.controllerPositions,
+      onToggleFold: (id) => folded.push(id),
+    });
+    const frames = nodes.filter((n) => n.type === NODE_TYPE_SIMPLE_FRAME);
+    expect(frames.map((f) => f.id)).toEqual([...analysis.controllerNodeIds]);
+    const frame = frames[0];
+    expect(frame.data.simple).toMatchObject({ kind: "frame", title: "For each document" });
+    expect(parseFloat(String(frame.style?.width))).toBeGreaterThan(0);
+    expect(parseFloat(String(frame.style?.height))).toBeGreaterThan(0);
+    expect(nodes.filter((n) => n.parentId === frame.id).length).toBeGreaterThan(0);
+    const index = new Map(nodes.map((n, i) => [n.id, i]));
+    for (const node of nodes) {
+      if (node.parentId) expect(index.get(node.parentId)).toBeLessThan(index.get(node.id)!);
+    }
+    // The frame's fold button folds its batch.
+    const payload = frame.data.simple as { onFold?: () => void };
+    payload.onFold?.();
+    expect(folded).toEqual([frame.id]);
+  });
+
+  it("returns the nodes as they are when nothing is framed", async () => {
+    const spec = makeMinimalSpec(3);
+    const laid = await layoutStyle(spec, "simple");
+    const analysis = laid.analysis;
+    if (!analysis) throw new Error("no analysis");
+    const { nodes } = applySimpleFrames({
+      nodes: laid.nodes,
+      edges: laid.edges,
+      graphspec: spec,
+      analysis,
+    });
+    expect(nodes).toEqual(laid.nodes);
   });
 });
