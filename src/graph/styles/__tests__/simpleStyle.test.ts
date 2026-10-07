@@ -122,6 +122,21 @@ describe("the simple projection: data", () => {
     expect(values).toBeGreaterThan(inputs.length + outputs.length);
   });
 
+  it("names the final output by its concept, or by its variable when the concept is built in", () => {
+    const [bid] = ofKind(
+      projectStyle(reviewSpec("RFP_QUALIFIER", "static"), "simple").nodes,
+      "output",
+    );
+    expect(bid.simple.title).toBe("Bid summary");
+    expect(bid.simple.subtitle).toBeUndefined();
+    const [review] = ofKind(
+      projectStyle(reviewSpec("CATALOG_REVIEW", "static"), "simple").nodes,
+      "output",
+    );
+    expect(review.simple.title).toBe("Review");
+    expect(review.simple.subtitle).toBe("Text");
+  });
+
   it("names an input by its variable, with its concept underneath when it says more", () => {
     const { nodes } = projectStyle(reviewSpec("EMAIL_TRIAGE", "static"), "simple");
     const [query] = ofKind(nodes, "input");
@@ -186,6 +201,13 @@ describe("the simple projection: decisions", () => {
     const outgoing = edges.filter((e) => e.source === decision.id);
     expect(outgoing).toHaveLength(2);
     expect(new Set(outgoing.map((e) => e.label)).size).toBe(2);
+  });
+
+  it("reads a yes-or-no test's outcomes as Yes and No", () => {
+    const { nodes, edges } = projectStyle(reviewSpec("AVAILABILITY_ROUTING", "static"), "simple");
+    const [decision] = ofKind(nodes, "decision");
+    const labels = edges.filter((e) => e.source === decision.node.id).map((e) => e.label);
+    expect(labels.sort()).toEqual(["No or otherwise", "Yes"]);
   });
 
   it("joins the outcomes of a branch taken on several, in every mode", () => {

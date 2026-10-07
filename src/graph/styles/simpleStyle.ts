@@ -46,7 +46,7 @@ import {
   isPluralMultiplicity,
   stuffNodeId,
 } from "@graph/types";
-import { getPipeBlueprint } from "@graph/graphAnalysis";
+import { getPipeBlueprint, resolveConceptRef } from "@graph/graphAnalysis";
 import { makePipeRef } from "@graph/pipeRefs";
 import { buildControllerNodes, sortParentsFirst } from "@graph/graphControllers";
 import type { ControllerRect } from "@graph/graphControllers";
@@ -59,6 +59,9 @@ import {
   stripDomain,
 } from "./humanize";
 import { estimateWrap, textWidthPx } from "./textMetrics";
+
+/** The domain of the concepts the standard defines, as a spec's concept registry records them. */
+const NATIVE_DOMAIN = "native";
 
 // ─── Metrics (keep in sync with SimpleStyle.css) ────────────────────────────
 // The layout sizes every node before the DOM exists, so these mirror the
@@ -673,21 +676,35 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
   // ── Nodes, in the spec's order: inputs, then steps and decisions, then outputs.
   const simpleNodes: GraphNode[] = [];
 
+  /**
+   * Whether a concept is one the standard defines (`Text`, `Image`, …), as the
+   * spec's concept registry records it, which says what kind of value
+   * something is without saying what it is.
+   */
+  function isBuiltInConcept(conceptRef: string): boolean {
+    const info = resolveConceptRef(graphspec, conceptRef);
+    if (info) return info.domain_code === NATIVE_DOMAIN;
+    return conceptRef.startsWith(`${NATIVE_DOMAIN}.`) || isGenericConcept(conceptRef);
+  }
+
+  /**
+   * A method input is named by its variable, with its concept's plain name
+   * beneath when that says more. The final output is named by its concept when
+   * the author defined it ("Bid summary"), and like an input when the concept
+   * is built in, since a shape reading "Text" says nothing.
+   */
   function terminalNode(item: GraphSpecNodeIoItem, kind: "input" | "output"): GraphNode {
     const digest = item.digest as string;
     const concept = item.concept;
     const isList = isPluralMultiplicity(item.multiplicity);
     let title: string;
     let subtitle: string | undefined;
-    if (kind === "input") {
+    if (kind === "output" && concept && !isBuiltInConcept(concept)) {
+      title = conceptPlainName(concept);
+    } else {
       title = humanizeIdentifier(item.name);
       const plain = concept ? conceptPlainName(concept) : undefined;
       subtitle = plain && plain.toLowerCase() !== title.toLowerCase() ? plain : undefined;
-    } else {
-      title =
-        concept && !isGenericConcept(concept)
-          ? conceptPlainName(concept)
-          : humanizeIdentifier(item.name);
     }
     const simple: SimpleNodePayload = { kind, title, isList, ...(subtitle ? { subtitle } : {}) };
     return {

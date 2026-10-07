@@ -141,11 +141,19 @@ export function sentenceCase(text: string): string {
   return capitalizeFirst(trimmed);
 }
 
+/** The outcome names that read better as other words: a yes-or-no test's, and the default. */
+const OUTCOME_WORDS: Readonly<Record<string, string>> = {
+  true: "Yes",
+  false: "No",
+  default: "Otherwise",
+};
+
 /**
  * A condition's outcome as an arrow label: `english` → "English",
- * `high_priority` → "High priority", and the `default` outcome → "Otherwise".
- * A branch taken on several outcomes, written `no_fit | default` as the static
- * builder labels it, reads "No fit or otherwise".
+ * `high_priority` → "High priority", a yes-or-no test's `true` and `false` →
+ * "Yes" and "No", and the `default` outcome → "Otherwise". A branch taken on
+ * several outcomes, written `no_fit | default` as the static builder labels it,
+ * reads "No fit or otherwise".
  */
 export function outcomeLabel(outcome: string): string {
   const outcomes = outcome
@@ -153,7 +161,7 @@ export function outcomeLabel(outcome: string): string {
     .map((o) => o.trim())
     .filter((o) => o.length > 0);
   const labels = outcomes.map((o, index) => {
-    const label = o === "default" ? "Otherwise" : humanizeIdentifier(o);
+    const label = OUTCOME_WORDS[o.toLowerCase()] ?? humanizeIdentifier(o);
     return index === 0 ? label : label.charAt(0).toLowerCase() + label.slice(1);
   });
   return labels.join(" or ");

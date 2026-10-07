@@ -86,6 +86,9 @@ describe("outcomeLabel", () => {
     expect(outcomeLabel("english")).toBe("English");
     expect(outcomeLabel("high_priority")).toBe("High priority");
     expect(outcomeLabel("default")).toBe("Otherwise");
+    expect(outcomeLabel("true")).toBe("Yes");
+    expect(outcomeLabel("False")).toBe("No");
+    expect(outcomeLabel("false | default")).toBe("No or otherwise");
   });
 
   it("joins the outcomes of a branch taken on several", () => {
