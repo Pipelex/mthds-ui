@@ -36,7 +36,8 @@
  *
  * DRY runs use --dry-run --mock-inputs (no inference, so zero tokens and no cost).
  * LIVE runs perform real inference and need a key for each backend .pipelex/ enables;
- * DRY runs need none (see dryRunCredentialPlaceholders).
+ * DRY runs need none: pipelex 0.75.0 and later boot a dry run without credentials
+ * and still load every enabled backend with its models.
  * Both resolve config from the repo-local .pipelex/ directory.
  * --check is a smoke test: useful with --live --only to confirm the live path
  * works before committing to a full regeneration. It is rejected with
@@ -71,7 +72,6 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import prettier from "prettier";
-import { parse as parseToml } from "smol-toml";
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const PIPELEX_REPO = path.resolve(REPO, "../pipelex");
@@ -98,34 +98,6 @@ const SPECS_DIR = path.join(REPO, "src/graph/react/viewer/__stories__/pipelines/
  * eslint import-isolation rule confines `@pipelex/mthds-form` to that module.
  */
 const CONTRACTS_DIR = path.join(REPO, "src/form/react/__stories__/contracts");
-
-/**
- * Placeholder credentials for a DRY run: one for each variable an enabled backend in
- * `.pipelex/inference/backends.toml` reads and this process does not set.
- *
- * A dry run calls no model, and pipelex boots it without credentials by skipping a backend
- * whose key is missing. A skipped backend contributes no models, though, so a handle only it
- * serves does not resolve: the default search model lives on `linkup` alone, and a machine
- * without LINKUP_API_KEY fails every PipeSearch pipeline. With a placeholder each enabled
- * backend contributes its models, so a DRY spec is the same whichever keys the machine holds.
- * A variable already set is left alone, and a LIVE run gets none of this.
- */
-function dryRunCredentialPlaceholders() {
-  const backends = parseToml(
-    readFileSync(path.join(REPO, ".pipelex/inference/backends.toml"), "utf8"),
-  );
-  const placeholders = {};
-  for (const backend of Object.values(backends)) {
-    if (typeof backend !== "object" || backend === null || backend.enabled !== true) continue;
-    for (const value of Object.values(backend)) {
-      if (typeof value !== "string") continue;
-      for (const [, name] of value.matchAll(/\$\{([A-Za-z_][A-Za-z0-9_]*)\}/g)) {
-        if (process.env[name] === undefined) placeholders[name] = "dry-run-placeholder";
-      }
-    }
-  }
-  return placeholders;
-}
 
 /** Above this, prettier overflows its call stack on a single-line generated split. */
 const PRETTIER_MAX_BYTES = 2 * 1024 * 1024;
@@ -348,11 +320,7 @@ function runBundle(pipelineDir) {
     try {
       execFileSync(PIPELEX_BIN, args, {
         cwd: REPO,
-        env: {
-          ...process.env,
-          PIPELEX_NO_DECK_NOTICE: "1",
-          ...(LIVE ? {} : dryRunCredentialPlaceholders()),
-        },
+        env: { ...process.env, PIPELEX_NO_DECK_NOTICE: "1" },
         stdio: ["ignore", "pipe", "pipe"],
         // Node defaults maxBuffer to 1MB and throws ENOBUFS past it, which this
         // script would then report as "pipelex run failed" — blaming the pipeline
