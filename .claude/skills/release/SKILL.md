@@ -62,7 +62,7 @@ Run in the worktree, in this order, before the commit:
 - **`version-check.yml`** — runs on any pull request whose base is `main` or a `release/vX.Y.Z` branch, and asserts the release twice over: that `package.json`'s version is strictly greater than the one on `main`, compared component by component, and that it equals the version in the head branch's name.
 - **`changelog-check.yml`** — the job runs only when the head starts with `release/v`, then demands the exact `^release/v([0-9]+\.[0-9]+\.[0-9]+)$` form and greps the anchored heading `^## [vX.Y.Z]` out of `CHANGELOG.md`, printing every version heading it did find when it fails. It asserts nothing about `[Unreleased]`; leaving none behind is the play's rule, not CI's.
 - **`quality-checks.yml`** — on every pull request, with no branch filter: `npm install`, `npx playwright install chromium`, `make check`, `make test`. Its `npm install` runs the `prepare` script, so the build is exercised here too, implicitly rather than as a step of its own.
-- **`cla.yml`** — the CLA assistant, allowlisted through the `CLA_ALLOWLIST` repository variable.
+- **`cla.yml`** — the CLA assistant, running the shared `Pipelex/.github/actions/cla` with the organisation's `CLA_ALLOWLIST`; it runs from `main`'s copy and is required on `dev`, where contributions land, not on the release pull request.
 
 ## Particulars
 
