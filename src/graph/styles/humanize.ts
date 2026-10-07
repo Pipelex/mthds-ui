@@ -6,7 +6,7 @@
 /**
  * Words spelled as acronyms although they hold a vowel. A word with no vowel at
  * all (`cv`, `pdf`, `rfp`, `html`) is spelled as an acronym without being
- * listed: no English word of two letters or more is written without one.
+ * listed, unless it is one of the `VOWELLESS_WORDS`.
  */
 const VOWELED_ACRONYMS: ReadonlySet<string> = new Set([
   "ai",
@@ -29,6 +29,45 @@ const VOWELED_ACRONYMS: ReadonlySet<string> = new Set([
 ]);
 
 const VOWELS = /[aeiouy]/;
+
+/**
+ * Words with no vowel that are written in lowercase rather than spelled out:
+ * abbreviations, units and ordinal suffixes found in identifiers (`weight_kg`
+ * is "Weight kg", `nth_item` is "Nth item"). A plural is covered by its
+ * singular (`hrs` by `hr`).
+ */
+const VOWELLESS_WORDS: ReadonlySet<string> = new Set([
+  "cfg",
+  "cm",
+  "cnt",
+  "ctx",
+  "dr",
+  "dst",
+  "fn",
+  "ft",
+  "hmm",
+  "hr",
+  "kg",
+  "km",
+  "lb",
+  "mg",
+  "ml",
+  "mm",
+  "mr",
+  "mrs",
+  "ms",
+  "msg",
+  "nd",
+  "nth",
+  "pkg",
+  "pt",
+  "rd",
+  "src",
+  "st",
+  "th",
+  "tmp",
+  "vs",
+]);
 
 /** Vowelless acronyms that end in `s` without being plurals (`css` is not two `cs`). */
 const SINGULAR_S_ACRONYMS: ReadonlySet<string> = new Set([
@@ -62,6 +101,8 @@ const GENERIC_NATIVES: ReadonlySet<string> = new Set(["Anything", "Dynamic", "Co
 
 function isAcronymWord(lower: string): boolean {
   if (lower.length < 2 || !/^[a-z]+$/.test(lower)) return false;
+  if (VOWELLESS_WORDS.has(lower)) return false;
+  if (lower.endsWith("s") && VOWELLESS_WORDS.has(lower.slice(0, -1))) return false;
   return !VOWELS.test(lower) || VOWELED_ACRONYMS.has(lower);
 }
 

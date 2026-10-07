@@ -29,6 +29,17 @@ describe("humanizeIdentifier", () => {
     expect(humanizeIdentifier("parseHTMLPage")).toBe("Parse HTML page");
   });
 
+  it("writes abbreviations and units without a vowel as words", () => {
+    expect(humanizeIdentifier("compare_price_vs_cost")).toBe("Compare price vs cost");
+    expect(humanizeIdentifier("nth_item")).toBe("Nth item");
+    expect(humanizeIdentifier("weight_kg")).toBe("Weight kg");
+    expect(humanizeIdentifier("duration_hrs")).toBe("Duration hrs");
+    expect(humanizeIdentifier("msg")).toBe("Msg");
+    expect(humanizeIdentifier("src_text")).toBe("Src text");
+    // Written in capitals, a word is still spelled as written.
+    expect(humanizeIdentifier("SRC_TEXT")).toBe("SRC TEXT");
+  });
+
   it("writes a plural acronym with a lowercase s, but not an acronym ending in s", () => {
     expect(humanizeIdentifier("cvs")).toBe("CVs");
     expect(humanizeIdentifier("screen_cvs")).toBe("Screen CVs");
