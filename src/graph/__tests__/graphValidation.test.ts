@@ -92,6 +92,20 @@ function issue(overrides: Partial<ValidationIssue>): ValidationIssue {
 }
 
 describe("buildValidationDecorations", () => {
+  it("decorates the node a style draws in place of one it does not draw", () => {
+    // Steps 1 and 2 are two runs of one step, drawn once through step 1.
+    const standIns = new Map([["demo.main/step_2", "demo.main/step_1"]]);
+    const decorations = buildValidationDecorations(
+      [issue({ pipeRef: "demo.analyze" })],
+      makeSpec(),
+      CHILD_TO_CTRL,
+      NO_FOLDS,
+      standIns,
+    );
+    expect([...decorations.keys()]).toEqual(["demo.main/step_1"]);
+    expect(decorations.get("demo.main/step_1")?.count).toBe(2);
+  });
+
   it("decorates the exact node for a nodeId-targeted issue", () => {
     const decorations = buildValidationDecorations(
       [issue({ nodeId: "demo.main/step_2" })],
@@ -292,6 +306,19 @@ describe("resolveIssueTargetNodeId", () => {
         rendered,
       ),
     ).toBe("demo.main/step_2");
+  });
+
+  it("resolves a target the style does not draw to the node drawn in its place", () => {
+    expect(
+      resolveIssueTargetNodeId(
+        issue({ nodeId: "demo.main/step_2" }),
+        makeSpec(),
+        CHILD_TO_CTRL,
+        NO_FOLDS,
+        new Set(["demo.main", "demo.main/step_1", "demo.main/step_3"]),
+        new Map([["demo.main/step_2", "demo.main/step_1"]]),
+      ),
+    ).toBe("demo.main/step_1");
   });
 
   it("resolves a pipeRef-targeted issue to the first rendered invocation", () => {

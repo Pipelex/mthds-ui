@@ -1,6 +1,6 @@
 # Toolbar position
 
-`GraphViewer` renders a built-in floating toolbar (direction toggle, controller grouping, fold/expand, zoom, theme). Its anchor is configurable via the `toolbarPosition` prop and `config.toolbarPosition`. The default is `top-right`, so existing consumers see no change.
+`GraphViewer` renders a built-in floating toolbar (direction toggle, controller grouping, fold/expand, zoom, theme, and the style menu when the host offers one with `styleMenu`, see [graph-styles.md](graph-styles.md)). Its anchor is configurable via the `toolbarPosition` prop and `config.toolbarPosition`. The default is `top-right`, so existing consumers see no change.
 
 ## The positions
 

@@ -137,6 +137,26 @@ export const Invalid: Story = {
   },
 };
 
+/**
+ * A press on the graph's canvas closes the dropdown. The pane stops its own
+ * presses for panning, so the dismissal must hear them before they bubble.
+ */
+export const CanvasClickCloses: Story = {
+  args: { validationState: "invalid", validationIssues: validatorIssues },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const toggle = await canvas.findByRole("button", { name: /method is invalid/i });
+    await userEvent.click(toggle);
+    await expect(canvas.getByRole("region", { name: "Validation issues" })).toBeInTheDocument();
+
+    const pane = canvasElement.querySelector(".react-flow__pane");
+    if (!pane) throw new Error("no pane");
+    await userEvent.click(pane);
+    await expect(canvas.queryByRole("region", { name: "Validation issues" })).toBeNull();
+    await expect(toggle).toHaveAttribute("aria-expanded", "false");
+  },
+};
+
 /** No verdict could be produced — the host explains why in the first issue. */
 export const ErrorState: Story = {
   name: "Error",

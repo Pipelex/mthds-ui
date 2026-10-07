@@ -50,6 +50,7 @@ export default defineConfig({
     /graph-core\.css$/,
     /detail\/DetailPanel\.css$/,
     /viewer\/GraphToolbar\.css$/,
+    /styles\/simple\/SimpleStyle\.css$/,
     /RunPanel\.css$/,
   ],
   esbuildOptions(options) {
@@ -68,6 +69,11 @@ export default defineConfig({
     cpSync("src/graph/react/detail/DetailPanel.css", "dist/graph/react/detail/DetailPanel.css");
     mkdirSync("dist/graph/react/viewer", { recursive: true });
     cpSync("src/graph/react/viewer/GraphToolbar.css", "dist/graph/react/viewer/GraphToolbar.css");
+    mkdirSync("dist/graph/react/styles/simple", { recursive: true });
+    cpSync(
+      "src/graph/react/styles/simple/SimpleStyle.css",
+      "dist/graph/react/styles/simple/SimpleStyle.css",
+    );
     mkdirSync("dist/form/react", { recursive: true });
     cpSync("src/form/react/RunPanel.css", "dist/form/react/RunPanel.css");
     // The two stylesheets a HOST imports, never this package's JavaScript, so

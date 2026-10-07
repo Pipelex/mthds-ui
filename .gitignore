@@ -20,3 +20,4 @@ mthds-wip/
 yarn.lock
 
 __pycache__/
+.style-review/

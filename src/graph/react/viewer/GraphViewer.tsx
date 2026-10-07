@@ -18,6 +18,7 @@ import type {
   DataflowAnalysis,
   FoldMode,
   FoldToggleOptions,
+  GraphStyleId,
   GraphTheme,
   GraphThemeMode,
   PipeStatus,
@@ -30,6 +31,7 @@ import {
   BINDING_STEP_TYPE,
   stuffDigestFromId,
   EDGE_TYPE,
+  EDGE_TYPE_ROUTED,
   FOLD_MODE,
   GRAPH_SPEC_MODE,
   GRAPH_DIRECTION,
@@ -58,18 +60,28 @@ import { buildGraph } from "@graph/graphBuilders";
 import { validateGraphSpec } from "@graph/validateGraphSpec";
 import { applyFolds, findCousinControllers } from "@graph/graphFolds";
 import { getLayoutedElements } from "@graph/graphLayout";
-import { applyControllers } from "@graph/graphControllers";
+import type { ControllerRect } from "@graph/graphControllers";
 import { DEFAULT_GRAPH_CONFIG, getPaletteForTheme } from "@graph/graphConfig";
+import { GRAPH_STYLES, resolveGraphStyle, resolveStyleMenu } from "@graph/styles/graphStyles";
+import { GRAPH_STYLE_PIPELINES } from "@graph/styles/stylePipelines";
 import { hydrateLabels } from "./renderLabel";
 import { GraphToolbar } from "./GraphToolbar";
 import { controllerNodeTypes } from "../nodes/controller/ControllerGroupNode";
 import { PipeCardRFNode } from "../nodes/pipe/PipeCardNode";
+import { simpleNodeTypes } from "../styles/simple/SimpleNodes";
+import { RoutedEdge } from "../edges/RoutedEdge";
 
-// Stable reference — must be declared outside the component to avoid ReactFlow re-mounts
+// Stable reference — must be declared outside the component to avoid ReactFlow
+// re-mounts. Every style's node components are registered once, here.
 const nodeTypes = {
   ...controllerNodeTypes,
   pipeCard: PipeCardRFNode,
+  ...simpleNodeTypes,
 };
+
+// Likewise for edge components: the built-in curves, plus the edge drawn along
+// the layout's route, for the styles that ask the layout to route edges.
+const edgeTypes = { [EDGE_TYPE_ROUTED]: RoutedEdge };
 
 export interface GraphViewerProps {
   /**
@@ -127,6 +139,28 @@ export interface GraphViewerProps {
    * Precedence: this prop → `config.toolbarPosition` → `"top-right"`.
    */
   toolbarPosition?: ToolbarPosition;
+  /**
+   * The style the graph is drawn in: `detailed` (every pipe with its inputs,
+   * outputs and settings) or `simple` (the method's steps in plain words).
+   * Reactive, like `theme`: passing it drives the active style, and clearing it
+   * back to `undefined` hands control to `config.graphStyle`, then the default
+   * `detailed`. The toolbar's style menu, when shown, changes it too. A value
+   * naming no registered style is treated as unset. This library persists
+   * nothing: the host keeps the choice, reported by `onGraphStyleChange`.
+   */
+  graphStyle?: GraphStyleId;
+  /**
+   * Called whenever the style changes — from the menu, or from a prop or config
+   * update — so the host can persist it. Not called on mount.
+   */
+  onGraphStyleChange?: (style: GraphStyleId) => void;
+  /**
+   * Show a style menu in the toolbar. Opt-in: `true` offers every registered
+   * style in registry order, a list offers those styles in that order, and the
+   * default offers no menu, for a host that fixes the style for its audience.
+   * A menu needs two styles to choose between.
+   */
+  styleMenu?: boolean | readonly GraphStyleId[];
   /**
    * Host-injected environment theme, authoritative when set. Forwarded to the
    * `system` resolver so non-browser hosts (e.g. VS Code webviews, where
@@ -369,6 +403,16 @@ function cloneCachedNodes(nodes: GraphNode[]): GraphNode[] {
   }));
 }
 
+/**
+ * The run status a node shows, whatever the style: a card's, or a simple-style
+ * step's, decision's or frame's. Undefined for data and for a node without one.
+ */
+export function nodeRunStatus(data: AppNode["data"]): PipeStatus | undefined {
+  const simple = data.simple;
+  if (simple) return "status" in simple ? simple.status : undefined;
+  return data.pipeCardData?.status;
+}
+
 /** Apply Layer 2 execution state overrides to rendered nodes. */
 export function applyStatusOverrides(
   nodes: AppNode[],
@@ -386,7 +430,10 @@ export function applyStatusOverrides(
     const pipeCode = node.data.pipeCode;
     if (!pipeCode || !Object.hasOwn(statusMap, pipeCode)) return node;
     const newStatus = statusMap[pipeCode];
-    if (node.data.pipeCardData?.status === newStatus) return node;
+    const simple = node.data.simple;
+    // The simple style's steps, decisions and frames carry a status; its inputs and outputs do not.
+    const simpleWithStatus = simple && "status" in simple ? simple : undefined;
+    if (nodeRunStatus(node.data) === newStatus) return node;
     return {
       ...node,
       data: {
@@ -397,6 +444,7 @@ export function applyStatusOverrides(
         pipeCardData: node.data.pipeCardData
           ? { ...node.data.pipeCardData, status: newStatus }
           : node.data.pipeCardData,
+        simple: simpleWithStatus ? { ...simpleWithStatus, status: newStatus } : simple,
       },
     };
   });
@@ -425,6 +473,9 @@ export function GraphViewer(props: GraphViewerProps) {
     initialFoldMode,
     hideToolbar = false,
     theme: themeProp,
+    graphStyle: graphStyleProp,
+    onGraphStyleChange,
+    styleMenu,
     toolbarPosition: toolbarPositionProp,
     systemTheme: systemThemeProp,
     showThemeToggle = true,
@@ -503,6 +554,31 @@ export function GraphViewer(props: GraphViewerProps) {
     }
   }, [mode, resolvedTheme]);
 
+  // The style follows the same controlled + reactive contract as the theme
+  // mode: resolved from (prop, config, default) on every render, adopted when
+  // that resolution changes, and changeable from the toolbar menu in between.
+  const externalStyle = resolveGraphStyle(graphStyleProp, config.graphStyle);
+  const [graphStyle, setGraphStyle] = React.useState<GraphStyleId>(externalStyle);
+  const prevExternalStyleRef = React.useRef<GraphStyleId>(externalStyle);
+  React.useEffect(() => {
+    if (externalStyle !== prevExternalStyleRef.current) {
+      prevExternalStyleRef.current = externalStyle;
+      setGraphStyle(externalStyle);
+    }
+  }, [externalStyle]);
+  const onGraphStyleChangeRef = React.useRef(onGraphStyleChange);
+  onGraphStyleChangeRef.current = onGraphStyleChange;
+  const prevReportedStyleRef = React.useRef<GraphStyleId>(graphStyle);
+  React.useEffect(() => {
+    if (prevReportedStyleRef.current !== graphStyle) {
+      prevReportedStyleRef.current = graphStyle;
+      onGraphStyleChangeRef.current?.(graphStyle);
+    }
+  }, [graphStyle]);
+  const graphStyleRef = React.useRef(graphStyle);
+  graphStyleRef.current = graphStyle;
+  const styleCapabilities = GRAPH_STYLES[graphStyle].capabilities;
+
   const effectiveFoldMode: FoldMode =
     initialFoldMode ?? config.foldMode ?? DEFAULT_GRAPH_CONFIG.foldMode ?? FOLD_MODE.EXPANDED;
 
@@ -567,6 +643,10 @@ export function GraphViewer(props: GraphViewerProps) {
     edges: GraphEdge[];
     _analysis: DataflowAnalysis | null;
     _graphspec: GraphSpec | null;
+    /** The style these nodes were projected for. */
+    _graphStyle: GraphStyleId;
+    /** What the style draws for each spec node it does not draw. */
+    _standIns?: ReadonlyMap<string, string>;
   } | null>(null);
   /** Un-folded build output, cached so fold-state changes can re-derive without rebuilding. */
   const rawGraphDataRef = React.useRef<{
@@ -589,6 +669,13 @@ export function GraphViewer(props: GraphViewerProps) {
      * garbage (or throw on the id mismatch).
      */
     graphspec: GraphSpec | null;
+    /**
+     * The style these layouted nodes were drawn in. The same guard as
+     * `graphspec`, for a style switch: until the new style's layout resolves,
+     * the cache holds the previous style's nodes, and framing them with the new
+     * style's pass would render garbage.
+     */
+    graphStyle: GraphStyleId;
   } | null>(null);
 
   // Collapse state: tracks which controllers the user explicitly expanded.
@@ -607,27 +694,44 @@ export function GraphViewer(props: GraphViewerProps) {
   // Fold state: tracks which controllers the user has folded into pipe cards.
   // Empty by default. Reset when graphspec changes.
   const [foldedControllers, setFoldedControllers] = React.useState<Set<string>>(new Set());
-
-  const toggleFold = React.useCallback((controllerId: string, options?: FoldToggleOptions) => {
-    setFoldedControllers((prev) => {
-      const next = new Set(prev);
-      const shouldFold = !next.has(controllerId);
-
-      // Solo mode (alt/option click) → only the clicked controller.
-      // Default → mirror to cousins (controllers sharing the same pipe_code).
-      const raw = rawGraphDataRef.current;
-      const targets =
-        !options?.soloMode && raw?.graphspec && raw.analysis
-          ? findCousinControllers(controllerId, raw.graphspec, raw.analysis.controllerNodeIds)
-          : new Set<string>([controllerId]);
-
-      for (const id of targets) {
-        if (shouldFold) next.add(id);
-        else next.delete(id);
-      }
-      return next;
-    });
+  // The folds the current style added on its own, as opposed to the host's fold
+  // mode and the reader's: a style switch swaps these and keeps the others.
+  // Once the reader folds or opens a controller, the choice is theirs, and a
+  // controller they opened stays open whatever a later style folds by itself.
+  const styleDefaultFoldsRef = React.useRef<Set<string>>(new Set());
+  const readerOpenedRef = React.useRef<Set<string>>(new Set());
+  const markReaderFolds = React.useCallback((ids: Iterable<string>, folded: boolean) => {
+    for (const id of ids) {
+      styleDefaultFoldsRef.current.delete(id);
+      if (folded) readerOpenedRef.current.delete(id);
+      else readerOpenedRef.current.add(id);
+    }
   }, []);
+
+  const toggleFold = React.useCallback(
+    (controllerId: string, options?: FoldToggleOptions) => {
+      setFoldedControllers((prev) => {
+        const next = new Set(prev);
+        const shouldFold = !next.has(controllerId);
+
+        // Solo mode (alt/option click) → only the clicked controller.
+        // Default → mirror to cousins (controllers sharing the same pipe_code).
+        const raw = rawGraphDataRef.current;
+        const targets =
+          !options?.soloMode && raw?.graphspec && raw.analysis
+            ? findCousinControllers(controllerId, raw.graphspec, raw.analysis.controllerNodeIds)
+            : new Set<string>([controllerId]);
+
+        for (const id of targets) {
+          if (shouldFold) next.add(id);
+          else next.delete(id);
+        }
+        markReaderFolds(targets, shouldFold);
+        return next;
+      });
+    },
+    [markReaderFolds],
+  );
 
   const edgeType = config.edgeType || EDGE_TYPE.DEFAULT;
   const layoutConfig = React.useMemo(
@@ -664,6 +768,8 @@ export function GraphViewer(props: GraphViewerProps) {
   statusMapRef.current = statusMap;
   const validationIssuesRef = React.useRef(validationIssues);
   validationIssuesRef.current = validationIssues;
+  const selectedNodeIdRef = React.useRef<string | null>(null);
+  selectedNodeIdRef.current = detailSelection?.nodeId ?? null;
 
   // Validation dropdown open state — owned here (not in GraphToolbar) so node
   // badges can open the panel too. The toolbar reports toggle/dismiss requests
@@ -688,15 +794,64 @@ export function GraphViewer(props: GraphViewerProps) {
         raw?.graphspec ?? null,
         raw?.childToCtrl ?? {},
         foldedRef.current,
+        initialDataRef.current?._standIns,
       );
-      return applyValidationDecorations(
+      const decorated = applyValidationDecorations(
         applyStatusOverrides(toAppNodes(hydrateLabels(nodes)), statusMapRef.current),
         decorations,
         validationWidgetAvailableRef.current ? openValidationPanel : undefined,
       );
+      // The node open in the detail panel stays selected through a rebuild —
+      // a style switch, a re-layout — since a node drawn in every style keeps
+      // its spec id. One the new style does not draw stays open, unselected.
+      const selectedId = selectedNodeIdRef.current;
+      return selectedId
+        ? decorated.map((n) => (n.id === selectedId ? { ...n, selected: true } : n))
+        : decorated;
     },
     [openValidationPanel],
   );
+
+  // The style's frame pass over a laid-out graph: the one place the viewer
+  // wraps nodes in frames, shared by every path that re-renders from a layout.
+  // Takes the style the layout was drawn in, never the current one, so a path
+  // reusing a cached layout frames it the way it was projected.
+  const frameLayout = React.useCallback(
+    (
+      style: GraphStyleId,
+      layout: {
+        nodes: GraphNode[];
+        edges: GraphEdge[];
+        controllerPositions?: Record<string, ControllerRect>;
+      },
+      graphspec: GraphSpec | null,
+      analysis: DataflowAnalysis | null,
+    ) =>
+      GRAPH_STYLE_PIPELINES[style].frame({
+        nodes: cloneCachedNodes(layout.nodes),
+        edges: layout.edges,
+        graphspec,
+        analysis,
+        controllerPositions: layout.controllerPositions,
+        showControllers: showControllersRef.current,
+        expandedControllers: expandedRef.current,
+        onToggleCollapse: toggleCollapseRef.current,
+        onToggleFold: toggleFoldRef.current,
+      }),
+    [],
+  );
+
+  /** Whether the layout cache holds the nodes `initialDataRef` was projected to. */
+  const cacheMatchesData = (): boolean => {
+    const cache = layoutCacheRef.current;
+    const data = initialDataRef.current;
+    return (
+      cache !== null &&
+      data !== null &&
+      cache.graphspec === data._graphspec &&
+      cache.graphStyle === data._graphStyle
+    );
+  };
 
   // Panel row click → host source-jump AND graph pan/flash to the target node
   // (when the issue targets one). The flash is a transient class on the
@@ -725,6 +880,7 @@ export function GraphViewer(props: GraphViewerProps) {
         raw.childToCtrl,
         foldedRef.current,
         new Set(nodesRef.current.map((n) => n.id)),
+        initialDataRef.current?._standIns,
       );
       if (!targetId) return;
       void reactFlowRef.current?.fitView({
@@ -770,7 +926,7 @@ export function GraphViewer(props: GraphViewerProps) {
           data.nodes,
           data.edges,
           direction,
-          layoutConfig,
+          GRAPH_STYLES[data._graphStyle].layout ?? layoutConfig,
           data._graphspec,
           data._analysis,
         );
@@ -780,17 +936,13 @@ export function GraphViewer(props: GraphViewerProps) {
           edges: relayouted.edges,
           controllerPositions: relayouted.controllerPositions,
           graphspec: data._graphspec,
+          graphStyle: data._graphStyle,
         };
-        const withControllers = applyControllers(
-          cloneCachedNodes(relayouted.nodes),
-          relayouted.edges,
+        const withControllers = frameLayout(
+          data._graphStyle,
+          relayouted,
           data._graphspec,
           data._analysis,
-          showControllersRef.current,
-          expandedRef.current,
-          toggleCollapseRef.current,
-          relayouted.controllerPositions,
-          toggleFoldRef.current,
         );
         setNodes(decorateNodes(withControllers.nodes));
         setEdges(toAppEdges(withControllers.edges));
@@ -812,23 +964,13 @@ export function GraphViewer(props: GraphViewerProps) {
 
   // Rebuild controllers when showControllers or collapse state changes (reuses cached layout)
   React.useEffect(() => {
-    if (!layoutCacheRef.current || !initialDataRef.current) return;
-    // Mid-swap guard: the cache still holds the previous graphspec's layout
-    // until the async layout lands; the in-flight build will repaint anyway.
-    if (layoutCacheRef.current.graphspec !== initialDataRef.current._graphspec) return;
-    const cachedNodes = cloneCachedNodes(layoutCacheRef.current.nodes);
-    const cachedEdges = layoutCacheRef.current.edges;
-    const withControllers = applyControllers(
-      cachedNodes,
-      cachedEdges,
-      initialDataRef.current._graphspec,
-      initialDataRef.current._analysis,
-      showControllers,
-      expandedControllers,
-      toggleCollapse,
-      layoutCacheRef.current.controllerPositions,
-      toggleFold,
-    );
+    const cache = layoutCacheRef.current;
+    const data = initialDataRef.current;
+    // Mid-swap guard: the cache still holds the previous graphspec's (or
+    // style's) layout until the async layout lands; the in-flight build will
+    // repaint anyway.
+    if (!cache || !data || !cacheMatchesData()) return;
+    const withControllers = frameLayout(cache.graphStyle, cache, data._graphspec, data._analysis);
     setNodes(decorateNodes(withControllers.nodes));
     setEdges(toAppEdges(withControllers.edges));
   }, [showControllers, expandedControllers, toggleCollapse, toggleFold, decorateNodes]);
@@ -846,12 +988,20 @@ export function GraphViewer(props: GraphViewerProps) {
 
     let cancelled = false;
 
+    // A style or edge-type switch redraws the same spec, and keeps what the
+    // reader opened and folded; only a new spec starts afresh.
+    const sameSpec = rawGraphDataRef.current?.graphspec === graphspec;
+
     // Reset expand overrides when graph changes. Update the ref synchronously
     // so any in-flight reads see the cleared state, not the previous graphspec's
     // expand set. Fold state is seeded below after we know the controller IDs.
-    setExpandedControllers(new Set());
-    expandedRef.current = new Set();
+    if (!sameSpec) {
+      setExpandedControllers(new Set());
+      expandedRef.current = new Set();
+    }
 
+    const style = graphStyleRef.current;
+    const pipeline = GRAPH_STYLE_PIPELINES[style];
     const { graphData, analysis } = buildGraph(graphspec, edgeType);
     rawGraphDataRef.current = {
       nodes: graphData.nodes,
@@ -865,9 +1015,24 @@ export function GraphViewer(props: GraphViewerProps) {
     // controllers exist for this graph. When seedSet is empty (the
     // expanded/auto cases) or analysis is null (degenerate spec — no
     // controllers to fold), the input is the unfolded graph as-is.
-    const seedSet = analysis
-      ? seedFoldedControllers(foldModeRef.current, analysis.controllerNodeIds)
-      : new Set<string>();
+    // The host's fold mode on a new spec, or the folds already there on a
+    // switch less the previous style's own, plus whatever this style folds
+    // that the reader has not opened.
+    if (!sameSpec) readerOpenedRef.current = new Set();
+    let seedSet = new Set<string>();
+    const styleDefaults = new Set<string>();
+    if (analysis) {
+      const kept = sameSpec
+        ? [...foldedRef.current].filter((id) => !styleDefaultFoldsRef.current.has(id))
+        : [...seedFoldedControllers(foldModeRef.current, analysis.controllerNodeIds)];
+      seedSet = new Set(kept);
+      for (const id of pipeline.defaultFolds(graphspec, analysis)) {
+        if (seedSet.has(id) || readerOpenedRef.current.has(id)) continue;
+        styleDefaults.add(id);
+        seedSet.add(id);
+      }
+    }
+    styleDefaultFoldsRef.current = styleDefaults;
     setFoldedControllers(seedSet);
     foldedRef.current = seedSet;
     // The state update above schedules a re-render that would fire the
@@ -881,7 +1046,12 @@ export function GraphViewer(props: GraphViewerProps) {
     // on, otherwise the toolbar's expand-all button is hidden and the user has
     // no global path to unfold. Needed at graphspec-swap time too — the
     // useState initializer above only runs on the first render.
-    if (seedSet.size > 0 && !showControllersRef.current) {
+    // Only a style whose folds are undone from controller frames needs them.
+    if (
+      seedSet.size > 0 &&
+      GRAPH_STYLES[style].capabilities.controllerFrameToggle &&
+      !showControllersRef.current
+    ) {
       setShowControllers(true);
       showControllersRef.current = true;
     }
@@ -896,33 +1066,42 @@ export function GraphViewer(props: GraphViewerProps) {
             toggleFoldRef.current,
           )
         : { nodes: graphData.nodes, edges: graphData.edges, analysis };
-
-    initialDataRef.current = {
+    const projected = pipeline.project({
+      graphspec,
       nodes: folded.nodes,
       edges: folded.edges,
-      _analysis: folded.analysis,
+      analysis: folded.analysis,
+      rawAnalysis: analysis,
+    });
+
+    initialDataRef.current = {
+      nodes: projected.nodes,
+      edges: projected.edges,
+      _analysis: projected.analysis,
       _graphspec: graphspec,
+      _graphStyle: style,
+      ...(projected.standIns ? { _standIns: projected.standIns } : {}),
     };
 
     void (async () => {
       try {
         const currentDirection = directionRef.current;
-        const currentLayoutConfig = layoutConfigRef.current;
-        const needsLayout = folded.nodes.some(
+        const currentLayoutConfig = GRAPH_STYLES[style].layout ?? layoutConfigRef.current;
+        const needsLayout = projected.nodes.some(
           (n) => !n.position || (n.position.x === 0 && n.position.y === 0),
         );
         const layouted = needsLayout
           ? await getLayoutedElements(
-              folded.nodes,
-              folded.edges,
+              projected.nodes,
+              projected.edges,
               currentDirection,
               currentLayoutConfig,
               graphspec,
-              folded.analysis,
+              projected.analysis,
             )
           : {
-              nodes: folded.nodes,
-              edges: folded.edges,
+              nodes: projected.nodes,
+              edges: projected.edges,
               controllerPositions: {} as Record<
                 string,
                 { x: number; y: number; width: number; height: number }
@@ -934,18 +1113,9 @@ export function GraphViewer(props: GraphViewerProps) {
           edges: layouted.edges,
           controllerPositions: layouted.controllerPositions,
           graphspec,
+          graphStyle: style,
         };
-        const withControllers = applyControllers(
-          cloneCachedNodes(layouted.nodes),
-          layouted.edges,
-          graphspec,
-          folded.analysis,
-          showControllersRef.current,
-          expandedRef.current,
-          toggleCollapseRef.current,
-          layouted.controllerPositions,
-          toggleFoldRef.current,
-        );
+        const withControllers = frameLayout(style, layouted, graphspec, projected.analysis);
 
         setNodes(decorateNodes(withControllers.nodes));
         setEdges(toAppEdges(withControllers.edges));
@@ -972,7 +1142,8 @@ export function GraphViewer(props: GraphViewerProps) {
     return () => {
       cancelled = true;
     };
-  }, [graphspec, edgeType]);
+    // A style switch rebuilds like an edge-type change: the same spec, drawn anew.
+  }, [graphspec, edgeType, graphStyle]);
 
   // Re-derive folded data + re-layout when foldedControllers changes (structural change)
   // Skips initial mount AND graphspec-driven resets: the graphspec effect already
@@ -1003,6 +1174,7 @@ export function GraphViewer(props: GraphViewerProps) {
 
     let cancelled = false;
 
+    const style = graphStyleRef.current;
     const folded = applyFolds(
       { nodes: raw.nodes, edges: raw.edges },
       currentAnalysis,
@@ -1010,22 +1182,31 @@ export function GraphViewer(props: GraphViewerProps) {
       foldedControllers,
       toggleFold,
     );
-    initialDataRef.current = {
+    const projected = GRAPH_STYLE_PIPELINES[style].project({
+      graphspec: currentGraphspec,
       nodes: folded.nodes,
       edges: folded.edges,
-      _analysis: folded.analysis,
+      analysis: folded.analysis,
+      rawAnalysis: currentAnalysis,
+    });
+    initialDataRef.current = {
+      nodes: projected.nodes,
+      edges: projected.edges,
+      _analysis: projected.analysis,
       _graphspec: currentGraphspec,
+      _graphStyle: style,
+      ...(projected.standIns ? { _standIns: projected.standIns } : {}),
     };
 
     void (async () => {
       try {
         const layouted = await getLayoutedElements(
-          folded.nodes,
-          folded.edges,
+          projected.nodes,
+          projected.edges,
           directionRef.current,
-          layoutConfigRef.current,
+          GRAPH_STYLES[style].layout ?? layoutConfigRef.current,
           currentGraphspec,
-          folded.analysis,
+          projected.analysis,
         );
         if (cancelled) return;
         layoutCacheRef.current = {
@@ -1033,18 +1214,9 @@ export function GraphViewer(props: GraphViewerProps) {
           edges: layouted.edges,
           controllerPositions: layouted.controllerPositions,
           graphspec: currentGraphspec,
+          graphStyle: style,
         };
-        const withControllers = applyControllers(
-          cloneCachedNodes(layouted.nodes),
-          layouted.edges,
-          currentGraphspec,
-          folded.analysis,
-          showControllersRef.current,
-          expandedRef.current,
-          toggleCollapseRef.current,
-          layouted.controllerPositions,
-          toggleFoldRef.current,
-        );
+        const withControllers = frameLayout(style, layouted, currentGraphspec, projected.analysis);
         setNodes(decorateNodes(withControllers.nodes));
         setEdges(toAppEdges(withControllers.edges));
         setTimeout(() => {
@@ -1067,22 +1239,11 @@ export function GraphViewer(props: GraphViewerProps) {
   // On mount, statusMap is applied inline by the graphspec build effect above.
   // This effect handles runtime changes only (SSE updates arriving after initial render).
   React.useEffect(() => {
-    if (!layoutCacheRef.current || !initialDataRef.current) return;
+    const cache = layoutCacheRef.current;
+    const data = initialDataRef.current;
     // Mid-swap guard — see the layoutCacheRef.graphspec doc comment.
-    if (layoutCacheRef.current.graphspec !== initialDataRef.current._graphspec) return;
-    const cachedNodes = cloneCachedNodes(layoutCacheRef.current.nodes);
-    const cachedEdges = layoutCacheRef.current.edges;
-    const withControllers = applyControllers(
-      cachedNodes,
-      cachedEdges,
-      initialDataRef.current._graphspec,
-      initialDataRef.current._analysis,
-      showControllersRef.current,
-      expandedRef.current,
-      toggleCollapseRef.current,
-      layoutCacheRef.current.controllerPositions,
-      toggleFoldRef.current,
-    );
+    if (!cache || !data || !cacheMatchesData()) return;
+    const withControllers = frameLayout(cache.graphStyle, cache, data._graphspec, data._analysis);
     setNodes(decorateNodes(withControllers.nodes));
     setEdges(toAppEdges(withControllers.edges));
   }, [statusMap, decorateNodes]);
@@ -1090,26 +1251,16 @@ export function GraphViewer(props: GraphViewerProps) {
   // Re-stamp validation decorations when the issues change (reuses cached
   // layout — a verdict flip must never re-run ELK or reset the viewport).
   React.useEffect(() => {
-    if (!layoutCacheRef.current || !initialDataRef.current) return;
+    const cache = layoutCacheRef.current;
+    const data = initialDataRef.current;
     // Mid-swap guard: when graphspec and validationIssues change in the same
     // commit (a host delivering a new file plus its known issues at once), the
     // cache still holds the OLD graphspec's nodes until the async layout lands
     // — rebuilding from it against the new spec would render garbage. The
     // in-flight graphspec build stamps the fresh issues itself via
     // decorateNodes, so skipping here loses nothing.
-    if (layoutCacheRef.current.graphspec !== initialDataRef.current._graphspec) return;
-    const cachedNodes = cloneCachedNodes(layoutCacheRef.current.nodes);
-    const withControllers = applyControllers(
-      cachedNodes,
-      layoutCacheRef.current.edges,
-      initialDataRef.current._graphspec,
-      initialDataRef.current._analysis,
-      showControllersRef.current,
-      expandedRef.current,
-      toggleCollapseRef.current,
-      layoutCacheRef.current.controllerPositions,
-      toggleFoldRef.current,
-    );
+    if (!cache || !data || !cacheMatchesData()) return;
+    const withControllers = frameLayout(cache.graphStyle, cache, data._graphspec, data._analysis);
     setNodes(decorateNodes(withControllers.nodes));
     // validationWidgetAvailable: badge clickability must follow widget
     // visibility (validationState / hideToolbar flips re-stamp the handler).
@@ -1126,7 +1277,7 @@ export function GraphViewer(props: GraphViewerProps) {
       if ((nodeData.isController || nodeData.isPipe) && nodeData.pipeType !== BINDING_STEP_TYPE) {
         const code = nodeData.pipeCode || nodeData.labelText;
         if (code && onNavigateToPipe) {
-          onNavigateToPipe(code, nodeData.pipeCardData?.status);
+          onNavigateToPipe(code, nodeRunStatus(nodeData));
         }
       } else if (nodeData.isStuff && onStuffNodeClick && graphspec) {
         const found = findStuffByDigest(graphspec, stuffDigestFromId(node.id));
@@ -1213,8 +1364,12 @@ export function GraphViewer(props: GraphViewerProps) {
   // Use the RAW analysis (pre-fold) so we can refold already-folded controllers.
   const rawAnalysis = rawGraphDataRef.current?.analysis;
   const allControllerIds = rawAnalysis?.controllerNodeIds;
+  // Fold-all and expand-all, where the style supports them; a style whose folds
+  // are undone from controller frames offers them only while those are shown.
+  const foldControlsAvailable =
+    styleCapabilities.foldAll && (!styleCapabilities.controllerFrameToggle || showControllers);
   const foldAllProps = React.useMemo(() => {
-    if (!showControllers || !allControllerIds || allControllerIds.size === 0) {
+    if (!foldControlsAvailable || !allControllerIds || allControllerIds.size === 0) {
       return {
         onFoldAll: undefined as undefined | (() => void),
         onExpandAll: undefined as undefined | (() => void),
@@ -1223,12 +1378,20 @@ export function GraphViewer(props: GraphViewerProps) {
       };
     }
     return {
-      onFoldAll: () => setFoldedControllers(new Set(allControllerIds)),
-      onExpandAll: () => setFoldedControllers(new Set()),
+      onFoldAll: () => {
+        markReaderFolds(allControllerIds, true);
+        setFoldedControllers(new Set(allControllerIds));
+      },
+      onExpandAll: () => {
+        markReaderFolds(allControllerIds, false);
+        setFoldedControllers(new Set());
+      },
       foldAllDisabled: foldedControllers.size === allControllerIds.size,
       expandAllDisabled: foldedControllers.size === 0,
     };
-  }, [showControllers, allControllerIds, foldedControllers]);
+  }, [foldControlsAvailable, allControllerIds, foldedControllers, markReaderFolds]);
+
+  const styleMenuOptions = React.useMemo(() => resolveStyleMenu(styleMenu), [styleMenu]);
 
   return (
     <div
@@ -1239,6 +1402,7 @@ export function GraphViewer(props: GraphViewerProps) {
         nodes={nodes}
         edges={edges}
         nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onNodeClick={onNodeClick}
@@ -1266,7 +1430,12 @@ export function GraphViewer(props: GraphViewerProps) {
             direction={direction}
             onDirectionChange={setDirection}
             showControllers={showControllers}
-            onShowControllersChange={setShowControllers}
+            onShowControllersChange={
+              styleCapabilities.controllerFrameToggle ? setShowControllers : undefined
+            }
+            graphStyle={graphStyle}
+            styleMenuOptions={styleMenuOptions}
+            onGraphStyleChange={setGraphStyle}
             onZoomIn={() => {
               void reactFlowRef.current?.zoomIn();
             }}

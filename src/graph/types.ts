@@ -83,6 +83,20 @@ export const NODE_TYPE_PIPE_CARD = "pipeCard" as const;
 export const NODE_TYPE_STUFF = "default" as const;
 export const NODE_TYPE_CONTROLLER = "controllerGroup" as const;
 
+// The simple style's node types: a step, a method input or final output, a
+// decision, and a "for each" frame. See `SimpleNodePayload`.
+export const NODE_TYPE_SIMPLE_STEP = "simpleStep" as const;
+export const NODE_TYPE_SIMPLE_TERMINAL = "simpleTerminal" as const;
+export const NODE_TYPE_SIMPLE_DECISION = "simpleDecision" as const;
+export const NODE_TYPE_SIMPLE_FRAME = "simpleFrame" as const;
+
+/**
+ * The edge type that draws an edge along the route the layout computed for it
+ * (`GraphEdge.route`), around the nodes in its way, rather than as a free curve
+ * between its two ends. Used by the styles that lay out with `routeEdges`.
+ */
+export const EDGE_TYPE_ROUTED = "routed" as const;
+
 // ─── Stuff node ID helpers ──────────────────────────────────────────────────
 // Stuff (data) nodes use a "stuff_<digest>" convention throughout the graph.
 
@@ -833,6 +847,24 @@ export function toolbarOrientation(position: ToolbarPosition): ToolbarOrientatio
 
 export type ToolbarSide = "left" | "center" | "right";
 
+// ─── Graph style ─────────────────────────────────────────────────────────────
+
+/**
+ * How a graph is drawn: which nodes exist, what they say, what shapes they take
+ * and how they are spaced. Orthogonal to the theme, the direction and the spec's
+ * mode. `detailed` is the author's drawing (every pipe as a card with its slots,
+ * every value as a node) and the default; `simple` is a flowchart of the
+ * method's steps in the words its author declared, for a reader who designs or
+ * reviews the method without reading its code. The registry of what each style
+ * is called and supports is `GRAPH_STYLES` in `styles/graphStyles.ts`.
+ */
+export const GRAPH_STYLE = {
+  DETAILED: "detailed",
+  SIMPLE: "simple",
+} as const;
+
+export type GraphStyleId = (typeof GRAPH_STYLE)[keyof typeof GRAPH_STYLE];
+
 /**
  * Derive which edge the anchor hugs. The built-in `DetailPanel` overlays the
  * right edge, so only right-side anchors (`*-right`) need to dodge it — the
@@ -951,7 +983,17 @@ export interface GraphConfig {
    * are reactive and persistence is the host's responsibility.
    */
   toolbarPosition?: ToolbarPosition;
+  /**
+   * The style the graph is drawn in (default `detailed`). The `graphStyle` prop
+   * on `GraphViewer` takes precedence over this; both are reactive, and a value
+   * that names no registered style falls back to the default rather than
+   * throwing, since it may come from an untyped source such as an editor
+   * setting. Persistence is the host's responsibility.
+   */
+  graphStyle?: GraphStyleId;
+  /** Space between sibling nodes, for the styles that keep the host's spacing (`detailed`). */
   nodesep?: number;
+  /** Space between ranks, for the styles that keep the host's spacing (`detailed`). */
   ranksep?: number;
   edgeType?: EdgeType;
   initialZoom?: number | null;
@@ -1003,6 +1045,75 @@ export interface PipeCardPayload {
   onValidationBadgeClick?: () => void;
 }
 
+// ─── Simple style payload ───────────────────────────────────────────────────
+// Built by the simple style's projection (`styles/simpleStyle.ts`), consumed by
+// its node components in the React layer.
+
+/**
+ * What a step of the simple style is, in a reader's terms rather than a pipe
+ * class's: each category has a plain word and an icon. `steps`, `parallel`,
+ * `decision` and `repeat` name a folded controller, drawn as one step, and
+ * `pick` a binding step, drawn only when it failed.
+ */
+export const STEP_CATEGORY = {
+  AI: "ai",
+  EXTRACT: "extract",
+  IMAGE: "image",
+  SEARCH: "search",
+  CODE: "code",
+  TEMPLATE: "template",
+  DOCUMENT: "document",
+  JUDGE: "judge",
+  PLANNED: "planned",
+  STEPS: "steps",
+  PARALLEL: "parallel",
+  DECISION: "decision",
+  REPEAT: "repeat",
+  PICK: "pick",
+} as const;
+
+export type StepCategory = (typeof STEP_CATEGORY)[keyof typeof STEP_CATEGORY];
+
+/** What one node of the simple style says, discriminated on `kind`. All text is plain, never an identifier. */
+export type SimpleNodePayload =
+  | {
+      kind: "step";
+      /** The pipe's authored description, or its humanized code when it has none. */
+      title: string;
+      category: StepCategory;
+      status: PipeStatus;
+      graphMode?: GraphSpecMode;
+      /** "For each page" when the step runs once per item of a list. */
+      forEach?: string;
+      /** For a folded controller: how many steps it holds. */
+      innerStepCount?: number;
+      /** For a folded controller: unfolds it. */
+      onExpand?: (options?: FoldToggleOptions) => void;
+    }
+  | {
+      kind: "input" | "output";
+      title: string;
+      /** The concept's plain name, when it says something the title does not. */
+      subtitle?: string;
+      /** Whether the value is a list, drawn as a stack. */
+      isList: boolean;
+    }
+  | {
+      kind: "decision";
+      title: string;
+      status: PipeStatus;
+      graphMode?: GraphSpecMode;
+    }
+  | {
+      kind: "frame";
+      /** "For each record". */
+      title: string;
+      status: PipeStatus;
+      graphMode?: GraphSpecMode;
+      /** Folds the frame into one step. */
+      onFold?: (options?: FoldToggleOptions) => void;
+    };
+
 // ─── Graph node data ────────────────────────────────────────────────────────
 // Extends Record<string, unknown> for ReactFlow's Node<T> generic parameter.
 
@@ -1028,6 +1139,14 @@ export interface GraphNodeData extends Record<string, unknown> {
   validation?: NodeValidationSummary;
   /** Badge click handler (opens the validation panel), stamped alongside `validation`. */
   onValidationBadgeClick?: () => void;
+  /** What a node of the simple style says (see `SimpleNodePayload`); absent in the detailed style. */
+  simple?: SimpleNodePayload;
+  /**
+   * A size the node's producer fixed for layout, used instead of the estimate
+   * `estimateNodeDimensions` makes from the node's content. The simple style
+   * fixes the size of each of its nodes, because it knows its own text metrics.
+   */
+  layoutSize?: { width: number; height: number };
 }
 
 // ─── Graph node / edge / data ───────────────────────────────────────────────
@@ -1060,6 +1179,31 @@ export interface GraphEdge {
   markerEnd?: { type: string; color: string };
   _batchEdge?: boolean;
   _crossGroup?: boolean;
+  /**
+   * The size the edge's label is drawn at, background included, for a layout
+   * that reserves room for labels (`LayoutConfig.routeEdges`). Like a node's
+   * `layoutSize`, it is fixed by the style that knows its own text metrics.
+   */
+  labelSize?: { width: number; height: number };
+  /** The route the layout computed for the edge, when it was asked to (`LayoutConfig.routeEdges`). */
+  route?: EdgeRoute;
+}
+
+/** A point in flow coordinates. */
+export interface GraphPoint {
+  x: number;
+  y: number;
+}
+
+/**
+ * An edge's route as the layout computed it, in absolute flow coordinates:
+ * from the source's port to the target's, through every bend, and the box the
+ * layout placed its label in.
+ */
+export interface EdgeRoute {
+  points: GraphPoint[];
+  /** The label's box: its top-left corner and its size. Absent for an edge without a label. */
+  label?: { x: number; y: number; width: number; height: number };
 }
 
 export interface GraphData {
@@ -1072,6 +1216,19 @@ export interface GraphData {
 export interface LayoutConfig {
   nodesep?: number;
   ranksep?: number;
+  /**
+   * Route every edge around the nodes in its way, reserve room for the labels
+   * of the edges that carry a `labelSize`, and return each route on its edge
+   * (`GraphEdge.route`). Off by default: the detailed style draws its edges as
+   * free curves between their ends.
+   */
+  routeEdges?: boolean;
+  /**
+   * The room a group keeps around its children (a controller group, or a
+   * style's frame), before the deeper groups' scaling. Defaults to
+   * `CONTROLLER_PADDING_X`, `CONTROLLER_PADDING_TOP` and `CONTROLLER_PADDING_BOTTOM`.
+   */
+  groupPadding?: { x: number; top: number; bottom: number };
 }
 
 // Controller padding constants (shared between layout and controller modules)
