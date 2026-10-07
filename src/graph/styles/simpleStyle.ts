@@ -483,6 +483,25 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
   }
 
   // ── Where each value comes from, among the nodes drawn.
+  // A value no step writes is combined from others: a parallel's combined
+  // output, a batch's list of results, or the item a batch hands one branch.
+  // Indexed once, since a batch run has one such value per item.
+  const combinedFrom = new Map<string, string[]>();
+  for (const edge of graphspec.edges) {
+    const from = edge.source_stuff_digest;
+    const into = edge.target_stuff_digest;
+    if (!from || !into || from === into) continue;
+    if (
+      edge.kind !== "parallel_combine" &&
+      edge.kind !== "batch_aggregate" &&
+      edge.kind !== "batch_item"
+    ) {
+      continue;
+    }
+    const list = combinedFrom.get(into);
+    if (list) list.push(from);
+    else combinedFrom.set(into, [from]);
+  }
   const sourceMemo = new Map<string, string[]>();
   function sourcesOf(digest: string, visiting: Set<string> = new Set()): string[] {
     const memo = sourceMemo.get(digest);
@@ -505,19 +524,7 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
       }
     }
     if (producers.length === 0) {
-      // A value no step writes is combined from others: a parallel's combined
-      // output, a batch's list of results, or the item a batch hands one branch.
-      for (const edge of graphspec.edges) {
-        if (edge.target_stuff_digest !== digest || !edge.source_stuff_digest) continue;
-        if (edge.source_stuff_digest === digest) continue;
-        if (
-          edge.kind === "parallel_combine" ||
-          edge.kind === "batch_aggregate" ||
-          edge.kind === "batch_item"
-        ) {
-          found.push(...sourcesOf(edge.source_stuff_digest, visiting));
-        }
-      }
+      for (const from of combinedFrom.get(digest) ?? []) found.push(...sourcesOf(from, visiting));
     }
     visiting.delete(digest);
     const result = unique(found);
@@ -731,7 +738,9 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
   const runStatuses = new Map<string, PipeStatus[]>();
   for (const spec of graphspec.nodes) {
     const rep = repOf(spec.id);
-    runStatuses.set(rep, [...(runStatuses.get(rep) ?? []), spec.status]);
+    const statuses = runStatuses.get(rep);
+    if (statuses) statuses.push(spec.status);
+    else runStatuses.set(rep, [spec.status]);
   }
 
   /** A node's status; one drawn once for every batch item stands for all of its runs. */
