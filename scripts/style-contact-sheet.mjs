@@ -97,6 +97,9 @@ function metricRow(d, s) {
       `${px(d)} → ${px(s)}`,
       s.effectiveTitlePx >= LEGIBLE_PX ? "good" : "bad",
     ),
+    ...(s.smallestTitleFontPx < s.titleFontPx
+      ? [cell("Smallest title at fit view", `${s.effectiveSmallestTitlePx}px`)]
+      : []),
     cell("Overlaps", String(s.overlaps), s.overlaps === 0 ? "good" : "bad"),
     cell(
       "Identifiers drawn",

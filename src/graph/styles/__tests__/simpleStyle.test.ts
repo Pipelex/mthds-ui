@@ -22,6 +22,7 @@ import { reviewSpec } from "@graph/react/viewer/__stories__/styleReviewFixtures"
 import { sentenceCase } from "../humanize";
 import {
   SIMPLE_DECISION_WIDTHS,
+  SIMPLE_STEP_TITLE_FITS,
   SIMPLE_STEP_WIDE_WIDTH,
   SIMPLE_STEP_WIDTH,
   aggregateStatus,
@@ -31,6 +32,7 @@ import {
   simpleEdgeLabelSize,
   simpleStepSize,
   simpleTerminalSize,
+  simpleTitleFit,
 } from "../simpleStyle";
 import { layoutStyle, projectStyle } from "./styleTestUtils";
 
@@ -527,13 +529,57 @@ describe("the simple style's sizes", () => {
     expect(simpleStepSize("Short", { innerSteps: true }).height).toBeGreaterThan(one.height);
   });
 
-  it("widens a step only when the wider box saves its title", () => {
+  it("widens a step only for a title the wider box keeps whole at full size", () => {
     const saved = simpleStepSize("Combine all page summaries into one document summary");
     expect(saved.width).toBe(SIMPLE_STEP_WIDE_WIDTH);
-    const hopeless = simpleStepSize(
+    const longer = simpleStepSize(
       "Parse the RFP document into a structured list of individual requirements, each classified by category and priority",
     );
-    expect(hopeless.width).toBe(SIMPLE_STEP_WIDTH);
+    expect(longer.width).toBe(SIMPLE_STEP_WIDTH);
+  });
+
+  it("sets a longer title in smaller type rather than cutting it, down to the floor", () => {
+    const full = simpleTitleFit("Extract text from the CV");
+    expect(full.fit).toBe(SIMPLE_STEP_TITLE_FITS[0]);
+    const smaller = simpleTitleFit(
+      "Synthesize all individual capability assessments into an overall go/no-go qualification matrix",
+    );
+    expect(smaller.fit.fontPx).toBeLessThan(full.fit.fontPx);
+    expect(smaller.wrap.clamped).toBe(false);
+    const smallest = simpleTitleFit(
+      "Generate an executive summary that synthesizes the qualification matrix into an actionable recommendation for leadership",
+    );
+    expect(smallest.fit.fontPx).toBeLessThanOrEqual(smaller.fit.fontPx);
+    expect(smallest.wrap.clamped).toBe(false);
+  });
+
+  it("cuts a title too long for the floor, at the floor's lines", () => {
+    const floor = SIMPLE_STEP_TITLE_FITS[SIMPLE_STEP_TITLE_FITS.length - 1];
+    const cut = simpleTitleFit(
+      "Generate 5 tailored interview questions based on the candidate's CV and the job requirements. Questions should probe relevant experience, skills, and fit, focusing on key areas identified in the match analysis",
+    );
+    expect(cut.fit).toBe(floor);
+    expect(cut.wrap.clamped).toBe(true);
+    expect(cut.wrap.drawnLines).toBe(floor.maxLines);
+  });
+
+  it("only ever shrinks a title going down the fits, and gives it more lines", () => {
+    for (let i = 1; i < SIMPLE_STEP_TITLE_FITS.length; i++) {
+      const [before, after] = [SIMPLE_STEP_TITLE_FITS[i - 1], SIMPLE_STEP_TITLE_FITS[i]];
+      expect(after.fontPx).toBeLessThanOrEqual(before.fontPx);
+      if (after.fontPx < before.fontPx) expect(after.maxLines).toBeGreaterThan(before.maxLines);
+    }
+  });
+
+  it("draws each step with the fit its box was sized for", () => {
+    const { nodes } = projectStyle(reviewSpec("RFP_QUALIFIER", "static"), "simple");
+    const steps = ofKind(nodes, "step");
+    expect(steps.length).toBeGreaterThan(0);
+    for (const { node, simple } of steps) {
+      expect(simple.titleFit).toBe(simpleTitleFit(simple.title).fit);
+      expect(node.data.layoutSize?.width).toBe(simple.titleFit.boxWidth);
+    }
+    expect(new Set(steps.map((s) => s.simple.titleFit.fontPx)).size).toBeGreaterThan(1);
   });
 
   it("widens a decision for a longer question", () => {

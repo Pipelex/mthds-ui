@@ -267,19 +267,29 @@ export function countNodes(nodes: readonly GraphNode[]): NodeCounts {
   return counts;
 }
 
+/** A step title as drawn: the lines it needs at its fit, and the size and lines the fit gives it. */
+export interface StepTitleMeasure {
+  title: string;
+  lines: number;
+  maxLines: number;
+  fontPx: number;
+}
+
 export interface StyleMetrics {
   counts: NodeCounts;
   /** Canvas texts that read as code (R1), each with its offending words. */
   identifierTexts: { text: string; tokens: string[] }[];
-  /** The step titles estimated to wrap past three lines at the width they are drawn at (R3). */
-  overlongTitles: { title: string; lines: number }[];
-  /** The longest step title, and the lines it is estimated to wrap to. */
-  longestTitle: { title: string; lines: number } | null;
+  /** The step titles estimated to need more lines than the fit they are drawn at gives them, so cut (R3). */
+  cutTitles: StepTitleMeasure[];
+  /** The longest step title, and the lines it is estimated to wrap to at its fit. */
+  longestTitle: StepTitleMeasure | null;
+  /** The smallest font a step title is drawn at (R4 multiplies it by the fit-view zoom); null with no step. */
+  smallestTitlePx: number | null;
   overlaps: number;
   crossings: number;
   width: number;
   height: number;
-  /** The fit-view zoom at 1280 by 800 (R4 multiplies the title's font size by it). */
+  /** The fit-view zoom at 1280 by 800. */
   fitZoom: number;
 }
 
@@ -298,13 +308,14 @@ export function styleMetrics(
   const identifierTexts = simpleCanvasTexts(nodes, edges)
     .map((text) => ({ text, tokens: identifierTokens(text) }))
     .filter((t) => t.tokens.length > 0);
-  const titles = nodes
-    .filter((n) => n.data.simple?.kind === "step")
-    .map((n) => {
-      const title = n.data.simple?.title ?? "";
-      return { title, lines: simpleTitleWrap(title, n.data.layoutSize?.width).lines };
-    });
-  const longestTitle = titles.reduce<{ title: string; lines: number } | null>(
+  const titles: StepTitleMeasure[] = nodes.flatMap((n) => {
+    const step = n.data.simple;
+    if (step?.kind !== "step") return [];
+    const { title, titleFit } = step;
+    const { lines } = simpleTitleWrap(title, titleFit);
+    return [{ title, lines, maxLines: titleFit.maxLines, fontPx: titleFit.fontPx }];
+  });
+  const longestTitle = titles.reduce<StepTitleMeasure | null>(
     (longest, t) => (!longest || t.title.length > longest.title.length ? t : longest),
     null,
   );
@@ -312,8 +323,9 @@ export function styleMetrics(
   return {
     counts: countNodes(nodes),
     identifierTexts,
-    overlongTitles: titles.filter((t) => t.lines > 3),
+    cutTitles: titles.filter((t) => t.lines > t.maxLines),
     longestTitle,
+    smallestTitlePx: titles.length > 0 ? Math.min(...titles.map((t) => t.fontPx)) : null,
     overlaps: countOverlaps(nodes),
     crossings: countCrossings(nodes, edges, direction),
     width: box.width,

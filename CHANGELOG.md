@@ -1,5 +1,11 @@
 # Changelog
 
+## [v0.31.0] - 2026-10-08
+
+### Changed
+
+- **The simple style sets a long step title smaller before cutting it (Breaking)**: a title that does not fit its box at full size is set at 13 and then 12 pixels with more lines, so most authored descriptions now read whole, and only one too long for the 12-pixel floor is cut with an ellipsis, its full text in a tooltip and the detail panel. The sizes are `SIMPLE_STEP_TITLE_FITS`, the one a step is set at is `simpleTitleFit(title)` and rides on its payload as `titleFit`; `SIMPLE_STEP_TITLE_FONT_PX` and `SIMPLE_TITLE_MAX_LINES` are removed, and `simpleTitleWrap` takes a fit instead of a box width.
+
 ## [v0.30.1] - 2026-10-08
 
 ### Changed
