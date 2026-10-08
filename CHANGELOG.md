@@ -1,5 +1,11 @@
 # Changelog
 
+## [v0.30.1] - 2026-10-08
+
+### Changed
+
+- **Fixture regeneration uses the providers' own keys**: the repo-local `.pipelex/` configuration the fixture generator boots enables `openai`, `mistral` and `linkup` directly instead of routing through the retired Pipelex Gateway, so a DRY regeneration needs no key and a LIVE one needs `OPENAI_API_KEY`, `MISTRAL_API_KEY` and `LINKUP_API_KEY`. Nothing in the published package changes.
+
 ## [v0.30.0] - 2026-10-07
 
 ### Added
