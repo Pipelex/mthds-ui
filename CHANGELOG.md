@@ -5,6 +5,7 @@
 ### Changed
 
 - **Fixture regeneration uses the providers' own keys**: the repo-local `.pipelex/` configuration the fixture generator boots enables `openai`, `mistral` and `linkup` directly instead of routing through the retired Pipelex Gateway, so a DRY regeneration needs no key and a LIVE one needs `OPENAI_API_KEY`, `MISTRAL_API_KEY` and `LINKUP_API_KEY`. Nothing in the published package changes.
+- **`@pipelex/mthds-form` 0.14.1**: the dependency's range moves from `^0.14.0` to `^0.14.1`. That release changes only one of its story bundles and nothing in its published package, so the form controls behave as before.
 
 ## [v0.30.0] - 2026-10-07
 
