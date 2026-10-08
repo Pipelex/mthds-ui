@@ -6,6 +6,14 @@
 
 - **The simple style sets a long step title smaller before cutting it (Breaking)**: a title that does not fit its box at full size is set at 13 and then 12 pixels with more lines, so most authored descriptions now read whole, and only one too long for the 12-pixel floor is cut with an ellipsis, its full text in a tooltip and the detail panel. The sizes are `SIMPLE_STEP_TITLE_FITS`, the one a step is set at is `simpleTitleFit(title)` and rides on its payload as `titleFit`; `SIMPLE_STEP_TITLE_FONT_PX` and `SIMPLE_TITLE_MAX_LINES` are removed, and `simpleTitleWrap` takes a fit instead of a box width.
 
+## [v0.30.1] - 2026-10-08
+
+### Changed
+
+- **Fixture regeneration uses the providers' own keys**: the repo-local `.pipelex/` configuration the fixture generator boots enables `openai`, `mistral` and `linkup` directly instead of routing through the retired Pipelex Gateway, so a DRY regeneration needs no key and a LIVE one needs `OPENAI_API_KEY`, `MISTRAL_API_KEY` and `LINKUP_API_KEY`. Nothing in the published package changes.
+
+- **`@pipelex/mthds-form` 0.14.1**: the dependency's range moves from `^0.14.0` to `^0.14.1`. That release changes only one of its story bundles and nothing in its published package, so the form controls behave as before.
+
 ## [v0.30.0] - 2026-10-07
 
 ### Added
