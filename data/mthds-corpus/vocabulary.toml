@@ -11,8 +11,8 @@
 # expects a diagnostic on exactly the `schema` entries and none on the others.
 #
 # This file ships in the pipelex wheel, so it names a document its readers can reach:
-# https://docs.pipelex.com/contribute/mthds-test-corpus/ — which in turn points at the
-# cross-repo contract, `docs/specs/mthds-test-corpus.md` in the Pipelex workspace repo.
+# https://docs.pipelex.com/contribute/mthds-test-corpus/, which states the contract the corpus's
+# consumers are written against.
 
 [native.dynamic]
 code = "Dynamic"
@@ -131,6 +131,10 @@ fails_at = "runtime"
 [error.llm_output_cannot_be_image]
 code = "llm_output_cannot_be_image"
 fails_at = "runtime"
+
+[error.llm_setting_refused_by_model]
+code = "llm_setting_refused_by_model"
+excluded = "It refuses a model setting the model it resolves to refuses, such as reasoning on a model that does not think, so the bundle that produces it must name a model the deck defines with that particular capability. The corpus rule that an entry names no model forbids exactly that: whether a model takes a setting is a fact of each consumer's deck, not of the language. Revisit if the corpus ever grows a deck axis."
 
 [error.invalid_pipe_code_syntax]
 code = "invalid_pipe_code_syntax"
