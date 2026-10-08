@@ -1074,12 +1074,26 @@ export const STEP_CATEGORY = {
 
 export type StepCategory = (typeof STEP_CATEGORY)[keyof typeof STEP_CATEGORY];
 
+/**
+ * How a step's title is set: the box width and the type the layout sized the
+ * step for, which the drawing must use for the two to agree.
+ */
+export interface SimpleTitleFit {
+  boxWidth: number;
+  fontPx: number;
+  lineHeightPx: number;
+  /** The lines the title may take; a title needing more is cut with an ellipsis. */
+  maxLines: number;
+}
+
 /** What one node of the simple style says, discriminated on `kind`. All text is plain, never an identifier. */
 export type SimpleNodePayload =
   | {
       kind: "step";
       /** The pipe's authored description, or its humanized code when it has none. */
       title: string;
+      /** The size the title is set at: one rung of `SIMPLE_STEP_TITLE_FITS`. */
+      titleFit: SimpleTitleFit;
       category: StepCategory;
       status: PipeStatus;
       graphMode?: GraphSpecMode;

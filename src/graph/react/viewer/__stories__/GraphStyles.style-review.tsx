@@ -134,8 +134,8 @@ function overlapCount(target: HTMLElement): number {
 
 /**
  * The texts of the simple style drawn shorter than they are: cut by a line
- * clamp (a description past three lines, which keeps its tooltip) or by a box
- * the layout sized too small (a metrics bug).
+ * clamp (a description too long even for the smallest title size, which keeps
+ * its tooltip) or by a box the layout sized too small (a metrics bug).
  */
 function clippedTexts(target: HTMLElement): { text: string; shown: number; needed: number }[] {
   return Array.from(
@@ -158,8 +158,12 @@ function clippedTexts(target: HTMLElement): { text: string; shown: number; neede
 function measure(target: HTMLElement, c: Capture) {
   const zoom = viewportZoom(target);
   const titleSelector = c.graphStyle === "simple" ? ".simple-step-title" : ".pipe-card-code";
-  const titleEl = target.querySelector<HTMLElement>(titleSelector);
-  const titleFontPx = titleEl ? parseFloat(getComputedStyle(titleEl).fontSize) : NaN;
+  // A long title is set smaller than the others, so report the full size and the smallest.
+  const titleSizes = Array.from(target.querySelectorAll<HTMLElement>(titleSelector)).map((el) =>
+    parseFloat(getComputedStyle(el).fontSize),
+  );
+  const titleFontPx = titleSizes.length > 0 ? Math.max(...titleSizes) : NaN;
+  const smallestTitleFontPx = titleSizes.length > 0 ? Math.min(...titleSizes) : NaN;
   const texts = Array.from(
     target.querySelectorAll<HTMLElement>(".react-flow__node, .react-flow__edge-text"),
   )
@@ -179,6 +183,8 @@ function measure(target: HTMLElement, c: Capture) {
     zoom,
     titleFontPx,
     effectiveTitlePx: Math.round(titleFontPx * zoom * 10) / 10,
+    smallestTitleFontPx,
+    effectiveSmallestTitlePx: Math.round(smallestTitleFontPx * zoom * 10) / 10,
     nodes: classCount(".react-flow__node"),
     steps: classCount(".react-flow__node-simpleStep") + classCount(".react-flow__node-pipeCard"),
     data: classCount(".react-flow__node-simpleTerminal") + classCount(".react-flow__node-default"),

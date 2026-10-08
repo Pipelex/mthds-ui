@@ -31,6 +31,7 @@ import type {
   NodePipeType,
   PipeStatus,
   SimpleNodePayload,
+  SimpleTitleFit,
   StepCategory,
 } from "@graph/types";
 import {
@@ -59,7 +60,7 @@ import {
   sentenceCase,
   stripDomain,
 } from "./humanize";
-import { estimateWrap, textWidthPx } from "./textMetrics";
+import { estimateWrap, textWidthPx, type WrapEstimate } from "./textMetrics";
 
 /** The domain of the concepts the standard defines, as a spec's concept registry records them. */
 const NATIVE_DOMAIN = "native";
@@ -70,9 +71,9 @@ const NATIVE_DOMAIN = "native";
 
 export const SIMPLE_STEP_WIDTH = 160;
 /**
- * The wider box a step takes when its title would need more lines than
- * `SIMPLE_TITLE_MAX_LINES` at `SIMPLE_STEP_WIDTH` and fits them at this one:
- * one step of width, not a box per title, so a column of steps keeps its rhythm.
+ * The wider box a step takes when its title fits it whole at full size and
+ * not the narrow one: one step of width, not a box per title, so a column of
+ * steps keeps its rhythm.
  */
 export const SIMPLE_STEP_WIDE_WIDTH = 200;
 const STEP_PADDING_X = 12;
@@ -80,9 +81,24 @@ const STEP_PADDING_Y = 10;
 const STEP_BORDER = 1.5;
 const STEP_HEADER_HEIGHT = 16;
 const STEP_GAP = 6;
-export const SIMPLE_STEP_TITLE_FONT_PX = 15;
-const STEP_TITLE_LINE_HEIGHT = 20;
-export const SIMPLE_TITLE_MAX_LINES = 3;
+/**
+ * The ways a step title may be set, in order of preference: a title takes the
+ * first it fits whole in. Full size in the narrow box, then in the wide one,
+ * then smaller type back in the narrow box, with more lines at each size down,
+ * so a long description is read rather than cut. Smaller type stays narrow
+ * because the drawing's width is what fit view scales by: a left-to-right
+ * method of wide boxes would shrink every title on the canvas, not only the
+ * long one. The last is the floor: a title too long even for it is set there
+ * all the same and cut with an ellipsis, its full text in a tooltip and in the
+ * detail panel. The drawing sets each title from the fit its payload carries,
+ * so the stylesheet holds no copy of these.
+ */
+export const SIMPLE_STEP_TITLE_FITS: readonly SimpleTitleFit[] = [
+  { boxWidth: SIMPLE_STEP_WIDTH, fontPx: 15, lineHeightPx: 20, maxLines: 3 },
+  { boxWidth: SIMPLE_STEP_WIDE_WIDTH, fontPx: 15, lineHeightPx: 20, maxLines: 3 },
+  { boxWidth: SIMPLE_STEP_WIDTH, fontPx: 13, lineHeightPx: 17, maxLines: 5 },
+  { boxWidth: SIMPLE_STEP_WIDTH, fontPx: 12, lineHeightPx: 16, maxLines: 7 },
+];
 const STEP_MARKER_HEIGHT = 18;
 const STEP_INNER_HEIGHT = 22;
 
@@ -104,12 +120,13 @@ const TERMINAL_MIN_HEIGHT = 52;
 
 /**
  * The widths a decision diamond may take, narrowest first: it takes the first
- * at which its text fits in `SIMPLE_TITLE_MAX_LINES`, so a long question
+ * at which its text fits in `DECISION_TITLE_MAX_LINES`, so a long question
  * widens the diamond rather than losing its end.
  */
 export const SIMPLE_DECISION_WIDTHS: readonly number[] = [188, 220, 252, 284];
 const DECISION_TITLE_FONT_PX = 13;
 const DECISION_TITLE_LINE_HEIGHT = 16;
+const DECISION_TITLE_MAX_LINES = 3;
 /**
  * The share of a diamond's width its text may use. A centered rectangle fits
  * in a rhombus when its width and height shares sum to at most one, so the
@@ -190,30 +207,33 @@ export const STEP_CATEGORY_WORDS: Record<StepCategory, string> = {
 
 // ─── Sizes ──────────────────────────────────────────────────────────────────
 
-/** The size of a step box for its title and markers. */
+/**
+ * The fit a step title is set at: the first of `SIMPLE_STEP_TITLE_FITS` it
+ * fits whole in, or the floor, where it is cut.
+ */
+export function simpleTitleFit(title: string): { fit: SimpleTitleFit; wrap: WrapEstimate } {
+  for (const fit of SIMPLE_STEP_TITLE_FITS) {
+    const wrap = simpleTitleWrap(title, fit);
+    if (!wrap.clamped) return { fit, wrap };
+  }
+  const floor = SIMPLE_STEP_TITLE_FITS[SIMPLE_STEP_TITLE_FITS.length - 1];
+  return { fit: floor, wrap: simpleTitleWrap(title, floor) };
+}
+
+/** The size of a step box for its title's fit and its markers. */
 export function simpleStepSize(
   title: string,
   options: { forEach?: boolean; innerSteps?: boolean } = {},
 ): { width: number; height: number } {
-  let width = SIMPLE_STEP_WIDTH;
-  let wrap = simpleTitleWrap(title);
-  if (wrap.clamped) {
-    const wide = simpleTitleWrap(title, SIMPLE_STEP_WIDE_WIDTH);
-    // Only a title the wider box saves takes it: one cut either way is cut
-    // at the narrow width, which keeps the drawing compact.
-    if (!wide.clamped) {
-      width = SIMPLE_STEP_WIDE_WIDTH;
-      wrap = wide;
-    }
-  }
+  const { fit, wrap } = simpleTitleFit(title);
   let height =
     2 * STEP_PADDING_Y +
     STEP_HEADER_HEIGHT +
     STEP_GAP +
-    Math.max(1, wrap.drawnLines) * STEP_TITLE_LINE_HEIGHT;
+    Math.max(1, wrap.drawnLines) * fit.lineHeightPx;
   if (options.forEach) height += STEP_GAP + STEP_MARKER_HEIGHT;
   if (options.innerSteps) height += STEP_GAP + STEP_INNER_HEIGHT;
-  return { width, height: Math.ceil(height + 2 * STEP_BORDER) };
+  return { width: fit.boxWidth, height: Math.ceil(height + 2 * STEP_BORDER) };
 }
 
 /** The size of an input or output's document shape. */
@@ -246,7 +266,7 @@ export function simpleDecisionSize(title: string): { width: number; height: numb
     title,
     decisionTextWidth(width),
     DECISION_TITLE_FONT_PX,
-    SIMPLE_TITLE_MAX_LINES,
+    DECISION_TITLE_MAX_LINES,
   );
   for (const candidate of SIMPLE_DECISION_WIDTHS.slice(1)) {
     if (!wrap.clamped) break;
@@ -255,7 +275,7 @@ export function simpleDecisionSize(title: string): { width: number; height: numb
       title,
       decisionTextWidth(width),
       DECISION_TITLE_FONT_PX,
-      SIMPLE_TITLE_MAX_LINES,
+      DECISION_TITLE_MAX_LINES,
     );
   }
   const textHeight = Math.max(1, wrap.drawnLines) * DECISION_TITLE_LINE_HEIGHT;
@@ -264,16 +284,11 @@ export function simpleDecisionSize(title: string): { width: number; height: numb
 }
 
 /**
- * How a step title wraps in a box of a width (the default box unless given):
- * what the readability rubric checks, at the width the step is drawn at.
+ * How a step title wraps at a fit: what the readability rubric checks, at the
+ * fit the step is drawn at.
  */
-export function simpleTitleWrap(title: string, boxWidth: number = SIMPLE_STEP_WIDTH) {
-  return estimateWrap(
-    title,
-    stepTitleWidth(boxWidth),
-    SIMPLE_STEP_TITLE_FONT_PX,
-    SIMPLE_TITLE_MAX_LINES,
-  );
+export function simpleTitleWrap(title: string, fit: SimpleTitleFit): WrapEstimate {
+  return estimateWrap(title, stepTitleWidth(fit.boxWidth), fit.fontPx, fit.maxLines);
 }
 
 // ─── Status ─────────────────────────────────────────────────────────────────
@@ -901,6 +916,7 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
       const simple: SimpleNodePayload = {
         kind: "step",
         title,
+        titleFit: simpleTitleFit(title).fit,
         category: STEP_CATEGORY_BY_PIPE_TYPE[pipeType],
         status: stepStatus(spec),
         ...(graphMode !== undefined ? { graphMode } : {}),
