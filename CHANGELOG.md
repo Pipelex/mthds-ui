@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- **The vendored MTHDS Test Corpus**: `data/mthds-corpus/` is copied from pipelex v0.78.0. Its vocabulary now points readers at the public corpus page alone, and it declares the `llm_setting_refused_by_model` error as one the corpus leaves out, since which settings a model takes depends on each consumer's model deck. No entry changes, so the static sweeps build the same methods as before.
+
 ## [v0.31.0] - 2026-10-08
 
 ### Changed
