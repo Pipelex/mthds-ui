@@ -102,6 +102,14 @@ export function formatCost(cost: number): string {
 }
 
 /**
+ * The model types whose usage records carry the tokens the provider billed: an LLM
+ * call, and a judgment call, whose worker records the input and output tokens the
+ * judgment API reports. A type missing from this set is read as billed per request,
+ * which hides its tokens rather than printing a request counter as a measurement.
+ */
+const TOKEN_BILLED_MODEL_TYPES: ReadonlySet<string> = new Set(["llm", "judgment"]);
+
+/**
  * Whether this scope's token counts are real measurements.
  *
  * True only when every model that ran is token-billed. Anything else is billed per
@@ -110,5 +118,8 @@ export function formatCost(cost: number): string {
  * measurement with a request counter, and must not be displayed either.
  */
 export function hasRealTokenCounts(scoped: ScopedUsage): boolean {
-  return scoped.models.length > 0 && scoped.models.every((entry) => entry.model_type === "llm");
+  return (
+    scoped.models.length > 0 &&
+    scoped.models.every((entry) => TOKEN_BILLED_MODEL_TYPES.has(entry.model_type))
+  );
 }

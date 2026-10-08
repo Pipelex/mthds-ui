@@ -226,12 +226,15 @@ export interface GraphSpecModelUsage {
   inference_model_name: string;
   inference_model_id: string;
   /**
-   * Kind of inference: `"llm"`, `"img_gen"`, `"extract"`, `"search"`. Open set.
+   * Kind of inference: `"llm"`, `"judgment"`, `"img_gen"`, `"extract"`, `"search"`.
+   * Open set. pipelex counts a model per model type and name, so one name can appear
+   * twice in a `by_model` list, once per type it ran as.
    *
-   * The discriminator to check before displaying token counts: everything except
-   * `"llm"` is billed PER REQUEST, and pipelex encodes that price by putting
-   * `1_000_000` in each token category (rates are per-million), so those "tokens"
-   * are a scaled request counter rather than a measurement.
+   * The discriminator to check before displaying token counts: `"llm"` and
+   * `"judgment"` report the tokens they were billed for, while the rest are billed
+   * PER REQUEST, and pipelex encodes that price by putting `1_000_000` in each token
+   * category (rates are per-million), so those "tokens" are a scaled request counter
+   * rather than a measurement. `hasRealTokenCounts` in `usageFormat.ts` holds the list.
    */
   model_type: string;
   inference_calls: number;

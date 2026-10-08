@@ -126,9 +126,9 @@ function extraCategories(nbTokensByCategory: Record<string, number>): [string, n
  * Token rows are gated on `hasRealTokenCounts` — every model in this scope being
  * token-billed — rather than on the node's pipe type. That is the difference between
  * a heuristic and the actual discriminator: it gets a controller's branch right too,
- * showing tokens for an all-LLM branch and hiding them the moment an extract or a
- * search joins it and turns the total into a blend of measurement and request
- * counter. The costs stay in either case: a price is a price.
+ * showing tokens for a branch of LLM and judgment calls and hiding them the moment an
+ * extract or a search joins it and turns the total into a blend of measurement and
+ * request counter. The costs stay in either case: a price is a price.
  */
 function UsageColumn({ scoped, label }: { scoped: ScopedUsage; label: string }) {
   const showsTokens = hasRealTokenCounts(scoped);
