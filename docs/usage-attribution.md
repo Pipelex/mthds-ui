@@ -49,19 +49,19 @@ Some hosts drop `null` values from the JSON they relay. ChatGPT does, on the way
 
 Code downstream therefore always sees `null`, never `undefined`, for an unrated cost. The pipe and concept registries are not validated, so their nullable fields do arrive absent from such a host, and `src/graph/types.ts` declares every one of them optional as well as nullable (`field?: T | null`): a strict `!== null` test followed by a use of the value then fails to compile instead of throwing at run time. `src/graph/__tests__/nullDroppingHost.test.ts` relays every committed pipelex spec through a null-dropping pass and requires the same usage, the same built graph and the same detail panels as the original.
 
-## Why no token counts anywhere
+## Which token counts are shown
 
-`GraphSpecNodeUsage` carries token figures and this repo renders none of them. That is deliberate.
+`GraphSpecNodeUsage` carries token figures for every model type, and most of them are not token counts.
 
-Extract, search and image generation are billed **per request**, and pipelex encodes that price through the token field: rates are configured per million tokens, so putting exactly `1_000_000` in each category makes `1_000_000 x rate/1e6` reproduce the per-request price verbatim (`linkup_extract_worker.py` and `linkup_search_worker.py` say so in a comment, and `extract_worker_abstract.py` applies it per page to every extract model that reports no usage of its own). A one-page extract therefore reports **2,000,000 "tokens"**, which is a scaled request counter, not a measurement.
+Extract, search and image generation are billed **per request**, and pipelex encodes that price through the token field: rates are configured per million tokens, so putting exactly `1_000_000` in each category makes `1_000_000 x rate/1e6` reproduce the per-request price verbatim (`linkup_extract_worker.py` and `linkup_search_worker.py` say so in a comment, and `extract_worker_abstract.py` applies it per page to every extract model that reports no usage of its own). A one-page extract therefore reports **2,000,000 "tokens"**, which is a scaled request counter, not a measurement. An LLM call and a judgment call record the tokens the provider reports billing, which are real.
 
-It does not stay contained: a controller's `subtree_total_tokens` sums those sentinels together with real LLM tokens, so no token figure is trustworthy at any level of a graph. `cost` is the number that survives the encoding, so cost is the only thing shown. The warning lives on `ScopedUsage` in `usageFormat.ts` so the next person does not render them.
+It does not stay contained: a controller's `subtree_total_tokens` sums those sentinels together with real LLM tokens, so a total is only a measurement when every model under it is token-billed. `hasRealTokenCounts` in `usageFormat.ts` is that test, keyed on each `by_model` entry's `model_type` rather than on the pipe type, and the usage details show token rows only where it holds; `cost` survives the encoding, so cost is shown in every case. A model type it does not know counts as billed per request, which hides its tokens rather than printing a request counter as a measurement. The warning lives on `ScopedUsage` in `usageFormat.ts` so the next person does not render them unguarded.
 
-(There is also a subtler rule that would apply if tokens were ever shown: **never sum `nb_tokens_by_category`** — `input_cached` is a subset of `input`, not additive.)
+**Never sum `nb_tokens_by_category`**: `input_cached` is a subset of `input`, not additive, which is why the total row reads `total_tokens`.
 
 ## Which model actually ran
 
-A GraphSpec names a model at three rungs of one ladder, and the panel used to show whichever it happened to have under a single `Model` label:
+A GraphSpec names a model at three rungs of one ladder:
 
 | Rung                  | Where                                   | Example                                   |
 | --------------------- | --------------------------------------- | ----------------------------------------- |
@@ -69,9 +69,11 @@ A GraphSpec names a model at three rungs of one ladder, and the panel used to sh
 | Requested handle      | `execution_data.resolved_model`         | `@default-premium` — often still an alias |
 | **What actually ran** | `usage.by_model[].inference_model_name` | `claude-4.6-sonnet`                       |
 
-`ModelRows` (in `sections/shared.tsx`) shows the bottom rung as `Model`, and adds a `Requested` row **only when the handle differs** — so a pipe that named its model directly gets one row, not two identical ones. When a node used several models (a `PipeLLM`'s text pass and object pass resolve separately) each gets a row with its call count, since collapsing them would put one model's name on another's work.
+`ModelRows` (in `sections/shared.tsx`) shows them as one `Model` row, top to bottom: the authored choice, then the handle, then every model that ran. The requested rungs collapse when they repeat, so a pipe that named its model directly reads as one line, and a handle that is already concrete merges into the one model that ran under it. The models that ran never collapse. When a node used several (a `PipeLLM`'s text pass and object pass resolve separately), each gets a line with its call count, since collapsing them would put one model's name on another's work.
 
-With no usage collected — a dry or static graph — it falls back to the requested handle alone, which is all such a graph can honestly claim.
+pipelex counts a model per model type and name, because a handle names one model per type, so one name can run twice on a node: `gpt-6-luna` as an LLM and as a judgment model. Those two lines carry their model type, `gpt-6-luna · LLM (1)` and `gpt-6-luna · judgment (1)`, or they would print alike and read as one. A name that ran as one type only carries none.
+
+With no usage collected — a dry or static graph — the row ends at the requested handle, which is all such a graph can honestly claim.
 
 ## Own vs subtree
 

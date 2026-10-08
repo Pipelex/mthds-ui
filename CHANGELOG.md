@@ -6,6 +6,12 @@
 
 - **The vendored MTHDS Test Corpus**: `data/mthds-corpus/` is copied from pipelex v0.78.0. Its vocabulary now points readers at the public corpus page alone, and it declares the `llm_setting_refused_by_model` error as one the corpus leaves out, since which settings a model takes depends on each consumer's model deck. No entry changes, so the static sweeps build the same methods as before.
 
+### Fixed
+
+- **The detail panel's Model row names the model type of a shared name**: when a node ran one model name as two model types, such as `gpt-6-luna` as an LLM and as a judgment model, each line now carries its type (`gpt-6-luna · LLM (1)`, `gpt-6-luna · judgment (1)`) instead of the two merging into one line when their call counts matched. Only the requested rungs above them still collapse when they repeat.
+
+- **Judgment models' token counts are shown**: `hasRealTokenCounts` counts a `judgment` model as token-billed beside an `llm` one, since pipelex records the tokens a judgment call was billed for, so the usage details show token rows for a node or branch made of LLM and judgment calls.
+
 ## [v0.31.0] - 2026-10-08
 
 ### Changed
