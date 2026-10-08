@@ -127,15 +127,14 @@
   margin-left: 0;
 }
 
+/* Its size, line height and line count are set inline, from the fit the */
+/* projection chose for it (`SIMPLE_STEP_TITLE_FITS`).                    */
 .simple-step-title {
-  font-size: 15px;
   font-weight: 500;
-  line-height: 20px;
   color: var(--text-primary);
   overflow: hidden;
   overflow-wrap: anywhere;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 }
 .simple-step--template .simple-step-title,

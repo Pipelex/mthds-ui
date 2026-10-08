@@ -255,7 +255,15 @@ export function SimpleStepNode({ data, sourcePosition, targetPosition }: SimpleR
           <StatusMark status={step.status} graphMode={step.graphMode} />
           <ValidationMark validation={data.validation} onClick={data.onValidationBadgeClick} />
         </div>
-        <div className="simple-step-title" title={step.title}>
+        <div
+          className="simple-step-title"
+          title={step.title}
+          style={{
+            fontSize: step.titleFit.fontPx,
+            lineHeight: `${step.titleFit.lineHeightPx}px`,
+            WebkitLineClamp: step.titleFit.maxLines,
+          }}
+        >
           {step.title}
         </div>
         {step.forEach && (

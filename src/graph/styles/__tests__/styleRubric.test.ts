@@ -5,7 +5,7 @@ import {
   reviewSpec,
   type ReviewFixtureId,
 } from "@graph/react/viewer/__stories__/styleReviewFixtures";
-import { SIMPLE_STEP_TITLE_FONT_PX } from "../simpleStyle";
+import { SIMPLE_STEP_TITLE_FITS } from "../simpleStyle";
 import { styleMetrics, type StyleMetrics } from "../styleMetrics";
 import { layoutStyle } from "./styleTestUtils";
 
@@ -23,11 +23,18 @@ const SAME_NODE_COUNT: readonly ReviewFixtureId[] = [
   "SIMPLE_CONDITION",
 ];
 
-/** Fixtures whose authored descriptions run past three lines: cut with a tooltip, by design. */
-const LONG_DESCRIPTIONS: readonly ReviewFixtureId[] = ["CV_BATCH_SCREENING", "RFP_QUALIFIER"];
+/** Fixtures with an authored description too long even for the smallest title fit: cut with a tooltip, by design. */
+const LONG_DESCRIPTIONS: readonly ReviewFixtureId[] = ["CV_BATCH_SCREENING"];
 
-/** The legibility floor at fit view, in pixels, for a step title (R4). */
+/** The legibility floor at fit view, in pixels, for a step title set at full size (R4). */
 const MIN_EFFECTIVE_TITLE_PX = 11;
+
+/**
+ * The lower floor at fit view, in pixels, for a long title set smaller than full size (R4).
+ * It sits above what the full-size floor already implies for the smallest fit (11 × 12 / 15,
+ * 8.8 pixels), so a smaller fit added to `SIMPLE_STEP_TITLE_FITS` fails here instead of passing.
+ */
+const MIN_EFFECTIVE_SMALL_TITLE_PX = 9;
 
 async function measure(id: ReviewFixtureId, style: GraphStyleId): Promise<StyleMetrics> {
   const { nodes, edges, controllerPositions } = await layoutStyle(reviewSpec(id, "static"), style);
@@ -56,18 +63,23 @@ describe.each(REVIEW_FIXTURE_IDS)("the review rubric on %s", (id) => {
     }
   });
 
-  it("R3: titles every step in at most three lines, unless its author wrote more", () => {
+  it("R3: sets every step title whole, unless its author wrote more than the smallest fit holds", () => {
     if (LONG_DESCRIPTIONS.includes(id)) {
-      expect(simple.overlongTitles.length).toBeGreaterThan(0);
+      expect(simple.cutTitles.length).toBeGreaterThan(0);
     } else {
-      expect(simple.overlongTitles).toEqual([]);
+      expect(simple.cutTitles).toEqual([]);
     }
   });
 
+  // A long title set smaller than full size falls below the full-size bar at fit
+  // view by design, and is held to the lower one instead.
   it("R4: keeps step titles legible at fit view", () => {
-    expect(simple.fitZoom * SIMPLE_STEP_TITLE_FONT_PX).toBeGreaterThanOrEqual(
+    expect(simple.fitZoom * SIMPLE_STEP_TITLE_FITS[0].fontPx).toBeGreaterThanOrEqual(
       MIN_EFFECTIVE_TITLE_PX,
     );
+    // A drawing with no step has no smaller title: full size stands in.
+    const smallestTitlePx = simple.smallestTitlePx ?? SIMPLE_STEP_TITLE_FITS[0].fontPx;
+    expect(simple.fitZoom * smallestTitlePx).toBeGreaterThanOrEqual(MIN_EFFECTIVE_SMALL_TITLE_PX);
   });
 
   it("R5: overlaps nothing and crosses no more arrows than the detailed style", () => {
