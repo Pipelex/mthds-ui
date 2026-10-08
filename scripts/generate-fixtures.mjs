@@ -35,7 +35,9 @@
  *   node scripts/generate-fixtures.mjs --check                    run + validate, write nothing
  *
  * DRY runs use --dry-run --mock-inputs (no inference, so zero tokens and no cost).
- * LIVE runs perform real inference and need pipelex credentials available.
+ * LIVE runs perform real inference and need a key for each backend .pipelex/ enables;
+ * DRY runs need none: pipelex 0.75.0 and later boot a dry run without credentials
+ * and still load every enabled backend with its models.
  * Both resolve config from the repo-local .pipelex/ directory.
  * --check is a smoke test: useful with --live --only to confirm the live path
  * works before committing to a full regeneration. It is rejected with
