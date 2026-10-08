@@ -26,7 +26,8 @@ export interface ScopedUsage {
   inferenceCalls: number;
   ratedInferenceCalls: number;
   /**
-   * ⚠ NOT a token count for every pipe type — do not render these.
+   * ⚠ NOT a token count for every pipe type — never render these unless
+   * `hasRealTokenCounts` holds for this scope.
    *
    * Extract, search and image generation are billed per request, and pipelex
    * encodes that price by putting exactly `1_000_000` in each token category:
@@ -34,12 +35,13 @@ export interface ScopedUsage {
    * price exactly (see `linkup_extract_worker.py`, `extract_worker_abstract.py`).
    * A one-page extract therefore reports 2,000,000 "tokens".
    *
-   * A controller's subtree total sums those sentinels with real LLM tokens, so
-   * no token figure is trustworthy at any level of a graph. `cost` is the number
-   * that survives the encoding; these are carried for completeness only.
+   * A controller's subtree total sums those sentinels with real tokens, so a
+   * figure is a measurement only when every model under it is token-billed,
+   * which is what `hasRealTokenCounts` tests. `cost` survives the encoding and
+   * is shown either way.
    */
   nbTokensByCategory: Record<string, number>;
-  /** ⚠ See `nbTokensByCategory` — not a token count for every pipe type. */
+  /** ⚠ See `nbTokensByCategory` — rendered only where `hasRealTokenCounts` holds. */
   totalTokens: number;
   cost: number | null;
   costInput: number | null;
