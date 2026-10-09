@@ -67,12 +67,18 @@ function stringArrayOrNull(value: unknown): string[] | null {
 
 /**
  * A plain name (`^[a-z][a-z0-9_]*$` in the schema): the grammar of an input
- * name, and of a binding step's `result`, since a later step reads the bound
- * value through its inputs. It has no dot, so a name never reaches into a
- * field, and no leading underscore, which keeps the reserved private prefix
- * out of an author's reach.
+ * name, and of every name a step stores a value under, since a later step
+ * reads the stored value through its inputs. It has no dot, so a name never
+ * reaches into a field, and no leading underscore, which keeps the reserved
+ * private prefix out of an author's reach.
  */
 const PLAIN_NAME_RE = /^[a-z][a-z0-9_]*$/;
+
+/**
+ * The prefix of the private name a sequence binds a dotted `batch_over`'s list
+ * under — the runtime's own, reserved so no name an author writes takes it.
+ */
+export const PRIVATE_BINDING_NAME_PREFIX = "_bound_";
 
 /** The binding step that hands the field a dotted path reaches to a pipe under a plain name. */
 function bindingStepFor(dottedPath: string): string {
@@ -90,13 +96,130 @@ function dottedInputNameRemedy(dottedName: string): string {
   );
 }
 
+/** Whether a name reads as a root followed by field names (`invoice.total`), each segment a plain name. */
+function isDottedFieldPath(name: string): boolean {
+  const segments = name.split(".");
+  return segments.length > 1 && segments.every((segment) => PLAIN_NAME_RE.test(segment));
+}
+
 /** Why an input name breaking the plain-name grammar is refused. */
 function invalidInputNameReason(name: string): string {
-  const segments = name.split(".");
-  if (segments.length > 1 && segments.every((segment) => PLAIN_NAME_RE.test(segment))) {
+  if (isDottedFieldPath(name)) {
     return `is not a plain input name: ${dottedInputNameRemedy(name)}`;
   }
   return "is not a plain input name, which is a lowercase letter followed by lowercase letters, digits and underscores";
+}
+
+/**
+ * Report a stored name that breaks the plain-name grammar. A stored name is one
+ * a step stores a value under in working memory — a pipe step's or a parallel
+ * branch's `result`, the `batch_as` of either, a PipeBatch's `input_item_name` —
+ * for a later pipe to read through an input, so the runtime refuses any name
+ * but a plain one with `invalid_input_name`, the reserved prefix among them.
+ * Unlike an input, the name belongs to a step that still runs a pipe the graph
+ * has to show, so it is reported and drawn as written rather than skipped. A
+ * binding step's `result` is a stored name too, refused as a malformed binding
+ * step instead (`normalizeBindingStep`).
+ *
+ * `storedUnder` says what the step stores under the name, phrased to end on
+ * "under": `sub-pipe "write_label" stores its result under`.
+ */
+function reportInvalidStoredName(
+  name: string | null,
+  storedUnder: string,
+  pipeCode: string,
+  path: string,
+  ctx: NormalizePipeContext,
+): void {
+  if (name === null || PLAIN_NAME_RE.test(name)) return;
+  let why: string;
+  if (name.startsWith(PRIVATE_BINDING_NAME_PREFIX)) {
+    why = `and the prefix "${PRIVATE_BINDING_NAME_PREFIX}" is reserved for the runtime's own names`;
+  } else if (name.includes(".")) {
+    why = "and an input names one whole value, so its name cannot reach into a field with a dot";
+  } else {
+    why =
+      "and an input name is a lowercase letter followed by lowercase letters, digits and underscores";
+  }
+  ctx.diagnostics.push({
+    severity: "warning",
+    code: "invalid-input-name",
+    message:
+      `pipe "${pipeCode}": ${storedUnder} "${name}", which is not a plain input name: ` +
+      `a pipe reads the value through an input, ${why} — drawn as written`,
+    path,
+  });
+}
+
+/**
+ * Report a PipeBatch's `input_list_name` that breaks the plain-name grammar.
+ * The list is one of the batch's own inputs, so its name is a plain input name
+ * and never a dotted path into a field: the runtime refuses any other with
+ * `invalid_input_name` (`check_input_list_name`). A list held in a field of a larger value is
+ * declared under a plain name and handed over by the calling sequence, which
+ * binds the field to that name, or batches over the field itself in a step
+ * running the branch pipe. Reported and drawn as written, as a stored name is.
+ */
+function reportInvalidBatchListName(
+  name: string | null,
+  branchPipeCode: string | null,
+  pipeCode: string,
+  ctx: NormalizePipeContext,
+): void {
+  if (name === null || PLAIN_NAME_RE.test(name)) return;
+  let why: string;
+  if (isDottedFieldPath(name)) {
+    const plainName = name.slice(name.lastIndexOf(".") + 1);
+    const branch = branchPipeCode === null ? "the branch pipe" : `"${branchPipeCode}"`;
+    why =
+      `: a PipeBatch maps over a list it declares as an input of its own, so declare the list as "${plainName}" ` +
+      `and have the calling sequence bind the field to it with a binding step (${bindingStepFor(name)}), ` +
+      `or have the calling sequence run ${branch} in a step that batches over the field itself`;
+  } else {
+    why = ", which is a lowercase letter followed by lowercase letters, digits and underscores";
+  }
+  ctx.diagnostics.push({
+    severity: "warning",
+    code: "invalid-input-name",
+    message: `pipe "${pipeCode}": input_list_name "${name}" is not a plain input name${why} — drawn as written`,
+    path: `pipe.${pipeCode}.input_list_name`,
+  });
+}
+
+/**
+ * Report a plain `batch_over` taking the reserved prefix. A sequence binds a
+ * dotted `batch_over`'s list under a private name taking it, in working memory
+ * a nested sequence shares with its caller, so the runtime refuses a step
+ * batching over such a name by hand with `invalid_input_name`
+ * (`check_name_is_not_reserved`). A `batch_over` reads a name rather than
+ * storing one, so no plain-name grammar keeps it off the prefix. A dotted one
+ * is a path, refused as a malformed binding step when a segment is
+ * underscore-led, so only a name without a dot is checked here. Reported and
+ * drawn as written, as a stored name is.
+ */
+function reportReservedBatchOver(
+  batchOver: string | null,
+  pipeRef: string,
+  pipeCode: string,
+  path: string,
+  ctx: NormalizePipeContext,
+): void {
+  if (
+    batchOver === null ||
+    batchOver.includes(".") ||
+    !batchOver.startsWith(PRIVATE_BINDING_NAME_PREFIX)
+  ) {
+    return;
+  }
+  ctx.diagnostics.push({
+    severity: "warning",
+    code: "invalid-input-name",
+    message:
+      `pipe "${pipeCode}": sub-pipe "${pipeRef}" batches over "${batchOver}", which takes the prefix ` +
+      `"${PRIVATE_BINDING_NAME_PREFIX}" the runtime reserves for the list a dotted batch_over binds, ` +
+      `a name only the runtime writes or reads — drawn as written`,
+    path,
+  });
 }
 
 /** A TOML-style locator segment for a key, quoted when a bare key cannot spell it. */
@@ -197,6 +320,37 @@ function normalizeOutput(raw: unknown, pipeCode: string, ctx: NormalizePipeConte
 
 // ─── Sub-pipe normalization (sequence steps, parallel branches) ──────────────
 
+/**
+ * Report the names a pipe step or a parallel branch stores values under or
+ * batches over that the runtime refuses, each at its field. Called only once
+ * the caller has kept the step, since each report says it is drawn as written:
+ * a branch skipped for another reason reports only why it was skipped, as the
+ * runtime, which refuses that reason before it reads these names, does.
+ */
+function reportSubPipeNames(
+  raw: Record<string, unknown>,
+  pipeCode: string,
+  path: string,
+  ctx: NormalizePipeContext,
+): void {
+  const pipeRef = raw.pipe as string;
+  reportInvalidStoredName(
+    strOrNull(raw.result),
+    `sub-pipe "${pipeRef}" stores its result under`,
+    pipeCode,
+    `${path}.result`,
+    ctx,
+  );
+  reportInvalidStoredName(
+    strOrNull(raw.batch_as),
+    `sub-pipe "${pipeRef}" hands each item to its pipe under`,
+    pipeCode,
+    `${path}.batch_as`,
+    ctx,
+  );
+  reportReservedBatchOver(strOrNull(raw.batch_over), pipeRef, pipeCode, `${path}.batch_over`, ctx);
+}
+
 function normalizeSubPipe(
   raw: Record<string, unknown>,
   pipeCode: string,
@@ -212,6 +366,8 @@ function normalizeSubPipe(
     });
     return null;
   }
+  const pipeRef = raw.pipe as string;
+  const result = strOrNull(raw.result);
   const batchOver = strOrNull(raw.batch_over);
   const batchAs = strOrNull(raw.batch_as);
   let batchParams: SubPipeSpec["batch_params"] = null;
@@ -222,7 +378,7 @@ function normalizeSubPipe(
       severity: "warning",
       code: "incomplete-batch-spec",
       message:
-        `pipe "${pipeCode}": sub-pipe "${raw.pipe as string}" sets only one of ` +
+        `pipe "${pipeCode}": sub-pipe "${pipeRef}" sets only one of ` +
         `batch_over/batch_as — batching ignored`,
       path,
     });
@@ -233,8 +389,8 @@ function normalizeSubPipe(
     intOrNull(raw.nb_output) ?? (raw.multiple_output === true ? true : null);
   if (batchParams !== null && outputMultiplicity === null) outputMultiplicity = true;
   return {
-    pipe_code: raw.pipe as string,
-    output_name: strOrNull(raw.result),
+    pipe_code: pipeRef,
+    output_name: result,
     output_multiplicity: outputMultiplicity,
     batch_params: batchParams,
   };
@@ -250,12 +406,6 @@ const BINDING_PATH_RE = /^[A-Za-z][A-Za-z0-9_]*(?:\.[A-Za-z][A-Za-z0-9_]*)*$/;
 
 /** The keys a binding step may carry: `from` and `result`, both required, nothing else. */
 const BINDING_STEP_KEYS: ReadonlySet<string> = new Set(["from", "result"]);
-
-/**
- * The prefix of the private name a sequence binds a dotted `batch_over`'s list
- * under — the runtime's own, reserved so no name an author writes takes it.
- */
-export const PRIVATE_BINDING_NAME_PREFIX = "_bound_";
 
 /**
  * Normalize one binding step, `{ from = "invoice.total", result = "total_amount" }`,
@@ -387,6 +537,8 @@ function normalizeSequenceSteps(
     }
     const step = normalizeSubPipe(entry, pipeCode, path, ctx);
     if (step === null) return;
+    // A pipe step is never skipped past this point, so its names are reported here.
+    reportSubPipeNames(entry, pipeCode, path, ctx);
     const listName = step.batch_params?.input_list_stuff_name;
     if (step.batch_params != null && listName !== undefined && listName.includes(".")) {
       if (!BINDING_PATH_RE.test(listName)) {
@@ -414,7 +566,8 @@ function normalizeSequenceSteps(
  * Normalize a parallel's `branches`. A branch is always a pipe step: the
  * runtime refuses a binding step there, and a dotted `batch_over`, since only
  * a sequence binds — a branch needing a field gets it bound by a sequence step
- * before the parallel. Both are skipped with a diagnostic.
+ * before the parallel. Both are skipped with a diagnostic, and with nothing else,
+ * since the runtime refuses them before it reads the names the branch writes.
  */
 function normalizeBranchList(
   raw: unknown,
@@ -469,6 +622,8 @@ function normalizeBranchList(
       });
       return;
     }
+    // Only a branch that is kept reports its names: a skipped one says why it was skipped.
+    reportSubPipeNames(entry, pipeCode, path, ctx);
     branches.push(branch);
   });
   return branches;
@@ -701,14 +856,24 @@ export function normalizePipe(
           path: `pipe.${code}.branch_pipe_code`,
         });
       }
+      const inputListName = strOrNull(raw.input_list_name);
+      const inputItemName = strOrNull(raw.input_item_name);
+      reportInvalidBatchListName(inputListName, branchPipeCode, code, ctx);
+      reportInvalidStoredName(
+        inputItemName,
+        "the batch hands each item to its branch pipe under",
+        code,
+        `pipe.${code}.input_item_name`,
+        ctx,
+      );
       return {
         ...base,
         type,
         pipe_category: "PipeController",
         branch_pipe_code: branchPipeCode ?? "",
         batch_params: {
-          input_list_stuff_name: strOrNull(raw.input_list_name) ?? "",
-          input_item_stuff_name: strOrNull(raw.input_item_name) ?? "",
+          input_list_stuff_name: inputListName ?? "",
+          input_item_stuff_name: inputItemName ?? "",
         },
       };
     }

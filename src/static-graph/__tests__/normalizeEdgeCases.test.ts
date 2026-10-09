@@ -9,6 +9,7 @@ import type {
   PipeExtractBlueprint,
   PipeFuncBlueprint,
   PipeLLMBlueprint,
+  PipeParallelBlueprint,
   PipeSearchBlueprint,
   PipeSequenceBlueprint,
   PipeSignatureBlueprint,
@@ -760,5 +761,252 @@ prompt = "Go"
     ]);
     expect(diagnostics[0].message).toContain("is not a plain input name");
     expect(diagnostics[0].message).not.toContain("binding step");
+  });
+});
+
+// ─── Stored names ────────────────────────────────────────────────────────────
+
+describe("stored names", () => {
+  // A name a step stores a value under — a step's or a branch's `result`, the
+  // `batch_as` of either, a PipeBatch's `input_item_name` — is read by a pipe
+  // through an input, so the runtime refuses any but a plain input name with
+  // `invalid_input_name`. The step still runs a pipe, so it is kept as written.
+  const STEP_PIPE = `
+[pipe.write_label]
+type = "PipeCompose"
+description = "Writes one label"
+inputs = { parcel = "Text" }
+output = "Text"
+template = "$parcel"
+`;
+
+  function parseController(controller: string) {
+    const { bundle, diagnostics } = parseMthdsBundle(`
+domain = "d"
+${controller}
+${STEP_PIPE}
+`);
+    return { pipes: bundle.pipes, diagnostics };
+  }
+
+  const sequenceOf = (step: string) => `
+[pipe.run_all]
+type = "PipeSequence"
+description = "Runs the steps"
+inputs = { parcels = "Text[]" }
+output = "Text[]"
+steps = [${step}]
+`;
+
+  const parallelOf = (branch: string) => `
+[pipe.fan_out]
+type = "PipeParallel"
+description = "Fans out"
+inputs = { parcels = "Text[]" }
+output = "Text"
+add_each_output = true
+branches = [${branch}]
+`;
+
+  it("reports a sequence step's result and batch_as, and keeps the step as written", () => {
+    const { pipes, diagnostics } = parseController(
+      sequenceOf(
+        `{ pipe = "write_label", batch_over = "parcels", batch_as = "round.parcel", result = "Labels" }`,
+      ),
+    );
+    expect((pipes.run_all as PipeSequenceBlueprint).sequential_sub_pipes).toEqual([
+      expect.objectContaining({
+        pipe_code: "write_label",
+        output_name: "Labels",
+        batch_params: { input_list_stuff_name: "parcels", input_item_stuff_name: "round.parcel" },
+      }),
+    ]);
+    expect(diagnostics.map((d) => [d.severity, d.code, d.path])).toEqual([
+      ["warning", "invalid-input-name", "pipe.run_all.steps[0].result"],
+      ["warning", "invalid-input-name", "pipe.run_all.steps[0].batch_as"],
+    ]);
+    expect(diagnostics[0].message).toContain(
+      'sub-pipe "write_label" stores its result under "Labels", which is not a plain input name',
+    );
+    expect(diagnostics[1].message).toContain("cannot reach into a field with a dot");
+  });
+
+  it("reports a parallel branch's result and batch_as, and keeps the branch as written", () => {
+    const { pipes, diagnostics } = parseController(
+      parallelOf(
+        `{ pipe = "write_label", batch_over = "parcels", batch_as = "_bound_parcel", result = "labels" }`,
+      ),
+    );
+    expect((pipes.fan_out as PipeParallelBlueprint).parallel_sub_pipes).toEqual([
+      expect.objectContaining({ pipe_code: "write_label", output_name: "labels" }),
+    ]);
+    expect(diagnostics.map((d) => [d.code, d.path])).toEqual([
+      ["invalid-input-name", "pipe.fan_out.branches[0].batch_as"],
+    ]);
+    expect(diagnostics[0].message).toContain('the prefix "_bound_" is reserved');
+  });
+
+  it("says only why a skipped branch is skipped, never that its names are drawn", () => {
+    // The runtime refuses a branch batching over a dotted path before it reads
+    // the names the branch stores, and the branch is not drawn at all.
+    const { pipes, diagnostics } = parseController(
+      parallelOf(
+        `{ pipe = "write_label", batch_over = "round.parcels", batch_as = "Parcel", result = "Labels" }`,
+      ),
+    );
+    expect((pipes.fan_out as PipeParallelBlueprint).parallel_sub_pipes).toEqual([]);
+    expect(diagnostics.map((d) => [d.code, d.path])).toEqual([
+      ["invalid-binding-step", "pipe.fan_out.branches[0]"],
+    ]);
+    expect(diagnostics[0].message).toContain("skipped");
+  });
+
+  it("reports a PipeBatch's input_item_name, and keeps it as written", () => {
+    const { pipes, diagnostics } = parseController(`
+[pipe.label_all]
+type = "PipeBatch"
+description = "Labels every parcel"
+inputs = { parcels = "Text[]" }
+output = "Text[]"
+branch_pipe_code = "write_label"
+input_list_name = "parcels"
+input_item_name = "Parcel"
+`);
+    expect((pipes.label_all as PipeBatchBlueprint).batch_params).toEqual({
+      input_list_stuff_name: "parcels",
+      input_item_stuff_name: "Parcel",
+    });
+    expect(diagnostics).toEqual([
+      expect.objectContaining({
+        severity: "warning",
+        code: "invalid-input-name",
+        path: "pipe.label_all.input_item_name",
+      }),
+    ]);
+    expect(diagnostics[0].message).toContain("a lowercase letter followed by lowercase letters");
+  });
+
+  it("says nothing of plain stored names", () => {
+    const { diagnostics } = parseController(
+      sequenceOf(
+        `{ pipe = "write_label", batch_over = "parcels", batch_as = "parcel", result = "labels" }`,
+      ),
+    );
+    expect(diagnostics).toEqual([]);
+  });
+});
+
+// ─── Names a batch reads ─────────────────────────────────────────────────────
+
+describe("names a batch reads", () => {
+  // A PipeBatch's `input_list_name` is one of its own inputs, so it is a plain
+  // input name, and a plain `batch_over` stays off the prefix the runtime
+  // reserves for the list a dotted `batch_over` binds: the runtime refuses
+  // either with `invalid_input_name`. Both are kept as written.
+  const BRANCH_PIPE = `
+[pipe.write_label]
+type = "PipeCompose"
+description = "Writes one label"
+inputs = { parcel = "Text" }
+output = "Text"
+template = "$parcel"
+`;
+
+  function parseBatch(inputListName: string) {
+    const { bundle, diagnostics } = parseMthdsBundle(`
+domain = "d"
+[pipe.label_all]
+type = "PipeBatch"
+description = "Labels every parcel"
+inputs = { parcels = "Text[]" }
+output = "Text[]"
+branch_pipe_code = "write_label"
+input_list_name = "${inputListName}"
+input_item_name = "parcel"
+${BRANCH_PIPE}
+`);
+    return { batch: bundle.pipes.label_all as PipeBatchBlueprint, diagnostics };
+  }
+
+  it("reports a dotted input_list_name, says to bind the field, and keeps it as written", () => {
+    const { batch, diagnostics } = parseBatch("round.parcels");
+    expect(batch.batch_params.input_list_stuff_name).toBe("round.parcels");
+    expect(diagnostics).toEqual([
+      expect.objectContaining({
+        severity: "warning",
+        code: "invalid-input-name",
+        path: "pipe.label_all.input_list_name",
+      }),
+    ]);
+    expect(diagnostics[0].message).toContain('declare the list as "parcels"');
+    expect(diagnostics[0].message).toContain('{ from = "round.parcels", result = "parcels" }');
+    expect(diagnostics[0].message).toContain('run "write_label" in a step');
+  });
+
+  it.each([["Parcels"], ["_bound_parcels"], ["round..parcels"]])(
+    "reports the input_list_name %s as no plain name",
+    (name) => {
+      const { batch, diagnostics } = parseBatch(name);
+      expect(batch.batch_params.input_list_stuff_name).toBe(name);
+      expect(diagnostics.map((d) => [d.code, d.path])).toEqual([
+        ["invalid-input-name", "pipe.label_all.input_list_name"],
+      ]);
+      expect(diagnostics[0].message).toContain("a lowercase letter followed by lowercase letters");
+    },
+  );
+
+  const sequenceOver = (batchOver: string) => `
+domain = "d"
+[pipe.run_all]
+type = "PipeSequence"
+description = "Runs the steps"
+inputs = { parcels = "Text[]" }
+output = "Text[]"
+steps = [{ pipe = "write_label", batch_over = "${batchOver}", batch_as = "parcel", result = "labels" }]
+${BRANCH_PIPE}
+`;
+
+  it("reports a sequence step batching over a reserved name, and keeps the step as written", () => {
+    const { bundle, diagnostics } = parseMthdsBundle(sequenceOver("_bound_parcels"));
+    expect((bundle.pipes.run_all as PipeSequenceBlueprint).sequential_sub_pipes).toEqual([
+      expect.objectContaining({
+        batch_params: { input_list_stuff_name: "_bound_parcels", input_item_stuff_name: "parcel" },
+      }),
+    ]);
+    expect(diagnostics.map((d) => [d.severity, d.code, d.path])).toEqual([
+      ["warning", "invalid-input-name", "pipe.run_all.steps[0].batch_over"],
+    ]);
+    expect(diagnostics[0].message).toContain('batches over "_bound_parcels"');
+    expect(diagnostics[0].message).toContain('the prefix "_bound_"');
+  });
+
+  it("reports a parallel branch batching over a reserved name", () => {
+    const { bundle, diagnostics } = parseMthdsBundle(`
+domain = "d"
+[pipe.fan_out]
+type = "PipeParallel"
+description = "Fans out"
+inputs = { parcels = "Text[]" }
+output = "Text"
+add_each_output = true
+branches = [{ pipe = "write_label", batch_over = "_bound_parcels", batch_as = "parcel", result = "labels" }]
+${BRANCH_PIPE}
+`);
+    expect((bundle.pipes.fan_out as PipeParallelBlueprint).parallel_sub_pipes).toHaveLength(1);
+    expect(diagnostics.map((d) => [d.code, d.path])).toEqual([
+      ["invalid-input-name", "pipe.fan_out.branches[0].batch_over"],
+    ]);
+  });
+
+  it("leaves a dotted batch_over to the binding checks, even one led by the prefix", () => {
+    // A dotted batch_over is a path; the runtime refuses one with an
+    // underscore-led segment as a malformed binding step, never as a name.
+    const { diagnostics } = parseMthdsBundle(sequenceOver("_bound_round.parcels"));
+    expect(diagnostics.map((d) => d.code)).toEqual(["invalid-binding-step"]);
+  });
+
+  it("says nothing of a plain list name or a plain batch_over", () => {
+    expect(parseBatch("parcels").diagnostics).toEqual([]);
+    expect(parseMthdsBundle(sequenceOver("parcels")).diagnostics).toEqual([]);
   });
 });
