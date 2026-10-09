@@ -1,10 +1,13 @@
 import type {
   GraphSpec,
+  GraphSpecNode,
   DataflowAnalysis,
   PipeBlueprintUnion,
   ConceptInfo,
   StuffRegistryEntry,
 } from "./types";
+import { isBindingNode } from "./types";
+import { makePipeRef } from "./pipeRefs";
 
 export function buildDataflowAnalysis(graphspec: GraphSpec | null): DataflowAnalysis | null {
   if (!graphspec) return null;
@@ -222,6 +225,40 @@ function isDescendantOf(
 
 export function getPipeBlueprint(spec: GraphSpec, pipeRef: string): PipeBlueprintUnion | undefined {
   return spec.pipe_registry?.[pipeRef];
+}
+
+/**
+ * The blueprint of the pipe a node runs, or nothing when the registry cannot say
+ * which one it is. The one lookup the card and the detail panel share, so the two
+ * never disagree about a node's blueprint.
+ *
+ * 1. A node carrying its domain resolves by its qualified ref and by nothing
+ *    else: two domains may declare the same code, and a node in domain `b` must
+ *    never be shown domain `a`'s pipe because `a` is the method's main domain.
+ * 2. A node without one resolves in the pipeline's domain.
+ * 3. Failing that, by a registry key ending in `.<pipe_code>`, accepted only when
+ *    exactly one key matches: with two, the code alone does not say which.
+ *
+ * A binding node has no blueprint: its `pipe_code` is the path it binds, and a
+ * path spelled like a pipe's code would otherwise pick up that pipe.
+ */
+export function resolveNodeBlueprint(
+  spec: GraphSpec,
+  node: GraphSpecNode,
+): PipeBlueprintUnion | undefined {
+  const registry = spec.pipe_registry;
+  if (!registry || isBindingNode(node) || !node.pipe_code) return undefined;
+  if (node.domain_code) return registry[makePipeRef(node.domain_code, node.pipe_code)];
+
+  const pipelineDomain = spec.pipeline_ref?.domain;
+  if (pipelineDomain) {
+    const inPipelineDomain = registry[makePipeRef(pipelineDomain, node.pipe_code)];
+    if (inPipelineDomain) return inPipelineDomain;
+  }
+
+  const suffix = `.${node.pipe_code}`;
+  const matches = Object.keys(registry).filter((ref) => ref.endsWith(suffix));
+  return matches.length === 1 ? registry[matches[0]] : undefined;
 }
 
 export function getConceptInfo(spec: GraphSpec, conceptRef: string): ConceptInfo | undefined {

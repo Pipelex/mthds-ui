@@ -283,7 +283,11 @@ The corpus sweep asks more of the entries covering `feature.binding_step` than z
 
 ## PipeJudge and PipeDocGen
 
-Both operators parse into registry blueprints shaped as pipelex serializes them, and draw as operator cards badged `Judge` and `DocGen`. A judge's question is read into `judgment_question`, whose `kind` is decided by what the pipe declares: `options` make a choice, `levels` a rating, and neither a yes/no question with its `criteria`. `prompt` is read in place of `question`, as the runtime reads it. A document generation step keeps its `format`, `model`, `template`, `template_file` and `filename`. The cards show neither a judge's verdict nor a document's format yet.
+Both operators parse into registry blueprints shaped as pipelex serializes them, and draw as operator cards badged `Judge` and `DocGen`. A judge's question is read into `judgment_question`, whose `kind` is decided by what the pipe declares: `options` make a choice, `levels` a rating, and neither a yes/no question with its `criteria`. `prompt` is read in place of `question`, as the runtime reads it. A document generation step keeps its `format`, `model`, `template`, `template_file` and `filename`.
+
+A document step's card shows its format beside its badge, as a chip in capitals (`PDF`, `XLSX`, `DOCX`, `PPTX`), in every mode. The format is read from the step's blueprint in `pipe_registry`, the one place all three modes carry it, never from the node: `buildPipeCardPayload` takes the blueprint `resolveNodeBlueprint` finds for the node and sets `docGenFormat` on the card's payload. A graph without a registry, or a bundle that omits the format, draws the card without a chip rather than guessing one. Its detail panel shows the format, the engine (the one the run resolved, else the one the step names, else the deck's default), what it prints from (the auto-layout of its inputs, an HTML template or a template file), its template, and its file name with, in a run, the name the document was stored under. It never shows the stored document's `url`, which a run's execution data carries: the document is the step's output and is shown as one, and an inlined one would be a wall of base64.
+
+`resolveNodeBlueprint` is the one lookup the card and the detail panel share. A node carrying its domain resolves by its qualified ref and nothing else, since two domains may declare the same code; one without resolves in the pipeline's domain, then by the one registry key ending in its code, and by none when two do. A judge's card does not show its verdict yet.
 
 ## Fixture Catalog
 

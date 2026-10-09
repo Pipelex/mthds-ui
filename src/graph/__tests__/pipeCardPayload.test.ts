@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import type { PipeCallNode } from "@graph/types";
+import type { ConceptInfo, PipeBlueprintUnion, PipeCallNode } from "@graph/types";
 import { buildPipeCardPayload } from "@graph/pipeCardPayload";
 
 describe("buildPipeCardPayload", () => {
@@ -138,6 +138,74 @@ describe("buildPipeCardPayload", () => {
     expect(buildPipeCardPayload(node, "static")).toMatchObject({
       graphMode: "static",
       tags: { outcome: "yes" },
+    });
+  });
+
+  describe("a PipeDocGen step's format", () => {
+    const DOCUMENT: ConceptInfo = {
+      code: "Document",
+      domain_code: "native",
+      description: "A document",
+      structure_class_name: "DocumentContent",
+      refines: null,
+    };
+
+    const DOC_GEN_NODE: PipeCallNode = {
+      kind: "operator",
+      id: "print",
+      pipe_code: "print_notice",
+      pipe_type: "PipeDocGen",
+      description: "Print the notice",
+      domain_code: "shop_notices",
+      status: "succeeded",
+      io: { inputs: [], outputs: [{ name: "notice_pdf", concept: "Document" }] },
+    };
+
+    function docGenBlueprint(docGenFormat: string): PipeBlueprintUnion {
+      return {
+        type: "PipeDocGen",
+        pipe_category: "PipeOperator",
+        code: "print_notice",
+        domain_code: "shop_notices",
+        description: "Print the notice",
+        inputs: {},
+        output: { concept: DOCUMENT, multiplicity: null },
+        doc_gen_format: docGenFormat,
+      };
+    }
+
+    it("carries the format the blueprint declares", () => {
+      expect(
+        buildPipeCardPayload(DOC_GEN_NODE, "static", docGenBlueprint("pdf")).docGenFormat,
+      ).toBe("pdf");
+    });
+
+    it("carries no format when the blueprint's is empty, as the static builder writes it", () => {
+      expect(buildPipeCardPayload(DOC_GEN_NODE, "static", docGenBlueprint("")).docGenFormat).toBe(
+        undefined,
+      );
+      expect(
+        "docGenFormat" in buildPipeCardPayload(DOC_GEN_NODE, "static", docGenBlueprint(" ")),
+      ).toBe(false);
+    });
+
+    it("carries no format from another pipe type's blueprint", () => {
+      const funcBlueprint: PipeBlueprintUnion = {
+        type: "PipeFunc",
+        pipe_category: "PipeOperator",
+        code: "print_notice",
+        domain_code: "shop_notices",
+        description: "Print the notice",
+        inputs: {},
+        output: { concept: DOCUMENT, multiplicity: null },
+      };
+      expect("docGenFormat" in buildPipeCardPayload(DOC_GEN_NODE, "live", funcBlueprint)).toBe(
+        false,
+      );
+    });
+
+    it("carries no format without a blueprint, so the card draws the node alone", () => {
+      expect("docGenFormat" in buildPipeCardPayload(DOC_GEN_NODE, "live")).toBe(false);
     });
   });
 });

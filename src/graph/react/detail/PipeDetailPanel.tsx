@@ -7,7 +7,7 @@ import type {
   GraphSpec,
 } from "@graph/types";
 import { isBindingNode, isDryGraphSpec, isStaticGraphSpec, multiplicitySuffix } from "@graph/types";
-import { getPipeBlueprint } from "@graph/graphAnalysis";
+import { resolveNodeBlueprint } from "@graph/graphAnalysis";
 import {
   formatDuration,
   KV,
@@ -18,12 +18,14 @@ import {
   PipeSearchSection,
   PipeStructureSection,
   PipeComposeSection,
+  PipeDocGenSection,
   PipeConditionSection,
   PipeSequenceSection,
   PipeParallelSection,
   PipeBatchSection,
   UsageCostInline,
   UsageDetails,
+  dumpableExecutionData,
   shouldDumpExecutionData,
 } from "./sections";
 
@@ -85,20 +87,9 @@ export function PipeDetailPanel({ node, spec, onConceptClick }: PipeDetailPanelP
   const status = node.status;
   const statusColor = STATUS_COLORS[status] ?? "#6272a4";
 
-  // Look up the full blueprint from registry — search by pipe_code suffix since
-  // the registry key is domain.pipe_code and the node only has pipe_code
-  const blueprint = React.useMemo(() => {
-    if (isBinding || !node.pipe_code || !spec.pipe_registry) return undefined;
-    // Direct lookup with pipeline domain
-    const directKey = `${spec.pipeline_ref?.domain ?? ""}.${node.pipe_code}`;
-    const direct = getPipeBlueprint(spec, directKey);
-    if (direct) return direct;
-    // Search all registry entries by pipe_code suffix
-    for (const [ref, pipe] of Object.entries(spec.pipe_registry)) {
-      if (ref.endsWith(`.${node.pipe_code}`)) return pipe;
-    }
-    return undefined;
-  }, [isBinding, node.pipe_code, spec]);
+  // The same lookup the card makes, so the two never disagree about which pipe
+  // a node runs; a binding node has none.
+  const blueprint = React.useMemo(() => resolveNodeBlueprint(spec, node), [spec, node]);
 
   const [usageExpanded, setUsageExpanded] = React.useState(false);
 
@@ -321,6 +312,15 @@ function BlueprintSection({
       );
     case "PipeCompose":
       return <PipeComposeSection blueprint={blueprint} executionData={executionData} />;
+    case "PipeDocGen":
+      return (
+        <PipeDocGenSection
+          blueprint={blueprint}
+          executionData={executionData}
+          modelsRan={modelsRan}
+          modelHandles={modelHandles}
+        />
+      );
     case "PipeExtract":
       return (
         <PipeExtractSection
@@ -357,16 +357,24 @@ function BlueprintSection({
       return <PipeBatchSection blueprint={blueprint} executionData={executionData} />;
     case "PipeFunc":
       return null;
+    case "PipeJudge":
+      // No section yet: L-261004-baa62a adds one, with the verdict it answers.
+      return null;
     case "PipeSignature":
       return (
         <div className="detail-not-available">
           Signature stub — declared but not yet implemented.
         </div>
       );
-    default:
-      // Defensive: a blueprint whose `type` the renderer doesn't know yet
-      // (runtime ahead of this library) degrades to no extra section.
+    default: {
+      // Exhaustive at compile time, so a pipe type added to the union without a
+      // section fails here; still defensive at run time, where a blueprint whose
+      // `type` this library does not know yet (runtime ahead of it) degrades to
+      // no extra section.
+      const _unhandled: never = blueprint;
+      void _unhandled;
       return null;
+    }
   }
 }
 
@@ -386,11 +394,10 @@ function ExecutionDataSection({
   // only shown when the blueprint failed to resolve (so runtime data isn't lost)
   // or for types without a merged section (PipeFunc, PipeSignature, unknown).
   if (!shouldDumpExecutionData(pipeType, hasBlueprint)) return null;
-  return <GenericExecutionData data={executionData} />;
+  return <GenericExecutionData entries={dumpableExecutionData(pipeType, executionData)} />;
 }
 
-function GenericExecutionData({ data }: { data: Record<string, unknown> }) {
-  const entries = Object.entries(data);
+function GenericExecutionData({ entries }: { entries: [string, unknown][] }) {
   if (entries.length === 0) return null;
   return (
     <>

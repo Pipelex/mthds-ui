@@ -41,3 +41,33 @@ describe("PipeCardBase static chrome", () => {
     expect(html).toContain("Running");
   });
 });
+
+describe("PipeCardBase document format chip", () => {
+  const DOC_GEN_CARD: PipeCardData = {
+    ...BASE_CARD,
+    pipeCode: "print_notice",
+    pipeType: "PipeDocGen",
+    outputs: [{ name: "notice_pdf", concept: "Document" }],
+  };
+
+  it("shows a document step's format in capitals beside its badge, named in its tooltip", () => {
+    const html = renderCard({ ...DOC_GEN_CARD, docGenFormat: "xlsx" });
+
+    expect(html).toContain(
+      '<span class="pipe-card-format" title="Document format: xlsx">XLSX</span>',
+    );
+    // In the header, right after the type badge and before the pipe code.
+    expect(html.indexOf("DocGen")).toBeLessThan(html.indexOf("XLSX"));
+    expect(html.indexOf("XLSX")).toBeLessThan(html.indexOf("print_notice"));
+  });
+
+  it("shows the format in every mode, unlike the static-only annotations", () => {
+    for (const graphMode of ["static", "dry", "live"] as const) {
+      expect(renderCard({ ...DOC_GEN_CARD, graphMode, docGenFormat: "pdf" })).toContain(">PDF<");
+    }
+  });
+
+  it("shows no chip without a format", () => {
+    expect(renderCard(DOC_GEN_CARD)).not.toContain("pipe-card-format");
+  });
+});

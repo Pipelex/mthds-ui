@@ -3,6 +3,7 @@ import type {
   GraphSpecMode,
   NodePipeType,
   NodeValidationSummary,
+  PipeCardPayload,
   PipeControllerType,
   PipeOperatorType,
   PipeStatus,
@@ -20,25 +21,11 @@ export type {
   PipeType,
 };
 
-export type PipeCardDirection = "LR" | "TB";
+/**
+ * What a pipe card draws: the payload the pure graph layer builds, under the name
+ * the React layer has always exported. An alias rather than a copy, so a field is
+ * declared once and the two can never drift apart.
+ */
+export type PipeCardData = PipeCardPayload;
 
-export interface PipeCardData {
-  /** The pipe code, or the `from` path of a binding step's card. */
-  pipeCode: string;
-  pipeType: NodePipeType;
-  description?: string;
-  status: PipeStatus;
-  graphMode?: GraphSpecMode;
-  inputs: { name: string; concept: string }[];
-  outputs: { name: string; concept: string }[];
-  /** Blueprint-specific tags (model, prompt, etc.) */
-  tags?: Record<string, string>;
-  /** Layout direction — controls card orientation (narrow+tall in LR, wide+short in TB) */
-  direction?: PipeCardDirection;
-  /** When set, the card renders an unfold button that invokes this callback. */
-  onExpand?: (options?: FoldToggleOptions) => void;
-  /** Validation decoration (severity ring + count badge), stamped by GraphViewer. */
-  validation?: NodeValidationSummary;
-  /** Badge click handler (opens the validation panel), stamped alongside `validation`. */
-  onValidationBadgeClick?: () => void;
-}
+export type PipeCardDirection = NonNullable<PipeCardData["direction"]>;

@@ -1,5 +1,6 @@
 import React from "react";
 import { Handle, Position } from "@xyflow/react";
+import type { GraphNodeData } from "@graph/types";
 import type { PipeCardData } from "./pipeCardTypes";
 import { getPipeCardComponent } from "./pipeCardRegistry";
 import { PipeCardBase } from "./PipeCardBase";
@@ -25,11 +26,11 @@ export function PipeCardRFNode({
   sourcePosition = Position.Bottom,
   targetPosition = Position.Top,
 }: {
-  data: Record<string, unknown>;
+  data: GraphNodeData;
   sourcePosition?: Position;
   targetPosition?: Position;
 }) {
-  const payload = data.pipeCardData as PipeCardData | undefined;
+  const payload = data.pipeCardData;
   if (!payload) return null;
   return (
     <>
