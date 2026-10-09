@@ -19,7 +19,7 @@ const meta: Meta<typeof GraphViewer> = {
 export default meta;
 type Story = StoryObj<typeof GraphViewer>;
 
-const D = { direction: "LR" as const, showControllers: true };
+const D = { initialDirection: "LR" as const, initialShowControllers: true };
 
 /** Shared play function: verify ReactFlow renders nodes without errors */
 async function assertRendersNodes({ canvasElement }: { canvasElement: HTMLElement }) {
