@@ -12,7 +12,9 @@
 
 ### Changed
 
-- **The vendored MTHDS Test Corpus**: `data/mthds-corpus/` is copied from pipelex v0.78.0. Its vocabulary now points readers at the public corpus page alone, and it declares the `llm_setting_refused_by_model` error as one the corpus leaves out, since which settings a model takes depends on each consumer's model deck. No entry changes, so the static sweeps build the same methods as before.
+- **Stored names are plain input names (Breaking)**: the bundled MTHDS JSON Schema, `data/schema/mthds_schema.json`, is regenerated from pipelex v0.80.0 and now refuses a name a step stores a value under unless it is a plain input name matching `[a-z][a-z0-9_]*`, on a `PipeSequence` step's or a `PipeParallel` branch's `result` and `batch_as` and on a `PipeBatch`'s `input_item_name`, where it used to refuse only a name taking the reserved `_bound_` prefix. The static builder reports such a name with an `invalid-input-name` warning at the field and still draws the step as written.
+
+- **The vendored MTHDS Test Corpus**: `data/mthds-corpus/` is copied from pipelex v0.80.0. Its vocabulary now points readers at the public corpus page alone, and it declares the `llm_setting_refused_by_model` error as one the corpus leaves out, since which settings a model takes depends on each consumer's model deck. It gains the invalid entries that test the stored-name rule, one each for a sequence step's `result` and `batch_as`, a parallel branch's `result` and `batch_as`, and a `PipeBatch`'s `input_item_name`, and the static sweep expects the builder to report each with `invalid-input-name`.
 
 ### Fixed
 

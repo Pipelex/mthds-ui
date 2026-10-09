@@ -9,6 +9,7 @@ import type {
   PipeExtractBlueprint,
   PipeFuncBlueprint,
   PipeLLMBlueprint,
+  PipeParallelBlueprint,
   PipeSearchBlueprint,
   PipeSequenceBlueprint,
   PipeSignatureBlueprint,
@@ -760,5 +761,122 @@ prompt = "Go"
     ]);
     expect(diagnostics[0].message).toContain("is not a plain input name");
     expect(diagnostics[0].message).not.toContain("binding step");
+  });
+});
+
+// ─── Stored names ────────────────────────────────────────────────────────────
+
+describe("stored names", () => {
+  // A name a step stores a value under — a step's or a branch's `result`, the
+  // `batch_as` of either, a PipeBatch's `input_item_name` — is read by a pipe
+  // through an input, so the runtime refuses any but a plain input name with
+  // `invalid_input_name`. The step still runs a pipe, so it is kept as written.
+  const STEP_PIPE = `
+[pipe.write_label]
+type = "PipeCompose"
+description = "Writes one label"
+inputs = { parcel = "Text" }
+output = "Text"
+template = "$parcel"
+`;
+
+  function parseController(controller: string) {
+    const { bundle, diagnostics } = parseMthdsBundle(`
+domain = "d"
+${controller}
+${STEP_PIPE}
+`);
+    return { pipes: bundle.pipes, diagnostics };
+  }
+
+  const sequenceOf = (step: string) => `
+[pipe.run_all]
+type = "PipeSequence"
+description = "Runs the steps"
+inputs = { parcels = "Text[]" }
+output = "Text[]"
+steps = [${step}]
+`;
+
+  const parallelOf = (branch: string) => `
+[pipe.fan_out]
+type = "PipeParallel"
+description = "Fans out"
+inputs = { parcels = "Text[]" }
+output = "Text"
+add_each_output = true
+branches = [${branch}]
+`;
+
+  it("reports a sequence step's result and batch_as, and keeps the step as written", () => {
+    const { pipes, diagnostics } = parseController(
+      sequenceOf(
+        `{ pipe = "write_label", batch_over = "parcels", batch_as = "round.parcel", result = "Labels" }`,
+      ),
+    );
+    expect((pipes.run_all as PipeSequenceBlueprint).sequential_sub_pipes).toEqual([
+      expect.objectContaining({
+        pipe_code: "write_label",
+        output_name: "Labels",
+        batch_params: { input_list_stuff_name: "parcels", input_item_stuff_name: "round.parcel" },
+      }),
+    ]);
+    expect(diagnostics.map((d) => [d.severity, d.code, d.path])).toEqual([
+      ["warning", "invalid-input-name", "pipe.run_all.steps[0].result"],
+      ["warning", "invalid-input-name", "pipe.run_all.steps[0].batch_as"],
+    ]);
+    expect(diagnostics[0].message).toContain(
+      'sub-pipe "write_label" stores its result under "Labels", which is not a plain input name',
+    );
+    expect(diagnostics[1].message).toContain("cannot reach into a field with a dot");
+  });
+
+  it("reports a parallel branch's result and batch_as, and keeps the branch as written", () => {
+    const { pipes, diagnostics } = parseController(
+      parallelOf(
+        `{ pipe = "write_label", batch_over = "parcels", batch_as = "_bound_parcel", result = "labels" }`,
+      ),
+    );
+    expect((pipes.fan_out as PipeParallelBlueprint).parallel_sub_pipes).toEqual([
+      expect.objectContaining({ pipe_code: "write_label", output_name: "labels" }),
+    ]);
+    expect(diagnostics.map((d) => [d.code, d.path])).toEqual([
+      ["invalid-input-name", "pipe.fan_out.branches[0].batch_as"],
+    ]);
+    expect(diagnostics[0].message).toContain('the prefix "_bound_" is reserved');
+  });
+
+  it("reports a PipeBatch's input_item_name, and keeps it as written", () => {
+    const { pipes, diagnostics } = parseController(`
+[pipe.label_all]
+type = "PipeBatch"
+description = "Labels every parcel"
+inputs = { parcels = "Text[]" }
+output = "Text[]"
+branch_pipe_code = "write_label"
+input_list_name = "parcels"
+input_item_name = "Parcel"
+`);
+    expect((pipes.label_all as PipeBatchBlueprint).batch_params).toEqual({
+      input_list_stuff_name: "parcels",
+      input_item_stuff_name: "Parcel",
+    });
+    expect(diagnostics).toEqual([
+      expect.objectContaining({
+        severity: "warning",
+        code: "invalid-input-name",
+        path: "pipe.label_all.input_item_name",
+      }),
+    ]);
+    expect(diagnostics[0].message).toContain("a lowercase letter followed by lowercase letters");
+  });
+
+  it("says nothing of plain stored names", () => {
+    const { diagnostics } = parseController(
+      sequenceOf(
+        `{ pipe = "write_label", batch_over = "parcels", batch_as = "parcel", result = "labels" }`,
+      ),
+    );
+    expect(diagnostics).toEqual([]);
   });
 });

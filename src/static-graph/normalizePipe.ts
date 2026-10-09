@@ -67,12 +67,18 @@ function stringArrayOrNull(value: unknown): string[] | null {
 
 /**
  * A plain name (`^[a-z][a-z0-9_]*$` in the schema): the grammar of an input
- * name, and of a binding step's `result`, since a later step reads the bound
- * value through its inputs. It has no dot, so a name never reaches into a
- * field, and no leading underscore, which keeps the reserved private prefix
- * out of an author's reach.
+ * name, and of every name a step stores a value under, since a later step
+ * reads the stored value through its inputs. It has no dot, so a name never
+ * reaches into a field, and no leading underscore, which keeps the reserved
+ * private prefix out of an author's reach.
  */
 const PLAIN_NAME_RE = /^[a-z][a-z0-9_]*$/;
+
+/**
+ * The prefix of the private name a sequence binds a dotted `batch_over`'s list
+ * under — the runtime's own, reserved so no name an author writes takes it.
+ */
+export const PRIVATE_BINDING_NAME_PREFIX = "_bound_";
 
 /** The binding step that hands the field a dotted path reaches to a pipe under a plain name. */
 function bindingStepFor(dottedPath: string): string {
@@ -97,6 +103,47 @@ function invalidInputNameReason(name: string): string {
     return `is not a plain input name: ${dottedInputNameRemedy(name)}`;
   }
   return "is not a plain input name, which is a lowercase letter followed by lowercase letters, digits and underscores";
+}
+
+/**
+ * Report a stored name that breaks the plain-name grammar. A stored name is one
+ * a step stores a value under in working memory — a pipe step's or a parallel
+ * branch's `result`, the `batch_as` of either, a PipeBatch's `input_item_name` —
+ * for a later pipe to read through an input, so the runtime refuses any name
+ * but a plain one with `invalid_input_name`, the reserved prefix among them.
+ * Unlike an input, the name belongs to a step that still runs a pipe the graph
+ * has to show, so it is reported and drawn as written rather than skipped. A
+ * binding step's `result` is a stored name too, refused as a malformed binding
+ * step instead (`normalizeBindingStep`).
+ *
+ * `storedUnder` says what the step stores under the name, phrased to end on
+ * "under": `sub-pipe "write_label" stores its result under`.
+ */
+function reportInvalidStoredName(
+  name: string | null,
+  storedUnder: string,
+  pipeCode: string,
+  path: string,
+  ctx: NormalizePipeContext,
+): void {
+  if (name === null || PLAIN_NAME_RE.test(name)) return;
+  let why: string;
+  if (name.startsWith(PRIVATE_BINDING_NAME_PREFIX)) {
+    why = `and the prefix "${PRIVATE_BINDING_NAME_PREFIX}" is reserved for the runtime's own names`;
+  } else if (name.includes(".")) {
+    why = "and an input names one whole value, so its name cannot reach into a field with a dot";
+  } else {
+    why =
+      "and an input name is a lowercase letter followed by lowercase letters, digits and underscores";
+  }
+  ctx.diagnostics.push({
+    severity: "warning",
+    code: "invalid-input-name",
+    message:
+      `pipe "${pipeCode}": ${storedUnder} "${name}", which is not a plain input name: ` +
+      `a pipe reads the value through an input, ${why} — drawn as written`,
+    path,
+  });
 }
 
 /** A TOML-style locator segment for a key, quoted when a bare key cannot spell it. */
@@ -212,8 +259,24 @@ function normalizeSubPipe(
     });
     return null;
   }
+  const pipeRef = raw.pipe as string;
+  const result = strOrNull(raw.result);
   const batchOver = strOrNull(raw.batch_over);
   const batchAs = strOrNull(raw.batch_as);
+  reportInvalidStoredName(
+    result,
+    `sub-pipe "${pipeRef}" stores its result under`,
+    pipeCode,
+    `${path}.result`,
+    ctx,
+  );
+  reportInvalidStoredName(
+    batchAs,
+    `sub-pipe "${pipeRef}" hands each item to its pipe under`,
+    pipeCode,
+    `${path}.batch_as`,
+    ctx,
+  );
   let batchParams: SubPipeSpec["batch_params"] = null;
   if (batchOver !== null && batchAs !== null) {
     batchParams = { input_list_stuff_name: batchOver, input_item_stuff_name: batchAs };
@@ -222,7 +285,7 @@ function normalizeSubPipe(
       severity: "warning",
       code: "incomplete-batch-spec",
       message:
-        `pipe "${pipeCode}": sub-pipe "${raw.pipe as string}" sets only one of ` +
+        `pipe "${pipeCode}": sub-pipe "${pipeRef}" sets only one of ` +
         `batch_over/batch_as — batching ignored`,
       path,
     });
@@ -233,8 +296,8 @@ function normalizeSubPipe(
     intOrNull(raw.nb_output) ?? (raw.multiple_output === true ? true : null);
   if (batchParams !== null && outputMultiplicity === null) outputMultiplicity = true;
   return {
-    pipe_code: raw.pipe as string,
-    output_name: strOrNull(raw.result),
+    pipe_code: pipeRef,
+    output_name: result,
     output_multiplicity: outputMultiplicity,
     batch_params: batchParams,
   };
@@ -250,12 +313,6 @@ const BINDING_PATH_RE = /^[A-Za-z][A-Za-z0-9_]*(?:\.[A-Za-z][A-Za-z0-9_]*)*$/;
 
 /** The keys a binding step may carry: `from` and `result`, both required, nothing else. */
 const BINDING_STEP_KEYS: ReadonlySet<string> = new Set(["from", "result"]);
-
-/**
- * The prefix of the private name a sequence binds a dotted `batch_over`'s list
- * under — the runtime's own, reserved so no name an author writes takes it.
- */
-export const PRIVATE_BINDING_NAME_PREFIX = "_bound_";
 
 /**
  * Normalize one binding step, `{ from = "invoice.total", result = "total_amount" }`,
@@ -701,6 +758,14 @@ export function normalizePipe(
           path: `pipe.${code}.branch_pipe_code`,
         });
       }
+      const inputItemName = strOrNull(raw.input_item_name);
+      reportInvalidStoredName(
+        inputItemName,
+        "the batch hands each item to its branch pipe under",
+        code,
+        `pipe.${code}.input_item_name`,
+        ctx,
+      );
       return {
         ...base,
         type,
@@ -708,7 +773,7 @@ export function normalizePipe(
         branch_pipe_code: branchPipeCode ?? "",
         batch_params: {
           input_list_stuff_name: strOrNull(raw.input_list_name) ?? "",
-          input_item_stuff_name: strOrNull(raw.input_item_name) ?? "",
+          input_item_stuff_name: inputItemName ?? "",
         },
       };
     }
