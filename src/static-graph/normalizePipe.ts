@@ -96,10 +96,15 @@ function dottedInputNameRemedy(dottedName: string): string {
   );
 }
 
+/** Whether a name reads as a root followed by field names (`invoice.total`), each segment a plain name. */
+function isDottedFieldPath(name: string): boolean {
+  const segments = name.split(".");
+  return segments.length > 1 && segments.every((segment) => PLAIN_NAME_RE.test(segment));
+}
+
 /** Why an input name breaking the plain-name grammar is refused. */
 function invalidInputNameReason(name: string): string {
-  const segments = name.split(".");
-  if (segments.length > 1 && segments.every((segment) => PLAIN_NAME_RE.test(segment))) {
+  if (isDottedFieldPath(name)) {
     return `is not a plain input name: ${dottedInputNameRemedy(name)}`;
   }
   return "is not a plain input name, which is a lowercase letter followed by lowercase letters, digits and underscores";
@@ -142,6 +147,77 @@ function reportInvalidStoredName(
     message:
       `pipe "${pipeCode}": ${storedUnder} "${name}", which is not a plain input name: ` +
       `a pipe reads the value through an input, ${why} — drawn as written`,
+    path,
+  });
+}
+
+/**
+ * Report a PipeBatch's `input_list_name` that breaks the plain-name grammar.
+ * The list is one of the batch's own inputs, so its name is a plain input name
+ * and never a dotted path into a field: the runtime refuses any other with
+ * `invalid_input_name` (`check_input_list_name`). A list held in a field of a larger value is
+ * declared under a plain name and handed over by the calling sequence, which
+ * binds the field to that name, or batches over the field itself in a step
+ * running the branch pipe. Reported and drawn as written, as a stored name is.
+ */
+function reportInvalidBatchListName(
+  name: string | null,
+  branchPipeCode: string | null,
+  pipeCode: string,
+  ctx: NormalizePipeContext,
+): void {
+  if (name === null || PLAIN_NAME_RE.test(name)) return;
+  let why: string;
+  if (isDottedFieldPath(name)) {
+    const plainName = name.slice(name.lastIndexOf(".") + 1);
+    const branch = branchPipeCode === null ? "the branch pipe" : `"${branchPipeCode}"`;
+    why =
+      `: a PipeBatch maps over a list it declares as an input of its own, so declare the list as "${plainName}" ` +
+      `and have the calling sequence bind the field to it with a binding step (${bindingStepFor(name)}), ` +
+      `or have the calling sequence run ${branch} in a step that batches over the field itself`;
+  } else {
+    why = ", which is a lowercase letter followed by lowercase letters, digits and underscores";
+  }
+  ctx.diagnostics.push({
+    severity: "warning",
+    code: "invalid-input-name",
+    message: `pipe "${pipeCode}": input_list_name "${name}" is not a plain input name${why} — drawn as written`,
+    path: `pipe.${pipeCode}.input_list_name`,
+  });
+}
+
+/**
+ * Report a plain `batch_over` taking the reserved prefix. A sequence binds a
+ * dotted `batch_over`'s list under a private name taking it, in working memory
+ * a nested sequence shares with its caller, so the runtime refuses a step
+ * batching over such a name by hand with `invalid_input_name`
+ * (`check_name_is_not_reserved`). A `batch_over` reads a name rather than
+ * storing one, so no plain-name grammar keeps it off the prefix. A dotted one
+ * is a path, refused as a malformed binding step when a segment is
+ * underscore-led, so only a name without a dot is checked here. Reported and
+ * drawn as written, as a stored name is.
+ */
+function reportReservedBatchOver(
+  batchOver: string | null,
+  pipeRef: string,
+  pipeCode: string,
+  path: string,
+  ctx: NormalizePipeContext,
+): void {
+  if (
+    batchOver === null ||
+    batchOver.includes(".") ||
+    !batchOver.startsWith(PRIVATE_BINDING_NAME_PREFIX)
+  ) {
+    return;
+  }
+  ctx.diagnostics.push({
+    severity: "warning",
+    code: "invalid-input-name",
+    message:
+      `pipe "${pipeCode}": sub-pipe "${pipeRef}" batches over "${batchOver}", which takes the prefix ` +
+      `"${PRIVATE_BINDING_NAME_PREFIX}" the runtime reserves for the list a dotted batch_over binds, ` +
+      `a name only the runtime writes or reads — drawn as written`,
     path,
   });
 }
@@ -277,6 +353,7 @@ function normalizeSubPipe(
     `${path}.batch_as`,
     ctx,
   );
+  reportReservedBatchOver(batchOver, pipeRef, pipeCode, `${path}.batch_over`, ctx);
   let batchParams: SubPipeSpec["batch_params"] = null;
   if (batchOver !== null && batchAs !== null) {
     batchParams = { input_list_stuff_name: batchOver, input_item_stuff_name: batchAs };
@@ -758,7 +835,9 @@ export function normalizePipe(
           path: `pipe.${code}.branch_pipe_code`,
         });
       }
+      const inputListName = strOrNull(raw.input_list_name);
       const inputItemName = strOrNull(raw.input_item_name);
+      reportInvalidBatchListName(inputListName, branchPipeCode, code, ctx);
       reportInvalidStoredName(
         inputItemName,
         "the batch hands each item to its branch pipe under",
@@ -772,7 +851,7 @@ export function normalizePipe(
         pipe_category: "PipeController",
         branch_pipe_code: branchPipeCode ?? "",
         batch_params: {
-          input_list_stuff_name: strOrNull(raw.input_list_name) ?? "",
+          input_list_stuff_name: inputListName ?? "",
           input_item_stuff_name: inputItemName ?? "",
         },
       };
