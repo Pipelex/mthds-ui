@@ -846,6 +846,21 @@ branches = [${branch}]
     expect(diagnostics[0].message).toContain('the prefix "_bound_" is reserved');
   });
 
+  it("says only why a skipped branch is skipped, never that its names are drawn", () => {
+    // The runtime refuses a branch batching over a dotted path before it reads
+    // the names the branch stores, and the branch is not drawn at all.
+    const { pipes, diagnostics } = parseController(
+      parallelOf(
+        `{ pipe = "write_label", batch_over = "round.parcels", batch_as = "Parcel", result = "Labels" }`,
+      ),
+    );
+    expect((pipes.fan_out as PipeParallelBlueprint).parallel_sub_pipes).toEqual([]);
+    expect(diagnostics.map((d) => [d.code, d.path])).toEqual([
+      ["invalid-binding-step", "pipe.fan_out.branches[0]"],
+    ]);
+    expect(diagnostics[0].message).toContain("skipped");
+  });
+
   it("reports a PipeBatch's input_item_name, and keeps it as written", () => {
     const { pipes, diagnostics } = parseController(`
 [pipe.label_all]

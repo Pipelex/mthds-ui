@@ -320,6 +320,37 @@ function normalizeOutput(raw: unknown, pipeCode: string, ctx: NormalizePipeConte
 
 // ─── Sub-pipe normalization (sequence steps, parallel branches) ──────────────
 
+/**
+ * Report the names a pipe step or a parallel branch stores values under or
+ * batches over that the runtime refuses, each at its field. Called only once
+ * the caller has kept the step, since each report says it is drawn as written:
+ * a branch skipped for another reason reports only why it was skipped, as the
+ * runtime, which refuses that reason before it reads these names, does.
+ */
+function reportSubPipeNames(
+  raw: Record<string, unknown>,
+  pipeCode: string,
+  path: string,
+  ctx: NormalizePipeContext,
+): void {
+  const pipeRef = raw.pipe as string;
+  reportInvalidStoredName(
+    strOrNull(raw.result),
+    `sub-pipe "${pipeRef}" stores its result under`,
+    pipeCode,
+    `${path}.result`,
+    ctx,
+  );
+  reportInvalidStoredName(
+    strOrNull(raw.batch_as),
+    `sub-pipe "${pipeRef}" hands each item to its pipe under`,
+    pipeCode,
+    `${path}.batch_as`,
+    ctx,
+  );
+  reportReservedBatchOver(strOrNull(raw.batch_over), pipeRef, pipeCode, `${path}.batch_over`, ctx);
+}
+
 function normalizeSubPipe(
   raw: Record<string, unknown>,
   pipeCode: string,
@@ -339,21 +370,6 @@ function normalizeSubPipe(
   const result = strOrNull(raw.result);
   const batchOver = strOrNull(raw.batch_over);
   const batchAs = strOrNull(raw.batch_as);
-  reportInvalidStoredName(
-    result,
-    `sub-pipe "${pipeRef}" stores its result under`,
-    pipeCode,
-    `${path}.result`,
-    ctx,
-  );
-  reportInvalidStoredName(
-    batchAs,
-    `sub-pipe "${pipeRef}" hands each item to its pipe under`,
-    pipeCode,
-    `${path}.batch_as`,
-    ctx,
-  );
-  reportReservedBatchOver(batchOver, pipeRef, pipeCode, `${path}.batch_over`, ctx);
   let batchParams: SubPipeSpec["batch_params"] = null;
   if (batchOver !== null && batchAs !== null) {
     batchParams = { input_list_stuff_name: batchOver, input_item_stuff_name: batchAs };
@@ -521,6 +537,8 @@ function normalizeSequenceSteps(
     }
     const step = normalizeSubPipe(entry, pipeCode, path, ctx);
     if (step === null) return;
+    // A pipe step is never skipped past this point, so its names are reported here.
+    reportSubPipeNames(entry, pipeCode, path, ctx);
     const listName = step.batch_params?.input_list_stuff_name;
     if (step.batch_params != null && listName !== undefined && listName.includes(".")) {
       if (!BINDING_PATH_RE.test(listName)) {
@@ -548,7 +566,8 @@ function normalizeSequenceSteps(
  * Normalize a parallel's `branches`. A branch is always a pipe step: the
  * runtime refuses a binding step there, and a dotted `batch_over`, since only
  * a sequence binds — a branch needing a field gets it bound by a sequence step
- * before the parallel. Both are skipped with a diagnostic.
+ * before the parallel. Both are skipped with a diagnostic, and with nothing else,
+ * since the runtime refuses them before it reads the names the branch writes.
  */
 function normalizeBranchList(
   raw: unknown,
@@ -603,6 +622,8 @@ function normalizeBranchList(
       });
       return;
     }
+    // Only a branch that is kept reports its names: a skipped one says why it was skipped.
+    reportSubPipeNames(entry, pipeCode, path, ctx);
     branches.push(branch);
   });
   return branches;
