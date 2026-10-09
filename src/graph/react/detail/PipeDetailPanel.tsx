@@ -386,7 +386,7 @@ function ExecutionDataSection({
   hasBlueprint,
 }: {
   executionData: Record<string, unknown>;
-  pipeType: string;
+  pipeType: NodePipeType;
   hasBlueprint: boolean;
 }) {
   // Known pipe types merge their runtime data into the blueprint section, so
