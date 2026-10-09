@@ -37,6 +37,7 @@ import {
   DRY_MEETING_TRIAGE,
   DRY_AVAILABILITY_ROUTING,
   DRY_ALL_NATIVE_CONCEPTS,
+  DRY_DOOR_NOTICE,
 } from "./pipelines/specs/_generated.dry";
 
 export {
@@ -72,6 +73,7 @@ export {
   DRY_MEETING_TRIAGE,
   DRY_AVAILABILITY_ROUTING,
   DRY_ALL_NATIVE_CONCEPTS,
+  DRY_DOOR_NOTICE,
 };
 
 export const DRY_RUN_CATALOG: Record<string, { label: string; spec: GraphSpec }> = {
@@ -124,5 +126,9 @@ export const DRY_RUN_CATALOG: Record<string, { label: string; spec: GraphSpec }>
   DRY_ALL_NATIVE_CONCEPTS: {
     label: "34 - All Native Concepts",
     spec: DRY_ALL_NATIVE_CONCEPTS,
+  },
+  DRY_DOOR_NOTICE: {
+    label: "35 - Door Notice (PipeDocGen)",
+    spec: DRY_DOOR_NOTICE,
   },
 };

@@ -136,6 +136,7 @@ const NAME_MAP = {
   pipeline_32: "MEETING_TRIAGE",
   pipeline_33: "AVAILABILITY_ROUTING",
   pipeline_34: "ALL_NATIVE_CONCEPTS",
+  pipeline_35: "DOOR_NOTICE",
 };
 
 /**

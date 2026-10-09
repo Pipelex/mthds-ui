@@ -1,0 +1,14 @@
+{
+  "shop_name": {
+    "concept": "native.Text",
+    "content": {
+      "text": "text_value"
+    }
+  },
+  "hours": {
+    "concept": "native.Text",
+    "content": {
+      "text": "text_value"
+    }
+  }
+}

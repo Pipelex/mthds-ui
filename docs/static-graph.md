@@ -289,6 +289,8 @@ A document step's card shows its format beside its badge, as a chip in capitals 
 
 `resolveNodeBlueprint` is the one lookup the card and the detail panel share. A node carrying its domain resolves by its qualified ref and nothing else, since two domains may declare the same code; one without resolves in the pipeline's domain, then by the one registry key ending in its code, and by none when two do. A judge's card does not show its verdict yet.
 
+`StaticDocGen.stories.tsx` draws the corpus entry `operator_doc_gen_door_notice` through the static builder. Its run-produced twin is `pipeline_35` (`DOOR_NOTICE`), where a `PipeLLM` writes a shop's hours up as a notice and a `PipeDocGen` prints it as a pdf from the auto-layout: its dry and live specs carry what pipelex actually serializes for the step, the registry entry, the execution data, and in the dry run the printed document inlined as a `data:` URL, and its stories check the card's chip and the panel's rows against them.
+
 ## Fixture Catalog
 
 Storybook and tests expose `STATIC_*` specs and `STATIC_RUN_CATALOG` from

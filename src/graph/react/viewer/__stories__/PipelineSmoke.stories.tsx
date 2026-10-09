@@ -78,3 +78,4 @@ export const RfpQualifier: Story = makeStory(DRY_RUN_CATALOG.DRY_RFP_QUALIFIER.s
 export const MeetingTriage: Story = makeStory(DRY_RUN_CATALOG.DRY_MEETING_TRIAGE.spec);
 export const AvailabilityRouting: Story = makeStory(DRY_RUN_CATALOG.DRY_AVAILABILITY_ROUTING.spec);
 export const AllNativeConcepts: Story = makeStory(DRY_RUN_CATALOG.DRY_ALL_NATIVE_CONCEPTS.spec);
+export const DoorNotice: Story = makeStory(DRY_RUN_CATALOG.DRY_DOOR_NOTICE.spec);

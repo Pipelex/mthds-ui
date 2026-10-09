@@ -1,0 +1,48 @@
+domain      = "door_notice"
+description = "Writing a shop's opening hours up as a notice, then printing it as a page to tape to the door"
+main_pipe   = "write_and_print_notice"
+
+[concept.OpeningNotice]
+description = "What a shop wants passers-by to know about its opening hours"
+
+[concept.OpeningNotice.structure]
+shop_name = { type = "text", description = "The name painted above the shop's door", required = true }
+weekdays  = { type = "text", description = "The opening hours from Monday to Friday", required = true }
+weekend   = { type = "text", description = "The opening hours on Saturday and Sunday", required = true }
+note      = { type = "text", description = "One short friendly sentence for passers-by", required = true }
+
+[concept.PrintedNotice]
+description = "The notice laid out as a page to print and tape to the door"
+refines     = "Document"
+
+[pipe.write_and_print_notice]
+type        = "PipeSequence"
+description = "Writes the shop's hours up as a notice, then prints it as a page"
+inputs      = { shop_name = "Text", hours = "Text" }
+output      = "PrintedNotice"
+steps = [
+  { pipe = "write_notice", result = "notice" },
+  { pipe = "print_notice", result = "printed_notice" },
+]
+
+[pipe.write_notice]
+type        = "PipeLLM"
+description = "Sorts the shop's hours into weekdays and weekend, with a short note"
+inputs      = { shop_name = "Text", hours = "Text" }
+output      = "OpeningNotice"
+prompt      = """
+A shop wants a notice for its door. Sort its opening hours into the weekdays and the weekend, and add one short friendly sentence for passers-by.
+
+The shop's name: $shop_name
+
+Its hours, as the owner wrote them:
+@hours
+"""
+
+[pipe.print_notice]
+type        = "PipeDocGen"
+description = "Lays the notice out as a page to print"
+inputs      = { notice = "OpeningNotice" }
+output      = "PrintedNotice"
+format      = "pdf"
+filename    = "notice-{{ notice.shop_name }}"

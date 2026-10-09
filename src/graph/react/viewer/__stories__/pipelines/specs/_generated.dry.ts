@@ -66,3 +66,5 @@ export { DRY_MEETING_TRIAGE } from "./_generated/dry/pipeline_32";
 export { DRY_AVAILABILITY_ROUTING } from "./_generated/dry/pipeline_33";
 
 export { DRY_ALL_NATIVE_CONCEPTS } from "./_generated/dry/pipeline_34";
+
+export { DRY_DOOR_NOTICE } from "./_generated/dry/pipeline_35";

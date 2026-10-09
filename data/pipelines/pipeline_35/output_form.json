@@ -1,0 +1,61 @@
+{
+  "door_notice.print_notice": {
+    "field": {
+      "concept_ref": "door_notice.PrintedNotice",
+      "description": "The notice laid out as a page to print and tape to the door",
+      "kind": "document",
+      "name": "output",
+      "refines": [
+        "native.Document"
+      ],
+      "required": true
+    }
+  },
+  "door_notice.write_and_print_notice": {
+    "field": {
+      "concept_ref": "door_notice.PrintedNotice",
+      "description": "The notice laid out as a page to print and tape to the door",
+      "kind": "document",
+      "name": "output",
+      "refines": [
+        "native.Document"
+      ],
+      "required": true
+    }
+  },
+  "door_notice.write_notice": {
+    "field": {
+      "concept_ref": "door_notice.OpeningNotice",
+      "description": "What a shop wants passers-by to know about its opening hours",
+      "fields": [
+        {
+          "description": "The name painted above the shop's door",
+          "kind": "text",
+          "name": "shop_name",
+          "required": true
+        },
+        {
+          "description": "The opening hours from Monday to Friday",
+          "kind": "text",
+          "name": "weekdays",
+          "required": true
+        },
+        {
+          "description": "The opening hours on Saturday and Sunday",
+          "kind": "text",
+          "name": "weekend",
+          "required": true
+        },
+        {
+          "description": "One short friendly sentence for passers-by",
+          "kind": "text",
+          "name": "note",
+          "required": true
+        }
+      ],
+      "kind": "object",
+      "name": "output",
+      "required": true
+    }
+  }
+}

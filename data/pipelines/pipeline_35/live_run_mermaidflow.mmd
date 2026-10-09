@@ -1,0 +1,28 @@
+flowchart LR
+
+    %% Pipe and stuff nodes within controller subgraphs
+    subgraph sg_n_c95dcf3fdc["write_and_print_notice"]
+        n_35c566df8b["print_notice"]
+        s_9253ac2cd8(["printed_notice<br/>PrintedNotice"]):::stuff
+        n_da906b6983["write_notice"]
+        s_df55f3a5bc(["notice<br/>OpeningNotice"]):::stuff
+    end
+
+    %% Pipeline input stuff nodes (no producer)
+    s_0cdd149442(["hours<br/>Text"]):::stuff
+    s_156f44a282(["shop_name<br/>Text"]):::stuff
+
+    %% Data flow edges: producer -> stuff -> consumer
+    n_35c566df8b --> s_9253ac2cd8
+    n_da906b6983 --> s_df55f3a5bc
+    s_156f44a282 --> n_da906b6983
+    s_0cdd149442 --> n_da906b6983
+    s_df55f3a5bc --> n_35c566df8b
+
+    %% Style definitions
+    classDef failed fill:#ffcccc,stroke:#cc0000
+    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px
+    classDef controller fill:#e6f3ff,stroke:#0066cc
+
+    %% Subgraph depth-based coloring
+    style sg_n_c95dcf3fdc fill:#e6f3ff
