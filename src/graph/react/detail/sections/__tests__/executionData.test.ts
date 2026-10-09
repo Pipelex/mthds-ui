@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import {
   MERGED_EXECUTION_DATA_TYPES,
+  dumpableExecutionData,
   shouldDumpExecutionData,
 } from "@graph/react/detail/sections/executionData";
 
@@ -11,6 +12,7 @@ const MERGED = [
   "PipeSearch",
   "PipeStructure",
   "PipeCompose",
+  "PipeDocGen",
   "PipeSequence",
   "PipeParallel",
   "PipeCondition",
@@ -60,5 +62,31 @@ describe("shouldDumpExecutionData", () => {
       expect(shouldDumpExecutionData("PipeBrandNew", true)).toBe(true);
       expect(shouldDumpExecutionData("PipeBrandNew", false)).toBe(true);
     });
+  });
+});
+
+describe("dumpableExecutionData", () => {
+  it("never dumps a PipeDocGen's stored document url, and keeps its other keys in order", () => {
+    const data = {
+      format: "pdf",
+      source: "layout",
+      resolved_model: "reportlab-pdf",
+      filename: "notice.pdf",
+      url: "data:application/pdf;base64,JVBERi0=",
+    };
+    expect(dumpableExecutionData("PipeDocGen", data)).toEqual([
+      ["format", "pdf"],
+      ["source", "layout"],
+      ["resolved_model", "reportlab-pdf"],
+      ["filename", "notice.pdf"],
+    ]);
+  });
+
+  it("dumps every key of another pipe type, a url included", () => {
+    const data = { url: "https://example.com/page", runtime_value: 1 };
+    expect(dumpableExecutionData("PipeFunc", data)).toEqual([
+      ["url", "https://example.com/page"],
+      ["runtime_value", 1],
+    ]);
   });
 });

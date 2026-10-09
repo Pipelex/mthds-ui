@@ -1,0 +1,704 @@
+{
+  "graph_id": "50c891fa-c89d-4969-8e89-1f23c9fbfeb4",
+  "created_at": "2026-10-09T14:55:36.719062Z",
+  "pipeline_ref": {
+    "domain": "door_notice",
+    "main_pipe": "write_and_print_notice",
+    "entrypoint": null
+  },
+  "nodes": [
+    {
+      "id": "50c891fa-c89d-4969-8e89-1f23c9fbfeb4:node_0",
+      "kind": "controller",
+      "pipe_code": "write_and_print_notice",
+      "pipe_type": "PipeSequence",
+      "description": "Writes the shop's hours up as a notice, then prints it as a page",
+      "domain_code": "door_notice",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-10-09T14:55:36.719062Z",
+        "ended_at": "2026-10-09T14:55:36.727885Z",
+        "duration": 0.008823
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "shop_name",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "mJH82",
+            "data": {
+              "text": "HhAEEtXcJpRfrbrywNlC"
+            },
+            "multiplicity": null,
+            "extra": {}
+          },
+          {
+            "name": "hours",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "HBj92",
+            "data": {
+              "text": "LCBwoTcCEQbmWPsypePs"
+            },
+            "multiplicity": null,
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "printed_notice",
+            "concept": "PrintedNotice",
+            "content_type": "application/pdf",
+            "preview": null,
+            "size": null,
+            "digest": "6AjHE",
+            "data": {
+              "url": "data:application/pdf;base64,JVBERi0xLjQKMSAwIG9iago8PCAvVHlwZSAvQ2F0YWxvZyAvUGFnZXMgMiAwIFIgPj4KZW5kb2JqCjIgMCBvYmoKPDwgL1R5cGUgL1BhZ2VzIC9LaWRzIFszIDAgUl0gL0NvdW50IDEgPj4KZW5kb2JqCjMgMCBvYmoKPDwgL1R5cGUgL1BhZ2UgL1BhcmVudCAyIDAgUiAvTWVkaWFCb3ggWzAgMCA2MTIgNzkyXSA+PgplbmRvYmoKeHJlZgowIDQKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDA5IDAwMDAwIG4gCjAwMDAwMDAwNTggMDAwMDAgbiAKMDAwMDAwMDExNSAwMDAwMCBuIAp0cmFpbGVyCjw8IC9TaXplIDQgL1Jvb3QgMSAwIFIgPj4Kc3RhcnR4cmVmCjE4NgolJUVPRgo=",
+              "public_url": null,
+              "mime_type": "application/pdf",
+              "filename": "notice-qiXXaQNhEGZYeRsNLaUz.pdf",
+              "title": null,
+              "snippet": null
+            },
+            "multiplicity": null,
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "usage": {
+        "inference_calls": 0,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [],
+        "subtree_inference_calls": 1,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
+      "execution_data": {
+        "step_count": 2
+      }
+    },
+    {
+      "id": "50c891fa-c89d-4969-8e89-1f23c9fbfeb4:node_1",
+      "kind": "operator",
+      "pipe_code": "write_notice",
+      "pipe_type": "PipeLLM",
+      "description": "Sorts the shop's hours into weekdays and weekend, with a short note",
+      "domain_code": "door_notice",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-10-09T14:55:36.720992Z",
+        "ended_at": "2026-10-09T14:55:36.725042Z",
+        "duration": 0.00405
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "shop_name",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "mJH82",
+            "data": {
+              "text": "HhAEEtXcJpRfrbrywNlC"
+            },
+            "multiplicity": null,
+            "extra": {}
+          },
+          {
+            "name": "hours",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "HBj92",
+            "data": {
+              "text": "LCBwoTcCEQbmWPsypePs"
+            },
+            "multiplicity": null,
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "notice",
+            "concept": "OpeningNotice",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "6UPre",
+            "data": {
+              "shop_name": "qiXXaQNhEGZYeRsNLaUz",
+              "weekdays": "dwEfgmZfYUWTHjKaQgMR",
+              "weekend": "WjAIWlsNGLrJKjFRcYvg",
+              "note": "fwyFGNFmoVmNDIEQzbOi"
+            },
+            "multiplicity": null,
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "usage": {
+        "inference_calls": 1,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ],
+        "subtree_inference_calls": 1,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
+      "execution_data": {
+        "resolved_model": "gpt-5.6-terra",
+        "resolved_model_for_object": "gpt-5.6-terra",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "A shop wants a notice for its door. Sort its opening hours into the weekdays and the weekend, and add one short friendly sentence for passers-by.\n\nThe shop's name: HhAEEtXcJpRfrbrywNlC\n\nIts hours, as the owner wrote them:\n<hours>\nLCBwoTcCEQbmWPsypePs\n</hours>\n\n---\nThe instance we want to generate will be for the following class:\nclass door_notice__OpeningNotice(StructuredContent):\n    \"\"\"What a shop wants passers-by to know about its opening hours\"\"\"\n    shop_name: str  # The name painted above the shop's door\n    weekdays: str  # The opening hours from Monday to Friday\n    weekend: str  # The opening hours on Saturday and Sunday\n    note: str  # One short friendly sentence for passers-by\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "structuring_path": "object_direct"
+      }
+    },
+    {
+      "id": "50c891fa-c89d-4969-8e89-1f23c9fbfeb4:node_2",
+      "kind": "operator",
+      "pipe_code": "print_notice",
+      "pipe_type": "PipeDocGen",
+      "description": "Lays the notice out as a page to print",
+      "domain_code": "door_notice",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-10-09T14:55:36.725355Z",
+        "ended_at": "2026-10-09T14:55:36.727519Z",
+        "duration": 0.002164
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "notice",
+            "concept": "OpeningNotice",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "6UPre",
+            "data": {
+              "shop_name": "qiXXaQNhEGZYeRsNLaUz",
+              "weekdays": "dwEfgmZfYUWTHjKaQgMR",
+              "weekend": "WjAIWlsNGLrJKjFRcYvg",
+              "note": "fwyFGNFmoVmNDIEQzbOi"
+            },
+            "multiplicity": null,
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "printed_notice",
+            "concept": "PrintedNotice",
+            "content_type": "application/pdf",
+            "preview": null,
+            "size": null,
+            "digest": "6AjHE",
+            "data": {
+              "url": "data:application/pdf;base64,JVBERi0xLjQKMSAwIG9iago8PCAvVHlwZSAvQ2F0YWxvZyAvUGFnZXMgMiAwIFIgPj4KZW5kb2JqCjIgMCBvYmoKPDwgL1R5cGUgL1BhZ2VzIC9LaWRzIFszIDAgUl0gL0NvdW50IDEgPj4KZW5kb2JqCjMgMCBvYmoKPDwgL1R5cGUgL1BhZ2UgL1BhcmVudCAyIDAgUiAvTWVkaWFCb3ggWzAgMCA2MTIgNzkyXSA+PgplbmRvYmoKeHJlZgowIDQKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDA5IDAwMDAwIG4gCjAwMDAwMDAwNTggMDAwMDAgbiAKMDAwMDAwMDExNSAwMDAwMCBuIAp0cmFpbGVyCjw8IC9TaXplIDQgL1Jvb3QgMSAwIFIgPj4Kc3RhcnR4cmVmCjE4NgolJUVPRgo=",
+              "public_url": null,
+              "mime_type": "application/pdf",
+              "filename": "notice-qiXXaQNhEGZYeRsNLaUz.pdf",
+              "title": null,
+              "snippet": null
+            },
+            "multiplicity": null,
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "usage": {
+        "inference_calls": 0,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [],
+        "subtree_inference_calls": 0,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": []
+      },
+      "execution_data": {
+        "format": "pdf",
+        "source": "layout",
+        "resolved_model": "reportlab-pdf",
+        "filename": "notice-qiXXaQNhEGZYeRsNLaUz.pdf",
+        "url": "data:application/pdf;base64,JVBERi0xLjQKMSAwIG9iago8PCAvVHlwZSAvQ2F0YWxvZyAvUGFnZXMgMiAwIFIgPj4KZW5kb2JqCjIgMCBvYmoKPDwgL1R5cGUgL1BhZ2VzIC9LaWRzIFszIDAgUl0gL0NvdW50IDEgPj4KZW5kb2JqCjMgMCBvYmoKPDwgL1R5cGUgL1BhZ2UgL1BhcmVudCAyIDAgUiAvTWVkaWFCb3ggWzAgMCA2MTIgNzkyXSA+PgplbmRvYmoKeHJlZgowIDQKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDA5IDAwMDAwIG4gCjAwMDAwMDAwNTggMDAwMDAgbiAKMDAwMDAwMDExNSAwMDAwMCBuIAp0cmFpbGVyCjw8IC9TaXplIDQgL1Jvb3QgMSAwIFIgPj4Kc3RhcnR4cmVmCjE4NgolJUVPRgo="
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "50c891fa-c89d-4969-8e89-1f23c9fbfeb4:edge_0",
+      "source": "50c891fa-c89d-4969-8e89-1f23c9fbfeb4:node_0",
+      "target": "50c891fa-c89d-4969-8e89-1f23c9fbfeb4:node_1",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "50c891fa-c89d-4969-8e89-1f23c9fbfeb4:edge_1",
+      "source": "50c891fa-c89d-4969-8e89-1f23c9fbfeb4:node_0",
+      "target": "50c891fa-c89d-4969-8e89-1f23c9fbfeb4:node_2",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "50c891fa-c89d-4969-8e89-1f23c9fbfeb4:asm_edge_0",
+      "source": "50c891fa-c89d-4969-8e89-1f23c9fbfeb4:node_1",
+      "target": "50c891fa-c89d-4969-8e89-1f23c9fbfeb4:node_2",
+      "kind": "data",
+      "optional": false,
+      "label": "notice",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    }
+  ],
+  "usage": {
+    "total": {
+      "inference_calls": 1,
+      "rated_inference_calls": 0,
+      "nb_tokens_by_category": {},
+      "total_tokens": 0,
+      "cost": null,
+      "cost_input": null,
+      "cost_output": null,
+      "by_model": [
+        {
+          "inference_model_name": "dry_run",
+          "inference_model_id": "dry_run",
+          "model_type": "llm",
+          "inference_calls": 1,
+          "rated_inference_calls": 0,
+          "cost": null
+        }
+      ],
+      "subtree_inference_calls": 1,
+      "subtree_rated_inference_calls": 0,
+      "subtree_nb_tokens_by_category": {},
+      "subtree_total_tokens": 0,
+      "subtree_cost": null,
+      "subtree_cost_input": null,
+      "subtree_cost_output": null,
+      "subtree_by_model": [
+        {
+          "inference_model_name": "dry_run",
+          "inference_model_id": "dry_run",
+          "model_type": "llm",
+          "inference_calls": 1,
+          "rated_inference_calls": 0,
+          "cost": null
+        }
+      ]
+    },
+    "unattributed": {
+      "inference_calls": 0,
+      "rated_inference_calls": 0,
+      "nb_tokens_by_category": {},
+      "total_tokens": 0,
+      "cost": null,
+      "cost_input": null,
+      "cost_output": null,
+      "by_model": [],
+      "subtree_inference_calls": 0,
+      "subtree_rated_inference_calls": 0,
+      "subtree_nb_tokens_by_category": {},
+      "subtree_total_tokens": 0,
+      "subtree_cost": null,
+      "subtree_cost_input": null,
+      "subtree_cost_output": null,
+      "subtree_by_model": []
+    }
+  },
+  "meta": {
+    "format": "mthds",
+    "mode": "dry"
+  },
+  "pipe_registry": {
+    "door_notice.write_and_print_notice": {
+      "pipe_category": "PipeController",
+      "type": "PipeSequence",
+      "code": "write_and_print_notice",
+      "domain_code": "door_notice",
+      "description": "Writes the shop's hours up as a notice, then prints it as a page",
+      "inputs": {
+        "shop_name": {
+          "concept": {
+            "code": "Text",
+            "domain_code": "native",
+            "description": "A text",
+            "structure_class_name": "TextContent",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        },
+        "hours": {
+          "concept": {
+            "code": "Text",
+            "domain_code": "native",
+            "description": "A text",
+            "structure_class_name": "TextContent",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "PrintedNotice",
+          "domain_code": "door_notice",
+          "description": "The notice laid out as a page to print and tape to the door",
+          "structure_class_name": "door_notice__PrintedNotice",
+          "refines": "native.Document"
+        },
+        "multiplicity": null,
+        "presence": "plain"
+      },
+      "sequential_sub_pipes": [
+        {
+          "pipe_code": "door_notice.write_notice",
+          "output_name": "notice",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "door_notice.print_notice",
+          "output_name": "printed_notice",
+          "output_multiplicity": null,
+          "batch_params": null
+        }
+      ]
+    },
+    "door_notice.write_notice": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "write_notice",
+      "domain_code": "door_notice",
+      "description": "Sorts the shop's hours into weekdays and weekend, with a short note",
+      "inputs": {
+        "shop_name": {
+          "concept": {
+            "code": "Text",
+            "domain_code": "native",
+            "description": "A text",
+            "structure_class_name": "TextContent",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        },
+        "hours": {
+          "concept": {
+            "code": "Text",
+            "domain_code": "native",
+            "description": "A text",
+            "structure_class_name": "TextContent",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "OpeningNotice",
+          "domain_code": "door_notice",
+          "description": "What a shop wants passers-by to know about its opening hours",
+          "structure_class_name": "door_notice__OpeningNotice",
+          "refines": null
+        },
+        "multiplicity": null,
+        "presence": "plain"
+      },
+      "llm_prompt_spec": {
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "A shop wants a notice for its door. Sort its opening hours into the weekdays and the weekend, and add one short friendly sentence for passers-by.\n\nThe shop's name: $shop_name\n\nIts hours, as the owner wrote them:\n@hours\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "output_multiplicity": null,
+      "templating_style": null
+    },
+    "door_notice.print_notice": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeDocGen",
+      "code": "print_notice",
+      "domain_code": "door_notice",
+      "description": "Lays the notice out as a page to print",
+      "inputs": {
+        "notice": {
+          "concept": {
+            "code": "OpeningNotice",
+            "domain_code": "door_notice",
+            "description": "What a shop wants passers-by to know about its opening hours",
+            "structure_class_name": "door_notice__OpeningNotice",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "PrintedNotice",
+          "domain_code": "door_notice",
+          "description": "The notice laid out as a page to print and tape to the door",
+          "structure_class_name": "door_notice__PrintedNotice",
+          "refines": "native.Document"
+        },
+        "multiplicity": null,
+        "presence": "plain"
+      },
+      "doc_gen_format": "pdf",
+      "doc_gen_choice": null,
+      "template": null,
+      "template_file": null,
+      "template_path": null,
+      "filename": "notice-{{ notice.shop_name }}"
+    }
+  },
+  "concept_registry": {
+    "door_notice.PrintedNotice": {
+      "code": "PrintedNotice",
+      "domain_code": "door_notice",
+      "description": "The notice laid out as a page to print and tape to the door",
+      "structure_class_name": "door_notice__PrintedNotice",
+      "refines": "native.Document",
+      "json_schema": {
+        "description": "The notice laid out as a page to print and tape to the door",
+        "properties": {
+          "url": {
+            "description": "The document URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
+            "title": "Url",
+            "type": "string"
+          },
+          "public_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The public HTTPS URL of the document",
+            "title": "Public Url"
+          },
+          "mime_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The MIME type of the document",
+            "title": "Mime Type"
+          },
+          "filename": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The original filename of the document",
+            "title": "Filename"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The title of the document or source",
+            "title": "Title"
+          },
+          "snippet": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "A text snippet or excerpt from the document",
+            "title": "Snippet"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "title": "door_notice__PrintedNotice",
+        "type": "object"
+      }
+    },
+    "native.Text": {
+      "code": "Text",
+      "domain_code": "native",
+      "description": "A text",
+      "structure_class_name": "TextContent",
+      "refines": null,
+      "json_schema": {
+        "description": "A text",
+        "properties": {
+          "text": {
+            "description": "The text",
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "TextContent",
+        "type": "object"
+      }
+    },
+    "door_notice.OpeningNotice": {
+      "code": "OpeningNotice",
+      "domain_code": "door_notice",
+      "description": "What a shop wants passers-by to know about its opening hours",
+      "structure_class_name": "door_notice__OpeningNotice",
+      "refines": null,
+      "json_schema": {
+        "description": "What a shop wants passers-by to know about its opening hours",
+        "properties": {
+          "shop_name": {
+            "description": "The name painted above the shop's door",
+            "title": "Shop Name",
+            "type": "string"
+          },
+          "weekdays": {
+            "description": "The opening hours from Monday to Friday",
+            "title": "Weekdays",
+            "type": "string"
+          },
+          "weekend": {
+            "description": "The opening hours on Saturday and Sunday",
+            "title": "Weekend",
+            "type": "string"
+          },
+          "note": {
+            "description": "One short friendly sentence for passers-by",
+            "title": "Note",
+            "type": "string"
+          }
+        },
+        "required": [
+          "shop_name",
+          "weekdays",
+          "weekend",
+          "note"
+        ],
+        "title": "door_notice__OpeningNotice",
+        "type": "object"
+      }
+    }
+  }
+}

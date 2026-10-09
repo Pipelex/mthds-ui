@@ -20,7 +20,7 @@ const meta: Meta<typeof GraphViewer> = {
 export default meta;
 type Story = StoryObj<typeof GraphViewer>;
 
-const D = { direction: "LR" as const, showControllers: false };
+const D = { initialDirection: "LR" as const, initialShowControllers: false };
 
 // ─── Badge text matches pipe type ──────────────────────────────────────────
 // Note: ReactFlow nodes may render outside the visible viewport, so we use
@@ -91,6 +91,47 @@ export const BadgeStructure: Story = {
     await expect(badge.classList.contains("pipe-card-badge")).toBe(true);
     await expect(badge.classList.contains("pipe-card-badge--controller")).toBe(false);
     await expect(badge.classList.contains("pipe-card-badge--signature")).toBe(false);
+  },
+};
+
+// ─── Document step — its format beside the badge, in both directions ────────
+// The format is read from the step's blueprint in the registry, so the chip is
+// the proof the card and its registry entry were joined.
+
+async function expectDocGenChip(canvasElement: HTMLElement) {
+  const canvas = within(canvasElement);
+  const badge = await canvas.findByText("DocGen");
+  const header = badge.closest(".pipe-card-header") as HTMLElement;
+  const chip = within(header).getByText("PDF");
+  await expect(chip.classList.contains("pipe-card-format")).toBe(true);
+  await expect(chip.getAttribute("title")).toBe("Document format: pdf");
+  // Right after the badge, so it reads as a qualifier of the type.
+  await expect(badge.nextElementSibling).toBe(chip);
+}
+
+export const BadgeDocGen: Story = {
+  args: { graph: { graphSpec: toGraphSpec(MOCK_PIPES.PipeDocGen) }, ...D },
+  play: async ({ canvasElement }) => expectDocGenChip(canvasElement),
+};
+
+export const BadgeDocGenTopToBottom: Story = {
+  args: {
+    graph: { graphSpec: toGraphSpec(MOCK_PIPES.PipeDocGen) },
+    ...D,
+    initialDirection: "TB",
+  },
+  play: async ({ canvasElement }) => expectDocGenChip(canvasElement),
+};
+
+export const DocGenWithoutRegistry: Story = {
+  args: {
+    graph: { graphSpec: toGraphSpec({ ...MOCK_PIPES.PipeDocGen, docGenFormat: undefined }) },
+    ...D,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(await canvas.findByText("DocGen")).toBeInTheDocument();
+    await expect(canvasElement.querySelector(".pipe-card-format")).toBeNull();
   },
 };
 

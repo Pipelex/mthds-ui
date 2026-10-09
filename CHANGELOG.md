@@ -2,11 +2,23 @@
 
 ## [Unreleased]
 
+### Added
+
+- **A document step's format on its card**: a `PipeDocGen` card shows the format its blueprint declares as a chip beside its badge (`PDF`, `XLSX`, `DOCX`, `PPTX`), in every mode, and none when the graph carries no `pipe_registry`. `PipeCardPayload` carries it as `docGenFormat`, and `buildPipeCardPayload` takes the node's blueprint as an optional third argument. `PipeCardData` is now an alias of `PipeCardPayload`.
+
+- **A `PipeDocGen` section in the detail panel**: a document step's panel shows its format, its engine (resolved, named by the step, or the deck's default), what it prints from, its template file or inline template, and its file name with the name a run stored the document under.
+
+- **`resolveNodeBlueprint`**: the pipe a node runs, as the registry holds it, the one lookup the card and the detail panel share. A node carrying its domain resolves by its qualified ref alone; one without resolves in the pipeline's domain, then by the one registry key ending in its code.
+
 ### Changed
 
 - **The vendored MTHDS Test Corpus**: `data/mthds-corpus/` is copied from pipelex v0.78.0. Its vocabulary now points readers at the public corpus page alone, and it declares the `llm_setting_refused_by_model` error as one the corpus leaves out, since which settings a model takes depends on each consumer's model deck. No entry changes, so the static sweeps build the same methods as before.
 
 ### Fixed
+
+- **The detail panel shows a node's own domain's blueprint**: a node whose pipe code also exists in the method's main domain was shown the main domain's pipe, and with two other domains sharing the code, whichever came first. It now shows its own, or none when the registry cannot say which.
+
+- **A document step's panel no longer dumps its run data**: a `PipeDocGen` step's panel printed its run's raw execution data, the stored document's `url` included, which an inlined document makes a `data:` URL carrying the whole file in base64. The data now feeds its section, and the `url` is never shown, even when the blueprint is missing.
 
 - **The detail panel's Model row names the model type of a shared name**: when a node ran one model name as two model types, such as `gpt-6-luna` as an LLM and as a judgment model, each line now carries its type (`gpt-6-luna · LLM (1)`, `gpt-6-luna · judgment (1)`) instead of the two merging into one line when their call counts matched. Only the requested rungs above them still collapse when they repeat.
 

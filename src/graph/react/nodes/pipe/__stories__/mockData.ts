@@ -124,9 +124,7 @@ export const MOCK_PIPES: Record<PipeOperatorType, PipeCardData> = {
     status: "succeeded",
     inputs: [{ name: "notice", concept: "OpeningNotice" }],
     outputs: [{ name: "printed_notice", concept: "PrintedNotice" }],
-    tags: {
-      format: "pdf",
-    },
+    docGenFormat: "pdf",
   },
 
   PipeSignature: {

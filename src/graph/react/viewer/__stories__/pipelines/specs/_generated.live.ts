@@ -66,3 +66,5 @@ export { LIVE_MEETING_TRIAGE } from "./_generated/live/pipeline_32";
 export { LIVE_AVAILABILITY_ROUTING } from "./_generated/live/pipeline_33";
 
 export { LIVE_ALL_NATIVE_CONCEPTS } from "./_generated/live/pipeline_34";
+
+export { LIVE_DOOR_NOTICE } from "./_generated/live/pipeline_35";

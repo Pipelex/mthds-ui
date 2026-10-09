@@ -337,6 +337,22 @@
   background: var(--pipe-card-accent);
   color: var(--text-on-accent);
 }
+/* A document step's format, beside its badge: outlined in the badge's accent so
+   it reads as a qualifier of the type, and the badge's height so the header's
+   height does not change, since the layout sizes the card without it. */
+.pipe-card-format {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 1px 6px;
+  border: 1px solid var(--pipe-card-accent);
+  border-radius: 4px;
+  white-space: nowrap;
+  line-height: 1.4;
+  color: var(--pipe-card-accent);
+  flex-shrink: 0;
+}
 .pipe-card-code {
   font-family: var(--font-mono);
   font-size: 13px;

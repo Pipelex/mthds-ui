@@ -240,3 +240,174 @@ describe("PipeDetailPanel on a binding node with empty IO", () => {
     expect(html).toContain("catalog.editor_note");
   });
 });
+
+function kvRow(label: string, value: string): string {
+  return `<span class="detail-kv-key">${label}</span><span class="detail-kv-value">${value}</span>`;
+}
+
+describe("PipeDetailPanel blueprint lookup", () => {
+  it("shows a node in a second domain its own domain's blueprint, not the main domain's", () => {
+    // The panel's former lookup tried the pipeline's domain first, so a node whose
+    // code also exists in the main domain was shown the main domain's pipe.
+    const node: GraphSpecNode = {
+      id: "extract",
+      kind: "operator",
+      pipe_code: "extract_document",
+      pipe_type: "PipeExtract",
+      domain_code: "other",
+      status: "succeeded",
+      io: { inputs: [], outputs: [] },
+    };
+    const spec: GraphSpec = {
+      meta: { format: "mthds", mode: "static" },
+      pipeline_ref: { domain: "demo", main_pipe: "run" },
+      nodes: [node],
+      edges: [],
+      pipe_registry: {
+        "demo.extract_document": { ...EXTRACT_BLUEPRINT, extract_choice: "main-domain-choice" },
+        "other.extract_document": {
+          ...EXTRACT_BLUEPRINT,
+          domain_code: "other",
+          extract_choice: "other-domain-choice",
+        },
+      },
+    };
+    const html = renderToStaticMarkup(React.createElement(PipeDetailPanel, { node, spec }));
+
+    expect(html).toContain("other-domain-choice");
+    expect(html).not.toContain("main-domain-choice");
+  });
+});
+
+describe("PipeDetailPanel on a PipeDocGen step", () => {
+  const INLINE_PDF = "data:application/pdf;base64,JVBERi0xLjQKJcfsj6IK";
+
+  const DOC_GEN_BLUEPRINT: Extract<PipeBlueprintUnion, { type: "PipeDocGen" }> = {
+    type: "PipeDocGen",
+    pipe_category: "PipeOperator",
+    code: "print_notice",
+    domain_code: "demo",
+    description: "Print the notice",
+    inputs: { notice: { concept: TEXT_CONCEPT, multiplicity: null } },
+    output: { concept: DOCUMENT_CONCEPT, multiplicity: null },
+    doc_gen_format: "pdf",
+    doc_gen_choice: null,
+    template: null,
+    template_file: null,
+    filename: "notice-{{ notice.shop }}",
+  };
+
+  function renderDocGen(
+    mode: "static" | "dry" | "live",
+    blueprint: Extract<PipeBlueprintUnion, { type: "PipeDocGen" }> | null = DOC_GEN_BLUEPRINT,
+  ): string {
+    const node: GraphSpecNode = {
+      id: "print",
+      kind: "operator",
+      pipe_code: "print_notice",
+      pipe_type: "PipeDocGen",
+      description: "Print the notice",
+      domain_code: "demo",
+      status: mode === "static" ? "scheduled" : "succeeded",
+      io: {
+        inputs: [{ name: "notice", concept: "Text", digest: "notice" }],
+        outputs: [{ name: "notice_pdf", concept: "Document", digest: "notice_pdf" }],
+      },
+      ...(mode === "static"
+        ? {}
+        : {
+            execution_data: {
+              format: "pdf",
+              source: "layout",
+              resolved_model: "reportlab-pdf",
+              filename: "notice-corner-shop.pdf",
+              url: INLINE_PDF,
+            },
+          }),
+    };
+    const spec: GraphSpec = {
+      meta: { format: "mthds", mode },
+      nodes: [node],
+      edges: [],
+      ...(blueprint ? { pipe_registry: { "demo.print_notice": blueprint } } : {}),
+    };
+    return renderToStaticMarkup(React.createElement(PipeDetailPanel, { node, spec }));
+  }
+
+  it("shows a static step's format, the deck's default engine, its auto-layout and its file name", () => {
+    const html = renderDocGen("static");
+
+    expect(html).toContain(kvRow("Format", "PDF"));
+    expect(html).toContain(kvRow("Engine", "deck default"));
+    expect(html).toContain(kvRow("Source", "auto-layout"));
+    expect(html).toContain(kvRow("File Name", "notice-{{ notice.shop }}"));
+    expect(html).not.toContain("Stored As");
+    expect(html).not.toContain("Blueprint not available");
+  });
+
+  it("shows the engine a step names, labelled from an inline setting as other choices are", () => {
+    const html = renderDocGen("static", {
+      ...DOC_GEN_BLUEPRINT,
+      doc_gen_choice: { model: "weasyprint-pdf", description: null },
+    });
+
+    expect(html).toContain("weasyprint-pdf");
+    expect(html).not.toContain("deck default");
+  });
+
+  it("names an office template file as one, a pdf's template as HTML, and shows an inline template", () => {
+    const withFile = renderDocGen("static", {
+      ...DOC_GEN_BLUEPRINT,
+      doc_gen_format: "docx",
+      template_file: "templates/notice.docx",
+    });
+    expect(withFile).toContain(kvRow("Source", "template file"));
+    expect(withFile).toContain(kvRow("Template File", "templates/notice.docx"));
+
+    // A pdf's template file is HTML, as the runtime names it once it reads the file.
+    const withHtmlFile = renderDocGen("static", {
+      ...DOC_GEN_BLUEPRINT,
+      template_file: "templates/notice.html",
+    });
+    expect(withHtmlFile).toContain(kvRow("Source", "HTML template"));
+    expect(withHtmlFile).toContain(kvRow("Template File", "templates/notice.html"));
+
+    const inline = renderDocGen("static", {
+      ...DOC_GEN_BLUEPRINT,
+      template: "<h1>{{ notice.title }}</h1>",
+    });
+    expect(inline).toContain(kvRow("Source", "HTML template"));
+    expect(inline).toContain("&lt;h1&gt;{{ notice.title }}&lt;/h1&gt;");
+  });
+
+  it("shows a dry step's resolved engine and source, but not the name a mock run rendered", () => {
+    const html = renderDocGen("dry");
+
+    expect(html).toContain("reportlab-pdf");
+    expect(html).toContain(kvRow("Source", "auto-layout"));
+    expect(html).not.toContain("notice-corner-shop.pdf");
+    expect(html).not.toContain("Execution");
+  });
+
+  it("shows a run's resolved engine and the name the document was stored under", () => {
+    const html = renderDocGen("live");
+
+    expect(html).toContain("reportlab-pdf");
+    expect(html).toContain(kvRow("File Name", "notice-{{ notice.shop }}"));
+    expect(html).toContain(kvRow("Stored As", "notice-corner-shop.pdf"));
+    // Merged into the section, so no raw dump repeats it.
+    expect(html).not.toContain("Execution");
+  });
+
+  it("never shows the stored document's url, with or without a blueprint", () => {
+    expect(renderDocGen("live")).not.toContain("data:");
+
+    // Without a blueprint the raw dump keeps the run's other data, but not the url.
+    const unresolved = renderDocGen("live", null);
+    expect(unresolved).toContain("Blueprint not available");
+    expect(unresolved).toContain("Execution");
+    expect(unresolved).toContain("reportlab-pdf");
+    expect(unresolved).not.toContain("data:");
+    expect(unresolved).not.toContain(">url<");
+  });
+});

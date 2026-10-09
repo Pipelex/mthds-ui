@@ -614,7 +614,10 @@ export interface PipeJudgeBlueprint extends PipeBlueprintBase {
  */
 export interface PipeDocGenBlueprint extends PipeBlueprintBase {
   type: "PipeDocGen";
-  /** `pdf`, `html`, `xlsx` or `docx`. */
+  /**
+   * `pdf`, `xlsx`, `docx` or `pptx`. Kept a string: the viewer displays the token
+   * and never branches on it, so one from a newer runtime shows as it is.
+   */
   doc_gen_format: string;
   /** The engine the step names, or null for the deck's default. */
   doc_gen_choice?: string | Record<string, unknown> | null;
@@ -1029,6 +1032,7 @@ export interface FoldToggleOptions {
 // Built by graphBuilders, consumed by PipeCardNode in the React layer.
 
 export interface PipeCardPayload {
+  /** The pipe code, or the `from` path of a binding step's card. */
   pipeCode: string;
   pipeType: NodePipeType;
   description?: string;
@@ -1038,7 +1042,13 @@ export interface PipeCardPayload {
   outputs: { name: string; concept: string }[];
   /** Authored/static annotations and runtime tags carried by the GraphSpec node. */
   tags?: Record<string, string>;
-  /** Layout direction — injected by the layout engine */
+  /**
+   * The document format a `PipeDocGen` step declares (`pdf`, `xlsx`, `docx`,
+   * `pptx`), read from its blueprint; absent for any other step, and when the
+   * graph carries no registry to read it from.
+   */
+  docGenFormat?: string;
+  /** Layout direction, injected by the layout engine: narrow and tall in LR, wide and short in TB. */
   direction?: "LR" | "TB";
   /** When set, the card renders an unfold button that invokes this callback. */
   onExpand?: (options?: FoldToggleOptions) => void;
