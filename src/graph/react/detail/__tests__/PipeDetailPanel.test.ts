@@ -355,7 +355,7 @@ describe("PipeDetailPanel on a PipeDocGen step", () => {
     expect(html).not.toContain("deck default");
   });
 
-  it("names a template file and shows an inline template behind the template toggle", () => {
+  it("names an office template file as one, a pdf's template as HTML, and shows an inline template", () => {
     const withFile = renderDocGen("static", {
       ...DOC_GEN_BLUEPRINT,
       doc_gen_format: "docx",
@@ -363,6 +363,14 @@ describe("PipeDetailPanel on a PipeDocGen step", () => {
     });
     expect(withFile).toContain(kvRow("Source", "template file"));
     expect(withFile).toContain(kvRow("Template File", "templates/notice.docx"));
+
+    // A pdf's template file is HTML, as the runtime names it once it reads the file.
+    const withHtmlFile = renderDocGen("static", {
+      ...DOC_GEN_BLUEPRINT,
+      template_file: "templates/notice.html",
+    });
+    expect(withHtmlFile).toContain(kvRow("Source", "HTML template"));
+    expect(withHtmlFile).toContain(kvRow("Template File", "templates/notice.html"));
 
     const inline = renderDocGen("static", {
       ...DOC_GEN_BLUEPRINT,

@@ -16,15 +16,15 @@ const DOC_GEN_SOURCE_LABELS: Readonly<Record<string, string>> = {
 type PipeDocGenBlueprint = Extract<PipeBlueprintUnion, { type: "PipeDocGen" }>;
 
 /**
- * The source token a step composes from, as the runtime would name it, derived
- * from the blueprint alone for a graph that ran nothing. A static graph does not
- * read a template file, so it cannot tell a pdf's HTML template file from an
- * office template, and names both a template file, which both are.
+ * The source token a step composes from, derived from the blueprint alone for a
+ * graph that ran nothing, by the runtime's own rule: no template is the
+ * auto-layout, and a template is HTML for a pdf, inline or read from its file,
+ * and a template file for any other format.
  */
 function declaredSource(blueprint: PipeDocGenBlueprint): string {
-  if (blueprint.template != null) return "html";
-  if (blueprint.template_file != null) return "template_file";
-  return "layout";
+  if (blueprint.template == null && blueprint.template_file == null) return "layout";
+  if (blueprint.template != null || blueprint.doc_gen_format === "pdf") return "html";
+  return "template_file";
 }
 
 function nonEmpty(value: unknown): string | undefined {
