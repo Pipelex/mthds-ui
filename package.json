@@ -79,7 +79,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@pipelex/mthds-form": "^0.14.1",
+    "@pipelex/mthds-form": "^0.16.0",
     "@xyflow/react": "^12",
     "elkjs": "^0.11.1",
     "smol-toml": "^1.7.0"
