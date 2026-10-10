@@ -1,5 +1,33 @@
 # Changelog
 
+## [v0.32.0] - 2026-10-10
+
+### Added
+
+- **A document step's format on its card**: a `PipeDocGen` card shows the format its blueprint declares as a chip beside its badge (`PDF`, `XLSX`, `DOCX`, `PPTX`), in every mode, and none when the graph carries no `pipe_registry`. `PipeCardPayload` carries it as `docGenFormat`, and `buildPipeCardPayload` takes the node's blueprint as an optional third argument. `PipeCardData` is now an alias of `PipeCardPayload`.
+
+- **A `PipeDocGen` section in the detail panel**: a document step's panel shows its format, its engine (resolved, named by the step, or the deck's default), what it prints from, its template file or inline template, and its file name with the name a run stored the document under.
+
+- **`resolveNodeBlueprint`**: the pipe a node runs, as the registry holds it, the one lookup the card and the detail panel share. A node carrying its domain resolves by its qualified ref alone; one without resolves in the pipeline's domain, then by the one registry key ending in its code.
+
+### Changed
+
+- **Stored names are plain input names (Breaking)**: the bundled MTHDS JSON Schema, `data/schema/mthds_schema.json`, is regenerated from pipelex v0.80.0 and now refuses a name a step stores a value under unless it is a plain input name matching `[a-z][a-z0-9_]*`, on a `PipeSequence` step's or a `PipeParallel` branch's `result` and `batch_as` and on a `PipeBatch`'s `input_item_name`, where it used to refuse only a name taking the reserved `_bound_` prefix. The static builder reports such a name with an `invalid-input-name` warning at the field and still draws the step as written, and it now does the same for the two names a batch reads that the runtime already refused: a `PipeBatch`'s `input_list_name` that is not a plain input name, a dotted one included, and a plain `batch_over` taking the `_bound_` prefix.
+
+- **`@pipelex/mthds-form` 0.16.0 (Breaking)**: the dependency's range moves from `^0.14.1` to `^0.16.0`, which brings the kernel onto `mthds` `^0.30.1`, so a host on `mthds` 0.30 now resolves one copy of the standard's types instead of two, and a host on an older `mthds` moves to 0.30 with it. The kernel's releases in between add a `./brand` entry this library does not import and change nothing in the form controls, their styles or their wire format.
+
+- **The vendored MTHDS Test Corpus**: `data/mthds-corpus/` is copied from pipelex v0.80.0. Its vocabulary now points readers at the public corpus page alone, and it declares the `llm_setting_refused_by_model` error as one the corpus leaves out, since which settings a model takes depends on each consumer's model deck. It gains the invalid entries that test the stored-name rule, one each for a sequence step's `result` and `batch_as`, a parallel branch's `result` and `batch_as`, and a `PipeBatch`'s `input_item_name`, and the static sweep expects the builder to report each with `invalid-input-name`.
+
+### Fixed
+
+- **The detail panel shows a node's own domain's blueprint**: a node whose pipe code also exists in the method's main domain was shown the main domain's pipe, and with two other domains sharing the code, whichever came first. It now shows its own, or none when the registry cannot say which.
+
+- **A document step's panel no longer dumps its run data**: a `PipeDocGen` step's panel printed its run's raw execution data, the stored document's `url` included, which an inlined document makes a `data:` URL carrying the whole file in base64. The data now feeds its section, and the `url` is never shown, even when the blueprint is missing.
+
+- **The detail panel's Model row names the model type of a shared name**: when a node ran one model name as two model types, such as `gpt-6-luna` as an LLM and as a judgment model, each line now carries its type (`gpt-6-luna · LLM (1)`, `gpt-6-luna · judgment (1)`) instead of the two merging into one line when their call counts matched. Only the requested rungs above them still collapse when they repeat.
+
+- **Judgment models' token counts are shown**: `hasRealTokenCounts` counts a `judgment` model as token-billed beside an `llm` one, since pipelex records the tokens a judgment call was billed for, so the usage details show token rows for a node or branch made of LLM and judgment calls.
+
 ## [v0.31.0] - 2026-10-08
 
 ### Changed

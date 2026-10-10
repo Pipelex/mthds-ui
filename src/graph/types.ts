@@ -226,12 +226,15 @@ export interface GraphSpecModelUsage {
   inference_model_name: string;
   inference_model_id: string;
   /**
-   * Kind of inference: `"llm"`, `"img_gen"`, `"extract"`, `"search"`. Open set.
+   * Kind of inference: `"llm"`, `"judgment"`, `"img_gen"`, `"extract"`, `"search"`.
+   * Open set. pipelex counts a model per model type and name, so one name can appear
+   * twice in a `by_model` list, once per type it ran as.
    *
-   * The discriminator to check before displaying token counts: everything except
-   * `"llm"` is billed PER REQUEST, and pipelex encodes that price by putting
-   * `1_000_000` in each token category (rates are per-million), so those "tokens"
-   * are a scaled request counter rather than a measurement.
+   * The discriminator to check before displaying token counts: `"llm"` and
+   * `"judgment"` report the tokens they were billed for, while the rest are billed
+   * PER REQUEST, and pipelex encodes that price by putting `1_000_000` in each token
+   * category (rates are per-million), so those "tokens" are a scaled request counter
+   * rather than a measurement. `hasRealTokenCounts` in `usageFormat.ts` holds the list.
    */
   model_type: string;
   inference_calls: number;
@@ -611,7 +614,10 @@ export interface PipeJudgeBlueprint extends PipeBlueprintBase {
  */
 export interface PipeDocGenBlueprint extends PipeBlueprintBase {
   type: "PipeDocGen";
-  /** `pdf`, `html`, `xlsx` or `docx`. */
+  /**
+   * `pdf`, `xlsx`, `docx` or `pptx`. Kept a string: the viewer displays the token
+   * and never branches on it, so one from a newer runtime shows as it is.
+   */
   doc_gen_format: string;
   /** The engine the step names, or null for the deck's default. */
   doc_gen_choice?: string | Record<string, unknown> | null;
@@ -1026,6 +1032,7 @@ export interface FoldToggleOptions {
 // Built by graphBuilders, consumed by PipeCardNode in the React layer.
 
 export interface PipeCardPayload {
+  /** The pipe code, or the `from` path of a binding step's card. */
   pipeCode: string;
   pipeType: NodePipeType;
   description?: string;
@@ -1035,7 +1042,13 @@ export interface PipeCardPayload {
   outputs: { name: string; concept: string }[];
   /** Authored/static annotations and runtime tags carried by the GraphSpec node. */
   tags?: Record<string, string>;
-  /** Layout direction — injected by the layout engine */
+  /**
+   * The document format a `PipeDocGen` step declares (`pdf`, `xlsx`, `docx`,
+   * `pptx`), read from its blueprint; absent for any other step, and when the
+   * graph carries no registry to read it from.
+   */
+  docGenFormat?: string;
+  /** Layout direction, injected by the layout engine: narrow and tall in LR, wide and short in TB. */
   direction?: "LR" | "TB";
   /** When set, the card renders an unfold button that invokes this callback. */
   onExpand?: (options?: FoldToggleOptions) => void;

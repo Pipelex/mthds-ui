@@ -7,11 +7,16 @@ export { PipeExtractSection } from "./PipeExtractDetail";
 export { PipeSearchSection } from "./PipeSearchDetail";
 export { PipeStructureSection } from "./PipeStructureDetail";
 export { PipeComposeSection } from "./PipeComposeDetail";
+export { PipeDocGenSection } from "./PipeDocGenDetail";
 export { PipeConditionSection } from "./PipeConditionDetail";
 export { PipeSequenceSection } from "./PipeSequenceDetail";
 export { PipeParallelSection } from "./PipeParallelDetail";
 export { PipeBatchSection } from "./PipeBatchDetail";
 export { BindingStepSection } from "./BindingStepDetail";
 
-export { MERGED_EXECUTION_DATA_TYPES, shouldDumpExecutionData } from "./executionData";
+export {
+  MERGED_EXECUTION_DATA_TYPES,
+  dumpableExecutionData,
+  shouldDumpExecutionData,
+} from "./executionData";
 export { labelFromLlmChoice } from "./llmChoice";

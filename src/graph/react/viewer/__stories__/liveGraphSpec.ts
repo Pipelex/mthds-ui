@@ -36,6 +36,7 @@ import {
   LIVE_MEETING_TRIAGE,
   LIVE_AVAILABILITY_ROUTING,
   LIVE_ALL_NATIVE_CONCEPTS,
+  LIVE_DOOR_NOTICE,
 } from "./pipelines/specs/_generated.live";
 
 export {
@@ -71,6 +72,7 @@ export {
   LIVE_MEETING_TRIAGE,
   LIVE_AVAILABILITY_ROUTING,
   LIVE_ALL_NATIVE_CONCEPTS,
+  LIVE_DOOR_NOTICE,
 };
 
 export const LIVE_RUN_CATALOG: Record<string, { label: string; spec: GraphSpec }> = {
@@ -132,5 +134,9 @@ export const LIVE_RUN_CATALOG: Record<string, { label: string; spec: GraphSpec }
   LIVE_ALL_NATIVE_CONCEPTS: {
     label: "34 - All Native Concepts",
     spec: LIVE_ALL_NATIVE_CONCEPTS,
+  },
+  LIVE_DOOR_NOTICE: {
+    label: "35 - Door Notice (PipeDocGen)",
+    spec: LIVE_DOOR_NOTICE,
   },
 };

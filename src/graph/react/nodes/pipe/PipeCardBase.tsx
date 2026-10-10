@@ -96,9 +96,16 @@ export function PipeCardBase({ data, children }: PipeCardBaseProps) {
     <div
       className={`pipe-card ${dirClass}${controllerClass}${signatureClass}${bindingClass}${staticClass}${ringClass}`}
     >
-      {/* Header: badge + pipe code + status + (optional) expand + validation */}
+      {/* Header: badge + (document format) + pipe code + status + (optional) expand + validation */}
       <div className="pipe-card-header">
         <span className={badgeClass}>{badge}</span>
+        {/* A document step's format is part of what the step is, so it sits with
+            its type rather than in the annotation row, and in every mode. */}
+        {data.docGenFormat && (
+          <span className="pipe-card-format" title={`Document format: ${data.docGenFormat}`}>
+            {data.docGenFormat.toUpperCase()}
+          </span>
+        )}
         <span className="pipe-card-code" title={data.pipeCode}>
           {data.pipeCode}
         </span>

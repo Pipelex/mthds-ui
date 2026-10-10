@@ -8,7 +8,11 @@ import {
   multiplicitySuffix,
   stuffNodeId,
 } from "./types";
-import { buildDataflowAnalysis, buildChildToControllerMap } from "./graphAnalysis";
+import {
+  buildDataflowAnalysis,
+  buildChildToControllerMap,
+  resolveNodeBlueprint,
+} from "./graphAnalysis";
 import { asCardNode } from "./validateGraphSpec";
 import { buildPipeCardPayload } from "./pipeCardPayload";
 
@@ -62,7 +66,11 @@ export function buildDataflowGraph(
 
     const isFailed = pipeNode.status === "failed";
     const label = pipeNode.pipe_code;
-    const pipeCardData = buildPipeCardPayload(pipeNode, graphMode);
+    const pipeCardData = buildPipeCardPayload(
+      pipeNode,
+      graphMode,
+      resolveNodeBlueprint(graphspec, pipeNode),
+    );
 
     nodes.push({
       id: pipeNode.id,

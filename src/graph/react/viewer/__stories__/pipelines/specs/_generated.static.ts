@@ -39,6 +39,7 @@ import bundle31 from "../../../../../../../data/pipelines/pipeline_31/bundle.mth
 import bundle32 from "../../../../../../../data/pipelines/pipeline_32/bundle.mthds?raw";
 import bundle33 from "../../../../../../../data/pipelines/pipeline_33/bundle.mthds?raw";
 import bundle34 from "../../../../../../../data/pipelines/pipeline_34/bundle.mthds?raw";
+import bundle35 from "../../../../../../../data/pipelines/pipeline_35/bundle.mthds?raw";
 
 function staticSpec(toml: string): GraphSpec {
   return buildStaticGraphSpecFromToml(toml).spec;
@@ -76,3 +77,4 @@ export const STATIC_RFP_QUALIFIER = staticSpec(bundle31);
 export const STATIC_MEETING_TRIAGE = staticSpec(bundle32);
 export const STATIC_AVAILABILITY_ROUTING = staticSpec(bundle33);
 export const STATIC_ALL_NATIVE_CONCEPTS = staticSpec(bundle34);
+export const STATIC_DOOR_NOTICE = staticSpec(bundle35);

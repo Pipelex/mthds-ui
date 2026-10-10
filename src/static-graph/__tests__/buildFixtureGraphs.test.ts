@@ -96,8 +96,9 @@ describe("binding steps in the corpus", () => {
 // The invalid entries pipelex refuses for an error this builder can see too
 // must report it, and only it: a malformed binding step is skipped with
 // `invalid-binding-step`, a path the walk cannot follow binds `native.Anything`
-// with `binding-path-unresolved`, and an input name that is not a plain name,
-// a dotted one among them, is skipped with `invalid-input-name`.
+// with `binding-path-unresolved`, an input name that is not a plain name, a
+// dotted one among them, is skipped with `invalid-input-name`, and a name a
+// step stores a value under that is not one is reported with it too.
 const REFUSAL_DIAGNOSTICS: Readonly<Record<string, DiagnosticCode>> = {
   binding_step_invalid: "invalid-binding-step",
   binding_path_unresolved: "binding-path-unresolved",

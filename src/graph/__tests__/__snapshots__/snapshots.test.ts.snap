@@ -2727,6 +2727,75 @@ exports[`snapshot regression — DRY catalog > DRY DRY_DIAMOND_PATTERN matches s
 }
 `;
 
+exports[`snapshot regression — DRY catalog > DRY DRY_DOOR_NOTICE matches snapshot 1`] = `
+{
+  "edges": [
+    {
+      "id": "edge_0",
+      "source": "GID:node_1",
+      "target": "stuff_d3",
+    },
+    {
+      "id": "edge_1",
+      "source": "GID:node_2",
+      "target": "stuff_d2",
+    },
+    {
+      "id": "edge_2",
+      "source": "stuff_d0",
+      "target": "GID:node_1",
+    },
+    {
+      "id": "edge_3",
+      "source": "stuff_d1",
+      "target": "GID:node_1",
+    },
+    {
+      "id": "edge_4",
+      "source": "stuff_d3",
+      "target": "GID:node_2",
+    },
+  ],
+  "nodes": [
+    {
+      "id": "GID:node_0",
+      "parentId": undefined,
+      "type": "controllerGroup",
+    },
+    {
+      "id": "stuff_d2",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "stuff_d0",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "stuff_d1",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "GID:node_1",
+      "parentId": "GID:node_0",
+      "type": "pipeCard",
+    },
+    {
+      "id": "GID:node_2",
+      "parentId": "GID:node_0",
+      "type": "pipeCard",
+    },
+    {
+      "id": "stuff_d3",
+      "parentId": "GID:node_0",
+      "type": "default",
+    },
+  ],
+}
+`;
+
 exports[`snapshot regression — DRY catalog > DRY DRY_EMAIL_TRIAGE matches snapshot 1`] = `
 {
   "edges": [
@@ -7830,6 +7899,75 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_DIAMOND_PATTERN matche
       "id": "GID:node_5",
       "parentId": "GID:node_1",
       "type": "pipeCard",
+    },
+  ],
+}
+`;
+
+exports[`snapshot regression — LIVE catalog > LIVE LIVE_DOOR_NOTICE matches snapshot 1`] = `
+{
+  "edges": [
+    {
+      "id": "edge_0",
+      "source": "GID:node_1",
+      "target": "stuff_d3",
+    },
+    {
+      "id": "edge_1",
+      "source": "GID:node_2",
+      "target": "stuff_d2",
+    },
+    {
+      "id": "edge_2",
+      "source": "stuff_d0",
+      "target": "GID:node_1",
+    },
+    {
+      "id": "edge_3",
+      "source": "stuff_d1",
+      "target": "GID:node_1",
+    },
+    {
+      "id": "edge_4",
+      "source": "stuff_d3",
+      "target": "GID:node_2",
+    },
+  ],
+  "nodes": [
+    {
+      "id": "GID:node_0",
+      "parentId": undefined,
+      "type": "controllerGroup",
+    },
+    {
+      "id": "stuff_d2",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "stuff_d0",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "stuff_d1",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "GID:node_1",
+      "parentId": "GID:node_0",
+      "type": "pipeCard",
+    },
+    {
+      "id": "GID:node_2",
+      "parentId": "GID:node_0",
+      "type": "pipeCard",
+    },
+    {
+      "id": "stuff_d3",
+      "parentId": "GID:node_0",
+      "type": "default",
     },
   ],
 }

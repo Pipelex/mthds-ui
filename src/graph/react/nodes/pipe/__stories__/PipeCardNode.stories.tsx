@@ -52,6 +52,14 @@ export const Structure: Story = {
   args: { graph: { graphSpec: toGraphSpec(MOCK_PIPES.PipeStructure) }, ...D },
 };
 
+export const Judge: Story = {
+  args: { graph: { graphSpec: toGraphSpec(MOCK_PIPES.PipeJudge) }, ...D },
+};
+
+export const DocGen: Story = {
+  args: { graph: { graphSpec: toGraphSpec(MOCK_PIPES.PipeDocGen) }, ...D },
+};
+
 export const Signature: Story = {
   args: { graph: { graphSpec: toGraphSpec(MOCK_PIPES.PipeSignature) }, ...D },
 };

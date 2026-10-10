@@ -195,11 +195,14 @@ export function PromptToggle({
  *   ran        usage.by_model — the model that actually served the call (LIVE only).
  *
  * Rendering only the last known rung hides the alias on a live run; rendering only the
- * first hides the model. So all of them are shown, deduped, request on top. When they
- * collapse to one value there is one line and nothing to explain.
+ * first hides the model. So all of them are shown, request on top. When they collapse to
+ * one value there is one line and nothing to explain.
  *
  * A node that used several models (a PipeLLM's text pass and object pass resolve
- * separately) lists each with its call count.
+ * separately) lists each with its call count. pipelex counts a model per model type and
+ * name, since a handle names one model per type, so one name can run twice on a node:
+ * as an LLM and as a judgment model. Those entries carry their model type, or the two
+ * would print alike and read as one.
  */
 export function ModelRows({
   modelsRan,
@@ -215,18 +218,39 @@ export function ModelRows({
   label?: string;
 }) {
   const ran = modelsRan ?? [];
-  const ranLabels = ran.map((entry) =>
-    ran.length > 1
-      ? `${entry.inference_model_name} (${entry.inference_calls})`
-      : entry.inference_model_name,
-  );
-
-  // Consecutive duplicates carry no information: an authored name that was never
-  // aliased resolves to itself, and a handle already concrete equals what ran.
-  const chain: string[] = [];
-  for (const rung of [authored, handle, ...ranLabels]) {
-    if (rung && rung !== chain[chain.length - 1]) chain.push(rung);
+  const nameCounts = new Map<string, number>();
+  for (const entry of ran) {
+    nameCounts.set(
+      entry.inference_model_name,
+      (nameCounts.get(entry.inference_model_name) ?? 0) + 1,
+    );
   }
+  const ranRungs: ModelRung[] = ran.map((entry, index) => {
+    const name =
+      (nameCounts.get(entry.inference_model_name) ?? 0) > 1
+        ? `${entry.inference_model_name} · ${modelTypeLabel(entry.model_type)}`
+        : entry.inference_model_name;
+    return {
+      key: `ran-${index}`,
+      text: ran.length > 1 ? `${name} (${entry.inference_calls})` : name,
+    };
+  });
+
+  // The requested rungs collapse when they repeat: an authored name that was never
+  // aliased resolves to itself, and a handle already concrete names what ran. The rungs
+  // that ran never collapse, since each is a model pipelex counted on its own.
+  const requested: ModelRung[] = [];
+  const requestedRungs: ModelRung[] = [
+    { key: "authored", text: authored ?? "" },
+    { key: "handle", text: handle ?? "" },
+  ];
+  for (const rung of requestedRungs) {
+    if (rung.text && rung.text !== requested[requested.length - 1]?.text) requested.push(rung);
+  }
+  if (ranRungs.length > 0 && requested[requested.length - 1]?.text === ranRungs[0].text) {
+    requested.pop();
+  }
+  const chain = [...requested, ...ranRungs];
   if (chain.length === 0) return null;
 
   return (
@@ -234,11 +258,32 @@ export function ModelRows({
       <span className="detail-kv-key">{label}</span>
       <span className="detail-kv-value detail-model-value">
         {chain.map((rung, index) => (
-          <span key={rung} className={index === 0 ? undefined : "detail-model-resolved"}>
-            {rung}
+          <span key={rung.key} className={index === 0 ? undefined : "detail-model-resolved"}>
+            {rung.text}
           </span>
         ))}
       </span>
     </div>
   );
+}
+
+interface ModelRung {
+  key: string;
+  text: string;
+}
+
+/**
+ * The words for a usage record's `model_type`, an open set: a type with no entry here
+ * prints as itself, its underscores read as spaces.
+ */
+const MODEL_TYPE_LABELS: Readonly<Record<string, string>> = {
+  llm: "LLM",
+  extract: "extraction",
+  img_gen: "image generation",
+  search: "search",
+  judgment: "judgment",
+};
+
+function modelTypeLabel(modelType: string): string {
+  return MODEL_TYPE_LABELS[modelType] ?? modelType.replaceAll("_", " ");
 }

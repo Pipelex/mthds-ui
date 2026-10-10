@@ -33,6 +33,7 @@ import {
   STATIC_MEETING_TRIAGE,
   STATIC_AVAILABILITY_ROUTING,
   STATIC_ALL_NATIVE_CONCEPTS,
+  STATIC_DOOR_NOTICE,
 } from "./pipelines/specs/_generated.static";
 
 export {
@@ -68,6 +69,7 @@ export {
   STATIC_MEETING_TRIAGE,
   STATIC_AVAILABILITY_ROUTING,
   STATIC_ALL_NATIVE_CONCEPTS,
+  STATIC_DOOR_NOTICE,
 };
 
 export const STATIC_RUN_CATALOG: Record<string, { label: string; spec: GraphSpec }> = {
@@ -141,5 +143,9 @@ export const STATIC_RUN_CATALOG: Record<string, { label: string; spec: GraphSpec
   STATIC_ALL_NATIVE_CONCEPTS: {
     label: "34 - All Native Concepts",
     spec: STATIC_ALL_NATIVE_CONCEPTS,
+  },
+  STATIC_DOOR_NOTICE: {
+    label: "35 - Door Notice (PipeDocGen)",
+    spec: STATIC_DOOR_NOTICE,
   },
 };

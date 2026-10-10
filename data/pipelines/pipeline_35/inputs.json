@@ -1,0 +1,14 @@
+{
+  "shop_name": {
+    "concept": "native.Text",
+    "content": {
+      "text": "The Corner Bakery"
+    }
+  },
+  "hours": {
+    "concept": "native.Text",
+    "content": {
+      "text": "Open 7 to 19 every weekday, 8 to 13 on Saturday, closed on Sunday."
+    }
+  }
+}

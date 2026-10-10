@@ -19,7 +19,7 @@ const meta: Meta<typeof GraphViewer> = {
 export default meta;
 type Story = StoryObj<typeof GraphViewer>;
 
-const D = { direction: "LR" as const, showControllers: true };
+const D = { initialDirection: "LR" as const, initialShowControllers: true };
 
 /** Shared play function: verify ReactFlow renders nodes without errors */
 async function assertRendersNodes({ canvasElement }: { canvasElement: HTMLElement }) {
@@ -78,3 +78,4 @@ export const RfpQualifier: Story = makeStory(DRY_RUN_CATALOG.DRY_RFP_QUALIFIER.s
 export const MeetingTriage: Story = makeStory(DRY_RUN_CATALOG.DRY_MEETING_TRIAGE.spec);
 export const AvailabilityRouting: Story = makeStory(DRY_RUN_CATALOG.DRY_AVAILABILITY_ROUTING.spec);
 export const AllNativeConcepts: Story = makeStory(DRY_RUN_CATALOG.DRY_ALL_NATIVE_CONCEPTS.spec);
+export const DoorNotice: Story = makeStory(DRY_RUN_CATALOG.DRY_DOOR_NOTICE.spec);
