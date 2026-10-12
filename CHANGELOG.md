@@ -1,5 +1,11 @@
 # Changelog
 
+## [v0.34.0] - 2026-10-13
+
+### Changed
+
+- **`@pipelex/mthds-form` 0.17.0 (Breaking)**: the dependency's range moves from `^0.16.0` to `^0.17.0`, whose result view takes an opt-in `tableLayout`. `StuffViewer` and `ResultEnvProvider`, re-exported from `./form/react` together with the new `TableLayout` type, accept `tableLayout: "stack"`, under which a table of records never scrolls sideways, a wide one turning each row into a block of label and value pairs when its container is narrow, while `"scroll"`, the default, draws every table exactly as before. Nothing changes in the run form's controls or its wire format, and the stacked layout's classes arrive through the same two stylesheet entries, `./tailwind.css` and `./form-kernel.css`, so a host on either needs no change of its own.
+
 ## [v0.33.0] - 2026-10-13
 
 ### Added
