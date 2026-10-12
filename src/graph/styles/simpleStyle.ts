@@ -1128,7 +1128,10 @@ function simpleEdge(
       fontWeight: 600,
       fill: "var(--ctrl-condition-text)",
     };
-    edge.labelBgStyle = { fill: "var(--color-bg)", fillOpacity: 0.92 };
+    // A variable rather than the surface colour itself, so the still
+    // presentation can drop the backing (`SimpleStyle.css`): an inline fill
+    // beats any stylesheet rule.
+    edge.labelBgStyle = { fill: "var(--simple-edge-label-bg, var(--color-bg))", fillOpacity: 0.92 };
     edge.labelBgPadding = [...EDGE_LABEL_PADDING];
     edge.labelBgBorderRadius = 4;
     edge.labelSize = simpleEdgeLabelSize(label);

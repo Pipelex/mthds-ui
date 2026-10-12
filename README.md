@@ -94,12 +94,15 @@ Without `pipeIoContracts` and `outputForm` the panel shows each concept's struct
 | `graphStyle`         | `GraphStyleId`                                    | `"detailed"`           | The style the graph is drawn in: `detailed` or `simple`        |
 | `styleMenu`          | `boolean \| GraphStyleId[]`                       | —                      | Offer a style menu in the toolbar (opt-in)                     |
 | `onGraphStyleChange` | `(style: GraphStyleId) => void`                   | —                      | Called when the style changes, so the host can keep the choice |
+| `interactive`        | `boolean`                                         | `true`                 | `false` draws a still picture sized to its content             |
 
 The `simple` style draws the method as a flowchart in plain words: steps titled by their descriptions, only the method's inputs and final output as data, decisions with their outcomes, and loops as "for each". See [docs/graph-styles.md](docs/graph-styles.md).
 
 ### Container sizing
 
 The graph container uses `position: absolute; inset: 0` to fill its parent. Make sure the parent element has `position: relative` and a defined height (e.g. `h-full`, `flex-1`, or an explicit height).
+
+The still presentation (`interactive={false}`) is the exception: its container flows in its parent and takes the height the drawing needs, so the parent gives it a width and no height. See [docs/still-presentation.md](docs/still-presentation.md).
 
 ## GraphSpec
 

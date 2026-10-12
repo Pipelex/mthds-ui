@@ -22,6 +22,15 @@
 .react-flow__node-simpleFrame {
   cursor: default !important;
 }
+
+/* An edge label's backing (`simpleStyle.ts`), dropped in the still
+   presentation so the host's surface shows through: the layout reserves each
+   label's box beside its arrow, so no line runs under the text. The detailed
+   style keeps its backing, which is what hides a dashed batch edge behind its
+   label. */
+.react-flow-container--still {
+  --simple-edge-label-bg: transparent;
+}
 .simple-handle.react-flow__handle {
   opacity: 0;
   border: none;

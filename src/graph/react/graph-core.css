@@ -105,6 +105,19 @@
   inset: 0;
   background: var(--color-bg);
 }
+/* The still presentation (`GraphViewer`'s `interactive={false}`): the drawing
+   is laid in the page like a picture. The container flows in its parent at the
+   height `StillFit` sets inline rather than filling a sized parent, shows the
+   host's surface through it, and takes no pointer event, so a click or the
+   wheel reaches the page beneath. `GraphViewer` also makes it `inert`, which no
+   descendant's own `pointer-events: auto` (a fold button's) can override. */
+.react-flow-container--still {
+  position: relative;
+  inset: auto;
+  width: 100%;
+  background: transparent;
+  pointer-events: none;
+}
 .react-flow__node {
   font-family: var(--font-sans);
   cursor: pointer;

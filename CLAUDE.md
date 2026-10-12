@@ -50,6 +50,8 @@ src/
       viewer/
         GraphViewer.tsx           # Unified ReactFlow viewer component
         StyleMenu.tsx             # The toolbar's opt-in graph style menu
+        StillFit.tsx              # The still presentation's viewport and height (interactive={false})
+        stillViewport.ts          # Its geometry, pure: fit to width, height follows
         graphArtifacts.ts         # GraphArtifacts: the spec + its descriptors, the viewer's one `graph` prop
         renderLabel.tsx           # Label rendering + hydration
       detail/
