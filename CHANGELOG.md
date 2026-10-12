@@ -1,5 +1,17 @@
 # Changelog
 
+## [v0.33.0] - 2026-10-13
+
+### Added
+
+- **`GraphViewer`'s still presentation**: `interactive={false}` draws the graph as a still picture laid in the page: nothing pans, zooms, drags or selects, the drawing is `inert` so no button inside a node takes a click or the keyboard, a click opens no detail panel and fires no callback, the wheel scrolls the page, and there is no background, toolbar or detail panel. The drawing is fitted to the container's width, never past its natural size, and the container takes the height the drawing needs, so the host gives it a width and no height. In the simple style an edge label's backing is now the `--simple-edge-label-bg` variable, which the still presentation sets to `transparent`.
+
+### Changed
+
+- **The bundled schema takes the reworked `PipeJudge` (Breaking)**: `data/schema/mthds_schema.json` is regenerated from pipelex v0.82.0. A `PipeJudge` now requires its `prompt`, the evidence template its questions are asked about; its `criteria` must give both sides, `yes` and `no`, where either could be left out; its `levels` may be written as labelled tables, `{ label, description }`, as well as plain strings; and its multi form asks several named `questions` over the same evidence in one request, each with its own `question` and optional `options`, `levels`, `criteria` and `threshold`, so the single form's `question` is no longer required.
+
+- **The vendored MTHDS Test Corpus**: `data/mthds-corpus/` is copied from pipelex v0.82.0. It gains `operator_judge_message_triage`, a judge asking several questions in one request whose verdicts fill a structure, and `operator_judge_roof_condition`, a rating on labelled levels, and the existing judge entries now declare the `prompt` they are judged on; the static sweeps parse and build each of them.
+
 ## [v0.32.0] - 2026-10-10
 
 ### Added

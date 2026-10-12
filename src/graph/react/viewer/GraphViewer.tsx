@@ -5,6 +5,7 @@ import {
   useEdgesState,
   Background,
   BackgroundVariant,
+  type ReactFlowProps,
 } from "@xyflow/react";
 
 import type {
@@ -66,6 +67,8 @@ import { GRAPH_STYLES, resolveGraphStyle, resolveStyleMenu } from "@graph/styles
 import { GRAPH_STYLE_PIPELINES } from "@graph/styles/stylePipelines";
 import { hydrateLabels } from "./renderLabel";
 import { GraphToolbar } from "./GraphToolbar";
+import { StillFit } from "./StillFit";
+import { STILL_PLACEHOLDER_HEIGHT_PX } from "./stillViewport";
 import { controllerNodeTypes } from "../nodes/controller/ControllerGroupNode";
 import { PipeCardRFNode } from "../nodes/pipe/PipeCardNode";
 import { simpleNodeTypes } from "../styles/simple/SimpleNodes";
@@ -82,6 +85,23 @@ const nodeTypes = {
 // Likewise for edge components: the built-in curves, plus the edge drawn along
 // the layout's route, for the styles that ask the layout to route edges.
 const edgeTypes = { [EDGE_TYPE_ROUTED]: RoutedEdge };
+
+// The still presentation's flow settings: nothing pans, zooms, drags, connects,
+// selects or takes focus, and the wheel scrolls the page the drawing sits in.
+// `panOnScroll` and the zoom floor are set beside the canvas's own values.
+const STILL_FLOW_PROPS = {
+  panOnDrag: false,
+  zoomOnScroll: false,
+  zoomOnPinch: false,
+  zoomOnDoubleClick: false,
+  preventScrolling: false,
+  nodesDraggable: false,
+  nodesConnectable: false,
+  nodesFocusable: false,
+  edgesFocusable: false,
+  elementsSelectable: false,
+  disableKeyboardA11y: true,
+} satisfies Partial<ReactFlowProps<AppNode, AppEdge>>;
 
 export interface GraphViewerProps {
   /**
@@ -114,6 +134,20 @@ export interface GraphViewerProps {
   initialFoldMode?: FoldMode;
   /** Hide the built-in floating toolbar (direction + controllers toggle). */
   hideToolbar?: boolean;
+  /**
+   * `false` draws the graph as a still picture laid in the page, for a host
+   * that shows a method's flowchart before anyone asks to explore it: nothing
+   * pans, zooms, drags or selects, the drawing is `inert` so no button in it
+   * takes a click or the keyboard, a click opens no detail panel and fires no
+   * callback, the wheel scrolls the page, and there is no background, no toolbar
+   * and no detail panel. The drawing is fitted to the container's width, never
+   * past its natural size, and the container takes the height the drawing
+   * needs, so the host gives it a width and no height. Defaults to `true`, the
+   * interactive canvas. Reactive: a host switching to `true` gets the canvas,
+   * fitted to view, and must then size its parent as for any canvas. See
+   * `docs/still-presentation.md`.
+   */
+  interactive?: boolean;
   /**
    * Theme *mode*: `dark | light | system`. Reactive: passing it as a prop drives
    * the active mode, and clearing it back to `undefined` hands control back to
@@ -472,6 +506,7 @@ export function GraphViewer(props: GraphViewerProps) {
     initialShowControllers,
     initialFoldMode,
     hideToolbar = false,
+    interactive = true,
     theme: themeProp,
     graphStyle: graphStyleProp,
     onGraphStyleChange,
@@ -635,6 +670,10 @@ export function GraphViewer(props: GraphViewerProps) {
     };
   }, [config.paletteColors, resolvedTheme]);
 
+  // The height a still drawing needs, which `StillFit` reports once the nodes
+  // are measured; the placeholder holds the space until then.
+  const [stillHeight, setStillHeight] = React.useState<number>(STILL_PLACEHOLDER_HEIGHT_PX);
+
   const [nodes, setNodes, onNodesChange] = useNodesState<AppNode>([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState<AppEdge>([]);
   const reactFlowRef = React.useRef<AppRFInstance | null>(null);
@@ -749,6 +788,10 @@ export function GraphViewer(props: GraphViewerProps) {
   initialZoomRef.current = config.initialZoom;
   const panToTopRef = React.useRef(config.panToTop);
   panToTopRef.current = config.panToTop;
+  // A still drawing's viewport is `StillFit`'s alone: the fit-to-view that
+  // follows each layout would otherwise undo it a moment later.
+  const interactiveRef = React.useRef(interactive);
+  interactiveRef.current = interactive;
   const expandedRef = React.useRef(expandedControllers);
   expandedRef.current = expandedControllers;
   const toggleCollapseRef = React.useRef(toggleCollapse);
@@ -778,7 +821,7 @@ export function GraphViewer(props: GraphViewerProps) {
   const openValidationPanel = React.useCallback(() => setValidationOpen(true), []);
   // Badges only get a click handler while the panel can actually appear —
   // otherwise they'd render as buttons whose click has no visible effect.
-  const validationWidgetAvailable = validationState !== undefined && !hideToolbar;
+  const validationWidgetAvailable = validationState !== undefined && !hideToolbar && interactive;
   const validationWidgetAvailableRef = React.useRef(validationWidgetAvailable);
   validationWidgetAvailableRef.current = validationWidgetAvailable;
 
@@ -947,7 +990,7 @@ export function GraphViewer(props: GraphViewerProps) {
         setNodes(decorateNodes(withControllers.nodes));
         setEdges(toAppEdges(withControllers.edges));
         setTimeout(() => {
-          if (!cancelled && reactFlowRef.current) {
+          if (!cancelled && reactFlowRef.current && interactiveRef.current) {
             void reactFlowRef.current.fitView({ padding: 0.1 });
           }
         }, 50);
@@ -1122,7 +1165,7 @@ export function GraphViewer(props: GraphViewerProps) {
 
         // Fit view after render, then apply zoom/pan overrides
         setTimeout(() => {
-          if (!cancelled && reactFlowRef.current) {
+          if (!cancelled && reactFlowRef.current && interactiveRef.current) {
             void reactFlowRef.current.fitView({ padding: 0.1 });
             if (initialZoomRef.current !== undefined && initialZoomRef.current !== null) {
               void reactFlowRef.current.zoomTo(initialZoomRef.current);
@@ -1220,7 +1263,7 @@ export function GraphViewer(props: GraphViewerProps) {
         setNodes(decorateNodes(withControllers.nodes));
         setEdges(toAppEdges(withControllers.edges));
         setTimeout(() => {
-          if (!cancelled && reactFlowRef.current) {
+          if (!cancelled && reactFlowRef.current && interactiveRef.current) {
             void reactFlowRef.current.fitView({ padding: 0.1 });
           }
         }, 50);
@@ -1325,6 +1368,24 @@ export function GraphViewer(props: GraphViewerProps) {
     [onReactFlowInit],
   );
 
+  // A switch between the presentations: the canvas opens fitted to view, as
+  // after a layout, and the still drawing keeps no detail panel or dropdown open.
+  const prevInteractiveRef = React.useRef(interactive);
+  React.useEffect(() => {
+    if (prevInteractiveRef.current === interactive) return;
+    prevInteractiveRef.current = interactive;
+    if (!interactive) {
+      setDetailSelection(null);
+      setConceptOverride(null);
+      setValidationOpen(false);
+      return;
+    }
+    const timer = setTimeout(() => {
+      void reactFlowRef.current?.fitView({ padding: 0.1 });
+    }, 50);
+    return () => clearTimeout(timer);
+  }, [interactive]);
+
   // Dismiss detail panel on pane click
   const handlePaneClick = React.useCallback(() => {
     setDetailSelection(null);
@@ -1396,7 +1457,13 @@ export function GraphViewer(props: GraphViewerProps) {
   return (
     <div
       ref={containerRef}
-      className={`react-flow-container react-flow-container--theme-${resolvedTheme} react-flow-container--mode-${mode}`}
+      className={`react-flow-container react-flow-container--theme-${resolvedTheme} react-flow-container--mode-${mode}${interactive ? "" : " react-flow-container--still"}`}
+      style={interactive ? undefined : { height: stillHeight }}
+      // A still drawing is inert: the flow's own settings reach only its node
+      // wrappers, and a button drawn inside a node (a fold, "N steps inside",
+      // a card's expander) would otherwise still take a click or the Tab key
+      // and change the picture.
+      inert={!interactive}
     >
       <ReactFlow
         nodes={nodes}
@@ -1405,27 +1472,34 @@ export function GraphViewer(props: GraphViewerProps) {
         edgeTypes={edgeTypes}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
-        onNodeClick={onNodeClick}
-        onPaneClick={handlePaneClick}
+        onNodeClick={interactive ? onNodeClick : undefined}
+        onPaneClick={interactive ? handlePaneClick : undefined}
         onInit={onInit}
-        fitView
+        fitView={interactive}
         fitViewOptions={{ padding: 0.1 }}
         defaultEdgeOptions={{ type: edgeType }}
-        panOnScroll
-        minZoom={0.1}
+        panOnScroll={interactive}
+        // A still drawing wider than its container is scaled down to fit it,
+        // as far as it takes (`StillFit`).
+        minZoom={interactive ? 0.1 : 0.01}
         proOptions={{ hideAttribution: true }}
         // Disable pan-on-space: the default Space activation key attaches a
         // window-level keydown handler that can swallow spacebar input in
         // text editors embedded alongside the graph (e.g. Monaco).
         panActivationKeyCode={null}
+        {...(interactive ? {} : STILL_FLOW_PROPS)}
       >
-        <Background
-          variant={BackgroundVariant.Dots}
-          gap={20}
-          size={1}
-          color="var(--color-bg-dots)"
-        />
-        {!hideToolbar && (
+        {interactive ? (
+          <Background
+            variant={BackgroundVariant.Dots}
+            gap={20}
+            size={1}
+            color="var(--color-bg-dots)"
+          />
+        ) : (
+          <StillFit onHeight={setStillHeight} />
+        )}
+        {interactive && !hideToolbar && (
           <GraphToolbar
             direction={direction}
             onDirectionChange={setDirection}
@@ -1465,41 +1539,43 @@ export function GraphViewer(props: GraphViewerProps) {
           />
         )}
       </ReactFlow>
-      <DetailPanel
-        isOpen={detailOpen}
-        onClose={handlePaneClick}
-        width={panelWidth}
-        isDragging={isPanelDragging}
-        onResizeHandleMouseDown={onResizeMouseDown}
-      >
-        {conceptOverride ? (
-          <ConceptDetailPanel concept={conceptOverride} />
-        ) : selectedSpecNode && graphspec ? (
-          <PipeDetailPanel
-            node={selectedSpecNode}
-            spec={graphspec}
-            onConceptClick={handleConceptClick}
-          />
-        ) : detailSelection?.stuffData ? (
-          <StuffNodeDetail
-            nodeId={detailSelection.nodeId}
-            stuffData={detailSelection.stuffData}
-            producerPipeRef={detailSelection.producerPipeRef}
-            consumer={detailSelection.consumer}
-            graphspec={graphspec}
-            theme={resolvedTheme}
-            artifacts={graph}
-            resolveUrl={resolveUrl}
-            resolveShareUrl={resolveShareUrl}
-            saveFiles={saveFiles}
-            downloads={downloads}
-          />
-        ) : null}
-        {renderDetailExtra &&
-          detailSelection &&
-          !conceptOverride &&
-          renderDetailExtra(detailSelection.nodeId, detailSelection.nodeData)}
-      </DetailPanel>
+      {interactive && (
+        <DetailPanel
+          isOpen={detailOpen}
+          onClose={handlePaneClick}
+          width={panelWidth}
+          isDragging={isPanelDragging}
+          onResizeHandleMouseDown={onResizeMouseDown}
+        >
+          {conceptOverride ? (
+            <ConceptDetailPanel concept={conceptOverride} />
+          ) : selectedSpecNode && graphspec ? (
+            <PipeDetailPanel
+              node={selectedSpecNode}
+              spec={graphspec}
+              onConceptClick={handleConceptClick}
+            />
+          ) : detailSelection?.stuffData ? (
+            <StuffNodeDetail
+              nodeId={detailSelection.nodeId}
+              stuffData={detailSelection.stuffData}
+              producerPipeRef={detailSelection.producerPipeRef}
+              consumer={detailSelection.consumer}
+              graphspec={graphspec}
+              theme={resolvedTheme}
+              artifacts={graph}
+              resolveUrl={resolveUrl}
+              resolveShareUrl={resolveShareUrl}
+              saveFiles={saveFiles}
+              downloads={downloads}
+            />
+          ) : null}
+          {renderDetailExtra &&
+            detailSelection &&
+            !conceptOverride &&
+            renderDetailExtra(detailSelection.nodeId, detailSelection.nodeData)}
+        </DetailPanel>
+      )}
     </div>
   );
 }

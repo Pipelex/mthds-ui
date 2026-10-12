@@ -30,6 +30,7 @@ export default defineConfig({
         "src/graph/graphFolds.ts",
         "src/graph/pipeCardPayload.ts",
         "src/graph/react/rfTypes.ts",
+        "src/graph/react/viewer/stillViewport.ts",
         "src/graph/edgeRoutes.ts",
         "src/graph/styles/graphStyles.ts",
         "src/graph/styles/humanize.ts",
