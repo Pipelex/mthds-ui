@@ -3,15 +3,19 @@ import {
   CANCELED_RUN_SNAPSHOT,
   WORKED_EXAMPLE_SNAPSHOT,
 } from "@timeline/react/__stories__/recordedRuns";
-import type { ProgressInvocation } from "../progressSnapshot";
+import type { ProgressInvocation, ProgressSnapshot } from "../progressSnapshot";
 import {
   axisPercent,
+  barFollowsClock,
   formatClockTime,
   formatDuration,
   invocationBar,
+  invocationTimes,
   readingClockMs,
+  snapshotTimes,
   timelineTicks,
   timelineWindow,
+  timelineWindowAt,
 } from "../timelineTime";
 
 const ms = (timestamp: string) => Date.parse(timestamp);
@@ -63,6 +67,42 @@ describe("the reading clock and the axis", () => {
     expect(timelineWindow({ ...WORKED_EXAMPLE_SNAPSHOT, invocations: [] })).toBeNull();
   });
 
+  it("reaches an end recorded by an invocation whose start was not", () => {
+    // The root's start was not recorded, but its end was, and it is the latest
+    // moment the run recorded; only the axis's start needs a recorded start.
+    const root: ProgressInvocation = {
+      ...find("filings.review_filings"),
+      status: "succeeded",
+      started_at: null,
+      ended_at: "2026-10-12T09:30:10.000Z",
+    };
+    const child: ProgressInvocation = {
+      ...find("filings.review_filings/step_1"),
+      started_at: "2026-10-12T09:30:00.000Z",
+      ended_at: "2026-10-12T09:30:01.000Z",
+    };
+    const ended: ProgressSnapshot = {
+      ...WORKED_EXAMPLE_SNAPSHOT,
+      status: "succeeded",
+      invocations: [root, child],
+    };
+    expect(timelineWindow(ended)).toEqual({
+      startMs: ms("2026-10-12T09:30:00.000Z"),
+      endMs: ms("2026-10-12T09:30:10.000Z"),
+    });
+    // A failure recorded on an invocation with no recorded start counts too.
+    const failedLate: ProgressSnapshot = {
+      ...ended,
+      invocations: [
+        { ...root, ended_at: null, last_failure: { message: "x", at: "2026-10-12T09:30:12Z" } },
+        child,
+      ],
+    };
+    expect(timelineWindow(failedLate)?.endMs).toBe(ms("2026-10-12T09:30:12.000Z"));
+    // With no recorded start at all, there is still no axis.
+    expect(timelineWindow({ ...ended, invocations: [root] })).toBeNull();
+  });
+
   it("never spans zero time", () => {
     const instant = {
       ...WORKED_EXAMPLE_SNAPSHOT,
@@ -76,6 +116,62 @@ describe("the reading clock and the axis", () => {
       ],
     };
     expect(timelineWindow(instant)).toEqual({ startMs: RUN_START, endMs: RUN_START + 1 });
+  });
+});
+
+describe("snapshotTimes, parsed once", () => {
+  const times = snapshotTimes(WORKED_EXAMPLE_SNAPSHOT);
+
+  it("holds each invocation's moments by path", () => {
+    expect(times.invocations.size).toBe(WORKED_EXAMPLE_SNAPSHOT.invocations.length);
+    expect(times.invocations.get("filings.review_filings/step_1")).toEqual({
+      startedMs: ms("2026-10-12T09:30:00.131Z"),
+      endedMs: ms("2026-10-12T09:30:06.870Z"),
+      failedMs: null,
+    });
+    expect(times.assembledMs).toBe(ASSEMBLED);
+    expect(times.ended).toBe(false);
+  });
+
+  it("gives the same axis as timelineWindow at every reading of the clock", () => {
+    for (const nowMs of [undefined, null, ASSEMBLED, ASSEMBLED + 4_000, RUN_START]) {
+      expect(timelineWindowAt(times, nowMs)).toEqual(
+        timelineWindow(WORKED_EXAMPLE_SNAPSHOT, nowMs),
+      );
+    }
+    const ended = { ...WORKED_EXAMPLE_SNAPSHOT, status: "failed" as const };
+    expect(timelineWindowAt(snapshotTimes(ended), ASSEMBLED + 4_000)).toEqual(
+      timelineWindow(ended, ASSEMBLED + 4_000),
+    );
+  });
+
+  it("keeps the recorded span, which a clock that does not stretch it hands back as it is", () => {
+    expect(times.recorded).toEqual({
+      startMs: RUN_START,
+      endMs: ms("2026-10-12T09:30:52.317Z"),
+    });
+    expect(timelineWindowAt(times, RUN_START)).toBe(times.recorded);
+    expect(timelineWindowAt({ ...times, ended: true }, ASSEMBLED)).toBe(times.recorded);
+  });
+
+  it("knows which bars follow the clock and which the snapshot settles", () => {
+    const running = find("filings.review_filings/step_3");
+    const succeeded = find("filings.review_filings/step_1");
+    expect(barFollowsClock(running)).toBe(true);
+    expect(barFollowsClock(succeeded)).toBe(false);
+    expect(barFollowsClock({ ...running, status: "canceled" })).toBe(true);
+    expect(barFollowsClock({ ...running, status: "scheduled", started_at: null })).toBe(false);
+    // A running invocation that somehow recorded its end is settled by it.
+    expect(barFollowsClock({ ...running, ended_at: "2026-10-12T09:31:00Z" })).toBe(false);
+  });
+
+  it("draws a bar from moments parsed beforehand as from the invocation itself", () => {
+    const axis = { startMs: RUN_START, endMs: ASSEMBLED };
+    for (const invocation of WORKED_EXAMPLE_SNAPSHOT.invocations) {
+      expect(invocationBar(invocation, axis, ASSEMBLED, invocationTimes(invocation))).toEqual(
+        invocationBar(invocation, axis, ASSEMBLED),
+      );
+    }
   });
 });
 
@@ -158,9 +254,30 @@ describe("ticks and durations", () => {
     ]);
   });
 
-  it("falls back to its largest step for a very long run", () => {
-    const week = 7 * 24 * 3_600_000;
-    expect(timelineTicks({ startMs: 0, endMs: week })).toHaveLength(8);
+  it("steps by whole days past its largest step, still keeping to the budget", () => {
+    const day = 24 * 3_600_000;
+    // A week over six intervals: one day would make seven, so the step is two days.
+    expect(timelineTicks({ startMs: 0, endMs: 7 * day }).map((tick) => tick.offsetMs)).toEqual([
+      0,
+      2 * day,
+      4 * day,
+      6 * day,
+    ]);
+    // Sixty days on a narrow axis: two intervals of thirty days, never sixty-one labels.
+    const sixtyDays = timelineTicks({ startMs: 0, endMs: 60 * day }, 2);
+    expect(sixtyDays.map((tick) => tick.offsetMs)).toEqual([0, 30 * day, 60 * day]);
+    for (const budget of [1, 3, 4, 6, 9]) {
+      const ticks = timelineTicks({ startMs: 0, endMs: 60 * day + 1 }, budget);
+      expect(ticks.length - 1).toBeLessThanOrEqual(budget);
+      for (const tick of ticks) expect(tick.offsetMs % day).toBe(0);
+    }
+  });
+
+  it("takes a budget below one interval as one", () => {
+    expect(timelineTicks({ startMs: 0, endMs: 10_000 }, 0).map((tick) => tick.label)).toEqual([
+      "0s",
+      "10s",
+    ]);
   });
 
   it("formats durations in a few characters", () => {

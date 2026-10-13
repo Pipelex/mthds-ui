@@ -208,16 +208,54 @@ export const WaitingToStart: Story = {
   },
 };
 
+/**
+ * A run that failed before its first invocation started: there is nothing to
+ * draw, and nothing to wait for either, so the timeline does not say there is.
+ */
+export const FailedBeforeStarting: Story = {
+  args: {
+    snapshot: { ...REVIEW_FILINGS_SNAPSHOTS[0], status: "failed", summary: "Failed" },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("No progress was recorded.")).toBeInTheDocument();
+    expect(canvas.queryByText("Nothing has started yet.")).toBeNull();
+  },
+};
+
+/**
+ * The timeline as a flex item beside a sidebar, in a row 900 pixels wide: it
+ * takes the room its container gives it, whatever it holds.
+ */
+export const InARowFlexContainer: Story = {
+  args: { snapshot: WORKED_EXAMPLE_SNAPSHOT, live: false },
+  decorators: [
+    (Story) => (
+      <div style={{ display: "flex", gap: 16, width: 900 }}>
+        <aside style={{ flex: "0 0 160px", color: "#64748b" }}>A host's sidebar</aside>
+        <Story />
+      </div>
+    ),
+  ],
+  play: async ({ canvasElement }) => {
+    // Beside a 160-pixel sidebar and a 16-pixel gap.
+    const width = () => timelineOf(canvasElement).getBoundingClientRect().width;
+    await waitFor(() => expect(Math.abs(width() - (900 - 160 - 16))).toBeLessThan(1));
+  },
+};
+
 const RUNNING_EARLY = REVIEW_FILINGS_SNAPSHOTS[10];
 const RUNNING_LATE = REVIEW_FILINGS_SNAPSHOTS[30];
 const ENDED = REVIEW_FILINGS_SNAPSHOTS[REVIEW_FILINGS_SNAPSHOTS.length - 1];
 
 interface FeedProps {
   deliveries: { label: string; snapshot: ProgressSnapshot }[];
+  /** Whether the timeline keeps its own clock. Off by default, so each snapshot is drawn as of its `assembled_at`. */
+  live?: boolean;
 }
 
 /** Hands the timeline whichever snapshot a button names, as overlapping reads answering out of order would. */
-function SnapshotFeed({ deliveries }: FeedProps) {
+function SnapshotFeed({ deliveries, live = false }: FeedProps) {
   const [snapshot, setSnapshot] = React.useState(deliveries[0].snapshot);
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
@@ -228,7 +266,7 @@ function SnapshotFeed({ deliveries }: FeedProps) {
           </button>
         ))}
       </div>
-      <RunTimeline snapshot={snapshot} live={false} theme="dark" />
+      <RunTimeline snapshot={snapshot} live={live} theme="dark" />
     </div>
   );
 }
@@ -267,5 +305,80 @@ export const OutOfOrderReads: Story = {
     await userEvent.click(canvas.getByRole("button", { name: "Read late" }));
     expect(timelineOf(canvasElement).dataset.runStatus).toBe("succeeded");
     expect(version()).toBe(ENDED.version);
+  },
+};
+
+const SLOW_POLL_ROOT = "filings.condense_filing";
+
+/** One running invocation, started two seconds before the first read was projected. */
+function slowPollSnapshot(overrides: Partial<ProgressSnapshot>): ProgressSnapshot {
+  return {
+    pipeline_run_id: "run_slow_poll",
+    mode: "live",
+    status: "running",
+    version: 1,
+    assembled_at: "2026-10-12T09:30:02.000Z",
+    summary: "Running condense_filing",
+    invocations: [
+      {
+        path: SLOW_POLL_ROOT,
+        pipe_code: "condense_filing",
+        pipe_ref: SLOW_POLL_ROOT,
+        pipe_type: "PipeLLM",
+        status: "running",
+        started_at: "2026-10-12T09:30:00.000Z",
+        ended_at: null,
+      },
+    ],
+    ...overrides,
+  };
+}
+
+/**
+ * The self-ticking clock across a slow read. The second read is newer, but it
+ * was projected 300 ms after the first and arrives seconds later, by when the
+ * clock already shows more: the clock carries on from what it showed rather
+ * than jumping back, so the running bar never shrinks. A read of another run
+ * starts the clock afresh from its own `assembled_at`.
+ */
+export const SlowRead: Story = {
+  render: () => (
+    <SnapshotFeed
+      live
+      deliveries={[
+        { label: "First read", snapshot: slowPollSnapshot({}) },
+        {
+          label: "Read slowly",
+          snapshot: slowPollSnapshot({ version: 2, assembled_at: "2026-10-12T09:30:02.300Z" }),
+        },
+        {
+          label: "Read another run",
+          snapshot: slowPollSnapshot({
+            pipeline_run_id: "run_other",
+            assembled_at: "2026-10-12T09:30:02.300Z",
+          }),
+        },
+      ]}
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // The running row's duration, in seconds, as its detail column reads it (`3.2s`).
+    const elapsed = () =>
+      Number.parseFloat(
+        rowAt(canvasElement, SLOW_POLL_ROOT)?.querySelector(".mthds-run-timeline-detail")
+          ?.textContent ?? "",
+      );
+    expect(elapsed()).toBe(2);
+    await waitFor(() => expect(elapsed()).toBeGreaterThanOrEqual(3), { timeout: 5_000 });
+    const shown = elapsed();
+
+    await userEvent.click(canvas.getByRole("button", { name: "Read slowly" }));
+    await waitFor(() => expect(timelineOf(canvasElement).dataset.version).toBe("2"));
+    expect(elapsed()).toBeGreaterThanOrEqual(shown);
+
+    await userEvent.click(canvas.getByRole("button", { name: "Read another run" }));
+    await waitFor(() => expect(timelineOf(canvasElement).dataset.version).toBe("1"));
+    expect(elapsed()).toBeLessThan(shown);
   },
 };

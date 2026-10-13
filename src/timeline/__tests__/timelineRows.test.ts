@@ -323,6 +323,93 @@ describe("buildTimelineRows — batches", () => {
     ]);
   });
 
+  it("keeps in view an item holding a stuck invocation beneath it, with the rows leading to it", () => {
+    // Item 5 is running, so it is no trouble itself; its second step is where the run is stuck.
+    const snapshot = batchSnapshot(40, () => "running");
+    snapshot.invocations.push(
+      invocation(`${BATCH}/item_5/step_1`, "read_filing"),
+      invocation(`${BATCH}/item_5/step_2`, "condense_filing", {
+        status: "running",
+        ended_at: null,
+        degradation: {
+          reason: "workflow_task_failing",
+          message: "Item 5 has failed to advance 3 times in a row.",
+          failed_attempts: 3,
+          failing_since: null,
+          ends_at: null,
+        },
+      }),
+    );
+    const rows = buildTimelineRows(snapshot);
+    expect(rows.map((row) => [row.path, row.keptVisible])).toEqual([
+      [ROOT, null],
+      [BATCH, null],
+      [`${BATCH}/item_5`, "degraded"],
+      [`${BATCH}/item_5/step_1`, null],
+      [`${BATCH}/item_5/step_2`, null],
+    ]);
+    expect(rows[1].batch).toMatchObject({ expanded: false, hiddenItemCount: 39 });
+  });
+
+  it("keeps in view an item holding a failure inside a nested collapsed batch", () => {
+    // Item 7 of the outer batch is running; its second step is a wide batch of
+    // its own, collapsed, whose running item 4 holds a failed step.
+    const nested = `${BATCH}/item_7/step_2`;
+    const snapshot = batchSnapshot(40, () => "running");
+    const nestedItems = Array.from({ length: 12 }, (_, index) =>
+      invocation(`${nested}/item_${index + 1}`, "check_clause", {
+        pipe_type: "PipeSequence",
+        status: "running",
+        ended_at: null,
+      }),
+    );
+    snapshot.invocations.push(
+      invocation(`${BATCH}/item_7/step_1`, "read_filing"),
+      invocation(nested, "check_clause_batch", {
+        pipe_type: "PipeBatch",
+        status: "running",
+        ended_at: null,
+        batch: { total: 12, done: 0, running: 12, failed: 0 },
+      }),
+      ...nestedItems,
+      invocation(`${nested}/item_4/step_1`, "quote_clause", { status: "failed" }),
+    );
+    const rows = buildTimelineRows(snapshot);
+    expect(rows.map((row) => [row.path, row.keptVisible])).toEqual([
+      [ROOT, null],
+      [BATCH, null],
+      [`${BATCH}/item_7`, "failed"],
+      [`${BATCH}/item_7/step_1`, null],
+      [nested, null],
+      [`${nested}/item_4`, "failed"],
+      [`${nested}/item_4/step_1`, null],
+    ]);
+    const batchOf = (path: string) => rows.find((row) => row.path === path)?.batch;
+    expect(batchOf(BATCH)).toMatchObject({ expanded: false, hiddenItemCount: 39 });
+    expect(batchOf(nested)).toMatchObject({ expanded: false, hiddenItemCount: 11 });
+  });
+
+  it("names a failure beneath an item over a stuck invocation beneath it", () => {
+    const snapshot = batchSnapshot(20, () => "running");
+    snapshot.invocations.push(
+      invocation(`${BATCH}/item_3/step_1`, "read_filing", { status: "failed" }),
+      invocation(`${BATCH}/item_3/step_2`, "condense_filing", {
+        status: "running",
+        ended_at: null,
+        degradation: {
+          reason: "workflow_task_failing",
+          message: "Item 3 is stuck.",
+          failed_attempts: null,
+          failing_since: null,
+          ends_at: null,
+        },
+      }),
+    );
+    const rows = buildTimelineRows(snapshot);
+    expect(rows.find((row) => row.path === `${BATCH}/item_3`)?.keptVisible).toBe("failed");
+    expect(rows.filter((row) => row.keptVisible)).toHaveLength(1);
+  });
+
   it("follows what the reader expanded and collapsed", () => {
     const wide = batchSnapshot(30, () => "succeeded");
     const expanded = buildTimelineRows(wide, { expandedBatches: { [BATCH]: true } });

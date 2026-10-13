@@ -38,36 +38,125 @@ export function readingClockMs(
   return timestampMs(snapshot.assembled_at);
 }
 
+/** An invocation's recorded moments in epoch milliseconds, each `null` where none was recorded. */
+export interface InvocationTimes {
+  /** The start of its latest attempt. */
+  startedMs: number | null;
+  /** The end of its latest attempt. */
+  endedMs: number | null;
+  /** When its last failure happened, when that is known. */
+  failedMs: number | null;
+}
+
+/** An invocation's recorded moments, parsed. */
+export function invocationTimes(invocation: ProgressInvocation): InvocationTimes {
+  return {
+    startedMs: timestampMs(invocation.started_at),
+    endedMs: timestampMs(invocation.ended_at),
+    failedMs: timestampMs(invocation.last_failure?.at),
+  };
+}
+
+/**
+ * Everything a timeline reads of time in one snapshot, parsed once, so that a
+ * timeline redrawing as its clock ticks parses no timestamp again: each
+ * invocation's moments, and the span of every moment the snapshot recorded.
+ */
+export interface SnapshotTimes {
+  /** Each invocation's moments, by path. A path listed twice keeps its first entry's, as its row does. */
+  invocations: ReadonlyMap<string, InvocationTimes>;
+  /**
+   * The axis as far as the snapshot's own records go: from the earliest start
+   * to the latest moment recorded, whether a start, an end or a failure, and
+   * never spanning zero time. `null` when no invocation has started. Every bar
+   * that does not follow the clock lies inside it, and it is the whole axis of
+   * a run that has ended.
+   */
+  recorded: TimelineWindow | null;
+  /** The snapshot's `assembled_at`. */
+  assembledMs: number | null;
+  /** True once the run has ended. */
+  ended: boolean;
+}
+
+/** A snapshot's moments, parsed once: see `SnapshotTimes`. */
+export function snapshotTimes(snapshot: ProgressSnapshot): SnapshotTimes {
+  const invocations = new Map<string, InvocationTimes>();
+  let startMs = Number.POSITIVE_INFINITY;
+  let endMs = Number.NEGATIVE_INFINITY;
+  for (const invocation of snapshot.invocations) {
+    const times = invocationTimes(invocation);
+    if (!invocations.has(invocation.path)) invocations.set(invocation.path, times);
+    // Only the axis's start needs a recorded start. An invocation whose start
+    // was not recorded may still have recorded its end or a failure, and the
+    // axis must reach them.
+    if (times.startedMs !== null) {
+      startMs = Math.min(startMs, times.startedMs);
+      endMs = Math.max(endMs, times.startedMs);
+    }
+    if (times.endedMs !== null) endMs = Math.max(endMs, times.endedMs);
+    if (times.failedMs !== null) endMs = Math.max(endMs, times.failedMs);
+  }
+  const recorded =
+    startMs === Number.POSITIVE_INFINITY
+      ? null
+      : { startMs, endMs: endMs > startMs ? endMs : startMs + 1 };
+  return {
+    invocations,
+    recorded,
+    assembledMs: timestampMs(snapshot.assembled_at),
+    ended: isRunEnded(snapshot.status),
+  };
+}
+
+/**
+ * The axis at one reading of the clock, from a snapshot's parsed moments: the
+ * snapshot's recorded span, stretched to the reading clock while the run goes
+ * on (to its `assembled_at` when `nowMs` is not given). See `timelineWindow`.
+ * Returns the recorded span itself when the clock does not stretch it.
+ */
+export function timelineWindowAt(
+  times: SnapshotTimes,
+  nowMs?: number | null,
+): TimelineWindow | null {
+  const recorded = times.recorded;
+  if (!recorded || times.ended) return recorded;
+  const clock = nowMs ?? times.assembledMs;
+  if (clock === null || clock <= recorded.endMs) return recorded;
+  return { startMs: recorded.startMs, endMs: clock };
+}
+
 /**
  * The axis every bar is drawn on: from the earliest start the snapshot holds to
  * the latest moment it knows of. While the run goes on, that is the reading
  * clock, so the axis, and every running bar with it, keeps growing. Once the run
- * has ended, it is the latest time recorded in its invocations: the snapshot's
- * `assembled_at` is then only when it was read, which may be long after.
- * `null` when no invocation has started.
+ * has ended, it is the latest time recorded in its invocations, whether a start,
+ * an end or a failure, an end counting even when its start was not recorded:
+ * the snapshot's `assembled_at` is then only when it was read, which may be long
+ * after. `null` when no invocation has started.
  */
 export function timelineWindow(
   snapshot: ProgressSnapshot,
   nowMs?: number | null,
 ): TimelineWindow | null {
-  let startMs = Number.POSITIVE_INFINITY;
-  let endMs = Number.NEGATIVE_INFINITY;
-  for (const invocation of snapshot.invocations) {
-    const started = timestampMs(invocation.started_at);
-    if (started === null) continue;
-    startMs = Math.min(startMs, started);
-    endMs = Math.max(endMs, started);
-    const ended = timestampMs(invocation.ended_at);
-    if (ended !== null) endMs = Math.max(endMs, ended);
-    const failed = timestampMs(invocation.last_failure?.at);
-    if (failed !== null) endMs = Math.max(endMs, failed);
-  }
-  if (startMs === Number.POSITIVE_INFINITY) return null;
-  if (!isRunEnded(snapshot.status)) {
-    const clock = nowMs ?? timestampMs(snapshot.assembled_at);
-    if (clock !== null) endMs = Math.max(endMs, clock);
-  }
-  return { startMs, endMs: endMs > startMs ? endMs : startMs + 1 };
+  return timelineWindowAt(snapshotTimes(snapshot), nowMs);
+}
+
+/**
+ * True when an invocation's bar moves while the reading clock ticks: a running
+ * invocation's grows to the clock, and a canceled one's runs to the end of the
+ * axis, which grows with the clock while the run goes on. Any other bar is
+ * settled by its snapshot, so a timeline need not redraw it between snapshots.
+ */
+export function barFollowsClock(
+  invocation: ProgressInvocation,
+  times: InvocationTimes = invocationTimes(invocation),
+): boolean {
+  if (times.startedMs === null || times.endedMs !== null) return false;
+  return (
+    invocation.status === INVOCATION_STATUS.RUNNING ||
+    invocation.status === INVOCATION_STATUS.CANCELED
+  );
 }
 
 /**
@@ -75,15 +164,17 @@ export function timelineWindow(
  * the reading clock while it runs. A canceled invocation recorded no end, so its
  * bar runs to the end of the axis, which is as late as the run is known to have
  * gone. `null` for an invocation that has not started, such as a scheduled item.
+ * `times` are the invocation's moments when the caller has already parsed them.
  */
 export function invocationBar(
   invocation: ProgressInvocation,
   window: TimelineWindow,
   nowMs?: number | null,
+  times: InvocationTimes = invocationTimes(invocation),
 ): TimelineBar | null {
-  const startMs = timestampMs(invocation.started_at);
+  const startMs = times.startedMs;
   if (startMs === null) return null;
-  const endedMs = timestampMs(invocation.ended_at);
+  const endedMs = times.endedMs;
   let endMs: number;
   let growing = false;
   let openEnded = false;
@@ -116,20 +207,44 @@ export interface TimelineTick {
   label: string;
 }
 
+const DAY_MS = 86_400_000;
+
 const TICK_STEPS_MS = [
-  100, 200, 500, 1_000, 2_000, 5_000, 10_000, 15_000, 30_000, 60_000, 120_000, 300_000, 600_000,
-  900_000, 1_800_000, 3_600_000, 7_200_000, 14_400_000, 21_600_000, 43_200_000, 86_400_000,
+  100,
+  200,
+  500,
+  1_000,
+  2_000,
+  5_000,
+  10_000,
+  15_000,
+  30_000,
+  60_000,
+  120_000,
+  300_000,
+  600_000,
+  900_000,
+  1_800_000,
+  3_600_000,
+  7_200_000,
+  14_400_000,
+  21_600_000,
+  43_200_000,
+  DAY_MS,
 ];
 
 /**
  * The axis's ticks, at the smallest round step that keeps them to `maxTicks`
- * intervals or fewer, labelled with their offset from the first start.
+ * intervals or fewer, labelled with their offset from the first start. Past the
+ * table's largest step, a day, the step is the smallest whole number of days
+ * that still keeps to `maxTicks`, so no axis is ever crowded with labels.
  */
 export function timelineTicks(window: TimelineWindow, maxTicks = 6): TimelineTick[] {
   const span = window.endMs - window.startMs;
+  const budget = Math.max(1, maxTicks);
   const step =
-    TICK_STEPS_MS.find((candidate) => span / candidate <= maxTicks) ??
-    TICK_STEPS_MS[TICK_STEPS_MS.length - 1];
+    TICK_STEPS_MS.find((candidate) => span / candidate <= budget) ??
+    Math.ceil(span / budget / DAY_MS) * DAY_MS;
   const ticks: TimelineTick[] = [];
   for (let offsetMs = 0; offsetMs <= span; offsetMs += step) {
     ticks.push({

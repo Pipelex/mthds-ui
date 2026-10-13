@@ -186,28 +186,74 @@ export function isRunEnded(status: RunProgressStatus): boolean {
   );
 }
 
-const TIMESTAMP_PATTERN = /^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})(?:\.(\d+))?(Z|[+-]\d{2}:\d{2})$/i;
+/**
+ * A timestamp as the contract writes one: a date, `T`, a time with fractional
+ * seconds when they were recorded, then `Z`, or an offset such as `+00:00`,
+ * which the status read may write. Case-sensitive on purpose: the contract
+ * writes `T` and `Z` in upper case and nothing else, so a lower-case `t` or `z`,
+ * which RFC 3339 also allows, is read as no timestamp rather than handed to a
+ * JavaScript engine that may or may not accept it.
+ */
+const TIMESTAMP_PATTERN = /^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})(?:\.(\d+))?(Z|[+-]\d{2}:\d{2})$/;
+
+/** A timestamp split where a double stops being exact. */
+interface ParsedTimestamp {
+  /** Whole milliseconds since the epoch, which a double holds exactly. */
+  wholeMs: number;
+  /** The fractional digits past the millisecond, trailing zeros dropped: `"0001"` for `.0340001`. */
+  subMsDigits: string;
+}
+
+function parseTimestamp(timestamp: ProgressTimestamp | null | undefined): ParsedTimestamp | null {
+  if (!timestamp) return null;
+  const match = TIMESTAMP_PATTERN.exec(timestamp);
+  if (!match) return null;
+  const [, base, fraction = "", offset] = match;
+  const millis = fraction.slice(0, 3).padEnd(3, "0");
+  const wholeMs = Date.parse(`${base}.${millis}${offset}`);
+  if (Number.isNaN(wholeMs)) return null;
+  return { wholeMs, subMsDigits: fraction.slice(3).replace(/0+$/, "") };
+}
 
 /**
  * A timestamp as milliseconds since the epoch, keeping any precision finer than
- * a millisecond as a fraction, or `null` when it is not an RFC 3339 timestamp.
+ * a millisecond as a fraction, or `null` when it is not an RFC 3339 timestamp
+ * in the form the contract writes (see `TIMESTAMP_PATTERN`): anything else,
+ * an offset-less time included, is `null` rather than whatever `Date.parse`
+ * makes of it, which for an offset-less time is the reader's local time.
  *
- * `Date.parse` alone would do for most inputs, but the contract lets a source
- * record any number of fractional digits, and two snapshots of the same version
- * are told apart by `assembled_at` alone, so the digits past the third are kept
- * rather than left to how a JavaScript engine happens to round them. An offset
- * such as `+00:00` parses as well, since the status read may write one.
+ * Good to well under a microsecond, which is all a bar needs. A double cannot
+ * hold every digit a source may record past the millisecond, so to order two
+ * timestamps exactly, use `compareTimestamps`.
  */
 export function timestampMs(timestamp: ProgressTimestamp | null | undefined): number | null {
-  if (!timestamp) return null;
-  const match = TIMESTAMP_PATTERN.exec(timestamp);
-  if (!match) {
-    const parsed = Date.parse(timestamp);
-    return Number.isNaN(parsed) ? null : parsed;
-  }
-  const [, base, fraction = "", offset] = match;
-  const wholeMs = Date.parse(`${base}${offset.toUpperCase()}`);
-  if (Number.isNaN(wholeMs)) return null;
-  const fractionMs = fraction ? Number.parseFloat(`0.${fraction}`) * 1000 : 0;
-  return wholeMs + fractionMs;
+  const parsed = parseTimestamp(timestamp);
+  if (!parsed) return null;
+  return parsed.subMsDigits ? parsed.wholeMs + Number(`0.${parsed.subMsDigits}`) : parsed.wholeMs;
+}
+
+/**
+ * How two timestamps are ordered, exactly, at whatever precision they carry:
+ * negative when `a` is the earlier, positive when it is the later, 0 when both
+ * name the same moment, and `null` when either is not a timestamp.
+ *
+ * Whole milliseconds are compared first, then the digits past the millisecond
+ * as digits, so `…07.0340001Z` reads earlier than `…07.03400011Z`, which as
+ * epoch milliseconds in a double are one number. Two snapshots of one version
+ * are told apart by `assembled_at` alone, and the contract lets a source record
+ * any number of fractional digits, so the comparison never rounds them.
+ */
+export function compareTimestamps(
+  a: ProgressTimestamp | null | undefined,
+  b: ProgressTimestamp | null | undefined,
+): number | null {
+  const left = parseTimestamp(a);
+  const right = parseTimestamp(b);
+  if (!left || !right) return null;
+  if (left.wholeMs !== right.wholeMs) return left.wholeMs < right.wholeMs ? -1 : 1;
+  const width = Math.max(left.subMsDigits.length, right.subMsDigits.length);
+  const leftDigits = left.subMsDigits.padEnd(width, "0");
+  const rightDigits = right.subMsDigits.padEnd(width, "0");
+  if (leftDigits === rightDigits) return 0;
+  return leftDigits < rightDigits ? -1 : 1;
 }

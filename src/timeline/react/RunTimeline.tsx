@@ -8,23 +8,24 @@ import {
   INVOCATION_STATUS,
   PROGRESS_MODE,
   isRunEnded,
-  timestampMs,
-  type InvocationStatus,
   type ProgressInvocation,
   type ProgressSnapshot,
   type ProgressTimestamp,
   type RunProgressStatus,
 } from "@timeline/progressSnapshot";
-import { fresherSnapshot } from "@timeline/snapshotFreshness";
+import { fresherSnapshot, progressStreamKey } from "@timeline/snapshotFreshness";
 import { buildTimelineRows, type TimelineBatch, type TimelineRow } from "@timeline/timelineRows";
 import {
-  axisPercent,
+  barFollowsClock,
   formatClockTime,
   formatDuration,
   invocationBar,
+  invocationTimes,
   readingClockMs,
+  snapshotTimes,
   timelineTicks,
-  timelineWindow,
+  timelineWindowAt,
+  type InvocationTimes,
   type TimelineBar,
   type TimelineWindow,
 } from "@timeline/timelineTime";
@@ -101,18 +102,10 @@ const RUN_STATUS_WORD: Record<RunProgressStatus, string> = {
   canceled: "Canceled",
 };
 
-const INVOCATION_STATUS_WORD: Record<InvocationStatus, string> = {
-  scheduled: "scheduled",
-  running: "running",
-  succeeded: "succeeded",
-  failed: "failed",
-  skipped: "skipped",
-  canceled: "canceled",
-};
-
 /**
  * A status word, or the raw value for a word this version does not know: a
  * reader keeps drawing what a later contract adds rather than failing on it.
+ * An invocation's status needs no table: its words are drawn as they are.
  */
 function wordFor<K extends string>(table: Record<K, string>, value: string): string {
   return Object.prototype.hasOwnProperty.call(table, value) ? table[value as K] : value;
@@ -133,32 +126,59 @@ function useHeldSnapshot(snapshot: ProgressSnapshot): ProgressSnapshot {
   return state.held;
 }
 
+/** What the self-ticking clock last showed, and for which stream and which snapshot reading. */
+interface SelfClock {
+  stream: string;
+  base: number | null;
+  ms: number | null;
+}
+
 /**
  * The reading clock, in epoch milliseconds. Pinned by `now` when the host sets
  * it; otherwise the snapshot's `assembled_at`, advanced while the run goes on by
- * the time this page has measured since the snapshot arrived.
+ * the time this page has measured since.
+ *
+ * The self-ticking clock never goes back within one stream of progress. A
+ * snapshot that took long to arrive can carry an `assembled_at` older than the
+ * moment the clock already shows; the clock then carries on from what it
+ * showed, the later of the two readings, rather than jumping back, so no running
+ * bar and no axis shrinks and grows again. A snapshot of another stream starts
+ * the clock afresh from its own reading.
  */
 function useReadingClock(
   held: ProgressSnapshot,
+  stream: string,
   now: ProgressTimestamp | number | undefined,
   live: boolean,
 ): { nowMs: number | null; ticking: boolean } {
-  const base = readingClockMs(held, now);
+  const base = React.useMemo(() => readingClockMs(held, now), [held, now]);
   const ticking = live && now === undefined && base !== null && !isRunEnded(held.status);
-  const [elapsed, setElapsed] = React.useState<{ base: number | null; ms: number }>({
-    base,
-    ms: 0,
-  });
+  const [clock, setClock] = React.useState<SelfClock>({ stream, base, ms: base });
+  let shown = clock;
+  if (clock.stream !== stream || clock.base !== base) {
+    // React's derived-state pattern, as in `useHeldSnapshot`: the render that
+    // receives the new reading already shows the clock it starts from.
+    const floor = ticking && clock.stream === stream ? clock.ms : null;
+    const ms = base !== null && floor !== null ? Math.max(base, floor) : base;
+    shown = { stream, base, ms };
+    setClock(shown);
+  }
   React.useEffect(() => {
     if (!ticking) return undefined;
-    const startedAt = performance.now();
+    let previous = performance.now();
     const timer = window.setInterval(() => {
-      setElapsed({ base, ms: performance.now() - startedAt });
+      const current = performance.now();
+      const step = current - previous;
+      previous = current;
+      setClock((state) =>
+        state.stream === stream && state.base === base && state.ms !== null
+          ? { ...state, ms: state.ms + step }
+          : state,
+      );
     }, CLOCK_TICK_MS);
     return () => window.clearInterval(timer);
-  }, [ticking, base]);
-  if (base === null) return { nowMs: null, ticking };
-  return { nowMs: ticking && elapsed.base === base ? base + elapsed.ms : base, ticking };
+  }, [ticking, stream, base]);
+  return { nowMs: ticking ? shown.ms : base, ticking };
 }
 
 function batchCountsText(batch: TimelineBatch): string | null {
@@ -180,15 +200,17 @@ function rowDetailText(row: TimelineRow, bar: TimelineBar | null): string {
   return bar ? formatDuration(bar.endMs - bar.startMs) : "";
 }
 
+function isRetried(invocation: ProgressInvocation): boolean {
+  return invocation.attempts !== undefined && invocation.attempts > 1;
+}
+
 /** The row's tooltip: everything the snapshot says of the invocation, in words. */
-function rowTitle(row: TimelineRow, bar: TimelineBar | null): string {
+function rowTitle(row: TimelineRow, times: InvocationTimes, bar: TimelineBar | null): string {
   const invocation = row.invocation;
   const lines = [`${invocation.pipe_ref} · ${invocation.pipe_type}`];
-  const started = timestampMs(invocation.started_at);
-  const ended = timestampMs(invocation.ended_at);
-  let state = wordFor(INVOCATION_STATUS_WORD, invocation.status);
-  if (started !== null) state += `, started ${formatClockTime(started)}`;
-  if (ended !== null) state += `, ended ${formatClockTime(ended)}`;
+  let state: string = invocation.status;
+  if (times.startedMs !== null) state += `, started ${formatClockTime(times.startedMs)}`;
+  if (times.endedMs !== null) state += `, ended ${formatClockTime(times.endedMs)}`;
   if (bar) state += ` (${formatDuration(bar.endMs - bar.startMs)})`;
   lines.push(state.charAt(0).toUpperCase() + state.slice(1));
   if (row.outcome) {
@@ -207,21 +229,15 @@ function rowTitle(row: TimelineRow, bar: TimelineBar | null): string {
     );
   }
   if (invocation.skip_reason) lines.push(`Skipped: ${invocation.skip_reason}`);
-  if (invocation.attempts !== undefined && invocation.attempts > 1) {
-    lines.push(`Tried ${invocation.attempts} times`);
-  }
+  if (isRetried(invocation)) lines.push(`Tried ${invocation.attempts} times`);
   if (invocation.last_failure) {
-    const at = timestampMs(invocation.last_failure.at);
+    const at = times.failedMs;
     lines.push(
       `Last failure${at === null ? "" : ` at ${formatClockTime(at)}`}: ${invocation.last_failure.message}`,
     );
   }
   if (invocation.degradation) lines.push(`Not progressing: ${invocation.degradation.message}`);
   return lines.join("\n");
-}
-
-function isRetried(invocation: ProgressInvocation): boolean {
-  return invocation.attempts !== undefined && invocation.attempts > 1;
 }
 
 interface BatchStripProps {
@@ -244,17 +260,37 @@ function BatchStrip({ batch }: BatchStripProps) {
   );
 }
 
+/**
+ * The axis's span in milliseconds, which the timeline sets on its body: a bar's
+ * place is an offset in milliseconds from the axis's start, and CSS turns it
+ * into a share of the track against this span. Set by the component, not a
+ * layout hook for a host.
+ */
+const AXIS_SPAN_VAR = "--mthds-run-timeline-axis-span";
+
+/** A number as CSS reads it: rounded to the microsecond, so never in exponent notation. */
+function cssNumber(value: number): string {
+  return String(Math.round(value * 1000) / 1000);
+}
+
+/** A stretch of the axis, in milliseconds, as a share of the track's width. */
+function axisShare(ms: number): string {
+  return `calc(${cssNumber(ms)} * 100% / var(${AXIS_SPAN_VAR}))`;
+}
+
 interface FailureTickProps {
-  invocation: ProgressInvocation;
-  bar: TimelineBar;
+  /** When the last failure happened, when that is known. */
+  atMs: number | null;
+  /** The bar as drawn. */
+  startMs: number;
+  endMs: number;
 }
 
 /** Where the invocation's last failure happened, marked on its bar. */
-function FailureTick({ invocation, bar }: FailureTickProps) {
-  const at = timestampMs(invocation.last_failure?.at);
-  if (at === null || at < bar.startMs || at > bar.endMs) return null;
-  const span = bar.endMs - bar.startMs;
-  const percent = span > 0 ? ((at - bar.startMs) / span) * 100 : 0;
+function FailureTick({ atMs, startMs, endMs }: FailureTickProps) {
+  if (atMs === null || atMs < startMs || atMs > endMs) return null;
+  const span = endMs - startMs;
+  const percent = span > 0 ? ((atMs - startMs) / span) * 100 : 0;
   return (
     <span
       className="mthds-run-timeline-failure-tick"
@@ -266,15 +302,36 @@ function FailureTick({ invocation, bar }: FailureTickProps) {
 
 interface TimelineRowViewProps {
   row: TimelineRow;
+  /** The invocation's moments, parsed once per snapshot. */
+  times: InvocationTimes;
+  /**
+   * The axis the row's bar is measured against, `null` while nothing has
+   * started. A row whose bar follows the clock (`barFollowsClock`) is handed the
+   * live axis and the reading clock. Every other row is handed the snapshot's
+   * recorded span, which starts where the live axis starts and holds still while
+   * the clock ticks, and no clock, so its props, and with them its render, stay
+   * as they are until the next snapshot. Either way the bar's place is an offset
+   * from the axis's start, which CSS turns into a share of the track.
+   */
   axis: TimelineWindow | null;
   nowMs: number | null;
   onToggleBatch: (path: string, expanded: boolean) => void;
 }
 
-function TimelineRowView({ row, axis, nowMs, onToggleBatch }: TimelineRowViewProps) {
+const TimelineRowView = React.memo(function TimelineRowView({
+  row,
+  times,
+  axis,
+  nowMs,
+  onToggleBatch,
+}: TimelineRowViewProps) {
   const invocation = row.invocation;
   const status = invocation.status;
-  const bar = axis ? invocationBar(invocation, axis, nowMs) : null;
+  const bar = axis ? invocationBar(invocation, axis, nowMs, times) : null;
+  // The bar as drawn, kept inside the axis it is measured against.
+  const drawnStartMs = bar && axis ? Math.max(bar.startMs, axis.startMs) : 0;
+  const drawnEndMs =
+    bar && axis ? Math.max(drawnStartMs, Math.min(bar.endMs, axis.endMs)) : drawnStartMs;
   const retried = isRetried(invocation);
   const retrying = retried && status === INVOCATION_STATUS.RUNNING;
   const batch = row.batch;
@@ -309,7 +366,12 @@ function TimelineRowView({ row, axis, nowMs, onToggleBatch }: TimelineRowViewPro
   }
 
   return (
-    <li className={rowClasses} data-path={row.path} data-status={status} title={rowTitle(row, bar)}>
+    <li
+      className={rowClasses}
+      data-path={row.path}
+      data-status={status}
+      title={rowTitle(row, times, bar)}
+    >
       <div
         className="mthds-run-timeline-name"
         style={{ paddingLeft: `calc(${row.depth} * var(--mthds-run-timeline-indent))` }}
@@ -330,21 +392,19 @@ function TimelineRowView({ row, axis, nowMs, onToggleBatch }: TimelineRowViewPro
         <span className="mthds-run-timeline-dot" aria-hidden="true" />
         <span className="mthds-run-timeline-code">{invocation.pipe_code}</span>
         {row.placeLabel && <span className="mthds-run-timeline-place">{row.placeLabel}</span>}
-        <span className="mthds-run-timeline-sr">
-          {`, ${wordFor(INVOCATION_STATUS_WORD, status)}`}
-        </span>
+        <span className="mthds-run-timeline-sr">{`, ${status}`}</span>
       </div>
       <div className="mthds-run-timeline-track">
         {bar && axis && (
           <span
             className={barClasses}
             style={{
-              left: `${axisPercent(bar.startMs, axis)}%`,
-              width: `${axisPercent(bar.endMs, axis) - axisPercent(bar.startMs, axis)}%`,
+              left: axisShare(drawnStartMs - axis.startMs),
+              width: axisShare(drawnEndMs - drawnStartMs),
             }}
           >
             {batch && <BatchStrip batch={batch} />}
-            <FailureTick invocation={invocation} bar={bar} />
+            <FailureTick atMs={times.failedMs} startMs={drawnStartMs} endMs={drawnEndMs} />
           </span>
         )}
       </div>
@@ -365,7 +425,7 @@ function TimelineRowView({ row, axis, nowMs, onToggleBatch }: TimelineRowViewPro
       </div>
     </li>
   );
-}
+});
 
 /**
  * A run's progress as a timeline, drawn from its progress snapshot alone: one
@@ -382,7 +442,8 @@ function TimelineRowView({ row, axis, nowMs, onToggleBatch }: TimelineRowViewPro
  * the run is stuck says so.
  *
  * Rows are keyed by path, so repainting with a newer snapshot keeps each drawn
- * row in place and what the reader expanded expanded.
+ * row in place and what the reader expanded expanded. While the clock ticks,
+ * only the axis and the rows whose bars follow the clock are drawn again.
  */
 export function RunTimeline({
   snapshot,
@@ -394,7 +455,8 @@ export function RunTimeline({
   className,
 }: RunTimelineProps) {
   const held = useHeldSnapshot(snapshot);
-  const { nowMs, ticking } = useReadingClock(held, now, live);
+  const streamKey = progressStreamKey(held);
+  const { nowMs, ticking } = useReadingClock(held, streamKey, now, live);
 
   // A fixed theme is handed to the hook as if injected, so it registers no
   // `prefers-color-scheme` listener whose answer would be thrown away.
@@ -405,8 +467,7 @@ export function RunTimeline({
     [resolvedTheme],
   );
 
-  // What the reader expanded belongs to one run: another run starts afresh.
-  const streamKey = `${held.pipeline_run_id}\u0000${held.mode}\u0000${held.root_path ?? ""}`;
+  // What the reader expanded belongs to one stream of progress: another starts afresh.
   const [expansion, setExpansion] = React.useState<{
     key: string;
     batches: Readonly<Record<string, boolean>>;
@@ -429,9 +490,22 @@ export function RunTimeline({
     () => buildTimelineRows(held, { expandedBatches, wideBatchThreshold }),
     [held, expandedBatches, wideBatchThreshold],
   );
-  const axis = timelineWindow(held, nowMs);
+  // Every timestamp of the snapshot, parsed once: the clock's ticks redraw from these.
+  const times = React.useMemo(() => snapshotTimes(held), [held]);
+  const drawnRows = React.useMemo(
+    () =>
+      rows.map((row) => {
+        const rowTimes = times.invocations.get(row.path) ?? invocationTimes(row.invocation);
+        return { row, times: rowTimes, followsClock: barFollowsClock(row.invocation, rowTimes) };
+      }),
+    [rows, times],
+  );
+  const axis = timelineWindowAt(times, nowMs);
   const [axisTrackRef, tickBudget] = useTickBudget();
   const ticks = axis ? timelineTicks(axis, tickBudget) : [];
+  const bodyStyle = axis
+    ? ({ [AXIS_SPAN_VAR]: cssNumber(axis.endMs - axis.startMs) } as React.CSSProperties)
+    : undefined;
 
   const containerClasses = [
     "mthds-run-timeline",
@@ -470,9 +544,13 @@ export function RunTimeline({
         </p>
       )}
       {rows.length === 0 ? (
-        <p className="mthds-run-timeline-empty">Nothing has started yet.</p>
+        // A run that ended with nothing to draw, failed or canceled before its
+        // first invocation started, is waiting for nothing.
+        <p className="mthds-run-timeline-empty">
+          {isRunEnded(held.status) ? "No progress was recorded." : "Nothing has started yet."}
+        </p>
       ) : (
-        <div className="mthds-run-timeline-body">
+        <div className="mthds-run-timeline-body" style={bodyStyle}>
           {axis && (
             <div className="mthds-run-timeline-axis" aria-hidden="true">
               <span className="mthds-run-timeline-axis-spacer" />
@@ -497,12 +575,13 @@ export function RunTimeline({
             </div>
           )}
           <ol className="mthds-run-timeline-rows">
-            {rows.map((row) => (
+            {drawnRows.map(({ row, times: rowTimes, followsClock }) => (
               <TimelineRowView
                 key={row.path}
                 row={row}
-                axis={axis}
-                nowMs={nowMs}
+                times={rowTimes}
+                axis={followsClock ? axis : times.recorded}
+                nowMs={followsClock ? nowMs : null}
                 onToggleBatch={toggleBatch}
               />
             ))}

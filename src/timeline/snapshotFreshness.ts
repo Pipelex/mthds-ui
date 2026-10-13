@@ -1,4 +1,21 @@
-import { isRunEnded, timestampMs, type ProgressSnapshot } from "./progressSnapshot";
+import {
+  compareTimestamps,
+  isRunEnded,
+  timestampMs,
+  type ProgressSnapshot,
+} from "./progressSnapshot";
+
+/**
+ * The stream of progress a snapshot belongs to, as one string: its run, its
+ * mode, and the part of the run it covers (`root_path`, absent for the whole
+ * run). Two snapshots with the same key are compared by `fresherSnapshot`; two
+ * with different keys are not compared at all. A reader keys on it whatever
+ * belongs to one stream, as the timeline keys what its reader expanded and its
+ * own reading clock.
+ */
+export function progressStreamKey(snapshot: ProgressSnapshot): string {
+  return JSON.stringify([snapshot.pipeline_run_id, snapshot.mode, snapshot.root_path ?? null]);
+}
 
 /**
  * True when two snapshots describe the same stream of progress: one run, one
@@ -6,9 +23,7 @@ import { isRunEnded, timestampMs, type ProgressSnapshot } from "./progressSnapsh
  * compared at all; the one a reader is handed is a different run to draw.
  */
 export function isSameProgressStream(a: ProgressSnapshot, b: ProgressSnapshot): boolean {
-  return (
-    a.pipeline_run_id === b.pipeline_run_id && a.mode === b.mode && a.root_path === b.root_path
-  );
+  return progressStreamKey(a) === progressStreamKey(b);
 }
 
 /**
@@ -24,6 +39,7 @@ export function isSameProgressStream(a: ProgressSnapshot, b: ProgressSnapshot): 
  * 2. Of two snapshots of different versions, the higher version.
  * 3. Of two of the same version, the later `assembled_at`: the later projection
  *    is the one that saw, say, a timeout end the run with no event between them.
+ *    The two are compared exactly, at every fractional digit they carry.
  *
  * Ties keep the snapshot held, so a repeated read changes nothing. A snapshot of
  * another run, another mode or another part of a run replaces the held one, since
@@ -44,9 +60,9 @@ export function fresherSnapshot(
   if (incoming.version !== held.version) {
     return incoming.version > held.version ? incoming : held;
   }
-  const heldAt = timestampMs(held.assembled_at);
-  const incomingAt = timestampMs(incoming.assembled_at);
-  if (incomingAt === null) return held;
-  if (heldAt === null) return incoming;
-  return incomingAt > heldAt ? incoming : held;
+  const order = compareTimestamps(incoming.assembled_at, held.assembled_at);
+  // An `assembled_at` that cannot be read loses: the incoming one when it is
+  // unreadable, else the held one.
+  if (order === null) return timestampMs(incoming.assembled_at) === null ? held : incoming;
+  return order > 0 ? incoming : held;
 }

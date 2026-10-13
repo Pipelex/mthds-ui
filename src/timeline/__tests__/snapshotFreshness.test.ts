@@ -1,6 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { isRunEnded, timestampMs, type ProgressSnapshot } from "../progressSnapshot";
-import { fresherSnapshot, isSameProgressStream } from "../snapshotFreshness";
+import {
+  compareTimestamps,
+  isRunEnded,
+  timestampMs,
+  type ProgressSnapshot,
+} from "../progressSnapshot";
+import { fresherSnapshot, isSameProgressStream, progressStreamKey } from "../snapshotFreshness";
 
 function snapshot(overrides: Partial<ProgressSnapshot> = {}): ProgressSnapshot {
   return {
@@ -88,6 +93,25 @@ describe("fresherSnapshot", () => {
     expect(fresherSnapshot(second, offset)).toBe(offset);
   });
 
+  it("tells apart assembled_at values a double cannot, at every digit they carry", () => {
+    // As epoch milliseconds in a double, `.0340001` and `.03400011` are one number.
+    const pairs = [
+      ["2026-10-12T09:30:07.0340001Z", "2026-10-12T09:30:07.0340002Z"],
+      ["2026-10-12T09:30:07.0340001Z", "2026-10-12T09:30:07.03400011Z"],
+      ["2026-10-12T09:30:07.03400005Z", "2026-10-12T09:30:07.0340001Z"],
+    ];
+    for (const [earlierAt, laterAt] of pairs) {
+      const earlier = snapshot({ version: 26, assembled_at: earlierAt });
+      const later = snapshot({ version: 26, assembled_at: laterAt });
+      expect(fresherSnapshot(earlier, later)).toBe(later);
+      expect(fresherSnapshot(later, earlier)).toBe(later);
+    }
+    // Trailing zeros name the same moment, so the one held stays.
+    const held = snapshot({ version: 26, assembled_at: "2026-10-12T09:30:07.0340001Z" });
+    const same = snapshot({ version: 26, assembled_at: "2026-10-12T09:30:07.034000100Z" });
+    expect(fresherSnapshot(held, same)).toBe(held);
+  });
+
   it("does not take a snapshot whose assembled_at it cannot read", () => {
     const held = snapshot({ version: 5 });
     const unreadable = snapshot({ version: 5, assembled_at: "yesterday" });
@@ -119,5 +143,70 @@ describe("isRunEnded and timestampMs", () => {
     expect(timestampMs(undefined)).toBeNull();
     expect(timestampMs("not a time")).toBeNull();
     expect(timestampMs("2026-10-12T25:30:06Z")).toBeNull();
+  });
+
+  it("reads nothing but an RFC 3339 timestamp, never a local time", () => {
+    // `Date.parse` would read the first as the reader's local time, and the
+    // others as midnight UTC and an HTTP date.
+    expect(timestampMs("2026-10-12T09:30:06")).toBeNull();
+    expect(timestampMs("2026-10-12T09:30:06.870")).toBeNull();
+    expect(timestampMs("2026-10-12")).toBeNull();
+    expect(timestampMs("Mon, 12 Oct 2026 09:30:06 GMT")).toBeNull();
+  });
+
+  it("reads T and Z in the upper case the contract writes them in, and only that", () => {
+    expect(timestampMs("2026-10-12t09:30:06.870Z")).toBeNull();
+    expect(timestampMs("2026-10-12T09:30:06.870z")).toBeNull();
+    expect(timestampMs("2026-10-12t09:30:06z")).toBeNull();
+  });
+});
+
+describe("compareTimestamps", () => {
+  it("orders two timestamps exactly, at whatever precision they carry", () => {
+    expect(compareTimestamps("2026-10-12T09:30:07.034Z", "2026-10-12T09:30:07.035Z")).toBe(-1);
+    expect(compareTimestamps("2026-10-12T09:30:08Z", "2026-10-12T09:30:07.999999Z")).toBe(1);
+    expect(compareTimestamps("2026-10-12T09:30:07.0340001Z", "2026-10-12T09:30:07.03400011Z")).toBe(
+      -1,
+    );
+    expect(compareTimestamps("2026-10-12T09:30:07.0340001Z", "2026-10-12T09:30:07.03400010Z")).toBe(
+      0,
+    );
+    expect(compareTimestamps("2026-10-12T09:30:07Z", "2026-10-12T09:30:07.000Z")).toBe(0);
+  });
+
+  it("compares across offsets", () => {
+    expect(compareTimestamps("2026-10-12T11:30:07.034+02:00", "2026-10-12T09:30:07.034Z")).toBe(0);
+    expect(compareTimestamps("2026-10-12T09:30:07.5+00:00", "2026-10-12T09:30:07.4Z")).toBe(1);
+  });
+
+  it("has no order for a value that is not a timestamp", () => {
+    expect(compareTimestamps("yesterday", "2026-10-12T09:30:07Z")).toBeNull();
+    expect(compareTimestamps("2026-10-12T09:30:07Z", null)).toBeNull();
+    expect(compareTimestamps("2026-10-12T09:30:07", "2026-10-12T09:30:07Z")).toBeNull();
+  });
+});
+
+describe("progressStreamKey", () => {
+  it("is one key per run, mode and part of a run", () => {
+    const whole = snapshot();
+    expect(progressStreamKey(whole)).toBe(progressStreamKey(snapshot({ version: 99 })));
+    const others = [
+      snapshot({ pipeline_run_id: "run_other" }),
+      snapshot({ mode: "dry" }),
+      snapshot({ root_path: "filings.review_filings/step_3/item_2" }),
+      // An empty root_path is not an absent one, as isSameProgressStream has it.
+      snapshot({ root_path: "" }),
+    ];
+    const keys = new Set([whole, ...others].map(progressStreamKey));
+    expect(keys.size).toBe(others.length + 1);
+  });
+
+  it("is what isSameProgressStream compares", () => {
+    const held = snapshot();
+    for (const other of [snapshot({ version: 3 }), snapshot({ mode: "dry" })]) {
+      expect(isSameProgressStream(held, other)).toBe(
+        progressStreamKey(held) === progressStreamKey(other),
+      );
+    }
   });
 });

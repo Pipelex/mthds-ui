@@ -2,8 +2,10 @@
 /* Token-only: every colour comes from this library's palette, which          */
 /* RunTimeline applies to its own container as CSS variables (see            */
 /* `graphConfig.ts`), so it themes correctly standing alone, with no graph    */
-/* viewer in the tree. Its layout hooks are the three `--mthds-run-timeline-*` */
-/* variables below, which a host may override on the container's class.       */
+/* viewer in the tree. Its layout hooks are the `--mthds-run-timeline-*`      */
+/* variables set on the root below, which a host may override on the         */
+/* container's class. `--mthds-run-timeline-axis-span` is no hook: the        */
+/* component sets it on its body as the axis grows.                           */
 
 .mthds-run-timeline {
   --mthds-run-timeline-name-width: minmax(8rem, 36%);
@@ -13,6 +15,11 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  /* The `container` declaration at the end of this rule makes the root's width
+     ignore its content, so it takes its width from its container rather than
+     from what it holds: without this, a row flex parent would shrink it to its
+     padding (docs/run-timeline.md, "Styling", says how a host sizes it). */
+  width: 100%;
   min-width: 0;
   padding: 14px 16px 16px;
   background: var(--surface-panel);
@@ -262,6 +269,9 @@
 }
 
 /* ─── The track and its bars ─────────────────────────────────────────────── */
+/* A bar's `left` and `width` are offsets in milliseconds over                */
+/* `--mthds-run-timeline-axis-span`, so a bar that has stopped growing keeps  */
+/* its place on the growing axis with no redraw of its row.                   */
 
 .mthds-run-timeline-track {
   position: relative;

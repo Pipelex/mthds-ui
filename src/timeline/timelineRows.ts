@@ -51,7 +51,11 @@ export interface TimelineBatch {
   wide: boolean;
   /** True when its item rows are drawn. */
   expanded: boolean;
-  /** How many of its item rows are hidden: none while expanded, all but the kept-visible ones while collapsed. */
+  /**
+   * How many of its item rows are hidden: none while expanded, and while
+   * collapsed every item but the ones kept in view, those holding a failed or
+   * stuck invocation, themselves or anywhere beneath them.
+   */
   hiddenItemCount: number;
 }
 
@@ -69,7 +73,12 @@ export interface TimelineOutcome {
   fromResolution: boolean;
 }
 
-/** Why an item row of a collapsed batch is drawn anyway. */
+/**
+ * Why an item row of a collapsed batch is drawn anyway: an invocation that
+ * failed, or one where the run is stuck (carrying `degradation`), is the item
+ * itself or lies anywhere beneath it. A failure anywhere beneath wins over a
+ * stuck invocation.
+ */
 export const KEPT_VISIBLE_REASON = {
   FAILED: "failed",
   DEGRADED: "degraded",
@@ -105,6 +114,8 @@ interface TreeNode {
   segment: PathSegment | null;
   parentPath: string | null;
   children: TreeNode[];
+  /** What a collapsed batch keeps this node in view for, read over its whole subtree. */
+  trouble: KeptVisibleReason | null;
 }
 
 function compareSiblings(a: TreeNode, b: TreeNode): number {
@@ -135,6 +146,7 @@ function buildTree(snapshot: ProgressSnapshot): TreeNode[] {
       segment: lastPathSegment(invocation.path),
       parentPath: null,
       children: [],
+      trouble: null,
     });
   });
 
@@ -152,7 +164,29 @@ function buildTree(snapshot: ProgressSnapshot): TreeNode[] {
   }
   for (const node of byPath.values()) node.children.sort(compareSiblings);
   roots.sort((a, b) => a.order - b.order);
+  for (const root of roots) markTrouble(root);
   return roots;
+}
+
+/**
+ * Sets each node's `trouble` from its whole subtree, bottom-up, once per tree:
+ * failed when any invocation in it failed, else degraded when any carries
+ * `degradation`, else none. Read over the subtree rather than the node alone,
+ * so an item of a collapsed batch stays in view for a failure or a stuck
+ * invocation however deep beneath it, inside a nested batch included.
+ */
+function markTrouble(node: TreeNode): KeptVisibleReason | null {
+  let failed = node.invocation.status === INVOCATION_STATUS.FAILED;
+  let degraded = node.invocation.degradation !== undefined;
+  for (const child of node.children) {
+    const reason = markTrouble(child);
+    if (reason === KEPT_VISIBLE_REASON.FAILED) failed = true;
+    if (reason === KEPT_VISIBLE_REASON.DEGRADED) degraded = true;
+  }
+  if (failed) node.trouble = KEPT_VISIBLE_REASON.FAILED;
+  else if (degraded) node.trouble = KEPT_VISIBLE_REASON.DEGRADED;
+  else node.trouble = null;
+  return node.trouble;
 }
 
 function isItemNode(node: TreeNode): boolean {
@@ -221,12 +255,6 @@ function stripOf(items: TreeNode[]): TimelineStripSegment[] {
   return strip;
 }
 
-function keptVisibleReasonOf(item: ProgressInvocation): KeptVisibleReason | null {
-  if (item.status === INVOCATION_STATUS.FAILED) return KEPT_VISIBLE_REASON.FAILED;
-  if (item.degradation) return KEPT_VISIBLE_REASON.DEGRADED;
-  return null;
-}
-
 /**
  * The rows a timeline draws for a snapshot, in drawing order: every invocation
  * before its descendants, nested by path, each labelled with its place under
@@ -236,9 +264,10 @@ function keptVisibleReasonOf(item: ProgressInvocation): KeptVisibleReason | null
  * its row carries the snapshot's counts and a strip of its items' states, and
  * its item rows are drawn only while it is expanded. A wide batch starts
  * collapsed; a narrow one starts expanded; `expandedBatches` overrides either.
- * Collapsed, it still draws each item that failed, and each item where the run
- * is stuck (an item carrying `degradation`), with everything under it, so the
- * trouble can always be pointed at.
+ * Collapsed, it still draws each item holding an invocation that failed or
+ * where the run is stuck (one carrying `degradation`), whether the item itself
+ * or anything beneath it, a nested batch's item included, with everything under
+ * it, so the trouble can always be pointed at, along with the rows leading to it.
  *
  * Pure, and a function of the snapshot and the options alone: the same snapshot
  * always yields the same rows, so repainting with a newer snapshot keeps every
@@ -267,9 +296,7 @@ export function buildTimelineRows(
       const total = invocation.batch?.total ?? items.length;
       const wide = total > threshold;
       expanded = expandedBatches[invocation.path] ?? !wide;
-      const keptCount = expanded
-        ? 0
-        : items.filter((item) => keptVisibleReasonOf(item.invocation) !== null).length;
+      const keptCount = expanded ? 0 : items.filter((item) => item.trouble !== null).length;
       batch = {
         counts: invocation.batch ?? null,
         total,
@@ -302,8 +329,7 @@ export function buildTimelineRows(
         visit(child, node, depth + 1, null);
         continue;
       }
-      const reason = keptVisibleReasonOf(child.invocation);
-      if (reason) visit(child, node, depth + 1, reason);
+      if (child.trouble) visit(child, node, depth + 1, child.trouble);
     }
   };
 
