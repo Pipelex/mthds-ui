@@ -15,7 +15,8 @@
     "paths": {
       "@graph/*": ["./src/graph/*"],
       "@static-graph/*": ["./src/static-graph/*"],
-      "@form/*": ["./src/form/*"]
+      "@form/*": ["./src/form/*"],
+      "@timeline/*": ["./src/timeline/*"]
     }
   },
   "include": ["src/"],

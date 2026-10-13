@@ -30,10 +30,11 @@
  *    no cascade position for it served a host with Tailwind 4. And no other
  *    stylesheet ships: a component importing its own stylesheet gets it
  *    bundled into an `index.css` beside its entry that nothing loads.
- * 2. Every React entry carries `"use client"`. Both of them: the toolchain
+ * 2. Every React entry carries `"use client"`. All of them: the toolchain
  *    currently preserves the directive on its own, and `prependUseClient` only
- *    re-adds it to `./form/react`, so `./graph/react` is the entry standing on
- *    the bundler alone and is precisely the one worth asserting.
+ *    re-adds it to `./form/react`, so `./graph/react` and `./timeline/react`
+ *    are the entries standing on the bundler alone and are precisely the ones
+ *    worth asserting.
  * 3. The kernel is left as a bare import, never inlined (a bundled copy is a
  *    second React context identity, so a host's
  *    `FieldStringsProvider` would not resolve inside the panel).
@@ -392,7 +393,11 @@ try {
   }
 
   process.stdout.write("\nEvery React entry is a client module\n");
-  for (const relative of ["dist/form/react/index.js", "dist/graph/react/index.js"]) {
+  for (const relative of [
+    "dist/form/react/index.js",
+    "dist/graph/react/index.js",
+    "dist/timeline/react/index.js",
+  ]) {
     const entryPath = path.join(installed, relative);
     const source = existsSync(entryPath) ? readFileSync(entryPath, "utf8") : "";
     check(`${relative} starts with "use client"`, source.startsWith('"use client"'));
@@ -497,10 +502,10 @@ try {
 
   // The React-FREE entries must still resolve without it. That is what is left
   // of the old isolation rule, and it is the half that still matters: `.` and
-  // `./graph` and `./static-graph` are importable from a CLI or a worker with no
-  // React and no kernel installed, and a stray value import from a pure module
-  // would take that away silently.
-  for (const subpath of [".", "./graph", "./static-graph"]) {
+  // `./graph`, `./static-graph` and `./timeline` are importable from a CLI or a
+  // worker with no React and no kernel installed, and a stray value import from
+  // a pure module would take that away silently.
+  for (const subpath of [".", "./graph", "./static-graph", "./timeline"]) {
     const kernelImports = (externalsPerEntry.get(subpath) ?? []).filter(isKernel);
     check(
       `${subpath} does not need the kernel`,

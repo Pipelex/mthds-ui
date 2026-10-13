@@ -15,6 +15,7 @@ export default defineConfig({
       "@graph": path.resolve(dirname, "src/graph"),
       "@static-graph": path.resolve(dirname, "src/static-graph"),
       "@form": path.resolve(dirname, "src/form"),
+      "@timeline": path.resolve(dirname, "src/timeline"),
     },
   },
   test: {
@@ -46,6 +47,11 @@ export default defineConfig({
         "src/static-graph/parseMthdsBundle.ts",
         "src/static-graph/mergeBundles.ts",
         "src/static-graph/sourceOrder.ts",
+        "src/timeline/progressSnapshot.ts",
+        "src/timeline/invocationPath.ts",
+        "src/timeline/snapshotFreshness.ts",
+        "src/timeline/timelineRows.ts",
+        "src/timeline/timelineTime.ts",
       ],
       thresholds: {
         statements: 90,

@@ -35,8 +35,12 @@ const SKIP_DIR_SEGMENTS = new Set(["__tests__", "__stories__", "node_modules"]);
  * dependency rather than an optional peer, and that changed nothing here.
  * Listing `RunPanel.css` in the manifest would inline a stylesheet for a
  * component no standalone HTML can render.
+ *
+ * `src/timeline/` is out for the same reason: the run timeline is its own
+ * entry, `./timeline/react`, which the graph viewer never imports, so no
+ * standalone HTML draws a timeline.
  */
-const UNREACHABLE_FROM_STANDALONE = ["src/form"];
+const UNREACHABLE_FROM_STANDALONE = ["src/form", "src/timeline"];
 
 const SOURCE_EXTS = new Set([".ts", ".tsx"]);
 const CSS_IMPORT_PATTERN = /import\s+["'](\.{1,2}\/[^"']+\.css)["']/g;
