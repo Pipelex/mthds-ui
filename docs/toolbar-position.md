@@ -51,6 +51,14 @@ The built-in `DetailPanel` overlays the right edge of the pane when a node is se
 
 Center-x positions (`top-center` / `bottom-center`) could in theory overlap the panel at very narrow viewport widths; that edge case is out of scope. ReactFlow's own zoom Controls are hidden in this viewer, so they are not a dodge target.
 
+## On a phone: 44×44 touch targets
+
+Below 640px of viewport width (Tailwind's `sm` breakpoint), every toolbar button, the style menu's trigger and the validation button included, grows from 28×28 to 44×44, the size a fingertip needs, with its icon drawn at 18px instead of 14px. The button itself grows rather than gaining an invisible extended hit area, because the buttons sit 4px apart and an extension would take the taps meant for a neighbour. At 640px and above nothing changes. The breakpoint reads the viewport, not the pointer, so a viewer in a window or webview panel narrower than 640px takes the phone sizes too.
+
+A bar of 44px buttons is wider than a phone, so below 640px it wraps, and is never wider or taller than the viewer less ReactFlow's 15px panel margin on each side. A row bar wraps into rows, its short last row sitting under the side it is anchored to (right, left or centred); an edge anchor's column wraps into a second column that grows toward the graph, not off the viewer's edge. The group separators are hidden at that width, since a wrapped row would end on one. The panel carries its orientation as a class (`graph-toolbar-panel--horizontal` or `graph-toolbar-panel--vertical`) for these rules.
+
+The detail panel's close button keeps its 24×24 look and its place on the first content line at that width, and takes taps over 44×44 through an invisible `::after` reaching 10px past each edge: the content's padding lies above and to its right, and the header's text to its left and below, so the reach covers no other control. The rules are the `@media (max-width: 639.98px)` blocks at the end of `GraphToolbar.css` and after `.detail-panel-close` in `DetailPanel.css`. The `Misc/Touch targets` stories measure every one of these controls at 375×844, failing under 44×44, on a hit area that overlaps a neighbour's, or on a button outside the viewer, and check that the desktop sizes hold at 1280×800.
+
 ## API surface
 
 - `TOOLBAR_POSITION` — the constant of anchor values (use these, not raw strings).
