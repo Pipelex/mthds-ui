@@ -510,7 +510,11 @@ export function GraphToolbar({
     : "Expand all controllers";
 
   return (
-    <Panel position={position} className="graph-toolbar-panel" style={panelStyle}>
+    <Panel
+      position={position}
+      className={`graph-toolbar-panel graph-toolbar-panel--${orientation}`}
+      style={panelStyle}
+    >
       <div className={`graph-toolbar graph-toolbar--${orientation}`}>
         {validationState !== undefined && (
           <>

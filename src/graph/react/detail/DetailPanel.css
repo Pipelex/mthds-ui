@@ -121,6 +121,24 @@
   background: var(--surface-elevated);
 }
 
+/* Phones: below 640px (Tailwind's `sm` breakpoint) the button keeps its look
+ * and its place on the first content line, and takes taps over a 44×44 area,
+ * the size a fingertip needs, through an invisible `::after` reaching 10px
+ * past each edge. That reach covers no other control: above and to the right
+ * lie the content's padding, to the left and below the header's text. Growing
+ * the button instead would push the line it shares. */
+@media (max-width: 639.98px) {
+  .detail-panel-close {
+    position: relative;
+  }
+
+  .detail-panel-close::after {
+    content: "";
+    position: absolute;
+    inset: -10px;
+  }
+}
+
 .detail-panel-content {
   flex: 1;
   overflow-y: auto;

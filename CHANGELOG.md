@@ -6,6 +6,12 @@
 
 - **`RunTimeline`, in the new `./timeline/react` and `./timeline` entries**: a run's progress drawn from the hosted progress contract's snapshot alone, one row per invocation nested by its path, each with a bar that grows while it runs, a batch as one collapsible row with its counts and a strip of its items' states that, when collapsed, keeps in view every item holding a failed or stuck invocation, however deep beneath it, a condition's branch named by the outcome it took, and the retry and stuck annotations on the row they belong to. Hand it every snapshot read: it keeps the fresher by the contract's rule, never an older version and never a running run over an ended one, and repaints in place. `./timeline` is the React-free half, the snapshot's types, the invocation path grammar, `fresherSnapshot` and the row and time projection the component draws (see `docs/run-timeline.md`).
 
+## [v0.34.1] - 2026-10-13
+
+### Fixed
+
+- **44×44 touch targets on a phone**: below 640px of viewport width, every `GraphViewer` toolbar button, the style menu's trigger and the validation button included, is 44×44 instead of 28×28, and the toolbar wraps into rows (or, on a `center-left` / `center-right` anchor, columns) inside the viewer, without its group separators; the detail panel's close button keeps its 24×24 look and takes taps over 44×44 through an invisible extended area. At 640px and above nothing changes, and a host needs no change of its own.
+
 ## [v0.34.0] - 2026-10-13
 
 ### Changed
