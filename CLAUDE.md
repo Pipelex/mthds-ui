@@ -71,6 +71,15 @@ src/
       RunPanel.css                #   Panel chrome only (this repo's tokens, no Tailwind)
       index.ts                    #   Barrel for the ./form/react entry
       __stories__/contracts/      #   Generated pipe_io_contracts + input_form + output_form fixtures
+  timeline/                       # Run timeline over the hosted progress snapshot (./timeline, pure TS, no React):
+    progressSnapshot.ts           #   The snapshot's types and vocabularies, named after the contract
+    invocationPath.ts             #   The invocation path grammar
+    snapshotFreshness.ts          #   fresherSnapshot: the rule a reader keeps the fresher snapshot by
+    timelineRows.ts               #   Snapshot → rows: nesting, place labels, batch collapse and strip, condition outcome
+    timelineTime.ts               #   The shared axis, each bar on it, ticks and duration labels
+    react/
+      RunTimeline.tsx             #   The component (./timeline/react), its stylesheet imported by the entry
+      __stories__/                #   Hand-recorded runs, the recorder that projects them, the replay harness
   styles/                         # Stylesheets a HOST imports to style the kernel's controls; no JS imports them:
     tailwind.css                  #   ./tailwind.css — the kernel's @source paths, for a Tailwind 4 host
     form-kernel.css               #   ./form-kernel.css — the kernel's sheet under a layer, for a host without Tailwind
@@ -87,18 +96,19 @@ src/
     buildStaticGraphSpec.ts       #   The static walk: MergedMethodSet → GraphSpec (meta.mode "static")
 docs/
   static-graph.md                 # Static GraphSpec API, mode contract, display behavior, standalone embed
+  run-timeline.md                 # RunTimeline: the snapshot it reads, the freshness rule, what it draws
 ```
 
 The `static-graph/` module reuses the blueprint types from `graph/types.ts` (no parallel type universe) and uses the `@static-graph/*` path alias. Its authoring-surface reference contract is `data/schema/mthds_schema.json`, re-copied from `pipelex/derived/` via `make schema-refresh` — a dev-time reference, not a runtime dependency. Static specs must carry `meta: { format: "mthds", mode: "static" }`; renderer behavior must check that explicit mode only.
 
 ## Path Alias
 
-The project uses `@graph/*` → `src/graph/*`, `@static-graph/*` → `src/static-graph/*` and `@form/*` → `src/form/*` to avoid deep relative imports. Configured in:
+The project uses `@graph/*` → `src/graph/*`, `@static-graph/*` → `src/static-graph/*`, `@form/*` → `src/form/*` and `@timeline/*` → `src/timeline/*` to avoid deep relative imports. Configured in:
 
 - `tsconfig.json` (`paths`)
 - `tsup.config.ts` (`esbuildOptions.alias`)
 - `.storybook/main.ts` (`viteFinal` resolve alias)
-- `vitest.config.mts` (`resolve.alias`)
+- `vitest.config.mts`, `vitest.screenshots.config.mts` and `vitest.style-review.config.mts` (`resolve.alias`)
 
 **Rule:** Use `@graph/types`, `@graph/react/viewer/GraphViewer`, `@form/runGate`, etc. for any cross-module import. Keep relative imports (`./`, `../`) only within the same module (1-2 levels max).
 
@@ -126,7 +136,7 @@ Verify after building: `grep "Foo.css" dist/graph/react/index.js` must show the 
 
 **A stylesheet a HOST imports itself is the other case, and it takes neither step 1 nor a JavaScript importer.** `src/styles/tailwind.css` and `src/styles/form-kernel.css` are loaded by the host's own build, never by this package's JavaScript, so they get a `cpSync` in `onSuccess` and an entry in `package.json` `exports`, and NO `external` pattern. `make smoke-pack` asserts the inverse for them: no JavaScript in the package imports either. The React entries import no kernel stylesheet on purpose — injecting one into every host is what v0.20.0 through v0.24.0 did, and no cascade position for it served a Tailwind 4 host (`docs/run-form-panel.md`). `tailwind.css`'s `@source` paths are relative to `dist/styles/`, so its copy must land exactly there.
 
-**There is a THIRD place to consider, and it is a decision rather than a registration:** `scripts/standaloneCssFiles.mjs`, the hand-maintained manifest for the standalone IIFE bundle, guarded by `src/standalone/__tests__/cssManifest.test.ts`. That bundle has exactly one entry point (`src/standalone/adapter.ts`, the graph viewer), so a stylesheet it cannot reach must be EXCLUDED rather than listed — `src/form/` is excluded there because the standalone build by construction has no run panel, and listing `RunPanel.css` would inline dead CSS into every standalone HTML. The test names whichever choice you have not made yet.
+**There is a THIRD place to consider, and it is a decision rather than a registration:** `scripts/standaloneCssFiles.mjs`, the hand-maintained manifest for the standalone IIFE bundle, guarded by `src/standalone/__tests__/cssManifest.test.ts`. That bundle has exactly one entry point (`src/standalone/adapter.ts`, the graph viewer), so a stylesheet it cannot reach must be EXCLUDED rather than listed — `src/form/` is excluded there because the standalone build by construction has no run panel, and listing `RunPanel.css` would inline dead CSS into every standalone HTML; `src/timeline/` is excluded for the same reason. The test names whichever choice you have not made yet.
 
 ## The form kernel is a DEPENDENCY, re-exported; `shiki` is the only optional peer
 

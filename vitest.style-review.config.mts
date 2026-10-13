@@ -22,6 +22,7 @@ export default defineConfig({
       "@graph": path.resolve(dirname, "src/graph"),
       "@static-graph": path.resolve(dirname, "src/static-graph"),
       "@form": path.resolve(dirname, "src/form"),
+      "@timeline": path.resolve(dirname, "src/timeline"),
     },
   },
   optimizeDeps: {

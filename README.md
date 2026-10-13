@@ -16,10 +16,10 @@ If you render the React components, one setup step follows the install: the form
 
 ### Peer dependencies
 
-| Dependency            | Required | Used by                                   |
-| --------------------- | -------- | ----------------------------------------- |
-| `react`, `react-dom`  | no       | React layer (`graph/react`, `form/react`) |
-| `shiki`               | no       | Syntax highlighting (`shiki`)             |
+| Dependency            | Required | Used by                                                     |
+| --------------------- | -------- | ----------------------------------------------------------- |
+| `react`, `react-dom`  | no       | React layer (`graph/react`, `form/react`, `timeline/react`) |
+| `shiki`               | no       | Syntax highlighting (`shiki`)                               |
 
 ### Bundled dependencies
 
@@ -299,6 +299,8 @@ See `graphConfig.ts` for the full default palette.
 | `@pipelex/mthds-ui/graph/react`     | React components — `GraphViewer`, label helpers, type converters   |
 | `@pipelex/mthds-ui/form`            | The form kernel's React-free surface, re-exported                  |
 | `@pipelex/mthds-ui/form/react`      | `RunPanel` — a pipe's input form — and the kernel's controls       |
+| `@pipelex/mthds-ui/timeline`        | A run's progress snapshot: types, path grammar, rows and time axis |
+| `@pipelex/mthds-ui/timeline/react`  | `RunTimeline` — a running run's invocations as growing bars        |
 | `@pipelex/mthds-ui/shiki`           | MTHDS syntax highlighting with shiki                               |
 | `@pipelex/mthds-ui/tailwind.css`    | Where the kernel's classes are, for a Tailwind 4 host              |
 | `@pipelex/mthds-ui/form-kernel.css` | The kernel's prebuilt stylesheet, for a host without Tailwind      |
@@ -382,6 +384,20 @@ Tailwind 3 hosts and Tailwind 4 hosts that configure a prefix are not supported:
 Either way, the shadcn token values are yours to supply, and each must be a **complete colour** — `hsl(240 10% 3.9%)`, `#0a0711`, `oklch(…)` — never a bare HSL triplet. Since kernel `0.8.0` the sheet emits `background-color: var(--background)` rather than `hsl(var(--background))`, so a triplet computes to something that is not a colour and the browser discards the declaration instead of overriding with it: green build, token inspectable, style silently absent.
 
 Full contract, why this package stopped loading the kernel's stylesheet itself, the `.dark` bridge and the `mthds-run-panel` token hook: [docs/run-form-panel.md](./docs/run-form-panel.md).
+
+## Run timeline
+
+`RunTimeline` draws a running run as nested rows, one per invocation of a pipe, each with a bar on a shared time axis that grows while the invocation runs. Its only input is the progress snapshot of the hosted progress contract: a batch is one collapsible row with its counts and a strip of its items' states, a condition's branch carries the outcome it took, and a retried or stuck invocation is marked on its own row.
+
+```tsx
+import { RunTimeline } from "@pipelex/mthds-ui/timeline/react";
+
+// Hand it every snapshot you read: it keeps the fresher one by the contract's
+// rule, so a late answer from an older read never moves it backwards.
+<RunTimeline snapshot={snapshot} theme="dark" />;
+```
+
+The entry imports its own stylesheet, and the timeline themes itself with the same tokens as `GraphViewer`. The snapshot's types and the projection the component draws are in the React-free `@pipelex/mthds-ui/timeline`. Props, the freshness rule, what each row and bar shows, and the stories: [docs/run-timeline.md](./docs/run-timeline.md).
 
 ## Shiki integration
 
