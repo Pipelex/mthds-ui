@@ -1,6 +1,6 @@
 {
   "name": "@pipelex/mthds-ui",
-  "version": "0.34.1",
+  "version": "0.35.0",
   "description": "Shared graph rendering logic for MTHDS method visualization",
   "license": "MIT",
   "repository": {
@@ -53,6 +53,15 @@
       "import": "./dist/static-graph/index.js",
       "types": "./dist/static-graph/index.d.ts"
     },
+    "./timeline": {
+      "import": "./dist/timeline/index.js",
+      "types": "./dist/timeline/index.d.ts"
+    },
+    "./timeline/react": {
+      "import": "./dist/timeline/react/index.js",
+      "types": "./dist/timeline/react/index.d.ts"
+    },
+    "./timeline/react/RunTimeline.css": "./dist/timeline/react/RunTimeline.css",
     "./tailwind.css": "./dist/styles/tailwind.css",
     "./form-kernel.css": "./dist/styles/form-kernel.css"
   },

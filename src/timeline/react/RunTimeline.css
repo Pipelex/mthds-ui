@@ -1,0 +1,503 @@
+/* ─── Run timeline ─────────────────────────────────────────────────────────── */
+/* Token-only: every colour comes from this library's palette, which          */
+/* RunTimeline applies inline to its own container as CSS variables (see     */
+/* `graphConfig.ts`), so it themes correctly standing alone, with no graph    */
+/* viewer in the tree. Being inline, the palette beats a stylesheet rule on   */
+/* the container: a host changes a colour through the `paletteColors` prop.   */
+/* Its layout hooks are the `--mthds-run-timeline-*` variables set on the     */
+/* root below, which a host may override on the container's class.            */
+/* `--mthds-run-timeline-axis-span` is no hook: the component sets it on its  */
+/* body as the axis grows.                                                    */
+
+.mthds-run-timeline {
+  --mthds-run-timeline-name-width: minmax(8rem, 36%);
+  --mthds-run-timeline-meta-width: 10.5rem;
+  --mthds-run-timeline-indent: 14px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  /* The `container` declaration at the end of this rule makes the root's width
+     ignore its content, so it takes its width from its container rather than
+     from what it holds: without this, a row flex parent would shrink it to its
+     padding (docs/run-timeline.md, "Styling", says how a host sizes it). */
+  width: 100%;
+  min-width: 0;
+  padding: 14px 16px 16px;
+  background: var(--surface-panel);
+  border: 1px solid var(--border-default);
+  border-radius: 10px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--text-default);
+  box-sizing: border-box;
+  container: mthds-run-timeline / inline-size;
+}
+
+.mthds-run-timeline *,
+.mthds-run-timeline *::before,
+.mthds-run-timeline *::after {
+  box-sizing: border-box;
+}
+
+/* ─── Header: the run's status and its one-line summary ─────────────────── */
+
+.mthds-run-timeline-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+}
+
+.mthds-run-timeline-status,
+.mthds-run-timeline-mode {
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 16px;
+  white-space: nowrap;
+  border: 1px solid var(--border-default);
+  color: var(--text-secondary);
+  background: var(--surface-pill);
+}
+
+.mthds-run-timeline-status--running {
+  color: var(--color-accent);
+  border-color: currentColor;
+}
+
+.mthds-run-timeline-status--succeeded {
+  color: var(--color-success);
+  border-color: currentColor;
+}
+
+.mthds-run-timeline-status--failed {
+  color: var(--color-error);
+  border-color: currentColor;
+}
+
+.mthds-run-timeline-summary {
+  flex: 1 1 16rem;
+  min-width: 0;
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 13px;
+}
+
+.mthds-run-timeline-degradation {
+  margin: 0;
+  padding: 8px 10px;
+  border: 1px solid var(--color-warning);
+  border-radius: 6px;
+  background: var(--surface-sunken);
+  color: var(--text-default);
+}
+
+.mthds-run-timeline-empty {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+/* ─── Rows: name | track | detail, on one grid per row, aligned by width ─── */
+
+.mthds-run-timeline-body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.mthds-run-timeline-rows {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mthds-run-timeline-axis,
+.mthds-run-timeline-row {
+  display: grid;
+  grid-template-columns:
+    var(--mthds-run-timeline-name-width) minmax(0, 1fr)
+    var(--mthds-run-timeline-meta-width);
+  column-gap: 10px;
+  align-items: center;
+}
+
+.mthds-run-timeline-axis {
+  height: 20px;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-dim);
+  font-size: 10.5px;
+}
+
+.mthds-run-timeline-axis-track {
+  position: relative;
+  height: 100%;
+}
+
+.mthds-run-timeline-tick {
+  position: absolute;
+  top: 2px;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.mthds-run-timeline-tick--first {
+  transform: none;
+}
+
+.mthds-run-timeline-tick--last {
+  transform: translateX(-100%);
+}
+
+.mthds-run-timeline-row {
+  min-height: 26px;
+  border-bottom: 1px solid var(--border-subtle);
+  animation: mthds-run-timeline-appear 0.3s ease-out;
+}
+
+.mthds-run-timeline-row:hover {
+  background: var(--surface-sunken);
+}
+
+/* Each row's status colour, which its dot and bar take. */
+.mthds-run-timeline-row,
+.mthds-run-timeline-strip-cell {
+  --mthds-run-timeline-status-color: var(--text-dim);
+}
+
+.mthds-run-timeline-row--running,
+.mthds-run-timeline-strip-cell--running {
+  --mthds-run-timeline-status-color: var(--color-accent);
+}
+
+.mthds-run-timeline-row--succeeded,
+.mthds-run-timeline-strip-cell--succeeded {
+  --mthds-run-timeline-status-color: var(--color-success);
+}
+
+.mthds-run-timeline-row--failed,
+.mthds-run-timeline-strip-cell--failed {
+  --mthds-run-timeline-status-color: var(--color-error);
+}
+
+.mthds-run-timeline-strip-cell--scheduled {
+  --mthds-run-timeline-status-color: var(--border-strong);
+}
+
+/* A running invocation whose work is being tried again. */
+.mthds-run-timeline-row--retrying {
+  --mthds-run-timeline-status-color: var(--color-warning);
+}
+
+.mthds-run-timeline-name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.mthds-run-timeline-toggle,
+.mthds-run-timeline-toggle-spacer {
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+}
+
+.mthds-run-timeline-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.mthds-run-timeline-toggle:hover {
+  color: var(--text-primary);
+  background: var(--surface-elevated-hover);
+}
+
+.mthds-run-timeline-toggle:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 1px;
+}
+
+.mthds-run-timeline-dot {
+  flex: 0 0 8px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--mthds-run-timeline-status-color);
+}
+
+.mthds-run-timeline-row--scheduled .mthds-run-timeline-dot,
+.mthds-run-timeline-row--canceled .mthds-run-timeline-dot {
+  background: transparent;
+  border: 1px solid var(--mthds-run-timeline-status-color);
+}
+
+.mthds-run-timeline-code {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+}
+
+.mthds-run-timeline-row--scheduled .mthds-run-timeline-code,
+.mthds-run-timeline-row--canceled .mthds-run-timeline-code,
+.mthds-run-timeline-row--skipped .mthds-run-timeline-code {
+  color: var(--text-muted);
+}
+
+.mthds-run-timeline-place {
+  flex: 0 2 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--text-dim);
+  font-size: 11px;
+}
+
+/* ─── The track and its bars ─────────────────────────────────────────────── */
+/* A bar's `left` and `width` are offsets in milliseconds over                */
+/* `--mthds-run-timeline-axis-span`, so a bar that has stopped growing keeps  */
+/* its place on the growing axis with no redraw of its row.                   */
+
+.mthds-run-timeline-track {
+  position: relative;
+  align-self: stretch;
+  min-height: 26px;
+}
+
+.mthds-run-timeline-bar {
+  position: absolute;
+  top: 50%;
+  height: 10px;
+  min-width: 3px;
+  transform: translateY(-50%);
+  border-radius: 3px;
+  background: var(--mthds-run-timeline-status-color);
+}
+
+/* While the timeline keeps its own clock, it repaints four times a second; the
+   bars glide between repaints instead of stepping, and the axis's ticks glide
+   with them over the same time, so a tick's label and a bar's end at the same
+   moment stay together throughout. A host-driven `now` moves them itself, so
+   they follow it with no lag. */
+.mthds-run-timeline--self-clocked .mthds-run-timeline-bar {
+  transition:
+    left 0.25s linear,
+    width 0.25s linear;
+}
+
+.mthds-run-timeline--self-clocked .mthds-run-timeline-tick {
+  transition: left 0.25s linear;
+}
+
+.mthds-run-timeline-bar--growing {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent 0 6px,
+    var(--surface-elevated-hover) 6px 12px
+  );
+  background-size: 17px 17px;
+  animation: mthds-run-timeline-stripes 1s linear infinite;
+}
+
+/* A batch's bar is a tinted frame, so the strip of its items' states inside it reads. */
+.mthds-run-timeline-bar--batch {
+  height: 16px;
+  border: 1px solid var(--mthds-run-timeline-status-color);
+  background-color: var(--surface-sunken);
+}
+
+/* A skipped invocation ended without output of its own; a canceled one never
+   ended. After the batch's frame, so a canceled batch's frame is dashed too. */
+.mthds-run-timeline-row--skipped .mthds-run-timeline-bar,
+.mthds-run-timeline-bar--open-ended {
+  background-color: transparent;
+  border: 1px dashed var(--mthds-run-timeline-status-color);
+}
+
+.mthds-run-timeline-strip {
+  position: absolute;
+  left: 2px;
+  right: 2px;
+  bottom: 2px;
+  height: 5px;
+  display: flex;
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+.mthds-run-timeline-strip-cell {
+  flex-basis: 0;
+  min-width: 0;
+  background: var(--mthds-run-timeline-status-color);
+}
+
+/* A failed item stays visible in the strip however many items share the bar. */
+.mthds-run-timeline-strip-cell--failed {
+  min-width: 2px;
+}
+
+.mthds-run-timeline-strip-cell--canceled,
+.mthds-run-timeline-strip-cell--skipped {
+  opacity: 0.6;
+}
+
+/* Where the last failure of a retried invocation happened. */
+.mthds-run-timeline-failure-tick {
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  width: 2px;
+  margin-left: -1px;
+  border-radius: 1px;
+  background: var(--color-error);
+}
+
+/* The invocation the run is stuck at. */
+.mthds-run-timeline-row--degraded .mthds-run-timeline-bar {
+  outline: 1px dashed var(--color-warning);
+  outline-offset: 2px;
+}
+
+/* ─── Detail column: durations, counts, health ───────────────────────────── */
+
+.mthds-run-timeline-meta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.mthds-run-timeline-detail {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mthds-run-timeline-row--failed .mthds-run-timeline-detail {
+  color: var(--color-error);
+}
+
+.mthds-run-timeline-badge {
+  flex: 0 0 auto;
+  padding: 0 6px;
+  border: 1px solid var(--color-warning);
+  border-radius: 999px;
+  font-size: 10.5px;
+  font-weight: 600;
+  line-height: 15px;
+  color: var(--color-warning);
+}
+
+/* A recovered invocation keeps its attempts in view, quieter than a live retry;
+   one that failed after them says so in the failure's colour. */
+.mthds-run-timeline-row--recovered .mthds-run-timeline-badge--retry {
+  border-color: var(--border-strong);
+  color: var(--text-secondary);
+}
+
+.mthds-run-timeline-row--failed .mthds-run-timeline-badge--retry {
+  border-color: var(--color-error);
+  color: var(--color-error);
+}
+
+.mthds-run-timeline-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ─── Narrow: each row on two lines, its bar across the whole width ───────── */
+
+@container mthds-run-timeline (max-width: 560px) {
+  .mthds-run-timeline-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "name meta"
+      "track track";
+    padding: 4px 0;
+  }
+
+  .mthds-run-timeline-axis {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "track";
+  }
+
+  .mthds-run-timeline-axis-spacer {
+    display: none;
+  }
+
+  .mthds-run-timeline-name {
+    grid-area: name;
+  }
+
+  .mthds-run-timeline-meta {
+    grid-area: meta;
+  }
+
+  .mthds-run-timeline-track,
+  .mthds-run-timeline-axis-track {
+    grid-area: track;
+  }
+
+  .mthds-run-timeline-track {
+    min-height: 18px;
+  }
+}
+
+@keyframes mthds-run-timeline-appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes mthds-run-timeline-stripes {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 17px 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mthds-run-timeline-row,
+  .mthds-run-timeline-bar--growing {
+    animation: none;
+  }
+
+  .mthds-run-timeline--self-clocked .mthds-run-timeline-bar,
+  .mthds-run-timeline--self-clocked .mthds-run-timeline-tick {
+    transition: none;
+  }
+}

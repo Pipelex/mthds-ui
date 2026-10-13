@@ -26,6 +26,8 @@ export default defineConfig({
     "src/form/react/index.ts",
     "src/shiki/index.ts",
     "src/static-graph/index.ts",
+    "src/timeline/index.ts",
+    "src/timeline/react/index.ts",
   ],
   format: ["esm"],
   dts: true,
@@ -52,12 +54,14 @@ export default defineConfig({
     /viewer\/GraphToolbar\.css$/,
     /styles\/simple\/SimpleStyle\.css$/,
     /RunPanel\.css$/,
+    /RunTimeline\.css$/,
   ],
   esbuildOptions(options) {
     options.alias = {
       "@graph": path.resolve(dirname, "src/graph"),
       "@static-graph": path.resolve(dirname, "src/static-graph"),
       "@form": path.resolve(dirname, "src/form"),
+      "@timeline": path.resolve(dirname, "src/timeline"),
     };
   },
   // CSS files are kept external so the import stays in the JS output.
@@ -76,6 +80,8 @@ export default defineConfig({
     );
     mkdirSync("dist/form/react", { recursive: true });
     cpSync("src/form/react/RunPanel.css", "dist/form/react/RunPanel.css");
+    mkdirSync("dist/timeline/react", { recursive: true });
+    cpSync("src/timeline/react/RunTimeline.css", "dist/timeline/react/RunTimeline.css");
     // The two stylesheets a HOST imports, never this package's JavaScript, so
     // they have no `external` pattern: only this copy and an `exports` entry.
     // `tailwind.css`'s `@source` paths are relative to `dist/styles/`, so it
