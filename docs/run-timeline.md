@@ -71,7 +71,7 @@ Everything the component decides is a pure function of the snapshot, exported fr
 | `timelineWindow`, `invocationBar`, `readingClockMs`, `timelineTicks`, `axisPercent`, `formatDuration`, `formatClockTime` | The shared axis, each bar on it, and the labels. |
 | `snapshotTimes`, `invocationTimes`, `timelineWindowAt`, `barFollowsClock` | The same, with every timestamp parsed once per snapshot: the axis at any reading of the clock without parsing again, and which bars move while the clock ticks. |
 
-`timelineWindow` and `timelineWindowAt` read a clock that is not a finite number as no clock at all, so the axis stretches to `assembled_at` instead and always has a finite end, and `timelineTicks` gives no tick for an axis whose span is not a finite positive number.
+`timelineWindow` and `timelineWindowAt` read a clock that is not a finite number as no clock at all, so the axis stretches to `assembled_at` instead and always has a finite end; `invocationBar` reads it the same way, so a running bar then ends at the end of the axis; and `timelineTicks` gives no tick for an axis whose span is not a finite positive number.
 
 `buildTimelineRows` returns the same rows for the same snapshot and options, and keys nothing on time, which is what lets the component repaint on every snapshot while keeping each row it already drew in place: React keys each row by its path.
 

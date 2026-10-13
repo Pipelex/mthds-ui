@@ -205,6 +205,17 @@ describe("invocationBar", () => {
     });
   });
 
+  it("reads a clock that is not a finite number as no clock, so a running bar stays finite", () => {
+    const running = find("filings.review_filings/step_3");
+    for (const nowMs of [Number.NaN, Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY]) {
+      expect(invocationBar(running, axis, nowMs)).toEqual(invocationBar(running, axis));
+      expect(invocationBar(running, axis, nowMs)).toMatchObject({
+        endMs: ASSEMBLED,
+        growing: true,
+      });
+    }
+  });
+
   it("runs a canceled invocation to the end of the axis", () => {
     const canceledAxis = timelineWindow(CANCELED_RUN_SNAPSHOT);
     const canceled = CANCELED_RUN_SNAPSHOT.invocations.find(

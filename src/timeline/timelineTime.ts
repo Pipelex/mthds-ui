@@ -166,7 +166,10 @@ export function barFollowsClock(
  * the reading clock while it runs. A canceled invocation recorded no end, so its
  * bar runs to the end of the axis, which is as late as the run is known to have
  * gone. `null` for an invocation that has not started, such as a scheduled item.
- * `times` are the invocation's moments when the caller has already parsed them.
+ * A `nowMs` that is not a finite number counts as not given, as it does for the
+ * axis, so a running bar then ends at the end of the axis rather than at `NaN`
+ * or `Infinity`. `times` are the invocation's moments when the caller has
+ * already parsed them.
  */
 export function invocationBar(
   invocation: ProgressInvocation,
@@ -177,12 +180,13 @@ export function invocationBar(
   const startMs = times.startedMs;
   if (startMs === null) return null;
   const endedMs = times.endedMs;
+  const clock = typeof nowMs === "number" && Number.isFinite(nowMs) ? nowMs : null;
   let endMs: number;
   let growing = false;
   let openEnded = false;
   switch (invocation.status) {
     case INVOCATION_STATUS.RUNNING:
-      endMs = endedMs ?? nowMs ?? window.endMs;
+      endMs = endedMs ?? clock ?? window.endMs;
       growing = endedMs === null;
       break;
     case INVOCATION_STATUS.CANCELED:
