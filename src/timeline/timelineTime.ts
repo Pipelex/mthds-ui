@@ -112,8 +112,9 @@ export function snapshotTimes(snapshot: ProgressSnapshot): SnapshotTimes {
 /**
  * The axis at one reading of the clock, from a snapshot's parsed moments: the
  * snapshot's recorded span, stretched to the reading clock while the run goes
- * on (to its `assembled_at` when `nowMs` is not given). See `timelineWindow`.
- * Returns the recorded span itself when the clock does not stretch it.
+ * on (to its `assembled_at` when `nowMs` is not given, or is not a finite
+ * number, which would give the axis no end). See `timelineWindow`. Returns the
+ * recorded span itself when the clock does not stretch it.
  */
 export function timelineWindowAt(
   times: SnapshotTimes,
@@ -121,7 +122,7 @@ export function timelineWindowAt(
 ): TimelineWindow | null {
   const recorded = times.recorded;
   if (!recorded || times.ended) return recorded;
-  const clock = nowMs ?? times.assembledMs;
+  const clock = typeof nowMs === "number" && Number.isFinite(nowMs) ? nowMs : times.assembledMs;
   if (clock === null || clock <= recorded.endMs) return recorded;
   return { startMs: recorded.startMs, endMs: clock };
 }
@@ -133,7 +134,8 @@ export function timelineWindowAt(
  * has ended, it is the latest time recorded in its invocations, whether a start,
  * an end or a failure, an end counting even when its start was not recorded:
  * the snapshot's `assembled_at` is then only when it was read, which may be long
- * after. `null` when no invocation has started.
+ * after. A `nowMs` that is not a finite number counts as not given. `null` when
+ * no invocation has started.
  */
 export function timelineWindow(
   snapshot: ProgressSnapshot,
@@ -237,10 +239,13 @@ const TICK_STEPS_MS = [
  * The axis's ticks, at the smallest round step that keeps them to `maxTicks`
  * intervals or fewer, labelled with their offset from the first start. Past the
  * table's largest step, a day, the step is the smallest whole number of days
- * that still keeps to `maxTicks`, so no axis is ever crowded with labels.
+ * that still keeps to `maxTicks`, so no axis is ever crowded with labels. An
+ * axis whose span is not a finite positive number has no ticks: an infinite
+ * one would otherwise take an infinite step and never reach its end.
  */
 export function timelineTicks(window: TimelineWindow, maxTicks = 6): TimelineTick[] {
   const span = window.endMs - window.startMs;
+  if (!Number.isFinite(span) || span <= 0) return [];
   const budget = Math.max(1, maxTicks);
   const step =
     TICK_STEPS_MS.find((candidate) => span / candidate <= budget) ??

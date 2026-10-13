@@ -47,6 +47,14 @@ export interface RunTimelineProps {
   /** The environment's theme when the host detects it itself, as on `GraphViewer`. */
   systemTheme?: GraphTheme;
   /**
+   * Sparse overrides of the palette, merged per key over the resolved theme's,
+   * as `GraphViewer`'s `config.paletteColors`: `{ "--color-success": "#16a34a" }`.
+   * The palette is set inline on the timeline's container, so this is how a host
+   * changes a colour: a `--color-*` or `--surface-*` declared on the container's
+   * class in a stylesheet loses to the inline value.
+   */
+  paletteColors?: Record<string, string>;
+  /**
    * Pins the reading clock: the moment running bars grow to, as a timestamp or
    * epoch milliseconds. A host that keeps its own trusted clock, or a replay,
    * sets it; the timeline then never ticks on its own.
@@ -126,41 +134,48 @@ function useHeldSnapshot(snapshot: ProgressSnapshot): ProgressSnapshot {
   return state.held;
 }
 
-/** What the self-ticking clock last showed, and for which stream and which snapshot reading. */
+/** What the clock last showed, for which stream and which reading, and whether it ticked on its own. */
 interface SelfClock {
   stream: string;
   base: number | null;
+  ticking: boolean;
   ms: number | null;
 }
 
 /**
  * The reading clock, in epoch milliseconds. Pinned by `now` when the host sets
  * it; otherwise the snapshot's `assembled_at`, advanced while the run goes on by
- * the time this page has measured since.
+ * the time this page has measured since. It ticks only while a drawn bar
+ * follows it (`followsClock`): with none, a tick would redraw nothing that moves.
  *
  * The self-ticking clock never goes back within one stream of progress. A
  * snapshot that took long to arrive can carry an `assembled_at` older than the
  * moment the clock already shows; the clock then carries on from what it
  * showed, the later of the two readings, rather than jumping back, so no running
- * bar and no axis shrinks and grows again. A snapshot of another stream starts
- * the clock afresh from its own reading.
+ * bar and no axis shrinks and grows again. That floor comes only from a clock
+ * that was itself ticking in the same stream: a moment the host pinned with
+ * `now`, or a clock standing still, is not one this clock reached on its own,
+ * so a clock that starts ticking starts from its snapshot's reading. A snapshot
+ * of another stream starts the clock afresh from its own reading.
  */
 function useReadingClock(
   held: ProgressSnapshot,
   stream: string,
   now: ProgressTimestamp | number | undefined,
   live: boolean,
+  followsClock: boolean,
 ): { nowMs: number | null; ticking: boolean } {
   const base = React.useMemo(() => readingClockMs(held, now), [held, now]);
-  const ticking = live && now === undefined && base !== null && !isRunEnded(held.status);
-  const [clock, setClock] = React.useState<SelfClock>({ stream, base, ms: base });
+  const ticking =
+    live && now === undefined && base !== null && !isRunEnded(held.status) && followsClock;
+  const [clock, setClock] = React.useState<SelfClock>({ stream, base, ticking, ms: base });
   let shown = clock;
-  if (clock.stream !== stream || clock.base !== base) {
+  if (clock.stream !== stream || clock.base !== base || clock.ticking !== ticking) {
     // React's derived-state pattern, as in `useHeldSnapshot`: the render that
     // receives the new reading already shows the clock it starts from.
-    const floor = ticking && clock.stream === stream ? clock.ms : null;
+    const floor = ticking && clock.ticking && clock.stream === stream ? clock.ms : null;
     const ms = base !== null && floor !== null ? Math.max(base, floor) : base;
-    shown = { stream, base, ms };
+    shown = { stream, base, ticking, ms };
     setClock(shown);
   }
   React.useEffect(() => {
@@ -171,7 +186,7 @@ function useReadingClock(
       const step = current - previous;
       previous = current;
       setClock((state) =>
-        state.stream === stream && state.base === base && state.ms !== null
+        state.stream === stream && state.base === base && state.ticking && state.ms !== null
           ? { ...state, ms: state.ms + step }
           : state,
       );
@@ -214,9 +229,11 @@ function rowTitle(row: TimelineRow, times: InvocationTimes, bar: TimelineBar | n
   if (bar) state += ` (${formatDuration(bar.endMs - bar.startMs)})`;
   lines.push(state.charAt(0).toUpperCase() + state.slice(1));
   if (row.outcome) {
-    lines.push(
-      row.outcome.key === null ? "Took the default outcome" : `Took the outcome ${row.outcome.key}`,
-    );
+    // Only a condition that resolved took an outcome. A branch read off its path,
+    // as every branch of a dry run is, is only the branch for that outcome.
+    const outcome =
+      row.outcome.key === null ? "the default outcome" : `the outcome ${row.outcome.key}`;
+    lines.push(row.outcome.fromResolution ? `Took ${outcome}` : `The branch for ${outcome}`);
   }
   if (invocation.condition) {
     const selected = invocation.condition.selected_outcome;
@@ -449,6 +466,7 @@ export function RunTimeline({
   snapshot,
   theme = GRAPH_THEME_MODE.SYSTEM,
   systemTheme,
+  paletteColors,
   now,
   live = true,
   wideBatchThreshold,
@@ -456,15 +474,15 @@ export function RunTimeline({
 }: RunTimelineProps) {
   const held = useHeldSnapshot(snapshot);
   const streamKey = progressStreamKey(held);
-  const { nowMs, ticking } = useReadingClock(held, streamKey, now, live);
 
   // A fixed theme is handed to the hook as if injected, so it registers no
   // `prefers-color-scheme` listener whose answer would be thrown away.
   const environmentTheme = useSystemTheme(theme === GRAPH_THEME_MODE.SYSTEM ? systemTheme : theme);
   const resolvedTheme: GraphTheme = theme === GRAPH_THEME_MODE.SYSTEM ? environmentTheme : theme;
+  // The theme's palette is the base; the host's `paletteColors` win per key, as on `GraphViewer`.
   const paletteStyle = React.useMemo(
-    () => getPaletteForTheme(resolvedTheme) as React.CSSProperties,
-    [resolvedTheme],
+    () => ({ ...getPaletteForTheme(resolvedTheme), ...paletteColors }) as React.CSSProperties,
+    [resolvedTheme, paletteColors],
   );
 
   // What the reader expanded belongs to one stream of progress: another starts afresh.
@@ -500,6 +518,9 @@ export function RunTimeline({
       }),
     [rows, times],
   );
+  // A bar that follows the clock has started, so whenever one does there is an axis too.
+  const clockFollowed = drawnRows.some((drawn) => drawn.followsClock);
+  const { nowMs, ticking } = useReadingClock(held, streamKey, now, live, clockFollowed);
   const axis = timelineWindowAt(times, nowMs);
   const [axisTrackRef, tickBudget] = useTickBudget();
   const ticks = axis ? timelineTicks(axis, tickBudget) : [];

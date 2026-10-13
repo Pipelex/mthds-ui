@@ -1,11 +1,13 @@
 /* ─── Run timeline ─────────────────────────────────────────────────────────── */
 /* Token-only: every colour comes from this library's palette, which          */
-/* RunTimeline applies to its own container as CSS variables (see            */
+/* RunTimeline applies inline to its own container as CSS variables (see     */
 /* `graphConfig.ts`), so it themes correctly standing alone, with no graph    */
-/* viewer in the tree. Its layout hooks are the `--mthds-run-timeline-*`      */
-/* variables set on the root below, which a host may override on the         */
-/* container's class. `--mthds-run-timeline-axis-span` is no hook: the        */
-/* component sets it on its body as the axis grows.                           */
+/* viewer in the tree. Being inline, the palette beats a stylesheet rule on   */
+/* the container: a host changes a colour through the `paletteColors` prop.   */
+/* Its layout hooks are the `--mthds-run-timeline-*` variables set on the     */
+/* root below, which a host may override on the container's class.            */
+/* `--mthds-run-timeline-axis-span` is no hook: the component sets it on its  */
+/* body as the axis grows.                                                    */
 
 .mthds-run-timeline {
   --mthds-run-timeline-name-width: minmax(8rem, 36%);
@@ -290,12 +292,18 @@
 }
 
 /* While the timeline keeps its own clock, it repaints four times a second; the
-   bars glide between repaints instead of stepping. A host-driven `now` moves
-   them itself, so they follow it with no lag. */
+   bars glide between repaints instead of stepping, and the axis's ticks glide
+   with them over the same time, so a tick's label and a bar's end at the same
+   moment stay together throughout. A host-driven `now` moves them itself, so
+   they follow it with no lag. */
 .mthds-run-timeline--self-clocked .mthds-run-timeline-bar {
   transition:
     left 0.25s linear,
     width 0.25s linear;
+}
+
+.mthds-run-timeline--self-clocked .mthds-run-timeline-tick {
+  transition: left 0.25s linear;
 }
 
 .mthds-run-timeline-bar--growing {
@@ -488,7 +496,8 @@
     animation: none;
   }
 
-  .mthds-run-timeline--self-clocked .mthds-run-timeline-bar {
+  .mthds-run-timeline--self-clocked .mthds-run-timeline-bar,
+  .mthds-run-timeline--self-clocked .mthds-run-timeline-tick {
     transition: none;
   }
 }

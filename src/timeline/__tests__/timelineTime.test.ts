@@ -145,6 +145,16 @@ describe("snapshotTimes, parsed once", () => {
     );
   });
 
+  it("reads a clock that is not a finite number as no clock, so the axis stays finite", () => {
+    for (const nowMs of [Number.NaN, Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY]) {
+      expect(timelineWindowAt(times, nowMs)).toEqual(timelineWindowAt(times));
+      expect(timelineWindow(WORKED_EXAMPLE_SNAPSHOT, nowMs)).toEqual(
+        timelineWindow(WORKED_EXAMPLE_SNAPSHOT),
+      );
+    }
+    expect(timelineWindowAt(times, Number.POSITIVE_INFINITY)?.endMs).toBe(ASSEMBLED);
+  });
+
   it("keeps the recorded span, which a clock that does not stretch it hands back as it is", () => {
     expect(times.recorded).toEqual({
       startMs: RUN_START,
@@ -271,6 +281,14 @@ describe("ticks and durations", () => {
       expect(ticks.length - 1).toBeLessThanOrEqual(budget);
       for (const tick of ticks) expect(tick.offsetMs % day).toBe(0);
     }
+  });
+
+  it("ticks no axis whose span is not a finite positive number, rather than looping forever", () => {
+    expect(timelineTicks({ startMs: 5, endMs: 5 })).toEqual([]);
+    expect(timelineTicks({ startMs: 10, endMs: 0 })).toEqual([]);
+    expect(timelineTicks({ startMs: 0, endMs: Number.NaN })).toEqual([]);
+    expect(timelineTicks({ startMs: 0, endMs: Number.POSITIVE_INFINITY })).toEqual([]);
+    expect(timelineTicks({ startMs: Number.NEGATIVE_INFINITY, endMs: 0 })).toEqual([]);
   });
 
   it("takes a budget below one interval as one", () => {

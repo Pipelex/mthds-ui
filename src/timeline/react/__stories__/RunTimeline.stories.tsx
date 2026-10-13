@@ -1,7 +1,7 @@
 import * as React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, waitFor, within } from "storybook/test";
-import type { ProgressSnapshot } from "@timeline/progressSnapshot";
+import type { ProgressSnapshot, ProgressTimestamp } from "@timeline/progressSnapshot";
 import { RunTimeline } from "../RunTimeline";
 import { SnapshotReplay } from "./SnapshotReplay";
 import {
@@ -51,6 +51,9 @@ function timelineOf(canvasElement: HTMLElement): HTMLElement {
   if (!timeline) throw new Error("no timeline drawn");
   return timeline;
 }
+
+/** The class the timeline carries while its own clock ticks. */
+const SELF_CLOCKED_CLASS = "mthds-run-timeline--self-clocked";
 
 /** The recorded run, replayed. Press Play, or step through it a snapshot at a time. */
 export const RecordedRun: Story = {
@@ -135,8 +138,94 @@ export const WorkedExample: Story = {
     expect(rowAt(canvasElement, `${BATCH}/item_2/step_2`)?.textContent).toContain("attempt 2");
     expect(rowAt(canvasElement, `${BATCH}/item_3`)?.textContent).toContain("stuck");
     expect(rowAt(canvasElement, `${BATCH}/item_3`)?.textContent).toContain("item 3 of 3");
+    // The condition resolved to `detailed`, so its branch's tooltip says it took that outcome.
+    expect(rowAt(canvasElement, `${ROOT}/step_2/outcome_detailed`)?.title).toContain(
+      "Took the outcome detailed",
+    );
     // The run status's degradation, in its own words.
     await expect(canvas.getByRole("status")).toHaveTextContent("failed 4 times in a row");
+  },
+};
+
+/**
+ * A dry run's condition, which resolves nothing and runs every outcome group:
+ * each branch is named by its path, and its tooltip never says the condition
+ * took that outcome, only that it is the branch for it.
+ */
+export const DryRunCondition: Story = {
+  args: {
+    live: false,
+    snapshot: {
+      pipeline_run_id: "run_dry_condition",
+      mode: "dry",
+      status: "succeeded",
+      version: 3,
+      assembled_at: "2026-10-12T09:30:01.000Z",
+      summary: "Completed",
+      invocations: [
+        {
+          path: ROOT,
+          pipe_code: "choose_depth",
+          pipe_ref: "filings.choose_depth",
+          pipe_type: "PipeCondition",
+          status: "succeeded",
+          started_at: "2026-10-12T09:30:00.000Z",
+          ended_at: "2026-10-12T09:30:00.900Z",
+        },
+        {
+          path: `${ROOT}/outcome_high%20risk`,
+          pipe_code: "deep_checks",
+          pipe_ref: "filings.deep_checks",
+          pipe_type: "PipeLLM",
+          status: "succeeded",
+          started_at: "2026-10-12T09:30:00.100Z",
+          ended_at: "2026-10-12T09:30:00.500Z",
+        },
+        {
+          path: `${ROOT}/default`,
+          pipe_code: "quick_check",
+          pipe_ref: "filings.quick_check",
+          pipe_type: "PipeLLM",
+          status: "succeeded",
+          started_at: "2026-10-12T09:30:00.100Z",
+          ended_at: "2026-10-12T09:30:00.400Z",
+        },
+      ],
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const keyed = rowAt(canvasElement, `${ROOT}/outcome_high%20risk`);
+    const fallback = rowAt(canvasElement, `${ROOT}/default`);
+    await expect(keyed).toBeInTheDocument();
+    expect(keyed?.textContent).toContain("outcome high risk");
+    expect(keyed?.title).toContain("The branch for the outcome high risk");
+    expect(fallback?.title).toContain("The branch for the default outcome");
+    for (const row of [keyed, fallback]) expect(row?.title).not.toMatch(/Took/);
+  },
+};
+
+/** The success colour, set by a host through `paletteColors`. */
+const HOST_SUCCESS_COLOR = "rgb(1, 2, 3)";
+
+/**
+ * A host's palette override: `paletteColors` is merged per key over the
+ * theme's palette, so the succeeded bars take the host's colour and every other
+ * token keeps the theme's.
+ */
+export const PaletteOverride: Story = {
+  args: {
+    snapshot: WORKED_EXAMPLE_SNAPSHOT,
+    live: false,
+    paletteColors: { "--color-success": HOST_SUCCESS_COLOR },
+  },
+  play: async ({ canvasElement }) => {
+    const bar = rowAt(canvasElement, `${ROOT}/step_1`)?.querySelector(".mthds-run-timeline-bar");
+    if (!bar) throw new Error("no bar drawn for step 1");
+    await waitFor(() => expect(getComputedStyle(bar).backgroundColor).toBe(HOST_SUCCESS_COLOR));
+    // Every token the host did not name keeps the dark theme's value.
+    expect(getComputedStyle(timelineOf(canvasElement)).getPropertyValue("--color-error")).toBe(
+      "#FF5555",
+    );
   },
 };
 
@@ -205,6 +294,8 @@ export const WaitingToStart: Story = {
     const canvas = within(canvasElement);
     await expect(canvas.getByText("Nothing has started yet.")).toBeInTheDocument();
     await expect(canvas.getByText("Waiting to start")).toBeInTheDocument();
+    // Nothing follows the clock, so the timeline keeps no clock ticking for nothing.
+    expect(timelineOf(canvasElement).classList.contains(SELF_CLOCKED_CLASS)).toBe(false);
   },
 };
 
@@ -257,8 +348,11 @@ interface FeedProps {
 /** Hands the timeline whichever snapshot a button names, as overlapping reads answering out of order would. */
 function SnapshotFeed({ deliveries, live = false }: FeedProps) {
   const [snapshot, setSnapshot] = React.useState(deliveries[0].snapshot);
+  // When the feed mounted, on the page's clock, so a test can bound how far a
+  // self-ticking clock can have moved since: no further than the page's clock.
+  const [mountedAt] = React.useState(() => performance.now());
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+    <div data-mounted-at={mountedAt} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
       <div style={{ display: "flex", gap: 8 }}>
         {deliveries.map((delivery) => (
           <button key={delivery.label} type="button" onClick={() => setSnapshot(delivery.snapshot)}>
@@ -309,6 +403,22 @@ export const OutOfOrderReads: Story = {
 };
 
 const SLOW_POLL_ROOT = "filings.condense_filing";
+
+/** A row's duration, in seconds, as its detail column reads it (`3.2s`). */
+function elapsedSeconds(canvasElement: HTMLElement, path: string): number {
+  return Number.parseFloat(
+    rowAt(canvasElement, path)?.querySelector(".mthds-run-timeline-detail")?.textContent ?? "",
+  );
+}
+
+/** How long an element's transition of one property lasts, as computed (`0.25s`), or `null` when it has none. */
+function transitionOf(element: Element, property: string): string | null {
+  const style = getComputedStyle(element);
+  const properties = style.transitionProperty.split(",").map((each) => each.trim());
+  const durations = style.transitionDuration.split(",").map((each) => each.trim());
+  const index = properties.indexOf(property);
+  return index === -1 ? null : (durations[index % durations.length] ?? null);
+}
 
 /** One running invocation, started two seconds before the first read was projected. */
 function slowPollSnapshot(overrides: Partial<ProgressSnapshot>): ProgressSnapshot {
@@ -363,13 +473,27 @@ export const SlowRead: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    // The running row's duration, in seconds, as its detail column reads it (`3.2s`).
-    const elapsed = () =>
-      Number.parseFloat(
-        rowAt(canvasElement, SLOW_POLL_ROOT)?.querySelector(".mthds-run-timeline-detail")
-          ?.textContent ?? "",
-      );
-    expect(elapsed()).toBe(2);
+    const timeline = timelineOf(canvasElement);
+    const mountedAt = Number(
+      canvasElement.querySelector<HTMLElement>("[data-mounted-at]")?.dataset.mountedAt,
+    );
+    // The clock starts at the first read's `assembled_at`, two seconds after the
+    // invocation started, and has since moved on by no more than the page's own
+    // clock, read after it. The label rounds to a tenth of a second.
+    const first = elapsedSeconds(canvasElement, SLOW_POLL_ROOT);
+    const sincePageMount = (performance.now() - mountedAt) / 1_000;
+    expect(first).toBeGreaterThanOrEqual(2);
+    expect(first).toBeLessThan(2 + sincePageMount + 0.1);
+    expect(timeline.classList.contains(SELF_CLOCKED_CLASS)).toBe(true);
+
+    // The axis's ticks glide with the bars, so their labels never disagree with the bars' ends.
+    const tick = timeline.querySelector(".mthds-run-timeline-tick");
+    const bar = timeline.querySelector(".mthds-run-timeline-bar");
+    if (!tick || !bar) throw new Error("no tick or no bar drawn");
+    expect(transitionOf(bar, "left")).toBe("0.25s");
+    expect(transitionOf(tick, "left")).toBe(transitionOf(bar, "left"));
+
+    const elapsed = () => elapsedSeconds(canvasElement, SLOW_POLL_ROOT);
     await waitFor(() => expect(elapsed()).toBeGreaterThanOrEqual(3), { timeout: 5_000 });
     const shown = elapsed();
 
@@ -380,5 +504,56 @@ export const SlowRead: Story = {
     await userEvent.click(canvas.getByRole("button", { name: "Read another run" }));
     await waitFor(() => expect(timelineOf(canvasElement).dataset.version).toBe("1"));
     expect(elapsed()).toBeLessThan(shown);
+  },
+};
+
+interface PinnableClockProps {
+  snapshot: ProgressSnapshot;
+  /** The moment the host pins the clock to. */
+  pinnedNow: ProgressTimestamp;
+}
+
+/** Pins the timeline's clock and releases it, as a host keeping its own clock for a while would. */
+function PinnableClock({ snapshot, pinnedNow }: PinnableClockProps) {
+  const [now, setNow] = React.useState<ProgressTimestamp | undefined>(undefined);
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+      <div style={{ display: "flex", gap: 8 }}>
+        <button type="button" onClick={() => setNow(pinnedNow)}>
+          Pin the clock
+        </button>
+        <button type="button" onClick={() => setNow(undefined)}>
+          Release the clock
+        </button>
+      </div>
+      <RunTimeline snapshot={snapshot} now={now} theme="dark" />
+    </div>
+  );
+}
+
+/**
+ * A host pins the clock half a minute past the snapshot, then releases it. The
+ * pinned moment was the host's, not one the timeline's own clock showed, so the
+ * released clock starts again from the snapshot's `assembled_at` rather than
+ * carrying on from the pinned moment.
+ */
+export const PinnedClockReleased: Story = {
+  render: () => (
+    <PinnableClock snapshot={slowPollSnapshot({})} pinnedNow="2026-10-12T09:30:30.000Z" />
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const timeline = timelineOf(canvasElement);
+    const elapsed = () => elapsedSeconds(canvasElement, SLOW_POLL_ROOT);
+    expect(timeline.classList.contains(SELF_CLOCKED_CLASS)).toBe(true);
+
+    await userEvent.click(canvas.getByRole("button", { name: "Pin the clock" }));
+    await waitFor(() => expect(elapsed()).toBe(30));
+    expect(timeline.classList.contains(SELF_CLOCKED_CLASS)).toBe(false);
+
+    await userEvent.click(canvas.getByRole("button", { name: "Release the clock" }));
+    await waitFor(() => expect(timeline.classList.contains(SELF_CLOCKED_CLASS)).toBe(true));
+    // Two seconds after the start, plus what the page's clock has measured since: far from thirty.
+    expect(elapsed()).toBeLessThan(10);
   },
 };
