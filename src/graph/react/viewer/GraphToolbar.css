@@ -405,3 +405,64 @@
   padding-top: 1px;
   color: var(--color-accent);
 }
+
+/* ─── Phones: 44×44 touch targets ───────────────────────────────────────── */
+/* Below 640px (Tailwind's `sm` breakpoint) every toolbar button, the style
+   menu's trigger and the validation button included, is a 44×44 target, the
+   size a fingertip needs. The button itself grows rather than gaining an
+   invisible extended hit area: the buttons sit 4px apart, so an area reaching
+   44px would cover its neighbour's and take the taps meant for it. Desktop
+   sizes are untouched.
+
+   A bar of 44px buttons can be wider than a phone (or, on an edge anchor,
+   taller than the viewer), so below 640px it wraps, never reaching past
+   ReactFlow's 15px panel margin. The group separators are hidden there, since
+   a wrapped row would end on one. */
+@media (max-width: 639.98px) {
+  .graph-toolbar-panel {
+    /* Not the shrink-to-fit width: for a `top-center` / `bottom-center` bar
+       that is the half of the viewer `left: 50%` leaves it. */
+    width: max-content;
+    max-width: calc(100% - 2 * 15px);
+    max-height: calc(100% - 2 * 15px);
+  }
+
+  .graph-toolbar {
+    flex-wrap: wrap;
+  }
+
+  .graph-toolbar-separator {
+    display: none;
+  }
+
+  /* A row bar's short last row sits under the side it is anchored to. */
+  .graph-toolbar-panel--horizontal.right .graph-toolbar {
+    justify-content: flex-end;
+  }
+
+  .graph-toolbar-panel--horizontal.center .graph-toolbar {
+    justify-content: center;
+  }
+
+  /* An edge anchor's column, as a flex item of the panel, is held to the
+     panel's capped height, so it wraps into a second column, which grows
+     toward the graph rather than off the viewer's edge. */
+  .graph-toolbar-panel--vertical {
+    display: flex;
+  }
+
+  .graph-toolbar-panel--vertical.right .graph-toolbar {
+    flex-wrap: wrap-reverse;
+  }
+
+  .graph-toolbar-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+  }
+
+  .graph-toolbar-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+}
