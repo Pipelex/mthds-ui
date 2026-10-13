@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Fixed
+
+- **44×44 touch targets on a phone**: below 640px of viewport width, every `GraphViewer` toolbar button, the style menu's trigger and the validation button included, is 44×44 instead of 28×28, and the toolbar wraps into rows (or, on a `center-left` / `center-right` anchor, columns) inside the viewer, without its group separators; the detail panel's close button keeps its 24×24 look and takes taps over 44×44 through an invisible extended area. At 640px and above nothing changes, and a host needs no change of its own.
+
 ## [v0.34.0] - 2026-10-13
 
 ### Changed
