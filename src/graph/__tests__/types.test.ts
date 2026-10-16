@@ -20,7 +20,7 @@ import {
 } from "../types";
 import type { GraphSpecNode } from "../types";
 import { buildProblem } from "mthds/errors";
-import { makeGraphNode, makeStuffNode } from "./testUtils";
+import { BINDING_FAILED_PROBLEM, makeGraphNode, makeStuffNode } from "./testUtils";
 
 describe("stuffNodeId", () => {
   it("prefixes digest with stuff_", () => {
@@ -249,6 +249,18 @@ describe("the failing pipe of a problem", () => {
       pipe_type: "PipeSequence",
     };
     expect(isFailingPipeNode(controller)).toBe(false);
+  });
+
+  it("never marks a failed binding, even one whose path spells the sequence its problem locates", () => {
+    // A binding step is no pipe, so its problem locates the sequence holding
+    // it; a `from` path that is that sequence's code makes the names collide.
+    const binding: GraphSpecNode = {
+      ...failedNode("review_catalog", BINDING_FAILED_PROBLEM),
+      kind: "binding",
+      pipe_type: "BindingStep",
+    };
+    expect(problemFailingPipe(BINDING_FAILED_PROBLEM)).toBe(binding.pipe_code);
+    expect(isFailingPipeNode(binding)).toBe(false);
   });
 
   it("marks no node that did not fail, carries no problem, or carries one locating nothing", () => {

@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import type { ConceptInfo, PipeBlueprintUnion, PipeCallNode } from "@graph/types";
+import type { BindingNode, ConceptInfo, PipeBlueprintUnion, PipeCallNode } from "@graph/types";
 import { buildPipeCardPayload } from "@graph/pipeCardPayload";
 import { buildProblem } from "mthds/errors";
 
@@ -245,5 +245,19 @@ describe("buildPipeCardPayload — the failing pipe", () => {
   it("leaves a card whose node did not fail unmarked", () => {
     const node = { ...failed("score_match"), status: "succeeded" as const, error: undefined };
     expect("failingPipe" in buildPipeCardPayload(node, "live")).toBe(false);
+  });
+
+  it("leaves a failed binding's card unmarked when its path spells the pipe the problem locates", () => {
+    const binding: BindingNode = {
+      kind: "binding",
+      id: "bind",
+      pipe_code: "score_match",
+      pipe_type: "BindingStep",
+      description: "Binds 'score_match' to 'score'",
+      status: "failed",
+      io: { inputs: [], outputs: [] },
+      error: PROBLEM,
+    };
+    expect("failingPipe" in buildPipeCardPayload(binding, "live")).toBe(false);
   });
 });

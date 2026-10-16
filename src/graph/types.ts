@@ -355,11 +355,16 @@ export function problemFailingPipe(problem: Problem): string | undefined {
  * and the problem it carries locates the failure beneath it, so of all the
  * failed nodes of a run only the pipe at fault is marked. The test is per node,
  * so of a batch's runs of one pipe, only the run that failed is.
+ *
+ * A binding node is never the failing pipe, because a binding step is no pipe:
+ * its problem locates the sequence holding it. Its `pipe_code` is its `from`
+ * path, which can spell that sequence's code, so the test refuses it by its
+ * kind rather than trusting the names to differ.
  */
 export function isFailingPipeNode(
-  node: Pick<GraphSpecNode, "status" | "pipe_code" | "error">,
+  node: Pick<GraphSpecNode, "kind" | "status" | "pipe_code" | "error">,
 ): boolean {
-  if (node.status !== "failed" || !node.error) return false;
+  if (isBindingNode(node) || node.status !== "failed" || !node.error) return false;
   const pipe = problemFailingPipe(node.error);
   return pipe !== undefined && pipe === node.pipe_code;
 }

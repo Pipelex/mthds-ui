@@ -656,13 +656,21 @@
    names its pipe (`isFailingPipeNode`), as against the controllers above it,
    which failed because of it. A ring in the error colour, drawn as a box-shadow
    so it composes with the validation ring, an outline, and leaves the node's
-   geometry, and so the layout, unchanged. Selected, the card keeps it outside
-   the selection ring. */
+   geometry, and so the layout, unchanged. A box-shadow is one property, so
+   each state a card's own shadow changes in restates the ring beside it:
+   hovered, the card keeps it over the hover shadow (`.pipe-card:hover`, which
+   would otherwise win on specificity and drop it); selected, outside the
+   selection ring. */
 
 .pipe-card--failing-pipe {
   box-shadow:
     0 0 0 2px var(--color-error),
     var(--shadow-sm);
+}
+.pipe-card--failing-pipe:hover {
+  box-shadow:
+    0 0 0 2px var(--color-error),
+    var(--shadow-md);
 }
 .react-flow__node-pipeCard.selected .pipe-card--failing-pipe {
   box-shadow:
