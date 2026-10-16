@@ -1,5 +1,12 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- **The bundled schema names a `PipeFunc`'s function by its import path (Breaking)**: `data/schema/mthds_schema.json` is copied from pipelex v0.87.0. A `PipeFunc`'s `function_name` is now the function's import path from the root of the method tree, such as `funcs.totals.compute_totals`, and the schema refuses one with no dot or with an empty segment, where it accepted any string; a `PipeDocGen`'s `template_file` is described as lying inside its bundle and written with forward slashes.
+- **The vendored MTHDS Test Corpus**: `data/mthds-corpus/` is copied from pipelex v0.87.0. Its vocabulary now says a `PipeFunc` names its function by its import path in the method tree when it explains why the corpus has no `PipeFunc` entry, and it declares as left out the `pipe_func_function_refused` error, which only a `PipeFunc` step produces, and the advisory `template_check_warning`, which never makes a verdict. No entry changes.
+
 ## [v0.35.0] - 2026-10-13
 
 ### Added
