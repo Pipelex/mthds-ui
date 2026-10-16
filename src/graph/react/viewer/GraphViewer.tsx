@@ -468,16 +468,28 @@ export function applyStatusOverrides(
     // The simple style's steps, decisions and frames carry a status; its inputs and outputs do not.
     const simpleWithStatus = simple && "status" in simple ? simple : undefined;
     if (nodeRunStatus(node.data) === newStatus) return node;
+    // The failing-pipe ring says the run failed in this pipe, so a status saying
+    // otherwise takes it off, a card's and a controller group's alike.
+    const keepsMark = newStatus === "failed";
+    const { failingPipe, ...data } = node.data;
+    let pipeCardData = data.pipeCardData;
+    if (pipeCardData) {
+      const { failingPipe: cardMark, ...card } = pipeCardData;
+      pipeCardData = {
+        ...card,
+        status: newStatus,
+        ...(keepsMark && cardMark ? { failingPipe: cardMark } : {}),
+      };
+    }
     return {
       ...node,
       data: {
-        ...node.data,
+        ...data,
+        ...(keepsMark && failingPipe ? { failingPipe } : {}),
         nodeData: node.data.nodeData
           ? { ...node.data.nodeData, status: newStatus }
           : node.data.nodeData,
-        pipeCardData: node.data.pipeCardData
-          ? { ...node.data.pipeCardData, status: newStatus }
-          : node.data.pipeCardData,
+        pipeCardData,
         simple: simpleWithStatus ? { ...simpleWithStatus, status: newStatus } : simple,
       },
     };

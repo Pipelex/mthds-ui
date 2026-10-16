@@ -5,7 +5,7 @@ import type {
   PipeBlueprintUnion,
   PipeCardPayload,
 } from "./types";
-import { multiplicitySuffix } from "./types";
+import { isFailingPipeNode, multiplicitySuffix } from "./types";
 
 /** An io item as a card pill: its name, and its concept with the multiplicity marker (`Document[]`). */
 function ioPill(item: GraphSpecNodeIoItem): { name: string; concept: string } {
@@ -48,5 +48,6 @@ export function buildPipeCardPayload(
   if (typeof docGenFormat === "string" && docGenFormat.trim() !== "") {
     payload.docGenFormat = docGenFormat.trim();
   }
+  if (isFailingPipeNode(node)) payload.failingPipe = true;
   return payload;
 }

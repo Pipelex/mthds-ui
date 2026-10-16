@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import { buildDataflowGraph, buildGraph } from "../graphBuilders";
 import { buildDataflowAnalysis } from "../graphAnalysis";
 import type { GraphSpec } from "../types";
+import { makeFailedRunSpec, runFullPipeline } from "./testUtils";
 
 describe("buildDataflowGraph", () => {
   it("creates pipe and stuff nodes with label descriptors", () => {
@@ -781,3 +782,12 @@ describe("buildDataflowGraph — edge styles", () => {
 
 // Node sorting by controller groups was removed (dagre-specific optimization).
 // ELK handles node ordering via hierarchical children[] natively.
+
+describe("a failed run's failing pipe", () => {
+  it("marks the step the run failed in, and neither the sequence above it nor a step that ran", async () => {
+    const { appNodes } = await runFullPipeline(makeFailedRunSpec());
+    const marked = appNodes.filter((n) => n.data.pipeCardData?.failingPipe || n.data.failingPipe);
+    expect(marked.map((n) => n.id)).toEqual(["score"]);
+    expect(appNodes.find((n) => n.id === "seq")?.data.isController).toBe(true);
+  });
+});

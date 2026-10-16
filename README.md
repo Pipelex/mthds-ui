@@ -28,6 +28,7 @@ If you render the React components, one setup step follows the install: the form
 | `elkjs`               | EPL-2.0 | Graph layout engine                                        |
 | `@xyflow/react`       | MIT     | Graph rendering (`graph/react`)                            |
 | `@pipelex/mthds-form` | MIT     | Run form panel + result view (`form/react`, `graph/react`) |
+| `mthds`               | MIT     | The problem document's type on a failed node, types only   |
 
 `elkjs` (Eclipse Layout Kernel) is licensed under the [Eclipse Public License 2.0](https://www.eclipse.org/legal/epl-2.0/). See [NOTICE](./NOTICE) for details.
 
@@ -80,6 +81,10 @@ return <GraphViewer graph={graph} />;
 ```
 
 Without `pipeIoContracts` and `outputForm` the panel shows each concept's structure table and no data tab. See [docs/stuff-result-panel.md](docs/stuff-result-panel.md).
+
+### Showing why a run failed
+
+A failed node carries the MTHDS Protocol's problem document in its `error` (the `Problem` type of `mthds/errors`). Its detail panel shows the problem's title, code and detail, the pipe it failed in with the path down to it, and its next step, reading only the standard's core members, so a problem from any conforming runtime renders. The graph rings the pipe the run failed in: the node whose own problem's `location` names its pipe, not the controllers that failed because of it. See [docs/run-problem.md](docs/run-problem.md).
 
 ### GraphViewer props
 
@@ -166,6 +171,7 @@ interface GraphSpecNode {
     inputs?: IOItem[];
     outputs?: IOItem[];
   };
+  error?: Problem; // why a failed node failed: the problem document of "mthds/errors"
 }
 
 interface GraphSpecEdge {

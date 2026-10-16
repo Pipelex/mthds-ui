@@ -7,6 +7,7 @@ import {
 import { buildDataflowAnalysis } from "../graphAnalysis";
 import { CONTROLLER_PADDING_X, CONTROLLER_PADDING_TOP, CONTROLLER_PADDING_BOTTOM } from "../types";
 import type { GraphNode, GraphSpec, PipeControllerType } from "../types";
+import { buildProblem } from "mthds/errors";
 
 function makeNode(id: string, overrides?: Partial<GraphNode>): GraphNode {
   return {
@@ -731,5 +732,59 @@ describe("buildControllerNodes — bounding box and padding", () => {
     // The controller's width should accommodate the stuff node at x=400 + 140px
     const ctrlRight = ctrl.position.x + parseFloat(ctrl.style!.width as string);
     expect(ctrlRight).toBeGreaterThanOrEqual(400 + 140);
+  });
+});
+
+describe("buildControllerNodes — the failing pipe", () => {
+  // A condition fails on its own expression; the sequence above it fails because of it.
+  const PROBLEM = buildProblem(
+    "pipe.condition_unmatched",
+    { pipe: "route_claim" },
+    { location: { pipe: "route_claim", path: ["handle_claim", "route_claim"] } },
+  );
+
+  const gs: GraphSpec = {
+    nodes: [
+      {
+        id: "seq",
+        kind: "controller",
+        pipe_code: "handle_claim",
+        pipe_type: "PipeSequence",
+        status: "failed",
+        io: { inputs: [], outputs: [] },
+        error: PROBLEM,
+      },
+      {
+        id: "cond",
+        kind: "controller",
+        pipe_code: "route_claim",
+        pipe_type: "PipeCondition",
+        status: "failed",
+        io: { inputs: [], outputs: [] },
+        error: PROBLEM,
+      },
+      {
+        id: "op1",
+        kind: "operator",
+        pipe_code: "read_claim",
+        pipe_type: "PipeFunc",
+        status: "succeeded",
+        io: { inputs: [], outputs: [] },
+      },
+    ],
+    edges: [
+      { id: "e0", source: "seq", target: "cond", kind: "contains" },
+      { id: "e1", source: "cond", target: "op1", kind: "contains" },
+    ],
+  };
+
+  it("marks the group of a controller that is itself the pipe the run failed in", () => {
+    const ctrlNodes = buildControllerNodes(gs, buildDataflowAnalysis(gs)!, [makeNode("op1")]);
+    expect(ctrlNodes.find((n) => n.id === "cond")!.data.failingPipe).toBe(true);
+  });
+
+  it("leaves the group of a controller that failed because of a pipe beneath it unmarked", () => {
+    const ctrlNodes = buildControllerNodes(gs, buildDataflowAnalysis(gs)!, [makeNode("op1")]);
+    expect("failingPipe" in ctrlNodes.find((n) => n.id === "seq")!.data).toBe(false);
   });
 });

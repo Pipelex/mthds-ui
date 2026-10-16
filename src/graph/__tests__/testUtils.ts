@@ -15,6 +15,7 @@ import type {
   GraphSpecNodeIo,
 } from "../types";
 import { NODE_TYPE_PIPE_CARD, NODE_TYPE_STUFF, stuffNodeId } from "../types";
+import type { Problem } from "mthds/errors";
 import { buildGraph } from "../graphBuilders";
 import { getLayoutedElements } from "../graphLayout";
 import { applyControllers } from "../graphControllers";
@@ -146,6 +147,92 @@ export function makeMinimalSpec(nodeCount: number): GraphSpec {
     nodes.push(node);
   }
 
+  return finalizeSpec(nodes, edges);
+}
+
+// ─── Problem documents ─────────────────────────────────────────────────────
+// Written out rather than built with `mthds/errors`' `buildProblem`, because a
+// story imports this module too, and a runtime import of `mthds` from a story
+// makes Vite discover it mid-run. `problemFixtures.test.ts` holds each one to
+// what the builder writes for its code.
+
+/** `pipe.function_raised`, located at `score_match` beneath `screen_candidate`. */
+export const FUNCTION_RAISED_PROBLEM: Problem = {
+  type: "https://mthds.ai/errors/pipe.function_raised",
+  title: "The method's function raised",
+  detail: "The function 'funcs.score.score_match' of pipe 'score_match' raised an error.",
+  code: "pipe.function_raised",
+  domain: "method",
+  retry: "no",
+  next_step: {
+    kind: "contact_owner",
+    detail:
+      "Ask the method's owner to fix the function 'funcs.score.score_match' of pipe 'score_match'.",
+  },
+  params: { pipe: "score_match", function: "funcs.score.score_match" },
+  location: { pipe: "score_match", path: ["screen_candidate", "score_match"] },
+};
+
+/** `pipe.binding_failed`, located at the sequence `review_catalog` holding the binding. */
+export const BINDING_FAILED_PROBLEM: Problem = {
+  type: "https://mthds.ai/errors/pipe.binding_failed",
+  title: "A binding step could not bind its value",
+  detail:
+    "The binding 'editor_note' of pipe 'review_catalog' could not follow 'catalog' in this run's value.",
+  code: "pipe.binding_failed",
+  domain: "method",
+  retry: "no",
+  next_step: {
+    kind: "contact_owner",
+    detail: "Ask the method's owner to fix the binding 'editor_note' of pipe 'review_catalog'.",
+  },
+  params: { pipe: "review_catalog", binding: "editor_note", segment: "catalog" },
+  location: { pipe: "review_catalog", path: ["review_catalog"] },
+};
+
+/**
+ * A run that failed in its second step: the sequence `screen_candidate` holds
+ * `extract_cv`, which succeeded, and `score_match`, whose function raised. Both
+ * the step and the sequence failed, and both carry the problem, located at
+ * `score_match` beneath the sequence, so only the step is the failing pipe.
+ */
+export function makeFailedRunSpec(): GraphSpec {
+  const problem = FUNCTION_RAISED_PROBLEM;
+  const nodes: GraphSpecNode[] = [
+    {
+      id: "seq",
+      kind: "controller",
+      status: "failed",
+      pipe_code: "screen_candidate",
+      pipe_type: "PipeSequence",
+      io: { inputs: [], outputs: [] },
+      error: problem,
+    },
+    {
+      id: "extract",
+      kind: "operator",
+      status: "succeeded",
+      pipe_code: "extract_cv",
+      pipe_type: "PipeExtract",
+      io: {
+        inputs: [{ digest: "d_cv", name: "cv", concept: "Document" }],
+        outputs: [{ digest: "d_cv_text", name: "cv_text", concept: "Text" }],
+      },
+    },
+    {
+      id: "score",
+      kind: "operator",
+      status: "failed",
+      pipe_code: "score_match",
+      pipe_type: "PipeFunc",
+      io: { inputs: [{ digest: "d_cv_text", name: "cv_text", concept: "Text" }], outputs: [] },
+      error: problem,
+    },
+  ];
+  const edges: GraphSpecEdge[] = [
+    { id: "e_seq_extract", source: "seq", target: "extract", kind: "contains" },
+    { id: "e_seq_score", source: "seq", target: "score", kind: "contains" },
+  ];
   return finalizeSpec(nodes, edges);
 }
 
@@ -427,15 +514,8 @@ export function makeEmptyBindingSpec(
       description: "Binds 'catalog.editor_note' to 'editor_note'",
       io: { inputs: [], outputs: [] },
       execution_data: { from: "catalog.editor_note", result: "editor_note" },
-      ...(status === "failed"
-        ? {
-            error: {
-              error_type: "PipeRunInputsError",
-              message:
-                "The binding step of pipe 'review_catalog' reads 'catalog', which is not in working memory and has no recorded absence.",
-            },
-          }
-        : {}),
+      // A binding step is no pipe, so its problem locates the sequence holding it.
+      ...(status === "failed" ? { error: BINDING_FAILED_PROBLEM } : {}),
     },
   ];
   const edges: GraphSpecEdge[] = [
