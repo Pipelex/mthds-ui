@@ -4,11 +4,13 @@
  * It is a box-shadow, and a box-shadow is one property: any rule that sets a
  * card's shadow for a state of its own, and outranks the ring's rule, drops the
  * ring without a trace. `.pipe-card:hover` did exactly that, so the ring went
- * away under the pointer and came back only once the card was selected. The
- * failure is silent and lives in the cascade, so it is asserted where the
- * cascade runs: the real stylesheet, the components' real markup and a real
- * pointer, in the Chromium the story tests use. A synthetic `mouseover`, which
- * is all a play function can dispatch, never sets `:hover`.
+ * away under the pointer and came back only once the card was selected. A
+ * controller's group had the opposite fault: its ring hid the selection ring
+ * ReactFlow's wrapper draws in the same band beneath it. Both failures are
+ * silent and live in the cascade, so they are asserted where the cascade runs:
+ * the real stylesheet, the components' real markup and a real pointer, in the
+ * Chromium the story tests use. A synthetic `mouseover`, which is all a play
+ * function can dispatch, never sets `:hover`.
  */
 import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
@@ -91,7 +93,7 @@ const PAGE = `<!doctype html>
 /** A point on the canvas no node covers. */
 const AWAY = { x: 780, y: 580 };
 
-/** The ring alone, as it rings a card that is not selected, or a controller's group. */
+/** The ring alone, as it rings a card or a controller's group that is not selected. */
 const ERROR_RING = "0 0 0 2px var(--color-error)";
 
 let browser: Browser;
@@ -148,7 +150,7 @@ describe("the failing pipe's ring, in the browser", () => {
     expect(await shadowOf(FAILING_CARD)).toBe(`${await resolved(ERROR_RING)}, ${hoverShadow}`);
   });
 
-  it("keeps the ring outside the selection ring, under the pointer or not", async () => {
+  it("keeps the card's ring outside the selection ring, under the pointer or not", async () => {
     const selected = await resolved(
       "0 0 0 2px var(--color-accent), 0 0 0 4px var(--color-error), var(--shadow-md)",
     );
@@ -158,14 +160,22 @@ describe("the failing pipe's ring, in the browser", () => {
     expect(await shadowOf(FAILING_CARD)).toBe(selected);
   });
 
-  it("keeps a failing controller's ring under the pointer and when selected", async () => {
+  it("keeps a failing controller's ring under the pointer", async () => {
     const ring = await resolved(ERROR_RING);
     expect(await shadowOf(FAILING_CONTROLLER)).toBe(ring);
     await page.hover(FAILING_CONTROLLER);
     expect(await shadowOf(FAILING_CONTROLLER)).toBe(ring);
+  });
+
+  it("shows both rings on a selected failing controller, its own outside the selection ring", async () => {
+    // The wrapper's selection ring sits in the band the group's ring covers, so
+    // the group draws the same accent ring itself, with its own ring outside.
+    const selectionRing = await resolved("0 0 0 2px var(--color-accent)");
+    const bothRings = await resolved("0 0 0 2px var(--color-accent), 0 0 0 4px var(--color-error)");
     await select("controller");
-    expect(await shadowOf(FAILING_CONTROLLER)).toBe(ring);
-    await page.mouse.move(AWAY.x, AWAY.y);
-    expect(await shadowOf(FAILING_CONTROLLER)).toBe(ring);
+    expect(await shadowOf("#controller")).toContain(selectionRing);
+    expect(await shadowOf(FAILING_CONTROLLER)).toBe(bothRings);
+    await page.hover(FAILING_CONTROLLER);
+    expect(await shadowOf(FAILING_CONTROLLER)).toBe(bothRings);
   });
 });

@@ -660,7 +660,10 @@
    each state a card's own shadow changes in restates the ring beside it:
    hovered, the card keeps it over the hover shadow (`.pipe-card:hover`, which
    would otherwise win on specificity and drop it); selected, outside the
-   selection ring. */
+   selection ring. A controller's group is drawn inside ReactFlow's wrapper,
+   whose selection ring sits in the same band as the group's ring and is
+   painted beneath it, so a selected failing group draws the selection ring
+   itself, with its own ring outside it, the way a selected failing card does. */
 
 .pipe-card--failing-pipe {
   box-shadow:
@@ -680,6 +683,11 @@
 }
 .controller-group-node--failing-pipe {
   box-shadow: 0 0 0 2px var(--color-error);
+}
+.react-flow__node-controllerGroup.selected .controller-group-node--failing-pipe {
+  box-shadow:
+    0 0 0 2px var(--color-accent),
+    0 0 0 4px var(--color-error);
 }
 
 .node-validation-badge {

@@ -272,7 +272,12 @@ describe("PipeDetailPanel on a failed node's problem document", () => {
   ): string {
     const node: GraphSpecNode = {
       id: pipeCode,
-      kind: pipeType === "PipeSequence" ? "controller" : "operator",
+      kind:
+        pipeType === "PipeSequence"
+          ? "controller"
+          : pipeType === "BindingStep"
+            ? "binding"
+            : "operator",
       pipe_code: pipeCode,
       pipe_type: pipeType,
       description: "Score the match",
@@ -309,6 +314,23 @@ describe("PipeDetailPanel on a failed node's problem document", () => {
     });
 
     expect(html).toContain(kvRow("Failed in", "score_match"));
+    expect(html).not.toContain("(this pipe)");
+  });
+
+  it("never calls a failed binding the pipe at fault, even when its path spells that pipe", () => {
+    // A binding step is no pipe, so its problem locates the sequence holding
+    // it; a `from` path that is that sequence's code makes the names collide.
+    const bindingFailed = buildProblem(
+      "pipe.binding_failed",
+      { pipe: "review_catalog", binding: "editor_note", segment: "catalog" },
+      { location: { pipe: "review_catalog" } },
+    );
+    const html = renderFailed(bindingFailed, {
+      pipeCode: "review_catalog",
+      pipeType: "BindingStep",
+    });
+
+    expect(html).toContain(kvRow("Failed in", "review_catalog"));
     expect(html).not.toContain("(this pipe)");
   });
 

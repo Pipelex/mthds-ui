@@ -6,7 +6,13 @@ import type {
   PipeBlueprintUnion,
   GraphSpec,
 } from "@graph/types";
-import { isBindingNode, isDryGraphSpec, isStaticGraphSpec, multiplicitySuffix } from "@graph/types";
+import {
+  isBindingNode,
+  isDryGraphSpec,
+  isFailingPipeNode,
+  isStaticGraphSpec,
+  multiplicitySuffix,
+} from "@graph/types";
 import { resolveNodeBlueprint } from "@graph/graphAnalysis";
 import {
   formatDuration,
@@ -203,7 +209,7 @@ export function PipeDetailPanel({ node, spec, onConceptClick }: PipeDetailPanelP
 
       {/* Why it failed: the node's problem document, first, since it is what a
           reader opens a failed node for */}
-      {node.error && <ProblemSection problem={node.error} pipeCode={node.pipe_code} />}
+      {node.error && <ProblemSection problem={node.error} failedHere={isFailingPipeNode(node)} />}
 
       {/* What a binding step binds — structural, so shown in every mode */}
       {isBinding && <BindingStepSection node={node} />}

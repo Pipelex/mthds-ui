@@ -13,13 +13,21 @@ type NodeProblem = NonNullable<GraphSpecNode["error"]>;
  * path down to it from the run's main pipe, and its `next_step`. A member a
  * runtime adds of its own, such as a stack trace, is never shown.
  *
- * `pipeCode` is the code of the node the panel shows. A controller fails when a
- * pipe beneath it does, so its problem names that pipe rather than itself, and
- * the panel says which one; on the pipe at fault it says the failure is its own.
+ * `failedHere` says whether the node the panel shows is the pipe its run failed
+ * in, by the rule the graph rings it by (`isFailingPipeNode`), so the panel and
+ * the card never disagree. A controller fails when a pipe beneath it does, so
+ * its problem names that pipe rather than itself, and the panel says which one;
+ * on the pipe at fault it says the failure is its own. A binding is never that
+ * pipe, even when its `from` path spells the sequence its problem locates.
  */
-export function ProblemSection({ problem, pipeCode }: { problem: NodeProblem; pipeCode?: string }) {
+export function ProblemSection({
+  problem,
+  failedHere,
+}: {
+  problem: NodeProblem;
+  failedHere: boolean;
+}) {
   const failingPipe = problemFailingPipe(problem);
-  const failedHere = failingPipe !== undefined && failingPipe === pipeCode;
   const pipePath = problem.location?.path ?? [];
   return (
     <div className="detail-problem">
