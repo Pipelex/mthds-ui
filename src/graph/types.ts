@@ -1,3 +1,8 @@
+// The MTHDS Protocol's problem document, as the standard's own client generates
+// it from the core error registry. A type import only: nothing of `mthds` runs
+// in this module, so the React-free entries stay free of its code.
+import type { Problem } from "mthds/errors";
+
 // ─── Pipe type taxonomy ─────────────────────────────────────────────────────
 // Operators perform work; controllers orchestrate other pipes.
 
@@ -180,12 +185,6 @@ export interface GraphSpecNodeTiming {
   duration: number;
 }
 
-export interface GraphSpecNodeError {
-  error_type: string;
-  message: string;
-  stack?: string;
-}
-
 /**
  * Inference usage attributed to one graph node — the mirror of pipelex's
  * `NodeUsageSpec`. Read the invariants before rendering any of these numbers;
@@ -291,7 +290,15 @@ export interface GraphSpecNode {
   status: PipeStatus;
   timing?: GraphSpecNodeTiming;
   io: GraphSpecNodeIo;
-  error?: GraphSpecNodeError;
+  /**
+   * Why a failed node failed: the MTHDS Protocol's problem document, the one
+   * error shape every conforming runtime emits. The viewer reads its core
+   * members only — `title`, `detail`, `code`, `next_step` and `location` — so
+   * a problem from any runtime renders, and the members a runtime adds of its
+   * own are kept as received and never read. `validateGraphSpec` refuses a
+   * present one that lacks a required core member, and drops a `null` one.
+   */
+  error?: Problem;
   tags?: Record<string, string>;
   metrics?: Record<string, number>;
   usage?: GraphSpecNodeUsage;
@@ -330,6 +337,31 @@ export type CardNode = PipeCallNode | BindingNode;
 /** Whether a node is a binding step's node. */
 export function isBindingNode(node: Pick<GraphSpecNode, "kind">): boolean {
   return node.kind === "binding";
+}
+
+/**
+ * The pipe a problem says failed: the code its `location` names, when it names
+ * one. A problem that locates no pipe leaves the failure unplaced, and nothing
+ * guesses where it happened.
+ */
+export function problemFailingPipe(problem: Problem): string | undefined {
+  const pipe = problem.location?.pipe;
+  return typeof pipe === "string" && pipe.length > 0 ? pipe : undefined;
+}
+
+/**
+ * Whether a node is the pipe its run failed in: it failed, and its own problem's
+ * `location` names its own pipe. A controller fails when a pipe beneath it does,
+ * and the problem it carries locates the failure beneath it, so of all the
+ * failed nodes of a run only the pipe at fault is marked. The test is per node,
+ * so of a batch's runs of one pipe, only the run that failed is.
+ */
+export function isFailingPipeNode(
+  node: Pick<GraphSpecNode, "status" | "pipe_code" | "error">,
+): boolean {
+  if (node.status !== "failed" || !node.error) return false;
+  const pipe = problemFailingPipe(node.error);
+  return pipe !== undefined && pipe === node.pipe_code;
 }
 
 export type GraphSpecEdgeKind =
@@ -1048,6 +1080,12 @@ export interface PipeCardPayload {
    * graph carries no registry to read it from.
    */
   docGenFormat?: string;
+  /**
+   * Set when the card's node is the pipe its run failed in (`isFailingPipeNode`):
+   * the card wears the failing-pipe ring. Absent on every other card, a failed
+   * controller above the failing pipe included.
+   */
+  failingPipe?: true;
   /** Layout direction, injected by the layout engine: narrow and tall in LR, wide and short in TB. */
   direction?: "LR" | "TB";
   /** When set, the card renders an unfold button that invokes this callback. */
@@ -1158,6 +1196,12 @@ export interface GraphNodeData extends Record<string, unknown> {
   pipeType?: NodePipeType;
   graphMode?: GraphSpecMode;
   pipeCardData?: PipeCardPayload;
+  /**
+   * For a controller group: set when the controller is itself the pipe its run
+   * failed in (`isFailingPipeNode`), so the group wears the failing-pipe ring. A
+   * card carries the same fact on its `pipeCardData`.
+   */
+  failingPipe?: true;
   /** For stuff nodes: "input" (no producer), "output" (no consumer), or undefined (intermediate). */
   stuffRole?: StuffRole;
   /** For stuff nodes: the digest used to build the node ID. */

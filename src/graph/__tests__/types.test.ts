@@ -15,7 +15,11 @@ import {
   ARROW_CLOSED_MARKER,
   isPluralMultiplicity,
   multiplicitySuffix,
+  problemFailingPipe,
+  isFailingPipeNode,
 } from "../types";
+import type { GraphSpecNode } from "../types";
+import { buildProblem } from "mthds/errors";
 import { makeGraphNode, makeStuffNode } from "./testUtils";
 
 describe("stuffNodeId", () => {
@@ -201,5 +205,55 @@ describe("stuff multiplicity", () => {
   it.each([0, -3, 2.5, Number.NaN])("reads the malformed count %s as single", (multiplicity) => {
     expect(isPluralMultiplicity(multiplicity)).toBe(false);
     expect(multiplicitySuffix(multiplicity)).toBe("");
+  });
+});
+
+describe("the failing pipe of a problem", () => {
+  const located = (pipe?: string) =>
+    buildProblem(
+      "pipe.function_raised",
+      { pipe: "score_match", function: "funcs.score.score_match" },
+      pipe === undefined ? {} : { location: { pipe } },
+    );
+
+  function failedNode(pipeCode: string, error = located("score_match")): GraphSpecNode {
+    return {
+      id: pipeCode,
+      kind: "operator",
+      pipe_code: pipeCode,
+      pipe_type: "PipeFunc",
+      status: "failed",
+      io: { inputs: [], outputs: [] },
+      error,
+    };
+  }
+
+  it("reads the pipe the problem's location names", () => {
+    expect(problemFailingPipe(located("score_match"))).toBe("score_match");
+  });
+
+  it("places no failure when the problem locates no pipe, or an empty one", () => {
+    expect(problemFailingPipe(located())).toBeUndefined();
+    expect(problemFailingPipe({ ...located(), location: { input: "cv" } })).toBeUndefined();
+    expect(problemFailingPipe({ ...located(), location: { pipe: "" } })).toBeUndefined();
+  });
+
+  it("marks the failed node whose own problem locates it", () => {
+    expect(isFailingPipeNode(failedNode("score_match"))).toBe(true);
+  });
+
+  it("leaves a failed controller whose problem locates a pipe beneath it unmarked", () => {
+    const controller: GraphSpecNode = {
+      ...failedNode("screen_candidate"),
+      kind: "controller",
+      pipe_type: "PipeSequence",
+    };
+    expect(isFailingPipeNode(controller)).toBe(false);
+  });
+
+  it("marks no node that did not fail, carries no problem, or carries one locating nothing", () => {
+    expect(isFailingPipeNode({ ...failedNode("score_match"), status: "running" })).toBe(false);
+    expect(isFailingPipeNode({ ...failedNode("score_match"), error: undefined })).toBe(false);
+    expect(isFailingPipeNode(failedNode("score_match", located()))).toBe(false);
   });
 });

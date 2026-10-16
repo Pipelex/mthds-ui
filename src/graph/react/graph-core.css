@@ -651,6 +651,29 @@
   outline-offset: 1px;
 }
 
+/* ─── The failing pipe ─────────────────────────────────────────────────────
+   The pipe a failed run failed in: the node whose own problem's `location`
+   names its pipe (`isFailingPipeNode`), as against the controllers above it,
+   which failed because of it. A ring in the error colour, drawn as a box-shadow
+   so it composes with the validation ring, an outline, and leaves the node's
+   geometry, and so the layout, unchanged. Selected, the card keeps it outside
+   the selection ring. */
+
+.pipe-card--failing-pipe {
+  box-shadow:
+    0 0 0 2px var(--color-error),
+    var(--shadow-sm);
+}
+.react-flow__node-pipeCard.selected .pipe-card--failing-pipe {
+  box-shadow:
+    0 0 0 2px var(--color-accent),
+    0 0 0 4px var(--color-error),
+    var(--shadow-md);
+}
+.controller-group-node--failing-pipe {
+  box-shadow: 0 0 0 2px var(--color-error);
+}
+
 .node-validation-badge {
   flex-shrink: 0;
   min-width: 16px;

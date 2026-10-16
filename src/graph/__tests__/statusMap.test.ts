@@ -7,7 +7,7 @@
  */
 import { describe, it, expect } from "vitest";
 import { applyStatusOverrides } from "@graph/react";
-import { makeBindingSpec, makeMinimalSpec, runFullPipeline } from "./testUtils";
+import { makeBindingSpec, makeFailedRunSpec, makeMinimalSpec, runFullPipeline } from "./testUtils";
 
 // ─── Tests ──────────────────────────────────────────────────────────────────
 
@@ -170,5 +170,24 @@ describe("statusMap and binding cards", () => {
     });
     expect(updated.find((n) => n.id === "bind")?.data.pipeCardData?.status).toBe("succeeded");
     expect(updated.find((n) => n.id === "compose")?.data.pipeCardData?.status).toBe("running");
+  });
+});
+
+describe("statusMap and the failing pipe", () => {
+  it("takes the failing-pipe ring off a card a status says no longer failed", async () => {
+    const result = await runFullPipeline(makeFailedRunSpec());
+    const before = result.appNodes.find((n) => n.id === "score");
+    expect(before?.data.pipeCardData?.failingPipe).toBe(true);
+
+    const updated = applyStatusOverrides(result.appNodes, { score_match: "running" });
+    const after = updated.find((n) => n.id === "score");
+    expect(after?.data.pipeCardData?.status).toBe("running");
+    expect("failingPipe" in (after?.data.pipeCardData ?? {})).toBe(false);
+  });
+
+  it("keeps the ring where the status still says failed", async () => {
+    const result = await runFullPipeline(makeFailedRunSpec());
+    const updated = applyStatusOverrides(result.appNodes, { score_match: "failed" });
+    expect(updated.find((n) => n.id === "score")?.data.pipeCardData?.failingPipe).toBe(true);
   });
 });

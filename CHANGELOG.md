@@ -2,7 +2,13 @@
 
 ## [Unreleased]
 
+### Added
+
+- **The failing pipe's ring**: in a run's graph, the pipe the run failed in, the node whose own problem's `location` names its pipe, wears a ring in the error colour (`pipe-card--failing-pipe`, or `controller-group-node--failing-pipe` on a controller at fault), and the controllers that failed because of it do not. `isFailingPipeNode` and `problemFailingPipe` in `./graph` tell the same, and a `statusMap` entry giving that pipe another status takes the ring off.
+
 ### Changed
+
+- **A failed node's `error` is the MTHDS problem document (Breaking)**: `GraphSpecNode.error` is the `Problem` type of `mthds/errors`, a new dependency used for that type alone, and `GraphSpecNodeError`, with its `error_type`, `message` and `stack`, is removed. The detail panel shows the problem first, by its core members only: its title and code, its detail, the pipe it failed in with the path down to it, and its next step, never a member a runtime adds of its own such as a stack trace. `validateGraphSpec` drops a `null` error and refuses a present one that lacks a core member the protocol requires, so a spec carrying the former shape is refused.
 
 - **The bundled schema names a `PipeFunc`'s function by its import path (Breaking)**: `data/schema/mthds_schema.json` is copied from pipelex v0.87.0. A `PipeFunc`'s `function_name` is now the function's import path from the root of the method tree, such as `funcs.totals.compute_totals`, and the schema refuses one with no dot or with an empty segment, where it accepted any string; a `PipeDocGen`'s `template_file` is described as lying inside its bundle and written with forward slashes.
 - **The vendored MTHDS Test Corpus**: `data/mthds-corpus/` is copied from pipelex v0.87.0. Its vocabulary now says a `PipeFunc` names its function by its import path in the method tree when it explains why the corpus has no `PipeFunc` entry, and it declares as left out the `pipe_func_function_refused` error, which only a `PipeFunc` step produces, and the advisory `template_check_warning`, which never makes a verdict. No entry changes.

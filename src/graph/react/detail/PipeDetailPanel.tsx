@@ -23,6 +23,7 @@ import {
   PipeSequenceSection,
   PipeParallelSection,
   PipeBatchSection,
+  ProblemSection,
   UsageCostInline,
   UsageDetails,
   dumpableExecutionData,
@@ -200,6 +201,10 @@ export function PipeDetailPanel({ node, spec, onConceptClick }: PipeDetailPanelP
         )}
       </div>
 
+      {/* Why it failed: the node's problem document, first, since it is what a
+          reader opens a failed node for */}
+      {node.error && <ProblemSection problem={node.error} pipeCode={node.pipe_code} />}
+
       {/* What a binding step binds — structural, so shown in every mode */}
       {isBinding && <BindingStepSection node={node} />}
 
@@ -229,15 +234,6 @@ export function PipeDetailPanel({ node, spec, onConceptClick }: PipeDetailPanelP
             hasBlueprint={!!blueprint}
           />
         )}
-
-      {/* Error */}
-      {node.error && (
-        <div className="detail-error">
-          <div className="detail-error-type">{node.error.error_type}</div>
-          <div className="detail-error-message">{node.error.message}</div>
-          {node.error.stack && <div className="detail-error-stack">{node.error.stack}</div>}
-        </div>
-      )}
 
       {/* Metrics */}
       {showsGeneratedData && node.metrics && Object.keys(node.metrics).length > 0 && (

@@ -10,6 +10,7 @@ import {
   GraphSpecValidationError,
 } from "@graph/validateGraphSpec";
 import type { GraphSpec, GraphSpecNode } from "@graph/types";
+import { buildProblem, isProblem } from "mthds/errors";
 
 /** A minimal, fully valid raw spec — every guaranteed field present. */
 function makeValidSpec(): Record<string, unknown> {
@@ -980,5 +981,112 @@ describe("an absent cost — how a host that drops nulls delivers one", () => {
       by_model: [{ ...unratedModel(), rated_inference_calls: 1 }],
     };
     expectInvalid(raw, "nodes[0].usage.by_model[0].cost");
+  });
+});
+
+describe("a failed node's problem document", () => {
+  /** A spec whose one node failed with `error`, written as a runtime would. */
+  function failedSpec(error: unknown): Record<string, unknown> {
+    const raw = makeValidSpec();
+    const node = (raw.nodes as Record<string, unknown>[])[0];
+    node.status = "failed";
+    node.error = error;
+    return raw;
+  }
+
+  /** The problem the standard's own builder writes, as a plain JSON object. */
+  function builtProblem(): Record<string, unknown> {
+    return JSON.parse(
+      JSON.stringify(
+        buildProblem(
+          "pipe.output_invalid",
+          { pipe: "summarize", output_concept: "Summary", fields: ["title"] },
+          { location: { pipe: "summarize", path: ["run", "summarize"] }, pipeline_run_id: "r1" },
+        ),
+      ),
+    ) as Record<string, unknown>;
+  }
+
+  it("accepts the problem the standard's builder writes, members and all", () => {
+    const problem = builtProblem();
+    expect(isProblem(problem)).toBe(true);
+    const spec = validateGraphSpec(failedSpec(problem));
+    expect(spec.nodes[0].error).toEqual(problem);
+  });
+
+  it("keeps a runtime's own members and its unknown values as received", () => {
+    const problem = {
+      ...builtProblem(),
+      domain: "a_domain_this_reader_does_not_know",
+      next_step: { kind: "a_step_this_reader_does_not_know", detail: "Do the new thing." },
+      stack: "Traceback",
+    };
+    const spec = validateGraphSpec(failedSpec(problem));
+    expect(spec.nodes[0].error).toEqual(problem);
+  });
+
+  it("drops a null error, the way pydantic writes a node that did not fail", () => {
+    const raw = makeValidSpec();
+    (raw.nodes as Record<string, unknown>[])[0].error = null;
+    const spec = validateGraphSpec(raw);
+    expect("error" in spec.nodes[0]).toBe(false);
+  });
+
+  it("refuses the retired error shape, which is no problem document", () => {
+    expectInvalid(
+      failedSpec({ error_type: "PipeRunError", message: "It broke.", stack: null }),
+      "nodes[0].error.type",
+    );
+  });
+
+  it.each(["type", "title", "detail", "domain", "retry"])(
+    "refuses a problem without its %s",
+    (member) => {
+      const problem = builtProblem();
+      delete problem[member];
+      expect(isProblem(problem)).toBe(false);
+      expectInvalid(failedSpec(problem), `nodes[0].error.${member}`);
+    },
+  );
+
+  it("refuses a problem without a code, or with an empty one", () => {
+    const missing = builtProblem();
+    delete missing.code;
+    expectInvalid(failedSpec(missing), "nodes[0].error.code");
+    expectInvalid(failedSpec({ ...builtProblem(), code: "" }), "nodes[0].error.code");
+  });
+
+  it("refuses a problem whose next step is absent or incomplete", () => {
+    const missing = builtProblem();
+    delete missing.next_step;
+    expectInvalid(failedSpec(missing), "nodes[0].error.next_step");
+    expectInvalid(
+      failedSpec({ ...builtProblem(), next_step: { kind: "retry" } }),
+      "nodes[0].error.next_step.detail",
+    );
+    expectInvalid(
+      failedSpec({ ...builtProblem(), next_step: { detail: "Run it again." } }),
+      "nodes[0].error.next_step.kind",
+    );
+  });
+
+  it("refuses a malformed location, as the standard's client does", () => {
+    for (const [location, path] of [
+      [null, "nodes[0].error.location"],
+      ["summarize", "nodes[0].error.location"],
+      [{ pipe: 3 }, "nodes[0].error.location.pipe"],
+      [{ pipe: "summarize", path: "run > summarize" }, "nodes[0].error.location.path"],
+      [{ pipe: "summarize", path: ["run", 7] }, "nodes[0].error.location.path[1]"],
+    ] as const) {
+      const problem = { ...builtProblem(), location };
+      expect(isProblem(problem)).toBe(false);
+      expectInvalid(failedSpec(problem), path);
+    }
+  });
+
+  it("accepts a problem that locates nothing", () => {
+    const problem = builtProblem();
+    delete problem.location;
+    expect(validateGraphSpec(failedSpec(problem)).nodes[0].error).toEqual(problem);
   });
 });

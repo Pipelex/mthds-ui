@@ -91,6 +91,7 @@
     "@pipelex/mthds-form": "^0.17.0",
     "@xyflow/react": "^12",
     "elkjs": "^0.11.1",
+    "mthds": "github:mthds-ai/mthds-js#63a10b210eec6fce85ae7ea1e0b1fbfe22830f7c",
     "smol-toml": "^1.7.0"
   },
   "peerDependencies": {

@@ -13,6 +13,7 @@ import {
   CONTROLLER_PADDING_BOTTOM,
   NODE_TYPE_CONTROLLER,
   graphSpecMode,
+  isFailingPipeNode,
   nodeWidth,
   nodeHeight,
   isStuffNodeId,
@@ -188,6 +189,9 @@ export function buildControllerNodes(
         pipeCode: pipeCode,
         labelText: pipeCode,
         graphMode,
+        // A controller can be the pipe at fault itself, a condition whose
+        // expression could not be evaluated for one.
+        ...(isFailingPipeNode(info) ? { failingPipe: true as const } : {}),
       },
       position: { x: groupX, y: groupY },
       style: {

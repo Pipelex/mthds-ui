@@ -1,6 +1,8 @@
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
+import { buildProblem } from "mthds/errors";
+import type { Problem } from "mthds/errors";
 
 import type { ConceptInfo, GraphSpec, GraphSpecNode, PipeBlueprintUnion } from "@graph/types";
 import { PipeDetailPanel } from "../PipeDetailPanel";
@@ -210,10 +212,11 @@ describe("PipeDetailPanel on a binding node with empty IO", () => {
       execution_data: { from: "catalog.editor_note", result: "editor_note" },
       ...(status === "failed"
         ? {
-            error: {
-              error_type: "PipeRunInputsError",
-              message: "The binding step reads 'catalog', which is not in working memory.",
-            },
+            error: buildProblem(
+              "pipe.binding_failed",
+              { pipe: "review_catalog", binding: "editor_note", segment: "catalog" },
+              { location: { pipe: "review_catalog" } },
+            ),
           }
         : {}),
     };
@@ -221,13 +224,15 @@ describe("PipeDetailPanel on a binding node with empty IO", () => {
     return renderToStaticMarkup(React.createElement(PipeDetailPanel, { node, spec }));
   }
 
-  it("shows a failed binding's status, its error, and what it binds", () => {
+  it("shows a failed binding's status, its problem, and what it binds", () => {
     const html = renderBinding("failed");
 
     expect(html).toContain('<span class="detail-status-label"');
     expect(html).toContain(">failed</span>");
-    expect(html).toContain("PipeRunInputsError");
-    expect(html).toContain("which is not in working memory");
+    expect(html).toContain("pipe.binding_failed");
+    expect(html).toContain("could not follow &#x27;catalog&#x27;");
+    // A binding step is no pipe: its problem names the sequence holding it.
+    expect(html).toContain(kvRow("Failed in", "review_catalog"));
     expect(html).toContain("catalog.editor_note");
     expect(html).toContain("editor_note");
   });
@@ -236,7 +241,7 @@ describe("PipeDetailPanel on a binding node with empty IO", () => {
     const html = renderBinding("skipped");
 
     expect(html).toContain(">skipped</span>");
-    expect(html).not.toContain("detail-error");
+    expect(html).not.toContain("detail-problem");
     expect(html).toContain("catalog.editor_note");
   });
 });
@@ -244,6 +249,123 @@ describe("PipeDetailPanel on a binding node with empty IO", () => {
 function kvRow(label: string, value: string): string {
   return `<span class="detail-kv-key">${label}</span><span class="detail-kv-value">${value}</span>`;
 }
+
+describe("PipeDetailPanel on a failed node's problem document", () => {
+  // The problem the standard's own builder writes for the code, located at the
+  // operator the run failed in, beneath the sequence that called it.
+  const RATE_LIMITED: Problem = buildProblem(
+    "provider.rate_limited",
+    { provider: "openai", model: "gpt-4o" },
+    {
+      status: 429,
+      location: { pipe: "score_match", path: ["screen_candidate", "score_match"] },
+      pipeline_run_id: "run_123",
+    },
+  );
+
+  function renderFailed(
+    problem: Problem,
+    {
+      pipeCode = "score_match",
+      pipeType = "PipeFunc",
+    }: { pipeCode?: string; pipeType?: GraphSpecNode["pipe_type"] } = {},
+  ): string {
+    const node: GraphSpecNode = {
+      id: pipeCode,
+      kind: pipeType === "PipeSequence" ? "controller" : "operator",
+      pipe_code: pipeCode,
+      pipe_type: pipeType,
+      description: "Score the match",
+      domain_code: "demo",
+      status: "failed",
+      io: { inputs: [], outputs: [] },
+      metrics: { tokens: 12 },
+      error: problem,
+    };
+    const spec: GraphSpec = { meta: { format: "mthds", mode: "live" }, nodes: [node], edges: [] };
+    return renderToStaticMarkup(React.createElement(PipeDetailPanel, { node, spec }));
+  }
+
+  it("shows its title, code, detail, the pipe it failed in and its next step", () => {
+    const html = renderFailed(RATE_LIMITED);
+
+    expect(html).toContain(
+      '<span class="detail-problem-title">The provider is rate limiting this deployment</span>',
+    );
+    expect(html).toContain('<code class="detail-problem-code" title="Problem code">');
+    expect(html).toContain("provider.rate_limited");
+    expect(html).toContain("is rate limiting this deployment");
+    expect(html).toContain("gpt-4o");
+    expect(html).toContain(kvRow("Failed in", "score_match (this pipe)"));
+    expect(html).toContain("screen_candidate › score_match");
+    expect(html).toContain(">Next step</div>");
+    expect(html).toContain("Wait, then run the method again.");
+  });
+
+  it("names the pipe beneath on a controller that failed because of it", () => {
+    const html = renderFailed(RATE_LIMITED, {
+      pipeCode: "screen_candidate",
+      pipeType: "PipeSequence",
+    });
+
+    expect(html).toContain(kvRow("Failed in", "score_match"));
+    expect(html).not.toContain("(this pipe)");
+  });
+
+  it("shows the problem before the rest of the run's data", () => {
+    const html = renderFailed(RATE_LIMITED);
+
+    expect(html.indexOf("detail-problem")).toBeGreaterThan(-1);
+    expect(html.indexOf("detail-problem")).toBeLessThan(html.indexOf(">Metrics<"));
+  });
+
+  it("renders any conforming runtime's problem by its core members, never its own", () => {
+    // A code and a step kind this reader does not know, and members a runtime
+    // added of its own: the core members render as received, the rest never.
+    const foreign: Problem = {
+      type: "https://errors.example.com/acme.widget.jammed",
+      title: "The widget jammed",
+      detail: "The widget jammed on its third turn.",
+      code: "acme.widget.jammed",
+      domain: "machinery",
+      retry: "perhaps",
+      next_step: { kind: "wiggle", detail: "Wiggle the widget, then run the method again." },
+      location: { pipe: "score_match" },
+      stack: "Traceback: widget.py, line 3",
+      error_type: "WidgetJammedError",
+    };
+    const html = renderFailed(foreign);
+
+    expect(html).toContain("The widget jammed");
+    expect(html).toContain("acme.widget.jammed");
+    expect(html).toContain("The widget jammed on its third turn.");
+    expect(html).toContain("Wiggle the widget, then run the method again.");
+    expect(html).toContain(kvRow("Failed in", "score_match (this pipe)"));
+    expect(html).not.toContain("Traceback");
+    expect(html).not.toContain("WidgetJammedError");
+    expect(html).not.toContain("machinery");
+  });
+
+  it("places no failure when the problem locates no pipe", () => {
+    const html = renderFailed(
+      buildProblem("provider.rate_limited", { provider: "openai", model: "gpt-4o" }),
+    );
+
+    expect(html).toContain("provider.rate_limited");
+    expect(html).not.toContain("Failed in");
+    expect(html).not.toContain("detail-problem-path");
+  });
+
+  it("draws no path for a failure at the run's main pipe", () => {
+    const html = renderFailed({
+      ...RATE_LIMITED,
+      location: { pipe: "score_match", path: ["score_match"] },
+    });
+
+    expect(html).toContain(kvRow("Failed in", "score_match (this pipe)"));
+    expect(html).not.toContain("detail-problem-path");
+  });
+});
 
 describe("PipeDetailPanel blueprint lookup", () => {
   it("shows a node in a second domain its own domain's blueprint, not the main domain's", () => {
