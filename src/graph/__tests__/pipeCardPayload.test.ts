@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
-import type { ConceptInfo, PipeBlueprintUnion, PipeCallNode } from "@graph/types";
+import type { BindingNode, ConceptInfo, PipeBlueprintUnion, PipeCallNode } from "@graph/types";
 import { buildPipeCardPayload } from "@graph/pipeCardPayload";
+import { buildProblem } from "mthds/errors";
 
 describe("buildPipeCardPayload", () => {
   it("builds an operator payload from a pipe-call node with full io", () => {
@@ -207,5 +208,56 @@ describe("buildPipeCardPayload", () => {
     it("carries no format without a blueprint, so the card draws the node alone", () => {
       expect("docGenFormat" in buildPipeCardPayload(DOC_GEN_NODE, "live")).toBe(false);
     });
+  });
+});
+
+describe("buildPipeCardPayload — the failing pipe", () => {
+  const PROBLEM = buildProblem(
+    "pipe.function_raised",
+    { pipe: "score_match", function: "funcs.score.score_match" },
+    { location: { pipe: "score_match", path: ["screen_candidate", "score_match"] } },
+  );
+
+  function failed(pipeCode: string, kind: "operator" | "controller" = "operator"): PipeCallNode {
+    return {
+      kind,
+      id: pipeCode,
+      pipe_code: pipeCode,
+      pipe_type: kind === "operator" ? "PipeFunc" : "PipeSequence",
+      description: "A step",
+      domain_code: "demo",
+      status: "failed",
+      io: { inputs: [], outputs: [] },
+      error: PROBLEM,
+    };
+  }
+
+  it("marks the card of the pipe the run failed in", () => {
+    expect(buildPipeCardPayload(failed("score_match"), "live").failingPipe).toBe(true);
+  });
+
+  it("leaves the folded card of a controller that failed because of it unmarked", () => {
+    expect("failingPipe" in buildPipeCardPayload(failed("screen_candidate", "controller"))).toBe(
+      false,
+    );
+  });
+
+  it("leaves a card whose node did not fail unmarked", () => {
+    const node = { ...failed("score_match"), status: "succeeded" as const, error: undefined };
+    expect("failingPipe" in buildPipeCardPayload(node, "live")).toBe(false);
+  });
+
+  it("leaves a failed binding's card unmarked when its path spells the pipe the problem locates", () => {
+    const binding: BindingNode = {
+      kind: "binding",
+      id: "bind",
+      pipe_code: "score_match",
+      pipe_type: "BindingStep",
+      description: "Binds 'score_match' to 'score'",
+      status: "failed",
+      io: { inputs: [], outputs: [] },
+      error: PROBLEM,
+    };
+    expect("failingPipe" in buildPipeCardPayload(binding, "live")).toBe(false);
   });
 });

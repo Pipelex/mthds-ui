@@ -2059,15 +2059,29 @@ export const NODE_FAILED: GraphSpecNode = {
     inputs: [],
     outputs: [],
   },
+  // A problem document as a runtime writes it for a provider's rate limit: the
+  // core members, worded as the core registry words the code, located at the
+  // pipe that failed beneath the method's main pipe, and a member of the
+  // runtime's own the panel never shows.
   error: {
-    error_type: "LLMGenerationError",
-    message: "API rate limit exceeded. Please retry after 60 seconds.",
-    stack:
-      'Traceback:\n  File "pipe_llm.py", line 142\n    raise LLMGenerationError(msg)\nLLMGenerationError: API rate limit exceeded',
+    type: "https://mthds.ai/errors/provider.rate_limited",
+    title: "The provider is rate limiting this deployment",
+    status: 429,
+    detail:
+      "The provider 'openai' is rate limiting this deployment's calls to the model 'gpt-4o-mini'.",
+    code: "provider.rate_limited",
+    domain: "runtime",
+    retry: "yes",
+    retry_after: 60,
+    next_step: { kind: "wait", detail: "Wait, then run the method again." },
+    params: { provider: "openai", model: "gpt-4o-mini" },
+    location: { pipe: "broken_pipe", path: ["cv_screening", "broken_pipe"] },
+    pipeline_run_id: "608b9d8b-669a-41cf-ab49-92aa700c5462",
+    stack: 'Traceback:\n  File "pipe_llm.py", line 142\n    raise LLMGenerationError(msg)',
   },
   tags: {},
   metrics: {},
-} as any as GraphSpecNode;
+};
 
 export const ENRICHED_SPEC: GraphSpec = {
   graph_id: "608b9d8b-669a-41cf-ab49-92aa700c5462",
