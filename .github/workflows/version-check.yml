@@ -6,6 +6,10 @@ on:
       - main
       - 'release/v[0-9]+.[0-9]+.[0-9]+'
 
+# No CI run sends usage telemetry, ours or a third party's.
+env:
+  DO_NOT_TRACK: "1"
+
 jobs:
   version-check:
     runs-on: ubuntu-latest

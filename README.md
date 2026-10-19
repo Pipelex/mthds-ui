@@ -424,6 +424,8 @@ make test     # unit tests (vitest)
 make build    # build to dist/
 ```
 
+Storybook's anonymous usage telemetry is disabled in `.storybook/main.ts` (`core.disableTelemetry`), because no test run, locally or in CI, may report to a third party: without it, every `make test` would send an event to storybook.js.org through the Storybook test project, and so would every `make storybook`. Every CI workflow also sets `DO_NOT_TRACK=1`.
+
 ## License
 
 MIT — see [LICENSE](./LICENSE).
