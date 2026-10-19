@@ -125,9 +125,11 @@ beforeAll(async () => {
   await page.setContent(PAGE);
 }, 60_000);
 
+// Closing Chromium on a busy machine outlasts the default hook timeout as
+// readily as launching it does, so the teardown gets the same minute.
 afterAll(async () => {
   await browser?.close();
-});
+}, 60_000);
 
 beforeEach(async () => {
   await page.mouse.move(AWAY.x, AWAY.y);
