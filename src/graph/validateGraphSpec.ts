@@ -248,6 +248,61 @@ function normalizeModelUsageList(value: unknown, path: string): unknown[] {
   return value;
 }
 
+function requireString(value: unknown, path: string): string {
+  if (typeof value !== "string") {
+    fail(path, `expected a string, got ${describe(value)}`);
+  }
+  return value;
+}
+
+/** The members every problem document carries, as the MTHDS Protocol's `Problem` schema requires them. */
+const PROBLEM_REQUIRED_STRINGS = ["type", "title", "detail", "domain", "retry"] as const;
+
+/**
+ * Validate a failed node's problem document: the members the MTHDS Protocol's
+ * `Problem` schema requires, typed as the standard's own client types them, so
+ * the enumerated ones (`domain`, `retry`, `next_step.kind`) take any string and
+ * a runtime's newer value still reads. Of the optional members, the ones the
+ * viewer reads are checked as well, `location.pipe` and `location.path`; every
+ * other member, a runtime's own included, is kept as received and never read.
+ *
+ * The check is written here rather than taken from the client's `isProblem`
+ * because `mthds` is a type-only dependency of this module: its reader would
+ * bring the whole core error registry into every entry that validates a spec,
+ * the standalone viewer included.
+ */
+function validateProblem(problem: unknown, path: string): void {
+  if (!isPlainObject(problem)) {
+    fail(path, `expected a problem document, got ${describe(problem)}`);
+  }
+  for (const member of PROBLEM_REQUIRED_STRINGS) {
+    requireString(problem[member], `${path}.${member}`);
+  }
+  requireNonEmptyString(problem.code, `${path}.code`);
+  const nextStep = problem.next_step;
+  if (!isPlainObject(nextStep)) {
+    fail(`${path}.next_step`, `expected an object, got ${describe(nextStep)}`);
+  }
+  requireString(nextStep.kind, `${path}.next_step.kind`);
+  requireString(nextStep.detail, `${path}.next_step.detail`);
+
+  // A member with no value is absent, never null, so a null location is refused
+  // as the standard's client refuses it.
+  if (!("location" in problem)) return;
+  const location = problem.location;
+  if (!isPlainObject(location)) {
+    fail(`${path}.location`, `expected an object when present, got ${describe(location)}`);
+  }
+  if ("pipe" in location) requireString(location.pipe, `${path}.location.pipe`);
+  if ("path" in location) {
+    const pipePath = location.path;
+    if (!Array.isArray(pipePath)) {
+      fail(`${path}.location.path`, `expected an array of pipe codes, got ${describe(pipePath)}`);
+    }
+    pipePath.forEach((code, i) => requireString(code, `${path}.location.path[${i}]`));
+  }
+}
+
 function validateNode(node: unknown, path: string): void {
   if (!isPlainObject(node)) {
     fail(path, `expected an object, got ${describe(node)}`);
@@ -327,6 +382,14 @@ function validateNode(node: unknown, path: string): void {
     delete node.usage;
   } else if (node.usage !== undefined) {
     validateUsage(node.usage, `${path}.usage`);
+  }
+
+  // `error` is absent or null on a node that did not fail, for the same reason
+  // as `usage`; a present one is the node's problem document.
+  if (node.error === null) {
+    delete node.error;
+  } else if (node.error !== undefined) {
+    validateProblem(node.error, `${path}.error`);
   }
 }
 

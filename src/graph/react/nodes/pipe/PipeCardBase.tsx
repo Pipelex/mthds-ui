@@ -82,6 +82,7 @@ export function PipeCardBase({ data, children }: PipeCardBaseProps) {
   const signatureClass = isSignature ? " pipe-card--signature" : "";
   const bindingClass = isBinding ? " pipe-card--binding" : "";
   const staticClass = isStatic ? " pipe-card--static" : "";
+  const failingClass = data.failingPipe ? " pipe-card--failing-pipe" : "";
   const badgeClass = isController
     ? "pipe-card-badge pipe-card-badge--controller"
     : isSignature
@@ -94,7 +95,7 @@ export function PipeCardBase({ data, children }: PipeCardBaseProps) {
 
   return (
     <div
-      className={`pipe-card ${dirClass}${controllerClass}${signatureClass}${bindingClass}${staticClass}${ringClass}`}
+      className={`pipe-card ${dirClass}${controllerClass}${signatureClass}${bindingClass}${staticClass}${failingClass}${ringClass}`}
     >
       {/* Header: badge + (document format) + pipe code + status + (optional) expand + validation */}
       <div className="pipe-card-header">
@@ -113,7 +114,9 @@ export function PipeCardBase({ data, children }: PipeCardBaseProps) {
           <span
             className="pipe-card-status"
             style={{ color: statusConfig.color }}
-            title={statusConfig.label}
+            title={
+              data.failingPipe ? "Failed here: the run failed in this pipe" : statusConfig.label
+            }
           >
             <span
               className={`pipe-card-status-dot ${isRunning ? "pipe-card-status-dot--pulse" : ""}`}

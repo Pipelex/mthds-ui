@@ -12,6 +12,8 @@ interface ControllerGroupData {
   onToggleFold?: (options?: FoldToggleOptions) => void;
   validation?: NodeValidationSummary;
   onValidationBadgeClick?: () => void;
+  /** Set when the controller is itself the pipe its run failed in (`isFailingPipeNode`). */
+  failingPipe?: true;
 }
 
 const CONTROLLER_CONFIG: Record<PipeControllerType, { badge: string; icon: string }> = {
@@ -41,9 +43,12 @@ export function ControllerGroupNode({ data }: { data: ControllerGroupData }) {
     (data.childCount ?? 0) > MAX_VISIBLE_CONTROLLER_CHILDREN;
 
   const hiddenCount = isCollapsible ? (data.childCount ?? 0) - MAX_VISIBLE_CONTROLLER_CHILDREN : 0;
+  const failingClass = data.failingPipe ? " controller-group-node--failing-pipe" : "";
 
   return (
-    <div className={`controller-group-node ${modifier}${validationRingClass(data.validation)}`}>
+    <div
+      className={`controller-group-node ${modifier}${failingClass}${validationRingClass(data.validation)}`}
+    >
       <div className="controller-group-header">
         <span className="controller-group-icon">{config.icon}</span>
         <span className="controller-group-badge">{config.badge}</span>

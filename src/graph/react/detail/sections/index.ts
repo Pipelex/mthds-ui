@@ -13,6 +13,7 @@ export { PipeSequenceSection } from "./PipeSequenceDetail";
 export { PipeParallelSection } from "./PipeParallelDetail";
 export { PipeBatchSection } from "./PipeBatchDetail";
 export { BindingStepSection } from "./BindingStepDetail";
+export { ProblemSection } from "./ProblemSection";
 
 export {
   MERGED_EXECUTION_DATA_TYPES,
