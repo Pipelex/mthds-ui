@@ -6,6 +6,10 @@ on:
       - main
     types: [opened, synchronize, reopened]
 
+# No CI run sends usage telemetry, ours or a third party's.
+env:
+  DO_NOT_TRACK: "1"
+
 jobs:
   check-changelog:
     runs-on: ubuntu-latest

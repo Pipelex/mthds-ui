@@ -15,6 +15,14 @@ const config: StorybookConfig = {
     "@storybook/addon-onboarding",
   ],
   framework: "@storybook/react-vite",
+  // No run of this repo's tests, locally or in CI, sends usage telemetry,
+  // ours or a third party's. Storybook otherwise reports to storybook.js.org
+  // on every `make test` (the vitest addon's `test-run` event), every
+  // `storybook dev` and every `build-storybook`; all of them read this flag.
+  // `src/__tests__/storybookTelemetry.test.ts` keeps it set.
+  core: {
+    disableTelemetry: true,
+  },
   viteFinal: async (config) => {
     config.resolve = config.resolve || {};
     config.resolve.alias = {
