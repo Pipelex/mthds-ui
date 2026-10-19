@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [v0.36.0] - 2026-10-19
 
 ### Added
 
@@ -9,7 +9,6 @@
 ### Changed
 
 - **A failed node's `error` is the MTHDS problem document (Breaking)**: `GraphSpecNode.error` is the `Problem` type of `mthds/errors`, a new dependency at `^0.32.1`, the range the form kernel names too, used for that type alone, and `GraphSpecNodeError`, with its `error_type`, `message` and `stack`, is removed. The detail panel shows the problem first, by its core members only: its title and code, its detail, the pipe it failed in with the path down to it, and its next step, never a member a runtime adds of its own such as a stack trace. `validateGraphSpec` drops a `null` error and refuses a present one that lacks a core member the protocol requires, so a spec carrying the former shape is refused.
-
 - **The bundled schema names a `PipeFunc`'s function by its import path (Breaking)**: `data/schema/mthds_schema.json` is copied from pipelex v0.87.0. A `PipeFunc`'s `function_name` is now the function's import path from the root of the method tree, such as `funcs.totals.compute_totals`, and the schema refuses one with no dot or with an empty segment, where it accepted any string; a `PipeDocGen`'s `template_file` is described as lying inside its bundle and written with forward slashes.
 - **The vendored MTHDS Test Corpus**: `data/mthds-corpus/` is copied from pipelex v0.87.0. Its vocabulary now says a `PipeFunc` names its function by its import path in the method tree when it explains why the corpus has no `PipeFunc` entry, and it declares as left out the `pipe_func_function_refused` error, which only a `PipeFunc` step produces, and the advisory `template_check_warning`, which never makes a verdict. No entry changes.
 - **`@pipelex/mthds-form` 0.19.0 (Breaking)**: the dependency's range moves from `^0.17.0` to `^0.19.0`, and a caret below 1.0 does not bridge a minor, so a host using `@pipelex/mthds-ui` resolves the newer kernel through `./form` and `./form/react` and takes the kernel's `mthds` `^0.32.1` with it. `ResultEnvProvider`, re-exported from `./form/react` with the new `RenderPdf` type, takes `renderPdf`, which hands "Download PDF" the page to print with the host's own engine instead of rasterising it in the browser, and changes nothing when unset. The run form's controls, its wire format and the two stylesheet entries, `./tailwind.css` and `./form-kernel.css`, are unchanged, so a host on either needs no change of its own.
