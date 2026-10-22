@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+### Added
+
+- **`@pipelex/mthds-ui/form/brand`, the form kernel's brand entry**: the new entry re-exports the kernel's React-free `./brand` entry, so a host derives a team's colours without naming the kernel: `deriveBrandRoles` turns up to three seed colours into colour roles whose text reads at WCAG AA on the theme's page, beside `resolveDarkSeeds`, `isActionFaint`, `isAccentAdjusted`, `readableTextOn`, `PIPELEX_GREEN` and their types, and the kernel's brand contract, token validator and compiler. See [docs/run-form-panel.md](docs/run-form-panel.md#brand-ink-and-a-teams-own-colours).
+
+### Changed
+
+- **`@pipelex/mthds-form` 0.21.0 (Breaking)**: the dependency's range moves from `^0.20.0` to `^0.21.0`, and a caret below 1.0 does not bridge a minor, so a host resolves the newer kernel through `./form`, `./form/brand` and `./form/react`. The controls take a field's focus border and ring, brand-coloured text and the pale fill behind it from three optional tokens, `--brand`, `--brand-muted` and `--brand-muted-foreground`, each falling back to the `--primary` expression it replaced, so a host that defines none of them renders exactly as before, on either stylesheet entry, with no change on its side.
+
 ### Fixed
 
 - **`GraphViewer` draws an error state instead of throwing**: a spec `validateGraphSpec` refuses, such as one carrying a pipe class the viewer does not know or a failed node whose `error` is no MTHDS problem document, no longer throws out of render and takes the host's page down with it: the viewer draws an alert in place of the graph, naming the location refused and what was found there, styled from the graph's tokens so it follows the theme. A spec the validator accepts but the build or the layout cannot draw is shown the same way instead of unmounting the host or leaving a blank canvas, and the next spec the host passes is drawn afresh. `validateGraphSpec` still throws for every other caller. See [docs/error-state.md](docs/error-state.md).

@@ -40,6 +40,10 @@
       "import": "./dist/form/index.js",
       "types": "./dist/form/index.d.ts"
     },
+    "./form/brand": {
+      "import": "./dist/form/brand/index.js",
+      "types": "./dist/form/brand/index.d.ts"
+    },
     "./form/react": {
       "import": "./dist/form/react/index.js",
       "types": "./dist/form/react/index.d.ts"
@@ -88,7 +92,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@pipelex/mthds-form": "^0.20.0",
+    "@pipelex/mthds-form": "^0.21.0",
     "@xyflow/react": "^12",
     "elkjs": "^0.11.1",
     "mthds": "^0.32.1",
