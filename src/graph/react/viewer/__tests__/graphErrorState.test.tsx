@@ -6,8 +6,22 @@ import type { GraphSpec } from "@graph/types";
 import { GraphSpecValidationError } from "@graph/validateGraphSpec";
 import { makeFailedRunSpec, makeMinimalSpec } from "@graph/__tests__/testUtils";
 import { GraphViewer, type GraphViewerProps } from "../GraphViewer";
-import { GRAPH_ERROR_STATE_TITLE, GraphFailureBoundary } from "../GraphErrorState";
-import { describeGraphFailure, readGraphSpec } from "../graphFailure";
+import {
+  GRAPH_ERROR_STATE_TITLE,
+  GRAPH_RELAYOUT_FAILURE_HINT,
+  GRAPH_RELAYOUT_FAILURE_TITLE,
+  GraphFailureBoundary,
+  GraphRelayoutFailure,
+} from "../GraphErrorState";
+import {
+  LAYOUT_FAILURE_ROUTE,
+  describeGraphFailure,
+  isLayoutStale,
+  layoutFailureFor,
+  placeCanvasFailure,
+  readGraphSpec,
+  routeLayoutFailure,
+} from "../graphFailure";
 
 /** A spec whose second pipe is of a class this viewer does not know. */
 function unknownPipeTypeSpec(): GraphSpec {
@@ -171,5 +185,126 @@ describe("GraphFailureBoundary", () => {
     expect(
       GraphFailureBoundary.getDerivedStateFromProps({ ...props, resetKey: "spec-b" }, state),
     ).toEqual({ failure: null, resetKey: "spec-b" });
+  });
+});
+
+describe("isLayoutStale", () => {
+  const specA = makeMinimalSpec(2);
+  const specB = makeMinimalSpec(3);
+
+  it("keeps a layout of the spec still drawn", () => {
+    expect(isLayoutStale(false, specA, specA)).toBe(false);
+  });
+
+  it("drops a layout whose effect was torn down", () => {
+    expect(isLayoutStale(true, specA, specA)).toBe(true);
+  });
+
+  it("drops a layout of a spec the host has since replaced with another", () => {
+    expect(isLayoutStale(false, specA, specB)).toBe(true);
+  });
+
+  it("drops a layout of a spec the host has since replaced with none, or a refused one", () => {
+    // A refused spec reads as no spec (`readGraphSpec`), so both leave null drawn.
+    expect(isLayoutStale(false, specA, null)).toBe(true);
+  });
+
+  it("compares the spec object, not its content", () => {
+    expect(isLayoutStale(false, makeMinimalSpec(2), makeMinimalSpec(2))).toBe(true);
+  });
+});
+
+describe("routeLayoutFailure", () => {
+  it("drops a stale layout's failure, whatever the canvas has drawn", () => {
+    expect(routeLayoutFailure({ stale: true, specDrawn: false })).toBe(LAYOUT_FAILURE_ROUTE.DROP);
+    expect(routeLayoutFailure({ stale: true, specDrawn: true })).toBe(LAYOUT_FAILURE_ROUTE.DROP);
+  });
+
+  it("sends the failed layout of a spec not drawn yet, a new spec's first, to the boundary", () => {
+    expect(routeLayoutFailure({ stale: false, specDrawn: false })).toBe(
+      LAYOUT_FAILURE_ROUTE.BOUNDARY,
+    );
+  });
+
+  it("draws a failed relayout of a spec already drawn over the canvas", () => {
+    expect(routeLayoutFailure({ stale: false, specDrawn: true })).toBe(LAYOUT_FAILURE_ROUTE.CANVAS);
+  });
+});
+
+describe("layoutFailureFor", () => {
+  const specA = makeMinimalSpec(2);
+  const failure = { spec: specA, message: "Error: no layout" };
+
+  it("gives the failure recorded for the spec drawn", () => {
+    expect(layoutFailureFor(failure, specA)).toBe("Error: no layout");
+  });
+
+  it("gives none once another spec is drawn, or none at all", () => {
+    expect(layoutFailureFor(failure, makeMinimalSpec(2))).toBeNull();
+    expect(layoutFailureFor(failure, null)).toBeNull();
+  });
+
+  it("gives none when none was recorded", () => {
+    expect(layoutFailureFor(null, specA)).toBeNull();
+  });
+});
+
+describe("placeCanvasFailure", () => {
+  it("draws a refused spec in place of the flow, in either presentation", () => {
+    for (const interactive of [true, false]) {
+      expect(
+        placeCanvasFailure({ specFailure: "refused", layoutFailure: null, interactive }),
+      ).toEqual({ inPlace: "refused", overFlow: null });
+    }
+  });
+
+  it("draws a relayout's failure over the interactive flow, which keeps its toolbar", () => {
+    expect(
+      placeCanvasFailure({ specFailure: null, layoutFailure: "no layout", interactive: true }),
+    ).toEqual({ inPlace: null, overFlow: "no layout" });
+  });
+
+  it("draws a relayout's failure in place of a still picture, which has no toolbar", () => {
+    expect(
+      placeCanvasFailure({ specFailure: null, layoutFailure: "no layout", interactive: false }),
+    ).toEqual({ inPlace: "no layout", overFlow: null });
+  });
+
+  it("draws nothing when nothing failed", () => {
+    expect(
+      placeCanvasFailure({ specFailure: null, layoutFailure: null, interactive: true }),
+    ).toEqual({ inPlace: null, overFlow: null });
+  });
+});
+
+describe("GraphRelayoutFailure", () => {
+  const failure = describeGraphFailure(new TypeError("x is undefined"));
+
+  it("draws the failure as an alert, worded and styled as the error state", () => {
+    const markup = renderToStaticMarkup(
+      <GraphRelayoutFailure failure={failure} toolbarShown={true} />,
+    );
+    expect(markup).toContain('role="alert"');
+    expect(markup).toContain('class="graph-error-state graph-error-state--floating"');
+    expect(markup).toContain(GRAPH_RELAYOUT_FAILURE_TITLE);
+    expect(markup).toContain("TypeError: x is undefined");
+    expect(markup).toContain(GRAPH_RELAYOUT_FAILURE_HINT);
+    // Clear of no detail panel when none is open.
+    expect(markup).not.toContain("right:");
+  });
+
+  it("points at the toolbar only while it is shown", () => {
+    const markup = renderToStaticMarkup(
+      <GraphRelayoutFailure failure={failure} toolbarShown={false} />,
+    );
+    expect(markup).toContain(GRAPH_RELAYOUT_FAILURE_TITLE);
+    expect(markup).not.toContain(GRAPH_RELAYOUT_FAILURE_HINT);
+  });
+
+  it("stays clear of an open detail panel", () => {
+    const markup = renderToStaticMarkup(
+      <GraphRelayoutFailure failure={failure} toolbarShown={true} rightOffset={380} />,
+    );
+    expect(markup).toContain("right:380px");
   });
 });

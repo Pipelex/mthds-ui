@@ -65,8 +65,17 @@ import { DEFAULT_GRAPH_CONFIG, getPaletteForTheme } from "@graph/graphConfig";
 import { GRAPH_STYLES, resolveGraphStyle, resolveStyleMenu } from "@graph/styles/graphStyles";
 import { GRAPH_STYLE_PIPELINES } from "@graph/styles/stylePipelines";
 import { hydrateLabels } from "./renderLabel";
-import { readGraphSpec } from "./graphFailure";
-import { GraphErrorState, GraphFailureBoundary } from "./GraphErrorState";
+import {
+  LAYOUT_FAILURE_ROUTE,
+  describeGraphFailure,
+  isLayoutStale,
+  layoutFailureFor,
+  placeCanvasFailure,
+  readGraphSpec,
+  routeLayoutFailure,
+  type LayoutFailure,
+} from "./graphFailure";
+import { GraphErrorState, GraphFailureBoundary, GraphRelayoutFailure } from "./GraphErrorState";
 import { GraphToolbar } from "./GraphToolbar";
 import { StillFit } from "./StillFit";
 import { STILL_PLACEHOLDER_HEIGHT_PX } from "./stillViewport";
@@ -516,17 +525,25 @@ interface DetailSelection {
   consumer?: { pipeRef: string; slotName: string };
 }
 
-/** The viewer container's classes: its theme, its mode, the still presentation and the error state. */
+/**
+ * The viewer container's classes: its theme, its mode, the still presentation,
+ * the error state drawn in place of the flow (`failed`), and a relayout's
+ * failure drawn over it (`relayoutFailed`), which dims the drawing beneath.
+ */
 function containerClassName(
   theme: GraphTheme,
   mode: GraphThemeMode,
-  interactive: boolean,
-  failed: boolean,
+  {
+    interactive,
+    failed,
+    relayoutFailed = false,
+  }: { interactive: boolean; failed: boolean; relayoutFailed?: boolean },
 ): string {
   return (
     `react-flow-container react-flow-container--theme-${theme} react-flow-container--mode-${mode}` +
     (interactive ? "" : " react-flow-container--still") +
-    (failed ? " react-flow-container--failed" : "")
+    (failed ? " react-flow-container--failed" : "") +
+    (relayoutFailed ? " react-flow-container--relayout-failed" : "")
   );
 }
 
@@ -535,7 +552,10 @@ function containerClassName(
  * the canvas itself, which reads the spec as a value (`readGraphSpec`); anything
  * else the canvas throws or reports is caught by the boundary around it, which
  * draws the same error state, so no failure of the graph unmounts the host's
- * tree. A new spec clears either.
+ * tree. A new spec clears either. A layout that fails to redraw a spec already
+ * drawn, after a change of direction, folds or style, reaches neither: the
+ * canvas draws it over the flow and keeps the toolbar, so the reader can change
+ * the view back (`routeLayoutFailure`).
  */
 export function GraphViewer(props: GraphViewerProps) {
   return (
@@ -565,7 +585,7 @@ function GraphViewerFailed({
   const palette = { ...getPaletteForTheme(resolvedTheme), ...config.paletteColors };
   return (
     <div
-      className={containerClassName(resolvedTheme, mode, interactive, true)}
+      className={containerClassName(resolvedTheme, mode, { interactive, failed: true })}
       style={palette as React.CSSProperties}
     >
       <GraphErrorState failure={failure} />
@@ -575,7 +595,10 @@ function GraphViewerFailed({
 
 function GraphViewerCanvas(
   props: GraphViewerProps & {
-    /** Reports a failure no render sees, an asynchronous layout's, to the boundary. */
+    /**
+     * Reports a failure no render sees to the boundary: the failed first layout
+     * of a new spec, which is asynchronous.
+     */
     onFailure: (error: unknown) => void;
   },
 ) {
@@ -628,10 +651,28 @@ function GraphViewerCanvas(
     () => readGraphSpec(graphspecProp),
     [graphspecProp],
   );
-  const failed = specFailure !== null;
+  // The spec drawn now, which an asynchronous layout reads after its await to
+  // learn whether the spec it laid out is still the one drawn (`isLayoutStale`).
+  const graphspecRef = React.useRef(graphspec);
+  graphspecRef.current = graphspec;
 
-  // An asynchronous layout's failure is reported to the boundary, which draws
-  // it in place of the canvas: no render sees it, and a blank canvas says nothing.
+  // A relayout's failure: the spec was drawn, and a change of direction, folds
+  // or style failed to redraw it. Kept with the spec it belongs to, so a new
+  // spec clears it on the render that brings it (`layoutFailureFor`), and the
+  // next layout that succeeds clears it too.
+  const [layoutFailure, setLayoutFailure] = React.useState<LayoutFailure | null>(null);
+  const canvasFailure = placeCanvasFailure({
+    specFailure,
+    layoutFailure: layoutFailureFor(layoutFailure, graphspec),
+    interactive,
+  });
+  // The error state replaces the flow: a refused spec, or a still drawing's
+  // relayout failure, which has no toolbar to change the view back from.
+  const failed = canvasFailure.inPlace !== null;
+
+  // The failed first layout of a new spec is reported to the boundary, which
+  // draws it in place of the canvas: no render sees it, a blank canvas says
+  // nothing, and there is no earlier drawing of that spec to go back to.
   const onFailureRef = React.useRef(onFailure);
   onFailureRef.current = onFailure;
 
@@ -1046,15 +1087,44 @@ function GraphViewerCanvas(
     [setNodes],
   );
 
-  // Re-layout when direction or layout config changes
+  // The spec the nodes on the canvas were laid out for: set by each layout that
+  // lands, cleared with the nodes. A failure of a spec with no drawing yet,
+  // a new spec's first layout above all, has nothing to go back to.
+  const drawnSpecRef = React.useRef<GraphSpec | null>(null);
+
+  // Where a failed layout goes (`routeLayoutFailure`): nowhere when it is stale,
+  // to the boundary when the canvas has not drawn its spec yet, and otherwise
+  // over the canvas, which keeps the toolbar. The drawing beneath stays the
+  // last one that succeeded, dimmed, so the reader sees the view they changed
+  // from and can undo the change; the layout cache is dropped, since it may
+  // hold another projection than the one that failed, and nothing repaints
+  // from it until a layout succeeds again. Reads refs only, so it is stable.
+  const reportLayoutFailure = React.useCallback(
+    (error: unknown, spec: GraphSpec | null, stale: boolean) => {
+      // eslint-disable-next-line no-console
+      console.error("[GraphViewer] ELK layout failed:", error);
+      const route = routeLayoutFailure({ stale, specDrawn: drawnSpecRef.current === spec });
+      if (route === LAYOUT_FAILURE_ROUTE.BOUNDARY) {
+        onFailureRef.current(error);
+      } else if (route === LAYOUT_FAILURE_ROUTE.CANVAS) {
+        layoutCacheRef.current = null;
+        setLayoutFailure({ spec, message: describeGraphFailure(error) });
+      }
+    },
+    [],
+  );
+
+  // Re-layout when direction or layout config changes. Neither cancels on a
+  // new spec, so the result is checked against the spec drawn once it settles:
+  // a relayout of a spec since replaced writes nothing and reports nothing.
   React.useEffect(() => {
-    if (!initialDataRef.current) return;
+    const data = initialDataRef.current;
+    if (!data) return;
     let cancelled = false;
+    const isStale = () => isLayoutStale(cancelled, data._graphspec, graphspecRef.current);
 
     void (async () => {
       try {
-        const data = initialDataRef.current;
-        if (!data) return;
         const relayouted = await getLayoutedElements(
           data.nodes,
           data.edges,
@@ -1063,7 +1133,7 @@ function GraphViewerCanvas(
           data._graphspec,
           data._analysis,
         );
-        if (cancelled) return;
+        if (isStale()) return;
         layoutCacheRef.current = {
           nodes: relayouted.nodes,
           edges: relayouted.edges,
@@ -1079,15 +1149,15 @@ function GraphViewerCanvas(
         );
         setNodes(decorateNodes(withControllers.nodes));
         setEdges(toAppEdges(withControllers.edges));
+        drawnSpecRef.current = data._graphspec;
+        setLayoutFailure(null);
         setTimeout(() => {
-          if (!cancelled && reactFlowRef.current && interactiveRef.current) {
+          if (!isStale() && reactFlowRef.current && interactiveRef.current) {
             void reactFlowRef.current.fitView({ padding: 0.1 });
           }
         }, 50);
       } catch (err) {
-        // eslint-disable-next-line no-console
-        console.error("[GraphViewer] ELK layout failed:", err);
-        if (!cancelled) onFailureRef.current(err);
+        reportLayoutFailure(err, data._graphspec, isStale());
       }
     })();
 
@@ -1115,23 +1185,30 @@ function GraphViewerCanvas(
       initialDataRef.current = null;
       rawGraphDataRef.current = null;
       layoutCacheRef.current = null;
+      drawnSpecRef.current = null;
       setNodes([]);
       setEdges([]);
+      setLayoutFailure(null);
       return;
     }
 
     let cancelled = false;
+    const isStale = () => isLayoutStale(cancelled, graphspec, graphspecRef.current);
 
     // A style or edge-type switch redraws the same spec, and keeps what the
-    // reader opened and folded; only a new spec starts afresh.
+    // reader opened and folded; only a new spec starts afresh. A new spec's
+    // failed first layout goes to the boundary, a switch's failure over the
+    // canvas, which keeps the toolbar to switch back with (`reportLayoutFailure`).
     const sameSpec = rawGraphDataRef.current?.graphspec === graphspec;
 
     // Reset expand overrides when graph changes. Update the ref synchronously
     // so any in-flight reads see the cleared state, not the previous graphspec's
     // expand set. Fold state is seeded below after we know the controller IDs.
+    // The previous spec's relayout failure goes with it.
     if (!sameSpec) {
       setExpandedControllers(new Set());
       expandedRef.current = new Set();
+      setLayoutFailure(null);
     }
 
     const style = graphStyleRef.current;
@@ -1241,7 +1318,7 @@ function GraphViewerCanvas(
                 { x: number; y: number; width: number; height: number }
               >,
             };
-        if (cancelled) return;
+        if (isStale()) return;
         layoutCacheRef.current = {
           nodes: layouted.nodes,
           edges: layouted.edges,
@@ -1253,10 +1330,12 @@ function GraphViewerCanvas(
 
         setNodes(decorateNodes(withControllers.nodes));
         setEdges(toAppEdges(withControllers.edges));
+        drawnSpecRef.current = graphspec;
+        setLayoutFailure(null);
 
         // Fit view after render, then apply zoom/pan overrides
         setTimeout(() => {
-          if (!cancelled && reactFlowRef.current && interactiveRef.current) {
+          if (!isStale() && reactFlowRef.current && interactiveRef.current) {
             void reactFlowRef.current.fitView({ padding: 0.1 });
             if (initialZoomRef.current !== undefined && initialZoomRef.current !== null) {
               void reactFlowRef.current.zoomTo(initialZoomRef.current);
@@ -1268,9 +1347,7 @@ function GraphViewerCanvas(
           }
         }, 100);
       } catch (err) {
-        // eslint-disable-next-line no-console
-        console.error("[GraphViewer] ELK layout failed:", err);
-        if (!cancelled) onFailureRef.current(err);
+        reportLayoutFailure(err, graphspec, isStale());
       }
     })();
 
@@ -1307,7 +1384,11 @@ function GraphViewerCanvas(
     const currentAnalysis = raw.analysis;
     if (!currentGraphspec || !currentAnalysis) return;
 
+    // A new spec that is refused, or none, leaves the fold state as it was, so
+    // nothing cancels this effect: the result is checked against the spec drawn
+    // once it settles, as the direction relayout's is.
     let cancelled = false;
+    const isStale = () => isLayoutStale(cancelled, currentGraphspec, graphspecRef.current);
 
     const style = graphStyleRef.current;
     const folded = applyFolds(
@@ -1343,7 +1424,7 @@ function GraphViewerCanvas(
           currentGraphspec,
           projected.analysis,
         );
-        if (cancelled) return;
+        if (isStale()) return;
         layoutCacheRef.current = {
           nodes: layouted.nodes,
           edges: layouted.edges,
@@ -1354,15 +1435,15 @@ function GraphViewerCanvas(
         const withControllers = frameLayout(style, layouted, currentGraphspec, projected.analysis);
         setNodes(decorateNodes(withControllers.nodes));
         setEdges(toAppEdges(withControllers.edges));
+        drawnSpecRef.current = currentGraphspec;
+        setLayoutFailure(null);
         setTimeout(() => {
-          if (!cancelled && reactFlowRef.current && interactiveRef.current) {
+          if (!isStale() && reactFlowRef.current && interactiveRef.current) {
             void reactFlowRef.current.fitView({ padding: 0.1 });
           }
         }, 50);
       } catch (err) {
-        // eslint-disable-next-line no-console
-        console.error("[GraphViewer] ELK layout failed:", err);
-        if (!cancelled) onFailureRef.current(err);
+        reportLayoutFailure(err, currentGraphspec, isStale());
       }
     })();
 
@@ -1558,7 +1639,11 @@ function GraphViewerCanvas(
   return (
     <div
       ref={containerRef}
-      className={containerClassName(resolvedTheme, mode, interactive, failed)}
+      className={containerClassName(resolvedTheme, mode, {
+        interactive,
+        failed,
+        relayoutFailed: canvasFailure.overFlow !== null,
+      })}
       // A still error state takes the height of its message, not a drawing's.
       style={interactive || failed ? undefined : { height: stillHeight }}
       // A still drawing is inert: the flow's own settings reach only its node
@@ -1568,8 +1653,8 @@ function GraphViewerCanvas(
       // would be hidden from a screen reader.
       inert={!interactive && !failed}
     >
-      {specFailure !== null ? (
-        <GraphErrorState failure={specFailure} />
+      {canvasFailure.inPlace !== null ? (
+        <GraphErrorState failure={canvasFailure.inPlace} />
       ) : (
         <>
           <ReactFlow
@@ -1605,6 +1690,15 @@ function GraphViewerCanvas(
               />
             ) : (
               <StillFit onHeight={setStillHeight} />
+            )}
+            {canvasFailure.overFlow !== null && (
+              // Inside the flow, beneath the toolbar: the toolbar stays on top
+              // and usable, so the reader can change the view back.
+              <GraphRelayoutFailure
+                failure={canvasFailure.overFlow}
+                toolbarShown={!hideToolbar}
+                rightOffset={detailOpen ? panelWidth : 0}
+              />
             )}
             {interactive && !hideToolbar && (
               <GraphToolbar

@@ -1,10 +1,20 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, waitFor, within } from "storybook/test";
-import { FOLD_MODE, GRAPH_THEME, type GraphSpec, type GraphSpecNode } from "@graph/types";
+import {
+  FOLD_MODE,
+  GRAPH_STYLE,
+  GRAPH_THEME,
+  type GraphSpec,
+  type GraphSpecNode,
+} from "@graph/types";
 import { makeCycleSpec, makeFailedRunSpec, makeMinimalSpec } from "@graph/__tests__/testUtils";
 import { GraphViewer } from "../GraphViewer";
-import { GRAPH_ERROR_STATE_TITLE } from "../GraphErrorState";
+import {
+  GRAPH_ERROR_STATE_TITLE,
+  GRAPH_RELAYOUT_FAILURE_HINT,
+  GRAPH_RELAYOUT_FAILURE_TITLE,
+} from "../GraphErrorState";
 import { waitForGraphRender } from "./storyTestUtils";
 
 /**
@@ -42,9 +52,10 @@ function legacyErrorSpec(): GraphSpec {
 /**
  * A spec every node and edge of which the validator accepts, but whose shape it
  * does not check: a binding step that "contains" a pipe. Folding it, as the
- * folded mode does on arrival, trips the build's own guard, which throws.
+ * folded mode does on arrival, trips the build's own guard, which throws. So
+ * does framing it in the detailed style's controller groups, after its layout.
  */
-function unbuildableSpec(): GraphSpec {
+function unbuildableSpec(stepCount = 1, containedStep = "op0"): GraphSpec {
   const binding: GraphSpecNode = {
     id: "bind",
     kind: "binding",
@@ -55,15 +66,17 @@ function unbuildableSpec(): GraphSpec {
     domain_code: "billing",
     io: { inputs: [], outputs: [] },
   };
-  const spec = makeMinimalSpec(1);
+  const spec = makeMinimalSpec(stepCount);
   spec.nodes.push(binding);
-  spec.edges.push({ id: "e_bind_op", source: "bind", target: "op0", kind: "contains" });
+  spec.edges.push({ id: "e_bind_op", source: "bind", target: containedStep, kind: "contains" });
   return spec;
 }
 
 const UNKNOWN_PIPE_TYPE = unknownPipeTypeSpec();
 const LEGACY_ERROR = legacyErrorSpec();
 const UNBUILDABLE = unbuildableSpec();
+/** The same flaw around the middle of three steps, which the simple style draws without frames. */
+const UNFRAMABLE = unbuildableSpec(3, "op1");
 const CONTAINMENT_CYCLE = makeCycleSpec();
 const VALID = makeMinimalSpec(3);
 
@@ -175,6 +188,63 @@ export const LayoutFailure: Story = {
     const alert = await errorState(canvasElement);
     const detail = alert.querySelector(".graph-error-state-detail");
     await expect(detail?.textContent?.trim()).not.toBe("");
+  },
+};
+
+/** Open the toolbar's style menu and choose a style by name. */
+async function chooseStyle(canvasElement: HTMLElement, name: string) {
+  const canvas = within(canvasElement);
+  await userEvent.click(canvas.getByRole("button", { name: /^Graph style: / }));
+  const menu = await canvas.findByRole("menu", { name: "Graph style" });
+  await userEvent.click(within(menu).getByRole("menuitemradio", { name: new RegExp(name) }));
+}
+
+/** Whether a pointer at the element's centre lands on it, not on something drawn over it. */
+function takesThePointer(element: HTMLElement): boolean {
+  const rect = element.getBoundingClientRect();
+  const top = document.elementFromPoint(rect.x + rect.width / 2, rect.y + rect.height / 2);
+  return top !== null && element.contains(top);
+}
+
+/**
+ * A layout that fails to redraw a spec already drawn, after the reader's own
+ * change on the toolbar: the simple style draws the spec, and the reader
+ * switches to the detailed style, whose controller frames trip the build's
+ * guard after the layout. The alert is drawn over the dimmed drawing, beneath
+ * the toolbar, which stays on top and usable, and switching back clears it.
+ */
+export const RelayoutFailure: Story = {
+  args: {
+    graph: { graphSpec: UNFRAMABLE },
+    graphStyle: GRAPH_STYLE.SIMPLE,
+    styleMenu: true,
+    initialShowControllers: true,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await waitForGraphRender(canvasElement);
+    await expect(canvas.queryByRole("alert")).toBeNull();
+
+    await chooseStyle(canvasElement, "Detailed");
+    const alert = await canvas.findByRole("alert");
+    await expect(alert).toHaveTextContent(GRAPH_RELAYOUT_FAILURE_TITLE);
+    await expect(alert).toHaveTextContent('expected a pipe-call node ("controller" or "operator")');
+    await expect(alert).toHaveTextContent(GRAPH_RELAYOUT_FAILURE_HINT);
+    // The canvas stayed, with the drawing beneath dimmed and the host's page around it.
+    await expect(canvas.getByText(HOST_CHROME)).toBeInTheDocument();
+    await expect(
+      canvasElement.querySelector(".react-flow-container--relayout-failed"),
+    ).not.toBeNull();
+    await expect(canvasElement.querySelector(".react-flow__node")).not.toBeNull();
+    // The toolbar is drawn above the alert, so a click on it reaches it.
+    await expect(takesThePointer(canvas.getByRole("button", { name: /^Graph style: / }))).toBe(
+      true,
+    );
+
+    await chooseStyle(canvasElement, "Simple");
+    await waitFor(() => expect(canvas.queryByRole("alert")).toBeNull());
+    await waitForGraphRender(canvasElement);
+    await expect(canvasElement.querySelector(".react-flow-container--relayout-failed")).toBeNull();
   },
 };
 

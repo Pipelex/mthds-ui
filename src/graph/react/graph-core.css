@@ -163,6 +163,41 @@
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
+.graph-error-state-hint {
+  margin: 8px 0 0;
+  color: var(--text-secondary);
+}
+/* A relayout's failure (`GraphRelayoutFailure`): a spec already drawn that a
+   change of direction, folds or style failed to redraw. The alert floats over
+   the flow, inside it and beneath the toolbar's panel (z-index 11), so the
+   toolbar stays on top and usable. The layer lets the pointer through to the
+   drawing beneath, which is dimmed: it is the view the reader changed from,
+   not the one they asked for. */
+.react-flow-container--relayout-failed .react-flow__renderer {
+  opacity: 0.35;
+}
+.graph-relayout-failure {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  display: flex;
+  box-sizing: border-box;
+  padding: 16px;
+  overflow: hidden;
+  pointer-events: none;
+  font-family: var(--font-sans);
+}
+.graph-error-state--floating {
+  max-height: 100%;
+  overflow: auto;
+  pointer-events: auto;
+  /* The error tint laid over the opaque panel surface, so the drawing beneath
+     never shows through the text. */
+  background:
+    linear-gradient(var(--color-error-bg), var(--color-error-bg)),
+    var(--surface-panel);
+  box-shadow: var(--shadow-md);
+}
 .react-flow__node {
   font-family: var(--font-sans);
   cursor: pointer;

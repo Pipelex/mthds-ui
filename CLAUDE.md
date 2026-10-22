@@ -49,8 +49,8 @@ src/
         simple/                   # The simple style's node components and stylesheet
       viewer/
         GraphViewer.tsx           # Unified ReactFlow viewer component
-        GraphErrorState.tsx       # The error state drawn in place of a graph, and the boundary around the canvas
-        graphFailure.ts           # readGraphSpec: the validator's refusal as a value, never a throw out of render
+        GraphErrorState.tsx       # The error state drawn in place of a graph, the boundary around the canvas, the relayout alert over it
+        graphFailure.ts           # readGraphSpec, the validator's refusal as a value; the pure rules that settle an async layout
         StyleMenu.tsx             # The toolbar's opt-in graph style menu
         StillFit.tsx              # The still presentation's viewport and height (interactive={false})
         stillViewport.ts          # Its geometry, pure: fit to width, height follows

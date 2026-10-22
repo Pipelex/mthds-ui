@@ -88,7 +88,7 @@ A failed node carries the MTHDS Protocol's problem document in its `error` (the 
 
 ### When a spec cannot be drawn
 
-`GraphViewer` never throws a spec it cannot draw out of render. A spec `validateGraphSpec` refuses, from a runtime newer or older than this package for instance, is drawn as an alert in place of the graph, naming the location refused and what was found there, and so is a spec the build or the layout fails on. Your page stays up, and the next spec you pass is drawn afresh. See [docs/error-state.md](docs/error-state.md).
+`GraphViewer` never throws a spec it cannot draw out of render. A spec `validateGraphSpec` refuses, from a runtime newer or older than this package for instance, is drawn as an alert in place of the graph, naming the location refused and what was found there, and so is a spec the build or its first layout fails on. Your page stays up, and the next spec you pass is drawn afresh. A layout that fails after the reader changes the direction, the folds or the style is drawn as an alert over the dimmed graph instead, with the toolbar kept so they can change the view back. See [docs/error-state.md](docs/error-state.md).
 
 ### GraphViewer props
 

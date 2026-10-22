@@ -20,6 +20,45 @@ export function GraphErrorState({ failure }: { failure: string }) {
   );
 }
 
+/** The title a relayout's failure carries over the canvas. */
+export const GRAPH_RELAYOUT_FAILURE_TITLE = "This view of the method graph could not be drawn";
+
+/** What the reader can do about a relayout's failure, said while the toolbar is shown. */
+export const GRAPH_RELAYOUT_FAILURE_HINT =
+  "The view drawn before it is dimmed beneath. Change the direction, the folds or the style back from the toolbar.";
+
+/**
+ * What `GraphViewer` draws over the flow when a spec it has drawn fails to
+ * redraw after a change of direction, folds or style: the error state's alert,
+ * worded and styled the same, floating over the dimmed drawing and beneath the
+ * toolbar, which stays usable. The layer lets the pointer through to the
+ * drawing; the alert itself takes it, so its text can be selected and copied.
+ */
+export function GraphRelayoutFailure({
+  failure,
+  toolbarShown,
+  rightOffset = 0,
+}: {
+  failure: string;
+  /** Whether the toolbar is shown, so the hint pointing at it applies. */
+  toolbarShown: boolean;
+  /** The width an open detail panel covers on the right, which the alert stays clear of. */
+  rightOffset?: number;
+}) {
+  return (
+    <div
+      className="graph-relayout-failure"
+      style={rightOffset > 0 ? { right: rightOffset } : undefined}
+    >
+      <div className="graph-error-state graph-error-state--floating" role="alert">
+        <p className="graph-error-state-title">{GRAPH_RELAYOUT_FAILURE_TITLE}</p>
+        <p className="graph-error-state-detail">{failure}</p>
+        {toolbarShown && <p className="graph-error-state-hint">{GRAPH_RELAYOUT_FAILURE_HINT}</p>}
+      </div>
+    </div>
+  );
+}
+
 interface GraphFailureBoundaryProps {
   /**
    * The spec the children draw. A new one clears a failure, so the next spec
@@ -29,9 +68,10 @@ interface GraphFailureBoundaryProps {
   /** What to draw in place of the children once they failed. */
   fallback: (failure: string) => React.ReactNode;
   /**
-   * The children, handed `fail`: the way code no boundary sees, such as an
-   * asynchronous layout, reports a failure. Call it only while the result is
-   * still wanted, never for a spec that has since been replaced.
+   * The children, handed `fail`: the way code no boundary sees, such as a new
+   * spec's asynchronous first layout, reports a failure. Call it only while the
+   * result is still wanted, never for a spec that has since been replaced
+   * (`isLayoutStale`).
    */
   children: (fail: (error: unknown) => void) => React.ReactNode;
 }
