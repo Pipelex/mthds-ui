@@ -359,7 +359,7 @@ const contract = getPipeIOContract(pipeIoContracts, domain, pipeCode);
 
 `onRun` fires only once the kernel's run gate passes. This library renders and never executes: no API client, no upload, no storage resolution — the host injects all three.
 
-The kernel's two other host seams travel the same way: `fileSource` lets a file field take a file the host already stores, and `exampleSource` lets the form be filled from one of the method's saved examples, asking first before it replaces what the person entered. A panel given neither offers neither. See [docs/run-form-panel.md](docs/run-form-panel.md#the-teams-files-and-the-methods-examples).
+The kernel's two other host seams travel the same way: `fileSource` lets a file field take a file the host already stores, and `exampleSource` lets the form be filled from one of the method's saved examples, asking first before it replaces what the person entered, then calling `onFill` so a host knows the form was reset rather than edited. A panel given neither offers neither. See [docs/run-form-panel.md](docs/run-form-panel.md#the-teams-files-and-the-methods-examples).
 
 ### Styling the form controls
 

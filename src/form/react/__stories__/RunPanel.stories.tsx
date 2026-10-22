@@ -156,6 +156,7 @@ function PanelHost({
   uploadFile,
   fileSource,
   exampleSource,
+  onFill,
   translate,
 }: {
   contract: PipeIOContract;
@@ -168,6 +169,7 @@ function PanelHost({
   uploadFile?: (file: File, fieldId: string) => Promise<UploadedFile>;
   fileSource?: FileSource;
   exampleSource?: ExampleSource;
+  onFill?: React.ComponentProps<typeof RunPanel>["onFill"];
   translate?: React.ComponentProps<typeof RunPanel>["translate"];
 }) {
   const [values, setValues] = React.useState<Record<string, unknown>>(initialValues);
@@ -189,6 +191,7 @@ function PanelHost({
         uploadFile={uploadFile}
         fileSource={fileSource}
         exampleSource={exampleSource}
+        onFill={onFill}
         translate={translate}
       />
       <pre
@@ -1593,14 +1596,10 @@ export const UploadFileThrowsSynchronously: Story = {
 // kernel's "Fill with an example" — so these stories pin the hand-off and the
 // one thing the panel decides itself: what a fill does to a form whose values
 // the host owns, which the kernel's own form answers with a reset.
-
-/**
- * The sheets the sources open are dialogs portalled to the document's body,
- * outside the canvas, so their queries start there.
- */
-function pageOf(canvasElement: HTMLElement) {
-  return within(canvasElement.ownerDocument.body);
-}
+//
+// The kernel draws its sheets and dialogs in place, inside the panel's form,
+// not in a portal, so they read the panel's palette and `.dark` class, and the
+// queries below find them inside the canvas.
 
 /** The payload `onRun` last received, as `PanelHost` prints it. */
 function payloadOf(canvasElement: HTMLElement): Record<string, unknown> {
@@ -1664,7 +1663,7 @@ export const FileSourceChoosesATeamFile: Story = {
     await expect(canvas.getByRole("button", { name: "Run" })).toBeDisabled();
 
     await userEvent.click(canvas.getByRole("button", { name: /choose from your team's files/i }));
-    const sheet = await pageOf(canvasElement).findByRole("dialog", { name: "Your team's files" });
+    const sheet = await within(canvasElement).findByRole("dialog", { name: "Your team's files" });
 
     await waitFor(() => expect(teamFilesSpy).toHaveBeenCalled());
     const [query] = teamFilesSpy.mock.calls[0];
@@ -1709,7 +1708,7 @@ export const HostEnvFileSourceWins: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole("button", { name: /choose from your team's files/i }));
-    const sheet = await pageOf(canvasElement).findByRole("dialog", { name: "Your team's files" });
+    const sheet = await within(canvasElement).findByRole("dialog", { name: "Your team's files" });
 
     await expect(await within(sheet).findByRole("radio", { name: /INV-2291\.pdf/ })).toBeVisible();
     await expect(within(sheet).queryByRole("radio", { name: /INV-2288\.pdf/ })).toBeNull();
@@ -1744,7 +1743,7 @@ async function chooseExample(canvasElement: HTMLElement, name: string) {
   await userEvent.click(
     within(canvasElement).getByRole("button", { name: /fill with an example/i }),
   );
-  const list = await pageOf(canvasElement).findByRole("dialog", { name: "Examples" });
+  const list = await within(canvasElement).findByRole("dialog", { name: "Examples" });
   await userEvent.click(await within(list).findByRole("button", { name }));
 }
 
@@ -1775,7 +1774,7 @@ export const ExampleFillsAnUntouchedForm: Story = {
     await waitFor(() =>
       expect(canvas.getByLabelText(/subject/i)).toHaveValue("Summer fete on the green"),
     );
-    await expect(pageOf(canvasElement).queryByRole("alertdialog")).not.toBeInTheDocument();
+    await expect(within(canvasElement).queryByRole("alertdialog")).not.toBeInTheDocument();
     await waitFor(() => expect(canvas.queryByLabelText(/style_hint/i)).not.toBeInTheDocument());
   },
 };
@@ -1794,22 +1793,21 @@ export const ExampleAsksBeforeReplacingEdits: Story = {
   args: { ...NOTICE, title: "draft_notice", exampleSource: noticeExamples },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const page = pageOf(canvasElement);
     // Re-read each time: a fill remounts the fields.
     const subject = () => canvas.getByLabelText(/subject/i);
 
     // The person's first words, before any example: the fill asks first.
     await userEvent.type(subject(), "Road works on the high street");
     await chooseExample(canvasElement, "Bridge closure");
-    const question = await page.findByRole("alertdialog", { name: "Replace what you entered?" });
+    const question = await canvas.findByRole("alertdialog", { name: "Replace what you entered?" });
     await userEvent.click(within(question).getByRole("button", { name: "Cancel" }));
-    await waitFor(() => expect(page.queryByRole("alertdialog")).not.toBeInTheDocument());
+    await waitFor(() => expect(canvas.queryByRole("alertdialog")).not.toBeInTheDocument());
     await expect(subject()).toHaveValue("Road works on the high street");
 
     // The list stays open after Cancel; choosing again and replacing fills.
-    const list = page.getByRole("dialog", { name: "Examples" });
+    const list = canvas.getByRole("dialog", { name: "Examples" });
     await userEvent.click(within(list).getByRole("button", { name: "Bridge closure" }));
-    const again = await page.findByRole("alertdialog", { name: "Replace what you entered?" });
+    const again = await canvas.findByRole("alertdialog", { name: "Replace what you entered?" });
     await userEvent.click(within(again).getByRole("button", { name: "Replace" }));
     await waitFor(() => expect(subject()).toHaveValue("Bridge closure on Mill Lane"));
 
@@ -1819,7 +1817,7 @@ export const ExampleAsksBeforeReplacingEdits: Story = {
     await expect(subject()).toHaveValue("Bridge closure on Mill Lane");
     await chooseExample(canvasElement, "Summer fete");
     await waitFor(() => expect(subject()).toHaveValue("Summer fete on the green"));
-    await expect(page.queryByRole("alertdialog")).not.toBeInTheDocument();
+    await expect(canvas.queryByRole("alertdialog")).not.toBeInTheDocument();
   },
 };
 
@@ -1881,7 +1879,6 @@ export const ExampleFillAbandonsUploadInFlight: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const page = pageOf(canvasElement);
     const input = canvasElement.querySelector<HTMLInputElement>(
       `input[id="${ID_PREFIX}-document"]`,
     );
@@ -1893,7 +1890,7 @@ export const ExampleFillAbandonsUploadInFlight: Story = {
     await waitFor(() => expect(canvas.getByText(/Uploading/)).toBeInTheDocument());
 
     await chooseExample(canvasElement, "March invoice");
-    const question = await page.findByRole("alertdialog", { name: "Replace what you entered?" });
+    const question = await canvas.findByRole("alertdialog", { name: "Replace what you entered?" });
     await userEvent.click(within(question).getByRole("button", { name: "Replace" }));
 
     await waitFor(() => expect(canvas.getByText("march-invoice.pdf")).toBeInTheDocument());
@@ -1908,6 +1905,237 @@ export const ExampleFillAbandonsUploadInFlight: Story = {
         content: { url: "https://files.test/march-invoice.pdf" },
       }),
     );
+    await expect(canvas.queryByText("dropped.pdf")).not.toBeInTheDocument();
+  },
+};
+
+/** A method with no example yet, for a person who cannot save one. */
+const NO_EXAMPLES: ExampleSource = {
+  list: () => Promise.resolve({ examples: [] }),
+  hideWhenEmpty: true,
+};
+
+/**
+ * "Fill with an example" follows the pipe, even when the panel stays mounted.
+ *
+ * Under `hideWhenEmpty` the kernel's control reads the list once as it mounts
+ * to learn whether to offer itself, and reads again only when remounted. A host
+ * that switches `contract` in place, as the graph-beside-panel layout does,
+ * would otherwise carry the first pipe's "no examples" over to the next, whose
+ * examples then stay out of reach. The panel remounts the control per contract.
+ */
+export const ExampleControlFollowsPipeSwitch: Story = {
+  args: { ...NOTICE, title: "draft_notice" },
+  render: function Render(args) {
+    const [onExtract, setOnExtract] = React.useState(false);
+    return (
+      <>
+        <PanelHost
+          {...args}
+          {...(onExtract ? EXTRACT : NOTICE)}
+          title={onExtract ? "extract_and_analyze" : "draft_notice"}
+          exampleSource={onExtract ? { ...EXTRACT_EXAMPLES, hideWhenEmpty: true } : NO_EXAMPLES}
+        />
+        <button type="button" data-testid="switch-pipe" onClick={() => setOnExtract(true)}>
+          switch pipe
+        </button>
+      </>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(
+      canvas.queryByRole("button", { name: /fill with an example/i }),
+    ).not.toBeInTheDocument();
+
+    await userEvent.click(canvas.getByTestId("switch-pipe"));
+    await expect(
+      await canvas.findByRole("button", { name: /fill with an example/i }),
+    ).toBeInTheDocument();
+    await chooseExample(canvasElement, "March invoice");
+    await waitFor(() => expect(canvas.getByText("march-invoice.pdf")).toBeInTheDocument());
+  },
+};
+
+/**
+ * A change made just after an upload lands keeps the file.
+ *
+ * An upload's result reaches the host through `onValuesChange` from a promise
+ * continuation, outside any React event, so the host's re-render comes later,
+ * and later still for a host that applies changes through a store or a
+ * transition. A keystroke, or a file chosen from the host's files, made in that
+ * gap must build on the values holding the file rather than on the ones the
+ * last render showed, or the host's last write drops the file. This host
+ * applies every change after a pause so the gap is wide enough to type in.
+ */
+export const ChangeAfterUploadKeepsTheFile: Story = {
+  args: { ...COMPOSE_REPORT, title: "compose_report" },
+  render: function Render(args) {
+    const [values, setValues] = React.useState<Record<string, unknown>>({});
+    const pending = React.useRef<((file: UploadedFile) => void) | null>(null);
+    const uploadFile = React.useCallback(
+      () =>
+        new Promise<UploadedFile>((resolve) => {
+          pending.current = resolve;
+        }),
+      [],
+    );
+    const applyLater = React.useCallback((next: Record<string, unknown>) => {
+      setTimeout(() => setValues(next), 400);
+    }, []);
+    return (
+      <>
+        <RunPanel
+          contract={args.contract}
+          descriptor={args.descriptor}
+          idPrefix={ID_PREFIX}
+          values={values}
+          onValuesChange={applyLater}
+          onRun={() => {}}
+          title={args.title}
+          theme={GRAPH_THEME.DARK}
+          uploadFile={uploadFile}
+        />
+        <button
+          type="button"
+          data-testid="settle-upload"
+          onClick={() =>
+            pending.current?.({ url: "https://files.test/card.png", filename: "card.png" })
+          }
+        >
+          settle upload
+        </button>
+      </>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const fileInput = canvasElement.querySelector<HTMLInputElement>(
+      `input[id="${ID_PREFIX}-card_image"]`,
+    );
+    const nameInput = canvasElement.querySelector<HTMLInputElement>(
+      `input[id="${ID_PREFIX}-profile.name"]`,
+    );
+    if (!fileInput || !nameInput) throw new Error("no input for card_image or profile.name");
+
+    fireEvent.change(fileInput, {
+      target: { files: [new File(["png"], "card.png", { type: "image/png" })] },
+    });
+    await waitFor(() => expect(canvas.getByText(/Uploading/)).toBeInTheDocument());
+
+    // The upload lands: the panel's own mark goes at once, while the host has
+    // yet to apply the values holding the file.
+    await userEvent.click(canvas.getByTestId("settle-upload"));
+    await waitFor(() => expect(canvas.queryByText(/Uploading/)).not.toBeInTheDocument());
+    // A change inside that gap.
+    fireEvent.change(nameInput, { target: { value: "Ada Lovelace" } });
+
+    // Both writes reach the host in order; the last one still holds the file.
+    await waitFor(() =>
+      expect(
+        canvasElement.querySelector<HTMLInputElement>(`input[id="${ID_PREFIX}-profile.name"]`),
+      ).toHaveValue("Ada Lovelace"),
+    );
+    await expect(canvas.getByText("card.png")).toBeInTheDocument();
+  },
+};
+
+/** What the host's `onFill` was handed. */
+const onFillSpy = fn();
+
+/**
+ * `onFill` is how a host running its own uploads learns of a fill.
+ *
+ * This host owns the whole loop through `env.onDropFile` and `env.uploadingIds`,
+ * so the panel cannot abandon its upload on a fill. Told by `onFill`, the host
+ * drops the upload's mark, and its own generation check discards the result
+ * when it lands, so the example's file stays and Run is free at once.
+ */
+export const OnFillLetsTheHostAbandonItsUpload: Story = {
+  args: { ...EXTRACT, title: "extract_and_analyze", exampleSource: EXTRACT_EXAMPLES },
+  render: function Render(args) {
+    const [values, setValues] = React.useState<Record<string, unknown>>({});
+    const [uploadingIds, setUploadingIds] = React.useState<ReadonlySet<string>>(new Set());
+    const generation = React.useRef(0);
+    const pending = React.useRef<(() => void) | null>(null);
+    const onDropFile = React.useCallback((id: string, file: File) => {
+      const startedAt = generation.current;
+      setUploadingIds((ids) => new Set(ids).add(id));
+      pending.current = () => {
+        if (generation.current !== startedAt) return;
+        setUploadingIds((ids) => new Set([...ids].filter((held) => held !== id)));
+        setValues((previous) => ({
+          ...previous,
+          [id]: { url: `https://files.test/${file.name}`, filename: file.name },
+        }));
+      };
+    }, []);
+    const env = React.useMemo<FieldEnv>(
+      () => ({ onDropFile, uploadingIds }),
+      [onDropFile, uploadingIds],
+    );
+    return (
+      <>
+        <RunPanel
+          contract={args.contract}
+          descriptor={args.descriptor}
+          idPrefix={ID_PREFIX}
+          values={values}
+          onValuesChange={setValues}
+          onRun={() => {}}
+          title={args.title}
+          theme={GRAPH_THEME.DARK}
+          env={env}
+          exampleSource={args.exampleSource}
+          onFill={(next, example) => {
+            onFillSpy(next, example);
+            generation.current += 1;
+            setUploadingIds(new Set());
+          }}
+        />
+        <button type="button" data-testid="settle-upload" onClick={() => pending.current?.()}>
+          settle upload
+        </button>
+      </>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Module-level, so a second run against the same module would read the
+    // first run's calls.
+    onFillSpy.mockClear();
+    const input = canvasElement.querySelector<HTMLInputElement>(
+      `input[id="${ID_PREFIX}-document"]`,
+    );
+    if (!input) throw new Error("no file input for document");
+
+    fireEvent.change(input, {
+      target: { files: [new File(["%PDF"], "dropped.pdf", { type: "application/pdf" })] },
+    });
+    await waitFor(() => expect(canvas.getByText(/Uploading/)).toBeInTheDocument());
+
+    // The host's upload in flight is the person's work, so the fill asks.
+    await chooseExample(canvasElement, "March invoice");
+    const question = await canvas.findByRole("alertdialog", { name: "Replace what you entered?" });
+    await userEvent.click(within(question).getByRole("button", { name: "Replace" }));
+
+    await waitFor(() => expect(onFillSpy).toHaveBeenCalledTimes(1));
+    await expect(onFillSpy).toHaveBeenCalledWith(
+      {
+        document: {
+          url: "https://files.test/march-invoice.pdf",
+          filename: "march-invoice.pdf",
+        },
+      },
+      expect.objectContaining({ id: "ex_invoice", name: "March invoice" }),
+    );
+    await waitFor(() => expect(canvas.getByText("march-invoice.pdf")).toBeInTheDocument());
+    await expect(canvas.queryByText(/Uploading/)).not.toBeInTheDocument();
+    await waitFor(() => expect(canvas.getByRole("button", { name: "Run" })).toBeEnabled());
+
+    // The abandoned upload lands, and the host's own check discards it.
+    await userEvent.click(canvas.getByTestId("settle-upload"));
+    await expect(canvas.getByText("march-invoice.pdf")).toBeInTheDocument();
     await expect(canvas.queryByText("dropped.pdf")).not.toBeInTheDocument();
   },
 };

@@ -75,9 +75,12 @@ describe("the ./form/react entry", () => {
     expectTypeOf<FieldEnv["fileSource"]>().toEqualTypeOf<FileSource | undefined>();
   });
 
-  it("types RunPanel's two source props as the kernel's seams", () => {
+  it("types RunPanel's two source props as the kernel's seams, and its fill callback", () => {
     expectTypeOf<RunPanelProps["fileSource"]>().toEqualTypeOf<FileSource | undefined>();
     expectTypeOf<RunPanelProps["exampleSource"]>().toEqualTypeOf<ExampleSource | undefined>();
+    expectTypeOf<RunPanelProps["onFill"]>().toEqualTypeOf<
+      ((values: Record<string, unknown>, example: FormExample) => void) | undefined
+    >();
   });
 
   it("carries the strings the sources' controls speak, in every supplied language", () => {

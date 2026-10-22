@@ -9,6 +9,7 @@ import {
   setValueAtPath,
   type ExampleSource,
   type FileSource,
+  type FormExample,
   type PipeInputFormDescriptor,
   type PipeIOContract,
   type RunField,
@@ -149,9 +150,22 @@ export interface RunPanelProps {
    * control keeps what it held for the values replaced, and an upload the
    * panel has in flight is abandoned, its result discarded when it lands, as
    * on a pipe switch. An upload the host runs itself through `env.onDropFile`
-   * is the host's to abandon. Left unset, nothing is offered.
+   * is the host's to abandon, from `onFill`. Left unset, nothing is offered.
    */
   exampleSource?: ExampleSource;
+  /**
+   * Called once an example has filled the form, after `onValuesChange` has
+   * been handed the example's values, with those values and the example.
+   *
+   * A fill reaches the host's state as an ordinary `onValuesChange`, so this is
+   * the host's one signal that the form was reset rather than edited. The panel
+   * abandons the uploads it runs itself; a host running its own through
+   * `env.onDropFile` abandons them here, and clears their ids from
+   * `env.uploadingIds`, or the field stays marked busy and a late result lands
+   * over the example's value. A host may also use it to remember which example
+   * the form now holds.
+   */
+  onFill?: (values: Record<string, unknown>, example: FormExample) => void;
   /** Panel header. The host names the pipe; there is no default heading. */
   title?: string;
   /**
@@ -219,6 +233,7 @@ export function RunPanel({
   uploadFile,
   fileSource,
   exampleSource,
+  onFill,
   title,
   theme = GRAPH_THEME.LIGHT,
   translate,
@@ -268,9 +283,14 @@ export function RunPanel({
 
   // An upload resolves long after the render that started it, so the write-back
   // must not target the values THAT render captured — the user may well have
-  // typed elsewhere while waiting. This mirror holds the latest ones. Only the
-  // async continuation reads it; every synchronous path stays on the prop,
-  // which is correct there because it runs inside the render that captured it.
+  // typed elsewhere while waiting. This mirror holds the latest ones. Every path
+  // that writes values reads it and moves it forward (a control's change, the
+  // upload write-back, a fill), because the write-back lands outside a React
+  // event: a control's change dispatched before the host re-renders would
+  // otherwise build on values that no longer hold the file. It assumes what the
+  // panel's contract says, that the host keeps the values it is handed: a host
+  // refusing an edit by keeping its old `values` leaves the mirror ahead until
+  // its values next change.
   // Layout, not passive, for the reason spelled out on the contract marker
   // below: a mirror that lags the commit is read by continuations landing in
   // exactly that lag, and here the cost is the host's newer edits overwritten.
@@ -522,14 +542,28 @@ export function RunPanel({
   // reset branch and `newlyRevealed` are both empty on the following pass.
   const [revealed, setRevealed] = React.useState<ReadonlySet<string>>(NOTHING_REVEALED);
   const [latchedFor, setLatchedFor] = React.useState(contract);
+  // How many contracts this panel has shown, moved in the same render-phase
+  // adjustment as the latch and for the same reason. "Fill with an example" is
+  // keyed by it: the kernel's control keeps what it learned about one method's
+  // examples (whether there are any, under `hideWhenEmpty`, read once as it
+  // mounts) and reads again only on a remount, as the kernel's own form expects
+  // a new key for a new method. Without it, a pipe whose method has no example
+  // would hide the control from the next pipe's examples for good. It counts
+  // contracts rather than keying on the source object, which a host may build
+  // inline on every render: that would remount the control on each one, read
+  // the list each time and close a sheet the person has open.
+  const [contractTurns, setContractTurns] = React.useState(0);
   // Read this render off the local value, never off `revealed`: a state update
   // made during render is not visible until the re-render it schedules, and the
   // output computed below has to already reflect it.
   let revealedNow = revealed;
+  let contractTurnsNow = contractTurns;
   if (latchedFor !== contract) {
     revealedNow = NOTHING_REVEALED;
+    contractTurnsNow = contractTurns + 1;
     setLatchedFor(contract);
     setRevealed(revealedNow);
+    setContractTurns(contractTurnsNow);
   }
   const newlyRevealed = fields.filter(
     (field) => !field.required && isFilled(values[field.name]) && !revealedNow.has(field.name),
@@ -570,7 +604,7 @@ export function RunPanel({
   // (`useMethodForm`'s `reset`), made here over values the host owns. It runs
   // from the examples' list, a click away from any field, so nobody is mid-edit.
   const handleFill = React.useCallback(
-    (next: Record<string, unknown>) => {
+    (next: Record<string, unknown>, example: FormExample) => {
       // An upload started before the fill was for values the example replaced:
       // its result is discarded when it lands, and it no longer holds Run.
       generationRef.current += 1;
@@ -580,7 +614,9 @@ export function RunPanel({
       // against, so a fill followed by a second fill does not ask.
       setGiven(next);
       // The form takes the example's shape: the optionals it fills are revealed
-      // by the grow pass, and those it leaves empty fold away.
+      // by the grow pass, and while the fold is collapsed those it leaves empty
+      // fold away. An expanded fold stays expanded, as the kernel's own form
+      // leaves its disclosure alone on a reset: the person opened it.
       setRevealed(NOTHING_REVEALED);
       // Remounted, so no control keeps what it held for the replaced values:
       // the preview of a file still arriving, a refused drop.
@@ -589,8 +625,11 @@ export function RunPanel({
       // continuation landing before the host's re-render reads the mirror.
       valuesRef.current = next;
       onValuesChange(next);
+      // Last, so a host reading its own state here already has the example's
+      // values on their way.
+      onFill?.(next, example);
     },
-    [onValuesChange],
+    [onValuesChange, onFill],
   );
 
   // A submit that has passed the gate latches until the end of the current task.
@@ -673,6 +712,7 @@ export function RunPanel({
               // back (`hideWhenEmpty`, a method with no example yet).
               <div className="mthds-run-panel-examples">
                 <FillWithExample
+                  key={contractTurnsNow}
                   source={exampleSource}
                   fields={fields}
                   touched={touched}
@@ -687,7 +727,19 @@ export function RunPanel({
                 key={`${field.name}:${fills}`}
                 field={field}
                 value={values[field.name]}
-                onChange={(value) => commitValues({ ...values, [field.name]: value }, values)}
+                onChange={(value) => {
+                  // Built on the mirror, not on this render's `values`, for the
+                  // reason the upload write-back advances it: an upload landing
+                  // calls `onValuesChange` outside a React event, so a keystroke
+                  // or a file chosen from the host's files can arrive before the
+                  // host re-renders, and building on the render's values would
+                  // drop the file that just landed. The mirror moves forward
+                  // here too, so two changes in one tick each build on the other.
+                  const before = valuesRef.current;
+                  const next = { ...before, [field.name]: value };
+                  valuesRef.current = next;
+                  commitValues(next, before);
+                }}
                 id={field.name}
                 env={fieldEnv}
               />
