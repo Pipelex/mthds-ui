@@ -1,5 +1,15 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+
+- **`RunPanel`'s `fileSource`, `exampleSource` and `onFill`**: the panel takes the form kernel's two new host seams, typed as its `FileSource` and `ExampleSource`, and a panel given neither is unchanged. A file source reaches every file field, which then offers "Choose from your team's files", and an example source puts "Fill with an example" above the fields, which sets every value through `onValuesChange`, never starts a run, asks "Replace what you entered?" over the person's own work, abandons the panel's uploads in flight and then calls `onFill`, where a host running its own uploads abandons them. See [docs/run-form-panel.md](docs/run-form-panel.md#the-teams-files-and-the-methods-examples).
+
+### Changed
+
+- **`@pipelex/mthds-form` 0.20.0 (Breaking)**: the dependency's range moves from `^0.19.0` to `^0.20.0`, and a caret below 1.0 does not bridge a minor, so a host resolves the newer kernel through `./form` and `./form/react`, which now carry the sources' shapes, their controls (`FilePicker`, `FilePickerEntry`, `FillWithExample`) and the kernel's `sourceFileValue`, `addChosenFiles`, `roomForChosenFiles`, `chosenFilesAdded`, `runValuesFromInputs` and `sameRunValues`. `FieldStrings` gains the keys those controls speak, in English and French, so a host supplying a complete `FieldStrings` of its own rather than a partial override adds them. The run form's existing controls and its wire format are unchanged, and the two stylesheet entries, `./tailwind.css` and `./form-kernel.css`, style the new controls with no change on the host's side.
+
 ## [v0.36.0] - 2026-10-19
 
 ### Added

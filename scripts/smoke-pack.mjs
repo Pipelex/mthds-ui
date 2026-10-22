@@ -117,12 +117,10 @@ const TAILWIND_HOST_PACKAGES = [
  * stops being a difference fails the run so the list cannot rot.
  */
 const SOURCE_ONLY_KERNEL_SELECTORS = new Map([
-  [
-    ".static",
-    "`position: static`, compiled from `static getDerivedStateFromError` in the kernel's " +
-      "`src/react/__tests__/file-ways-in.test.tsx`, which its `@source` reaches; no shipped " +
-      "JavaScript contains the word",
-  ],
+  // Empty since kernel 0.20.0. `.static` was listed while the kernel compiled it
+  // only from a test of its own; a comment in its source list now ships in a
+  // source map under `dist`, which a host's `@source` scans, so a host compiles
+  // it too.
 ]);
 
 /**

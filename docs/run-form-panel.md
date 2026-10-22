@@ -61,6 +61,9 @@ function MethodPanel({ contracts, inputForm, domain, pipeCode, onExecute }) {
 | `running`                   | no       | A run is in flight: the fields and the button go inert. **Set it synchronously inside `onRun`** — see "Why `running` has to be set synchronously".                                                                                                                                                                                          |
 | `env`                       | no       | Ambient `FieldEnv` passed to every control. For `disabled`, `onDropFile` and `resolveUrl` your value wins **per key** and the panel fills in only what you left undefined. `uploadingIds` is the exception: it is the **union** of your set and the panel's, so an upload the panel started can never be hidden by a tracker you also pass. |
 | `uploadFile`                | no       | Stores a dropped file and returns its URL. See "Files" below.                                                                                                                                                                                                                                                                               |
+| `fileSource`                | no       | Lists files you already store, so every empty file field offers "Choose from your team's files" and writes the file chosen as an upload's result. Handed to the controls as `env.fileSource`, and yours wins if you pass that key too. See "The team's files and the method's examples" below.                                              |
+| `exampleSource`             | no       | Lists the method's saved examples, so the panel offers "Fill with an example", which sets every value through `onValuesChange` and never starts a run, asking first over the person's own work. See "The team's files and the method's examples" below.                                                                                     |
+| `onFill`                    | no       | Called once an example has filled the form, with the example's values and the example: your one signal that the form was reset rather than edited. A host running its own uploads through `env.onDropFile` abandons them here.                                                                                                              |
 | `title`                     | no       | Panel header. There is no default — the host names the pipe.                                                                                                                                                                                                                                                                                |
 | `theme`                     | no       | `"dark"` or `"light"`. Drives both this library's palette and the kernel's `.dark` class. Defaults to `"light"`.                                                                                                                                                                                                                            |
 | `translate`                 | no       | Renders the whole error summary in your language — the kernel's per-error keys and the panel's own `runPanel.*` lines alike. English by default.                                                                                                                                                                                            |
@@ -71,7 +74,7 @@ function MethodPanel({ contracts, inputForm, domain, pipeCode, onExecute }) {
 
 This library renders; it never executes. `onRun` hands you a payload and stops there — no API client, no upload, no storage-URL resolution. That is deliberate, and it is the same boundary the kernel draws with its own `FieldEnv`.
 
-**Files.** The panel does the bookkeeping and you do the transfer: supply `uploadFile(file, fieldId)`, and the panel marks the field busy while it runs and writes `{ url, filename }` back at the field's dotted path when it resolves. A failed upload is swallowed — you own how a failure is announced, because you own the transport — and the field simply stays empty. That holds however your function fails: `uploadFile` need not be `async`, so one that validates before it starts the request throws where an `async` spelling of the same body would reject, and the panel treats the two identically. It has to, or the form would wedge on the difference — a field marked busy by a drop whose upload never began stays busy, and a busy field cannot be retried. If you would rather own the whole loop, pass `env.onDropFile` and `env.uploadingIds` instead; yours win. To show a failure on the field that took the file, pass the message in `env.uploadErrors`, keyed by the `fieldId` your upload was handed, and remove the entry when the next file is dropped there. A panel given neither `uploadFile` nor `env.onDropFile` has nowhere to store a file, so its file fields offer no dropzone: each shows a link input and a line saying files cannot be uploaded here. `env.allowUrl: false` removes the link input, which leaves such a field with no way in, and the kernel throws while rendering it, naming its path.
+**Files.** The panel does the bookkeeping and you do the transfer: supply `uploadFile(file, fieldId)`, and the panel marks the field busy while it runs and writes `{ url, filename }` back at the field's dotted path when it resolves. A failed upload is swallowed — you own how a failure is announced, because you own the transport — and the field simply stays empty. That holds however your function fails: `uploadFile` need not be `async`, so one that validates before it starts the request throws where an `async` spelling of the same body would reject, and the panel treats the two identically. It has to, or the form would wedge on the difference — a field marked busy by a drop whose upload never began stays busy, and a busy field cannot be retried. If you would rather own the whole loop, pass `env.onDropFile` and `env.uploadingIds` instead; yours win. To show a failure on the field that took the file, pass the message in `env.uploadErrors`, keyed by the `fieldId` your upload was handed, and remove the entry when the next file is dropped there. A panel given neither `uploadFile` nor `env.onDropFile` has nowhere to store a file, so its file fields offer no dropzone: each shows a link input and a line saying files cannot be uploaded here. `env.allowUrl: false` removes the link input, which leaves such a field with no way in, and the kernel throws while rendering it, naming its path, unless a file source gives it one (below).
 
 Two consequences of an upload being slow, both handled here so a host does not have to think about them.
 
@@ -92,6 +95,37 @@ Two consequences of an upload being slow, both handled here so a host does not h
 An upload is also tied to the form generation it started under, and a result that resolves after you have switched pipes is discarded — as is its bookkeeping. Switching **back** does not revive it: the upload was abandoned when you left, so it stays abandoned rather than landing in a form that spent the intervening time not marking it. Nor does it matter _how_ you left: changing `contract` and unmounting the panel outright are the same departure, so `<RunPanel key={pipeRef} …>` — the ordinary way to reset a child per entity — is abandoned exactly as a prop change is, even though your `values` state lives above the key and is still very much alive. That holds however the switch reached the panel, including from a fetch continuation or a subscription rather than a click, which is a distinction React makes and this matters to: see the code comment on the marker. This matters more than it sounds: two pipes of the same method routinely share an input name — `recruitment.cv_screening` and `recruitment.extract_cv` both take a required `cv` — so without this the file chosen for one would land in the other looking like a deliberate answer, gating satisfied, ready to send. The bookkeeping half is the same problem one step later: switching pipes releases the gate and re-opens the dropzone, so the user can start a second upload on that shared field id, and a departed upload finishing must not un-mark the one that replaced it. The consequence for a host is that **`contract` is referentially significant**: pass the object your lookup returns rather than rebuilding it each render, or uploads in flight will be thrown away. (A host rebuilding it each render is already rebuilding every field, since the field list memoizes on the same reference.)
 
 **Already-stored files.** Pass `env.resolveUrl` so a `pipelex-storage://` URI can be previewed.
+
+### The team's files and the method's examples
+
+The form kernel has two more host seams beside the upload, and the panel takes both as props and does none of their work itself, exactly as with `uploadFile`: you answer, the kernel's controls ask. Their shapes are the kernel's, `FileSource` and `ExampleSource`, which you import from `@pipelex/mthds-ui/form` or `@pipelex/mthds-ui/form/react` like the rest of the kernel, and the kernel's `docs/sources.md` is their contract: what a query carries, what a page answers, and how each sheet behaves. A panel given neither is exactly the panel it was before them.
+
+```tsx
+<RunPanel
+  contract={contract}
+  descriptor={descriptor}
+  values={values}
+  onValuesChange={setValues}
+  onRun={onExecute}
+  uploadFile={uploadFile}
+  fileSource={{
+    initialScope: "mine",
+    list: ({ search, scope, mediaTypes, cursor, signal }) =>
+      myFiles.list({ search, scope, mediaTypes, cursor }, { signal }),
+  }}
+  exampleSource={{
+    list: ({ cursor, signal }) => myExamples.list(methodId, { cursor }, { signal }),
+  }}
+/>
+```
+
+**`fileSource`** lists files you already store. Every empty file field then offers "Choose from your team's files" under its own controls, and a list of files offers it for several at once. The sheet asks you for one page at a time, narrowed to the media types the field accepts, starting on the side of the Mine and Everyone switch your `initialScope` names, and your answer must hold only files of those types, because the field writes the choice without inspecting it. The file chosen is written as `{ url, filename }` through the field's own change, exactly as an upload's result is, so it counts toward readiness and reaches the payload like any other value. The panel hands the source to every control as `env.fileSource`; pass that key yourself and yours wins, as `env.onDropFile` wins over `uploadFile`. A file source is a way into a file field of its own, so a field given one, no upload and `env.allowUrl: false` takes the team's files alone rather than throwing.
+
+**`exampleSource`** lists the method's saved examples, in the run-input shape `onRun` hands you, so you save an example from a run's inputs and give it back as you stored it. The panel then offers "Fill with an example" above the fields, which sets every value at once through `onValuesChange` and never starts a run. The source's `rename`, `delete` and `hideWhenEmpty` are the kernel's options and behave as it documents them; under `hideWhenEmpty` the control, and the row it sits in, stay out of the panel until the method is known to have an example. The control is remounted whenever `contract` changes, so it asks again for the pipe now shown even when you switch pipes on a mounted panel; build the source inline if you like, since the panel never keys anything on its identity.
+
+**Which values are the person's own is the one question the panel answers itself**, because the values are yours and only the panel sees which changes came through its controls. A fill over the person's own work asks "Replace what you entered?" first, and Cancel leaves the form as it was. The panel counts as their work a value that would send a different run from the form as it stood just before their first edit in this panel (a control's change, a file chosen or uploaded) or as the last example filled it, and any file still arriving, yours included. Values you set from outside before that first edit, such as a draft you restore after mounting or a past run's inputs, are the form you gave, so an example replaces them without asking. A value typed and erased again sends the same run and does not count either. Switching `contract` starts the count afresh.
+
+**A fill is a reset**, as it is in the kernel's own form. A rejected submit's summary goes, the optionals the example leaves empty fold away while the optional inputs are collapsed (an expanded fold stays expanded, as the kernel's own disclosure does), and every field remounts, so no control keeps the preview of a file it no longer holds. An upload the panel has in flight is abandoned exactly as on a pipe switch: its hold on Run is released at once, and its result is discarded when it lands, since writing it then would put back a file the person no longer sees chosen. An upload you run yourself through `env.onDropFile` is yours to abandon, and `onFill` is how you learn of the fill: it is called once the example's values have gone to `onValuesChange`, with those values and the example. Drop the upload's id from `env.uploadingIds` there and discard its result when it lands, or the field stays marked busy, Run stays held, and the late result lands over the example's value. While the fields are held, by `running` or by `env.disabled`, so is the fill, and the kernel closes any of its sheets that is open.
 
 ## What to know about the gate
 
@@ -255,12 +289,13 @@ src/styles/
 src/form/
   runGate.ts                    # the submit path, React-free and unit-tested
   __tests__/runGate.test.ts
+  __tests__/entries.test.ts     # what ./form and ./form/react carry of the kernel's sources
   react/
     RunPanel.tsx                # the panel
     RunPanel.css                # panel chrome only
     index.ts                    # the ./form/react entry
     __stories__/
-      RunPanel.stories.tsx      # field kinds, readiness, running, invalid submit
+      RunPanel.stories.tsx      # field kinds, readiness, running, invalid submit, the file and example sources
       GraphWithRunPanel.stories.tsx  # GraphViewer → onNodeSelect → RunPanel
       contracts/_generated.contracts.ts
 ```
