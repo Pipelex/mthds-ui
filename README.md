@@ -359,6 +359,8 @@ const contract = getPipeIOContract(pipeIoContracts, domain, pipeCode);
 
 `onRun` fires only once the kernel's run gate passes. This library renders and never executes: no API client, no upload, no storage resolution — the host injects all three.
 
+The kernel's two other host seams travel the same way: `fileSource` lets a file field take a file the host already stores, and `exampleSource` lets the form be filled from one of the method's saved examples, asking first before it replaces what the person entered, then calling `onFill` so a host knows the form was reset rather than edited. A panel given neither offers neither. See [docs/run-form-panel.md](docs/run-form-panel.md#the-teams-files-and-the-methods-examples).
+
 ### Styling the form controls
 
 The controls inside `RunPanel`, and inside the graph's detail panel, are the form kernel's, styled with Tailwind classes over the shadcn tokens. No entry of this package imports a stylesheet for them: your app loads one, and which one depends on whether it runs Tailwind. **Load one of the two, never both.**
@@ -423,6 +425,8 @@ make check    # lint + format-check + typecheck
 make test     # unit tests (vitest)
 make build    # build to dist/
 ```
+
+Storybook's anonymous usage telemetry is disabled in `.storybook/main.ts` (`core.disableTelemetry`), because no test run, locally or in CI, may report to a third party: without it, every `make test` would send an event to storybook.js.org through the Storybook test project, and so would every `make storybook`. Every CI workflow also sets `DO_NOT_TRACK=1`.
 
 ## License
 

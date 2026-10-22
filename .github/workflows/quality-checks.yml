@@ -3,6 +3,10 @@ name: Quality Checks
 on:
   pull_request:
 
+# No CI run sends usage telemetry, ours or a third party's.
+env:
+  DO_NOT_TRACK: "1"
+
 jobs:
   quality:
     name: Quality Checks
