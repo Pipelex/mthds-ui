@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- **`@pipelex/mthds-form` 0.20.0 (Breaking)**: the dependency's range moves from `^0.19.0` to `^0.20.0`, and a caret below 1.0 does not bridge a minor, so a host using `@pipelex/mthds-ui` resolves the newer kernel through `./form` and `./form/react`. Those entries now carry the sources' shapes, the `FilePicker`, `FilePickerEntry` and `FillWithExample` controls, and the kernel's `sourceFileValue`, `addChosenFiles`, `roomForChosenFiles`, `chosenFilesAdded`, `runValuesFromInputs` and `sameRunValues`. `FieldStrings` gains the keys those controls speak, so a host supplying a complete `FieldStrings` of its own rather than a partial override adds them; English and French are supplied. The run form's existing controls and its wire format are unchanged, and the two stylesheet entries, `./tailwind.css` and `./form-kernel.css`, style the new controls with no change on the host's side.
+
 ## [v0.36.0] - 2026-10-19
 
 ### Added
