@@ -49,6 +49,8 @@ src/
         simple/                   # The simple style's node components and stylesheet
       viewer/
         GraphViewer.tsx           # Unified ReactFlow viewer component
+        GraphErrorState.tsx       # The error state drawn in place of a graph, the boundary around the canvas, the relayout alert over it
+        graphFailure.ts           # readGraphSpec, the validator's refusal as a value; the pure rules that settle an async layout
         StyleMenu.tsx             # The toolbar's opt-in graph style menu
         StillFit.tsx              # The still presentation's viewport and height (interactive={false})
         stillViewport.ts          # Its geometry, pure: fit to width, height follows
@@ -66,6 +68,7 @@ src/
           pipeCardRegistry.ts     # Pipe type → component registry
   form/                           # Run form panel over @pipelex/mthds-form (separate entry point):
     runGate.ts                    #   The submit path, React-free: the kernel's four-step gate + error summary
+    brand/index.ts                #   The ./form/brand entry: the kernel's ./brand entry (seed colours → roles), re-exported
     react/
       RunPanel.tsx                #   The panel — fields, readiness, the gate
       RunPanel.css                #   Panel chrome only (this repo's tokens, no Tailwind)
@@ -97,6 +100,7 @@ src/
 docs/
   static-graph.md                 # Static GraphSpec API, mode contract, display behavior, standalone embed
   run-timeline.md                 # RunTimeline: the snapshot it reads, the freshness rule, what it draws
+  error-state.md                  # What GraphViewer draws when it cannot draw a spec, and why it never throws
 ```
 
 The `static-graph/` module reuses the blueprint types from `graph/types.ts` (no parallel type universe) and uses the `@static-graph/*` path alias. Its authoring-surface reference contract is `data/schema/mthds_schema.json`, re-copied from `pipelex/derived/` via `make schema-refresh` — a dev-time reference, not a runtime dependency. Static specs must carry `meta: { format: "mthds", mode: "static" }`; renderer behavior must check that explicit mode only.
@@ -144,7 +148,7 @@ Verify after building: `grep "Foo.css" dist/graph/react/index.js` must show the 
 
 **The route to "dependency" matters, because the obvious answer failed.** A *required peer* is auto-installed by npm and **not by pnpm**, which reports it unmet and installs nothing even with `auto-install-peers=true` (tested, not assumed). A property that holds on one package manager is not one a library can offer, so a host would still have had to declare the kernel — the thing the change exists to remove.
 
-So: a dependency, plus two re-export entries. **`./form`** is the kernel's React-free surface (descriptor vocabulary, derivation, readiness, run gate, value plumbing — importable from a server action or a worker) and **`./form/react`** its controls. A host installs `@pipelex/mthds-ui` and imports everything from it.
+So: a dependency, plus three re-export entries. **`./form`** is the kernel's React-free surface (descriptor vocabulary, derivation, readiness, run gate, value plumbing — importable from a server action or a worker), **`./form/brand`** the kernel's isomorphic `./brand` entry (the seed colour derivation and the brand contract), and **`./form/react`** its controls. A kernel entry this package re-exports is named in tsup's `external` array, or it gets bundled. A host installs `@pipelex/mthds-ui` and imports everything from it.
 
 **The rule that keeps a dependency safe: a consumer imports the kernel through those entries, never directly.** The objection to depending on a package that carries React context is duplication — two copies, two context identities, and a host's `FieldStringsProvider` silently fails to resolve inside our controls. A host that declares nothing cannot produce a second copy.
 
@@ -154,7 +158,7 @@ What still holds, and what to keep:
 2. **The React-free entries stay React-free and kernel-free.** `.`, `./graph` and `./static-graph` are importable from a CLI or a worker with nothing installed, and a stray value import from a pure module would take that away silently.
 3. **`shiki` is the only optional peer left**, behind `./shiki`: optional in `peerDependencies` + `peerDependenciesMeta`, a devDependency for local work, `external` in tsup, its own entry.
 
-`make smoke-pack` proves all of it from outside, in a consumer declaring only this package and React: the kernel arrives, it is a dependency rather than a peer, there is **exactly one copy** in the tree, both React entries import it rather than inlining it, the React-free entries never reach it, every React entry keeps its `"use client"`, and a minimal Tailwind 4 host importing `@pipelex/mthds-ui/tailwind.css` compiles every utility in the kernel's prebuilt sheet under npm and pnpm, so `pnpm` must be on the path.
+`make smoke-pack` proves all of it from outside, in a consumer declaring only this package and React: the kernel arrives, it is a dependency rather than a peer, there is **exactly one copy** in the tree, both React entries import it rather than inlining it, the React-free entries never reach it, `./form/brand` imports the kernel's `./brand` alone and runs in plain Node, every React entry keeps its `"use client"`, and a minimal Tailwind 4 host importing `@pipelex/mthds-ui/tailwind.css` compiles every utility in the kernel's prebuilt sheet under npm and pnpm, so `pnpm` must be on the path.
 
 **`"use client"` survives because the smoke test says so, not because of the prepend.** `tsup.config.ts`'s `onSuccess` re-prepends it onto `dist/form/react/index.js`, but at the pinned toolchain that is belt-and-braces: esbuild preserves the directive prologue on its own, which `dist/graph/react/index.js` proves — same source directive, no prepend call, directive present. Keep the fixup (idempotent, costs nothing if a future bundler starts stripping), but do not rely on it, and do not assume a new React entry is covered because that one is. Verify by hand with `head -1 dist/form/react/index.js`.
 
@@ -183,7 +187,7 @@ GraphSpec (JSON from pipelex-agent, or static builder output)
 
 **Binding nodes** are a sequence's binding steps (`{ from = "invoice.total", result = "total" }`): a node of kind `binding` whose `pipe_type` is `BindingStep` (`BINDING_STEP_TYPE`), not a pipe. It is drawn as a pipe card, so a table keyed by a card's class is `Record<NodePipeType, …>` (`PipeType | BindingStepType`), and `asCardNode` / `CardNode` cover both families where `asPipeCallNode` / `PipeCallNode` cover pipes alone. See `docs/static-graph.md`, "Binding Steps".
 
-**Adding a new pipelex pipe class requires an mthds-ui update.** pipelex sets a node's `pipe_type` from the pipe's Python class name. `validateGraphSpec` checks `pipe_type` against `KNOWN_PIPE_TYPES` (derived from the `PipeType` union in `types.ts`) and throws on an unrecognized class. When pipelex ships a new pipe class, add it to `PipeOperatorType` or `PipeControllerType` — the exhaustiveness maps keyed by `PipeType` or `NodePipeType` in `types.ts`, `PipeCardBase.tsx`, `PipeDetailPanel.tsx`, `pipeCardRegistry.ts` and the simple style's `STEP_CATEGORY_BY_PIPE_TYPE` (`styles/simpleStyle.ts`) will fail to compile until every badge/status table is updated.
+**Adding a new pipelex pipe class requires an mthds-ui update.** pipelex sets a node's `pipe_type` from the pipe's Python class name. `validateGraphSpec` checks `pipe_type` against `KNOWN_PIPE_TYPES` (derived from the `PipeType` union in `types.ts`) and throws on an unrecognized class, which `GraphViewer` draws as its error state in place of the whole graph. When pipelex ships a new pipe class, add it to `PipeOperatorType` or `PipeControllerType` — the exhaustiveness maps keyed by `PipeType` or `NodePipeType` in `types.ts`, `PipeCardBase.tsx`, `PipeDetailPanel.tsx`, `pipeCardRegistry.ts` and the simple style's `STEP_CATEGORY_BY_PIPE_TYPE` (`styles/simpleStyle.ts`) will fail to compile until every badge/status table is updated.
 
 **Stuff** = data nodes. Produced by one pipe, consumed by one or more pipes. Identified by digest. Node IDs use `stuff_<digest>` convention (use `stuffNodeId()`, `isStuffNodeId()`, `stuffDigestFromId()` helpers).
 
@@ -323,7 +327,7 @@ make fixtures-live-test            # smoke-test the live path on 3 small bundles
 
 `make fixtures` also bootstraps the LIVE placeholder layer so a DRY-only run is enough to build Storybook: the stories import LIVE specs from the per-pipeline split modules (`_generated/live/pipeline_NN.ts`), not the barrel, so for every pipeline lacking real LIVE data it emits a placeholder split (re-exporting the DRY spec as LIVE) and re-exports them all from `_generated.live.ts`. Each placeholder is guarded by `existsSync`, so `make fixtures-live` (real inference) is never clobbered by a later DRY run. Adding/removing a pipeline means adding its `data/pipelines/pipeline_NN/` directory and an entry in the generator's `NAME_MAP`.
 
-`validateGraphSpec` runs on every spec at the `GraphViewer` boundary, so a regenerated fixture that violates the contract fails loudly in its story. After `make fixtures`, the `snapshots.test.ts` structural snapshot may need re-baselining (`npx vitest run -u src/graph/__tests__/snapshots.test.ts`) — pipelex node numbering is not fully deterministic for branching pipelines. Static snapshots should only change when authored static behavior changes; static ids and stuff digests are deterministic.
+`validateGraphSpec` runs on every spec at the `GraphViewer` boundary, but the viewer draws a refused spec as its error state rather than throwing (`docs/error-state.md`), so a story fails on a broken fixture only when its play test waits for nodes. The loud net is `fixturesConsistency.test.ts`, which holds every DRY, LIVE and static catalog spec to the validator. After `make fixtures`, the `snapshots.test.ts` structural snapshot may need re-baselining (`npx vitest run -u src/graph/__tests__/snapshots.test.ts`) — pipelex node numbering is not fully deterministic for branching pipelines. Static snapshots should only change when authored static behavior changes; static ids and stuff digests are deterministic.
 
 ### Coverage
 
