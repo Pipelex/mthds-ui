@@ -71,6 +71,20 @@ describe("generated fixtures consistency", () => {
     expect([...Object.keys(DRY_RUN_CATALOG)].filter((key) => !covered.has(key))).toEqual([]);
   });
 
+  // `GraphViewer` draws a spec the validator refuses as an error state rather
+  // than throwing it, so a story no longer fails on a fixture that broke the
+  // contract unless its play test waits for nodes. The fixtures are held to
+  // the validator here instead, every one of them.
+  it.each([
+    ["DRY", DRY_RUN_CATALOG],
+    ["LIVE", LIVE_RUN_CATALOG],
+    ["static", STATIC_RUN_CATALOG],
+  ])("every %s catalog spec passes the validator the viewer reads it with", (_, catalog) => {
+    for (const [key, entry] of Object.entries(catalog)) {
+      expect(() => validateGraphSpec(entry.spec), key).not.toThrow();
+    }
+  });
+
   it("stamps explicit graph modes on generated dry and live catalog specs", () => {
     for (const entry of Object.values(DRY_RUN_CATALOG)) {
       expect(entry.spec.meta?.mode).toBe("dry");

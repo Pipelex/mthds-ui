@@ -49,6 +49,8 @@ src/
         simple/                   # The simple style's node components and stylesheet
       viewer/
         GraphViewer.tsx           # Unified ReactFlow viewer component
+        GraphErrorState.tsx       # The error state drawn in place of a graph, the boundary around the canvas, the relayout alert over it
+        graphFailure.ts           # readGraphSpec, the validator's refusal as a value; the pure rules that settle an async layout
         StyleMenu.tsx             # The toolbar's opt-in graph style menu
         StillFit.tsx              # The still presentation's viewport and height (interactive={false})
         stillViewport.ts          # Its geometry, pure: fit to width, height follows
@@ -98,6 +100,7 @@ src/
 docs/
   static-graph.md                 # Static GraphSpec API, mode contract, display behavior, standalone embed
   run-timeline.md                 # RunTimeline: the snapshot it reads, the freshness rule, what it draws
+  error-state.md                  # What GraphViewer draws when it cannot draw a spec, and why it never throws
 ```
 
 The `static-graph/` module reuses the blueprint types from `graph/types.ts` (no parallel type universe) and uses the `@static-graph/*` path alias. Its authoring-surface reference contract is `data/schema/mthds_schema.json`, re-copied from `pipelex/derived/` via `make schema-refresh` — a dev-time reference, not a runtime dependency. Static specs must carry `meta: { format: "mthds", mode: "static" }`; renderer behavior must check that explicit mode only.
@@ -184,7 +187,7 @@ GraphSpec (JSON from pipelex-agent, or static builder output)
 
 **Binding nodes** are a sequence's binding steps (`{ from = "invoice.total", result = "total" }`): a node of kind `binding` whose `pipe_type` is `BindingStep` (`BINDING_STEP_TYPE`), not a pipe. It is drawn as a pipe card, so a table keyed by a card's class is `Record<NodePipeType, …>` (`PipeType | BindingStepType`), and `asCardNode` / `CardNode` cover both families where `asPipeCallNode` / `PipeCallNode` cover pipes alone. See `docs/static-graph.md`, "Binding Steps".
 
-**Adding a new pipelex pipe class requires an mthds-ui update.** pipelex sets a node's `pipe_type` from the pipe's Python class name. `validateGraphSpec` checks `pipe_type` against `KNOWN_PIPE_TYPES` (derived from the `PipeType` union in `types.ts`) and throws on an unrecognized class. When pipelex ships a new pipe class, add it to `PipeOperatorType` or `PipeControllerType` — the exhaustiveness maps keyed by `PipeType` or `NodePipeType` in `types.ts`, `PipeCardBase.tsx`, `PipeDetailPanel.tsx`, `pipeCardRegistry.ts` and the simple style's `STEP_CATEGORY_BY_PIPE_TYPE` (`styles/simpleStyle.ts`) will fail to compile until every badge/status table is updated.
+**Adding a new pipelex pipe class requires an mthds-ui update.** pipelex sets a node's `pipe_type` from the pipe's Python class name. `validateGraphSpec` checks `pipe_type` against `KNOWN_PIPE_TYPES` (derived from the `PipeType` union in `types.ts`) and throws on an unrecognized class, which `GraphViewer` draws as its error state in place of the whole graph. When pipelex ships a new pipe class, add it to `PipeOperatorType` or `PipeControllerType` — the exhaustiveness maps keyed by `PipeType` or `NodePipeType` in `types.ts`, `PipeCardBase.tsx`, `PipeDetailPanel.tsx`, `pipeCardRegistry.ts` and the simple style's `STEP_CATEGORY_BY_PIPE_TYPE` (`styles/simpleStyle.ts`) will fail to compile until every badge/status table is updated.
 
 **Stuff** = data nodes. Produced by one pipe, consumed by one or more pipes. Identified by digest. Node IDs use `stuff_<digest>` convention (use `stuffNodeId()`, `isStuffNodeId()`, `stuffDigestFromId()` helpers).
 
@@ -324,7 +327,7 @@ make fixtures-live-test            # smoke-test the live path on 3 small bundles
 
 `make fixtures` also bootstraps the LIVE placeholder layer so a DRY-only run is enough to build Storybook: the stories import LIVE specs from the per-pipeline split modules (`_generated/live/pipeline_NN.ts`), not the barrel, so for every pipeline lacking real LIVE data it emits a placeholder split (re-exporting the DRY spec as LIVE) and re-exports them all from `_generated.live.ts`. Each placeholder is guarded by `existsSync`, so `make fixtures-live` (real inference) is never clobbered by a later DRY run. Adding/removing a pipeline means adding its `data/pipelines/pipeline_NN/` directory and an entry in the generator's `NAME_MAP`.
 
-`validateGraphSpec` runs on every spec at the `GraphViewer` boundary, so a regenerated fixture that violates the contract fails loudly in its story. After `make fixtures`, the `snapshots.test.ts` structural snapshot may need re-baselining (`npx vitest run -u src/graph/__tests__/snapshots.test.ts`) — pipelex node numbering is not fully deterministic for branching pipelines. Static snapshots should only change when authored static behavior changes; static ids and stuff digests are deterministic.
+`validateGraphSpec` runs on every spec at the `GraphViewer` boundary, but the viewer draws a refused spec as its error state rather than throwing (`docs/error-state.md`), so a story fails on a broken fixture only when its play test waits for nodes. The loud net is `fixturesConsistency.test.ts`, which holds every DRY, LIVE and static catalog spec to the validator. After `make fixtures`, the `snapshots.test.ts` structural snapshot may need re-baselining (`npx vitest run -u src/graph/__tests__/snapshots.test.ts`) — pipelex node numbering is not fully deterministic for branching pipelines. Static snapshots should only change when authored static behavior changes; static ids and stuff digests are deterministic.
 
 ### Coverage
 
