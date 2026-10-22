@@ -58,7 +58,6 @@ import { ConceptDetailPanel } from "../detail/ConceptDetailPanel";
 import type { AppNode, AppEdge, AppRFInstance } from "../rfTypes";
 import { toAppNodes, toAppEdges } from "../rfTypes";
 import { buildGraph } from "@graph/graphBuilders";
-import { validateGraphSpec } from "@graph/validateGraphSpec";
 import { applyFolds, findCousinControllers } from "@graph/graphFolds";
 import { getLayoutedElements } from "@graph/graphLayout";
 import type { ControllerRect } from "@graph/graphControllers";
@@ -66,6 +65,8 @@ import { DEFAULT_GRAPH_CONFIG, getPaletteForTheme } from "@graph/graphConfig";
 import { GRAPH_STYLES, resolveGraphStyle, resolveStyleMenu } from "@graph/styles/graphStyles";
 import { GRAPH_STYLE_PIPELINES } from "@graph/styles/stylePipelines";
 import { hydrateLabels } from "./renderLabel";
+import { readGraphSpec } from "./graphFailure";
+import { GraphErrorState, GraphFailureBoundary } from "./GraphErrorState";
 import { GraphToolbar } from "./GraphToolbar";
 import { StillFit } from "./StillFit";
 import { STILL_PLACEHOLDER_HEIGHT_PX } from "./stillViewport";
@@ -108,6 +109,11 @@ export interface GraphViewerProps {
    * The graph to draw, together with the artifacts that describe its pipes —
    * all four from ONE source: a run's results, or a method's validate report
    * beside the dry or static graph of that same method. `null` draws nothing.
+   *
+   * A spec `validateGraphSpec` refuses, or one the viewer otherwise fails to
+   * draw, draws an error state in place of the graph, naming what was refused,
+   * and is never thrown out of render: the host's page stays up. The next spec
+   * the host passes is drawn afresh.
    *
    * One object rather than a spec prop and three descriptor props, because the
    * detail panel looks a data node's descriptor up by the `pipe_ref` of the pipe
@@ -510,7 +516,69 @@ interface DetailSelection {
   consumer?: { pipeRef: string; slotName: string };
 }
 
+/** The viewer container's classes: its theme, its mode, the still presentation and the error state. */
+function containerClassName(
+  theme: GraphTheme,
+  mode: GraphThemeMode,
+  interactive: boolean,
+  failed: boolean,
+): string {
+  return (
+    `react-flow-container react-flow-container--theme-${theme} react-flow-container--mode-${mode}` +
+    (interactive ? "" : " react-flow-container--still") +
+    (failed ? " react-flow-container--failed" : "")
+  );
+}
+
+/**
+ * The viewer. A spec `validateGraphSpec` refuses is drawn as an error state by
+ * the canvas itself, which reads the spec as a value (`readGraphSpec`); anything
+ * else the canvas throws or reports is caught by the boundary around it, which
+ * draws the same error state, so no failure of the graph unmounts the host's
+ * tree. A new spec clears either.
+ */
 export function GraphViewer(props: GraphViewerProps) {
+  return (
+    <GraphFailureBoundary
+      resetKey={props.graph?.graphSpec ?? null}
+      fallback={(failure) => <GraphViewerFailed {...props} failure={failure} />}
+    >
+      {(fail) => <GraphViewerCanvas {...props} onFailure={fail} />}
+    </GraphFailureBoundary>
+  );
+}
+
+/**
+ * The boundary's fallback: the error state in a container themed from the props,
+ * since the canvas that held the reader's own theme choice is gone. The palette
+ * goes on inline, as the canvas's effect would have put it.
+ */
+function GraphViewerFailed({
+  failure,
+  config = DEFAULT_GRAPH_CONFIG,
+  theme: themeProp,
+  systemTheme: systemThemeProp,
+  interactive = true,
+}: GraphViewerProps & { failure: string }) {
+  const mode = resolveExternalThemeMode(themeProp, config.theme);
+  const resolvedTheme = resolveActiveTheme(mode, useSystemTheme(systemThemeProp));
+  const palette = { ...getPaletteForTheme(resolvedTheme), ...config.paletteColors };
+  return (
+    <div
+      className={containerClassName(resolvedTheme, mode, interactive, true)}
+      style={palette as React.CSSProperties}
+    >
+      <GraphErrorState failure={failure} />
+    </div>
+  );
+}
+
+function GraphViewerCanvas(
+  props: GraphViewerProps & {
+    /** Reports a failure no render sees, an asynchronous layout's, to the boundary. */
+    onFailure: (error: unknown) => void;
+  },
+) {
   const {
     graph,
     config = DEFAULT_GRAPH_CONFIG,
@@ -541,6 +609,7 @@ export function GraphViewer(props: GraphViewerProps) {
     validationState,
     validationIssues,
     onValidationIssueClick,
+    onFailure,
   } = props;
 
   // The spec is read out of the `graph` bundle and memoized on ITS identity,
@@ -552,10 +621,19 @@ export function GraphViewer(props: GraphViewerProps) {
   // Single boundary validator for the React render path — mirrors the standalone
   // adapter (src/standalone/adapter.ts). Memoized on prop identity so it runs
   // once per spec; validateGraphSpec normalizes io in place and is idempotent.
-  const graphspec = React.useMemo(
-    () => (graphspecProp === null ? null : validateGraphSpec(graphspecProp)),
+  // A refused spec comes back as a value, never a throw: thrown here, inside
+  // render, it would unmount the host's whole tree. It draws the error state,
+  // and `graphspec` is null, so every effect below clears the graph.
+  const { graphspec, failure: specFailure } = React.useMemo(
+    () => readGraphSpec(graphspecProp),
     [graphspecProp],
   );
+  const failed = specFailure !== null;
+
+  // An asynchronous layout's failure is reported to the boundary, which draws
+  // it in place of the canvas: no render sees it, and a blank canvas says nothing.
+  const onFailureRef = React.useRef(onFailure);
+  onFailureRef.current = onFailure;
 
   const [direction, setDirection] = React.useState<GraphDirection>(
     () =>
@@ -1009,6 +1087,7 @@ export function GraphViewer(props: GraphViewerProps) {
       } catch (err) {
         // eslint-disable-next-line no-console
         console.error("[GraphViewer] ELK layout failed:", err);
+        if (!cancelled) onFailureRef.current(err);
       }
     })();
 
@@ -1191,6 +1270,7 @@ export function GraphViewer(props: GraphViewerProps) {
       } catch (err) {
         // eslint-disable-next-line no-console
         console.error("[GraphViewer] ELK layout failed:", err);
+        if (!cancelled) onFailureRef.current(err);
       }
     })();
 
@@ -1282,6 +1362,7 @@ export function GraphViewer(props: GraphViewerProps) {
       } catch (err) {
         // eslint-disable-next-line no-console
         console.error("[GraphViewer] ELK layout failed:", err);
+        if (!cancelled) onFailureRef.current(err);
       }
     })();
 
@@ -1466,127 +1547,143 @@ export function GraphViewer(props: GraphViewerProps) {
 
   const styleMenuOptions = React.useMemo(() => resolveStyleMenu(styleMenu), [styleMenu]);
 
+  // The error state unmounts the flow, so its instance goes with it: nothing
+  // may fit or zoom a dead instance before the next one calls `onInit`.
+  React.useEffect(() => {
+    if (failed) reactFlowRef.current = null;
+  }, [failed]);
+
+  // The container stays whether the graph or the error state is drawn in it, so
+  // the palette its effect applied themes either.
   return (
     <div
       ref={containerRef}
-      className={`react-flow-container react-flow-container--theme-${resolvedTheme} react-flow-container--mode-${mode}${interactive ? "" : " react-flow-container--still"}`}
-      style={interactive ? undefined : { height: stillHeight }}
+      className={containerClassName(resolvedTheme, mode, interactive, failed)}
+      // A still error state takes the height of its message, not a drawing's.
+      style={interactive || failed ? undefined : { height: stillHeight }}
       // A still drawing is inert: the flow's own settings reach only its node
       // wrappers, and a button drawn inside a node (a fold, "N steps inside",
       // a card's expander) would otherwise still take a click or the Tab key
-      // and change the picture.
-      inert={!interactive}
+      // and change the picture. An error state is not, since an inert alert
+      // would be hidden from a screen reader.
+      inert={!interactive && !failed}
     >
-      <ReactFlow
-        nodes={nodes}
-        edges={edges}
-        nodeTypes={nodeTypes}
-        edgeTypes={edgeTypes}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
-        onNodeClick={interactive ? onNodeClick : undefined}
-        onPaneClick={interactive ? handlePaneClick : undefined}
-        onInit={onInit}
-        fitView={interactive}
-        fitViewOptions={{ padding: 0.1 }}
-        defaultEdgeOptions={{ type: edgeType }}
-        panOnScroll={interactive}
-        // A still drawing wider than its container is scaled down to fit it,
-        // as far as it takes (`StillFit`).
-        minZoom={interactive ? 0.1 : 0.01}
-        proOptions={{ hideAttribution: true }}
-        // Disable pan-on-space: the default Space activation key attaches a
-        // window-level keydown handler that can swallow spacebar input in
-        // text editors embedded alongside the graph (e.g. Monaco).
-        panActivationKeyCode={null}
-        {...(interactive ? {} : STILL_FLOW_PROPS)}
-      >
-        {interactive ? (
-          <Background
-            variant={BackgroundVariant.Dots}
-            gap={20}
-            size={1}
-            color="var(--color-bg-dots)"
-          />
-        ) : (
-          <StillFit onHeight={setStillHeight} />
-        )}
-        {interactive && !hideToolbar && (
-          <GraphToolbar
-            direction={direction}
-            onDirectionChange={setDirection}
-            showControllers={showControllers}
-            onShowControllersChange={
-              styleCapabilities.controllerFrameToggle ? setShowControllers : undefined
-            }
-            graphStyle={graphStyle}
-            styleMenuOptions={styleMenuOptions}
-            onGraphStyleChange={setGraphStyle}
-            onZoomIn={() => {
-              void reactFlowRef.current?.zoomIn();
-            }}
-            onZoomOut={() => {
-              void reactFlowRef.current?.zoomOut();
-            }}
-            onFitView={() => {
-              void reactFlowRef.current?.fitView({ padding: 0.1 });
-            }}
-            onFoldAll={foldAllProps.onFoldAll}
-            onExpandAll={foldAllProps.onExpandAll}
-            foldAllDisabled={foldAllProps.foldAllDisabled}
-            expandAllDisabled={foldAllProps.expandAllDisabled}
-            themeMode={showThemeToggle ? mode : undefined}
-            onThemeModeChange={showThemeToggle ? setMode : undefined}
-            rightOffset={detailOpen ? panelWidth : 0}
-            position={effectiveToolbarPosition}
-            validationState={validationState}
-            validationIssues={validationIssues}
-            // Always the wrapped handler: it optionally calls the host's
-            // source-jump and, independently, pans/flashes to the issue's target
-            // node — a built-in that works without a host handler, so rows stay
-            // interactive whether or not the host wired `onValidationIssueClick`.
-            onValidationIssueClick={handleValidationIssueClick}
-            validationOpen={validationOpen}
-            onValidationOpenChange={setValidationOpen}
-          />
-        )}
-      </ReactFlow>
-      {interactive && (
-        <DetailPanel
-          isOpen={detailOpen}
-          onClose={handlePaneClick}
-          width={panelWidth}
-          isDragging={isPanelDragging}
-          onResizeHandleMouseDown={onResizeMouseDown}
-        >
-          {conceptOverride ? (
-            <ConceptDetailPanel concept={conceptOverride} />
-          ) : selectedSpecNode && graphspec ? (
-            <PipeDetailPanel
-              node={selectedSpecNode}
-              spec={graphspec}
-              onConceptClick={handleConceptClick}
-            />
-          ) : detailSelection?.stuffData ? (
-            <StuffNodeDetail
-              nodeId={detailSelection.nodeId}
-              stuffData={detailSelection.stuffData}
-              producerPipeRef={detailSelection.producerPipeRef}
-              consumer={detailSelection.consumer}
-              graphspec={graphspec}
-              theme={resolvedTheme}
-              artifacts={graph}
-              resolveUrl={resolveUrl}
-              resolveShareUrl={resolveShareUrl}
-              saveFiles={saveFiles}
-              downloads={downloads}
-            />
-          ) : null}
-          {renderDetailExtra &&
-            detailSelection &&
-            !conceptOverride &&
-            renderDetailExtra(detailSelection.nodeId, detailSelection.nodeData)}
-        </DetailPanel>
+      {specFailure !== null ? (
+        <GraphErrorState failure={specFailure} />
+      ) : (
+        <>
+          <ReactFlow
+            nodes={nodes}
+            edges={edges}
+            nodeTypes={nodeTypes}
+            edgeTypes={edgeTypes}
+            onNodesChange={onNodesChange}
+            onEdgesChange={onEdgesChange}
+            onNodeClick={interactive ? onNodeClick : undefined}
+            onPaneClick={interactive ? handlePaneClick : undefined}
+            onInit={onInit}
+            fitView={interactive}
+            fitViewOptions={{ padding: 0.1 }}
+            defaultEdgeOptions={{ type: edgeType }}
+            panOnScroll={interactive}
+            // A still drawing wider than its container is scaled down to fit it,
+            // as far as it takes (`StillFit`).
+            minZoom={interactive ? 0.1 : 0.01}
+            proOptions={{ hideAttribution: true }}
+            // Disable pan-on-space: the default Space activation key attaches a
+            // window-level keydown handler that can swallow spacebar input in
+            // text editors embedded alongside the graph (e.g. Monaco).
+            panActivationKeyCode={null}
+            {...(interactive ? {} : STILL_FLOW_PROPS)}
+          >
+            {interactive ? (
+              <Background
+                variant={BackgroundVariant.Dots}
+                gap={20}
+                size={1}
+                color="var(--color-bg-dots)"
+              />
+            ) : (
+              <StillFit onHeight={setStillHeight} />
+            )}
+            {interactive && !hideToolbar && (
+              <GraphToolbar
+                direction={direction}
+                onDirectionChange={setDirection}
+                showControllers={showControllers}
+                onShowControllersChange={
+                  styleCapabilities.controllerFrameToggle ? setShowControllers : undefined
+                }
+                graphStyle={graphStyle}
+                styleMenuOptions={styleMenuOptions}
+                onGraphStyleChange={setGraphStyle}
+                onZoomIn={() => {
+                  void reactFlowRef.current?.zoomIn();
+                }}
+                onZoomOut={() => {
+                  void reactFlowRef.current?.zoomOut();
+                }}
+                onFitView={() => {
+                  void reactFlowRef.current?.fitView({ padding: 0.1 });
+                }}
+                onFoldAll={foldAllProps.onFoldAll}
+                onExpandAll={foldAllProps.onExpandAll}
+                foldAllDisabled={foldAllProps.foldAllDisabled}
+                expandAllDisabled={foldAllProps.expandAllDisabled}
+                themeMode={showThemeToggle ? mode : undefined}
+                onThemeModeChange={showThemeToggle ? setMode : undefined}
+                rightOffset={detailOpen ? panelWidth : 0}
+                position={effectiveToolbarPosition}
+                validationState={validationState}
+                validationIssues={validationIssues}
+                // Always the wrapped handler: it optionally calls the host's
+                // source-jump and, independently, pans/flashes to the issue's target
+                // node — a built-in that works without a host handler, so rows stay
+                // interactive whether or not the host wired `onValidationIssueClick`.
+                onValidationIssueClick={handleValidationIssueClick}
+                validationOpen={validationOpen}
+                onValidationOpenChange={setValidationOpen}
+              />
+            )}
+          </ReactFlow>
+          {interactive && (
+            <DetailPanel
+              isOpen={detailOpen}
+              onClose={handlePaneClick}
+              width={panelWidth}
+              isDragging={isPanelDragging}
+              onResizeHandleMouseDown={onResizeMouseDown}
+            >
+              {conceptOverride ? (
+                <ConceptDetailPanel concept={conceptOverride} />
+              ) : selectedSpecNode && graphspec ? (
+                <PipeDetailPanel
+                  node={selectedSpecNode}
+                  spec={graphspec}
+                  onConceptClick={handleConceptClick}
+                />
+              ) : detailSelection?.stuffData ? (
+                <StuffNodeDetail
+                  nodeId={detailSelection.nodeId}
+                  stuffData={detailSelection.stuffData}
+                  producerPipeRef={detailSelection.producerPipeRef}
+                  consumer={detailSelection.consumer}
+                  graphspec={graphspec}
+                  theme={resolvedTheme}
+                  artifacts={graph}
+                  resolveUrl={resolveUrl}
+                  resolveShareUrl={resolveShareUrl}
+                  saveFiles={saveFiles}
+                  downloads={downloads}
+                />
+              ) : null}
+              {renderDetailExtra &&
+                detailSelection &&
+                !conceptOverride &&
+                renderDetailExtra(detailSelection.nodeId, detailSelection.nodeData)}
+            </DetailPanel>
+          )}
+        </>
       )}
     </div>
   );

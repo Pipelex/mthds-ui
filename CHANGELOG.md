@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Fixed
+
+- **`GraphViewer` draws an error state instead of throwing**: a spec `validateGraphSpec` refuses, such as one carrying a pipe class the viewer does not know or a failed node whose `error` is no MTHDS problem document, no longer throws out of render and takes the host's page down with it: the viewer draws an alert in place of the graph, naming the location refused and what was found there, styled from the graph's tokens so it follows the theme. A spec the validator accepts but the build or the layout cannot draw is shown the same way instead of unmounting the host or leaving a blank canvas, and the next spec the host passes is drawn afresh. `validateGraphSpec` still throws for every other caller. See [docs/error-state.md](docs/error-state.md).
+
 ## [v0.37.0] - 2026-10-22
 
 ### Added
