@@ -5,7 +5,10 @@ import {
   computeReadiness,
   fieldsForContract,
   isFilled,
+  sameRunValues,
   setValueAtPath,
+  type ExampleSource,
+  type FileSource,
   type PipeInputFormDescriptor,
   type PipeIOContract,
   type RunField,
@@ -13,6 +16,7 @@ import {
 import {
   FieldDomIdProvider,
   FieldRenderer,
+  FillWithExample,
   OptionalToggle,
   type FieldEnv,
 } from "@pipelex/mthds-form/react";
@@ -88,10 +92,10 @@ export interface RunPanelProps {
   /**
    * Ambient field state, passed to every control.
    *
-   * For `disabled`, `onDropFile` and `resolveUrl` the host's value wins PER
-   * KEY: the panel fills in only what the host left undefined — `disabled`
-   * from `running`, `onDropFile` from its own upload tracking when
-   * `uploadFile` is supplied.
+   * For `disabled`, `onDropFile`, `fileSource` and `resolveUrl` the host's
+   * value wins PER KEY: the panel fills in only what the host left undefined —
+   * `disabled` from `running`, `onDropFile` from its own upload tracking when
+   * `uploadFile` is supplied, `fileSource` from the prop of that name.
    *
    * `uploadingIds` is the exception, and deliberately so: it is the UNION of
    * your set and the panel's, never a replacement. Because the keys default
@@ -110,6 +114,44 @@ export interface RunPanelProps {
    * at the field's dotted path.
    */
   uploadFile?: (file: File, fieldId: string) => Promise<UploadedFile>;
+  /**
+   * Where a file field can take a file the host already stores: the first of
+   * the kernel's two host seams beside the upload, its shape the kernel's
+   * `FileSource`. Given one, every empty file field offers
+   * "Choose from your team's files", and a list of files offers it for several
+   * at once; the host lists the files, one page per query, and the kernel's
+   * sheet does the rest. A chosen file is written as `{ url, filename }`
+   * through the field's own change, exactly as an upload's result is, so it is
+   * the person's own work like anything else they enter.
+   *
+   * The panel hands it to every control as `FieldEnv.fileSource`, which is all
+   * this prop does: an `env.fileSource` of the host's own wins over it, per
+   * key, as `env.onDropFile` wins over `uploadFile`. Left unset, no file field
+   * offers anything it did not offer before.
+   */
+  fileSource?: FileSource;
+  /**
+   * Where the form can take a saved example of the method: the second of the
+   * kernel's two host seams beside the upload, its shape the kernel's
+   * `ExampleSource`. Given one, the panel offers "Fill with an example" above
+   * the fields, which sets every value at once through `onValuesChange` and
+   * never starts a run.
+   *
+   * A form holding work of the person's own is asked "Replace what you
+   * entered?" first. The panel counts as such work a value that would send a
+   * different run from the one the form held before the person's first edit
+   * in this panel (or since the last fill), and a file still arriving. A value
+   * the host sets from outside before that first edit (a draft it restores, a
+   * past run's inputs) is the form it was given, not the person's work.
+   *
+   * Filling is a reset to the example's values, as the kernel's own form does
+   * it: a rejected submit's summary goes, every field is remounted so no
+   * control keeps what it held for the values replaced, and an upload the
+   * panel has in flight is abandoned, its result discarded when it lands, as
+   * on a pipe switch. An upload the host runs itself through `env.onDropFile`
+   * is the host's to abandon. Left unset, nothing is offered.
+   */
+  exampleSource?: ExampleSource;
   /** Panel header. The host names the pipe; there is no default heading. */
   title?: string;
   /**
@@ -175,6 +217,8 @@ export function RunPanel({
   running = false,
   env,
   uploadFile,
+  fileSource,
+  exampleSource,
   title,
   theme = GRAPH_THEME.LIGHT,
   translate,
@@ -184,6 +228,18 @@ export function RunPanel({
   const [showOptional, setShowOptional] = React.useState(false);
   const [uploadingIds, setUploadingIds] = React.useState<ReadonlySet<string>>(EMPTY_IDS);
   const [submitError, setSubmitError] = React.useState<string | null>(null);
+  // What the person's own work is measured against, for "Fill with an example":
+  // the values the form held just before their first edit in this panel, or the
+  // example's values after a fill. `null` until then, while the values are
+  // still entirely the host's — a draft it restores after mounting, a past
+  // run's inputs — and nothing on screen is the person's yet. It is the kernel's
+  // `touched` rule (`useMethodForm`), which cannot be read off the host's state
+  // here: the values are the host's, and only the panel sees which changes came
+  // through its own controls.
+  const [given, setGiven] = React.useState<Record<string, unknown> | null>(null);
+  // How many times an example has filled the form. The fields are keyed by it,
+  // so a fill remounts them, as the kernel's own form does on a reset.
+  const [fills, setFills] = React.useState(0);
   const readinessHintId = React.useId();
   const fallbackPrefix = React.useId();
 
@@ -193,12 +249,18 @@ export function RunPanel({
   );
   const readiness = React.useMemo(() => computeReadiness(fields, values), [fields, values]);
 
+  /**
+   * Writes an edit of the person's own: a control's change, or an upload the
+   * panel ran landing. `before` is the values the edit was made over, which the
+   * first edit fixes as the measure of the person's work (`given` above).
+   */
   const commitValues = React.useCallback(
-    (next: Record<string, unknown>) => {
+    (next: Record<string, unknown>, before: Record<string, unknown>) => {
       // A summary describes the values that produced it; the moment they move
       // it is stale, and a stale complaint about a field just corrected is
       // worse than none.
       setSubmitError(null);
+      setGiven((previous) => previous ?? before);
       onValuesChange(next);
     },
     [onValuesChange],
@@ -263,6 +325,11 @@ export function RunPanel({
   // replacement panel's `cv` exactly as if it had been chosen there. Bumping on
   // cleanup makes the predicate mean what it says — this form instance has
   // stopped being the one on screen — however it stopped.
+  //
+  // A fill from an example is the third way the form moves on, and it bumps the
+  // marker in its own handler (`handleFill`): an upload started before it was
+  // for values the example has replaced, and landing afterwards it would put
+  // back a file the person no longer sees chosen.
   const generationRef = React.useRef(0);
   React.useLayoutEffect(() => {
     // Whatever was in flight belonged to the previous pipe; it must not go on
@@ -271,6 +338,9 @@ export function RunPanel({
     // Nor may a complaint about the previous pipe's inputs stand over this
     // pipe's form: it names fields that are no longer on screen.
     setSubmitError(null);
+    // And the measure of the person's work was taken over the previous pipe's
+    // fields: this form has not been edited yet.
+    setGiven(null);
     return () => {
       generationRef.current += 1;
     };
@@ -298,7 +368,8 @@ export function RunPanel({
         .then(
           (uploaded) => {
             if (generationRef.current !== startedAt) return;
-            const next = setValueAtPath(valuesRef.current, id.split("."), {
+            const before = valuesRef.current;
+            const next = setValueAtPath(before, id.split("."), {
               url: uploaded.url,
               filename: uploaded.filename ?? file.name,
             });
@@ -311,7 +382,7 @@ export function RunPanel({
             // while one value is gone. The effect still owns syncing FROM the
             // host, so the mirror converges on whatever the host actually kept.
             valuesRef.current = next;
-            commitValues(next);
+            commitValues(next, before);
           },
           () => {
             // The host owns how a failed upload is announced (it owns the
@@ -361,6 +432,10 @@ export function RunPanel({
       ...env,
       disabled: env?.disabled ?? running,
       onDropFile: env?.onDropFile ?? (uploadFile ? handleDropFile : undefined),
+      // Passed through and nothing more: the kernel's sheet asks the host for
+      // pages and writes the chosen file through the field's own `onChange`,
+      // which is `commitValues` like any other edit.
+      fileSource: env?.fileSource ?? fileSource,
       // The UNION, not the host's set winning outright: `onDropFile` and
       // `uploadingIds` default independently per key, so a host may hand us
       // `uploadFile` (leaving the panel to own the drop, and to mark the field
@@ -371,7 +446,7 @@ export function RunPanel({
       // its set — "yours win" still holds where that clause applies.
       uploadingIds: new Set([...(env?.uploadingIds ?? EMPTY_IDS), ...uploadingIds]),
     }),
-    [env, running, uploadFile, handleDropFile, uploadingIds],
+    [env, running, uploadFile, handleDropFile, fileSource, uploadingIds],
   );
 
   // Readiness alone would let a run go out while a file is still uploading: a
@@ -426,11 +501,12 @@ export function RunPanel({
   // it is filled), then clear it.
   //
   // So between fold transitions the form's shape only ever GROWS. The latch is
-  // cleared by the toggle's own handler and by a contract change, which are the
-  // two moments nobody is mid-edit; each is followed by the grow pass below
-  // re-adding every optional that still holds a value, so an emptied one folds
-  // back. Nothing about readiness or the wire depends on this — an emptied
-  // optional is omitted from the payload whether or not its input is on screen.
+  // cleared by the toggle's own handler, by a contract change and by a fill from
+  // an example, which are the moments nobody is mid-edit; each is followed by
+  // the grow pass below re-adding every optional that still holds a value, so an
+  // emptied one folds back. Nothing about readiness or the wire depends on this —
+  // an emptied optional is omitted from the payload whether or not its input is
+  // on screen.
   //
   // The latch is STATE adjusted during render, not a ref mutated during render,
   // and in a library component that distinction is load-bearing. A ref written
@@ -477,6 +553,45 @@ export function RunPanel({
     (field) => !field.required && !isFilled(values[field.name]),
   ).length;
   const visibleFields = showOptional ? fields : fields.filter((field) => !isFolded(field));
+
+  // Whether "Fill with an example" asks before it replaces the values: the
+  // kernel's `touched`, measured against `given` by the run the values would
+  // send (`sameRunValues`), so a value typed and erased again, which sends the
+  // same run, does not count. A file still arriving does, the host's included.
+  // Only read with an example source, so a panel given none does no extra work.
+  const hasExampleSource = exampleSource !== undefined;
+  const touched = React.useMemo(
+    () =>
+      hasExampleSource && (uploading || (given !== null && !sameRunValues(values, given, fields))),
+    [hasExampleSource, uploading, given, values, fields],
+  );
+
+  // A fill is a reset to the example's values, the kernel's own form's answer
+  // (`useMethodForm`'s `reset`), made here over values the host owns. It runs
+  // from the examples' list, a click away from any field, so nobody is mid-edit.
+  const handleFill = React.useCallback(
+    (next: Record<string, unknown>) => {
+      // An upload started before the fill was for values the example replaced:
+      // its result is discarded when it lands, and it no longer holds Run.
+      generationRef.current += 1;
+      setUploadingIds(EMPTY_IDS);
+      setSubmitError(null);
+      // The example's values are what the person's next edits are measured
+      // against, so a fill followed by a second fill does not ask.
+      setGiven(next);
+      // The form takes the example's shape: the optionals it fills are revealed
+      // by the grow pass, and those it leaves empty fold away.
+      setRevealed(NOTHING_REVEALED);
+      // Remounted, so no control keeps what it held for the replaced values:
+      // the preview of a file still arriving, a refused drop.
+      setFills((count) => count + 1);
+      // Advanced at once for the reason the upload write-back advances it: a
+      // continuation landing before the host's re-render reads the mirror.
+      valuesRef.current = next;
+      onValuesChange(next);
+    },
+    [onValuesChange],
+  );
 
   // A submit that has passed the gate latches until the end of the current task.
   //
@@ -552,12 +667,27 @@ export function RunPanel({
 
         {fields.length > 0 ? (
           <div className="mthds-run-panel-fields">
+            {exampleSource && (
+              // Its own row, so the control keeps its width in the column, and
+              // `:empty` takes the row out while the kernel holds the control
+              // back (`hideWhenEmpty`, a method with no example yet).
+              <div className="mthds-run-panel-examples">
+                <FillWithExample
+                  source={exampleSource}
+                  fields={fields}
+                  touched={touched}
+                  onFill={handleFill}
+                  // Held exactly when the fields are: filling is an edit of them.
+                  disabled={fieldEnv.disabled}
+                />
+              </div>
+            )}
             {visibleFields.map((field) => (
               <FieldRenderer
-                key={field.name}
+                key={`${field.name}:${fills}`}
                 field={field}
                 value={values[field.name]}
-                onChange={(value) => commitValues({ ...values, [field.name]: value })}
+                onChange={(value) => commitValues({ ...values, [field.name]: value }, values)}
                 id={field.name}
                 env={fieldEnv}
               />

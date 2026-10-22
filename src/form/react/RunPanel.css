@@ -37,6 +37,18 @@
   gap: 20px;
 }
 
+/* "Fill with an example" above the fields, when the host gives an example
+   source. A row of its own so the kernel's button keeps its own width in the
+   column; `:empty` drops the row, and the gap it would take, while the kernel
+   holds the button back for a method with no example. */
+.mthds-run-panel-examples {
+  display: flex;
+}
+
+.mthds-run-panel-examples:empty {
+  display: none;
+}
+
 .mthds-run-panel-empty {
   margin: 0;
   color: var(--text-muted);
