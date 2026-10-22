@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- **`@pipelex/mthds-form` 0.21.0 (Breaking)**: the dependency's range moves from `^0.20.0` to `^0.21.0`, and a caret below 1.0 does not bridge a minor, so a host resolves the newer kernel through `./form` and `./form/react`. The controls take a field's focus border and ring, brand-coloured text and the pale fill behind it from three optional tokens, `--brand`, `--brand-muted` and `--brand-muted-foreground`, each falling back to the `--primary` expression it replaced, so a host that defines none of them renders exactly as before, on either stylesheet entry, with no change on its side.
+
 ## [v0.37.0] - 2026-10-22
 
 ### Added
