@@ -40,6 +40,10 @@
       "import": "./dist/form/index.js",
       "types": "./dist/form/index.d.ts"
     },
+    "./form/brand": {
+      "import": "./dist/form/brand/index.js",
+      "types": "./dist/form/brand/index.d.ts"
+    },
     "./form/react": {
       "import": "./dist/form/react/index.js",
       "types": "./dist/form/react/index.d.ts"

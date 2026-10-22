@@ -2,9 +2,13 @@
 
 ## [Unreleased]
 
+### Added
+
+- **`@pipelex/mthds-ui/form/brand`, the form kernel's brand entry**: the new entry re-exports the kernel's React-free `./brand` entry, so a host derives a team's colours without naming the kernel: `deriveBrandRoles` turns up to three seed colours into colour roles whose text reads at WCAG AA on the theme's page, beside `resolveDarkSeeds`, `isActionFaint`, `isAccentAdjusted`, `readableTextOn`, `PIPELEX_GREEN` and their types, and the kernel's brand contract, token validator and compiler. See [docs/run-form-panel.md](docs/run-form-panel.md#brand-ink-and-a-teams-own-colours).
+
 ### Changed
 
-- **`@pipelex/mthds-form` 0.21.0 (Breaking)**: the dependency's range moves from `^0.20.0` to `^0.21.0`, and a caret below 1.0 does not bridge a minor, so a host resolves the newer kernel through `./form` and `./form/react`. The controls take a field's focus border and ring, brand-coloured text and the pale fill behind it from three optional tokens, `--brand`, `--brand-muted` and `--brand-muted-foreground`, each falling back to the `--primary` expression it replaced, so a host that defines none of them renders exactly as before, on either stylesheet entry, with no change on its side.
+- **`@pipelex/mthds-form` 0.21.0 (Breaking)**: the dependency's range moves from `^0.20.0` to `^0.21.0`, and a caret below 1.0 does not bridge a minor, so a host resolves the newer kernel through `./form`, `./form/brand` and `./form/react`. The controls take a field's focus border and ring, brand-coloured text and the pale fill behind it from three optional tokens, `--brand`, `--brand-muted` and `--brand-muted-foreground`, each falling back to the `--primary` expression it replaced, so a host that defines none of them renders exactly as before, on either stylesheet entry, with no change on its side.
 
 ## [v0.37.0] - 2026-10-22
 

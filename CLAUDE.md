@@ -66,6 +66,7 @@ src/
           pipeCardRegistry.ts     # Pipe type → component registry
   form/                           # Run form panel over @pipelex/mthds-form (separate entry point):
     runGate.ts                    #   The submit path, React-free: the kernel's four-step gate + error summary
+    brand/index.ts                #   The ./form/brand entry: the kernel's ./brand entry (seed colours → roles), re-exported
     react/
       RunPanel.tsx                #   The panel — fields, readiness, the gate
       RunPanel.css                #   Panel chrome only (this repo's tokens, no Tailwind)
@@ -144,7 +145,7 @@ Verify after building: `grep "Foo.css" dist/graph/react/index.js` must show the 
 
 **The route to "dependency" matters, because the obvious answer failed.** A *required peer* is auto-installed by npm and **not by pnpm**, which reports it unmet and installs nothing even with `auto-install-peers=true` (tested, not assumed). A property that holds on one package manager is not one a library can offer, so a host would still have had to declare the kernel — the thing the change exists to remove.
 
-So: a dependency, plus two re-export entries. **`./form`** is the kernel's React-free surface (descriptor vocabulary, derivation, readiness, run gate, value plumbing — importable from a server action or a worker) and **`./form/react`** its controls. A host installs `@pipelex/mthds-ui` and imports everything from it.
+So: a dependency, plus three re-export entries. **`./form`** is the kernel's React-free surface (descriptor vocabulary, derivation, readiness, run gate, value plumbing — importable from a server action or a worker), **`./form/brand`** the kernel's isomorphic `./brand` entry (the seed colour derivation and the brand contract), and **`./form/react`** its controls. A kernel entry this package re-exports is named in tsup's `external` array, or it gets bundled. A host installs `@pipelex/mthds-ui` and imports everything from it.
 
 **The rule that keeps a dependency safe: a consumer imports the kernel through those entries, never directly.** The objection to depending on a package that carries React context is duplication — two copies, two context identities, and a host's `FieldStringsProvider` silently fails to resolve inside our controls. A host that declares nothing cannot produce a second copy.
 
@@ -154,7 +155,7 @@ What still holds, and what to keep:
 2. **The React-free entries stay React-free and kernel-free.** `.`, `./graph` and `./static-graph` are importable from a CLI or a worker with nothing installed, and a stray value import from a pure module would take that away silently.
 3. **`shiki` is the only optional peer left**, behind `./shiki`: optional in `peerDependencies` + `peerDependenciesMeta`, a devDependency for local work, `external` in tsup, its own entry.
 
-`make smoke-pack` proves all of it from outside, in a consumer declaring only this package and React: the kernel arrives, it is a dependency rather than a peer, there is **exactly one copy** in the tree, both React entries import it rather than inlining it, the React-free entries never reach it, every React entry keeps its `"use client"`, and a minimal Tailwind 4 host importing `@pipelex/mthds-ui/tailwind.css` compiles every utility in the kernel's prebuilt sheet under npm and pnpm, so `pnpm` must be on the path.
+`make smoke-pack` proves all of it from outside, in a consumer declaring only this package and React: the kernel arrives, it is a dependency rather than a peer, there is **exactly one copy** in the tree, both React entries import it rather than inlining it, the React-free entries never reach it, `./form/brand` imports the kernel's `./brand` alone and runs in plain Node, every React entry keeps its `"use client"`, and a minimal Tailwind 4 host importing `@pipelex/mthds-ui/tailwind.css` compiles every utility in the kernel's prebuilt sheet under npm and pnpm, so `pnpm` must be on the path.
 
 **`"use client"` survives because the smoke test says so, not because of the prepend.** `tsup.config.ts`'s `onSuccess` re-prepends it onto `dist/form/react/index.js`, but at the pinned toolchain that is belt-and-braces: esbuild preserves the directive prologue on its own, which `dist/graph/react/index.js` proves — same source directive, no prepend call, directive present. Keep the fixup (idempotent, costs nothing if a future bundler starts stripping), but do not rely on it, and do not assume a new React entry is covered because that one is. Verify by hand with `head -1 dist/form/react/index.js`.
 
