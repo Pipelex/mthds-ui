@@ -12,9 +12,9 @@ The kernel is an ordinary **dependency** of this package, so install this packag
 npm install @pipelex/mthds-ui
 ```
 
-**Do not declare `@pipelex/mthds-form` yourself, and reach it through `@pipelex/mthds-ui/form` and `@pipelex/mthds-ui/form/react` rather than importing it directly.** A second declaration is a second copy in the tree, and that bites silently: `FieldStringsProvider` and `FieldPresentationProvider` are React contexts, so with two copies a provider you mount above the panel does not resolve inside it — the panel reads the kernel's defaults while your app reads yours, with nothing in the console to say why. A host that declares nothing cannot produce a second copy, which is what makes the dependency arrangement safe where a nested copy would not be.
+**Do not declare `@pipelex/mthds-form` yourself, and reach it through `@pipelex/mthds-ui/form`, `@pipelex/mthds-ui/form/react` and `@pipelex/mthds-ui/form/brand` rather than importing it directly.** A second declaration is a second copy in the tree, and that bites silently: `FieldStringsProvider` and `FieldPresentationProvider` are React contexts, so with two copies a provider you mount above the panel does not resolve inside it — the panel reads the kernel's defaults while your app reads yours, with nothing in the console to say why. A host that declares nothing cannot produce a second copy, which is what makes the dependency arrangement safe where a nested copy would not be.
 
-`make smoke-pack` asserts exactly that from a scratch consumer declaring only this package and React: the kernel arrives without being named, it is a dependency rather than a peer, there is **exactly one copy** in the tree, both React entries import it rather than inlining it, and `.`, `./graph` and `./static-graph` never reach it. The controls' styling is a separate step a host takes itself; see "Styling, and the trap in it" below.
+`make smoke-pack` asserts exactly that from a scratch consumer declaring only this package and React: the kernel arrives without being named, it is a dependency rather than a peer, there is **exactly one copy** in the tree, both React entries import it rather than inlining it, `.`, `./graph` and `./static-graph` never reach it, and `./form/brand` imports the kernel's `./brand` entry alone and runs in plain Node. The controls' styling is a separate step a host takes itself; see "Styling, and the trap in it" below.
 
 The kernel declares `mthds` as a required peer of its own and re-exports its protocol types. A package manager with peer auto-installation supplies it; one that does not will ask for it. This library never imports it.
 
@@ -229,6 +229,31 @@ The container carries a stable class name, **`mthds-run-panel`**, as a documente
 **Write each token as a complete colour, not as a bare HSL triplet.** Since kernel `0.8.0` the controls are a Tailwind 4 build, and a Tailwind 4 theme holds whole colours: the sheet emits `background-color: var(--primary)` where it used to emit `background-color: hsl(var(--primary))`. So `--primary: 142 71% 45%` no longer composes into anything — it computes to `background-color: 142 71% 45%`, which is not a colour. The rule is then **discarded rather than overridden**, and a discarded declaration is the quietest failure CSS has: the build is green, the token is defined and inspectable, and the control simply falls back to `transparent` or to the initial `canvastext`. Any complete colour works — `hsl(…)`, `oklch(…)`, `#6b21a8` — which is also why the bridge below became easy.
 
 A full automatic bridge — mapping this library's `--surface-*` / `--text-*` values onto the shadcn tokens — is still **not built**, but the reason has shrunk. It used to need runtime hex→HSL conversion, because the triplet form could not accept a hex value at all; whole colours take one directly, so what remains is only the judgement call: it is not obvious the form should follow the graph canvas rather than the host app's design system. Ask for it if you want it.
+
+### Brand ink, and a team's own colours
+
+`--primary` is the button colour, and a button colour need not read as text: an amber or a pale yellow is a good fill and unreadable on a white page. So the controls paint everything else that wants the brand from three more tokens, all optional: `--brand` paints a field's focus border, its focus ring at 40%, and brand-coloured text on a page the result view produces; `--brand-muted` is the pale fill of a selected enum pill, a produced page's tag and a completed step; and `--brand-muted-foreground` is the checkmark, tag or number on that fill. Each falls back to the `--primary` expression it replaced, so a page that defines none of them renders as it did before kernel `0.21.0`, and this package defines none of them itself. They need no Tailwind theme mapping: the kernel writes them as arbitrary values, which any build that scans its classes generates.
+
+`@pipelex/mthds-ui/form/brand` is the kernel's `./brand` entry, re-exported and React-free, and it derives all of them from up to three colours a person picked, `action` (the button), `accent` and `header`, each a `#rrggbb` or unset. Call it once per theme, with that theme's page colour, because every text colour it returns is measured against the page it will sit on:
+
+```ts
+import { deriveBrandRoles, resolveDarkSeeds, type BrandRoles } from "@pipelex/mthds-ui/form/brand";
+
+const light = deriveBrandRoles(colors, "#ffffff");
+const dark = deriveBrandRoles(resolveDarkSeeds(colors, darkColors), "#0d0d0d");
+
+function brandTokens(roles: BrandRoles): Record<string, string> {
+  return {
+    "--primary": roles.action,
+    "--primary-foreground": roles.onAction,
+    "--brand": roles.accentInk,
+    "--brand-muted": roles.accentFill,
+    "--brand-muted-foreground": roles.accentInk,
+  };
+}
+```
+
+Write the light set on `.mthds-run-panel` and the dark set on `.mthds-run-panel.dark`, the class `theme="dark"` sets, as complete colours like every other token. `accentInk` reads at 4.5:1 on the page and on `accentFill`, and `onAction` is pure black or white, whichever reads on the button; the accent itself is a fill and never text, and it never maps onto shadcn's `--accent`, which is the neutral hover fill of a menu item. The same entry carries `isActionFaint` and `isAccentAdjusted`, the two warnings a settings screen shows for each theme, `readableTextOn`, the black-or-white rule alone, `PIPELEX_GREEN`, the colour an unset button colour falls back to, and the rest of the kernel's brand surface: the theme contract, the token file's validator, and the assembler and compiler a full brand goes through. The kernel's [brand.md](https://github.com/Pipelex/mthds-form/blob/main/docs/brand.md#three-seed-colours) states every guarantee. The panel's own Run button is chrome rather than a kernel control, and does not read `--primary`, as the next section says.
 
 ### The one place the chrome does not follow the palette: the Run button
 

@@ -304,6 +304,7 @@ See `graphConfig.ts` for the full default palette.
 | `@pipelex/mthds-ui`                 | Pure-TS graph logic — types, builders, layout, controllers, config |
 | `@pipelex/mthds-ui/graph/react`     | React components — `GraphViewer`, label helpers, type converters   |
 | `@pipelex/mthds-ui/form`            | The form kernel's React-free surface, re-exported                  |
+| `@pipelex/mthds-ui/form/brand`      | The kernel's brand entry: seed colours into readable colour roles  |
 | `@pipelex/mthds-ui/form/react`      | `RunPanel` — a pipe's input form — and the kernel's controls       |
 | `@pipelex/mthds-ui/timeline`        | A run's progress snapshot: types, path grammar, rows and time axis |
 | `@pipelex/mthds-ui/timeline/react`  | `RunTimeline` — a running run's invocations as growing bars        |
@@ -391,7 +392,9 @@ Tailwind 3 hosts and Tailwind 4 hosts that configure a prefix are not supported:
 
 Either way, the shadcn token values are yours to supply, and each must be a **complete colour** — `hsl(240 10% 3.9%)`, `#0a0711`, `oklch(…)` — never a bare HSL triplet. Since kernel `0.8.0` the sheet emits `background-color: var(--background)` rather than `hsl(var(--background))`, so a triplet computes to something that is not a colour and the browser discards the declaration instead of overriding with it: green build, token inspectable, style silently absent.
 
-Full contract, why this package stopped loading the kernel's stylesheet itself, the `.dark` bridge and the `mthds-run-panel` token hook: [docs/run-form-panel.md](./docs/run-form-panel.md).
+To brand the controls with a team's own colours, `@pipelex/mthds-ui/form/brand` derives `--primary` and the three optional tokens the controls read for brand-coloured text and its pale fill, `--brand`, `--brand-muted` and `--brand-muted-foreground`, from up to three colours a person picked, every text colour readable on the theme's page. A page that defines none of the three renders exactly as it did.
+
+Full contract, why this package stopped loading the kernel's stylesheet itself, the `.dark` bridge, the `mthds-run-panel` token hook and the brand tokens: [docs/run-form-panel.md](./docs/run-form-panel.md).
 
 ## Run timeline
 
