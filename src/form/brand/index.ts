@@ -3,11 +3,13 @@
  *
  * A host that brands its pages reaches the kernel's colour derivation here:
  * `deriveBrandRoles` turns up to three seed colours a person picked into the
- * roles a page paints with, every text role readable at WCAG AA, and
- * `resolveDarkSeeds`, `isActionFaint`, `isAccentAdjusted`, `readableTextOn` and
- * `PIPELEX_GREEN` are the rules around it. The same entry carries the rest of
- * the kernel's brand surface: the theme contract, the token file's validator,
- * and the manifest, provenance and compiler a full brand goes through.
+ * roles a page paints with, every text role readable at WCAG AA, and returns
+ * only the roles a set colour produces, so a host keeps its own token wherever
+ * the team set nothing. `resolveDarkSeeds`, `isActionFaint`, `isAccentAdjusted`
+ * and `readableTextOn` are the rules around it. The same entry carries the rest
+ * of the kernel's brand surface: the theme contract, the token file's
+ * validator, and the manifest, provenance and compiler a full brand goes
+ * through.
  *
  * It is its own entry rather than part of `./form` because the kernel keeps it
  * apart from its `.` entry, and for the same reason: it is isomorphic and
@@ -19,8 +21,8 @@
  * this package, never directly, so its tree holds one copy of it.
  *
  * Mapping the roles onto the tokens the kernel's controls read — `--primary`,
- * `--primary-foreground`, `--brand`, `--brand-muted` and
- * `--brand-muted-foreground` — is described in `docs/run-form-panel.md`.
+ * `--primary-foreground`, `--link`, `--selected` and `--ring` — is described in
+ * `docs/run-form-panel.md`.
  */
 
 export * from "@pipelex/mthds-form/brand";

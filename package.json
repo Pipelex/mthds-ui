@@ -92,10 +92,10 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@pipelex/mthds-form": "^0.21.0",
+    "@pipelex/mthds-form": "github:Pipelex/mthds-form#1fd1964548e972e41e1a9332f44978801d23e4bd",
     "@xyflow/react": "^12",
     "elkjs": "^0.11.1",
-    "mthds": "^0.32.1",
+    "mthds": "^0.33.0",
     "smol-toml": "^1.7.0"
   },
   "peerDependencies": {
