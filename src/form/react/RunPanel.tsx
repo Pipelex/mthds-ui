@@ -24,13 +24,10 @@ import {
 import { getPaletteForTheme } from "@graph/graphConfig";
 import { GRAPH_THEME, type GraphTheme } from "@graph/types";
 import { runSubmitGate, type RunPanelTranslate } from "@form/runGate";
+import { runPanelUpload, type UploadedFile } from "./panelUpload";
 import "./RunPanel.css";
 
-/** What a host's upload returns: the stored URL, and optionally a display name. */
-export interface UploadedFile {
-  url: string;
-  filename?: string;
-}
+export type { UploadedFile } from "./panelUpload";
 
 export interface RunPanelProps {
   /**
@@ -106,13 +103,23 @@ export interface RunPanelProps {
    * panel itself started and leave Run live through it. A host that owns the
    * whole loop supplies `onDropFile` too, so the panel's set is empty and the
    * union is exactly your set.
+   *
+   * A host owning the whole loop answers the field as the panel does: its
+   * `onDropFile` returns its upload, a promise of what it stored that resolves
+   * to the file it wrote and rejects when it wrote nothing. One that returns
+   * nothing must write the value in the same render as it takes the id out of
+   * `uploadingIds`, because the kernel reads a value written a render earlier
+   * as another writer's file, and one written a render later as an upload that
+   * stopped with nothing, and either way the field lets go of the preview.
    */
   env?: FieldEnv;
   /**
    * Stores a dropped file and returns its URL. The host performs the upload —
    * this library never touches an API client — while the panel owns the
-   * bookkeeping around it: marking the field busy and writing the result back
-   * at the field's dotted path.
+   * bookkeeping around it: marking the field busy, writing the result back at
+   * the field's dotted path, and answering the field with the file it wrote, so
+   * the dropped file's preview stays whichever render your values reach the
+   * screen in.
    */
   uploadFile?: (file: File, fieldId: string) => Promise<UploadedFile>;
   /**
@@ -366,81 +373,43 @@ export function RunPanel({
     };
   }, [contract]);
 
+  // The field's `onDropFile`. It returns the upload, the answer the kernel's
+  // field matches to the value so the dropped file keeps its preview whichever
+  // render the host's values land in: resolved to the file written, rejected
+  // when nothing was (`panelUpload.ts` says why, and how a write-back bug stays
+  // visible now that the field handles the rejection).
   const handleDropFile = React.useCallback(
-    (id: string, file: File) => {
-      if (!uploadFile) return;
+    (id: string, file: File): Promise<UploadedFile> | undefined => {
+      if (!uploadFile) return undefined;
       const startedAt = generationRef.current;
       setUploadingIds((previous) => new Set(previous).add(id));
-      // Called through an async wrapper rather than directly. `uploadFile` is
-      // the HOST's function and is typed as a plain function returning a
-      // promise — nothing obliges it to be `async`. One that validates before
-      // it starts the request (no API key configured, a file over the size
-      // limit, a mime type it will not take) throws SYNCHRONOUSLY, and a
-      // synchronous throw happens before there is a promise to hang `.catch()`
-      // and `.finally()` on. The id marked one line above would then stay
-      // marked for good: `uploading` disables the dropzone, so the field cannot
-      // even be retried, and Run stays gated until the user leaves the form
-      // entirely. The wrapper turns that throw into the rejection this chain
-      // already cleans up, which makes the SAME host logic behave the same way
-      // whether it was written `async` or not — the only difference between
-      // those two spellings being the keyword.
-      void (async () => await uploadFile(file, id))()
-        .then(
-          (uploaded) => {
-            if (generationRef.current !== startedAt) return;
-            const before = valuesRef.current;
-            const next = setValueAtPath(before, id.split("."), {
-              url: uploaded.url,
-              filename: uploaded.filename ?? file.name,
-            });
-            // Advance the mirror here rather than waiting for the effect. Two
-            // uploads finishing in the same React batch both run before any
-            // re-render, so both would otherwise read the same snapshot and the
-            // second write would drop the first — a pipe with two file inputs is
-            // ordinary (`candidate_screening.screen_candidate` takes a `cv` and a
-            // `job_offer`), and the loss is silent: both fields look settled
-            // while one value is gone. The effect still owns syncing FROM the
-            // host, so the mirror converges on whatever the host actually kept.
-            valuesRef.current = next;
-            commitValues(next, before);
-          },
-          () => {
-            // The host owns how a failed upload is announced (it owns the
-            // transport). Swallowing it here keeps a rejected promise from
-            // becoming an unhandled rejection; the field simply stays empty.
-            //
-            // This is `.then`'s SECOND ARGUMENT rather than a `.catch()` link,
-            // and the difference is the whole point: a `.catch()` chained after
-            // the handler above also catches whatever that handler throws, and
-            // the handler dereferences a value the host produced. `uploadFile`
-            // is typed `Promise<UploadedFile>`, but a type is not a runtime
-            // guarantee — a host branch that forgets its `return`, or unwraps a
-            // JSON response one level too few, resolves to `undefined`, and
-            // `uploaded.url` then throws. Swallowed, that is the one failure in
-            // this whole lifecycle with NO diagnostic surface anywhere: the
-            // spinner clears, the field reads empty, nothing is logged, and
-            // re-dropping repeats it forever. As the second argument this
-            // handler covers only the upload's own rejection, which is all it
-            // ever claimed to; a write-back bug stays an unhandled rejection,
-            // where the host's error reporting can see it.
-          },
-        )
-        .finally(() => {
-          // The same generation check as the write-back, for a sharper reason.
-          // Switching contracts already emptied this set, and the very same id
-          // may since have been re-added by a NEW upload under the new
-          // generation — nothing exotic, since that is what sharing the `cv`
-          // input name means, and a host returning to the pipe it left reaches
-          // it with no rename at all. Deleting it here would un-mark an upload
-          // that is still running: its dropzone re-enables mid-flight, its
-          // progress indicator vanishes, and the Run gate lets go of it.
-          if (generationRef.current !== startedAt) return;
+      return runPanelUpload({
+        id,
+        start: () => uploadFile(file, id),
+        isCurrent: () => generationRef.current === startedAt,
+        write: (uploaded) => {
+          const before = valuesRef.current;
+          const written = { url: uploaded.url, filename: uploaded.filename ?? file.name };
+          const next = setValueAtPath(before, id.split("."), written);
+          // Advance the mirror here rather than waiting for the effect. Two
+          // uploads finishing in the same React batch both run before any
+          // re-render, so both would otherwise read the same snapshot and the
+          // second write would drop the first — a pipe with two file inputs is
+          // ordinary (`candidate_screening.screen_candidate` takes a `cv` and a
+          // `job_offer`), and the loss is silent: both fields look settled
+          // while one value is gone. The effect still owns syncing FROM the
+          // host, so the mirror converges on whatever the host actually kept.
+          valuesRef.current = next;
+          commitValues(next, before);
+          return written;
+        },
+        endFlight: () =>
           setUploadingIds((previous) => {
             const next = new Set(previous);
             next.delete(id);
             return next;
-          });
-        });
+          }),
+      });
     },
     // `contract` is no longer a dependency: the generation is read off the ref
     // at drop time, so this callback does not need rebuilding per pipe.

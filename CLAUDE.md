@@ -71,6 +71,7 @@ src/
     brand/index.ts                #   The ./form/brand entry: the kernel's ./brand entry (seed colours → roles), re-exported
     react/
       RunPanel.tsx                #   The panel — fields, readiness, the gate
+      panelUpload.ts              #   One upload's lifecycle, React-free: the write-back and the answer the field matches
       RunPanel.css                #   Panel chrome only (this repo's tokens, no Tailwind)
       index.ts                    #   Barrel for the ./form/react entry
       __stories__/contracts/      #   Generated pipe_io_contracts + input_form + output_form fixtures
