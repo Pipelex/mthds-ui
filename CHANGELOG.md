@@ -1,5 +1,12 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- **`@pipelex/mthds-form` with role-named colour tokens (Breaking)**: the dependency moves from `^0.21.0` to the kernel release that names its optional colour tokens after the roles they paint, and a caret below 1.0 does not bridge a minor, so a host resolves the newer kernel through `./form`, `./form/brand` and `./form/react`. The controls read the accent as text from `--link` and the pale selected fill from `--selected` where they read `--brand` and `--brand-muted`, no longer read `--brand-muted-foreground`, draw every focus, a text field's border and ring included, in `--ring`, and paint a pressed toggle with `--selected`, so a branding host renames its two tokens, drops the third and writes its accent ink onto `--ring` as well. See [docs/run-form-panel.md](docs/run-form-panel.md#brand-ink-and-a-teams-own-colours).
+- **`./form/brand` derives no fallback colour, and `PIPELEX_GREEN` is gone (Breaking)**: `deriveBrandRoles` returns only the roles a colour the team set produces, so an unset button colour no longer falls back to Pipelex green, an unset header no longer to the page, and the accent's roles are absent when neither the accent nor the button colour is set; with no colour set the result is `{}`, `BrandRoles` types each group of roles as present whole or absent whole, and `@pipelex/mthds-ui/form/brand` no longer exports `PIPELEX_GREEN`. A host writes a token only for a role that is present, mapping `accentInk` onto `--link` and `--ring` and `accentFill` onto `--selected`, and keeps its own token wherever the team set nothing.
+
 ## [v0.38.0] - 2026-10-23
 
 ### Added
