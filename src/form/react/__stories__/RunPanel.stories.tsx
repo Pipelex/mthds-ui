@@ -1,4 +1,5 @@
 import * as React from "react";
+import { flushSync } from "react-dom";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, fireEvent, fn, userEvent, waitFor, within } from "storybook/test";
 import {
@@ -2037,6 +2038,179 @@ export const ChangeAfterUploadKeepsTheFile: Story = {
       ).toHaveValue("Ada Lovelace"),
     );
     await expect(canvas.getByText("card.png")).toBeInTheDocument();
+  },
+};
+
+/**
+ * Where the preview stories' upload stores the file: a reference no browser
+ * renders, and the panels below pass no `resolveUrl`, so once the file has
+ * landed only the dropped file's own preview can paint it.
+ */
+const STORED_CARD = "pipelex-storage://org/assets/card.png";
+
+/** A real 1×1 PNG, so the dropped file's preview loads rather than breaking. */
+function pngFile(name: string): File {
+  const bytes = Uint8Array.from(
+    atob(
+      "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+    ),
+    (char) => char.charCodeAt(0),
+  );
+  return new File([bytes], name, { type: "image/png" });
+}
+
+/**
+ * A host that applies every change the panel hands it through `apply`, in its
+ * own time: later, as a store or a transition does, or synchronously, as a
+ * store that renders on write does. The upload hangs until the story settles it
+ * or fails it.
+ */
+function HostAppliesInItsOwnTime({
+  args,
+  apply,
+}: {
+  args: { contract: PipeIOContract; descriptor: PipeInputFormDescriptor; title: string };
+  apply: (write: () => void) => void;
+}) {
+  const [values, setValues] = React.useState<Record<string, unknown>>({});
+  const pending = React.useRef<{
+    resolve: (file: UploadedFile) => void;
+    reject: (error: Error) => void;
+  } | null>(null);
+  const uploadFile = React.useCallback(
+    () =>
+      new Promise<UploadedFile>((resolve, reject) => {
+        pending.current = { resolve, reject };
+      }),
+    [],
+  );
+  const onValuesChange = React.useCallback(
+    (next: Record<string, unknown>) => apply(() => setValues(next)),
+    [apply],
+  );
+  return (
+    <>
+      <RunPanel
+        contract={args.contract}
+        descriptor={args.descriptor}
+        idPrefix={ID_PREFIX}
+        values={values}
+        onValuesChange={onValuesChange}
+        onRun={() => {}}
+        title={args.title}
+        theme={GRAPH_THEME.DARK}
+        uploadFile={uploadFile}
+      />
+      <button
+        type="button"
+        data-testid="settle-upload"
+        onClick={() => pending.current?.resolve({ url: STORED_CARD, filename: "card.png" })}
+      >
+        settle upload
+      </button>
+      <button
+        type="button"
+        data-testid="fail-upload"
+        onClick={() => pending.current?.reject(new Error("storage refused the file"))}
+      >
+        fail upload
+      </button>
+    </>
+  );
+}
+
+/** Drops `card.png` on `card_image` and waits until the panel marks it in flight. */
+async function dropCard(canvasElement: HTMLElement) {
+  const canvas = within(canvasElement);
+  const fileInput = canvasElement.querySelector<HTMLInputElement>(
+    `input[id="${ID_PREFIX}-card_image"]`,
+  );
+  if (!fileInput) throw new Error("no file input for card_image");
+  fireEvent.change(fileInput, { target: { files: [pngFile("card.png")] } });
+  await waitFor(() => expect(canvas.getByText(/Uploading/)).toBeInTheDocument());
+}
+
+/**
+ * Settles the upload, waits for the card, opens its preview and answers whether
+ * it paints the dropped file (an object URL) rather than the stored reference,
+ * which with no resolver shows the "cannot be shown" state.
+ */
+async function settledCardPaintsDroppedFile(canvasElement: HTMLElement): Promise<boolean> {
+  const canvas = within(canvasElement);
+  await userEvent.click(canvas.getByTestId("settle-upload"));
+  await waitFor(() => expect(canvas.getByText("card.png")).toBeInTheDocument());
+  await userEvent.click(canvas.getByRole("button", { name: /^preview$/i }));
+  return canvasElement.querySelector('[src^="blob:"]') !== null;
+}
+
+/**
+ * A dropped file keeps its preview when the host applies the values after the
+ * panel's mark goes.
+ *
+ * The panel lands an upload in two writes the host sees apart: the values,
+ * through `onValuesChange`, and the end of the flight, the panel's own mark.
+ * The kernel's field tells its upload's result from a file someone else wrote,
+ * and a field told nothing goes by when the value lands, so with this host,
+ * whose values reach the screen after the mark has gone, it read the upload as
+ * one that stopped with nothing written and dropped the preview: the card fell
+ * back to the stored reference, which nothing here can show. The panel hands
+ * the field the file it wrote, and the field waits for the value holding it.
+ */
+export const DroppedFileKeepsItsPreviewWhenTheHostAppliesLater: Story = {
+  args: { ...COMPOSE_REPORT, title: "compose_report" },
+  render: function Render(args) {
+    const later = React.useCallback((write: () => void) => {
+      setTimeout(write, 300);
+    }, []);
+    return <HostAppliesInItsOwnTime args={args} apply={later} />;
+  },
+  play: async ({ canvasElement }) => {
+    await dropCard(canvasElement);
+    await expect(await settledCardPaintsDroppedFile(canvasElement)).toBe(true);
+  },
+};
+
+/**
+ * The same, for a host whose values reach the screen before the panel's mark
+ * goes: a store that renders on write, here `flushSync`. Told nothing, the
+ * field read the value that appeared while the file was still arriving, and was
+ * still there once it had arrived, as another writer's file.
+ */
+export const DroppedFileKeepsItsPreviewWhenTheHostRendersAtOnce: Story = {
+  args: { ...COMPOSE_REPORT, title: "compose_report" },
+  render: function Render(args) {
+    const atOnce = React.useCallback((write: () => void) => flushSync(write), []);
+    return <HostAppliesInItsOwnTime args={args} apply={atOnce} />;
+  },
+  play: async ({ canvasElement }) => {
+    await dropCard(canvasElement);
+    await expect(await settledCardPaintsDroppedFile(canvasElement)).toBe(true);
+  },
+};
+
+/**
+ * An upload that fails writes nothing, and the form is left as it was.
+ *
+ * The panel hands the field the failure, so the field retires the dropped
+ * file's preview at once, and handles it itself where it hands it over: a host
+ * announces its own failures, so this one must not escape as an unhandled
+ * rejection, which the test run would report.
+ */
+export const RejectedUploadWritesNothing: Story = {
+  args: { ...COMPOSE_REPORT, title: "compose_report" },
+  render: function Render(args) {
+    const atOnce = React.useCallback((write: () => void) => write(), []);
+    return <HostAppliesInItsOwnTime args={args} apply={atOnce} />;
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await dropCard(canvasElement);
+    await userEvent.click(canvas.getByTestId("fail-upload"));
+    await waitFor(() => expect(canvas.queryByText(/Uploading/)).not.toBeInTheDocument());
+    await expect(canvas.queryByText("card.png")).not.toBeInTheDocument();
+    await expect(
+      canvasElement.querySelector(`input[id="${ID_PREFIX}-card_image"]`),
+    ).not.toBeDisabled();
   },
 };
 

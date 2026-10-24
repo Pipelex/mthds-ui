@@ -1,5 +1,18 @@
 # Changelog
 
+## [v0.39.0] - 2026-10-24
+
+### Changed
+
+- **`@pipelex/mthds-form` with role-named colour tokens (Breaking)**: the dependency's range moves from `^0.21.0` to `^0.23.0`, the kernel release that names its optional colour tokens after the roles they paint, and a caret below 1.0 does not bridge a minor, so a host resolves the newer kernel through `./form`, `./form/brand` and `./form/react`. The controls read the accent as text from `--link` and the pale selected fill from `--selected` where they read `--brand` and `--brand-muted`, no longer read `--brand-muted-foreground`, draw every focus, a text field's border and ring included, in `--ring`, and paint a pressed toggle with `--selected`, so a branding host renames its two tokens, drops the third and writes its accent ink onto `--ring` as well. See [docs/run-form-panel.md](docs/run-form-panel.md#brand-ink-and-a-teams-own-colours).
+- **`./form/brand` derives no fallback colour, and `PIPELEX_GREEN` is gone (Breaking)**: `deriveBrandRoles` returns only the roles a colour the team set produces, so an unset button colour no longer falls back to Pipelex green, an unset header no longer to the page, and the accent's roles are absent when neither the accent nor the button colour is set; with no colour set the result is `{}`, `BrandRoles` types each group of roles as present whole or absent whole, and `@pipelex/mthds-ui/form/brand` no longer exports `PIPELEX_GREEN`. A host writes a token only for a role that is present, mapping `accentInk` onto `--link` and `--ring` and `accentFill` onto `--selected`, and keeps its own token wherever the team set nothing.
+- **A host's `onDropFile` answers with its upload (Breaking)**: the form kernel's file field now keeps a dropped file's preview for the value holding the URL its upload says it stored, so a host running its own uploads through `RunPanel`'s `env.onDropFile`, or rendering the re-exported controls itself, returns a promise of what it stored, resolving to the file it wrote and rejecting when it wrote nothing. A host whose `onDropFile` returns nothing writes the value in the same render as it takes the id out of `uploadingIds`, since a value written a render earlier is now read as another writer's file and the field drops the preview. See [docs/run-form-panel.md](docs/run-form-panel.md#what-the-host-still-owns).
+- **`mthds` ^0.33.0 (Breaking)**: the dependency's range moves from `^0.32.1`, which a caret below 1.0 keeps below 0.33, to `^0.33.0`, the range the form kernel takes, so the package installs one copy of the standard's types where it installed two, and a host still on `mthds` 0.32 gets a second copy nested under this package until it moves to 0.33. The package reads only the `Problem` type from `mthds/errors`, which did not change in any way it reads.
+
+### Fixed
+
+- **`RunPanel`'s dropped file keeps its preview**: the panel answers the kernel's field with the file each upload wrote, so the card keeps showing the dropped file once the upload lands whichever render the host's values reach the screen in. A host applying its values after the panel's busy mark had gone, through a store or a transition, used to see the preview replaced by the stored file's own, which a stored reference with no `resolveUrl` cannot show.
+
 ## [v0.38.0] - 2026-10-23
 
 ### Added
