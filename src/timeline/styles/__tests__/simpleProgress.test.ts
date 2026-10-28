@@ -18,6 +18,7 @@ import { lastPathSegment } from "@timeline/invocationPath";
 import {
   SIMPLE_MAX_DEPTH,
   buildSimpleProgress,
+  simpleProgressChanges,
   type SimpleProgress,
   type SimpleProgressLine,
 } from "../simpleProgress";
@@ -730,5 +731,48 @@ describe("a batch inside a batch's branch", () => {
       expanded: false,
       forEachItem: "claim",
     });
+  });
+});
+
+describe("what changed between two readings", () => {
+  const progressAt = (clock: string, expanded: Record<string, boolean> = {}) =>
+    buildSimpleProgress(at(REVIEW_FILINGS_SNAPSHOTS, clock), { ...filings, expanded });
+
+  it("names the top-level lines that ended and started", () => {
+    const first = buildSimpleProgress(REVIEW_FILINGS_SNAPSHOTS[0], filings);
+    const extracting = progressAt("09:30:01.000");
+    expect(simpleProgressChanges(first, extracting)).toEqual({
+      done: [],
+      failed: [],
+      started: ["Extract the filings from the document"],
+      runEnded: false,
+    });
+    const deciding = progressAt("09:30:08.000");
+    expect(simpleProgressChanges(extracting, deciding)).toEqual({
+      done: ["Extract the filings from the document"],
+      failed: [],
+      started: ["Decide how deep to check"],
+      runEnded: false,
+    });
+  });
+
+  it("says nothing for a reading that changed no top-level line, or a group opened", () => {
+    const reading = progressAt("09:30:10.000");
+    expect(simpleProgressChanges(reading, progressAt("09:30:10.000", { [BATCH]: true }))).toEqual({
+      done: [],
+      failed: [],
+      started: [],
+      runEnded: false,
+    });
+  });
+
+  it("says the run ended once, with the line it failed in", () => {
+    const beforeEnd = buildSimpleProgress(
+      WIDE_BATCH_SNAPSHOTS[WIDE_BATCH_SNAPSHOTS.length - 2],
+      filings,
+    );
+    const ended = buildSimpleProgress(LAST_WIDE, filings);
+    expect(simpleProgressChanges(beforeEnd, ended)).toMatchObject({ runEnded: true });
+    expect(simpleProgressChanges(ended, ended).runEnded).toBe(false);
   });
 });

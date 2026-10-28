@@ -15,6 +15,7 @@ import {
   SIMPLE_LINE_STATE,
   SIMPLE_RUN_NOTE_REASON,
   buildSimpleProgress,
+  simpleProgressChanges,
   type SimpleLineState,
   type SimpleProgress,
   type SimpleProgressLine,
@@ -437,6 +438,43 @@ function RunNoteView({ note, strings }: { note: SimpleRunNote; strings: SimplePr
   );
 }
 
+/** What the live region last said, and the reading it said it of. */
+interface Announcement {
+  stream: string;
+  progress: SimpleProgress;
+  message: string;
+}
+
+/**
+ * What the live region says: the top-level lines that ended or started since
+ * the previous reading, then the run's end in the headline's words, rather
+ * than every snapshot. A reading that changed none of those keeps the last
+ * message, so nothing is said again; another stream starts silent.
+ */
+function useAnnouncement(
+  progress: SimpleProgress,
+  stream: string,
+  headline: string,
+  strings: SimpleProgressStrings,
+): string {
+  const [state, setState] = React.useState<Announcement>({ stream, progress, message: "" });
+  if (state.progress === progress) return state.message;
+  let message = "";
+  if (state.stream === stream) {
+    const change = simpleProgressChanges(state.progress, progress);
+    const parts = [
+      ...change.done.map(strings.announceDone),
+      ...change.failed.map(strings.announceFailed),
+      ...(change.runEnded
+        ? [strings.announceEnd(headline)]
+        : change.started.map(strings.announceNow)),
+    ];
+    message = parts.length > 0 ? parts.join(" ") : state.message;
+  }
+  setState({ stream, progress, message });
+  return message;
+}
+
 /**
  * The simple timeline style: the run as a checklist of its steps in the
  * method's own words, a batch as one line with a bar and its counts, only the
@@ -499,6 +537,7 @@ export function SimpleProgressView({
   });
   const headline = headlineOf(progress, runElapsedMs(progress, times, nowMs), strings);
   const failure = progress.failure;
+  const announcement = useAnnouncement(progress, stream, headline, strings);
 
   const classes = [
     containerClassName,
@@ -527,6 +566,9 @@ export function SimpleProgressView({
           <span className="mthds-run-timeline-mode">{strings.dryRun}</span>
         )}
       </header>
+      <p className="mthds-run-timeline-sr" aria-live="polite">
+        {announcement}
+      </p>
       {progress.runNote && <RunNoteView note={progress.runNote} strings={strings} />}
       {failure?.problem && !failure.shownOnLine && (
         <Note tone="error">

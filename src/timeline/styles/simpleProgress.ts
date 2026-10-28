@@ -919,3 +919,40 @@ export function buildSimpleProgress(
     lines,
   };
 }
+
+/**
+ * What changed between two readings of one run that a reader who cannot see
+ * the checklist is told: the top-level lines that ended or started, and
+ * whether the run ended. Titles come in drawing order.
+ */
+export interface SimpleProgressChange {
+  done: string[];
+  failed: string[];
+  started: string[];
+  runEnded: boolean;
+}
+
+/**
+ * The change from one projection of a run to the next. A top-level line counts
+ * once, when it reaches its state: a line that was already done is not done
+ * again, and opening or closing a group changes nothing.
+ */
+export function simpleProgressChanges(
+  previous: SimpleProgress,
+  current: SimpleProgress,
+): SimpleProgressChange {
+  const before = new Map(previous.lines.map((line) => [line.key, line.state]));
+  const change: SimpleProgressChange = {
+    done: [],
+    failed: [],
+    started: [],
+    runEnded: !isRunEnded(previous.status) && isRunEnded(current.status),
+  };
+  for (const line of current.lines) {
+    if (before.get(line.key) === line.state) continue;
+    if (line.state === SIMPLE_LINE_STATE.DONE) change.done.push(line.title);
+    else if (line.state === SIMPLE_LINE_STATE.FAILED) change.failed.push(line.title);
+    else if (line.state === SIMPLE_LINE_STATE.RUNNING) change.started.push(line.title);
+  }
+  return change;
+}

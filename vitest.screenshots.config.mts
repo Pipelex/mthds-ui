@@ -33,8 +33,18 @@ export default defineConfig({
     browser: {
       enabled: true,
       headless: true,
-      provider: playwright({}),
+      // A pinned zone and locale, so a time a picture shows in the reader's
+      // clock is the same on every machine of the platform.
+      provider: playwright({ contextOptions: { timezoneId: "UTC", locale: "en-US" } }),
       instances: [{ browser: "chromium", viewport: { width: 1280, height: 800 } }],
+      // Antialiasing moves a few edge pixels between runs and OS updates of the
+      // same platform; a picture that changed shape differs by far more.
+      expect: {
+        toMatchScreenshot: {
+          comparatorName: "pixelmatch",
+          comparatorOptions: { allowedMismatchedPixelRatio: 0.0005 },
+        },
+      },
     },
   },
 });

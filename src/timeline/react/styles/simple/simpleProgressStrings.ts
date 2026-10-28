@@ -61,6 +61,12 @@ export interface SimpleProgressStrings {
   /** The disclosure that holds the platform's own words. */
   details: string;
 
+  /** What the live region says of a top-level line that ended or started, and of the run's end, given its headline. */
+  announceDone: (title: string) => string;
+  announceFailed: (title: string) => string;
+  announceNow: (title: string) => string;
+  announceEnd: (headline: string) => string;
+
   /** A toggle's accessible name. */
   expand: (title: string) => string;
   collapse: (title: string) => string;
@@ -156,6 +162,11 @@ export const DEFAULT_SIMPLE_PROGRESS_STRINGS: SimpleProgressStrings = {
       ? "The run is having trouble. Still trying."
       : `The run is having trouble. Still trying until ${until}.`,
   details: "Details",
+
+  announceDone: (title) => `Done: ${title}.`,
+  announceFailed: (title) => `Failed: ${title}.`,
+  announceNow: (title) => `Now: ${title}.`,
+  announceEnd: (headline) => `${headline}.`,
 
   expand: (title) => `Show the steps of ${title}`,
   collapse: (title) => `Hide the steps of ${title}`,

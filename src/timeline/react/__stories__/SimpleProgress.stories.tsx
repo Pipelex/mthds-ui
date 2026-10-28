@@ -4,7 +4,10 @@ import { expect, userEvent, waitFor, within } from "storybook/test";
 import { RunTimeline } from "../RunTimeline";
 import { SnapshotReplay } from "./SnapshotReplay";
 import { REVIEW_FILINGS_REGISTRY, VET_COMPANY_REGISTRY } from "./methodRegistries";
+import type { ProgressSnapshot } from "@timeline/progressSnapshot";
 import {
+  CANCELED_RUN_SNAPSHOT,
+  DRY_RUN_SNAPSHOTS,
   REVIEW_FILINGS_SNAPSHOTS,
   VET_COMPANY_SNAPSHOTS,
   WIDE_BATCH_SNAPSHOTS,
@@ -40,6 +43,15 @@ type Story = StoryObj<typeof RunTimeline>;
 
 const ROOT = "filings.review_filings";
 const BATCH = `${ROOT}/step_3`;
+const VET_ROOT = "diligence.vet_company";
+const HOST_SUCCESS_COLOR = "rgb(22, 163, 74)";
+
+/** The last of a recording's snapshots read at or before a clock time of its day. */
+function snapshotAt(snapshots: ProgressSnapshot[], clock: string): ProgressSnapshot {
+  const found = [...snapshots].reverse().find((each) => each.assembled_at.slice(11) <= clock);
+  if (!found) throw new Error(`no snapshot at ${clock}`);
+  return found;
+}
 
 function lineAt(canvasElement: HTMLElement, key: string): HTMLElement | null {
   return canvasElement.querySelector<HTMLElement>(`li[data-key="${key}"]`);
@@ -202,4 +214,156 @@ export const VetCompany: Story = {
       entryPipeRef="diligence.vet_company"
     />
   ),
+};
+
+/** A canceled run: what was going stops where it was, and no step is listed past it. */
+export const CanceledRun: Story = {
+  args: { snapshot: CANCELED_RUN_SNAPSHOT },
+  play: async ({ canvasElement }) => {
+    await waitFor(() => expect(headlineOf(canvasElement)).toMatch(/^Canceled/));
+    expect(lineAt(canvasElement, BATCH)?.dataset.state).toBe("stopped");
+    expect(lineAt(canvasElement, BATCH)?.textContent).toContain("Stopped");
+    expect(canvasElement.querySelector('li[data-state="upcoming"]')).toBeNull();
+  },
+};
+
+/** A run that failed before anything started. */
+export const FailedBeforeStarting: Story = {
+  args: {
+    snapshot: { ...REVIEW_FILINGS_SNAPSHOTS[0], status: "failed", summary: "Failed" },
+  },
+  play: async ({ canvasElement }) => {
+    await waitFor(() => expect(headlineOf(canvasElement)).toBe("No progress was recorded"));
+    expect(canvasElement.querySelector("li")).toBeNull();
+  },
+};
+
+/**
+ * A dry run, its condition opened: a dry run resolves nothing and runs every
+ * branch, so each is labelled by the outcome it stands for.
+ */
+export const DryRunCondition: Story = {
+  args: { snapshot: DRY_RUN_SNAPSHOTS[DRY_RUN_SNAPSHOTS.length - 1] },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(await canvas.findByText("Dry run")).toBeInTheDocument();
+    await userEvent.click(
+      canvas.getByRole("button", { name: "Show the steps of Decide how deep to check" }),
+    );
+    await waitFor(() =>
+      expect(lineAt(canvasElement, `${ROOT}/step_2`)?.textContent).toContain("if Detailed"),
+    );
+    expect(lineAt(canvasElement, `${ROOT}/step_2`)?.textContent).toContain("if Quick");
+  },
+};
+
+/** A host's colour for success, through `paletteColors`, on the done marks. */
+export const PaletteOverride: Story = {
+  args: {
+    snapshot: WORKED_EXAMPLE_SNAPSHOT,
+    live: false,
+    paletteColors: { "--color-success": HOST_SUCCESS_COLOR },
+  },
+  play: async ({ canvasElement }) => {
+    const mark = lineAt(canvasElement, `${ROOT}/step_1`)?.querySelector(
+      ".mthds-simple-progress-mark",
+    );
+    if (!mark) throw new Error("no mark drawn for step 1");
+    await waitFor(() => expect(getComputedStyle(mark).color).toBe(HOST_SUCCESS_COLOR));
+  },
+};
+
+/** The wide batch's failure opened: the problem moves to the step that failed. */
+export const WideBatchFailedOpened: Story = {
+  args: { snapshot: WIDE_BATCH_SNAPSHOTS[WIDE_BATCH_SNAPSHOTS.length - 1] },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(
+      await canvas.findByRole("button", { name: "Show the steps of Summarize a filing" }),
+    );
+    const failed = await waitFor(() => {
+      const line = lineAt(canvasElement, `${BATCH}/*/step_2`);
+      if (!line) throw new Error("the branch's steps are not drawn");
+      return line;
+    });
+    expect(failed.dataset.state).toBe("failed");
+    expect(failed.textContent).toContain("A pipe's output does not fit its concept");
+    // Shown once: the batch's own line no longer carries it.
+    const notes = lineAt(canvasElement, BATCH)?.querySelectorAll(
+      ":scope > .mthds-simple-progress-notes .mthds-simple-progress-note--error",
+    );
+    expect(notes).toHaveLength(0);
+  },
+};
+
+/**
+ * A parallel of eight branches: its finished ones fold into one line, and the
+ * branch being tried again says so.
+ */
+export const WideParallel: Story = {
+  args: {
+    snapshot: snapshotAt(VET_COMPANY_SNAPSHOTS, "14:00:05.000"),
+    live: false,
+    pipeRegistry: VET_COMPANY_REGISTRY,
+    entryPipeRef: VET_ROOT,
+  },
+  play: async ({ canvasElement }) => {
+    await waitFor(() =>
+      expect(lineAt(canvasElement, `${VET_ROOT}/step_2#finished`)?.textContent).toContain("4 done"),
+    );
+    expect(lineAt(canvasElement, `${VET_ROOT}/step_2`)?.textContent).toContain(
+      "Trying again (attempt 2)",
+    );
+  },
+};
+
+/** Work nested deeper than the indentation cap: one line names what goes on beneath. */
+export const DeepNesting: Story = {
+  args: {
+    snapshot: snapshotAt(VET_COMPANY_SNAPSHOTS, "14:00:45.000"),
+    live: false,
+    pipeRegistry: VET_COMPANY_REGISTRY,
+    entryPipeRef: VET_ROOT,
+  },
+  play: async ({ canvasElement }) => {
+    await waitFor(() =>
+      expect(lineAt(canvasElement, `${VET_ROOT}/step_5/step_1/step_1#now`)?.textContent).toContain(
+        "Now: Run the worst case",
+      ),
+    );
+  },
+};
+
+/** The live region says what changed, in the headline's words, rather than every snapshot. */
+export const Announcements: Story = {
+  render: (args) => {
+    const [frame, setFrame] = React.useState(0);
+    const frames = [
+      REVIEW_FILINGS_SNAPSHOTS[0],
+      snapshotAt(REVIEW_FILINGS_SNAPSHOTS, "09:30:01.000"),
+      snapshotAt(REVIEW_FILINGS_SNAPSHOTS, "09:30:08.000"),
+    ];
+    return (
+      <div>
+        <button type="button" onClick={() => setFrame((each) => Math.min(each + 1, 2))}>
+          Next reading
+        </button>
+        <RunTimeline {...args} snapshot={frames[frame]} live={false} />
+      </div>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const region = () =>
+      canvasElement.querySelector('.mthds-simple-progress [aria-live="polite"]')?.textContent;
+    expect(region()).toBe("");
+    await userEvent.click(canvas.getByRole("button", { name: "Next reading" }));
+    await waitFor(() => expect(region()).toBe("Now: Extract the filings from the document."));
+    await userEvent.click(canvas.getByRole("button", { name: "Next reading" }));
+    await waitFor(() =>
+      expect(region()).toBe(
+        "Done: Extract the filings from the document. Now: Decide how deep to check.",
+      ),
+    );
+  },
 };
