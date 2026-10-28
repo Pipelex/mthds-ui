@@ -20,7 +20,8 @@ export interface InvocationTreeNode {
   children: InvocationTreeNode[];
 }
 
-function compareSiblings(a: InvocationTreeNode, b: InvocationTreeNode): number {
+/** The order of two siblings: by the number in their segment, numbered ones first, then in snapshot order. */
+export function compareSiblings(a: InvocationTreeNode, b: InvocationTreeNode): number {
   const aOrdinal = isOrdinalSegment(a.segment) ? a.segment.ordinal : null;
   const bOrdinal = isOrdinalSegment(b.segment) ? b.segment.ordinal : null;
   if (aOrdinal !== null && bOrdinal !== null && aOrdinal !== bOrdinal) return aOrdinal - bOrdinal;

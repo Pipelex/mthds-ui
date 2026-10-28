@@ -132,9 +132,11 @@ describe("the worked example", () => {
     });
     expect(outline(lineAt(progress.lines, BATCH).children)).toEqual([
       "◐ Read the filing (done 2, running 1)",
-      "◐ Condense the filing (done 1, running 1) {attempt 2, retrying 1}",
+      "◐ Condense the filing (done 1, running 1) {retrying 1}",
     ]);
     expect(lineAt(progress.lines, `${BATCH}/*/step_1`).kind).toBe("branchStep");
+    // Counted across the items, never one item's attempt.
+    expect(lineAt(progress.lines, `${BATCH}/*/step_2`).health?.retryAttempt).toBeNull();
   });
 
   it("names its branch's steps no item has reached yet", () => {
@@ -311,6 +313,12 @@ describe("a run that ended", () => {
       "✓ Read the filing (done 23)",
       "✗ Condense the filing (done 22, failed 1) {problem pipe.output_invalid}",
     ]);
+    expect(lineAt(progress.lines, BATCH).health?.problem ?? null).toBeNull();
+    expect(progress.failure).toEqual({
+      lineKey: BATCH,
+      problem: CONDENSE_FAILED_PROBLEM,
+      shownOnLine: true,
+    });
   });
 
   it("stops what was going when the run was canceled, and lists no upcoming step", () => {
@@ -522,6 +530,25 @@ describe("a nesting deeper than the indentation cap", () => {
     );
   });
 
+  it("names the failure rather than work going on beside it under a failed group", () => {
+    const root = "x.main";
+    const par = `${root}/step_1/step_1/step_1`;
+    const snapshot = snapshotOf([
+      invocation(root, "x.main", "PipeSequence", "running"),
+      invocation(`${root}/step_1`, "x.outer", "PipeSequence", "running"),
+      invocation(`${root}/step_1/step_1`, "x.inner", "PipeSequence", "running"),
+      invocation(par, "x.par", "PipeParallel", "failed"),
+      invocation(`${par}/branch_1`, "x.first_branch", "PipeLLM", "failed", {
+        last_failure: { problem: CONDENSE_FAILED_PROBLEM, at: "2026-10-12T09:30:05.000Z" },
+      }),
+      invocation(`${par}/branch_2`, "x.second_branch", "PipeLLM", "running"),
+    ]);
+    const progress = buildSimpleProgress(snapshot);
+    expect(outline(lineAt(progress.lines, par).children)).toEqual([
+      "✗ Now: First branch {problem pipe.output_invalid}",
+    ]);
+  });
+
   it("does not open a finished group past the cap", () => {
     const progress = buildSimpleProgress(at(VET_COMPANY_SNAPSHOTS, "14:00:56.000"), vetting);
     expect(lineAt(progress.lines, `${VET_ROOT}/step_5/step_1/step_1`)).toMatchObject({
@@ -618,6 +645,52 @@ describe("what the style does not know", () => {
     expect(outline(buildSimpleProgress(snapshot, filings))).toEqual([
       "✓ Read the filing",
       "◐ Condense the filing",
+    ]);
+  });
+});
+
+describe("a batch whose branch is a condition", () => {
+  const batch = "x.route_all";
+  const item = (n: number, status: ProgressInvocation["status"]) =>
+    invocation(`${batch}/item_${n}`, "x.route", "PipeCondition", status);
+  const outcome = (n: number, key: string, status: ProgressInvocation["status"]) =>
+    invocation(`${batch}/item_${n}/outcome_${key}`, `x.do_${key}`, "PipeLLM", status);
+
+  it("counts each outcome's group against the items that took it", () => {
+    const snapshot = snapshotOf(
+      [
+        invocation(batch, "x.route_all", "PipeBatch", "succeeded", {
+          batch: { total: 2, done: 2, running: 0, failed: 0 },
+        }),
+        item(1, "succeeded"),
+        outcome(1, "high", "succeeded"),
+        item(2, "succeeded"),
+        outcome(2, "low", "succeeded"),
+      ],
+      { status: "succeeded" },
+    );
+    const progress = buildSimpleProgress(snapshot, { expanded: { [batch]: true } });
+    expect(outline(lineAt(progress.lines, batch).children)).toEqual([
+      "✓ Do high (done 1)",
+      "✓ Do low (done 1)",
+    ]);
+  });
+
+  it("keeps an outcome's group going while an item may still take it", () => {
+    const snapshot = snapshotOf([
+      invocation(batch, "x.route_all", "PipeBatch", "running", {
+        batch: { total: 3, done: 1, running: 2, failed: 0 },
+      }),
+      item(1, "succeeded"),
+      outcome(1, "high", "succeeded"),
+      item(2, "running"),
+      item(3, "running"),
+      outcome(3, "low", "running"),
+    ]);
+    const progress = buildSimpleProgress(snapshot, { expanded: { [batch]: true } });
+    expect(outline(lineAt(progress.lines, batch).children)).toEqual([
+      "◐ Do high (done 1)",
+      "◐ Do low (running 1)",
     ]);
   });
 });

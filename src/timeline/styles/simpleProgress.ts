@@ -25,9 +25,10 @@ import {
   type ProgressSnapshot,
   type RunProgressStatus,
 } from "../progressSnapshot";
-import { PATH_SEGMENT_KIND, invocationPathDepth, isOrdinalSegment } from "../invocationPath";
+import { PATH_SEGMENT_KIND, invocationPathDepth } from "../invocationPath";
 import {
   buildInvocationTree,
+  compareSiblings,
   isItemNode,
   isOutcomeNode,
   type InvocationTreeNode,
@@ -134,11 +135,15 @@ export interface SimpleLineHealth {
    * invocation reads as done and nothing more.
    */
   retryAttempt: number | null;
-  /** On a for-each line, how many items are being tried again, the item itself or anything beneath it. */
+  /**
+   * On a line that counts items, a for-each line or a branch step, how many
+   * items are being tried again there, the item itself or anything beneath it.
+   * Such a line has no `retryAttempt`: each item has its own.
+   */
   retryingItems: number;
   /** The run is stuck here, or in the hidden work this line stands for. */
   degradation: ProgressDegradation | null;
-  /** On a for-each line, how many items hold an invocation where the run is stuck. */
+  /** On a line that counts items, how many items hold an invocation there where the run is stuck. */
   stuckItems: number;
   /**
    * On a failed line no drawn line beneath shows the failure of: the problem
@@ -304,12 +309,6 @@ function isRetrying(invocation: ProgressInvocation): boolean {
   );
 }
 
-/** The bare code of a `pipe_ref`. */
-function codeOf(pipeRef: string): string {
-  const dot = pipeRef.lastIndexOf(".");
-  return dot === -1 ? pipeRef : pipeRef.slice(dot + 1);
-}
-
 // ─── What hidden work says of its health ─────────────────────────────────────
 
 interface HiddenHealth {
@@ -434,7 +433,7 @@ function upcomingLine(ctx: Context, sequencePath: string, step: NumberedStep): S
     `${sequencePath}/step_${step.number}`,
     kindOfPipe(pipe, batching),
     SIMPLE_LINE_STATE.UPCOMING,
-    titleOf(ctx.registry, step.pipeRef, codeOf(step.pipeRef)),
+    titleOf(ctx.registry, step.pipeRef),
   );
   const itemName = step.spec.batch_params?.input_item_stuff_name;
   if (batching && itemName) line.forEachItem = humanizeInSentence(itemName);
@@ -490,9 +489,13 @@ function nowLine(
   line: SimpleProgressLine;
   target: InvocationTreeNode;
 } | null {
-  const target =
-    deepestBeneath(node, SIMPLE_LINE_STATE.RUNNING) ??
-    deepestBeneath(node, SIMPLE_LINE_STATE.FAILED);
+  // Under a failed group, work still going on beside the failure is about to
+  // be canceled, so the failure is what the line names.
+  const [first, second] =
+    stateOf(node.invocation) === SIMPLE_LINE_STATE.FAILED
+      ? [SIMPLE_LINE_STATE.FAILED, SIMPLE_LINE_STATE.RUNNING]
+      : [SIMPLE_LINE_STATE.RUNNING, SIMPLE_LINE_STATE.FAILED];
+  const target = deepestBeneath(node, first) ?? deepestBeneath(node, second);
   if (!target) return null;
   const invocation = target.invocation;
   const state = stateOf(invocation);
@@ -552,6 +555,16 @@ function branchStepLines(
     (item) => stateOf(item.invocation) === SIMPLE_LINE_STATE.SKIPPED,
   ).length;
   const expected = (batchNode.invocation.batch?.total ?? items.length) - skippedItems;
+  // A branch that is a condition runs each outcome's group only for the items
+  // that took it, so a group expects those items, and the ones that may still
+  // take it: the items going on, or not started, that have not decided yet.
+  const undecided = items.filter((item) => {
+    const itemState = stateOf(item.invocation);
+    return (
+      (itemState === SIMPLE_LINE_STATE.RUNNING || itemState === SIMPLE_LINE_STATE.UPCOMING) &&
+      !item.children.some(isOutcomeNode)
+    );
+  }).length;
   const bySegment = new Map<string, InvocationTreeNode[]>();
   for (const item of items) {
     for (const child of item.children) {
@@ -561,28 +574,26 @@ function branchStepLines(
       else bySegment.set(raw, [child]);
     }
   }
-  const groups = [...bySegment.values()].sort((a, b) => {
-    const aOrdinal = isOrdinalSegment(a[0].segment) ? a[0].segment.ordinal : null;
-    const bOrdinal = isOrdinalSegment(b[0].segment) ? b[0].segment.ordinal : null;
-    if (aOrdinal !== null && bOrdinal !== null && aOrdinal !== bOrdinal) return aOrdinal - bOrdinal;
-    return a[0].order - b[0].order;
-  });
+  const groups = [...bySegment.values()].sort((a, b) => compareSiblings(a[0], b[0]));
 
   const lines = groups.map((group) => {
     const first = group[0].invocation;
     const tally = emptyTally();
     const hidden = emptyHidden();
     let retrying = 0;
+    let stuck = 0;
     for (const node of group) {
       addToTally(tally, stateOf(node.invocation));
       gather(hidden, node.invocation);
       gatherBeneath(node, null, hidden);
-      if (isRetrying(node.invocation)) retrying += 1;
+      if (holds(node, isRetrying)) retrying += 1;
+      if (holds(node, (each) => each.degradation !== undefined)) stuck += 1;
     }
+    const groupExpected = isOutcomeNode(group[0]) ? group.length + undecided : expected;
     let state: SimpleLineState;
     if (tally.running > 0) state = SIMPLE_LINE_STATE.RUNNING;
     else if (tally.failed > 0) state = SIMPLE_LINE_STATE.FAILED;
-    else if (tally.done + tally.skipped >= expected) state = SIMPLE_LINE_STATE.DONE;
+    else if (tally.done + tally.skipped >= groupExpected) state = SIMPLE_LINE_STATE.DONE;
     else if (batchState === SIMPLE_LINE_STATE.RUNNING) state = SIMPLE_LINE_STATE.RUNNING;
     else state = SIMPLE_LINE_STATE.STOPPED;
     const line = blankLine(
@@ -593,7 +604,11 @@ function branchStepLines(
     );
     line.tally = tally;
     line.counts = sumCounts(group.map((node) => node.invocation));
-    line.health = healthOf(state, null, hidden, true, { retrying, stuck: 0 });
+    // Counted across the items rather than given an attempt: each item has its own.
+    line.health = healthOf(state, null, { ...hidden, retryAttempt: null }, true, {
+      retrying,
+      stuck,
+    });
     return line;
   });
 
@@ -617,12 +632,12 @@ function branchStepLines(
   return lines;
 }
 
-/** Whether an item holds, itself or beneath it, an invocation passing `test`. */
-function itemHolds(
-  item: InvocationTreeNode,
+/** Whether a node holds, itself or beneath it, an invocation passing `test`. */
+function holds(
+  node: InvocationTreeNode,
   test: (invocation: ProgressInvocation) => boolean,
 ): boolean {
-  return test(item.invocation) || item.children.some((child) => itemHolds(child, test));
+  return test(node.invocation) || node.children.some((child) => holds(child, test));
 }
 
 /** A batch's one line: titled by its branch, with its counts, and its items' trouble as notes. */
@@ -653,9 +668,12 @@ function forEachLine(
 
   // The items' retries are counted rather than given an attempt: each item has its own.
   const hidden = { ...gatherBeneath(node), retryAttempt: null };
-  const stuck = items.filter((item) => itemHolds(item, (each) => each.degradation !== undefined));
-  const retrying = items.filter((item) => itemHolds(item, isRetrying));
-  line.health = healthOf(state, invocation, hidden, true, {
+  const stuck = items.filter((item) => holds(item, (each) => each.degradation !== undefined));
+  const retrying = items.filter((item) => holds(item, isRetrying));
+  const failureShownBeneath = line.children.some(
+    (child) => child.state === SIMPLE_LINE_STATE.FAILED,
+  );
+  line.health = healthOf(state, invocation, hidden, !failureShownBeneath, {
     retrying: retrying.length,
     stuck: stuck.length,
   });
@@ -785,7 +803,7 @@ function previewLines(ctx: Context, entryPipeRef: string): SimpleProgressLine[] 
       entryPipeRef,
       kindOfPipe(pipe, false),
       SIMPLE_LINE_STATE.UPCOMING,
-      titleOf(ctx.registry, entryPipeRef, codeOf(entryPipeRef)),
+      titleOf(ctx.registry, entryPipeRef),
     ),
   ];
 }

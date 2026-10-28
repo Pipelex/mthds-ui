@@ -183,19 +183,16 @@ export function joinedSequence(
   return sequence && sequenceMatches(sequence, node) ? sequence : null;
 }
 
-/** A pipe's title by its `pipe_ref`: its description as a title, else its humanized code. */
+/**
+ * A pipe's title by its `pipe_ref`: its description as a title, else its
+ * humanized code, `pipeCode` when given and otherwise the ref's last segment.
+ */
 export function titleOf(
   registry: TimelinePipeRegistry | undefined,
   pipeRef: string,
-  pipeCode: string,
+  pipeCode: string = pipeRef,
 ): JoinedTitle {
   return pipeTitle(pipeOf(registry, pipeRef)?.description, pipeCode);
-}
-
-/** The bare code of a `pipe_ref`: what follows its last dot. */
-function codeOf(pipeRef: string): string {
-  const dot = pipeRef.lastIndexOf(".");
-  return dot === -1 ? pipeRef : pipeRef.slice(dot + 1);
 }
 
 /** What a batch's one line is named after: the pipe its items run, and the name of an item. */
@@ -240,8 +237,6 @@ export function joinBatch(
     const item = node.children.find((child) => child.segment?.kind === PATH_SEGMENT_KIND.ITEM);
     branchRef = item?.invocation.pipe_ref ?? null;
   }
-  const title = branchRef
-    ? titleOf(registry, branchRef, codeOf(branchRef))
-    : pipeTitle(null, invocation.pipe_code);
+  const title = branchRef ? titleOf(registry, branchRef) : pipeTitle(null, invocation.pipe_code);
   return { branchRef, title, itemName: itemName ? humanizeInSentence(itemName) : null };
 }
