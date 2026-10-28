@@ -9,6 +9,7 @@ import { buildProblem } from "mthds/errors";
 import {
   CANCELED_RUN_SNAPSHOT,
   CONDENSE_FAILED_PROBLEM,
+  DRY_RUN_SNAPSHOTS,
   ENGINE_RETRY_PROBLEM,
   REVIEW_FILINGS_RUN,
   REVIEW_FILINGS_SNAPSHOTS,
@@ -48,6 +49,7 @@ describe("the recorded runs", () => {
     ["the worked example's run", REVIEW_FILINGS_SNAPSHOTS],
     ["the wide batch's run", WIDE_BATCH_SNAPSHOTS],
     ["the vetting run", VET_COMPANY_SNAPSHOTS],
+    ["the dry run", DRY_RUN_SNAPSHOTS],
   ])("give each snapshot of %s as fresher than the one before", (_name, snapshots) => {
     for (let index = 1; index < snapshots.length; index += 1) {
       expect(fresherSnapshot(snapshots[index - 1], snapshots[index])).toBe(snapshots[index]);
@@ -125,6 +127,7 @@ describe("the recorded runs", () => {
     ["the worked example's run", REVIEW_FILINGS_SNAPSHOTS, REVIEW_FILINGS_REGISTRY],
     ["the wide batch's run", WIDE_BATCH_SNAPSHOTS, REVIEW_FILINGS_REGISTRY],
     ["the vetting run", VET_COMPANY_SNAPSHOTS, VET_COMPANY_REGISTRY],
+    ["the dry run", DRY_RUN_SNAPSHOTS, REVIEW_FILINGS_REGISTRY],
   ])("run only pipes the method of %s declares", (_name, snapshots, registry) => {
     for (const snapshot of snapshots) {
       for (const invocation of snapshot.invocations) {

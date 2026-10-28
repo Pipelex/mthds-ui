@@ -618,6 +618,106 @@ export const WIDE_BATCH_SNAPSHOTS: ProgressSnapshot[] = recordedSnapshots(WIDE_B
   clockAfterTen(0),
 ]);
 
+// ─── A dry run ────────────────────────────────────────────────────────────────
+
+/**
+ * `filings.review_filings` dry-run over two mock filings: it finishes almost at
+ * once, and its condition resolves nothing and runs every outcome group, so
+ * both `outcome_detailed` and `outcome_quick` run under it.
+ */
+export const DRY_RUN: RecordedRun = {
+  pipelineRunId: "run_Dry7Qd",
+  mode: "dry",
+  day: "2026-10-12",
+  invocations: [
+    {
+      path: ROOT,
+      pipe: REVIEW_FILINGS,
+      stepCount: 4,
+      startedAt: "11:00:00.010",
+      endedAt: "11:00:00.640",
+    },
+    {
+      path: `${ROOT}/step_1`,
+      pipe: EXTRACT_FILINGS,
+      startedAt: "11:00:00.020",
+      endedAt: "11:00:00.080",
+    },
+    {
+      path: `${ROOT}/step_2`,
+      pipe: CHOOSE_DEPTH,
+      startedAt: "11:00:00.090",
+      endedAt: "11:00:00.300",
+    },
+    {
+      path: `${ROOT}/step_2/outcome_detailed`,
+      pipe: DEEP_CHECKS,
+      branchCount: 2,
+      startedAt: "11:00:00.100",
+      endedAt: "11:00:00.290",
+    },
+    {
+      path: `${ROOT}/step_2/outcome_detailed/branch_1`,
+      pipe: CHECK_FIGURES,
+      startedAt: "11:00:00.110",
+      endedAt: "11:00:00.240",
+    },
+    {
+      path: `${ROOT}/step_2/outcome_detailed/branch_2`,
+      pipe: CHECK_WORDING,
+      startedAt: "11:00:00.112",
+      endedAt: "11:00:00.280",
+    },
+    {
+      path: `${ROOT}/step_2/outcome_quick`,
+      pipe: QUICK_CHECK,
+      startedAt: "11:00:00.104",
+      endedAt: "11:00:00.210",
+    },
+    {
+      path: BATCH,
+      pipe: SUMMARIZE_FILING_BATCH,
+      startedAt: "11:00:00.310",
+      endedAt: "11:00:00.580",
+      fanOut: { at: "11:00:00.315", itemCount: 2 },
+    },
+    ...[1, 2].flatMap((item): RecordedInvocation[] => {
+      const offset = (item - 1) * 20;
+      const clock = (ms: number) => `11:00:00.${String(ms + offset).padStart(3, "0")}`;
+      return [
+        {
+          path: `${BATCH}/item_${item}`,
+          pipe: SUMMARIZE_FILING,
+          stepCount: 2,
+          startedAt: clock(320),
+          endedAt: clock(540),
+        },
+        {
+          path: `${BATCH}/item_${item}/step_1`,
+          pipe: READ_FILING,
+          startedAt: clock(330),
+          endedAt: clock(420),
+        },
+        {
+          path: `${BATCH}/item_${item}/step_2`,
+          pipe: CONDENSE_FILING,
+          startedAt: clock(430),
+          endedAt: clock(530),
+        },
+      ];
+    }),
+    {
+      path: `${ROOT}/step_4`,
+      pipe: ASSEMBLE_REPORT,
+      startedAt: "11:00:00.590",
+      endedAt: "11:00:00.630",
+    },
+  ],
+};
+
+/** The dry run's successive snapshots. */
+export const DRY_RUN_SNAPSHOTS: ProgressSnapshot[] = recordedSnapshots(DRY_RUN, ["10:59:59.900"]);
+
 // ─── A wide parallel, a binding step and deep nesting ────────────────────────
 
 const diligencePipe = (code: string, type: string): RecordedPipe => ({
