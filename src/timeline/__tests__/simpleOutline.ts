@@ -7,7 +7,7 @@
  *   ○ Assemble the report
  *
  * The marks are the state (`○` upcoming, `◐` running, `✓` done, `✗` failed,
- * `–` skipped, `■` stopped), `→` an outcome taken, `=` an outcome a branch
+ * `–` skipped, `■` stopped, `◌` never run), `→` an outcome taken, `=` an outcome a branch
  * stands for, `▾` an expanded line and `▸` a folded one that opens.
  */
 import type { SimpleLineState, SimpleProgress, SimpleProgressLine } from "../styles/simpleProgress";
@@ -19,6 +19,7 @@ const MARK: Record<SimpleLineState, string> = {
   failed: "✗",
   skipped: "–",
   stopped: "■",
+  notRun: "◌",
 };
 
 function describe(line: SimpleProgressLine): string {
@@ -37,6 +38,7 @@ function describe(line: SimpleProgressLine): string {
     let text = `[${c.done}/${c.total} done`;
     if (c.running) text += `, ${c.running} running`;
     if (c.failed) text += `, ${c.failed} failed`;
+    if (line.skippedItems) text += `, ${line.skippedItems} skipped`;
     parts.push(`${text}]`);
   }
   if (line.tally) {

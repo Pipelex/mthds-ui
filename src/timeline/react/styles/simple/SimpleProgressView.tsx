@@ -70,6 +70,9 @@ function StateMark({ state }: { state: SimpleLineState }) {
     case SIMPLE_LINE_STATE.STOPPED:
       shape = <rect x="4" y="4" width="4" height="4" rx="0.5" />;
       break;
+    case SIMPLE_LINE_STATE.NOT_RUN:
+      shape = <path d="M3.8 6h4.4" fill="none" strokeWidth="1.2" />;
+      break;
     default:
       shape = null;
   }
@@ -200,7 +203,17 @@ function BatchCounts({
   const counts = line.counts;
   if (!counts || counts.total <= 0) return null;
   const share = (count: number) => `${(Math.min(count, counts.total) / counts.total) * 100}%`;
-  const text = strings.batchCounts(counts.done, counts.total, counts.running, counts.failed);
+  // The contract counts a skipped item as done; the reader counts it apart, so
+  // that what is done, failed, skipped and going on adds up to the total.
+  const skipped = Math.min(line.skippedItems, counts.done);
+  const finished = counts.done - skipped;
+  const text = strings.batchCounts(finished, counts.total, counts.running, counts.failed, skipped);
+  const segments = [
+    ["done", finished],
+    ["skipped", skipped],
+    ["failed", counts.failed],
+    ["running", counts.running],
+  ] as const;
   return (
     <div className="mthds-simple-progress-batch">
       <div
@@ -208,18 +221,18 @@ function BatchCounts({
         role="progressbar"
         aria-valuemin={0}
         aria-valuemax={counts.total}
-        aria-valuenow={counts.done}
+        aria-valuenow={finished}
         aria-valuetext={text}
       >
-        <span className="mthds-simple-progress-bar-done" style={{ width: share(counts.done) }} />
-        <span
-          className="mthds-simple-progress-bar-failed"
-          style={{ width: share(counts.failed) }}
-        />
-        <span
-          className="mthds-simple-progress-bar-running"
-          style={{ width: share(counts.running) }}
-        />
+        {segments.map(([name, count]) =>
+          count > 0 ? (
+            <span
+              key={name}
+              className={`mthds-simple-progress-bar-${name}`}
+              style={{ width: share(count) }}
+            />
+          ) : null,
+        )}
       </div>
       <span className="mthds-simple-progress-counts" aria-hidden="true">
         {text}
@@ -259,7 +272,11 @@ function timeText(
   nowMs: number | null,
   strings: SimpleProgressStrings,
 ): string | null {
-  if (line.state === SIMPLE_LINE_STATE.SKIPPED || line.state === SIMPLE_LINE_STATE.STOPPED) {
+  if (
+    line.state === SIMPLE_LINE_STATE.SKIPPED ||
+    line.state === SIMPLE_LINE_STATE.STOPPED ||
+    line.state === SIMPLE_LINE_STATE.NOT_RUN
+  ) {
     return strings.state[line.state];
   }
   const invocation = line.invocation;
@@ -334,7 +351,15 @@ const LineView = React.memo(function LineView({
             aria-label={line.expanded ? strings.collapse(title) : strings.expand(title)}
             onClick={() => onToggle(line.key, !line.expanded)}
           >
-            <span aria-hidden="true">{line.expanded ? "▾" : "▸"}</span>
+            <svg
+              className="mthds-simple-progress-chevron"
+              viewBox="0 0 12 12"
+              width="12"
+              height="12"
+              aria-hidden="true"
+            >
+              <path d="M4.5 2.5 8 6l-3.5 3.5" />
+            </svg>
           </button>
         ) : (
           <span className="mthds-simple-progress-toggle-spacer" aria-hidden="true" />

@@ -38,19 +38,25 @@ export interface SimpleProgressStrings {
   /** The deepest work going on past the indentation cap, before its title. */
   now: string;
 
-  /** A batch's counts: "1 of 3 done · 2 in progress · 1 failed". */
-  batchCounts: (done: number, total: number, running: number, failed: number) => string;
+  /** A batch's counts: "1 of 3 done · 2 in progress · 1 failed · 1 skipped". */
+  batchCounts: (
+    done: number,
+    total: number,
+    running: number,
+    failed: number,
+    skipped: number,
+  ) => string;
   /** A branch step's items at each state, for a screen reader. */
   tally: (tally: SimpleItemTally) => string;
 
-  /** What a line's state reads as, for a screen reader and a skipped or stopped line. */
+  /** What a line's state reads as, for a screen reader, and beside a line skipped, stopped or never run. */
   state: Record<SimpleLineState, string>;
 
   /** A running line's attempt, past the first. */
   tryingAgain: (attempt: number) => string;
   /** A line's items being tried again, on a line that counts items. */
   tryingAgainItems: (count: number, item: string | null) => string;
-  /** Where the run is stuck, with the moment it gives up, when known (already worded as a clock time). */
+  /** Where the run is stuck, with the moment the run fails if it is still stuck then, when known (already worded as a clock time). */
   havingTrouble: (until: string | null) => string;
   /** A line's items where the run is stuck, on a line that counts items. */
   havingTroubleItems: (count: number, item: string | null, until: string | null) => string;
@@ -73,7 +79,7 @@ export interface SimpleProgressStrings {
 
   /** A line's duration once ended, or its elapsed time while it runs. */
   duration: (ms: number) => string;
-  /** The run's elapsed time in the headline. */
+  /** The run's elapsed time in the headline, in the lines' own format. */
   elapsed: (ms: number) => string;
   /** A moment as a clock time in the reader's zone, for "until 09:45". */
   clockTime: (ms: number) => string;
@@ -93,17 +99,6 @@ function itemCount(count: number, item: string | null): string {
   return `${count} ${plural(count, noun, `${noun}s`)}`;
 }
 
-/** "1:20", "12:05", "1:02:03": minutes and seconds, with hours once there are any. */
-function clockElapsed(ms: number): string {
-  const totalSeconds = Math.max(0, Math.floor(ms / 1_000));
-  const hours = Math.floor(totalSeconds / 3_600);
-  const minutes = Math.floor((totalSeconds % 3_600) / 60);
-  const seconds = String(totalSeconds % 60).padStart(2, "0");
-  return hours > 0
-    ? `${hours}:${String(minutes).padStart(2, "0")}:${seconds}`
-    : `${minutes}:${seconds}`;
-}
-
 /** The simple style's English phrases. */
 export const DEFAULT_SIMPLE_PROGRESS_STRINGS: SimpleProgressStrings = {
   waiting: "Waiting to start",
@@ -118,15 +113,16 @@ export const DEFAULT_SIMPLE_PROGRESS_STRINGS: SimpleProgressStrings = {
 
   together: "at the same time",
   forEach: (item) => `for each ${item ?? "item"}`,
-  outcomeTaken: (key) => `→ ${key === null ? "Otherwise" : outcomeLabel(key)}`,
+  outcomeTaken: (key) => `→ ${key === null ? "Default" : outcomeLabel(key)}`,
   branchFor: (key) => (key === null ? "otherwise" : `if ${outcomeLabel(key)}`),
   finishedBranches: (count) => `${count} done`,
   now: "Now:",
 
-  batchCounts: (done, total, running, failed) => {
+  batchCounts: (done, total, running, failed, skipped) => {
     let text = `${done} of ${total} done`;
     if (running > 0) text += ` · ${running} in progress`;
     if (failed > 0) text += ` · ${failed} failed`;
+    if (skipped > 0) text += ` · ${skipped} skipped`;
     return text;
   },
   tally: (tally) => {
@@ -146,6 +142,7 @@ export const DEFAULT_SIMPLE_PROGRESS_STRINGS: SimpleProgressStrings = {
     failed: "Failed",
     skipped: "Skipped",
     stopped: "Stopped",
+    notRun: "Not run",
   },
 
   tryingAgain: (attempt) => `Trying again (attempt ${attempt})`,
@@ -153,14 +150,16 @@ export const DEFAULT_SIMPLE_PROGRESS_STRINGS: SimpleProgressStrings = {
   havingTrouble: (until) =>
     until === null
       ? "Having trouble here. Still trying."
-      : `Having trouble here. Still trying until ${until}.`,
+      : `Having trouble here. Still trying; the run fails if this lasts past ${until}.`,
   havingTroubleItems: (count, item, until) =>
-    `Having trouble with ${itemCount(count, item)}. Still trying${until === null ? "" : ` until ${until}`}.`,
+    until === null
+      ? `Having trouble with ${itemCount(count, item)}. Still trying.`
+      : `Having trouble with ${itemCount(count, item)}. Still trying; the run fails if this lasts past ${until}.`,
   unreachable: "Progress may be out of date: the run can't be reached right now.",
   runStuck: (until) =>
     until === null
       ? "The run is having trouble. Still trying."
-      : `The run is having trouble. Still trying until ${until}.`,
+      : `The run is having trouble. Still trying; it fails if this lasts past ${until}.`,
   details: "Details",
 
   announceDone: (title) => `Done: ${title}.`,
@@ -172,7 +171,7 @@ export const DEFAULT_SIMPLE_PROGRESS_STRINGS: SimpleProgressStrings = {
   collapse: (title) => `Hide the steps of ${title}`,
 
   duration: (ms) => (ms < 1_000 ? "<1s" : formatDuration(ms)),
-  elapsed: clockElapsed,
+  elapsed: (ms) => (ms < 1_000 ? "<1s" : formatDuration(ms)),
   clockTime: (ms) =>
     new Intl.DateTimeFormat(undefined, {
       hour: "2-digit",

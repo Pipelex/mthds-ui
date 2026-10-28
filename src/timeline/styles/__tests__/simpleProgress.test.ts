@@ -303,7 +303,8 @@ describe("a run that ended", () => {
     expect(outline(progress)).toEqual([
       "✓ Extract the filings from the document",
       "✓ Decide how deep to check → (default) ▸",
-      "✗ Summarize a filing · for each filing [23/24 done, 1 failed] {problem pipe.output_invalid} ▸",
+      "✗ Summarize a filing · for each filing [23/24 done, 1 failed, 1 skipped] {problem pipe.output_invalid} ▸",
+      "◌ Assemble the report",
     ]);
     expect(progress.failure).toEqual({
       lineKey: BATCH,
@@ -326,13 +327,15 @@ describe("a run that ended", () => {
     });
   });
 
-  it("stops what was going when the run was canceled, and lists no upcoming step", () => {
+  it("stops what was going when the run was canceled, and lists the steps it never ran", () => {
     const progress = buildSimpleProgress(CANCELED_RUN_SNAPSHOT, filings);
     expect(outline(progress)).toEqual([
       "✓ Extract the filings from the document",
       "✓ Decide how deep to check → detailed ▸",
       "■ Summarize a filing · for each filing [0/3 done] ▸",
+      "◌ Assemble the report",
     ]);
+    expect(lineAt(progress.lines, `${ROOT}/step_4`).invocation).toBeNull();
     expect(progress.failure).toBeNull();
   });
 

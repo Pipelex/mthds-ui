@@ -79,6 +79,8 @@ export const SIMPLE_LINE_STATE = {
   SKIPPED: "skipped",
   /** Canceled: it had not ended when the run ended. */
   STOPPED: "stopped",
+  /** A step the method declares that its sequence, failed or canceled, never reached. */
+  NOT_RUN: "notRun",
 } as const;
 
 export type SimpleLineState = (typeof SIMPLE_LINE_STATE)[keyof typeof SIMPLE_LINE_STATE];
@@ -178,6 +180,12 @@ export interface SimpleProgressLine {
    * outer items.
    */
   counts: BatchProgress | null;
+  /**
+   * On a for-each line, how many of its items were skipped whole. The
+   * contract's `done` counts them, so `done - skippedItems` is how many
+   * finished their work.
+   */
+  skippedItems: number;
   /** On a branch step, how many items stand at each of its states. */
   tally: SimpleItemTally | null;
   /** On a finished line, how many branches it folds. */
@@ -416,6 +424,7 @@ function blankLine(
     forEachItem: null,
     outcome: null,
     counts: null,
+    skippedItems: 0,
     tally: null,
     foldedCount: null,
     health: null,
@@ -655,6 +664,9 @@ function forEachLine(
   line.invocation = invocation;
   line.forEachItem = joined.itemName;
   line.counts = invocation.batch ?? null;
+  line.skippedItems = node.children.filter(
+    (child) => isItemNode(child) && stateOf(child.invocation) === SIMPLE_LINE_STATE.SKIPPED,
+  ).length;
 
   const items = node.children.filter(isItemNode);
   const branch = joined.branchRef ? pipeOf(ctx.registry, joined.branchRef) : null;
@@ -688,7 +700,10 @@ function forEachLine(
   return line;
 }
 
-/** The lines for a node's children, and for a running sequence its upcoming steps. */
+/**
+ * The lines for a node's children, and for a sequence the steps it has not
+ * reached: upcoming while it runs, never run once it failed or was canceled.
+ */
 function childLines(
   ctx: Context,
   node: InvocationTreeNode,
@@ -698,10 +713,13 @@ function childLines(
   const sequence =
     node.invocation.pipe_type === "PipeSequence" ? joinedSequence(ctx.registry, node) : null;
   let lines = node.children.map((child) => lineOf(ctx, child, node, depth, sequence));
-  if (sequence && state === SIMPLE_LINE_STATE.RUNNING) {
+  const ended = state === SIMPLE_LINE_STATE.FAILED || state === SIMPLE_LINE_STATE.STOPPED;
+  if (sequence && (state === SIMPLE_LINE_STATE.RUNNING || ended)) {
     const reached = Math.max(0, ...node.children.map((child) => stepNumberOf(child) ?? 0));
     for (const step of stepsAfter(sequence, reached)) {
-      lines.push(upcomingLine(ctx, node.invocation.path, step));
+      const line = upcomingLine(ctx, node.invocation.path, step);
+      if (ended) line.state = SIMPLE_LINE_STATE.NOT_RUN;
+      lines.push(line);
     }
   }
   if (

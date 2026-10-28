@@ -163,12 +163,21 @@ export const WideBatch: Story = {
   ),
 };
 
-/** The wide batch's run once it failed: where it failed, and the problem, in words. */
+/**
+ * The wide batch's run once it failed: where it failed, the problem in words,
+ * counts that add up to the total, with the skipped filing counted apart, and
+ * the step the run never reached.
+ */
 export const WideBatchFailed: Story = {
   args: { snapshot: WIDE_BATCH_SNAPSHOTS[WIDE_BATCH_SNAPSHOTS.length - 1] },
   play: async ({ canvasElement }) => {
     await waitFor(() => expect(headlineOf(canvasElement)).toMatch(/^Failed in Summarize a filing/));
-    expect(lineAt(canvasElement, BATCH)?.textContent).toContain("23 of 24 done · 1 failed");
+    expect(lineAt(canvasElement, BATCH)?.textContent).toContain(
+      "22 of 24 done · 1 failed · 1 skipped",
+    );
+    const report = lineAt(canvasElement, `${ROOT}/step_4`);
+    expect(report?.dataset.state).toBe("notRun");
+    expect(report?.textContent).toContain("Not run");
   },
 };
 
@@ -216,7 +225,7 @@ export const VetCompany: Story = {
   ),
 };
 
-/** A canceled run: what was going stops where it was, and no step is listed past it. */
+/** A canceled run: what was going stops where it was, and the steps past it read as never run. */
 export const CanceledRun: Story = {
   args: { snapshot: CANCELED_RUN_SNAPSHOT },
   play: async ({ canvasElement }) => {
@@ -224,6 +233,7 @@ export const CanceledRun: Story = {
     expect(lineAt(canvasElement, BATCH)?.dataset.state).toBe("stopped");
     expect(lineAt(canvasElement, BATCH)?.textContent).toContain("Stopped");
     expect(canvasElement.querySelector('li[data-state="upcoming"]')).toBeNull();
+    expect(lineAt(canvasElement, `${ROOT}/step_4`)?.dataset.state).toBe("notRun");
   },
 };
 
