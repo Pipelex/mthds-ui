@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- **Timeline styles and the simple style's projection**: `./timeline` exports the registry of the run timeline's styles, `TIMELINE_STYLES` with `TIMELINE_STYLE`, `TIMELINE_STYLE_IDS`, `DEFAULT_TIMELINE_STYLE` and `resolveTimelineStyle`, and `buildSimpleProgress`, which reads a snapshot as a checklist of the run's steps in the method's own words, titled from a registry of the method's pipes (`TimelinePipeRegistry`) when the host has one; `buildInvocationTree` gives a snapshot's invocations as the tree their paths make. `./graph` exports `pipeTitle`, a pipe's title from its description or its code, and `humanizeInSentence`, an identifier as words inside a sentence.
+
 ### Fixed
 
 - **`last_failure` is a problem document (Breaking)**: an invocation's `last_failure` in `./timeline` is `{ problem, at }`, `problem` being the MTHDS problem document in the caller's view, typed as `Problem` from `mthds/errors`, as the progress contract now defines it, where it was `{ message, at }`. `RunTimeline`'s row tooltip shows the problem's title and detail, where it read "Last failure: undefined" against a snapshot of the current contract, and a host that builds snapshots itself writes the problem instead of a message.

@@ -58,7 +58,7 @@ While the clock ticks, only the axis and the rows whose bars follow it are drawn
 
 ## The pure surface
 
-Everything the component decides is a pure function of the snapshot, exported from `./timeline` and unit-tested in `src/timeline/__tests__/`:
+Everything the component decides is a pure function of the snapshot, exported from `./timeline` and unit-tested in the `__tests__/` directories beside it:
 
 | Export | What it is |
 | --- | --- |
@@ -70,6 +70,10 @@ Everything the component decides is a pure function of the snapshot, exported fr
 | `buildTimelineRows` | The rows a timeline draws, in drawing order, with their depth, place, outcome, batch strip and collapse state. |
 | `timelineWindow`, `invocationBar`, `readingClockMs`, `timelineTicks`, `axisPercent`, `formatDuration`, `formatClockTime` | The shared axis, each bar on it, and the labels. |
 | `snapshotTimes`, `invocationTimes`, `timelineWindowAt`, `barFollowsClock` | The same, with every timestamp parsed once per snapshot: the axis at any reading of the clock without parsing again, and which bars move while the clock ticks. |
+| `buildInvocationTree`, `compareSiblings`, `isItemNode`, `isOutcomeNode`, `InvocationTreeNode` | The snapshot's invocations as the tree their paths make, each under its nearest ancestor the snapshot holds, siblings ordered by the number in their segment. |
+| `TIMELINE_STYLES`, `TIMELINE_STYLE`, `TIMELINE_STYLE_IDS`, `DEFAULT_TIMELINE_STYLE`, `isTimelineStyleId`, `resolveTimelineStyle`, `resolveTimelineStyleMenu` | The registry of the timeline's styles: `detailed`, the default, and `simple`, each with its name and description. |
+| `TimelinePipeRegistry`, `pipeOf`, `sequenceOf`, `stepAt`, `stepsAfter`, `stepNumberOf`, `sequenceMatches`, `joinedSequence`, `titleOf`, `joinBatch`, `qualifyPipeCode` | The join between a snapshot and the registry of the method's pipes, keyed by `pipe_ref`: a pipe's title, a sequence's steps by the number its invocation paths give them, and what a batch's one line is named after. |
+| `buildSimpleProgress`, `SIMPLE_LINE_KIND`, `SIMPLE_LINE_STATE`, `SIMPLE_RUN_NOTE_REASON`, `SIMPLE_MAX_DEPTH`, `DEFAULT_WIDE_PARALLEL_THRESHOLD` | The simple style's projection: the run as lines of a checklist, each with its kind, state, title, counts and health, the run's own note, and where a failed run failed. |
 
 `timelineWindow` and `timelineWindowAt` read a clock that is not a finite number as no clock at all, so the axis stretches to `assembled_at` instead and always has a finite end; `invocationBar` reads it the same way, so a running bar then ends at the end of the axis; and `timelineTicks` gives no tick for an axis whose span is not a finite positive number.
 

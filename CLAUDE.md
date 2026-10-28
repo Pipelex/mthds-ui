@@ -81,6 +81,11 @@ src/
     snapshotFreshness.ts          #   fresherSnapshot: the rule a reader keeps the fresher snapshot by
     timelineRows.ts               #   Snapshot → rows: nesting, place labels, batch collapse and strip, condition outcome
     timelineTime.ts               #   The shared axis, each bar on it, ticks and duration labels
+    invocationTree.ts             #   The snapshot's invocations as the tree their paths make
+    styles/                       #   Timeline styles, pure and React-free:
+      timelineStyles.ts           #     TIMELINE_STYLES, the typed registry: detailed (the default) and simple
+      registryJoin.ts             #     The join between a snapshot and the method's pipe registry
+      simpleProgress.ts           #     The simple style's projection: snapshot → checklist lines
     react/
       RunTimeline.tsx             #   The component (./timeline/react), its stylesheet imported by the entry
       __stories__/                #   Hand-recorded runs, the recorder that projects them, the replay harness
