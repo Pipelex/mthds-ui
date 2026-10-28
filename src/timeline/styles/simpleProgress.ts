@@ -137,8 +137,9 @@ export interface SimpleLineHealth {
   retryAttempt: number | null;
   /**
    * On a line that counts items, a for-each line or a branch step, how many
-   * items are being tried again there, the item itself or anything beneath it.
-   * Such a line has no `retryAttempt`: each item has its own.
+   * items are being tried again there, the item itself or anything beneath it;
+   * an opened for-each line counts only the items themselves, its branch steps
+   * counting the rest. Such a line has no `retryAttempt`: each item has its own.
    */
   retryingItems: number;
   /** The run is stuck here, or in the hidden work this line stands for. */
@@ -666,10 +667,17 @@ function forEachLine(
   line.expanded = line.expandable && (ctx.expanded[line.key] ?? false);
   if (line.expanded) line.children = branchStepLines(ctx, node, joined.branchRef, state);
 
+  // Opened, the branch steps show what goes on inside the items, so the line
+  // keeps only the trouble of the items themselves.
+  const inItem = (item: InvocationTreeNode, test: (each: ProgressInvocation) => boolean) =>
+    line.expanded ? test(item.invocation) : holds(item, test);
+  const hidden = emptyHidden();
+  if (line.expanded) for (const item of items) gather(hidden, item.invocation);
+  else gatherBeneath(node, null, hidden);
   // The items' retries are counted rather than given an attempt: each item has its own.
-  const hidden = { ...gatherBeneath(node), retryAttempt: null };
-  const stuck = items.filter((item) => holds(item, (each) => each.degradation !== undefined));
-  const retrying = items.filter((item) => holds(item, isRetrying));
+  hidden.retryAttempt = null;
+  const stuck = items.filter((item) => inItem(item, (each) => each.degradation !== undefined));
+  const retrying = items.filter((item) => inItem(item, isRetrying));
   const failureShownBeneath = line.children.some(
     (child) => child.state === SIMPLE_LINE_STATE.FAILED,
   );

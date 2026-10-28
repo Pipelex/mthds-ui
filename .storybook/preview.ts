@@ -7,6 +7,7 @@ import "../src/graph/react/viewer/GraphToolbar.css";
 import "../src/graph/react/styles/simple/SimpleStyle.css";
 // The run timeline's stylesheet, which only the `./timeline/react` entry imports.
 import "../src/timeline/react/RunTimeline.css";
+import "../src/timeline/react/styles/simple/SimpleProgress.css";
 // Storybook is a host WITHOUT Tailwind (this repo runs none of its own, design
 // Decision D), so it styles the form kernel's controls the way such a host does.
 //

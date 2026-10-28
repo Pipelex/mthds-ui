@@ -1,0 +1,317 @@
+/* ─── Run timeline, simple style ───────────────────────────────────────────── */
+/* The checklist the simple style draws inside the timeline's container: it   */
+/* keeps the container's frame, palette and header from `RunTimeline.css`     */
+/* and adds the lines. Token-only, as the detailed style is: a host changes a */
+/* colour through `paletteColors`. Its layout hook is `--mthds-simple-        */
+/* progress-indent`, set on the root below.                                    */
+
+.mthds-simple-progress {
+  --mthds-simple-progress-indent: 22px;
+  --mthds-simple-progress-mark-size: 14px;
+
+  font-size: 13px;
+}
+
+/* ─── The headline: what the run is doing, in words ─────────────────────── */
+
+.mthds-simple-progress-headline {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.mthds-simple-progress-headline--failed {
+  color: var(--color-error);
+}
+
+/* ─── The lines ──────────────────────────────────────────────────────────── */
+
+.mthds-simple-progress-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mthds-simple-progress-lines--nested {
+  margin-top: 2px;
+  padding-left: var(--mthds-simple-progress-indent);
+}
+
+.mthds-simple-progress-line {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 3px 0;
+}
+
+.mthds-simple-progress-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  min-width: 0;
+}
+
+.mthds-simple-progress-mark {
+  flex: none;
+  width: var(--mthds-simple-progress-mark-size);
+  height: var(--mthds-simple-progress-mark-size);
+  /* The mark sits on the first line of the title, however it wraps. */
+  align-self: flex-start;
+  margin-top: 2px;
+  stroke: currentColor;
+  fill: none;
+  color: var(--text-dim);
+}
+
+.mthds-simple-progress-mark-ring {
+  stroke-width: 1.3;
+}
+
+.mthds-simple-progress-mark--done {
+  color: var(--color-success);
+}
+
+.mthds-simple-progress-mark--done .mthds-simple-progress-mark-ring,
+.mthds-simple-progress-mark--failed .mthds-simple-progress-mark-ring {
+  fill: currentColor;
+}
+
+.mthds-simple-progress-mark--done path,
+.mthds-simple-progress-mark--failed path {
+  stroke: var(--surface-panel);
+}
+
+.mthds-simple-progress-mark--failed {
+  color: var(--color-error);
+}
+
+.mthds-simple-progress-mark--running {
+  color: var(--color-accent);
+}
+
+.mthds-simple-progress-mark--running .mthds-simple-progress-mark-ring {
+  opacity: 0.35;
+}
+
+.mthds-simple-progress-mark-arc {
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  transform-origin: 6px 6px;
+  animation: mthds-simple-progress-spin 1.2s linear infinite;
+}
+
+.mthds-simple-progress-mark--stopped {
+  color: var(--text-muted);
+}
+
+.mthds-simple-progress-mark--stopped rect {
+  fill: currentColor;
+  stroke: none;
+}
+
+@keyframes mthds-simple-progress-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.mthds-simple-progress-title {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  color: var(--text-default);
+}
+
+.mthds-simple-progress-line--running > .mthds-simple-progress-row .mthds-simple-progress-name {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.mthds-simple-progress-line--upcoming > .mthds-simple-progress-row .mthds-simple-progress-title,
+.mthds-simple-progress-line--skipped > .mthds-simple-progress-row .mthds-simple-progress-title {
+  color: var(--text-dim);
+}
+
+.mthds-simple-progress-tag,
+.mthds-simple-progress-now {
+  color: var(--text-muted);
+}
+
+.mthds-simple-progress-line--upcoming > .mthds-simple-progress-row .mthds-simple-progress-tag,
+.mthds-simple-progress-line--skipped > .mthds-simple-progress-row .mthds-simple-progress-tag {
+  color: var(--text-dim);
+}
+
+.mthds-simple-progress-outcome {
+  margin-left: 6px;
+  color: var(--text-secondary);
+}
+
+.mthds-simple-progress-time {
+  flex: none;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.mthds-simple-progress-toggle,
+.mthds-simple-progress-toggle-spacer {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  align-self: flex-start;
+}
+
+.mthds-simple-progress-toggle:hover {
+  background: var(--surface-elevated-hover);
+}
+
+.mthds-simple-progress-toggle:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 1px;
+}
+
+/* ─── A branch step's items at each state ───────────────────────────────── */
+
+.mthds-simple-progress-tally {
+  display: inline-flex;
+  flex: none;
+  gap: 10px;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.mthds-simple-progress-tally-entry {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.mthds-simple-progress-tally .mthds-simple-progress-mark {
+  --mthds-simple-progress-mark-size: 11px;
+  align-self: center;
+  margin-top: 0;
+}
+
+/* ─── A batch: its bar and its counts ───────────────────────────────────── */
+
+.mthds-simple-progress-batch,
+.mthds-simple-progress-notes {
+  /* Under the title, past the mark. */
+  margin-left: calc(var(--mthds-simple-progress-mark-size) + 8px);
+}
+
+.mthds-simple-progress-batch {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-right: 26px;
+}
+
+.mthds-simple-progress-bar {
+  display: flex;
+  flex: 0 1 180px;
+  min-width: 80px;
+  height: 6px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--surface-sunken);
+}
+
+.mthds-simple-progress-bar > span {
+  height: 100%;
+  transition: width 0.4s ease;
+}
+
+.mthds-simple-progress-bar-done {
+  background: var(--color-success);
+}
+
+.mthds-simple-progress-bar-failed {
+  background: var(--color-error);
+}
+
+.mthds-simple-progress-bar-running {
+  background: var(--color-accent);
+  opacity: 0.45;
+}
+
+.mthds-simple-progress-counts {
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─── Health, failures and the run's own notes ──────────────────────────── */
+
+.mthds-simple-progress-notes {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mthds-simple-progress-note {
+  padding-left: 8px;
+  border-left: 2px solid var(--border-default);
+  color: var(--text-secondary);
+}
+
+.mthds-simple-progress-note p {
+  margin: 0;
+}
+
+.mthds-simple-progress-note--warning {
+  border-left-color: var(--color-warning);
+}
+
+.mthds-simple-progress-note--error {
+  border-left-color: var(--color-error);
+}
+
+.mthds-simple-progress-note--error > p:first-child {
+  color: var(--color-error);
+}
+
+.mthds-simple-progress-details summary {
+  width: fit-content;
+  color: var(--text-muted);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.mthds-simple-progress-details summary:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 1px;
+}
+
+.mthds-simple-progress-details-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-top: 4px;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+/* ─── Narrow: a long title wraps beside its time; the bar and counts wrap ─── */
+
+@container mthds-run-timeline (max-width: 560px) {
+  .mthds-simple-progress-batch {
+    flex-wrap: wrap;
+    margin-right: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mthds-simple-progress-mark-arc {
+    animation: none;
+  }
+
+  .mthds-simple-progress-bar > span {
+    transition: none;
+  }
+}

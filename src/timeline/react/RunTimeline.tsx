@@ -13,7 +13,13 @@ import {
   type ProgressTimestamp,
   type RunProgressStatus,
 } from "@timeline/progressSnapshot";
-import { fresherSnapshot, progressStreamKey } from "@timeline/snapshotFreshness";
+import { progressStreamKey } from "@timeline/snapshotFreshness";
+import {
+  TIMELINE_STYLE,
+  resolveTimelineStyle,
+  type TimelineStyleId,
+} from "@timeline/styles/timelineStyles";
+import type { TimelinePipeRegistry } from "@timeline/styles/registryJoin";
 import { buildTimelineRows, type TimelineBatch, type TimelineRow } from "@timeline/timelineRows";
 import {
   barFollowsClock,
@@ -21,7 +27,6 @@ import {
   formatDuration,
   invocationBar,
   invocationTimes,
-  readingClockMs,
   snapshotTimes,
   timelineTicks,
   timelineWindowAt,
@@ -29,6 +34,8 @@ import {
   type TimelineBar,
   type TimelineWindow,
 } from "@timeline/timelineTime";
+import { useHeldSnapshot, useReadingClock } from "@timeline/react/readingClock";
+import { SimpleProgressView } from "@timeline/react/styles/simple/SimpleProgressView";
 
 export interface RunTimelineProps {
   /**
@@ -68,8 +75,34 @@ export interface RunTimelineProps {
    * draws each snapshot as of its `assembled_at`. Defaults to `true`.
    */
   live?: boolean;
+  /**
+   * The style the timeline draws in: `detailed`, the default, every invocation
+   * as a bar on a shared time axis; or `simple`, the run as a checklist of its
+   * steps in the method's own words, a batch as one line with its counts. An
+   * id this version does not know draws the default.
+   */
+  timelineStyle?: TimelineStyleId;
+  /**
+   * The registry of the method's pipes, keyed by `pipe_ref`, as a `GraphSpec`'s
+   * `pipe_registry`: the simple style titles its lines from the pipes'
+   * descriptions, names a batch's item, and lists the steps the run has not
+   * reached. Without it each line is titled by its humanized pipe code. The
+   * detailed style does not read it.
+   */
+  pipeRegistry?: TimelinePipeRegistry;
+  /**
+   * The `pipe_ref` of the pipe the run starts from. A snapshot taken before
+   * anything started names no pipe, so with it and `pipeRegistry` the simple
+   * style lists the run's steps from the start.
+   */
+  entryPipeRef?: string;
   /** A batch holding more items than this starts collapsed. Defaults to `DEFAULT_WIDE_BATCH_THRESHOLD`. */
   wideBatchThreshold?: number;
+  /**
+   * In the simple style, a parallel with more branches than this folds its
+   * finished branches into one line. Defaults to `DEFAULT_WIDE_PARALLEL_THRESHOLD`.
+   */
+  wideParallelThreshold?: number;
   /** Appended to the container's class list. */
   className?: string;
 }
@@ -117,83 +150,6 @@ const RUN_STATUS_WORD: Record<RunProgressStatus, string> = {
  */
 function wordFor<K extends string>(table: Record<K, string>, value: string): string {
   return Object.prototype.hasOwnProperty.call(table, value) ? table[value as K] : value;
-}
-
-/**
- * The snapshot to draw: of the one held and the one just passed, the fresher by
- * the contract's rule. React's derived-state pattern rather than an effect, so
- * the render that receives a stale snapshot never paints it, not even once.
- */
-function useHeldSnapshot(snapshot: ProgressSnapshot): ProgressSnapshot {
-  const [state, setState] = React.useState({ given: snapshot, held: snapshot });
-  if (state.given !== snapshot) {
-    const held = fresherSnapshot(state.held, snapshot);
-    setState({ given: snapshot, held });
-    return held;
-  }
-  return state.held;
-}
-
-/** What the clock last showed, for which stream and which reading, and whether it ticked on its own. */
-interface SelfClock {
-  stream: string;
-  base: number | null;
-  ticking: boolean;
-  ms: number | null;
-}
-
-/**
- * The reading clock, in epoch milliseconds. Pinned by `now` when the host sets
- * it; otherwise the snapshot's `assembled_at`, advanced while the run goes on by
- * the time this page has measured since. It ticks only while a drawn bar
- * follows it (`followsClock`): with none, a tick would redraw nothing that moves.
- *
- * The self-ticking clock never goes back within one stream of progress. A
- * snapshot that took long to arrive can carry an `assembled_at` older than the
- * moment the clock already shows; the clock then carries on from what it
- * showed, the later of the two readings, rather than jumping back, so no running
- * bar and no axis shrinks and grows again. That floor comes only from a clock
- * that was itself ticking in the same stream: a moment the host pinned with
- * `now`, or a clock standing still, is not one this clock reached on its own,
- * so a clock that starts ticking starts from its snapshot's reading. A snapshot
- * of another stream starts the clock afresh from its own reading.
- */
-function useReadingClock(
-  held: ProgressSnapshot,
-  stream: string,
-  now: ProgressTimestamp | number | undefined,
-  live: boolean,
-  followsClock: boolean,
-): { nowMs: number | null; ticking: boolean } {
-  const base = React.useMemo(() => readingClockMs(held, now), [held, now]);
-  const ticking =
-    live && now === undefined && base !== null && !isRunEnded(held.status) && followsClock;
-  const [clock, setClock] = React.useState<SelfClock>({ stream, base, ticking, ms: base });
-  let shown = clock;
-  if (clock.stream !== stream || clock.base !== base || clock.ticking !== ticking) {
-    // React's derived-state pattern, as in `useHeldSnapshot`: the render that
-    // receives the new reading already shows the clock it starts from.
-    const floor = ticking && clock.ticking && clock.stream === stream ? clock.ms : null;
-    const ms = base !== null && floor !== null ? Math.max(base, floor) : base;
-    shown = { stream, base, ticking, ms };
-    setClock(shown);
-  }
-  React.useEffect(() => {
-    if (!ticking) return undefined;
-    let previous = performance.now();
-    const timer = window.setInterval(() => {
-      const current = performance.now();
-      const step = current - previous;
-      previous = current;
-      setClock((state) =>
-        state.stream === stream && state.base === base && state.ticking && state.ms !== null
-          ? { ...state, ms: state.ms + step }
-          : state,
-      );
-    }, CLOCK_TICK_MS);
-    return () => window.clearInterval(timer);
-  }, [ticking, stream, base]);
-  return { nowMs: ticking ? shown.ms : base, ticking };
 }
 
 function batchCountsText(batch: TimelineBatch): string | null {
@@ -469,7 +425,11 @@ export function RunTimeline({
   paletteColors,
   now,
   live = true,
+  timelineStyle,
+  pipeRegistry,
+  entryPipeRef,
   wideBatchThreshold,
+  wideParallelThreshold,
   className,
 }: RunTimelineProps) {
   const held = useHeldSnapshot(snapshot);
@@ -484,7 +444,64 @@ export function RunTimeline({
     () => ({ ...getPaletteForTheme(resolvedTheme), ...paletteColors }) as React.CSSProperties,
     [resolvedTheme, paletteColors],
   );
+  const containerClassName = [
+    "mthds-run-timeline",
+    `mthds-run-timeline--${resolvedTheme}`,
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
 
+  // Each style keeps its own clock, ticking as often as what it draws moves.
+  if (resolveTimelineStyle(timelineStyle) === TIMELINE_STYLE.SIMPLE) {
+    return (
+      <SimpleProgressView
+        held={held}
+        stream={streamKey}
+        pipeRegistry={pipeRegistry}
+        entryPipeRef={entryPipeRef}
+        now={now}
+        live={live}
+        wideParallelThreshold={wideParallelThreshold}
+        containerClassName={containerClassName}
+        containerStyle={paletteStyle}
+      />
+    );
+  }
+  return (
+    <DetailedTimeline
+      held={held}
+      stream={streamKey}
+      now={now}
+      live={live}
+      wideBatchThreshold={wideBatchThreshold}
+      containerClassName={containerClassName}
+      containerStyle={paletteStyle}
+    />
+  );
+}
+
+/** What `RunTimeline` hands the detailed style: the snapshot it holds, its stream, and its own props. */
+interface DetailedTimelineProps {
+  held: ProgressSnapshot;
+  stream: string;
+  now: ProgressTimestamp | number | undefined;
+  live: boolean;
+  wideBatchThreshold: number | undefined;
+  containerClassName: string;
+  containerStyle: React.CSSProperties;
+}
+
+/** The detailed style: every invocation as a row with its bar on the shared axis. */
+function DetailedTimeline({
+  held,
+  stream: streamKey,
+  now,
+  live,
+  wideBatchThreshold,
+  containerClassName,
+  containerStyle,
+}: DetailedTimelineProps) {
   // What the reader expanded belongs to one stream of progress: another starts afresh.
   const [expansion, setExpansion] = React.useState<{
     key: string;
@@ -520,7 +537,12 @@ export function RunTimeline({
   );
   // A bar that follows the clock has started, so whenever one does there is an axis too.
   const clockFollowed = drawnRows.some((drawn) => drawn.followsClock);
-  const { nowMs, ticking } = useReadingClock(held, streamKey, now, live, clockFollowed);
+  const { nowMs, ticking } = useReadingClock(held, streamKey, {
+    now,
+    live,
+    followsClock: clockFollowed,
+    tickMs: CLOCK_TICK_MS,
+  });
   const axis = timelineWindowAt(times, nowMs);
   const [axisTrackRef, tickBudget] = useTickBudget();
   const ticks = axis ? timelineTicks(axis, tickBudget) : [];
@@ -528,19 +550,14 @@ export function RunTimeline({
     ? ({ [AXIS_SPAN_VAR]: cssNumber(axis.endMs - axis.startMs) } as React.CSSProperties)
     : undefined;
 
-  const containerClasses = [
-    "mthds-run-timeline",
-    `mthds-run-timeline--${resolvedTheme}`,
-    ticking && "mthds-run-timeline--self-clocked",
-    className,
-  ]
+  const containerClasses = [containerClassName, ticking && "mthds-run-timeline--self-clocked"]
     .filter(Boolean)
     .join(" ");
 
   return (
     <section
       className={containerClasses}
-      style={paletteStyle}
+      style={containerStyle}
       aria-label="Run progress"
       data-run-status={held.status}
       data-version={held.version}

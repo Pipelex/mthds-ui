@@ -137,6 +137,10 @@ describe("the worked example", () => {
     expect(lineAt(progress.lines, `${BATCH}/*/step_1`).kind).toBe("branchStep");
     // Counted across the items, never one item's attempt.
     expect(lineAt(progress.lines, `${BATCH}/*/step_2`).health?.retryAttempt).toBeNull();
+    // Opened, the batch keeps only the trouble its steps do not show.
+    expect(outline([{ ...lineAt(progress.lines, BATCH), children: [] }])).toEqual([
+      "◐ Summarize a filing · for each filing [1/3 done, 2 running] {stuck 1} ▾",
+    ]);
   });
 
   it("names its branch's steps no item has reached yet", () => {
