@@ -5,14 +5,23 @@
  * recording's snapshots come in an order a reader would keep each of.
  */
 import { describe, expect, it } from "vitest";
+import { buildProblem } from "mthds/errors";
 import {
   CANCELED_RUN_SNAPSHOT,
+  CONDENSE_FAILED_PROBLEM,
+  DRY_RUN_SNAPSHOTS,
+  ENGINE_RETRY_PROBLEM,
   REVIEW_FILINGS_RUN,
   REVIEW_FILINGS_SNAPSHOTS,
+  VET_COMPANY_SNAPSHOTS,
   WIDE_BATCH_SNAPSHOTS,
   WORKED_EXAMPLE_MOMENT,
   WORKED_EXAMPLE_SNAPSHOT,
 } from "@timeline/react/__stories__/recordedRuns";
+import {
+  REVIEW_FILINGS_REGISTRY,
+  VET_COMPANY_REGISTRY,
+} from "@timeline/react/__stories__/methodRegistries";
 import { snapshotAt } from "@timeline/react/__stories__/runRecorder";
 import { fresherSnapshot } from "../snapshotFreshness";
 
@@ -39,6 +48,8 @@ describe("the recorded runs", () => {
   it.each([
     ["the worked example's run", REVIEW_FILINGS_SNAPSHOTS],
     ["the wide batch's run", WIDE_BATCH_SNAPSHOTS],
+    ["the vetting run", VET_COMPANY_SNAPSHOTS],
+    ["the dry run", DRY_RUN_SNAPSHOTS],
   ])("give each snapshot of %s as fresher than the one before", (_name, snapshots) => {
     for (let index = 1; index < snapshots.length; index += 1) {
       expect(fresherSnapshot(snapshots[index - 1], snapshots[index])).toBe(snapshots[index]);
@@ -76,6 +87,70 @@ describe("the recorded runs", () => {
       true,
     );
     expect(summaries.some((summary) => summary.endsWith("attempt 3"))).toBe(true);
+  });
+
+  it("write their problems as the standard's builder does", () => {
+    expect(ENGINE_RETRY_PROBLEM).toEqual(buildProblem("runtime.unexpected", {}));
+    expect(CONDENSE_FAILED_PROBLEM).toEqual(
+      buildProblem(
+        "pipe.output_invalid",
+        { pipe: "condense_filing", output_concept: "FilingSummary", fields: ["text"] },
+        {
+          location: {
+            pipe: "condense_filing",
+            path: [
+              "review_filings",
+              "summarize_filing_batch",
+              "summarize_filing",
+              "condense_filing",
+            ],
+          },
+        },
+      ),
+    );
+  });
+
+  it("carry the problem that ended the wide run's failed step, and the engine's retries as runtime.unexpected", () => {
+    const last = WIDE_BATCH_SNAPSHOTS[WIDE_BATCH_SNAPSHOTS.length - 1];
+    const failedStep = last.invocations.find(
+      (each) => each.path === "filings.review_filings/step_3/item_9/step_2",
+    );
+    expect(failedStep?.status).toBe("failed");
+    expect(failedStep?.last_failure?.problem).toEqual(CONDENSE_FAILED_PROBLEM);
+    const retrying = WIDE_BATCH_SNAPSHOTS.flatMap((snapshot) => snapshot.invocations).find(
+      (each) => each.status === "running" && each.attempts !== undefined,
+    );
+    expect(retrying?.last_failure?.problem).toEqual(ENGINE_RETRY_PROBLEM);
+  });
+
+  it.each([
+    ["the worked example's run", REVIEW_FILINGS_SNAPSHOTS, REVIEW_FILINGS_REGISTRY],
+    ["the wide batch's run", WIDE_BATCH_SNAPSHOTS, REVIEW_FILINGS_REGISTRY],
+    ["the vetting run", VET_COMPANY_SNAPSHOTS, VET_COMPANY_REGISTRY],
+    ["the dry run", DRY_RUN_SNAPSHOTS, REVIEW_FILINGS_REGISTRY],
+  ])("run only pipes the method of %s declares", (_name, snapshots, registry) => {
+    for (const snapshot of snapshots) {
+      for (const invocation of snapshot.invocations) {
+        const pipe = registry[invocation.pipe_ref];
+        expect(pipe, invocation.pipe_ref).toBeDefined();
+        expect(pipe?.type).toBe(invocation.pipe_type);
+        expect(pipe?.code).toBe(invocation.pipe_code);
+      }
+    }
+  });
+
+  it("number the vetting run's steps as the contract does: its binding counted, the dotted batch_over's not", () => {
+    const last = VET_COMPANY_SNAPSHOTS[VET_COMPANY_SNAPSHOTS.length - 1];
+    expect(last.status).toBe("succeeded");
+    const byPath = new Map(last.invocations.map((each) => [each.path, each]));
+    expect(byPath.get("diligence.vet_company")?.step_count).toBe(6);
+    expect(byPath.has("diligence.vet_company/step_1")).toBe(false);
+    expect(byPath.get("diligence.vet_company/step_2")?.pipe_code).toBe("gather_sources");
+    expect(byPath.get("diligence.vet_company/step_4")?.pipe_code).toBe("verify_claim_batch");
+    expect(byPath.get("diligence.vet_company/step_6")?.pipe_code).toBe("write_memo");
+    expect(byPath.get("diligence.vet_company/step_5/step_1/step_1/step_2/step_1")?.pipe_code).toBe(
+      "run_stress_case",
+    );
   });
 
   it("cancel what was still going when the run was canceled", () => {

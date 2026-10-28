@@ -9,8 +9,15 @@
  * the example exactly, which `recordedRuns.test.ts` checks. `WIDE_BATCH_RUN`
  * reviews twenty-four filings, so its batch is wide; its condition takes its
  * default outcome, one item is skipped, and one item's step fails after its
- * work was tried three times, which fails the run.
+ * work was tried three times, which fails the run. `VET_COMPANY_RUN` vets a
+ * company: a sequence whose first step is a binding, a parallel of eight
+ * sources, a batch over a dotted `batch_over`, and a chain of sequences four
+ * levels deep.
+ *
+ * The methods they ran are written beside them, in `methods/`, and
+ * `methodRegistries.ts` builds their pipe registries with the static builder.
  */
+import type { Problem } from "mthds/errors";
 import type { ProgressSnapshot } from "@timeline/progressSnapshot";
 import {
   recordedSnapshots,
@@ -44,8 +51,47 @@ const ASSEMBLE_REPORT = pipe("assemble_report", "PipeCompose");
 const ROOT = "filings.review_filings";
 const BATCH = `${ROOT}/step_3`;
 
-/** The placeholder a failure's message reads as when it was not written for the caller. */
-const INTERNAL_ERROR = "An internal error occurred.";
+// ─── Problem documents ───────────────────────────────────────────────────────
+// Written out rather than built with `mthds/errors`' `buildProblem`, because the
+// stories import this module, and a runtime import of `mthds` from a story makes
+// Vite discover it mid-run. `recordedRuns.test.ts` holds each one to what the
+// builder writes for its code.
+
+/**
+ * What a failure only the engine observes reads as: an attempt it is trying
+ * again carries the engine's text, which is no problem document, so the carrier
+ * serves `runtime.unexpected` for it.
+ */
+export const ENGINE_RETRY_PROBLEM: Problem = {
+  type: "https://mthds.ai/errors/runtime.unexpected",
+  title: "An unexpected error occurred",
+  detail: "The runtime met an unexpected error.",
+  code: "runtime.unexpected",
+  domain: "runtime",
+  retry: "no",
+  next_step: { kind: "report", detail: "Report this to whoever runs the runtime." },
+};
+
+/** The problem that ended the wide run's failed step, as the runtime recorded it, in the caller's view. */
+export const CONDENSE_FAILED_PROBLEM: Problem = {
+  type: "https://mthds.ai/errors/pipe.output_invalid",
+  title: "A pipe's output does not fit its concept",
+  detail:
+    "Pipe 'condense_filing' produced an output that does not fit the concept 'FilingSummary', at the fields text.",
+  code: "pipe.output_invalid",
+  domain: "method",
+  retry: "no",
+  next_step: {
+    kind: "contact_owner",
+    detail:
+      "Ask the method's owner to make pipe 'condense_filing' produce an output that fits its concept.",
+  },
+  params: { pipe: "condense_filing", output_concept: "FilingSummary", fields: ["text"] },
+  location: {
+    pipe: "condense_filing",
+    path: ["review_filings", "summarize_filing_batch", "summarize_filing", "condense_filing"],
+  },
+};
 
 // ─── The contract's worked example, verbatim ─────────────────────────────────
 
@@ -192,7 +238,7 @@ export const WORKED_EXAMPLE_SNAPSHOT: ProgressSnapshot = {
       started_at: "2026-10-12T09:30:31.930Z",
       ended_at: null,
       attempts: 2,
-      last_failure: { message: "An internal error occurred.", at: "2026-10-12T09:30:52.317Z" },
+      last_failure: { problem: ENGINE_RETRY_PROBLEM, at: "2026-10-12T09:30:52.317Z" },
     },
     {
       path: "filings.review_filings/step_3/item_3",
@@ -244,7 +290,7 @@ const REVIEW_FILINGS_HEALTH: RecordedHealth[] = [
     from: "09:30:52.317",
     until: "09:31:24.930",
     attempts: 2,
-    lastFailure: { message: INTERNAL_ERROR, at: "09:30:52.317" },
+    lastFailure: { problem: ENGINE_RETRY_PROBLEM, at: "09:30:52.317" },
   },
   // ...and once it has succeeded, the engine still reports the attempts it made.
   { path: `${BATCH}/item_2/step_2`, from: "09:31:24.930", attempts: 2 },
@@ -542,24 +588,27 @@ export const WIDE_BATCH_RUN: RecordedRun = {
       from: clockAfterTen(WIDE_FAILED_STEP_START + 1_200),
       until: clockAfterTen(WIDE_FAILED_STEP_START + 2_400),
       attempts: 2,
-      lastFailure: { message: INTERNAL_ERROR, at: clockAfterTen(WIDE_FAILED_STEP_START + 1_200) },
+      lastFailure: {
+        problem: ENGINE_RETRY_PROBLEM,
+        at: clockAfterTen(WIDE_FAILED_STEP_START + 1_200),
+      },
     },
     {
       path: WIDE_FAILED_STEP,
       from: clockAfterTen(WIDE_FAILED_STEP_START + 2_400),
       until: clockAfterTen(failedStepEnd),
       attempts: 3,
-      lastFailure: { message: INTERNAL_ERROR, at: clockAfterTen(WIDE_FAILED_STEP_START + 2_400) },
+      lastFailure: {
+        problem: ENGINE_RETRY_PROBLEM,
+        at: clockAfterTen(WIDE_FAILED_STEP_START + 2_400),
+      },
     },
-    // The failure that ended it, written for the caller, so it keeps its own words.
+    // The failure that ended it is the runtime's own problem, which the snapshot carries as recorded.
     {
       path: WIDE_FAILED_STEP,
       from: clockAfterTen(failedStepEnd),
       attempts: 3,
-      lastFailure: {
-        message: "The filing could not be condensed: its text is empty.",
-        at: clockAfterTen(failedStepEnd),
-      },
+      lastFailure: { problem: CONDENSE_FAILED_PROBLEM, at: clockAfterTen(failedStepEnd) },
     },
   ],
 };
@@ -567,4 +616,319 @@ export const WIDE_BATCH_RUN: RecordedRun = {
 /** The wide run's successive snapshots, from before it starts to its failure. */
 export const WIDE_BATCH_SNAPSHOTS: ProgressSnapshot[] = recordedSnapshots(WIDE_BATCH_RUN, [
   clockAfterTen(0),
+]);
+
+// ─── A dry run ────────────────────────────────────────────────────────────────
+
+/**
+ * `filings.review_filings` dry-run over two mock filings: it finishes almost at
+ * once, and its condition resolves nothing and runs every outcome group, so
+ * both `outcome_detailed` and `outcome_quick` run under it.
+ */
+export const DRY_RUN: RecordedRun = {
+  pipelineRunId: "run_Dry7Qd",
+  mode: "dry",
+  day: "2026-10-12",
+  invocations: [
+    {
+      path: ROOT,
+      pipe: REVIEW_FILINGS,
+      stepCount: 4,
+      startedAt: "11:00:00.010",
+      endedAt: "11:00:00.640",
+    },
+    {
+      path: `${ROOT}/step_1`,
+      pipe: EXTRACT_FILINGS,
+      startedAt: "11:00:00.020",
+      endedAt: "11:00:00.080",
+    },
+    {
+      path: `${ROOT}/step_2`,
+      pipe: CHOOSE_DEPTH,
+      startedAt: "11:00:00.090",
+      endedAt: "11:00:00.300",
+    },
+    {
+      path: `${ROOT}/step_2/outcome_detailed`,
+      pipe: DEEP_CHECKS,
+      branchCount: 2,
+      startedAt: "11:00:00.100",
+      endedAt: "11:00:00.290",
+    },
+    {
+      path: `${ROOT}/step_2/outcome_detailed/branch_1`,
+      pipe: CHECK_FIGURES,
+      startedAt: "11:00:00.110",
+      endedAt: "11:00:00.240",
+    },
+    {
+      path: `${ROOT}/step_2/outcome_detailed/branch_2`,
+      pipe: CHECK_WORDING,
+      startedAt: "11:00:00.112",
+      endedAt: "11:00:00.280",
+    },
+    {
+      path: `${ROOT}/step_2/outcome_quick`,
+      pipe: QUICK_CHECK,
+      startedAt: "11:00:00.104",
+      endedAt: "11:00:00.210",
+    },
+    {
+      path: BATCH,
+      pipe: SUMMARIZE_FILING_BATCH,
+      startedAt: "11:00:00.310",
+      endedAt: "11:00:00.580",
+      fanOut: { at: "11:00:00.315", itemCount: 2 },
+    },
+    ...[1, 2].flatMap((item): RecordedInvocation[] => {
+      const offset = (item - 1) * 20;
+      const clock = (ms: number) => `11:00:00.${String(ms + offset).padStart(3, "0")}`;
+      return [
+        {
+          path: `${BATCH}/item_${item}`,
+          pipe: SUMMARIZE_FILING,
+          stepCount: 2,
+          startedAt: clock(320),
+          endedAt: clock(540),
+        },
+        {
+          path: `${BATCH}/item_${item}/step_1`,
+          pipe: READ_FILING,
+          startedAt: clock(330),
+          endedAt: clock(420),
+        },
+        {
+          path: `${BATCH}/item_${item}/step_2`,
+          pipe: CONDENSE_FILING,
+          startedAt: clock(430),
+          endedAt: clock(530),
+        },
+      ];
+    }),
+    {
+      path: `${ROOT}/step_4`,
+      pipe: ASSEMBLE_REPORT,
+      startedAt: "11:00:00.590",
+      endedAt: "11:00:00.630",
+    },
+  ],
+};
+
+/** The dry run's successive snapshots. */
+export const DRY_RUN_SNAPSHOTS: ProgressSnapshot[] = recordedSnapshots(DRY_RUN, ["10:59:59.900"]);
+
+// ─── A wide parallel, a binding step and deep nesting ────────────────────────
+
+const diligencePipe = (code: string, type: string): RecordedPipe => ({
+  code,
+  ref: `diligence.${code}`,
+  type,
+});
+
+const VET_COMPANY = diligencePipe("vet_company", "PipeSequence");
+const GATHER_SOURCES = diligencePipe("gather_sources", "PipeParallel");
+/** The eight sources `gather_sources` reads at the same time, in branch order. */
+const SOURCE_PIPES = [
+  "search_register",
+  "search_court_records",
+  "search_sanctions",
+  "search_news",
+  "review_accounts",
+  "check_directors",
+  "trace_ownership",
+  "check_licences",
+].map((code) => diligencePipe(code, "PipeLLM"));
+const COMPILE_DOSSIER = diligencePipe("compile_dossier", "PipeLLM");
+const VERIFY_CLAIM_BATCH = diligencePipe("verify_claim_batch", "PipeBatch");
+const VERIFY_CLAIM = diligencePipe("verify_claim", "PipeLLM");
+const WEIGH_RISKS = diligencePipe("weigh_risks", "PipeSequence");
+const ASSESS_EXPOSURE = diligencePipe("assess_exposure", "PipeSequence");
+const MODEL_SCENARIOS = diligencePipe("model_scenarios", "PipeSequence");
+const DRAFT_SCENARIOS = diligencePipe("draft_scenarios", "PipeLLM");
+const STRESS_TEST = diligencePipe("stress_test", "PipeSequence");
+const RUN_STRESS_CASE = diligencePipe("run_stress_case", "PipeLLM");
+const RANK_SCENARIOS = diligencePipe("rank_scenarios", "PipeLLM");
+const SUMMARIZE_EXPOSURE = diligencePipe("summarize_exposure", "PipeLLM");
+const RATE_RISK = diligencePipe("rate_risk", "PipeLLM");
+const WRITE_MEMO = diligencePipe("write_memo", "PipeCompose");
+
+const VET_ROOT = "diligence.vet_company";
+// Step 1 is the binding of the company's name, which runs no pipe, so no
+// invocation has its path. The dotted `batch_over` of step 4 is bound by a
+// binding the runtime writes, which takes no number.
+const VET_SOURCES = `${VET_ROOT}/step_2`;
+const VET_CLAIMS = `${VET_ROOT}/step_4`;
+const VET_RISKS = `${VET_ROOT}/step_5`;
+const VET_EXPOSURE = `${VET_RISKS}/step_1`;
+const VET_SCENARIOS = `${VET_EXPOSURE}/step_1`;
+const VET_STRESS = `${VET_SCENARIOS}/step_2`;
+
+/** A clock time `offsetMs` after 14:00 on the recording's day. */
+function clockAfterTwo(offsetMs: number): string {
+  return `14${clockAfterTen(offsetMs).slice(2)}`;
+}
+
+const SOURCE_DURATIONS = [3_200, 5_400, 2_600, 9_800, 4_100, 6_900, 12_500, 3_900];
+const SOURCES_START = 150;
+const SOURCE_TIMES = SOURCE_DURATIONS.map((duration, index) => {
+  const start = SOURCES_START + 20 + index * 12;
+  return { start, end: start + duration };
+});
+const SOURCES_END = Math.max(...SOURCE_TIMES.map((times) => times.end)) + 20;
+/** `search_news`, whose call failed once and was tried again. */
+const RETRIED_SOURCE = 4;
+const RETRIED_SOURCE_FAILED_AT = SOURCE_TIMES[RETRIED_SOURCE - 1].start + 4_300;
+
+const DOSSIER_START = SOURCES_END + 30;
+const DOSSIER_END = DOSSIER_START + 7_400;
+
+const CLAIM_COUNT = 12;
+const CLAIM_CONCURRENCY = 4;
+const CLAIMS_START = DOSSIER_END + 30;
+const CLAIM_TIMES = (() => {
+  const times: { start: number; end: number }[] = [];
+  for (let item = 1; item <= CLAIM_COUNT; item += 1) {
+    const start =
+      item <= CLAIM_CONCURRENCY
+        ? CLAIMS_START + 40 + (item - 1) * 30
+        : times[item - 1 - CLAIM_CONCURRENCY].end + 25;
+    times.push({ start, end: start + 3_000 + ((item * 1_373) % 2_500) });
+  }
+  return times;
+})();
+const CLAIMS_END = Math.max(...CLAIM_TIMES.map((times) => times.end)) + 20;
+
+/** The chain of steps four levels down, each starting as the one before it ends. */
+const DEEP_STEPS: { path: string; pipe: RecordedPipe; duration: number }[] = [
+  { path: `${VET_SCENARIOS}/step_1`, pipe: DRAFT_SCENARIOS, duration: 6_200 },
+  { path: `${VET_STRESS}/step_1`, pipe: RUN_STRESS_CASE, duration: 8_800 },
+  { path: `${VET_STRESS}/step_2`, pipe: RANK_SCENARIOS, duration: 4_300 },
+  { path: `${VET_EXPOSURE}/step_2`, pipe: SUMMARIZE_EXPOSURE, duration: 3_600 },
+  { path: `${VET_RISKS}/step_2`, pipe: RATE_RISK, duration: 2_900 },
+];
+const RISKS_START = CLAIMS_END + 30;
+const DEEP_TIMES = (() => {
+  let cursor = RISKS_START + 60;
+  return DEEP_STEPS.map((step) => {
+    const start = cursor;
+    cursor = start + step.duration + 40;
+    return { ...step, start, end: start + step.duration };
+  });
+})();
+const deepEnd = (path: string) => DEEP_TIMES.find((step) => step.path === path)?.end ?? 0;
+const RISKS_END = DEEP_TIMES[DEEP_TIMES.length - 1].end + 20;
+const MEMO_START = RISKS_END + 30;
+const MEMO_END = MEMO_START + 1_800;
+
+/** `diligence.vet_company` over a company whose sources make twelve claims. */
+export const VET_COMPANY_RUN: RecordedRun = {
+  pipelineRunId: "run_V3tC0m",
+  mode: "live",
+  day: "2026-10-12",
+  invocations: [
+    {
+      path: VET_ROOT,
+      pipe: VET_COMPANY,
+      stepCount: 6,
+      startedAt: clockAfterTwo(100),
+      endedAt: clockAfterTwo(MEMO_END + 20),
+    },
+    {
+      path: VET_SOURCES,
+      pipe: GATHER_SOURCES,
+      branchCount: SOURCE_PIPES.length,
+      startedAt: clockAfterTwo(SOURCES_START),
+      endedAt: clockAfterTwo(SOURCES_END),
+    },
+    ...SOURCE_PIPES.map((pipe, index) => ({
+      path: `${VET_SOURCES}/branch_${index + 1}`,
+      pipe,
+      startedAt: clockAfterTwo(SOURCE_TIMES[index].start),
+      endedAt: clockAfterTwo(SOURCE_TIMES[index].end),
+    })),
+    {
+      path: `${VET_ROOT}/step_3`,
+      pipe: COMPILE_DOSSIER,
+      startedAt: clockAfterTwo(DOSSIER_START),
+      endedAt: clockAfterTwo(DOSSIER_END),
+    },
+    {
+      path: VET_CLAIMS,
+      pipe: VERIFY_CLAIM_BATCH,
+      startedAt: clockAfterTwo(CLAIMS_START),
+      endedAt: clockAfterTwo(CLAIMS_END),
+      fanOut: { at: clockAfterTwo(CLAIMS_START + 10), itemCount: CLAIM_COUNT },
+    },
+    ...CLAIM_TIMES.map(({ start, end }, index) => ({
+      path: `${VET_CLAIMS}/item_${index + 1}`,
+      pipe: VERIFY_CLAIM,
+      startedAt: clockAfterTwo(start),
+      endedAt: clockAfterTwo(end),
+    })),
+    {
+      path: VET_RISKS,
+      pipe: WEIGH_RISKS,
+      stepCount: 2,
+      startedAt: clockAfterTwo(RISKS_START),
+      endedAt: clockAfterTwo(RISKS_END),
+    },
+    {
+      path: VET_EXPOSURE,
+      pipe: ASSESS_EXPOSURE,
+      stepCount: 2,
+      startedAt: clockAfterTwo(RISKS_START + 20),
+      endedAt: clockAfterTwo(deepEnd(`${VET_EXPOSURE}/step_2`) + 10),
+    },
+    {
+      path: VET_SCENARIOS,
+      pipe: MODEL_SCENARIOS,
+      stepCount: 2,
+      startedAt: clockAfterTwo(RISKS_START + 40),
+      endedAt: clockAfterTwo(deepEnd(`${VET_STRESS}/step_2`) + 15),
+    },
+    ...DEEP_TIMES.flatMap(({ path, pipe, start, end }) => {
+      const step: RecordedInvocation = {
+        path,
+        pipe,
+        startedAt: clockAfterTwo(start),
+        endedAt: clockAfterTwo(end),
+      };
+      if (path !== `${VET_STRESS}/step_1`) return [step];
+      // The stress test is a sequence of its own, four levels down.
+      const stressTest: RecordedInvocation = {
+        path: VET_STRESS,
+        pipe: STRESS_TEST,
+        stepCount: 2,
+        startedAt: clockAfterTwo(start - 20),
+        endedAt: clockAfterTwo(deepEnd(`${VET_STRESS}/step_2`) + 10),
+      };
+      return [stressTest, step];
+    }),
+    {
+      path: `${VET_ROOT}/step_6`,
+      pipe: WRITE_MEMO,
+      startedAt: clockAfterTwo(MEMO_START),
+      endedAt: clockAfterTwo(MEMO_END),
+    },
+  ],
+  health: [
+    {
+      path: `${VET_SOURCES}/branch_${RETRIED_SOURCE}`,
+      from: clockAfterTwo(RETRIED_SOURCE_FAILED_AT),
+      until: clockAfterTwo(SOURCE_TIMES[RETRIED_SOURCE - 1].end),
+      attempts: 2,
+      lastFailure: { problem: ENGINE_RETRY_PROBLEM, at: clockAfterTwo(RETRIED_SOURCE_FAILED_AT) },
+    },
+    {
+      path: `${VET_SOURCES}/branch_${RETRIED_SOURCE}`,
+      from: clockAfterTwo(SOURCE_TIMES[RETRIED_SOURCE - 1].end),
+      attempts: 2,
+    },
+  ],
+};
+
+/** The vetting run's successive snapshots, from before it starts to its end. */
+export const VET_COMPANY_SNAPSHOTS: ProgressSnapshot[] = recordedSnapshots(VET_COMPANY_RUN, [
+  clockAfterTwo(0),
 ]);

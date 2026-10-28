@@ -6,6 +6,7 @@
 import "./graph-core.css";
 import "./detail/DetailPanel.css";
 import "./viewer/GraphToolbar.css";
+import "./viewer/StyleMenu.css";
 import "./styles/simple/SimpleStyle.css";
 // No form kernel stylesheet is imported here, on purpose. The detail panel
 // renders kernel controls (`StuffResultPanel` is the kernel's result view), and

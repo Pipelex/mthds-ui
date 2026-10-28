@@ -2,6 +2,8 @@ import * as React from "react";
 import type { GraphThemeMode } from "@graph/types";
 import { timestampMs, type ProgressSnapshot } from "@timeline/progressSnapshot";
 import { formatClockTime } from "@timeline/timelineTime";
+import type { TimelineStyleId } from "@timeline/styles/timelineStyles";
+import type { TimelinePipeRegistry } from "@timeline/styles/registryJoin";
 import { RunTimeline } from "../RunTimeline";
 
 export interface SnapshotReplayProps {
@@ -15,6 +17,10 @@ export interface SnapshotReplayProps {
   initialSpeed?: number;
   theme?: GraphThemeMode;
   wideBatchThreshold?: number;
+  /** Handed to the timeline as they are: see `RunTimelineProps`. */
+  timelineStyle?: TimelineStyleId;
+  pipeRegistry?: TimelinePipeRegistry;
+  entryPipeRef?: string;
 }
 
 const SPEEDS = [1, 2, 5, 10];
@@ -60,6 +66,9 @@ export function SnapshotReplay({
   initialSpeed = 5,
   theme,
   wideBatchThreshold,
+  timelineStyle,
+  pipeRegistry,
+  entryPipeRef,
 }: SnapshotReplayProps) {
   const moments = React.useMemo(() => snapshots.map(momentOf), [snapshots]);
   const endMoment = moments[moments.length - 1];
@@ -145,6 +154,9 @@ export function SnapshotReplay({
         now={clock}
         theme={theme}
         wideBatchThreshold={wideBatchThreshold}
+        timelineStyle={timelineStyle}
+        pipeRegistry={pipeRegistry}
+        entryPipeRef={entryPipeRef}
       />
     </div>
   );

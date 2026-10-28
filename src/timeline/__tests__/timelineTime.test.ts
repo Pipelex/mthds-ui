@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   CANCELED_RUN_SNAPSHOT,
+  ENGINE_RETRY_PROBLEM,
   WORKED_EXAMPLE_SNAPSHOT,
 } from "@timeline/react/__stories__/recordedRuns";
 import type { ProgressInvocation, ProgressSnapshot } from "../progressSnapshot";
@@ -94,7 +95,11 @@ describe("the reading clock and the axis", () => {
     const failedLate: ProgressSnapshot = {
       ...ended,
       invocations: [
-        { ...root, ended_at: null, last_failure: { message: "x", at: "2026-10-12T09:30:12Z" } },
+        {
+          ...root,
+          ended_at: null,
+          last_failure: { problem: ENGINE_RETRY_PROBLEM, at: "2026-10-12T09:30:12Z" },
+        },
         child,
       ],
     };

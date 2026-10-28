@@ -52,6 +52,10 @@ export default defineConfig({
         "src/timeline/snapshotFreshness.ts",
         "src/timeline/timelineRows.ts",
         "src/timeline/timelineTime.ts",
+        "src/timeline/invocationTree.ts",
+        "src/timeline/styles/timelineStyles.ts",
+        "src/timeline/styles/registryJoin.ts",
+        "src/timeline/styles/simpleProgress.ts",
       ],
       thresholds: {
         statements: 90,

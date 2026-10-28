@@ -55,9 +55,10 @@ import type { ControllerRect } from "@graph/graphControllers";
 import {
   conceptPlainName,
   humanizeIdentifier,
+  humanizeInSentence,
   isGenericConcept,
   outcomeLabel,
-  sentenceCase,
+  pipeTitle,
   stripDomain,
 } from "./humanize";
 import { estimateWrap, textWidthPx, type WrapEstimate } from "./textMetrics";
@@ -421,13 +422,7 @@ function stepIdentity(spec: GraphSpecNode): string {
 
 /** "For each page": an item name inside a sentence, keeping an acronym's capitals. */
 function forEachLabel(itemName: string): string {
-  const words = humanizeIdentifier(itemName);
-  const first = words.split(" ")[0] ?? "";
-  const inSentence =
-    first.length >= 2 && first === first.toUpperCase()
-      ? words
-      : words.charAt(0).toLowerCase() + words.slice(1);
-  return `For each ${inSentence}`;
+  return `For each ${humanizeInSentence(itemName)}`;
 }
 
 /**
@@ -896,8 +891,7 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
       const branch = specById.get(rawAnalysis.containmentTree[spec.id]?.[0] ?? "");
       if (branch) source = branch;
     }
-    const described = sentenceCase(source.description ?? "");
-    return described || humanizeIdentifier(source.pipe_code ?? "");
+    return pipeTitle(source.description, source.pipe_code ?? "").title;
   }
 
   const stepById = new Map(drawnSteps.map((card) => [card.id, card]));
@@ -947,8 +941,7 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
       continue;
     }
     if (decisionSet.has(spec.id)) {
-      const title =
-        sentenceCase(spec.description ?? "") || humanizeIdentifier(spec.pipe_code ?? "");
+      const title = pipeTitle(spec.description, spec.pipe_code ?? "").title;
       simpleNodes.push({
         id: spec.id,
         type: NODE_TYPE_SIMPLE_DECISION,

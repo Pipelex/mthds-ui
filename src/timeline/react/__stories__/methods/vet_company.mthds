@@ -1,0 +1,274 @@
+domain      = "diligence"
+description = "Vet a company before signing with it"
+main_pipe   = "vet_company"
+
+[concept.VettingRequest]
+description = "Which company to vet"
+
+[concept.VettingRequest.structure]
+company_name = { type = "text", description = "The company's registered name", required = true }
+
+[concept.SourceNote]
+description = "What one source says about the company"
+refines     = "Text"
+
+[concept.SourceNotes]
+description = "What every source says about the company"
+
+[concept.SourceNotes.structure]
+register_note   = { type = "concept", concept_ref = "SourceNote", description = "From the company register", required = true }
+court_note      = { type = "concept", concept_ref = "SourceNote", description = "From court records", required = true }
+sanctions_note  = { type = "concept", concept_ref = "SourceNote", description = "From the sanctions lists", required = true }
+news_note       = { type = "concept", concept_ref = "SourceNote", description = "From the news", required = true }
+accounts_note   = { type = "concept", concept_ref = "SourceNote", description = "From the published accounts", required = true }
+directors_note  = { type = "concept", concept_ref = "SourceNote", description = "About the directors", required = true }
+ownership_note  = { type = "concept", concept_ref = "SourceNote", description = "About who owns the company", required = true }
+licences_note   = { type = "concept", concept_ref = "SourceNote", description = "About the company's licences", required = true }
+
+[concept.Claim]
+description = "One thing the sources claim about the company"
+
+[concept.Claim.structure]
+statement = { type = "text", description = "What is claimed", required = true }
+source    = { type = "text", description = "Which source claims it", required = true }
+
+[concept.Dossier]
+description = "The claims gathered about the company"
+
+[concept.Dossier.structure]
+claims = { type = "list", item_type = "concept", item_concept_ref = "Claim", description = "Every claim the sources make", required = true }
+
+[concept.ClaimVerdict]
+description = "Whether a claim holds up"
+refines     = "Text"
+
+[concept.RiskNote]
+description = "A note on the risk of signing with the company"
+refines     = "Text"
+
+[concept.VettingMemo]
+description = "The memo recommending whether to sign"
+refines     = "Text"
+
+[pipe.vet_company]
+type = "PipeSequence"
+description = "Vet a company before signing with it"
+inputs = { request = "VettingRequest" }
+output = "VettingMemo"
+steps = [
+  { from = "request.company_name", result = "company_name" },
+  { pipe = "gather_sources", result = "sources" },
+  { pipe = "compile_dossier", result = "dossier" },
+  { pipe = "verify_claim", batch_over = "dossier.claims", batch_as = "claim", result = "verdicts" },
+  { pipe = "weigh_risks", result = "risk_note" },
+  { pipe = "write_memo", result = "memo" },
+]
+
+# ─── Eight sources, read at the same time ────────────────────────────────────
+
+[pipe.gather_sources]
+type = "PipeParallel"
+description = "Gather what every source says about the company"
+inputs = { company_name = "Text" }
+output = "SourceNotes"
+add_each_output = true
+branches = [
+  { pipe = "search_register", result = "register_note" },
+  { pipe = "search_court_records", result = "court_note" },
+  { pipe = "search_sanctions", result = "sanctions_note" },
+  { pipe = "search_news", result = "news_note" },
+  { pipe = "review_accounts", result = "accounts_note" },
+  { pipe = "check_directors", result = "directors_note" },
+  { pipe = "trace_ownership", result = "ownership_note" },
+  { pipe = "check_licences", result = "licences_note" },
+]
+
+[pipe.search_register]
+type = "PipeLLM"
+description = "Look the company up in the company register"
+inputs = { company_name = "Text" }
+output = "SourceNote"
+prompt = "What does the company register say about $company_name?"
+
+[pipe.search_court_records]
+type = "PipeLLM"
+description = "Search court records"
+inputs = { company_name = "Text" }
+output = "SourceNote"
+prompt = "Which court cases name $company_name?"
+
+[pipe.search_sanctions]
+type = "PipeLLM"
+description = "Check the sanctions lists"
+inputs = { company_name = "Text" }
+output = "SourceNote"
+prompt = "Is $company_name on a sanctions list?"
+
+[pipe.search_news]
+type = "PipeLLM"
+description = "Search the news"
+inputs = { company_name = "Text" }
+output = "SourceNote"
+prompt = "What has the press written about $company_name?"
+
+[pipe.review_accounts]
+type = "PipeLLM"
+description = "Review the published accounts"
+inputs = { company_name = "Text" }
+output = "SourceNote"
+prompt = "What do the published accounts of $company_name show?"
+
+[pipe.check_directors]
+type = "PipeLLM"
+description = "Check the directors"
+inputs = { company_name = "Text" }
+output = "SourceNote"
+prompt = "Who directs $company_name, and what else have they directed?"
+
+[pipe.trace_ownership]
+type = "PipeLLM"
+description = "Trace who owns the company"
+inputs = { company_name = "Text" }
+output = "SourceNote"
+prompt = "Who ultimately owns $company_name?"
+
+[pipe.check_licences]
+type = "PipeLLM"
+description = "Check its licences"
+inputs = { company_name = "Text" }
+output = "SourceNote"
+prompt = "Which licences does $company_name hold, and are they current?"
+
+# ─── The claims, each verified ───────────────────────────────────────────────
+
+[pipe.compile_dossier]
+type = "PipeLLM"
+description = "Gather the claims the sources make"
+inputs = { company_name = "Text", sources = "SourceNotes" }
+output = "Dossier"
+prompt = """
+List every claim these sources make about $company_name:
+
+@sources
+"""
+
+[pipe.verify_claim]
+type = "PipeLLM"
+description = "Verify a claim"
+inputs = { claim = "Claim" }
+output = "ClaimVerdict"
+prompt = """
+Does this claim hold up?
+
+@claim
+"""
+
+# ─── The risk, weighed four levels deep ──────────────────────────────────────
+
+[pipe.weigh_risks]
+type = "PipeSequence"
+description = "Weigh the risks of signing"
+inputs = { company_name = "Text", verdicts = "ClaimVerdict[]" }
+output = "RiskNote"
+steps = [
+  { pipe = "assess_exposure", result = "exposure" },
+  { pipe = "rate_risk", result = "risk_note" },
+]
+
+[pipe.assess_exposure]
+type = "PipeSequence"
+description = "Assess what the company could cost us"
+inputs = { company_name = "Text", verdicts = "ClaimVerdict[]" }
+output = "RiskNote"
+steps = [
+  { pipe = "model_scenarios", result = "scenarios" },
+  { pipe = "summarize_exposure", result = "exposure" },
+]
+
+[pipe.model_scenarios]
+type = "PipeSequence"
+description = "Model what could go wrong"
+inputs = { company_name = "Text", verdicts = "ClaimVerdict[]" }
+output = "RiskNote"
+steps = [
+  { pipe = "draft_scenarios", result = "scenario_drafts" },
+  { pipe = "stress_test", result = "scenarios" },
+]
+
+[pipe.draft_scenarios]
+type = "PipeLLM"
+description = "Draft the scenarios"
+inputs = { company_name = "Text", verdicts = "ClaimVerdict[]" }
+output = "RiskNote"
+prompt = """
+Draft what could go wrong when signing with $company_name, given:
+
+@verdicts
+"""
+
+[pipe.stress_test]
+type = "PipeSequence"
+description = "Stress-test the scenarios"
+inputs = { scenario_drafts = "RiskNote" }
+output = "RiskNote"
+steps = [
+  { pipe = "run_stress_case", result = "stress_results" },
+  { pipe = "rank_scenarios", result = "scenarios" },
+]
+
+[pipe.run_stress_case]
+type = "PipeLLM"
+description = "Run the worst case"
+inputs = { scenario_drafts = "RiskNote" }
+output = "RiskNote"
+prompt = """
+Play out the worst of these scenarios:
+
+@scenario_drafts
+"""
+
+[pipe.rank_scenarios]
+type = "PipeLLM"
+description = "Rank the scenarios by cost"
+inputs = { stress_results = "RiskNote" }
+output = "RiskNote"
+prompt = """
+Rank these scenarios by what they would cost:
+
+@stress_results
+"""
+
+[pipe.summarize_exposure]
+type = "PipeLLM"
+description = "Summarize the exposure"
+inputs = { scenarios = "RiskNote" }
+output = "RiskNote"
+prompt = """
+Summarize what we are exposed to:
+
+@scenarios
+"""
+
+[pipe.rate_risk]
+type = "PipeLLM"
+description = "Rate the risk"
+inputs = { exposure = "RiskNote" }
+output = "RiskNote"
+prompt = """
+Rate this risk as low, medium or high, and say why:
+
+@exposure
+"""
+
+[pipe.write_memo]
+type = "PipeCompose"
+description = "Write the memo"
+inputs = { company_name = "Text", risk_note = "RiskNote", verdicts = "ClaimVerdict[]" }
+output = "VettingMemo"
+template = """
+# Vetting $company_name
+
+@risk_note
+
+@verdicts
+"""

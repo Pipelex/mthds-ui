@@ -311,7 +311,7 @@ See `graphConfig.ts` for the full default palette.
 | `@pipelex/mthds-ui/form/brand`      | The kernel's brand entry: seed colours into readable colour roles  |
 | `@pipelex/mthds-ui/form/react`      | `RunPanel` — a pipe's input form — and the kernel's controls       |
 | `@pipelex/mthds-ui/timeline`        | A run's progress snapshot: types, path grammar, rows and time axis |
-| `@pipelex/mthds-ui/timeline/react`  | `RunTimeline` — a running run's invocations as growing bars        |
+| `@pipelex/mthds-ui/timeline/react`  | `RunTimeline` — a run's progress as growing bars or a checklist    |
 | `@pipelex/mthds-ui/shiki`           | MTHDS syntax highlighting with shiki                               |
 | `@pipelex/mthds-ui/tailwind.css`    | Where the kernel's classes are, for a Tailwind 4 host              |
 | `@pipelex/mthds-ui/form-kernel.css` | The kernel's prebuilt stylesheet, for a host without Tailwind      |
@@ -411,6 +411,8 @@ import { RunTimeline } from "@pipelex/mthds-ui/timeline/react";
 // rule, so a late answer from an older read never moves it backwards.
 <RunTimeline snapshot={snapshot} theme="dark" />;
 ```
+
+`timelineStyle="simple"` draws the same run as a checklist of its steps in the method's own words, titled from the method's pipe registry the host passes as `pipeRegistry`, with each batch as one line of counts, for a reader who did not write the method; `styleMenu` lets the reader switch. See [docs/timeline-styles.md](./docs/timeline-styles.md).
 
 The entry imports its own stylesheet, and the timeline themes itself with the same tokens as `GraphViewer`. The snapshot's types and the projection the component draws are in the React-free `@pipelex/mthds-ui/timeline`. Props, the freshness rule, what each row and bar shows, and the stories: [docs/run-timeline.md](./docs/run-timeline.md).
 

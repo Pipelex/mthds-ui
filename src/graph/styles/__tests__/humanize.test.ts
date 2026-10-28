@@ -2,8 +2,10 @@ import { describe, it, expect } from "vitest";
 import {
   conceptPlainName,
   humanizeIdentifier,
+  humanizeInSentence,
   isGenericConcept,
   outcomeLabel,
+  pipeTitle,
   sentenceCase,
   stripDomain,
 } from "../humanize";
@@ -89,6 +91,31 @@ describe("sentenceCase", () => {
     expect(sentenceCase("wait...")).toBe("Wait...");
     expect(sentenceCase("Already fine")).toBe("Already fine");
     expect(sentenceCase("")).toBe("");
+  });
+});
+
+describe("pipeTitle", () => {
+  it("titles a pipe by its description, as a title", () => {
+    expect(pipeTitle("  summarize a single\n page. ", "summarize_page")).toEqual({
+      title: "Summarize a single page",
+      fromDescription: true,
+    });
+  });
+
+  it("falls back to the humanized code when the description is missing or blank", () => {
+    const fallback = { title: "Extract CV", fromDescription: false };
+    expect(pipeTitle(undefined, "extract_cv")).toEqual(fallback);
+    expect(pipeTitle(null, "extract_cv")).toEqual(fallback);
+    expect(pipeTitle("   ", "hiring.extract_cv")).toEqual(fallback);
+  });
+});
+
+describe("humanizeInSentence", () => {
+  it("lowers the first letter unless the first word is an acronym", () => {
+    expect(humanizeInSentence("filing")).toBe("filing");
+    expect(humanizeInSentence("job_offer")).toBe("job offer");
+    expect(humanizeInSentence("cv_file")).toBe("CV file");
+    expect(humanizeInSentence("")).toBe("");
   });
 });
 
