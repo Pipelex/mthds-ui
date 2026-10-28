@@ -32,10 +32,12 @@ import {
   timelineTicks,
   timelineWindowAt,
   type InvocationTimes,
+  type SnapshotTimes,
   type TimelineBar,
   type TimelineWindow,
 } from "@timeline/timelineTime";
 import { useHeldSnapshot, useReadingClock } from "@timeline/react/readingClock";
+import { useStreamExpansion } from "@timeline/react/streamExpansion";
 import { SimpleProgressView } from "@timeline/react/styles/simple/SimpleProgressView";
 import { TimelineStyleMenu } from "@timeline/react/TimelineStyleMenu";
 
@@ -125,7 +127,15 @@ export interface RunTimelineProps {
   className?: string;
 }
 
-const CLOCK_TICK_MS = 250;
+/**
+ * How often the reading clock ticks under each style: as often as what it draws
+ * moves. The detailed style's bars grow continuously; nothing the simple style
+ * draws does, so once a second is enough for its durations.
+ */
+const CLOCK_TICK_MS: Record<TimelineStyleId, number> = {
+  [TIMELINE_STYLE.DETAILED]: 250,
+  [TIMELINE_STYLE.SIMPLE]: 1_000,
+};
 /** Past this point on the axis a tick's label ends at its tick rather than centring on it. */
 const TICK_RIGHT_ALIGN_PERCENT = 92;
 /** The room one tick's label takes on the axis, which sets how many ticks fit. */
@@ -151,7 +161,6 @@ function useTickBudget(): [React.RefCallback<HTMLElement>, number] {
   }, []);
   return [ref, budget];
 }
-const EMPTY_EXPANSION: Readonly<Record<string, boolean>> = Object.freeze({});
 
 const RUN_STATUS_WORD: Record<RunProgressStatus, string> = {
   pending: "Pending",
@@ -495,25 +504,62 @@ export function RunTimeline({
     }
   }, [activeStyle]);
   const styleMenuOptions = React.useMemo(() => resolveTimelineStyleMenu(styleMenu), [styleMenu]);
-  const chooseStyle = React.useCallback(
-    (style: TimelineStyleId) => setStyleState((state) => ({ ...state, active: style })),
-    [],
-  );
+  // A choice redraws the view the menu sits in, so the button the reader chose
+  // from is gone: focus goes to the new one, once it is drawn.
+  const menuSlotRef = React.useRef<HTMLDivElement | null>(null);
+  const refocusMenuRef = React.useRef(false);
+  const chooseStyle = React.useCallback((style: TimelineStyleId) => {
+    refocusMenuRef.current = true;
+    setStyleState((state) => ({ ...state, active: style }));
+  }, []);
+  React.useEffect(() => {
+    if (!refocusMenuRef.current) return;
+    refocusMenuRef.current = false;
+    menuSlotRef.current?.querySelector("button")?.focus();
+  }, [styleState]);
   const headerEnd =
     styleMenuOptions.length > 0 ? (
-      <TimelineStyleMenu value={activeStyle} options={styleMenuOptions} onChange={chooseStyle} />
+      <TimelineStyleMenu
+        value={activeStyle}
+        options={styleMenuOptions}
+        onChange={chooseStyle}
+        slotRef={menuSlotRef}
+      />
     ) : null;
 
-  // Each style keeps its own clock, ticking as often as what it draws moves.
+  // What every style shares lives above the switch between them, so changing
+  // style never moves the clock back or forgets what the reader opened: the
+  // snapshot's moments, one reading clock ticking as often as the active
+  // style's drawing moves, and each style's expansion.
+  const times = React.useMemo(() => snapshotTimes(held), [held]);
+  const followsClock = React.useMemo(
+    () =>
+      held.invocations.some((invocation) =>
+        barFollowsClock(invocation, times.invocations.get(invocation.path)),
+      ),
+    [held, times],
+  );
+  const clock = useReadingClock(held, streamKey, {
+    now,
+    live,
+    followsClock,
+    tickMs: CLOCK_TICK_MS[activeStyle],
+  });
+  const detailedExpansion = useStreamExpansion(streamKey);
+  const simpleExpansion = useStreamExpansion(streamKey);
+
   if (activeStyle === TIMELINE_STYLE.SIMPLE) {
     return (
       <SimpleProgressView
         held={held}
         stream={streamKey}
+        times={times}
+        nowMs={clock.nowMs}
+        ticking={clock.ticking}
+        expanded={simpleExpansion.expanded}
+        onToggle={simpleExpansion.toggle}
         pipeRegistry={pipeRegistry}
         entryPipeRef={entryPipeRef}
-        now={now}
-        live={live}
         wideParallelThreshold={wideParallelThreshold}
         containerClassName={containerClassName}
         containerStyle={paletteStyle}
@@ -524,9 +570,11 @@ export function RunTimeline({
   return (
     <DetailedTimeline
       held={held}
-      stream={streamKey}
-      now={now}
-      live={live}
+      times={times}
+      nowMs={clock.nowMs}
+      ticking={clock.ticking}
+      expandedBatches={detailedExpansion.expanded}
+      onToggleBatch={detailedExpansion.toggle}
       wideBatchThreshold={wideBatchThreshold}
       containerClassName={containerClassName}
       containerStyle={paletteStyle}
@@ -535,12 +583,16 @@ export function RunTimeline({
   );
 }
 
-/** What `RunTimeline` hands the detailed style: the snapshot it holds, its stream, and its own props. */
+/** What `RunTimeline` hands the detailed style: the snapshot it holds, the reading clock and the reader's expansion, which every style shares, and its own props. */
 interface DetailedTimelineProps {
   held: ProgressSnapshot;
-  stream: string;
-  now: ProgressTimestamp | number | undefined;
-  live: boolean;
+  times: SnapshotTimes;
+  /** The reading clock, and whether it ticks on its own. */
+  nowMs: number | null;
+  ticking: boolean;
+  /** The batches the reader opened or closed, by path. */
+  expandedBatches: Readonly<Record<string, boolean>>;
+  onToggleBatch: (path: string, expanded: boolean) => void;
   wideBatchThreshold: number | undefined;
   containerClassName: string;
   containerStyle: React.CSSProperties;
@@ -551,39 +603,20 @@ interface DetailedTimelineProps {
 /** The detailed style: every invocation as a row with its bar on the shared axis. */
 function DetailedTimeline({
   held,
-  stream: streamKey,
-  now,
-  live,
+  times,
+  nowMs,
+  ticking,
+  expandedBatches,
+  onToggleBatch: toggleBatch,
   wideBatchThreshold,
   containerClassName,
   containerStyle,
   headerEnd,
 }: DetailedTimelineProps) {
-  // What the reader expanded belongs to one stream of progress: another starts afresh.
-  const [expansion, setExpansion] = React.useState<{
-    key: string;
-    batches: Readonly<Record<string, boolean>>;
-  }>({ key: streamKey, batches: EMPTY_EXPANSION });
-  const expandedBatches = expansion.key === streamKey ? expansion.batches : EMPTY_EXPANSION;
-  const toggleBatch = React.useCallback(
-    (path: string, expanded: boolean) => {
-      setExpansion((previous) => ({
-        key: streamKey,
-        batches: {
-          ...(previous.key === streamKey ? previous.batches : EMPTY_EXPANSION),
-          [path]: expanded,
-        },
-      }));
-    },
-    [streamKey],
-  );
-
   const rows = React.useMemo(
     () => buildTimelineRows(held, { expandedBatches, wideBatchThreshold }),
     [held, expandedBatches, wideBatchThreshold],
   );
-  // Every timestamp of the snapshot, parsed once: the clock's ticks redraw from these.
-  const times = React.useMemo(() => snapshotTimes(held), [held]);
   const drawnRows = React.useMemo(
     () =>
       rows.map((row) => {
@@ -592,14 +625,6 @@ function DetailedTimeline({
       }),
     [rows, times],
   );
-  // A bar that follows the clock has started, so whenever one does there is an axis too.
-  const clockFollowed = drawnRows.some((drawn) => drawn.followsClock);
-  const { nowMs, ticking } = useReadingClock(held, streamKey, {
-    now,
-    live,
-    followsClock: clockFollowed,
-    tickMs: CLOCK_TICK_MS,
-  });
   const axis = timelineWindowAt(times, nowMs);
   const [axisTrackRef, tickBudget] = useTickBudget();
   const ticks = axis ? timelineTicks(axis, tickBudget) : [];

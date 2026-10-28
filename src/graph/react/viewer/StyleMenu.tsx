@@ -47,11 +47,6 @@ const CHECK_ICON = (
   </svg>
 );
 
-/** The icon of a style. Pure, unit-testable. */
-export function graphStyleIcon(style: GraphStyleId): React.ReactElement {
-  return STYLE_ICONS[style];
-}
-
 /** Accessible label of the menu button: the current style, and what the button does. */
 export function styleMenuLabel(style: GraphStyleId): string {
   return `Graph style: ${GRAPH_STYLES[style].name} — choose how the graph is drawn`;

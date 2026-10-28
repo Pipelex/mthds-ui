@@ -62,6 +62,8 @@ export interface SimpleProgressStrings {
   havingTroubleItems: (count: number, item: string | null, until: string | null) => string;
   /** The run's own note when its status could not be read. */
   unreachable: string;
+  /** The run's own note when its entry sequence, which no line stands for, is being tried again. */
+  runTryingAgain: (attempt: number) => string;
   /** The run's own note when it is stuck at no line drawn. */
   runStuck: (until: string | null) => string;
   /** The disclosure that holds the platform's own words. */
@@ -156,6 +158,7 @@ export const DEFAULT_SIMPLE_PROGRESS_STRINGS: SimpleProgressStrings = {
       ? `Having trouble with ${itemCount(count, item)}. Still trying.`
       : `Having trouble with ${itemCount(count, item)}. Still trying; the run fails if this lasts past ${until}.`,
   unreachable: "Progress may be out of date: the run can't be reached right now.",
+  runTryingAgain: (attempt) => `The run is trying again (attempt ${attempt}).`,
   runStuck: (until) =>
     until === null
       ? "The run is having trouble. Still trying."

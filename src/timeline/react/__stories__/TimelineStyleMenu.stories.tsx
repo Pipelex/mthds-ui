@@ -79,12 +79,48 @@ export const ChooseAStyle: Story = {
     expect(canvas.queryByRole("menu")).toBeNull();
     expect(args.onTimelineStyleChange).toHaveBeenCalledTimes(1);
     expect(args.onTimelineStyleChange).toHaveBeenCalledWith("simple");
-    expect(canvas.getByRole("button", { name: /^Timeline style: Simple/ })).toBeInTheDocument();
+    // The choice redrew the header: focus is on the new button, not lost to the page.
+    await waitFor(() =>
+      expect(canvas.getByRole("button", { name: /^Timeline style: Simple/ })).toHaveFocus(),
+    );
 
     // And back.
     await chooseStyle(canvasElement, "Detailed");
     await waitFor(() => expect(drawnStyle(canvasElement)).toBe("detailed"));
     expect(args.onTimelineStyleChange).toHaveBeenLastCalledWith("detailed");
+  },
+};
+
+function headlineOf(canvasElement: HTMLElement): string {
+  return canvasElement.querySelector('[data-testid="run-timeline-status"]')?.textContent ?? "";
+}
+
+/**
+ * A live run switched to the other style and back: the reading clock carries
+ * on rather than going back to the snapshot's moment, and what the reader
+ * opened is still open.
+ */
+export const SwitchKeepsTheReading: Story = {
+  args: { timelineStyle: "simple", live: true },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await waitFor(() => expect(drawnStyle(canvasElement)).toBe("simple"));
+    // The snapshot's own reading, before the clock first ticks.
+    const first = headlineOf(canvasElement);
+    const toggle = canvas.getByRole("button", { name: /Show the steps of Summarize a filing/ });
+    await userEvent.click(toggle);
+    // The clock ticks once a second here: wait for it to move past the snapshot's reading.
+    await waitFor(() => expect(headlineOf(canvasElement)).not.toBe(first), { timeout: 3000 });
+
+    await chooseStyle(canvasElement, "Detailed");
+    await waitFor(() => expect(drawnStyle(canvasElement)).toBe("detailed"));
+    await chooseStyle(canvasElement, "Simple");
+    await waitFor(() => expect(drawnStyle(canvasElement)).toBe("simple"));
+    // Read at once: a clock started afresh would show the snapshot's reading again.
+    expect(headlineOf(canvasElement)).not.toBe(first);
+    expect(
+      canvas.getByRole("button", { name: /Hide the steps of Summarize a filing/ }),
+    ).toHaveAttribute("aria-expanded", "true");
   },
 };
 

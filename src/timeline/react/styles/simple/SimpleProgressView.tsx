@@ -8,7 +8,6 @@ import {
   timestampMs,
   type ProgressDegradation,
   type ProgressSnapshot,
-  type ProgressTimestamp,
 } from "@timeline/progressSnapshot";
 import {
   SIMPLE_LINE_KIND,
@@ -22,31 +21,30 @@ import {
   type SimpleRunNote,
 } from "@timeline/styles/simpleProgress";
 import type { TimelinePipeRegistry } from "@timeline/styles/registryJoin";
-import {
-  barFollowsClock,
-  invocationTimes,
-  snapshotTimes,
-  type SnapshotTimes,
-} from "@timeline/timelineTime";
-import { useReadingClock } from "@timeline/react/readingClock";
+import { invocationTimes, type SnapshotTimes } from "@timeline/timelineTime";
 import {
   DEFAULT_SIMPLE_PROGRESS_STRINGS,
   type SimpleProgressStrings,
 } from "./simpleProgressStrings";
 
-/** Nothing on the simple style moves continuously, so its clock ticks once a second. */
-const SIMPLE_CLOCK_TICK_MS = 1_000;
-
-const EMPTY_EXPANSION: Readonly<Record<string, boolean>> = Object.freeze({});
-
-/** What `RunTimeline` hands the simple style: the snapshot it holds, its stream, and its own props. */
+/**
+ * What `RunTimeline` hands the simple style: the snapshot it holds and its
+ * stream, the reading clock and the reader's expansion, which every style
+ * shares, and its own props.
+ */
 export interface SimpleProgressViewProps {
   held: ProgressSnapshot;
   stream: string;
+  /** Every timestamp of the snapshot, parsed once. */
+  times: SnapshotTimes;
+  /** The reading clock, and whether it ticks on its own. */
+  nowMs: number | null;
+  ticking: boolean;
+  /** The lines the reader opened or closed, by key. */
+  expanded: Readonly<Record<string, boolean>>;
+  onToggle: (key: string, expanded: boolean) => void;
   pipeRegistry?: TimelinePipeRegistry;
   entryPipeRef?: string;
-  now: ProgressTimestamp | number | undefined;
-  live: boolean;
   wideParallelThreshold?: number;
   /** The container's classes and palette, which `RunTimeline` resolves for every style. */
   containerClassName: string;
@@ -296,10 +294,24 @@ interface LineViewProps {
   line: SimpleProgressLine;
   /** What one of the items is called, on a line that counts them: its own on a for-each line, its batch's on a branch step. */
   item: string | null;
-  /** The reading clock, handed only to a line that runs, so the others stay as they are while it ticks. */
+  /**
+   * The reading clock, handed only to a line that runs or holds a drawn line
+   * that runs, so the others stay as they are while it ticks.
+   */
   nowMs: number | null;
   onToggle: (key: string, expanded: boolean) => void;
   strings: SimpleProgressStrings;
+}
+
+/** Whether a line runs, or holds a drawn line that runs: what decides that it is handed the clock. */
+function followsClock(line: SimpleProgressLine): boolean {
+  return line.state === SIMPLE_LINE_STATE.RUNNING || line.children.some(followsClock);
+}
+
+/** What one of a child's items is called: its own on a for-each line, else its parent's on a for-each line's branch step. */
+function itemOfChild(parent: SimpleProgressLine, child: SimpleProgressLine): string | null {
+  if (child.kind === SIMPLE_LINE_KIND.FOR_EACH) return child.forEachItem;
+  return parent.kind === SIMPLE_LINE_KIND.FOR_EACH ? parent.forEachItem : null;
 }
 
 const LineView = React.memo(function LineView({
@@ -309,7 +321,7 @@ const LineView = React.memo(function LineView({
   onToggle,
   strings,
 }: LineViewProps) {
-  const time = timeText(line, nowMs, strings);
+  const time = timeText(line, line.state === SIMPLE_LINE_STATE.RUNNING ? nowMs : null, strings);
   const classes = [
     "mthds-simple-progress-line",
     `mthds-simple-progress-line--${line.state}`,
@@ -375,8 +387,8 @@ const LineView = React.memo(function LineView({
             <LineView
               key={child.key}
               line={child}
-              item={line.kind === SIMPLE_LINE_KIND.FOR_EACH ? line.forEachItem : null}
-              nowMs={child.state === SIMPLE_LINE_STATE.RUNNING ? nowMs : null}
+              item={itemOfChild(line, child)}
+              nowMs={followsClock(child) ? nowMs : null}
               onToggle={onToggle}
               strings={strings}
             />
@@ -510,35 +522,19 @@ function useAnnouncement(
 export function SimpleProgressView({
   held,
   stream,
+  times,
+  nowMs,
+  ticking,
+  expanded,
+  onToggle: toggle,
   pipeRegistry,
   entryPipeRef,
-  now,
-  live,
   wideParallelThreshold,
   containerClassName,
   containerStyle,
   headerEnd,
   strings = DEFAULT_SIMPLE_PROGRESS_STRINGS,
 }: SimpleProgressViewProps) {
-  // What the reader opened or closed belongs to one stream of progress: another starts afresh.
-  const [expansion, setExpansion] = React.useState<{
-    key: string;
-    lines: Readonly<Record<string, boolean>>;
-  }>({ key: stream, lines: EMPTY_EXPANSION });
-  const expanded = expansion.key === stream ? expansion.lines : EMPTY_EXPANSION;
-  const toggle = React.useCallback(
-    (key: string, open: boolean) => {
-      setExpansion((previous) => ({
-        key: stream,
-        lines: {
-          ...(previous.key === stream ? previous.lines : EMPTY_EXPANSION),
-          [key]: open,
-        },
-      }));
-    },
-    [stream],
-  );
-
   const progress = React.useMemo(
     () =>
       buildSimpleProgress(held, {
@@ -549,20 +545,6 @@ export function SimpleProgressView({
       }),
     [held, pipeRegistry, entryPipeRef, expanded, wideParallelThreshold],
   );
-  const times = React.useMemo(() => snapshotTimes(held), [held]);
-  const followsClock = React.useMemo(
-    () =>
-      held.invocations.some((invocation) =>
-        barFollowsClock(invocation, times.invocations.get(invocation.path)),
-      ),
-    [held, times],
-  );
-  const { nowMs, ticking } = useReadingClock(held, stream, {
-    now,
-    live,
-    followsClock,
-    tickMs: SIMPLE_CLOCK_TICK_MS,
-  });
   const headline = headlineOf(progress, runElapsedMs(progress, times, nowMs), strings);
   const failure = progress.failure;
   const announcement = useAnnouncement(progress, stream, headline, strings);
@@ -598,6 +580,11 @@ export function SimpleProgressView({
       <p className="mthds-run-timeline-sr" aria-live="polite">
         {announcement}
       </p>
+      {progress.retryAttempt !== null && (
+        <Note tone="warning">
+          <p>{strings.runTryingAgain(progress.retryAttempt)}</p>
+        </Note>
+      )}
       {progress.runNote && <RunNoteView note={progress.runNote} strings={strings} />}
       {failure?.problem && !failure.shownOnLine && (
         <Note tone="error">
@@ -612,7 +599,7 @@ export function SimpleProgressView({
               key={line.key}
               line={line}
               item={line.forEachItem}
-              nowMs={line.state === SIMPLE_LINE_STATE.RUNNING ? nowMs : null}
+              nowMs={followsClock(line) ? nowMs : null}
               onToggle={toggle}
               strings={strings}
             />

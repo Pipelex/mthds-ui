@@ -90,6 +90,7 @@ src/
     react/
       RunTimeline.tsx             #   The component (./timeline/react), its stylesheet imported by the entry
       readingClock.ts             #   The held snapshot and the reading clock both styles share
+      streamExpansion.ts          #   What the reader opened, per stream, held above the style switch
       TimelineStyleMenu.tsx       #   The header's opt-in style menu: the graph's StyleMenu over the timeline's styles
       styles/simple/              #   The simple style's view, its phrase table and its stylesheet (docs/timeline-styles.md)
       __stories__/                #   Hand-recorded runs, the recorder that projects them, the replay harness

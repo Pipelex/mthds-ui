@@ -61,12 +61,14 @@ export interface TimelineStyleMenuProps {
   /** The styles offered, in order: two at least. */
   options: readonly TimelineStyleId[];
   onChange: (style: TimelineStyleId) => void;
+  /** The element the menu sits in, for `RunTimeline` to find its button again after a choice redraws it. */
+  slotRef?: React.Ref<HTMLDivElement>;
 }
 
 /** The style menu at the end of the timeline's header: the graph viewer's menu, over the timeline's styles. */
-export function TimelineStyleMenu({ value, options, onChange }: TimelineStyleMenuProps) {
+export function TimelineStyleMenu({ value, options, onChange, slotRef }: TimelineStyleMenuProps) {
   return (
-    <div className="mthds-run-timeline-header-end">
+    <div className="mthds-run-timeline-header-end" ref={slotRef}>
       <StyleMenu
         value={value}
         options={options}
