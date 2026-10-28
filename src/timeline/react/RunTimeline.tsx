@@ -548,8 +548,9 @@ export function RunTimeline({
   const detailedExpansion = useStreamExpansion(streamKey);
   const simpleExpansion = useStreamExpansion(streamKey);
 
-  if (activeStyle === TIMELINE_STYLE.SIMPLE) {
-    return (
+  // Keyed by style, so a new style fails to compile until it has a view.
+  const views: Record<TimelineStyleId, () => React.ReactElement> = {
+    [TIMELINE_STYLE.SIMPLE]: () => (
       <SimpleProgressView
         held={held}
         stream={streamKey}
@@ -565,22 +566,23 @@ export function RunTimeline({
         containerStyle={paletteStyle}
         headerEnd={headerEnd}
       />
-    );
-  }
-  return (
-    <DetailedTimeline
-      held={held}
-      times={times}
-      nowMs={clock.nowMs}
-      ticking={clock.ticking}
-      expandedBatches={detailedExpansion.expanded}
-      onToggleBatch={detailedExpansion.toggle}
-      wideBatchThreshold={wideBatchThreshold}
-      containerClassName={containerClassName}
-      containerStyle={paletteStyle}
-      headerEnd={headerEnd}
-    />
-  );
+    ),
+    [TIMELINE_STYLE.DETAILED]: () => (
+      <DetailedTimeline
+        held={held}
+        times={times}
+        nowMs={clock.nowMs}
+        ticking={clock.ticking}
+        expandedBatches={detailedExpansion.expanded}
+        onToggleBatch={detailedExpansion.toggle}
+        wideBatchThreshold={wideBatchThreshold}
+        containerClassName={containerClassName}
+        containerStyle={paletteStyle}
+        headerEnd={headerEnd}
+      />
+    ),
+  };
+  return views[activeStyle]();
 }
 
 /** What `RunTimeline` hands the detailed style: the snapshot it holds, the reading clock and the reader's expansion, which every style shares, and its own props. */

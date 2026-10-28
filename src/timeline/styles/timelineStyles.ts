@@ -36,11 +36,8 @@ export const TIMELINE_STYLES: Record<TimelineStyleId, TimelineStyleDescriptor> =
   },
 };
 
-/** Every registered style, in the order a menu lists them. */
-export const TIMELINE_STYLE_IDS: readonly TimelineStyleId[] = [
-  TIMELINE_STYLE.DETAILED,
-  TIMELINE_STYLE.SIMPLE,
-];
+/** Every registered style, in the order a menu lists them: `TIMELINE_STYLE`'s, so none is left out. */
+export const TIMELINE_STYLE_IDS: readonly TimelineStyleId[] = Object.values(TIMELINE_STYLE);
 
 /** The style a timeline draws when the host names none. */
 export const DEFAULT_TIMELINE_STYLE: TimelineStyleId = TIMELINE_STYLE.DETAILED;

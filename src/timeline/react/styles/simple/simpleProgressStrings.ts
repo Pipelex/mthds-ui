@@ -79,9 +79,12 @@ export interface SimpleProgressStrings {
   expand: (title: string) => string;
   collapse: (title: string) => string;
 
-  /** A line's duration once ended, or its elapsed time while it runs. */
+  /** How long a line or the run took, once it ended. */
   duration: (ms: number) => string;
-  /** The run's elapsed time in the headline, in the lines' own format. */
+  /**
+   * How long a line or the run has been going, while it runs: in whole seconds,
+   * since the clock moves once a second.
+   */
   elapsed: (ms: number) => string;
   /** A moment as a clock time in the reader's zone, for "until 09:45". */
   clockTime: (ms: number) => string;
@@ -174,7 +177,7 @@ export const DEFAULT_SIMPLE_PROGRESS_STRINGS: SimpleProgressStrings = {
   collapse: (title) => `Hide the steps of ${title}`,
 
   duration: (ms) => (ms < 1_000 ? "<1s" : formatDuration(ms)),
-  elapsed: (ms) => (ms < 1_000 ? "<1s" : formatDuration(ms)),
+  elapsed: (ms) => (ms < 1_000 ? "<1s" : formatDuration(Math.floor(ms / 1_000) * 1_000)),
   clockTime: (ms) =>
     new Intl.DateTimeFormat(undefined, {
       hour: "2-digit",

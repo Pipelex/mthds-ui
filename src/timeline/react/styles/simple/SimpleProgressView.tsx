@@ -285,7 +285,7 @@ function timeText(
   if (times.startedMs === null) return null;
   if (times.endedMs !== null) return strings.duration(times.endedMs - times.startedMs);
   if (line.state === SIMPLE_LINE_STATE.RUNNING && nowMs !== null) {
-    return strings.duration(nowMs - times.startedMs);
+    return strings.elapsed(nowMs - times.startedMs);
   }
   return null;
 }
@@ -425,7 +425,13 @@ function headlineOf(
   elapsedMs: number | null,
   strings: SimpleProgressStrings,
 ): string {
-  const elapsed = elapsedMs === null ? null : strings.elapsed(elapsedMs);
+  let elapsed: string | null = null;
+  if (elapsedMs !== null) {
+    elapsed =
+      progress.status === RUN_PROGRESS_STATUS.RUNNING
+        ? strings.elapsed(elapsedMs)
+        : strings.duration(elapsedMs);
+  }
   const nothing = progress.lines.length === 0;
   switch (progress.status) {
     case RUN_PROGRESS_STATUS.PENDING:

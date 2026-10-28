@@ -374,11 +374,19 @@ function hasHealth(health: SimpleLineHealth): boolean {
   );
 }
 
+/** Whether a drawn line already shows a failure: one that failed, or one carrying a problem. */
+function showsFailure(lines: SimpleProgressLine[]): boolean {
+  return lines.some(
+    (line) => line.state === SIMPLE_LINE_STATE.FAILED || Boolean(line.health?.problem),
+  );
+}
+
 /**
  * A line's health: its own invocation's annotations, then what the hidden work
- * it stands for says. A retry shows only while the line runs, and a problem only
- * on a failed line, and only when `showProblem` says no drawn line beneath
- * shows the failure itself.
+ * it stands for says. A retry shows only while the line runs. A problem shows on
+ * a failed line, and on a running one whose hidden work failed, as a batch's
+ * does while its other items go on, and only when `showProblem` says no drawn
+ * line beneath shows the failure itself.
  */
 function healthOf(
   state: SimpleLineState,
@@ -394,8 +402,11 @@ function healthOf(
     else if (hidden?.retryAttempt) retryAttempt = hidden.retryAttempt;
   }
   let problem: Problem | null = null;
-  if (state === SIMPLE_LINE_STATE.FAILED && showProblem) {
+  if (showProblem && state === SIMPLE_LINE_STATE.FAILED) {
     problem = hidden?.failure?.problem ?? own?.last_failure?.problem ?? null;
+  } else if (showProblem && running) {
+    // A running line's own `last_failure` is an earlier attempt's, which its retry reads for.
+    problem = hidden?.failure?.problem ?? null;
   }
   const health: SimpleLineHealth = {
     retryAttempt,
@@ -474,7 +485,11 @@ function branchOutcome(
   };
 }
 
-/** The deepest invocation beneath a node in a state, the first in snapshot order among the deepest. */
+/**
+ * The deepest invocation beneath a node in a state, the first in tree order
+ * among the deepest: the order `failureOf` and a line's gathered failure pick
+ * in, so the line naming a failure and the run's headline name the same one.
+ */
 function deepestBeneath(
   node: InvocationTreeNode,
   state: SimpleLineState,
@@ -485,7 +500,7 @@ function deepestBeneath(
     for (const child of current.children) {
       if (stateOf(child.invocation) === state) {
         const depth = invocationPathDepth(child.invocation.path);
-        if (depth > foundDepth || (depth === foundDepth && found && child.order < found.order)) {
+        if (depth > foundDepth) {
           found = child;
           foundDepth = depth;
         }
@@ -556,7 +571,8 @@ function sumCounts(invocations: ProgressInvocation[]): BatchProgress | null {
  * The steps of an expanded batch's branch, each counted across the items: one
  * line per step its items reached, ordered by number, then, while the batch
  * runs and the registry declares its branch as a sequence, one per step no item
- * has reached yet. Never a line per item.
+ * has reached yet. A branch that is itself a batch is one step, the inner batch,
+ * its counts summed across the items. Never a line per item.
  */
 function branchStepLines(
   ctx: Context,
@@ -574,16 +590,23 @@ function branchStepLines(
     const itemState = stateOf(item.invocation);
     return itemState === SIMPLE_LINE_STATE.RUNNING || itemState === SIMPLE_LINE_STATE.UPCOMING;
   });
+  // An item that runs a batch directly holds that batch's own items rather than
+  // steps, so the items themselves are the one step.
+  const nested = items.some((item) => item.children.some(isItemNode));
   const bySegment = new Map<string, InvocationTreeNode[]>();
-  for (const item of items) {
-    for (const child of item.children) {
-      const raw = child.segment?.raw ?? child.invocation.path;
-      const group = bySegment.get(raw);
-      if (group) group.push(child);
-      else bySegment.set(raw, [child]);
+  if (!nested) {
+    for (const item of items) {
+      for (const child of item.children) {
+        const raw = child.segment?.raw ?? child.invocation.path;
+        const group = bySegment.get(raw);
+        if (group) group.push(child);
+        else bySegment.set(raw, [child]);
+      }
     }
   }
-  const groups = [...bySegment.values()].sort((a, b) => compareSiblings(a[0], b[0]));
+  const groups = nested
+    ? [items]
+    : [...bySegment.values()].sort((a, b) => compareSiblings(a[0], b[0]));
 
   const lines = groups.map((group) => {
     const first = group[0].invocation;
@@ -606,10 +629,12 @@ function branchStepLines(
     // have not decided yet.
     const holders = new Set(group.map((node) => node.parentPath));
     const outcome = isOutcomeNode(group[0]);
-    const mayStillReach = pending.filter(
-      (item) =>
-        !holders.has(item.invocation.path) && !(outcome && item.children.some(isOutcomeNode)),
-    ).length;
+    const mayStillReach = nested
+      ? 0
+      : pending.filter(
+          (item) =>
+            !holders.has(item.invocation.path) && !(outcome && item.children.some(isOutcomeNode)),
+        ).length;
     const groupExpected = group.length + mayStillReach + unseen;
     let state: SimpleLineState;
     if (tally.running > 0) state = SIMPLE_LINE_STATE.RUNNING;
@@ -617,8 +642,9 @@ function branchStepLines(
     else if (tally.done + tally.skipped >= groupExpected) state = SIMPLE_LINE_STATE.DONE;
     else if (batchState === SIMPLE_LINE_STATE.RUNNING) state = SIMPLE_LINE_STATE.RUNNING;
     else state = SIMPLE_LINE_STATE.STOPPED;
+    const segment = nested ? first.pipe_code : (group[0].segment?.raw ?? first.pipe_code);
     const line = blankLine(
-      `${batchNode.invocation.path}/*/${group[0].segment?.raw ?? first.pipe_code}`,
+      `${batchNode.invocation.path}/*/${segment}`,
       SIMPLE_LINE_KIND.BRANCH_STEP,
       state,
       titleOf(ctx.registry, first.pipe_ref, first.pipe_code),
@@ -703,15 +729,12 @@ function forEachLine(
   line.skippedItems = skippedItemsOf(node);
 
   const items = node.children.filter(isItemNode);
-  const branch = joined.branchRef ? pipeOf(ctx.registry, joined.branchRef) : null;
-  const branchHasSteps =
-    items.some((item) => item.children.length > 0) ||
-    branch?.type === "PipeSequence" ||
-    branch?.type === "PipeParallel" ||
-    branch?.type === "PipeCondition";
-  line.expandable = depth < SIMPLE_MAX_DEPTH && branchHasSteps;
+  // Opening the line must draw something: before its items fan out, or once it
+  // ended without any, a batch has no step to show.
+  const steps = depth < SIMPLE_MAX_DEPTH ? branchStepLines(ctx, node, joined.branchRef, state) : [];
+  line.expandable = steps.length > 0;
   line.expanded = line.expandable && (ctx.expanded[line.key] ?? false);
-  if (line.expanded) line.children = branchStepLines(ctx, node, joined.branchRef, state);
+  if (line.expanded) line.children = steps;
 
   // Opened, the branch steps show what goes on inside the items, so the line
   // keeps only the trouble of the items themselves.
@@ -725,10 +748,7 @@ function forEachLine(
   );
   const stuck = trouble.filter((each) => each.stuck);
   const retrying = trouble.filter((each) => each.retrying);
-  const failureShownBeneath = line.children.some(
-    (child) => child.state === SIMPLE_LINE_STATE.FAILED,
-  );
-  line.health = healthOf(state, invocation, hidden, !failureShownBeneath, {
+  line.health = healthOf(state, invocation, hidden, !showsFailure(line.children), {
     retrying: retrying.length,
     stuck: stuck.length,
   });
@@ -785,9 +805,13 @@ function childLines(
   return lines;
 }
 
-/** In a wide parallel, its finished branches folded into one line where the first of them stood. */
+/**
+ * In a wide parallel, its finished branches folded into one line where the
+ * first of them stood. A finished branch the reader opened stays its own line,
+ * open, so what they opened does not vanish when it ends.
+ */
 function foldFinished(node: InvocationTreeNode, lines: SimpleProgressLine[]): SimpleProgressLine[] {
-  const finished = lines.filter((line) => line.state === SIMPLE_LINE_STATE.DONE);
+  const finished = lines.filter((line) => line.state === SIMPLE_LINE_STATE.DONE && !line.expanded);
   if (finished.length < 2) return lines;
   const folded = blankLine(
     `${node.invocation.path}#finished`,
@@ -800,8 +824,9 @@ function foldFinished(node: InvocationTreeNode, lines: SimpleProgressLine[]): Si
   );
   folded.foldedCount = finished.length;
   const kept: SimpleProgressLine[] = [];
+  const folding = new Set(finished);
   for (const line of lines) {
-    if (line.state !== SIMPLE_LINE_STATE.DONE) kept.push(line);
+    if (!folding.has(line)) kept.push(line);
     else if (line === finished[0]) kept.push(folded);
   }
   return kept;
@@ -865,8 +890,7 @@ function lineOf(
   if (line.expanded) {
     const children = childLines(ctx, node, depth + 1, state, unreached);
     line.children = children;
-    const failureShownBeneath = children.some((child) => child.state === SIMPLE_LINE_STATE.FAILED);
-    line.health = healthOf(state, invocation, null, !failureShownBeneath);
+    line.health = healthOf(state, invocation, null, !showsFailure(children));
   } else {
     line.health = healthOf(state, invocation, gatherBeneath(node), true);
   }

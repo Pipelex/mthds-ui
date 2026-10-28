@@ -871,6 +871,166 @@ describe("two failures as deep as each other", () => {
   });
 });
 
+describe("a batch whose items each run a batch", () => {
+  it("draws the inner batch as one step, its counts summed, never a line per inner item", () => {
+    const outer = "x.outer";
+    const snapshot = snapshotOf([
+      invocation(outer, "x.outer_batch", "PipeBatch", "running", {
+        batch: { total: 2, done: 0, running: 2, failed: 0 },
+      }),
+      ...[1, 2].flatMap((item) => [
+        invocation(`${outer}/item_${item}`, "x.page_batch", "PipeBatch", "running", {
+          batch: { total: 4, done: item, running: 4 - item, failed: 0 },
+        }),
+        ...[1, 2, 3, 4].map((page) =>
+          invocation(
+            `${outer}/item_${item}/item_${page}`,
+            "x.read_page",
+            "PipeLLM",
+            page <= item ? "succeeded" : "running",
+          ),
+        ),
+      ]),
+    ]);
+    const progress = buildSimpleProgress(snapshot, { expanded: { [outer]: true } });
+    expect(outline(progress)).toEqual([
+      "◐ Page batch · for each item [0/2 done, 2 running] ▾",
+      "  ◐ Page batch [3/8 done, 5 running] (running 2)",
+    ]);
+  });
+});
+
+describe("a failed item in a batch still going on", () => {
+  const outer = "x.outer";
+  const snapshot = snapshotOf([
+    invocation(outer, "x.outer_batch", "PipeBatch", "running", {
+      batch: { total: 2, done: 0, running: 1, failed: 1 },
+    }),
+    invocation(`${outer}/item_1`, "x.per_filing", "PipeSequence", "running"),
+    invocation(`${outer}/item_1/step_1`, "x.read", "PipeLLM", "running"),
+    invocation(`${outer}/item_2`, "x.per_filing", "PipeSequence", "failed"),
+    invocation(`${outer}/item_2/step_1`, "x.read", "PipeLLM", "failed", {
+      last_failure: { problem: CONDENSE_FAILED_PROBLEM },
+    }),
+  ]);
+
+  it("shows its problem on the batch's line before the batch ends", () => {
+    const line = lineAt(buildSimpleProgress(snapshot).lines, outer);
+    expect(line.state).toBe("running");
+    expect(line.health?.problem).toBe(CONDENSE_FAILED_PROBLEM);
+  });
+
+  it("shows it once, on the step it failed at, when the batch is opened", () => {
+    const progress = buildSimpleProgress(snapshot, { expanded: { [outer]: true } });
+    expect(lineAt(progress.lines, `${outer}/*/step_1`)).toMatchObject({
+      state: "running",
+      health: { problem: CONDENSE_FAILED_PROBLEM },
+    });
+    expect(lineAt(progress.lines, outer).health?.problem ?? null).toBeNull();
+  });
+
+  it("does not read a retry's earlier failure as a problem", () => {
+    const retrying = snapshotOf([
+      invocation("x.root", "x.root", "PipeParallel", "running"),
+      invocation("x.root/branch_1", "x.read", "PipeLLM", "running", {
+        attempts: 2,
+        last_failure: { problem: CONDENSE_FAILED_PROBLEM },
+      }),
+    ]);
+    const progress = buildSimpleProgress(retrying, { expanded: { "x.root": false } });
+    expect(progress.lines[0].health).toMatchObject({ retryAttempt: 2, problem: null });
+  });
+});
+
+describe("a batch with no step to show", () => {
+  it("cannot be opened once it ended before its items fanned out", () => {
+    const failed: ProgressSnapshot = {
+      ...WORKED_EXAMPLE_SNAPSHOT,
+      status: "failed",
+      invocations: WORKED_EXAMPLE_SNAPSHOT.invocations
+        .filter((each) => !each.path.startsWith(`${BATCH}/`))
+        .map((each) =>
+          each.path === BATCH || each.path === ROOT
+            ? { ...each, status: "failed", ended_at: each.started_at }
+            : each,
+        ),
+    };
+    const progress = buildSimpleProgress(failed, { ...filings, expanded: { [BATCH]: true } });
+    expect(lineAt(progress.lines, BATCH)).toMatchObject({
+      expandable: false,
+      expanded: false,
+      children: [],
+    });
+  });
+
+  it("still lists its branch's steps while it runs, before its items fan out", () => {
+    const waiting: ProgressSnapshot = {
+      ...WORKED_EXAMPLE_SNAPSHOT,
+      invocations: WORKED_EXAMPLE_SNAPSHOT.invocations.filter(
+        (each) => !each.path.startsWith(`${BATCH}/`),
+      ),
+    };
+    const progress = buildSimpleProgress(waiting, { ...filings, expanded: { [BATCH]: true } });
+    expect(outline(lineAt(progress.lines, BATCH).children)).toEqual([
+      "○ Read the filing (none)",
+      "○ Condense the filing (none)",
+    ]);
+  });
+});
+
+describe("a finished branch of a wide parallel the reader opened", () => {
+  it("stays its own line, open, rather than folding into the finished ones", () => {
+    const root = "x.root";
+    const wide = `${root}/step_1`;
+    const snapshot = snapshotOf([
+      invocation(root, "x.root", "PipeSequence", "running"),
+      invocation(wide, "x.wide", "PipeParallel", "running"),
+      ...[1, 2, 3, 4, 5, 6, 7].flatMap((branch) => {
+        const status = branch <= 3 ? "succeeded" : "running";
+        return [
+          invocation(`${wide}/branch_${branch}`, `x.source_${branch}`, "PipeSequence", status),
+          invocation(`${wide}/branch_${branch}/step_1`, "x.search", "PipeLLM", status),
+        ];
+      }),
+    ]);
+    const opened = `${wide}/branch_2`;
+    const progress = buildSimpleProgress(snapshot, { expanded: { [opened]: true } });
+    const kept = lineAt(progress.lines, wide).children;
+    expect(kept.map((line) => line.key)).toContain(opened);
+    expect(lineAt(progress.lines, opened)).toMatchObject({ expanded: true, state: "done" });
+    expect(lineAt(progress.lines, `${wide}#finished`).foldedCount).toBe(2);
+  });
+});
+
+describe("two failures as deep as each other, past the indentation cap", () => {
+  it("name the same one on the line and in the run's failure, whatever the snapshot's order", () => {
+    const root = "x.root";
+    const parallel = `${root}/step_1/step_1/step_1`;
+    const second = { ...CONDENSE_FAILED_PROBLEM, title: "The second branch's problem" };
+    const snapshot = snapshotOf(
+      [
+        invocation(root, "x.root", "PipeSequence", "failed"),
+        invocation(`${root}/step_1`, "x.outer", "PipeSequence", "failed"),
+        invocation(`${root}/step_1/step_1`, "x.inner", "PipeSequence", "failed"),
+        invocation(parallel, "x.both", "PipeParallel", "failed"),
+        invocation(`${parallel}/branch_2`, "x.right", "PipeLLM", "failed", {
+          last_failure: { problem: second },
+        }),
+        invocation(`${parallel}/branch_1`, "x.left", "PipeLLM", "failed", {
+          last_failure: { problem: CONDENSE_FAILED_PROBLEM },
+        }),
+      ],
+      { status: "failed" },
+    );
+    const progress = buildSimpleProgress(snapshot);
+    expect(lineAt(progress.lines, `${parallel}#now`).health?.problem).toBe(CONDENSE_FAILED_PROBLEM);
+    expect(progress.failure).toMatchObject({
+      problem: CONDENSE_FAILED_PROBLEM,
+      shownOnLine: true,
+    });
+  });
+});
+
 describe("what changed between two readings", () => {
   const progressAt = (clock: string, expanded: Record<string, boolean> = {}) =>
     buildSimpleProgress(at(REVIEW_FILINGS_SNAPSHOTS, clock), { ...filings, expanded });
