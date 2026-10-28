@@ -51,6 +51,8 @@ export interface SimpleProgressViewProps {
   /** The container's classes and palette, which `RunTimeline` resolves for every style. */
   containerClassName: string;
   containerStyle: React.CSSProperties;
+  /** What `RunTimeline` puts at the end of the header: the style menu, when shown. */
+  headerEnd?: React.ReactNode;
   strings?: SimpleProgressStrings;
 }
 
@@ -515,6 +517,7 @@ export function SimpleProgressView({
   wideParallelThreshold,
   containerClassName,
   containerStyle,
+  headerEnd,
   strings = DEFAULT_SIMPLE_PROGRESS_STRINGS,
 }: SimpleProgressViewProps) {
   // What the reader opened or closed belongs to one stream of progress: another starts afresh.
@@ -590,6 +593,7 @@ export function SimpleProgressView({
         {held.mode === PROGRESS_MODE.DRY && (
           <span className="mthds-run-timeline-mode">{strings.dryRun}</span>
         )}
+        {headerEnd}
       </header>
       <p className="mthds-run-timeline-sr" aria-live="polite">
         {announcement}

@@ -57,24 +57,56 @@ export function styleMenuLabel(style: GraphStyleId): string {
   return `Graph style: ${GRAPH_STYLES[style].name} — choose how the graph is drawn`;
 }
 
-export interface StyleMenuProps {
+/** What a style menu shows of one style: its name, its one-line description and its icon. */
+export interface StyleMenuEntry {
+  name: string;
+  description: string;
+  icon: React.ReactElement;
+}
+
+/** The graph's styles as its menu shows them. */
+export const GRAPH_STYLE_MENU_ENTRIES: Record<GraphStyleId, StyleMenuEntry> = {
+  [GRAPH_STYLE.DETAILED]: { ...GRAPH_STYLES[GRAPH_STYLE.DETAILED], icon: STYLE_ICONS.detailed },
+  [GRAPH_STYLE.SIMPLE]: { ...GRAPH_STYLES[GRAPH_STYLE.SIMPLE], icon: STYLE_ICONS.simple },
+};
+
+export interface StyleMenuProps<Id extends string> {
   /** The active style, shown on the button and checked in the list. */
-  value: GraphStyleId;
+  value: Id;
   /** The styles offered, in order. */
-  options: readonly GraphStyleId[];
-  onChange: (style: GraphStyleId) => void;
-  /** Where the list opens, from the toolbar's anchor — the validation dropdown's vocabulary. */
+  options: readonly Id[];
+  onChange: (style: Id) => void;
+  /** Where the list opens, from the button — the validation dropdown's vocabulary. */
   placement: ValidationPanelPlacement;
+  /** Each style's name, description and icon. */
+  entries: Readonly<Record<Id, StyleMenuEntry>>;
+  /** The menu's accessible name: "Graph style". */
+  menuLabel: string;
+  /** The button's accessible label for the active style. */
+  buttonLabel: (style: Id) => string;
+  /** The button's class, and with `--open` its class while the list is open. */
+  buttonClassName: string;
 }
 
 /**
- * The toolbar's style menu: a button showing the current style's icon, opening
- * a list of radio items, each with its icon, name and one-line description, and
- * a check on the current one. A list rather than a two-state toggle, because
- * the registry is built for more than two styles. Keyboard: arrows, Home and
- * End move, Enter or Space choose, Escape closes and returns to the button.
+ * A style menu: a button showing the current style's icon, opening a list of
+ * radio items, each with its icon, name and one-line description, and a check
+ * on the current one. A list rather than a two-state toggle, because a style
+ * registry is built for more than two styles. Keyboard: arrows, Home and End
+ * move, Enter or Space choose, Escape closes and returns to the button. The
+ * graph's toolbar shows it over the graph's styles, and the run timeline's
+ * header over the timeline's.
  */
-export function StyleMenu({ value, options, onChange, placement }: StyleMenuProps) {
+export function StyleMenu<Id extends string>({
+  value,
+  options,
+  onChange,
+  placement,
+  entries,
+  menuLabel,
+  buttonLabel,
+  buttonClassName,
+}: StyleMenuProps<Id>) {
   const [open, setOpen] = React.useState(false);
   const [activeIndex, setActiveIndex] = React.useState(0);
   const wrapperRef = React.useRef<HTMLDivElement | null>(null);
@@ -130,19 +162,19 @@ export function StyleMenu({ value, options, onChange, placement }: StyleMenuProp
     }
   };
 
-  const choose = (style: GraphStyleId) => {
+  const choose = (style: Id) => {
     setOpen(false);
     buttonRef.current?.focus();
     if (style !== value) onChange(style);
   };
 
-  const label = styleMenuLabel(value);
+  const label = buttonLabel(value);
   return (
     <div className="graph-toolbar-style" ref={wrapperRef}>
       <button
         ref={buttonRef}
         type="button"
-        className={`graph-toolbar-btn${open ? " graph-toolbar-btn--open" : ""}`}
+        className={`${buttonClassName}${open ? ` ${buttonClassName}--open` : ""}`}
         onClick={() => setOpen(!open)}
         onKeyDown={(event) => {
           if (event.key === "ArrowDown" || event.key === "ArrowUp") {
@@ -156,18 +188,18 @@ export function StyleMenu({ value, options, onChange, placement }: StyleMenuProp
         aria-expanded={open}
         aria-controls={open ? menuId : undefined}
       >
-        {graphStyleIcon(value)}
+        {entries[value].icon}
       </button>
       {open && (
         <div
           id={menuId}
           role="menu"
-          aria-label="Graph style"
+          aria-label={menuLabel}
           className={`graph-style-menu graph-style-menu--${placement}`}
           onKeyDown={onMenuKeyDown}
         >
           {options.map((style, index) => {
-            const descriptor = GRAPH_STYLES[style];
+            const descriptor = entries[style];
             const checked = style === value;
             return (
               <button
@@ -183,7 +215,7 @@ export function StyleMenu({ value, options, onChange, placement }: StyleMenuProp
                 onClick={() => choose(style)}
               >
                 <span className="graph-style-menu-icon" aria-hidden="true">
-                  {graphStyleIcon(style)}
+                  {descriptor.icon}
                 </span>
                 <span className="graph-style-menu-text">
                   <span className="graph-style-menu-name">{descriptor.name}</span>

@@ -17,6 +17,7 @@ import { progressStreamKey } from "@timeline/snapshotFreshness";
 import {
   TIMELINE_STYLE,
   resolveTimelineStyle,
+  resolveTimelineStyleMenu,
   type TimelineStyleId,
 } from "@timeline/styles/timelineStyles";
 import type { TimelinePipeRegistry } from "@timeline/styles/registryJoin";
@@ -36,6 +37,7 @@ import {
 } from "@timeline/timelineTime";
 import { useHeldSnapshot, useReadingClock } from "@timeline/react/readingClock";
 import { SimpleProgressView } from "@timeline/react/styles/simple/SimpleProgressView";
+import { TimelineStyleMenu } from "@timeline/react/TimelineStyleMenu";
 
 export interface RunTimelineProps {
   /**
@@ -78,10 +80,26 @@ export interface RunTimelineProps {
   /**
    * The style the timeline draws in: `detailed`, the default, every invocation
    * as a bar on a shared time axis; or `simple`, the run as a checklist of its
-   * steps in the method's own words, a batch as one line with its counts. An
-   * id this version does not know draws the default.
+   * steps in the method's own words, a batch as one line with its counts.
+   * Reactive, like `theme`: passing it drives the active style, and clearing it
+   * back to `undefined` hands control to the default. The header's style menu,
+   * when shown, changes it too. An id this version does not know is treated as
+   * unset. This library persists nothing: the host keeps the choice, reported
+   * by `onTimelineStyleChange`.
    */
   timelineStyle?: TimelineStyleId;
+  /**
+   * Called whenever the style changes — from the menu, or from a prop update —
+   * so the host can persist it. Not called on mount.
+   */
+  onTimelineStyleChange?: (style: TimelineStyleId) => void;
+  /**
+   * Show a style menu at the end of the header. Opt-in: `true` offers every
+   * registered style in registry order, a list offers those styles in that
+   * order, and the default offers no menu, for a host that fixes the style for
+   * its audience. A menu needs two styles to choose between.
+   */
+  styleMenu?: boolean | readonly TimelineStyleId[];
   /**
    * The registry of the method's pipes, keyed by `pipe_ref`, as a `GraphSpec`'s
    * `pipe_registry`: the simple style titles its lines from the pipes'
@@ -426,6 +444,8 @@ export function RunTimeline({
   now,
   live = true,
   timelineStyle,
+  onTimelineStyleChange,
+  styleMenu,
   pipeRegistry,
   entryPipeRef,
   wideBatchThreshold,
@@ -452,8 +472,40 @@ export function RunTimeline({
     .filter(Boolean)
     .join(" ");
 
+  // The style follows the graph viewer's controlled and reactive contract: the
+  // prop's resolution is adopted whenever it changes, and the menu changes the
+  // style in between. Derived during render, so a new prop never draws a frame
+  // in the old style.
+  const externalStyle = resolveTimelineStyle(timelineStyle);
+  const [styleState, setStyleState] = React.useState({
+    external: externalStyle,
+    active: externalStyle,
+  });
+  if (styleState.external !== externalStyle) {
+    setStyleState({ external: externalStyle, active: externalStyle });
+  }
+  const activeStyle = styleState.external === externalStyle ? styleState.active : externalStyle;
+  const onTimelineStyleChangeRef = React.useRef(onTimelineStyleChange);
+  onTimelineStyleChangeRef.current = onTimelineStyleChange;
+  const reportedStyleRef = React.useRef(activeStyle);
+  React.useEffect(() => {
+    if (reportedStyleRef.current !== activeStyle) {
+      reportedStyleRef.current = activeStyle;
+      onTimelineStyleChangeRef.current?.(activeStyle);
+    }
+  }, [activeStyle]);
+  const styleMenuOptions = React.useMemo(() => resolveTimelineStyleMenu(styleMenu), [styleMenu]);
+  const chooseStyle = React.useCallback(
+    (style: TimelineStyleId) => setStyleState((state) => ({ ...state, active: style })),
+    [],
+  );
+  const headerEnd =
+    styleMenuOptions.length > 0 ? (
+      <TimelineStyleMenu value={activeStyle} options={styleMenuOptions} onChange={chooseStyle} />
+    ) : null;
+
   // Each style keeps its own clock, ticking as often as what it draws moves.
-  if (resolveTimelineStyle(timelineStyle) === TIMELINE_STYLE.SIMPLE) {
+  if (activeStyle === TIMELINE_STYLE.SIMPLE) {
     return (
       <SimpleProgressView
         held={held}
@@ -465,6 +517,7 @@ export function RunTimeline({
         wideParallelThreshold={wideParallelThreshold}
         containerClassName={containerClassName}
         containerStyle={paletteStyle}
+        headerEnd={headerEnd}
       />
     );
   }
@@ -477,6 +530,7 @@ export function RunTimeline({
       wideBatchThreshold={wideBatchThreshold}
       containerClassName={containerClassName}
       containerStyle={paletteStyle}
+      headerEnd={headerEnd}
     />
   );
 }
@@ -490,6 +544,8 @@ interface DetailedTimelineProps {
   wideBatchThreshold: number | undefined;
   containerClassName: string;
   containerStyle: React.CSSProperties;
+  /** What `RunTimeline` puts at the end of the header: the style menu, when shown. */
+  headerEnd: React.ReactNode;
 }
 
 /** The detailed style: every invocation as a row with its bar on the shared axis. */
@@ -501,6 +557,7 @@ function DetailedTimeline({
   wideBatchThreshold,
   containerClassName,
   containerStyle,
+  headerEnd,
 }: DetailedTimelineProps) {
   // What the reader expanded belongs to one stream of progress: another starts afresh.
   const [expansion, setExpansion] = React.useState<{
@@ -575,6 +632,7 @@ function DetailedTimeline({
         <p className="mthds-run-timeline-summary" aria-live="polite">
           {held.summary}
         </p>
+        {headerEnd}
       </header>
       {held.degradation && (
         <p className="mthds-run-timeline-degradation" role="status">

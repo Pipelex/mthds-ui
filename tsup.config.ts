@@ -54,6 +54,7 @@ export default defineConfig({
     /graph-core\.css$/,
     /detail\/DetailPanel\.css$/,
     /viewer\/GraphToolbar\.css$/,
+    /viewer\/StyleMenu\.css$/,
     /styles\/simple\/SimpleStyle\.css$/,
     /RunPanel\.css$/,
     /RunTimeline\.css$/,
@@ -76,6 +77,7 @@ export default defineConfig({
     cpSync("src/graph/react/detail/DetailPanel.css", "dist/graph/react/detail/DetailPanel.css");
     mkdirSync("dist/graph/react/viewer", { recursive: true });
     cpSync("src/graph/react/viewer/GraphToolbar.css", "dist/graph/react/viewer/GraphToolbar.css");
+    cpSync("src/graph/react/viewer/StyleMenu.css", "dist/graph/react/viewer/StyleMenu.css");
     mkdirSync("dist/graph/react/styles/simple", { recursive: true });
     cpSync(
       "src/graph/react/styles/simple/SimpleStyle.css",
