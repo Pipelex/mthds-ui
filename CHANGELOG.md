@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Fixed
+
+- **`last_failure` is a problem document (Breaking)**: an invocation's `last_failure` in `./timeline` is `{ problem, at }`, `problem` being the MTHDS problem document in the caller's view, typed as `Problem` from `mthds/errors`, as the progress contract now defines it, where it was `{ message, at }`. `RunTimeline`'s row tooltip shows the problem's title and detail, where it read "Last failure: undefined" against a snapshot of the current contract, and a host that builds snapshots itself writes the problem instead of a message.
+
 ## [v0.39.0] - 2026-10-24
 
 ### Changed

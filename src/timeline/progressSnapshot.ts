@@ -16,6 +16,7 @@
  * unknown field, and the fields the contract calls open strings
  * (`pipe_type`, `degradation.reason`) are typed `string`.
  */
+import type { Problem } from "mthds/errors";
 
 /** RFC 3339 in UTC, written with `Z` in a snapshot, with fractional seconds when recorded. */
 export type ProgressTimestamp = string;
@@ -106,10 +107,18 @@ export interface ConditionProgress {
   selected_outcome: string | null;
 }
 
-/** The latest failure of an invocation's work, a health annotation. */
+/**
+ * The latest failure of an invocation's work, a health annotation: the problem
+ * that ended it when it is `failed`, and otherwise the problem of the latest
+ * failure of an attempt its engine is trying again.
+ */
 export interface InvocationFailure {
-  /** The failure under the run's error disclosure: its own message when written for the caller, else a placeholder. */
-  message: string;
+  /**
+   * The MTHDS problem document, in the caller's view. A failure only the engine
+   * observes, such as an attempt it is trying again, is served as
+   * `runtime.unexpected`, since the engine's text is no problem document.
+   */
+  problem: Problem;
   /** When it failed, when known. */
   at?: ProgressTimestamp;
 }

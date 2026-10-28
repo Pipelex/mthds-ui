@@ -249,9 +249,9 @@ function rowTitle(row: TimelineRow, times: InvocationTimes, bar: TimelineBar | n
   if (isRetried(invocation)) lines.push(`Tried ${invocation.attempts} times`);
   if (invocation.last_failure) {
     const at = times.failedMs;
-    lines.push(
-      `Last failure${at === null ? "" : ` at ${formatClockTime(at)}`}: ${invocation.last_failure.message}`,
-    );
+    const { title, detail } = invocation.last_failure.problem;
+    lines.push(`Last failure${at === null ? "" : ` at ${formatClockTime(at)}`}: ${title}`);
+    lines.push(detail);
   }
   if (invocation.degradation) lines.push(`Not progressing: ${invocation.degradation.message}`);
   return lines.join("\n");

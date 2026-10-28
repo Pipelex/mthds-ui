@@ -5,8 +5,11 @@
  * recording's snapshots come in an order a reader would keep each of.
  */
 import { describe, expect, it } from "vitest";
+import { buildProblem } from "mthds/errors";
 import {
   CANCELED_RUN_SNAPSHOT,
+  CONDENSE_FAILED_PROBLEM,
+  ENGINE_RETRY_PROBLEM,
   REVIEW_FILINGS_RUN,
   REVIEW_FILINGS_SNAPSHOTS,
   WIDE_BATCH_SNAPSHOTS,
@@ -76,6 +79,40 @@ describe("the recorded runs", () => {
       true,
     );
     expect(summaries.some((summary) => summary.endsWith("attempt 3"))).toBe(true);
+  });
+
+  it("write their problems as the standard's builder does", () => {
+    expect(ENGINE_RETRY_PROBLEM).toEqual(buildProblem("runtime.unexpected", {}));
+    expect(CONDENSE_FAILED_PROBLEM).toEqual(
+      buildProblem(
+        "pipe.output_invalid",
+        { pipe: "condense_filing", output_concept: "FilingSummary", fields: ["text"] },
+        {
+          location: {
+            pipe: "condense_filing",
+            path: [
+              "review_filings",
+              "summarize_filing_batch",
+              "summarize_filing",
+              "condense_filing",
+            ],
+          },
+        },
+      ),
+    );
+  });
+
+  it("carry the problem that ended the wide run's failed step, and the engine's retries as runtime.unexpected", () => {
+    const last = WIDE_BATCH_SNAPSHOTS[WIDE_BATCH_SNAPSHOTS.length - 1];
+    const failedStep = last.invocations.find(
+      (each) => each.path === "filings.review_filings/step_3/item_9/step_2",
+    );
+    expect(failedStep?.status).toBe("failed");
+    expect(failedStep?.last_failure?.problem).toEqual(CONDENSE_FAILED_PROBLEM);
+    const retrying = WIDE_BATCH_SNAPSHOTS.flatMap((snapshot) => snapshot.invocations).find(
+      (each) => each.status === "running" && each.attempts !== undefined,
+    );
+    expect(retrying?.last_failure?.problem).toEqual(ENGINE_RETRY_PROBLEM);
   });
 
   it("cancel what was still going when the run was canceled", () => {

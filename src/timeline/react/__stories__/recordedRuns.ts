@@ -11,6 +11,7 @@
  * default outcome, one item is skipped, and one item's step fails after its
  * work was tried three times, which fails the run.
  */
+import type { Problem } from "mthds/errors";
 import type { ProgressSnapshot } from "@timeline/progressSnapshot";
 import {
   recordedSnapshots,
@@ -44,8 +45,47 @@ const ASSEMBLE_REPORT = pipe("assemble_report", "PipeCompose");
 const ROOT = "filings.review_filings";
 const BATCH = `${ROOT}/step_3`;
 
-/** The placeholder a failure's message reads as when it was not written for the caller. */
-const INTERNAL_ERROR = "An internal error occurred.";
+// ─── Problem documents ───────────────────────────────────────────────────────
+// Written out rather than built with `mthds/errors`' `buildProblem`, because the
+// stories import this module, and a runtime import of `mthds` from a story makes
+// Vite discover it mid-run. `recordedRuns.test.ts` holds each one to what the
+// builder writes for its code.
+
+/**
+ * What a failure only the engine observes reads as: an attempt it is trying
+ * again carries the engine's text, which is no problem document, so the carrier
+ * serves `runtime.unexpected` for it.
+ */
+export const ENGINE_RETRY_PROBLEM: Problem = {
+  type: "https://mthds.ai/errors/runtime.unexpected",
+  title: "An unexpected error occurred",
+  detail: "The runtime met an unexpected error.",
+  code: "runtime.unexpected",
+  domain: "runtime",
+  retry: "no",
+  next_step: { kind: "report", detail: "Report this to whoever runs the runtime." },
+};
+
+/** The problem that ended the wide run's failed step, as the runtime recorded it, in the caller's view. */
+export const CONDENSE_FAILED_PROBLEM: Problem = {
+  type: "https://mthds.ai/errors/pipe.output_invalid",
+  title: "A pipe's output does not fit its concept",
+  detail:
+    "Pipe 'condense_filing' produced an output that does not fit the concept 'FilingSummary', at the fields text.",
+  code: "pipe.output_invalid",
+  domain: "method",
+  retry: "no",
+  next_step: {
+    kind: "contact_owner",
+    detail:
+      "Ask the method's owner to make pipe 'condense_filing' produce an output that fits its concept.",
+  },
+  params: { pipe: "condense_filing", output_concept: "FilingSummary", fields: ["text"] },
+  location: {
+    pipe: "condense_filing",
+    path: ["review_filings", "summarize_filing_batch", "summarize_filing", "condense_filing"],
+  },
+};
 
 // ─── The contract's worked example, verbatim ─────────────────────────────────
 
@@ -192,7 +232,7 @@ export const WORKED_EXAMPLE_SNAPSHOT: ProgressSnapshot = {
       started_at: "2026-10-12T09:30:31.930Z",
       ended_at: null,
       attempts: 2,
-      last_failure: { message: "An internal error occurred.", at: "2026-10-12T09:30:52.317Z" },
+      last_failure: { problem: ENGINE_RETRY_PROBLEM, at: "2026-10-12T09:30:52.317Z" },
     },
     {
       path: "filings.review_filings/step_3/item_3",
@@ -244,7 +284,7 @@ const REVIEW_FILINGS_HEALTH: RecordedHealth[] = [
     from: "09:30:52.317",
     until: "09:31:24.930",
     attempts: 2,
-    lastFailure: { message: INTERNAL_ERROR, at: "09:30:52.317" },
+    lastFailure: { problem: ENGINE_RETRY_PROBLEM, at: "09:30:52.317" },
   },
   // ...and once it has succeeded, the engine still reports the attempts it made.
   { path: `${BATCH}/item_2/step_2`, from: "09:31:24.930", attempts: 2 },
@@ -542,24 +582,27 @@ export const WIDE_BATCH_RUN: RecordedRun = {
       from: clockAfterTen(WIDE_FAILED_STEP_START + 1_200),
       until: clockAfterTen(WIDE_FAILED_STEP_START + 2_400),
       attempts: 2,
-      lastFailure: { message: INTERNAL_ERROR, at: clockAfterTen(WIDE_FAILED_STEP_START + 1_200) },
+      lastFailure: {
+        problem: ENGINE_RETRY_PROBLEM,
+        at: clockAfterTen(WIDE_FAILED_STEP_START + 1_200),
+      },
     },
     {
       path: WIDE_FAILED_STEP,
       from: clockAfterTen(WIDE_FAILED_STEP_START + 2_400),
       until: clockAfterTen(failedStepEnd),
       attempts: 3,
-      lastFailure: { message: INTERNAL_ERROR, at: clockAfterTen(WIDE_FAILED_STEP_START + 2_400) },
+      lastFailure: {
+        problem: ENGINE_RETRY_PROBLEM,
+        at: clockAfterTen(WIDE_FAILED_STEP_START + 2_400),
+      },
     },
-    // The failure that ended it, written for the caller, so it keeps its own words.
+    // The failure that ended it is the runtime's own problem, which the snapshot carries as recorded.
     {
       path: WIDE_FAILED_STEP,
       from: clockAfterTen(failedStepEnd),
       attempts: 3,
-      lastFailure: {
-        message: "The filing could not be condensed: its text is empty.",
-        at: clockAfterTen(failedStepEnd),
-      },
+      lastFailure: { problem: CONDENSE_FAILED_PROBLEM, at: clockAfterTen(failedStepEnd) },
     },
   ],
 };
