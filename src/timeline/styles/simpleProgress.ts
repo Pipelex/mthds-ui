@@ -223,6 +223,12 @@ export interface SimpleProgress {
   /** Set when the run failed. */
   failure: SimpleRunFailure | null;
   runNote: SimpleRunNote | null;
+  /**
+   * The entry sequence, which no line stands for, being tried again: the
+   * attempt it is on, while it runs. Any other entry pipe is a line, which
+   * carries its own retry.
+   */
+  retryAttempt: number | null;
   /** The checklist's top-level lines. */
   lines: SimpleProgressLine[];
 }
@@ -559,22 +565,15 @@ function branchStepLines(
   batchState: SimpleLineState,
 ): SimpleProgressLine[] {
   const items = batchNode.children.filter(isItemNode);
-  // An item skipped whole never reaches its branch's steps, so a step is done
-  // once every other item has passed it.
-  const skippedItems = items.filter(
-    (item) => stateOf(item.invocation) === SIMPLE_LINE_STATE.SKIPPED,
-  ).length;
-  const expected = (batchNode.invocation.batch?.total ?? items.length) - skippedItems;
-  // A branch that is a condition runs each outcome's group only for the items
-  // that took it, so a group expects those items, and the ones that may still
-  // take it: the items going on, or not started, that have not decided yet.
-  const undecided = items.filter((item) => {
+  // A step expects the items that reached it, and the ones that still may: the
+  // items going on or not started, those the snapshot does not hold yet
+  // included. An item that ended before it, skipped whole or failed at an
+  // earlier step, never will, so a step is done once every other item passed it.
+  const unseen = Math.max(0, (batchNode.invocation.batch?.total ?? 0) - items.length);
+  const pending = items.filter((item) => {
     const itemState = stateOf(item.invocation);
-    return (
-      (itemState === SIMPLE_LINE_STATE.RUNNING || itemState === SIMPLE_LINE_STATE.UPCOMING) &&
-      !item.children.some(isOutcomeNode)
-    );
-  }).length;
+    return itemState === SIMPLE_LINE_STATE.RUNNING || itemState === SIMPLE_LINE_STATE.UPCOMING;
+  });
   const bySegment = new Map<string, InvocationTreeNode[]>();
   for (const item of items) {
     for (const child of item.children) {
@@ -592,14 +591,26 @@ function branchStepLines(
     const hidden = emptyHidden();
     let retrying = 0;
     let stuck = 0;
+    let skippedItems = 0;
     for (const node of group) {
       addToTally(tally, stateOf(node.invocation));
       gather(hidden, node.invocation);
       gatherBeneath(node, null, hidden);
-      if (holds(node, isRetrying)) retrying += 1;
-      if (holds(node, (each) => each.degradation !== undefined)) stuck += 1;
+      const trouble = troubleWithin(node);
+      if (trouble.retrying) retrying += 1;
+      if (trouble.stuck) stuck += 1;
+      skippedItems += skippedItemsOf(node);
     }
-    const groupExpected = isOutcomeNode(group[0]) ? group.length + undecided : expected;
+    // A branch that is a condition runs each outcome's group only for the items
+    // that took it, so of the pending items a group expects only those that
+    // have not decided yet.
+    const holders = new Set(group.map((node) => node.parentPath));
+    const outcome = isOutcomeNode(group[0]);
+    const mayStillReach = pending.filter(
+      (item) =>
+        !holders.has(item.invocation.path) && !(outcome && item.children.some(isOutcomeNode)),
+    ).length;
+    const groupExpected = group.length + mayStillReach + unseen;
     let state: SimpleLineState;
     if (tally.running > 0) state = SIMPLE_LINE_STATE.RUNNING;
     else if (tally.failed > 0) state = SIMPLE_LINE_STATE.FAILED;
@@ -614,6 +625,7 @@ function branchStepLines(
     );
     line.tally = tally;
     line.counts = sumCounts(group.map((node) => node.invocation));
+    line.skippedItems = line.counts ? skippedItems : 0;
     // Counted across the items rather than given an attempt: each item has its own.
     line.health = healthOf(state, null, { ...hidden, retryAttempt: null }, true, {
       retrying,
@@ -642,12 +654,36 @@ function branchStepLines(
   return lines;
 }
 
-/** Whether a node holds, itself or beneath it, an invocation passing `test`. */
-function holds(
+/** Whether an invocation is being tried again, and whether the run is stuck there. */
+interface Trouble {
+  retrying: boolean;
+  stuck: boolean;
+}
+
+function troubleOf(invocation: ProgressInvocation): Trouble {
+  return { retrying: isRetrying(invocation), stuck: invocation.degradation !== undefined };
+}
+
+/** The trouble a node holds, itself or beneath it, in one walk. */
+function troubleWithin(
   node: InvocationTreeNode,
-  test: (invocation: ProgressInvocation) => boolean,
-): boolean {
-  return test(node.invocation) || node.children.some((child) => holds(child, test));
+  into: Trouble = troubleOf(node.invocation),
+): Trouble {
+  for (const child of node.children) {
+    if (into.retrying && into.stuck) break;
+    const own = troubleOf(child.invocation);
+    into.retrying ||= own.retrying;
+    into.stuck ||= own.stuck;
+    troubleWithin(child, into);
+  }
+  return into;
+}
+
+/** How many of a batch node's items were skipped whole. */
+function skippedItemsOf(node: InvocationTreeNode): number {
+  return node.children.filter(
+    (child) => isItemNode(child) && stateOf(child.invocation) === SIMPLE_LINE_STATE.SKIPPED,
+  ).length;
 }
 
 /** A batch's one line: titled by its branch, with its counts, and its items' trouble as notes. */
@@ -664,9 +700,7 @@ function forEachLine(
   line.invocation = invocation;
   line.forEachItem = joined.itemName;
   line.counts = invocation.batch ?? null;
-  line.skippedItems = node.children.filter(
-    (child) => isItemNode(child) && stateOf(child.invocation) === SIMPLE_LINE_STATE.SKIPPED,
-  ).length;
+  line.skippedItems = skippedItemsOf(node);
 
   const items = node.children.filter(isItemNode);
   const branch = joined.branchRef ? pipeOf(ctx.registry, joined.branchRef) : null;
@@ -681,15 +715,16 @@ function forEachLine(
 
   // Opened, the branch steps show what goes on inside the items, so the line
   // keeps only the trouble of the items themselves.
-  const inItem = (item: InvocationTreeNode, test: (each: ProgressInvocation) => boolean) =>
-    line.expanded ? test(item.invocation) : holds(item, test);
   const hidden = emptyHidden();
   if (line.expanded) for (const item of items) gather(hidden, item.invocation);
   else gatherBeneath(node, null, hidden);
   // The items' retries are counted rather than given an attempt: each item has its own.
   hidden.retryAttempt = null;
-  const stuck = items.filter((item) => inItem(item, (each) => each.degradation !== undefined));
-  const retrying = items.filter((item) => inItem(item, isRetrying));
+  const trouble = items.map((item) =>
+    line.expanded ? troubleOf(item.invocation) : troubleWithin(item),
+  );
+  const stuck = trouble.filter((each) => each.stuck);
+  const retrying = trouble.filter((each) => each.retrying);
   const failureShownBeneath = line.children.some(
     (child) => child.state === SIMPLE_LINE_STATE.FAILED,
   );
@@ -698,6 +733,30 @@ function forEachLine(
     stuck: stuck.length,
   });
   return line;
+}
+
+/** A node's sequence as the registry declares it, and the steps of it the run has not reached and a line stands for. */
+interface UnreachedSteps {
+  sequence: PipeSequenceBlueprint | null;
+  steps: NumberedStep[];
+  /** The sequence failed or was canceled, so its steps were never run rather than upcoming. */
+  ended: boolean;
+}
+
+/** The steps a sequence has not reached: listed while it runs, and once it failed or was canceled. */
+function unreachedSteps(
+  ctx: Context,
+  node: InvocationTreeNode,
+  state: SimpleLineState,
+): UnreachedSteps {
+  const sequence =
+    node.invocation.pipe_type === "PipeSequence" ? joinedSequence(ctx.registry, node) : null;
+  const ended = state === SIMPLE_LINE_STATE.FAILED || state === SIMPLE_LINE_STATE.STOPPED;
+  if (!sequence || !(state === SIMPLE_LINE_STATE.RUNNING || ended)) {
+    return { sequence, steps: [], ended };
+  }
+  const reached = Math.max(0, ...node.children.map((child) => stepNumberOf(child) ?? 0));
+  return { sequence, steps: stepsAfter(sequence, reached), ended };
 }
 
 /**
@@ -709,18 +768,13 @@ function childLines(
   node: InvocationTreeNode,
   depth: number,
   state: SimpleLineState,
+  unreached: UnreachedSteps = unreachedSteps(ctx, node, state),
 ): SimpleProgressLine[] {
-  const sequence =
-    node.invocation.pipe_type === "PipeSequence" ? joinedSequence(ctx.registry, node) : null;
-  let lines = node.children.map((child) => lineOf(ctx, child, node, depth, sequence));
-  const ended = state === SIMPLE_LINE_STATE.FAILED || state === SIMPLE_LINE_STATE.STOPPED;
-  if (sequence && (state === SIMPLE_LINE_STATE.RUNNING || ended)) {
-    const reached = Math.max(0, ...node.children.map((child) => stepNumberOf(child) ?? 0));
-    for (const step of stepsAfter(sequence, reached)) {
-      const line = upcomingLine(ctx, node.invocation.path, step);
-      if (ended) line.state = SIMPLE_LINE_STATE.NOT_RUN;
-      lines.push(line);
-    }
+  let lines = node.children.map((child) => lineOf(ctx, child, node, depth, unreached.sequence));
+  for (const step of unreached.steps) {
+    const line = upcomingLine(ctx, node.invocation.path, step);
+    if (unreached.ended) line.state = SIMPLE_LINE_STATE.NOT_RUN;
+    lines.push(line);
   }
   if (
     node.invocation.pipe_type === "PipeParallel" &&
@@ -803,10 +857,13 @@ function lineOf(
     return line;
   }
 
-  const children = childLines(ctx, node, depth + 1, state);
-  line.expandable = children.length > 0;
+  // Its children's lines are built only when drawn: a folded group needs to
+  // know only that it has some.
+  const unreached = unreachedSteps(ctx, node, state);
+  line.expandable = node.children.length > 0 || unreached.steps.length > 0;
   line.expanded = line.expandable && (ctx.expanded[line.key] ?? isActiveState(state));
   if (line.expanded) {
+    const children = childLines(ctx, node, depth + 1, state, unreached);
     line.children = children;
     const failureShownBeneath = children.some((child) => child.state === SIMPLE_LINE_STATE.FAILED);
     line.health = healthOf(state, invocation, null, !failureShownBeneath);
@@ -841,16 +898,27 @@ function walkLines(lines: SimpleProgressLine[], visit: (line: SimpleProgressLine
   }
 }
 
-/** Where a failed run failed: the deepest failed invocation, and the top-level line holding it. */
+/**
+ * Where a failed run failed: the deepest failed invocation, and the top-level
+ * line holding it. Among equally deep failures the first in tree order wins,
+ * the order a line gathers the failures beneath it in, so the problem a line
+ * shows and the run's are the same one.
+ */
 function failureOf(
-  snapshot: ProgressSnapshot,
+  status: RunProgressStatus,
+  roots: InvocationTreeNode[],
   lines: SimpleProgressLine[],
 ): SimpleRunFailure | null {
-  if (snapshot.status !== RUN_PROGRESS_STATUS.FAILED) return null;
+  if (status !== RUN_PROGRESS_STATUS.FAILED) return null;
+  const failed: ProgressInvocation[] = [];
+  const visit = (node: InvocationTreeNode) => {
+    if (node.invocation.status === INVOCATION_STATUS.FAILED) failed.push(node.invocation);
+    for (const child of node.children) visit(child);
+  };
+  for (const root of roots) visit(root);
   let deepest: ProgressInvocation | null = null;
   let withProblem: ProgressInvocation | null = null;
-  for (const invocation of snapshot.invocations) {
-    if (invocation.status !== INVOCATION_STATUS.FAILED) continue;
+  for (const invocation of failed) {
     const depth = invocationPathDepth(invocation.path);
     if (!deepest || depth > invocationPathDepth(deepest.path)) deepest = invocation;
     if (
@@ -918,22 +986,25 @@ export function buildSimpleProgress(
   };
   const roots = buildInvocationTree(snapshot);
   let lines: SimpleProgressLine[];
+  let retryAttempt: number | null = null;
   if (roots.length === 0) {
     lines =
       options.entryPipeRef && !isRunEnded(snapshot.status)
         ? previewLines(ctx, options.entryPipeRef)
         : [];
   } else if (roots.length === 1 && roots[0].invocation.pipe_type === "PipeSequence") {
-    const root = roots[0];
-    lines = childLines(ctx, root, 0, stateOf(root.invocation));
+    const root = roots[0].invocation;
+    lines = childLines(ctx, roots[0], 0, stateOf(root));
+    if (isRetrying(root)) retryAttempt = root.attempts ?? null;
   } else {
     lines = roots.map((root) => lineOf(ctx, root, null, 0, null));
   }
   return {
     status: snapshot.status,
     mode: snapshot.mode,
-    failure: failureOf(snapshot, lines),
+    failure: failureOf(snapshot.status, roots, lines),
     runNote: runNoteOf(snapshot, lines),
+    retryAttempt,
     lines,
   };
 }

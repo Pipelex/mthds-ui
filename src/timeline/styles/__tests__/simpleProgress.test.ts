@@ -737,6 +737,140 @@ describe("a batch inside a batch's branch", () => {
   });
 });
 
+describe("a batch whose items end early", () => {
+  const outer = "x.outer";
+  /** Three items running two steps each, the second item failing at the first step. */
+  function earlyFailure(batchStatus: ProgressInvocation["status"]): ProgressSnapshot {
+    return snapshotOf(
+      [
+        invocation(outer, "x.outer_batch", "PipeBatch", batchStatus, {
+          batch: { total: 3, done: 2, running: 0, failed: 1 },
+        }),
+        ...[1, 2, 3].flatMap((item) =>
+          item === 2
+            ? [
+                invocation(`${outer}/item_2`, "x.per_filing", "PipeSequence", "failed"),
+                invocation(`${outer}/item_2/step_1`, "x.read", "PipeLLM", "failed", {
+                  last_failure: { problem: CONDENSE_FAILED_PROBLEM },
+                }),
+              ]
+            : [
+                invocation(`${outer}/item_${item}`, "x.per_filing", "PipeSequence", "succeeded"),
+                invocation(`${outer}/item_${item}/step_1`, "x.read", "PipeLLM", "succeeded"),
+                invocation(`${outer}/item_${item}/step_2`, "x.write", "PipeLLM", "succeeded"),
+              ],
+        ),
+      ],
+      { status: batchStatus === "failed" ? "failed" : "running" },
+    );
+  }
+
+  it("does not wait at a step for an item that failed before it", () => {
+    for (const status of ["failed", "running"] as const) {
+      const progress = buildSimpleProgress(earlyFailure(status), { expanded: { [outer]: true } });
+      expect(lineAt(progress.lines, `${outer}/*/step_1`).state).toBe("failed");
+      expect(lineAt(progress.lines, `${outer}/*/step_2`)).toMatchObject({
+        state: "done",
+        tally: { done: 2, running: 0, failed: 0, skipped: 0, stopped: 0 },
+      });
+    }
+  });
+
+  it("still waits at a step for an item going on, or not started yet", () => {
+    const snapshot = snapshotOf([
+      invocation(outer, "x.outer_batch", "PipeBatch", "running", {
+        batch: { total: 3, done: 1, running: 1, failed: 0 },
+      }),
+      invocation(`${outer}/item_1`, "x.per_filing", "PipeSequence", "succeeded"),
+      invocation(`${outer}/item_1/step_1`, "x.read", "PipeLLM", "succeeded"),
+      invocation(`${outer}/item_1/step_2`, "x.write", "PipeLLM", "succeeded"),
+      invocation(`${outer}/item_2`, "x.per_filing", "PipeSequence", "running"),
+      invocation(`${outer}/item_2/step_1`, "x.read", "PipeLLM", "running"),
+    ]);
+    const progress = buildSimpleProgress(snapshot, { expanded: { [outer]: true } });
+    expect(lineAt(progress.lines, `${outer}/*/step_2`).state).toBe("running");
+  });
+
+  it("counts an inner batch's skipped items apart from its done ones", () => {
+    const snapshot = snapshotOf([
+      invocation(outer, "x.outer_batch", "PipeBatch", "running", {
+        batch: { total: 1, done: 0, running: 1, failed: 0 },
+      }),
+      invocation(`${outer}/item_1`, "x.per_document", "PipeSequence", "running"),
+      invocation(`${outer}/item_1/step_1`, "x.page_batch", "PipeBatch", "succeeded", {
+        batch: { total: 2, done: 2, running: 0, failed: 0 },
+      }),
+      invocation(`${outer}/item_1/step_1/item_1`, "x.read_page", "PipeLLM", "succeeded"),
+      invocation(`${outer}/item_1/step_1/item_2`, "x.read_page", "PipeLLM", "skipped"),
+      invocation(`${outer}/item_1/step_2`, "x.assemble", "PipeLLM", "running"),
+    ]);
+    const progress = buildSimpleProgress(snapshot, { expanded: { [outer]: true } });
+    expect(lineAt(progress.lines, `${outer}/*/step_1`)).toMatchObject({
+      counts: { total: 2, done: 2 },
+      skippedItems: 1,
+    });
+  });
+});
+
+describe("an entry sequence being tried again", () => {
+  it("says so for the run, since no line stands for the entry sequence", () => {
+    const root = "x.root";
+    const snapshot = snapshotOf([
+      invocation(root, "x.root", "PipeSequence", "running", { attempts: 2 }),
+      invocation(`${root}/step_1`, "x.read", "PipeLLM", "succeeded"),
+    ]);
+    expect(buildSimpleProgress(snapshot).retryAttempt).toBe(2);
+  });
+
+  it("says nothing once it ended, or when the entry pipe has a line of its own", () => {
+    const ended = snapshotOf(
+      [
+        invocation("x.root", "x.root", "PipeSequence", "succeeded", { attempts: 2 }),
+        invocation("x.root/step_1", "x.read", "PipeLLM", "succeeded"),
+      ],
+      { status: "succeeded" },
+    );
+    expect(buildSimpleProgress(ended).retryAttempt).toBeNull();
+    const parallel = snapshotOf([
+      invocation("x.root", "x.root", "PipeParallel", "running", { attempts: 2 }),
+      invocation("x.root/branch_1", "x.read", "PipeLLM", "running"),
+    ]);
+    const progress = buildSimpleProgress(parallel);
+    expect(progress.retryAttempt).toBeNull();
+    expect(progress.lines[0].health?.retryAttempt).toBe(2);
+  });
+});
+
+describe("two failures as deep as each other", () => {
+  it("show one problem, the first in the run's order, wherever the snapshot lists them", () => {
+    const outer = "x.outer";
+    const second = { ...CONDENSE_FAILED_PROBLEM, title: "The second item's problem" };
+    const snapshot = snapshotOf(
+      [
+        invocation(outer, "x.outer_batch", "PipeBatch", "failed", {
+          batch: { total: 2, done: 0, running: 0, failed: 2 },
+        }),
+        invocation(`${outer}/item_2`, "x.per_filing", "PipeSequence", "failed"),
+        invocation(`${outer}/item_2/step_1`, "x.read", "PipeLLM", "failed", {
+          last_failure: { problem: second },
+        }),
+        invocation(`${outer}/item_1`, "x.per_filing", "PipeSequence", "failed"),
+        invocation(`${outer}/item_1/step_1`, "x.read", "PipeLLM", "failed", {
+          last_failure: { problem: CONDENSE_FAILED_PROBLEM },
+        }),
+      ],
+      { status: "failed" },
+    );
+    for (const expanded of [{}, { [outer]: true }] as Record<string, boolean>[]) {
+      const progress = buildSimpleProgress(snapshot, { expanded });
+      expect(progress.failure).toMatchObject({
+        problem: CONDENSE_FAILED_PROBLEM,
+        shownOnLine: true,
+      });
+    }
+  });
+});
+
 describe("what changed between two readings", () => {
   const progressAt = (clock: string, expanded: Record<string, boolean> = {}) =>
     buildSimpleProgress(at(REVIEW_FILINGS_SNAPSHOTS, clock), { ...filings, expanded });

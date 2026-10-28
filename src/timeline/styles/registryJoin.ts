@@ -124,7 +124,16 @@ function asNumberedStep(
  * is a binding step, which runs no pipe, or is past the sequence's steps.
  */
 export function stepAt(sequence: PipeSequenceBlueprint, number: number): NumberedStep | null {
-  const entry = numberedSpecs(sequence).find((each) => each.number === number);
+  return stepIn(sequence, numberedSpecs(sequence), number);
+}
+
+/** `stepAt` over a sequence's steps already numbered: the numbers run from 1 without a gap, so a number is an index. */
+function stepIn(
+  sequence: PipeSequenceBlueprint,
+  numbered: { number: number; spec: SequenceStepSpec }[],
+  number: number,
+): NumberedStep | null {
+  const entry = Number.isInteger(number) && number >= 1 ? numbered[number - 1] : undefined;
   return entry ? asNumberedStep(sequence, entry) : null;
 }
 
@@ -158,10 +167,11 @@ export function sequenceMatches(
   sequence: PipeSequenceBlueprint,
   node: InvocationTreeNode,
 ): boolean {
+  const numbered = numberedSpecs(sequence);
   for (const child of node.children) {
     const number = stepNumberOf(child);
     if (number === null) continue;
-    const step = stepAt(sequence, number);
+    const step = stepIn(sequence, numbered, number);
     if (!step) return false;
     const invocation = child.invocation;
     if (step.spec.batch_params) {
