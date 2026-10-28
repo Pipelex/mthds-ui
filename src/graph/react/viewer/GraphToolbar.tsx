@@ -14,7 +14,7 @@ import {
   type ValidationState,
 } from "@graph/types";
 import { ValidationPanel, validationLabel, validationPanelPlacement } from "./ValidationPanel";
-import { StyleMenu } from "./StyleMenu";
+import { GRAPH_STYLE_MENU_ENTRIES, StyleMenu, styleMenuLabel } from "./StyleMenu";
 import { usePopoverDismiss } from "./usePopoverDismiss";
 
 /**
@@ -557,6 +557,10 @@ export function GraphToolbar({
               options={styleMenuOptions}
               onChange={onGraphStyleChange}
               placement={validationPanelPlacement(position)}
+              entries={GRAPH_STYLE_MENU_ENTRIES}
+              menuLabel="Graph style"
+              buttonLabel={styleMenuLabel}
+              buttonClassName="graph-toolbar-btn"
             />
             <div className="graph-toolbar-separator" />
           </>

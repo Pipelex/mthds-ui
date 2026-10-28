@@ -17,6 +17,7 @@
  * all a timeline's fixture needs, and `recordedRuns.test.ts` holds it to the
  * contract's own worked example.
  */
+import type { Problem } from "mthds/errors";
 import {
   DEGRADATION_REASON,
   INVOCATION_STATUS,
@@ -76,7 +77,7 @@ export interface RecordedHealth {
   /** Exclusive. Absent: until the end of the recording. */
   until?: RecordedClock;
   attempts?: number;
-  lastFailure?: { message: string; at?: RecordedClock };
+  lastFailure?: { problem: Problem; at?: RecordedClock };
   degradation?: RecordedDegradation;
 }
 
@@ -310,7 +311,7 @@ export function snapshotAt(run: RecordedRun, clock: RecordedClock): ProgressSnap
     if (!invocation || !isActive(run, t, health.from, health.until)) continue;
     if (health.attempts !== undefined) invocation.attempts = health.attempts;
     if (health.lastFailure) {
-      const failure: InvocationFailure = { message: health.lastFailure.message };
+      const failure: InvocationFailure = { problem: health.lastFailure.problem };
       if (health.lastFailure.at) failure.at = stamp(run, health.lastFailure.at);
       invocation.last_failure = failure;
     }

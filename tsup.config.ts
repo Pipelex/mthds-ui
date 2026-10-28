@@ -54,9 +54,11 @@ export default defineConfig({
     /graph-core\.css$/,
     /detail\/DetailPanel\.css$/,
     /viewer\/GraphToolbar\.css$/,
+    /viewer\/StyleMenu\.css$/,
     /styles\/simple\/SimpleStyle\.css$/,
     /RunPanel\.css$/,
     /RunTimeline\.css$/,
+    /styles\/simple\/SimpleProgress\.css$/,
   ],
   esbuildOptions(options) {
     options.alias = {
@@ -75,6 +77,7 @@ export default defineConfig({
     cpSync("src/graph/react/detail/DetailPanel.css", "dist/graph/react/detail/DetailPanel.css");
     mkdirSync("dist/graph/react/viewer", { recursive: true });
     cpSync("src/graph/react/viewer/GraphToolbar.css", "dist/graph/react/viewer/GraphToolbar.css");
+    cpSync("src/graph/react/viewer/StyleMenu.css", "dist/graph/react/viewer/StyleMenu.css");
     mkdirSync("dist/graph/react/styles/simple", { recursive: true });
     cpSync(
       "src/graph/react/styles/simple/SimpleStyle.css",
@@ -84,6 +87,11 @@ export default defineConfig({
     cpSync("src/form/react/RunPanel.css", "dist/form/react/RunPanel.css");
     mkdirSync("dist/timeline/react", { recursive: true });
     cpSync("src/timeline/react/RunTimeline.css", "dist/timeline/react/RunTimeline.css");
+    mkdirSync("dist/timeline/react/styles/simple", { recursive: true });
+    cpSync(
+      "src/timeline/react/styles/simple/SimpleProgress.css",
+      "dist/timeline/react/styles/simple/SimpleProgress.css",
+    );
     // The two stylesheets a HOST imports, never this package's JavaScript, so
     // they have no `external` pattern: only this copy and an `exports` entry.
     // `tailwind.css`'s `@source` paths are relative to `dist/styles/`, so it

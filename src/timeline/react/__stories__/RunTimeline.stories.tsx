@@ -2,8 +2,10 @@ import * as React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, waitFor, within } from "storybook/test";
 import type { ProgressSnapshot, ProgressTimestamp } from "@timeline/progressSnapshot";
+import { TIMELINE_STYLE_IDS } from "@timeline/styles/timelineStyles";
 import { RunTimeline } from "../RunTimeline";
 import { SnapshotReplay } from "./SnapshotReplay";
+import { REVIEW_FILINGS_REGISTRY } from "./methodRegistries";
 import {
   CANCELED_RUN_SNAPSHOT,
   REVIEW_FILINGS_SNAPSHOTS,
@@ -20,6 +22,9 @@ import {
  * under it, the batch's items appear with their steps under them, item 2's
  * second step shows its work being tried again and keeps its attempts once it
  * recovers, and item 3 shows where the run is stuck until it advances again.
+ *
+ * The `timelineStyle` control redraws a story in another style; the simple
+ * style's own stories are under `Timeline/RunTimeline/Simple`.
  */
 const meta: Meta<typeof RunTimeline> = {
   title: "Timeline/RunTimeline",
@@ -31,8 +36,14 @@ const meta: Meta<typeof RunTimeline> = {
       </div>
     ),
   ],
+  argTypes: {
+    timelineStyle: { control: "inline-radio", options: TIMELINE_STYLE_IDS },
+  },
   args: {
     theme: "dark",
+    // The method the recorded runs ran, for the simple style; the detailed style reads neither.
+    pipeRegistry: REVIEW_FILINGS_REGISTRY,
+    entryPipeRef: "filings.review_filings",
   },
 };
 
@@ -63,6 +74,9 @@ export const RecordedRun: Story = {
       autoplay
       initialSpeed={5}
       theme={args.theme}
+      timelineStyle={args.timelineStyle}
+      pipeRegistry={args.pipeRegistry}
+      entryPipeRef={args.entryPipeRef}
     />
   ),
 };
@@ -73,7 +87,15 @@ export const RecordedRun: Story = {
  * same element, in place.
  */
 export const RecordedRunStepByStep: Story = {
-  render: (args) => <SnapshotReplay snapshots={REVIEW_FILINGS_SNAPSHOTS} theme={args.theme} />,
+  render: (args) => (
+    <SnapshotReplay
+      snapshots={REVIEW_FILINGS_SNAPSHOTS}
+      theme={args.theme}
+      timelineStyle={args.timelineStyle}
+      pipeRegistry={args.pipeRegistry}
+      entryPipeRef={args.entryPipeRef}
+    />
+  ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const next = canvas.getByRole("button", { name: "Next snapshot" });
@@ -248,7 +270,15 @@ export const WorkedExampleLight: Story = {
  */
 export const WideBatch: Story = {
   render: (args) => (
-    <SnapshotReplay snapshots={WIDE_BATCH_SNAPSHOTS} autoplay initialSpeed={2} theme={args.theme} />
+    <SnapshotReplay
+      snapshots={WIDE_BATCH_SNAPSHOTS}
+      autoplay
+      initialSpeed={2}
+      theme={args.theme}
+      timelineStyle={args.timelineStyle}
+      pipeRegistry={args.pipeRegistry}
+      entryPipeRef={args.entryPipeRef}
+    />
   ),
 };
 

@@ -51,7 +51,8 @@ src/
         GraphViewer.tsx           # Unified ReactFlow viewer component
         GraphErrorState.tsx       # The error state drawn in place of a graph, the boundary around the canvas, the relayout alert over it
         graphFailure.ts           # readGraphSpec, the validator's refusal as a value; the pure rules that settle an async layout
-        StyleMenu.tsx             # The toolbar's opt-in graph style menu
+        StyleMenu.tsx             # The style menu: the toolbar's opt-in graph style menu, generic over its styles
+        StyleMenu.css             # Its stylesheet, imported by both React entries (the timeline's header uses it too)
         StillFit.tsx              # The still presentation's viewport and height (interactive={false})
         stillViewport.ts          # Its geometry, pure: fit to width, height follows
         graphArtifacts.ts         # GraphArtifacts: the spec + its descriptors, the viewer's one `graph` prop
@@ -81,8 +82,17 @@ src/
     snapshotFreshness.ts          #   fresherSnapshot: the rule a reader keeps the fresher snapshot by
     timelineRows.ts               #   Snapshot → rows: nesting, place labels, batch collapse and strip, condition outcome
     timelineTime.ts               #   The shared axis, each bar on it, ticks and duration labels
+    invocationTree.ts             #   The snapshot's invocations as the tree their paths make
+    styles/                       #   Timeline styles, pure and React-free:
+      timelineStyles.ts           #     TIMELINE_STYLES, the typed registry: detailed (the default) and simple
+      registryJoin.ts             #     The join between a snapshot and the method's pipe registry
+      simpleProgress.ts           #     The simple style's projection: snapshot → checklist lines
     react/
       RunTimeline.tsx             #   The component (./timeline/react), its stylesheet imported by the entry
+      readingClock.ts             #   The held snapshot and the reading clock both styles share
+      streamExpansion.ts          #   What the reader opened, per stream, held above the style switch
+      TimelineStyleMenu.tsx       #   The header's opt-in style menu: the graph's StyleMenu over the timeline's styles
+      styles/simple/              #   The simple style's view, its phrase table and its stylesheet (docs/timeline-styles.md)
       __stories__/                #   Hand-recorded runs, the recorder that projects them, the replay harness
   styles/                         # Stylesheets a HOST imports to style the kernel's controls; no JS imports them:
     tailwind.css                  #   ./tailwind.css — the kernel's @source paths, for a Tailwind 4 host
@@ -101,6 +111,7 @@ src/
 docs/
   static-graph.md                 # Static GraphSpec API, mode contract, display behavior, standalone embed
   run-timeline.md                 # RunTimeline: the snapshot it reads, the freshness rule, what it draws
+  timeline-styles.md              # The timeline's styles: choosing one, the style menu, what the simple style draws
   error-state.md                  # What GraphViewer draws when it cannot draw a spec, and why it never throws
 ```
 

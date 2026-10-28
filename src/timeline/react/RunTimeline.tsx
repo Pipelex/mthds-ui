@@ -13,7 +13,14 @@ import {
   type ProgressTimestamp,
   type RunProgressStatus,
 } from "@timeline/progressSnapshot";
-import { fresherSnapshot, progressStreamKey } from "@timeline/snapshotFreshness";
+import { progressStreamKey } from "@timeline/snapshotFreshness";
+import {
+  TIMELINE_STYLE,
+  resolveTimelineStyle,
+  resolveTimelineStyleMenu,
+  type TimelineStyleId,
+} from "@timeline/styles/timelineStyles";
+import type { TimelinePipeRegistry } from "@timeline/styles/registryJoin";
 import { buildTimelineRows, type TimelineBatch, type TimelineRow } from "@timeline/timelineRows";
 import {
   barFollowsClock,
@@ -21,14 +28,18 @@ import {
   formatDuration,
   invocationBar,
   invocationTimes,
-  readingClockMs,
   snapshotTimes,
   timelineTicks,
   timelineWindowAt,
   type InvocationTimes,
+  type SnapshotTimes,
   type TimelineBar,
   type TimelineWindow,
 } from "@timeline/timelineTime";
+import { useHeldSnapshot, useReadingClock } from "@timeline/react/readingClock";
+import { useStreamExpansion } from "@timeline/react/streamExpansion";
+import { SimpleProgressView } from "@timeline/react/styles/simple/SimpleProgressView";
+import { TimelineStyleMenu } from "@timeline/react/TimelineStyleMenu";
 
 export interface RunTimelineProps {
   /**
@@ -68,13 +79,63 @@ export interface RunTimelineProps {
    * draws each snapshot as of its `assembled_at`. Defaults to `true`.
    */
   live?: boolean;
+  /**
+   * The style the timeline draws in: `detailed`, the default, every invocation
+   * as a bar on a shared time axis; or `simple`, the run as a checklist of its
+   * steps in the method's own words, a batch as one line with its counts.
+   * Reactive, like `theme`: passing it drives the active style, and clearing it
+   * back to `undefined` hands control to the default. The header's style menu,
+   * when shown, changes it too. An id this version does not know is treated as
+   * unset. This library persists nothing: the host keeps the choice, reported
+   * by `onTimelineStyleChange`.
+   */
+  timelineStyle?: TimelineStyleId;
+  /**
+   * Called whenever the style changes — from the menu, or from a prop update —
+   * so the host can persist it. Not called on mount.
+   */
+  onTimelineStyleChange?: (style: TimelineStyleId) => void;
+  /**
+   * Show a style menu at the end of the header. Opt-in: `true` offers every
+   * registered style in registry order, a list offers those styles in that
+   * order, and the default offers no menu, for a host that fixes the style for
+   * its audience. A menu needs two styles to choose between.
+   */
+  styleMenu?: boolean | readonly TimelineStyleId[];
+  /**
+   * The registry of the method's pipes, keyed by `pipe_ref`, as a `GraphSpec`'s
+   * `pipe_registry`: the simple style titles its lines from the pipes'
+   * descriptions, names a batch's item, and lists the steps the run has not
+   * reached. Without it each line is titled by its humanized pipe code. The
+   * detailed style does not read it.
+   */
+  pipeRegistry?: TimelinePipeRegistry;
+  /**
+   * The `pipe_ref` of the pipe the run starts from. A snapshot taken before
+   * anything started names no pipe, so with it and `pipeRegistry` the simple
+   * style lists the run's steps from the start.
+   */
+  entryPipeRef?: string;
   /** A batch holding more items than this starts collapsed. Defaults to `DEFAULT_WIDE_BATCH_THRESHOLD`. */
   wideBatchThreshold?: number;
+  /**
+   * In the simple style, a parallel with more branches than this folds its
+   * finished branches into one line. Defaults to `DEFAULT_WIDE_PARALLEL_THRESHOLD`.
+   */
+  wideParallelThreshold?: number;
   /** Appended to the container's class list. */
   className?: string;
 }
 
-const CLOCK_TICK_MS = 250;
+/**
+ * How often the reading clock ticks under each style: as often as what it draws
+ * moves. The detailed style's bars grow continuously; nothing the simple style
+ * draws does, so once a second is enough for its durations.
+ */
+const CLOCK_TICK_MS: Record<TimelineStyleId, number> = {
+  [TIMELINE_STYLE.DETAILED]: 250,
+  [TIMELINE_STYLE.SIMPLE]: 1_000,
+};
 /** Past this point on the axis a tick's label ends at its tick rather than centring on it. */
 const TICK_RIGHT_ALIGN_PERCENT = 92;
 /** The room one tick's label takes on the axis, which sets how many ticks fit. */
@@ -100,7 +161,6 @@ function useTickBudget(): [React.RefCallback<HTMLElement>, number] {
   }, []);
   return [ref, budget];
 }
-const EMPTY_EXPANSION: Readonly<Record<string, boolean>> = Object.freeze({});
 
 const RUN_STATUS_WORD: Record<RunProgressStatus, string> = {
   pending: "Pending",
@@ -117,83 +177,6 @@ const RUN_STATUS_WORD: Record<RunProgressStatus, string> = {
  */
 function wordFor<K extends string>(table: Record<K, string>, value: string): string {
   return Object.prototype.hasOwnProperty.call(table, value) ? table[value as K] : value;
-}
-
-/**
- * The snapshot to draw: of the one held and the one just passed, the fresher by
- * the contract's rule. React's derived-state pattern rather than an effect, so
- * the render that receives a stale snapshot never paints it, not even once.
- */
-function useHeldSnapshot(snapshot: ProgressSnapshot): ProgressSnapshot {
-  const [state, setState] = React.useState({ given: snapshot, held: snapshot });
-  if (state.given !== snapshot) {
-    const held = fresherSnapshot(state.held, snapshot);
-    setState({ given: snapshot, held });
-    return held;
-  }
-  return state.held;
-}
-
-/** What the clock last showed, for which stream and which reading, and whether it ticked on its own. */
-interface SelfClock {
-  stream: string;
-  base: number | null;
-  ticking: boolean;
-  ms: number | null;
-}
-
-/**
- * The reading clock, in epoch milliseconds. Pinned by `now` when the host sets
- * it; otherwise the snapshot's `assembled_at`, advanced while the run goes on by
- * the time this page has measured since. It ticks only while a drawn bar
- * follows it (`followsClock`): with none, a tick would redraw nothing that moves.
- *
- * The self-ticking clock never goes back within one stream of progress. A
- * snapshot that took long to arrive can carry an `assembled_at` older than the
- * moment the clock already shows; the clock then carries on from what it
- * showed, the later of the two readings, rather than jumping back, so no running
- * bar and no axis shrinks and grows again. That floor comes only from a clock
- * that was itself ticking in the same stream: a moment the host pinned with
- * `now`, or a clock standing still, is not one this clock reached on its own,
- * so a clock that starts ticking starts from its snapshot's reading. A snapshot
- * of another stream starts the clock afresh from its own reading.
- */
-function useReadingClock(
-  held: ProgressSnapshot,
-  stream: string,
-  now: ProgressTimestamp | number | undefined,
-  live: boolean,
-  followsClock: boolean,
-): { nowMs: number | null; ticking: boolean } {
-  const base = React.useMemo(() => readingClockMs(held, now), [held, now]);
-  const ticking =
-    live && now === undefined && base !== null && !isRunEnded(held.status) && followsClock;
-  const [clock, setClock] = React.useState<SelfClock>({ stream, base, ticking, ms: base });
-  let shown = clock;
-  if (clock.stream !== stream || clock.base !== base || clock.ticking !== ticking) {
-    // React's derived-state pattern, as in `useHeldSnapshot`: the render that
-    // receives the new reading already shows the clock it starts from.
-    const floor = ticking && clock.ticking && clock.stream === stream ? clock.ms : null;
-    const ms = base !== null && floor !== null ? Math.max(base, floor) : base;
-    shown = { stream, base, ticking, ms };
-    setClock(shown);
-  }
-  React.useEffect(() => {
-    if (!ticking) return undefined;
-    let previous = performance.now();
-    const timer = window.setInterval(() => {
-      const current = performance.now();
-      const step = current - previous;
-      previous = current;
-      setClock((state) =>
-        state.stream === stream && state.base === base && state.ticking && state.ms !== null
-          ? { ...state, ms: state.ms + step }
-          : state,
-      );
-    }, CLOCK_TICK_MS);
-    return () => window.clearInterval(timer);
-  }, [ticking, stream, base]);
-  return { nowMs: ticking ? shown.ms : base, ticking };
 }
 
 function batchCountsText(batch: TimelineBatch): string | null {
@@ -249,9 +232,9 @@ function rowTitle(row: TimelineRow, times: InvocationTimes, bar: TimelineBar | n
   if (isRetried(invocation)) lines.push(`Tried ${invocation.attempts} times`);
   if (invocation.last_failure) {
     const at = times.failedMs;
-    lines.push(
-      `Last failure${at === null ? "" : ` at ${formatClockTime(at)}`}: ${invocation.last_failure.message}`,
-    );
+    const { title, detail } = invocation.last_failure.problem;
+    lines.push(`Last failure${at === null ? "" : ` at ${formatClockTime(at)}`}: ${title}`);
+    lines.push(detail);
   }
   if (invocation.degradation) lines.push(`Not progressing: ${invocation.degradation.message}`);
   return lines.join("\n");
@@ -469,7 +452,13 @@ export function RunTimeline({
   paletteColors,
   now,
   live = true,
+  timelineStyle,
+  onTimelineStyleChange,
+  styleMenu,
+  pipeRegistry,
+  entryPipeRef,
   wideBatchThreshold,
+  wideParallelThreshold,
   className,
 }: RunTimelineProps) {
   const held = useHeldSnapshot(snapshot);
@@ -484,32 +473,152 @@ export function RunTimeline({
     () => ({ ...getPaletteForTheme(resolvedTheme), ...paletteColors }) as React.CSSProperties,
     [resolvedTheme, paletteColors],
   );
+  const containerClassName = [
+    "mthds-run-timeline",
+    `mthds-run-timeline--${resolvedTheme}`,
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
 
-  // What the reader expanded belongs to one stream of progress: another starts afresh.
-  const [expansion, setExpansion] = React.useState<{
-    key: string;
-    batches: Readonly<Record<string, boolean>>;
-  }>({ key: streamKey, batches: EMPTY_EXPANSION });
-  const expandedBatches = expansion.key === streamKey ? expansion.batches : EMPTY_EXPANSION;
-  const toggleBatch = React.useCallback(
-    (path: string, expanded: boolean) => {
-      setExpansion((previous) => ({
-        key: streamKey,
-        batches: {
-          ...(previous.key === streamKey ? previous.batches : EMPTY_EXPANSION),
-          [path]: expanded,
-        },
-      }));
-    },
-    [streamKey],
+  // The style follows the graph viewer's controlled and reactive contract: the
+  // prop's resolution is adopted whenever it changes, and the menu changes the
+  // style in between. Derived during render, so a new prop never draws a frame
+  // in the old style.
+  const externalStyle = resolveTimelineStyle(timelineStyle);
+  const [styleState, setStyleState] = React.useState({
+    external: externalStyle,
+    active: externalStyle,
+  });
+  if (styleState.external !== externalStyle) {
+    setStyleState({ external: externalStyle, active: externalStyle });
+  }
+  const activeStyle = styleState.external === externalStyle ? styleState.active : externalStyle;
+  const onTimelineStyleChangeRef = React.useRef(onTimelineStyleChange);
+  onTimelineStyleChangeRef.current = onTimelineStyleChange;
+  const reportedStyleRef = React.useRef(activeStyle);
+  React.useEffect(() => {
+    if (reportedStyleRef.current !== activeStyle) {
+      reportedStyleRef.current = activeStyle;
+      onTimelineStyleChangeRef.current?.(activeStyle);
+    }
+  }, [activeStyle]);
+  const styleMenuOptions = React.useMemo(() => resolveTimelineStyleMenu(styleMenu), [styleMenu]);
+  // A choice redraws the view the menu sits in, so the button the reader chose
+  // from is gone: focus goes to the new one, once it is drawn.
+  const menuSlotRef = React.useRef<HTMLDivElement | null>(null);
+  const refocusMenuRef = React.useRef(false);
+  const chooseStyle = React.useCallback((style: TimelineStyleId) => {
+    refocusMenuRef.current = true;
+    setStyleState((state) => ({ ...state, active: style }));
+  }, []);
+  React.useEffect(() => {
+    if (!refocusMenuRef.current) return;
+    refocusMenuRef.current = false;
+    menuSlotRef.current?.querySelector("button")?.focus();
+  }, [styleState]);
+  const headerEnd =
+    styleMenuOptions.length > 0 ? (
+      <TimelineStyleMenu
+        value={activeStyle}
+        options={styleMenuOptions}
+        onChange={chooseStyle}
+        slotRef={menuSlotRef}
+      />
+    ) : null;
+
+  // What every style shares lives above the switch between them, so changing
+  // style never moves the clock back or forgets what the reader opened: the
+  // snapshot's moments, one reading clock ticking as often as the active
+  // style's drawing moves, and each style's expansion.
+  const times = React.useMemo(() => snapshotTimes(held), [held]);
+  const followsClock = React.useMemo(
+    () =>
+      held.invocations.some((invocation) =>
+        barFollowsClock(invocation, times.invocations.get(invocation.path)),
+      ),
+    [held, times],
   );
+  const clock = useReadingClock(held, streamKey, {
+    now,
+    live,
+    followsClock,
+    tickMs: CLOCK_TICK_MS[activeStyle],
+  });
+  const detailedExpansion = useStreamExpansion(streamKey);
+  const simpleExpansion = useStreamExpansion(streamKey);
 
+  // Keyed by style, so a new style fails to compile until it has a view.
+  const views: Record<TimelineStyleId, () => React.ReactElement> = {
+    [TIMELINE_STYLE.SIMPLE]: () => (
+      <SimpleProgressView
+        held={held}
+        stream={streamKey}
+        times={times}
+        nowMs={clock.nowMs}
+        ticking={clock.ticking}
+        expanded={simpleExpansion.expanded}
+        onToggle={simpleExpansion.toggle}
+        pipeRegistry={pipeRegistry}
+        entryPipeRef={entryPipeRef}
+        wideParallelThreshold={wideParallelThreshold}
+        containerClassName={containerClassName}
+        containerStyle={paletteStyle}
+        headerEnd={headerEnd}
+      />
+    ),
+    [TIMELINE_STYLE.DETAILED]: () => (
+      <DetailedTimeline
+        held={held}
+        times={times}
+        nowMs={clock.nowMs}
+        ticking={clock.ticking}
+        expandedBatches={detailedExpansion.expanded}
+        onToggleBatch={detailedExpansion.toggle}
+        wideBatchThreshold={wideBatchThreshold}
+        containerClassName={containerClassName}
+        containerStyle={paletteStyle}
+        headerEnd={headerEnd}
+      />
+    ),
+  };
+  return views[activeStyle]();
+}
+
+/** What `RunTimeline` hands the detailed style: the snapshot it holds, the reading clock and the reader's expansion, which every style shares, and its own props. */
+interface DetailedTimelineProps {
+  held: ProgressSnapshot;
+  times: SnapshotTimes;
+  /** The reading clock, and whether it ticks on its own. */
+  nowMs: number | null;
+  ticking: boolean;
+  /** The batches the reader opened or closed, by path. */
+  expandedBatches: Readonly<Record<string, boolean>>;
+  onToggleBatch: (path: string, expanded: boolean) => void;
+  wideBatchThreshold: number | undefined;
+  containerClassName: string;
+  containerStyle: React.CSSProperties;
+  /** What `RunTimeline` puts at the end of the header: the style menu, when shown. */
+  headerEnd: React.ReactNode;
+}
+
+/** The detailed style: every invocation as a row with its bar on the shared axis. */
+function DetailedTimeline({
+  held,
+  times,
+  nowMs,
+  ticking,
+  expandedBatches,
+  onToggleBatch: toggleBatch,
+  wideBatchThreshold,
+  containerClassName,
+  containerStyle,
+  headerEnd,
+}: DetailedTimelineProps) {
   const rows = React.useMemo(
     () => buildTimelineRows(held, { expandedBatches, wideBatchThreshold }),
     [held, expandedBatches, wideBatchThreshold],
   );
-  // Every timestamp of the snapshot, parsed once: the clock's ticks redraw from these.
-  const times = React.useMemo(() => snapshotTimes(held), [held]);
   const drawnRows = React.useMemo(
     () =>
       rows.map((row) => {
@@ -518,9 +627,6 @@ export function RunTimeline({
       }),
     [rows, times],
   );
-  // A bar that follows the clock has started, so whenever one does there is an axis too.
-  const clockFollowed = drawnRows.some((drawn) => drawn.followsClock);
-  const { nowMs, ticking } = useReadingClock(held, streamKey, now, live, clockFollowed);
   const axis = timelineWindowAt(times, nowMs);
   const [axisTrackRef, tickBudget] = useTickBudget();
   const ticks = axis ? timelineTicks(axis, tickBudget) : [];
@@ -528,19 +634,14 @@ export function RunTimeline({
     ? ({ [AXIS_SPAN_VAR]: cssNumber(axis.endMs - axis.startMs) } as React.CSSProperties)
     : undefined;
 
-  const containerClasses = [
-    "mthds-run-timeline",
-    `mthds-run-timeline--${resolvedTheme}`,
-    ticking && "mthds-run-timeline--self-clocked",
-    className,
-  ]
+  const containerClasses = [containerClassName, ticking && "mthds-run-timeline--self-clocked"]
     .filter(Boolean)
     .join(" ");
 
   return (
     <section
       className={containerClasses}
-      style={paletteStyle}
+      style={containerStyle}
       aria-label="Run progress"
       data-run-status={held.status}
       data-version={held.version}
@@ -558,6 +659,7 @@ export function RunTimeline({
         <p className="mthds-run-timeline-summary" aria-live="polite">
           {held.summary}
         </p>
+        {headerEnd}
       </header>
       {held.degradation && (
         <p className="mthds-run-timeline-degradation" role="status">

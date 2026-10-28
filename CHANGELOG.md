@@ -1,5 +1,17 @@
 # Changelog
 
+## [v0.40.0] - 2026-10-28
+
+### Added
+
+- **`RunTimeline` draws in a simple style**: `timelineStyle="simple"` draws a run as a checklist of its steps in the method's own words, for a reader who did not write the method: titled from the registry of the method's pipes the host passes as `pipeRegistry`, the steps not reached yet listed from it (from the start with `entryPipeRef`), each batch as one line with a bar and its counts, decisions with the outcome they took, retries and stuck work as plain phrases, a failure's problem on the line holding it, and a live region announcing what changed; `detailed` stays the default, so no host sees a change until it opts in. `styleMenu` shows a style menu in the header and `onTimelineStyleChange` reports the reader's choice, `timelineStyle` being reactive as `GraphViewer`'s `graphStyle` is, and `wideParallelThreshold` sets when a wide parallel folds its finished branches. See [docs/timeline-styles.md](docs/timeline-styles.md).
+- **Timeline styles and the simple style's projection**: `./timeline` exports the registry of the run timeline's styles, `TIMELINE_STYLES` with `TIMELINE_STYLE`, `TIMELINE_STYLE_IDS`, `DEFAULT_TIMELINE_STYLE`, `resolveTimelineStyle` and `resolveTimelineStyleMenu`, and `buildSimpleProgress`, which reads a snapshot as the simple style's checklist as data, never as a sentence, with `simpleProgressChanges`, what changed between two readings; `buildInvocationTree` gives a snapshot's invocations as the tree their paths make. `./graph` exports `pipeTitle`, a pipe's title from its description or its code, and `humanizeInSentence`, an identifier as words inside a sentence.
+- **`StyleMenu.css`**: the graph viewer's style menu has a stylesheet of its own, `@pipelex/mthds-ui/graph/react/viewer/StyleMenu.css`, imported by both React entries, where its rules were part of `GraphToolbar.css`. A host that copies the toolbar's stylesheet by hand copies this one too.
+
+### Fixed
+
+- **`last_failure` is a problem document (Breaking)**: an invocation's `last_failure` in `./timeline` is `{ problem, at }`, `problem` being the MTHDS problem document in the caller's view, typed as `Problem` from `mthds/errors`, as the progress contract now defines it, where it was `{ message, at }`. `RunTimeline`'s row tooltip shows the problem's title and detail, where it read "Last failure: undefined" against a snapshot of the current contract, and a host that builds snapshots itself writes the problem instead of a message.
+
 ## [v0.39.0] - 2026-10-24
 
 ### Changed

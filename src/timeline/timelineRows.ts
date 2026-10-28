@@ -8,10 +8,15 @@ import {
 import {
   PATH_SEGMENT_KIND,
   isOrdinalSegment,
-  lastPathSegment,
   parentInvocationPath,
   type PathSegment,
 } from "./invocationPath";
+import {
+  buildInvocationTree,
+  isItemNode,
+  isOutcomeNode,
+  type InvocationTreeNode,
+} from "./invocationTree";
 
 /**
  * A batch holding more items than this starts collapsed into its one row. A
@@ -108,89 +113,31 @@ export interface TimelineRow {
   keptVisible: KeptVisibleReason | null;
 }
 
-interface TreeNode {
-  invocation: ProgressInvocation;
-  order: number;
-  segment: PathSegment | null;
-  parentPath: string | null;
-  children: TreeNode[];
-  /** What a collapsed batch keeps this node in view for, read over its whole subtree. */
-  trouble: KeptVisibleReason | null;
-}
+type TreeNode = InvocationTreeNode;
 
-function compareSiblings(a: TreeNode, b: TreeNode): number {
-  const aOrdinal = isOrdinalSegment(a.segment) ? a.segment.ordinal : null;
-  const bOrdinal = isOrdinalSegment(b.segment) ? b.segment.ordinal : null;
-  if (aOrdinal !== null && bOrdinal !== null && aOrdinal !== bOrdinal) return aOrdinal - bOrdinal;
-  if (aOrdinal !== null && bOrdinal === null) return -1;
-  if (aOrdinal === null && bOrdinal !== null) return 1;
-  return a.order - b.order;
-}
+/** What a collapsed batch keeps each node in view for, read over its whole subtree. */
+type TroubleMap = Map<TreeNode, KeptVisibleReason | null>;
 
 /**
- * The snapshot's invocations as a tree, each under its nearest ancestor the
- * snapshot holds. A whole-run snapshot holds every ancestor, so this is its
- * path tree; a snapshot of part of a run starts at its `root_path`, and an
- * invocation whose parent is missing still nests under what is there rather
- * than being lost. Children are ordered by the number in their segment, and
- * outcome groups, which carry none, keep the snapshot's order, the order they
- * started in. A path the snapshot lists twice keeps its first entry.
- */
-function buildTree(snapshot: ProgressSnapshot): TreeNode[] {
-  const byPath = new Map<string, TreeNode>();
-  snapshot.invocations.forEach((invocation, order) => {
-    if (byPath.has(invocation.path)) return;
-    byPath.set(invocation.path, {
-      invocation,
-      order,
-      segment: lastPathSegment(invocation.path),
-      parentPath: null,
-      children: [],
-      trouble: null,
-    });
-  });
-
-  const roots: TreeNode[] = [];
-  for (const node of byPath.values()) {
-    let ancestor = parentInvocationPath(node.invocation.path);
-    while (ancestor !== null && !byPath.has(ancestor)) ancestor = parentInvocationPath(ancestor);
-    const parent = ancestor === null ? undefined : byPath.get(ancestor);
-    if (parent) {
-      node.parentPath = parent.invocation.path;
-      parent.children.push(node);
-    } else {
-      roots.push(node);
-    }
-  }
-  for (const node of byPath.values()) node.children.sort(compareSiblings);
-  roots.sort((a, b) => a.order - b.order);
-  for (const root of roots) markTrouble(root);
-  return roots;
-}
-
-/**
- * Sets each node's `trouble` from its whole subtree, bottom-up, once per tree:
- * failed when any invocation in it failed, else degraded when any carries
- * `degradation`, else none. Read over the subtree rather than the node alone,
- * so an item of a collapsed batch stays in view for a failure or a stuck
+ * Records each node's trouble from its whole subtree, bottom-up, once per
+ * tree: failed when any invocation in it failed, else degraded when any
+ * carries `degradation`, else none. Read over the subtree rather than the node
+ * alone, so an item of a collapsed batch stays in view for a failure or a stuck
  * invocation however deep beneath it, inside a nested batch included.
  */
-function markTrouble(node: TreeNode): KeptVisibleReason | null {
+function markTrouble(node: TreeNode, trouble: TroubleMap): KeptVisibleReason | null {
   let failed = node.invocation.status === INVOCATION_STATUS.FAILED;
   let degraded = node.invocation.degradation !== undefined;
   for (const child of node.children) {
-    const reason = markTrouble(child);
+    const reason = markTrouble(child, trouble);
     if (reason === KEPT_VISIBLE_REASON.FAILED) failed = true;
     if (reason === KEPT_VISIBLE_REASON.DEGRADED) degraded = true;
   }
-  if (failed) node.trouble = KEPT_VISIBLE_REASON.FAILED;
-  else if (degraded) node.trouble = KEPT_VISIBLE_REASON.DEGRADED;
-  else node.trouble = null;
-  return node.trouble;
-}
-
-function isItemNode(node: TreeNode): boolean {
-  return node.segment?.kind === PATH_SEGMENT_KIND.ITEM;
+  let reason: KeptVisibleReason | null = null;
+  if (failed) reason = KEPT_VISIBLE_REASON.FAILED;
+  else if (degraded) reason = KEPT_VISIBLE_REASON.DEGRADED;
+  trouble.set(node, reason);
+  return reason;
 }
 
 function placeLabelOf(
@@ -221,13 +168,7 @@ function outcomeOf(node: TreeNode, parent: TreeNode | null): TimelineOutcome | n
     return null;
   }
   const resolution = parent?.invocation.condition;
-  const outcomeSiblings = parent
-    ? parent.children.filter(
-        (child) =>
-          child.segment?.kind === PATH_SEGMENT_KIND.OUTCOME ||
-          child.segment?.kind === PATH_SEGMENT_KIND.DEFAULT,
-      ).length
-    : 0;
+  const outcomeSiblings = parent ? parent.children.filter(isOutcomeNode).length : 0;
   // A resolved condition ran one outcome group, so its one branch is the
   // outcome it took. Several branches under a resolution contradict that, and
   // then no branch can be told to be the chosen one: each keeps its path's name.
@@ -280,6 +221,10 @@ export function buildTimelineRows(
   const threshold = options.wideBatchThreshold ?? DEFAULT_WIDE_BATCH_THRESHOLD;
   const expandedBatches = options.expandedBatches ?? {};
   const rows: TimelineRow[] = [];
+  const roots = buildInvocationTree(snapshot);
+  const trouble: TroubleMap = new Map();
+  for (const root of roots) markTrouble(root, trouble);
+  const troubleOf = (node: TreeNode) => trouble.get(node) ?? null;
 
   const visit = (
     node: TreeNode,
@@ -296,7 +241,7 @@ export function buildTimelineRows(
       const total = invocation.batch?.total ?? items.length;
       const wide = total > threshold;
       expanded = expandedBatches[invocation.path] ?? !wide;
-      const keptCount = expanded ? 0 : items.filter((item) => item.trouble !== null).length;
+      const keptCount = expanded ? 0 : items.filter((item) => troubleOf(item) !== null).length;
       batch = {
         counts: invocation.batch ?? null,
         total,
@@ -329,10 +274,11 @@ export function buildTimelineRows(
         visit(child, node, depth + 1, null);
         continue;
       }
-      if (child.trouble) visit(child, node, depth + 1, child.trouble);
+      const reason = troubleOf(child);
+      if (reason) visit(child, node, depth + 1, reason);
     }
   };
 
-  for (const root of buildTree(snapshot)) visit(root, null, 0, null);
+  for (const root of roots) visit(root, null, 0, null);
   return rows;
 }

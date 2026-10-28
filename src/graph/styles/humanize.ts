@@ -182,6 +182,34 @@ export function sentenceCase(text: string): string {
   return capitalizeFirst(trimmed);
 }
 
+/**
+ * A pipe's title in plain words: its authored description as a title
+ * (`sentenceCase`), or its humanized code when it has none. The simple graph
+ * style titles its steps this way, and the simple timeline style its lines, so
+ * a step reads the same in both. `fromDescription` says which it was.
+ */
+export function pipeTitle(
+  description: string | null | undefined,
+  pipeCode: string,
+): { title: string; fromDescription: boolean } {
+  const described = sentenceCase(description ?? "");
+  if (described) return { title: described, fromDescription: true };
+  return { title: humanizeIdentifier(pipeCode), fromDescription: false };
+}
+
+/**
+ * An identifier as words inside a sentence: `humanizeIdentifier`'s words with
+ * their first letter in lower case, unless the first word is an acronym
+ * (`filing` → "filing", `cv_file` → "CV file").
+ */
+export function humanizeInSentence(identifier: string): string {
+  const words = humanizeIdentifier(identifier);
+  const first = words.split(" ")[0] ?? "";
+  return first.length >= 2 && first === first.toUpperCase()
+    ? words
+    : words.charAt(0).toLowerCase() + words.slice(1);
+}
+
 /** The outcome names that read better as other words: a yes-or-no test's, and the default. */
 const OUTCOME_WORDS: Readonly<Record<string, string>> = {
   true: "Yes",

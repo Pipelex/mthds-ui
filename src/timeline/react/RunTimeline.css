@@ -434,6 +434,54 @@
   border: 0;
 }
 
+/* ─── The header's style menu ───────────────────────────────────────────── */
+/* The list is the graph viewer's (`StyleMenu.css`); the button is drawn     */
+/* here, in the header's own vocabulary.                                     */
+
+.mthds-run-timeline-header-end {
+  margin-left: auto;
+}
+
+.mthds-run-timeline-style-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 1px solid var(--border-default);
+  border-radius: 6px;
+  background: var(--surface-sunken);
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.mthds-run-timeline-style-btn:hover,
+.mthds-run-timeline-style-btn--open {
+  border-color: var(--border-strong);
+  background: var(--surface-elevated-hover);
+  color: var(--text-primary);
+}
+
+.mthds-run-timeline-style-btn:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 1px;
+}
+
+/* On a phone the button is a 44×44 target, as the graph toolbar's are. */
+@media (max-width: 639.98px) {
+  .mthds-run-timeline-style-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+  }
+
+  .mthds-run-timeline-style-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
 /* ─── Narrow: each row on two lines, its bar across the whole width ───────── */
 
 @container mthds-run-timeline (max-width: 560px) {
