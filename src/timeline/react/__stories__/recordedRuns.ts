@@ -9,7 +9,13 @@
  * the example exactly, which `recordedRuns.test.ts` checks. `WIDE_BATCH_RUN`
  * reviews twenty-four filings, so its batch is wide; its condition takes its
  * default outcome, one item is skipped, and one item's step fails after its
- * work was tried three times, which fails the run.
+ * work was tried three times, which fails the run. `VET_COMPANY_RUN` vets a
+ * company: a sequence whose first step is a binding, a parallel of eight
+ * sources, a batch over a dotted `batch_over`, and a chain of sequences four
+ * levels deep.
+ *
+ * The methods they ran are written beside them, in `methods/`, and
+ * `methodRegistries.ts` builds their pipe registries with the static builder.
  */
 import type { Problem } from "mthds/errors";
 import type { ProgressSnapshot } from "@timeline/progressSnapshot";
@@ -610,4 +616,219 @@ export const WIDE_BATCH_RUN: RecordedRun = {
 /** The wide run's successive snapshots, from before it starts to its failure. */
 export const WIDE_BATCH_SNAPSHOTS: ProgressSnapshot[] = recordedSnapshots(WIDE_BATCH_RUN, [
   clockAfterTen(0),
+]);
+
+// ─── A wide parallel, a binding step and deep nesting ────────────────────────
+
+const diligencePipe = (code: string, type: string): RecordedPipe => ({
+  code,
+  ref: `diligence.${code}`,
+  type,
+});
+
+const VET_COMPANY = diligencePipe("vet_company", "PipeSequence");
+const GATHER_SOURCES = diligencePipe("gather_sources", "PipeParallel");
+/** The eight sources `gather_sources` reads at the same time, in branch order. */
+const SOURCE_PIPES = [
+  "search_register",
+  "search_court_records",
+  "search_sanctions",
+  "search_news",
+  "review_accounts",
+  "check_directors",
+  "trace_ownership",
+  "check_licences",
+].map((code) => diligencePipe(code, "PipeLLM"));
+const COMPILE_DOSSIER = diligencePipe("compile_dossier", "PipeLLM");
+const VERIFY_CLAIM_BATCH = diligencePipe("verify_claim_batch", "PipeBatch");
+const VERIFY_CLAIM = diligencePipe("verify_claim", "PipeLLM");
+const WEIGH_RISKS = diligencePipe("weigh_risks", "PipeSequence");
+const ASSESS_EXPOSURE = diligencePipe("assess_exposure", "PipeSequence");
+const MODEL_SCENARIOS = diligencePipe("model_scenarios", "PipeSequence");
+const DRAFT_SCENARIOS = diligencePipe("draft_scenarios", "PipeLLM");
+const STRESS_TEST = diligencePipe("stress_test", "PipeSequence");
+const RUN_STRESS_CASE = diligencePipe("run_stress_case", "PipeLLM");
+const RANK_SCENARIOS = diligencePipe("rank_scenarios", "PipeLLM");
+const SUMMARIZE_EXPOSURE = diligencePipe("summarize_exposure", "PipeLLM");
+const RATE_RISK = diligencePipe("rate_risk", "PipeLLM");
+const WRITE_MEMO = diligencePipe("write_memo", "PipeCompose");
+
+const VET_ROOT = "diligence.vet_company";
+// Step 1 is the binding of the company's name, which runs no pipe, so no
+// invocation has its path. The dotted `batch_over` of step 4 is bound by a
+// binding the runtime writes, which takes no number.
+const VET_SOURCES = `${VET_ROOT}/step_2`;
+const VET_CLAIMS = `${VET_ROOT}/step_4`;
+const VET_RISKS = `${VET_ROOT}/step_5`;
+const VET_EXPOSURE = `${VET_RISKS}/step_1`;
+const VET_SCENARIOS = `${VET_EXPOSURE}/step_1`;
+const VET_STRESS = `${VET_SCENARIOS}/step_2`;
+
+/** A clock time `offsetMs` after 14:00 on the recording's day. */
+function clockAfterTwo(offsetMs: number): string {
+  return `14${clockAfterTen(offsetMs).slice(2)}`;
+}
+
+const SOURCE_DURATIONS = [3_200, 5_400, 2_600, 9_800, 4_100, 6_900, 12_500, 3_900];
+const SOURCES_START = 150;
+const SOURCE_TIMES = SOURCE_DURATIONS.map((duration, index) => {
+  const start = SOURCES_START + 20 + index * 12;
+  return { start, end: start + duration };
+});
+const SOURCES_END = Math.max(...SOURCE_TIMES.map((times) => times.end)) + 20;
+/** `search_news`, whose call failed once and was tried again. */
+const RETRIED_SOURCE = 4;
+const RETRIED_SOURCE_FAILED_AT = SOURCE_TIMES[RETRIED_SOURCE - 1].start + 4_300;
+
+const DOSSIER_START = SOURCES_END + 30;
+const DOSSIER_END = DOSSIER_START + 7_400;
+
+const CLAIM_COUNT = 12;
+const CLAIM_CONCURRENCY = 4;
+const CLAIMS_START = DOSSIER_END + 30;
+const CLAIM_TIMES = (() => {
+  const times: { start: number; end: number }[] = [];
+  for (let item = 1; item <= CLAIM_COUNT; item += 1) {
+    const start =
+      item <= CLAIM_CONCURRENCY
+        ? CLAIMS_START + 40 + (item - 1) * 30
+        : times[item - 1 - CLAIM_CONCURRENCY].end + 25;
+    times.push({ start, end: start + 3_000 + ((item * 1_373) % 2_500) });
+  }
+  return times;
+})();
+const CLAIMS_END = Math.max(...CLAIM_TIMES.map((times) => times.end)) + 20;
+
+/** The chain of steps four levels down, each starting as the one before it ends. */
+const DEEP_STEPS: { path: string; pipe: RecordedPipe; duration: number }[] = [
+  { path: `${VET_SCENARIOS}/step_1`, pipe: DRAFT_SCENARIOS, duration: 6_200 },
+  { path: `${VET_STRESS}/step_1`, pipe: RUN_STRESS_CASE, duration: 8_800 },
+  { path: `${VET_STRESS}/step_2`, pipe: RANK_SCENARIOS, duration: 4_300 },
+  { path: `${VET_EXPOSURE}/step_2`, pipe: SUMMARIZE_EXPOSURE, duration: 3_600 },
+  { path: `${VET_RISKS}/step_2`, pipe: RATE_RISK, duration: 2_900 },
+];
+const RISKS_START = CLAIMS_END + 30;
+const DEEP_TIMES = (() => {
+  let cursor = RISKS_START + 60;
+  return DEEP_STEPS.map((step) => {
+    const start = cursor;
+    cursor = start + step.duration + 40;
+    return { ...step, start, end: start + step.duration };
+  });
+})();
+const deepEnd = (path: string) => DEEP_TIMES.find((step) => step.path === path)?.end ?? 0;
+const RISKS_END = DEEP_TIMES[DEEP_TIMES.length - 1].end + 20;
+const MEMO_START = RISKS_END + 30;
+const MEMO_END = MEMO_START + 1_800;
+
+/** `diligence.vet_company` over a company whose sources make twelve claims. */
+export const VET_COMPANY_RUN: RecordedRun = {
+  pipelineRunId: "run_V3tC0m",
+  mode: "live",
+  day: "2026-10-12",
+  invocations: [
+    {
+      path: VET_ROOT,
+      pipe: VET_COMPANY,
+      stepCount: 6,
+      startedAt: clockAfterTwo(100),
+      endedAt: clockAfterTwo(MEMO_END + 20),
+    },
+    {
+      path: VET_SOURCES,
+      pipe: GATHER_SOURCES,
+      branchCount: SOURCE_PIPES.length,
+      startedAt: clockAfterTwo(SOURCES_START),
+      endedAt: clockAfterTwo(SOURCES_END),
+    },
+    ...SOURCE_PIPES.map((pipe, index) => ({
+      path: `${VET_SOURCES}/branch_${index + 1}`,
+      pipe,
+      startedAt: clockAfterTwo(SOURCE_TIMES[index].start),
+      endedAt: clockAfterTwo(SOURCE_TIMES[index].end),
+    })),
+    {
+      path: `${VET_ROOT}/step_3`,
+      pipe: COMPILE_DOSSIER,
+      startedAt: clockAfterTwo(DOSSIER_START),
+      endedAt: clockAfterTwo(DOSSIER_END),
+    },
+    {
+      path: VET_CLAIMS,
+      pipe: VERIFY_CLAIM_BATCH,
+      startedAt: clockAfterTwo(CLAIMS_START),
+      endedAt: clockAfterTwo(CLAIMS_END),
+      fanOut: { at: clockAfterTwo(CLAIMS_START + 10), itemCount: CLAIM_COUNT },
+    },
+    ...CLAIM_TIMES.map(({ start, end }, index) => ({
+      path: `${VET_CLAIMS}/item_${index + 1}`,
+      pipe: VERIFY_CLAIM,
+      startedAt: clockAfterTwo(start),
+      endedAt: clockAfterTwo(end),
+    })),
+    {
+      path: VET_RISKS,
+      pipe: WEIGH_RISKS,
+      stepCount: 2,
+      startedAt: clockAfterTwo(RISKS_START),
+      endedAt: clockAfterTwo(RISKS_END),
+    },
+    {
+      path: VET_EXPOSURE,
+      pipe: ASSESS_EXPOSURE,
+      stepCount: 2,
+      startedAt: clockAfterTwo(RISKS_START + 20),
+      endedAt: clockAfterTwo(deepEnd(`${VET_EXPOSURE}/step_2`) + 10),
+    },
+    {
+      path: VET_SCENARIOS,
+      pipe: MODEL_SCENARIOS,
+      stepCount: 2,
+      startedAt: clockAfterTwo(RISKS_START + 40),
+      endedAt: clockAfterTwo(deepEnd(`${VET_STRESS}/step_2`) + 15),
+    },
+    ...DEEP_TIMES.flatMap(({ path, pipe, start, end }) => {
+      const step: RecordedInvocation = {
+        path,
+        pipe,
+        startedAt: clockAfterTwo(start),
+        endedAt: clockAfterTwo(end),
+      };
+      if (path !== `${VET_STRESS}/step_1`) return [step];
+      // The stress test is a sequence of its own, four levels down.
+      const stressTest: RecordedInvocation = {
+        path: VET_STRESS,
+        pipe: STRESS_TEST,
+        stepCount: 2,
+        startedAt: clockAfterTwo(start - 20),
+        endedAt: clockAfterTwo(deepEnd(`${VET_STRESS}/step_2`) + 10),
+      };
+      return [stressTest, step];
+    }),
+    {
+      path: `${VET_ROOT}/step_6`,
+      pipe: WRITE_MEMO,
+      startedAt: clockAfterTwo(MEMO_START),
+      endedAt: clockAfterTwo(MEMO_END),
+    },
+  ],
+  health: [
+    {
+      path: `${VET_SOURCES}/branch_${RETRIED_SOURCE}`,
+      from: clockAfterTwo(RETRIED_SOURCE_FAILED_AT),
+      until: clockAfterTwo(SOURCE_TIMES[RETRIED_SOURCE - 1].end),
+      attempts: 2,
+      lastFailure: { problem: ENGINE_RETRY_PROBLEM, at: clockAfterTwo(RETRIED_SOURCE_FAILED_AT) },
+    },
+    {
+      path: `${VET_SOURCES}/branch_${RETRIED_SOURCE}`,
+      from: clockAfterTwo(SOURCE_TIMES[RETRIED_SOURCE - 1].end),
+      attempts: 2,
+    },
+  ],
+};
+
+/** The vetting run's successive snapshots, from before it starts to its end. */
+export const VET_COMPANY_SNAPSHOTS: ProgressSnapshot[] = recordedSnapshots(VET_COMPANY_RUN, [
+  clockAfterTwo(0),
 ]);

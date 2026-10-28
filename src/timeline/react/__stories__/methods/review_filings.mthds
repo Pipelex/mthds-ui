@@ -1,0 +1,142 @@
+domain      = "filings"
+description = "Review the filings in a company's document and report on them"
+main_pipe   = "review_filings"
+
+[concept.FilingCheck]
+description = "What a check found in the filings"
+refines     = "Text"
+
+[concept.FilingChecks]
+description = "What the checks found in the filings, as one result"
+
+[concept.FilingChecks.structure]
+figures_check = { type = "concept", concept_ref = "FilingCheck", description = "What the check of the figures found", required = true }
+wording_check = { type = "concept", concept_ref = "FilingCheck", description = "What the check of the wording found", required = true }
+
+[concept.FilingNotes]
+description = "Notes taken while reading one filing"
+refines     = "Text"
+
+[concept.FilingSummary]
+description = "A short summary of one filing"
+refines     = "Text"
+
+[concept.FilingReport]
+description = "The report on every filing of the document"
+refines     = "Text"
+
+[pipe.review_filings]
+type = "PipeSequence"
+description = "Review the filings in a document and report on them"
+inputs = { document = "Document", review_depth = "Text" }
+output = "FilingReport"
+steps = [
+  { pipe = "extract_filings", result = "filings" },
+  { pipe = "choose_depth", result = "checks" },
+  { pipe = "summarize_filing", batch_over = "filings", batch_as = "filing", result = "filing_summaries" },
+  { pipe = "assemble_report", result = "report" },
+]
+
+[pipe.extract_filings]
+type        = "PipeExtract"
+description = "Extract the filings from the document"
+inputs      = { document = "Document" }
+output      = "Page[]"
+
+[pipe.choose_depth]
+type            = "PipeCondition"
+description     = "Decide how deep to check"
+inputs          = { review_depth = "Text", filings = "Page[]" }
+output          = "FilingChecks"
+expression      = "review_depth.text"
+outcomes        = { detailed = "deep_checks", quick = "quick_check" }
+default_outcome = "quick_check"
+
+[pipe.deep_checks]
+type = "PipeParallel"
+description = "Check the filings in depth"
+inputs = { filings = "Page[]" }
+output = "FilingChecks"
+add_each_output = true
+branches = [
+  { pipe = "check_figures", result = "figures_check" },
+  { pipe = "check_wording", result = "wording_check" },
+]
+
+[pipe.check_figures]
+type = "PipeLLM"
+description = "Check the figures"
+inputs = { filings = "Page[]" }
+output = "FilingCheck"
+prompt = """
+Check that the figures in these filings add up:
+
+@filings
+"""
+
+[pipe.check_wording]
+type = "PipeLLM"
+description = "Check the wording"
+inputs = { filings = "Page[]" }
+output = "FilingCheck"
+prompt = """
+Check these filings for wording a regulator would object to:
+
+@filings
+"""
+
+[pipe.quick_check]
+type = "PipeLLM"
+description = "Check the filings quickly"
+inputs = { filings = "Page[]" }
+output = "FilingChecks"
+prompt = """
+Skim these filings and note anything that stands out:
+
+@filings
+"""
+
+[pipe.summarize_filing]
+type = "PipeSequence"
+description = "Summarize a filing"
+inputs = { filing = "Page" }
+output = "FilingSummary"
+steps = [
+  { pipe = "read_filing", result = "filing_notes" },
+  { pipe = "condense_filing", result = "filing_summary" },
+]
+
+[pipe.read_filing]
+type = "PipeLLM"
+description = "Read the filing"
+inputs = { filing = "Page" }
+output = "FilingNotes"
+prompt = """
+Read this filing and take notes on what it declares:
+
+@filing
+"""
+
+[pipe.condense_filing]
+type = "PipeLLM"
+description = "Condense the filing"
+inputs = { filing_notes = "FilingNotes" }
+output = "FilingSummary"
+prompt = """
+Condense these notes into a summary of three sentences:
+
+@filing_notes
+"""
+
+[pipe.assemble_report]
+type = "PipeCompose"
+description = "Assemble the report"
+inputs = { filing_summaries = "FilingSummary[]", checks = "FilingChecks" }
+output = "FilingReport"
+template = """
+# Filings review
+
+@checks
+
+@filing_summaries
+"""
