@@ -305,7 +305,7 @@ function pageSizeOf(requested: number | undefined): number {
 
 /** The page a reader asked for, kept among the batch's pages: the first when none was asked for. */
 function pageIndexOf(requested: number | undefined, count: number): number {
-  if (requested === undefined || !Number.isFinite(requested)) return 0;
+  if (requested === undefined || Number.isNaN(requested)) return 0;
   return Math.min(Math.max(0, Math.floor(requested)), count - 1);
 }
 

@@ -593,6 +593,18 @@ describe("buildTimelineRows — paging", () => {
       batchPages: { [BATCH]: -3 },
     });
     expect(pagerOf(negative)?.batch.page?.index).toBe(0);
+    for (const [requested, index] of [
+      [Number.POSITIVE_INFINITY, 2],
+      [Number.NEGATIVE_INFINITY, 0],
+      [Number.NaN, 0],
+      [1.7, 1],
+    ]) {
+      const entries = buildTimelineRows(wideSnapshot(24), {
+        ...expandedBatch,
+        batchPages: { [BATCH]: requested },
+      });
+      expect(pagerOf(entries)?.batch.page?.index).toBe(index);
+    }
   });
 
   it("keeps a page's range while the batch fans out", () => {
