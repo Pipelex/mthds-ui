@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- **`mthds` ^0.34.0 (Breaking)**: the dependency's range moves from `^0.33.0` to `^0.34.0`, the release that carries the MTHDS standard's v8.0.1 error registry, whose problem titles and next steps are reworded for someone following a run of a method they did not write. A caret below 1.0 does not bridge a minor, so a host still on `mthds` 0.33 gets a second copy nested under this package until it moves to 0.34, and `@pipelex/mthds-form`, which still takes `^0.33.0`, keeps a 0.33 copy for the standard's types it reads; this package reads only the `Problem` type from `mthds/errors`, which did not change. The stories' recorded failed runs now show the v8.0.1 titles and next steps, as a run on that release reports them.
+
 ## [v0.40.0] - 2026-10-28
 
 ### Added
