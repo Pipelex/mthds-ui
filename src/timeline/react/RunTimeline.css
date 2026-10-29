@@ -473,7 +473,10 @@
   cursor: pointer;
 }
 
-.mthds-run-timeline-pager-btn:hover:not([aria-disabled="true"]) {
+/* A jump keeps the colour of its trouble on hover, so the neutral hover skips it. */
+.mthds-run-timeline-pager-btn:hover:not([aria-disabled="true"]):not(
+    .mthds-run-timeline-pager-jump
+  ) {
   border-color: var(--border-strong);
   background: var(--surface-elevated-hover);
   color: var(--text-primary);
@@ -502,6 +505,7 @@
 
 .mthds-run-timeline-pager-jump:hover {
   border-color: currentColor;
+  background: var(--surface-elevated-hover);
 }
 
 .mthds-run-timeline-pager-range,
