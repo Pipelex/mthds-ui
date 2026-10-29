@@ -2,8 +2,13 @@
 
 ## [Unreleased]
 
+### Added
+
+- **`RunTimeline` pages a wide batch's items**: an expanded batch holding more items than `batchPageSize`, ten by default (`DEFAULT_BATCH_PAGE_SIZE`), draws them a page at a time by item number, with a pager row beneath them holding Previous, Next, the range drawn and a jump to the next failed or stuck item off the page, and a collapsed batch keeps at most one page of its failed or stuck items in view, a row beneath them saying how many more there are with a button that opens the batch on the page of the first. The page the reader turns to is remembered per batch, like the expansion, and a new snapshot never moves it. See [docs/run-timeline.md](docs/run-timeline.md).
+
 ### Changed
 
+- **`buildTimelineRows` returns pager entries (Breaking)**: it returns `TimelineEntry[]`, the union of `TimelineRow`, which now carries `kind: "invocation"`, and `TimelineItemPager` (`kind: "pager"`), placed after the last row of a paged batch's items; `isTimelineRow` keeps the rows alone. `TimelineRowsOptions` gains `batchPages` and `batchPageSize`, `TimelineBatch` gains `page`, `nextTrouble` and `troubleNotShown`, and its `hiddenItemCount` now counts the items off the current page too, so a consumer that reads every entry as a row narrows on `kind` first.
 - **`mthds` ^0.34.0 (Breaking)**: the dependency's range moves from `^0.33.0` to `^0.34.0`, the release that carries the MTHDS standard's v8.0.1 error registry, whose problem titles and next steps are reworded for someone following a run of a method they did not write. A caret below 1.0 does not bridge a minor, so a host still on `mthds` 0.33 gets a second copy nested under this package until it moves to 0.34, and `@pipelex/mthds-form`, which still takes `^0.33.0`, keeps a 0.33 copy for the standard's types it reads; this package reads only the `Problem` type from `mthds/errors`, which did not change. The stories' recorded failed runs now show the v8.0.1 titles and next steps, as a run on that release reports them.
 
 ## [v0.40.0] - 2026-10-28

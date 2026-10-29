@@ -45,7 +45,7 @@ import {
   type TimelineWindow,
 } from "@timeline/timelineTime";
 import { useHeldSnapshot, useReadingClock } from "@timeline/react/readingClock";
-import { useStreamRecord } from "@timeline/react/streamExpansion";
+import { useStreamRecord } from "@timeline/react/streamRecord";
 import { SimpleProgressView } from "@timeline/react/styles/simple/SimpleProgressView";
 import { TimelineStyleMenu } from "@timeline/react/TimelineStyleMenu";
 
