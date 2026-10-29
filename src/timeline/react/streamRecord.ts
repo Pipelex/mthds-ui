@@ -28,6 +28,10 @@ export function useStreamRecord<V>(stream: string): StreamRecord<V> {
     stream: string;
     values: Readonly<Record<string, V>>;
   }>({ stream, values: emptyRecord<V>() });
+  if (state.stream !== stream) {
+    // Another stream is drawn: its choices are dropped, not kept for a return to it.
+    setState({ stream, values: emptyRecord<V>() });
+  }
   const set = React.useCallback(
     (key: string, value: V) => {
       setState((previous) => ({
