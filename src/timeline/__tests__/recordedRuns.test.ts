@@ -129,11 +129,22 @@ describe("the recorded runs", () => {
       running: 0,
       failed: 400 - OUTAGE_FIRST_FAILED_ITEM + 1,
     });
-    const firstFailed = `filings.review_filings/step_3/item_${OUTAGE_FIRST_FAILED_ITEM}`;
-    expect(end.invocations.find((each) => each.path === `${firstFailed}/step_1`)?.status).toBe(
-      "failed",
+    const failedItems = end.invocations
+      .filter(
+        (each) =>
+          /^filings\.review_filings\/step_3\/item_\d+$/.test(each.path) && each.status === "failed",
+      )
+      .map((each) => each.path);
+    expect(failedItems).toEqual(
+      Array.from(
+        { length: 400 - OUTAGE_FIRST_FAILED_ITEM + 1 },
+        (_, index) => `filings.review_filings/step_3/item_${OUTAGE_FIRST_FAILED_ITEM + index}`,
+      ),
     );
-    expect(end.invocations.some((each) => each.path === `${firstFailed}/step_2`)).toBe(false);
+    for (const item of failedItems) {
+      expect(end.invocations.find((each) => each.path === `${item}/step_1`)?.status).toBe("failed");
+      expect(end.invocations.some((each) => each.path === `${item}/step_2`)).toBe(false);
+    }
   });
 
   it("write their problems as the standard's builder does", () => {

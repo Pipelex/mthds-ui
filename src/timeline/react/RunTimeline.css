@@ -605,7 +605,7 @@
     min-height: 18px;
   }
 
-  /* The pager's buttons become comfortable touch targets. */
+  /* The pager's buttons grow at narrow width, so they are easier to tap. */
   .mthds-run-timeline-pager-btn {
     padding: 4px 10px;
     line-height: 20px;
