@@ -4,7 +4,17 @@ import {
   WORKED_EXAMPLE_SNAPSHOT,
 } from "@timeline/react/__stories__/recordedRuns";
 import type { ProgressInvocation, ProgressSnapshot } from "../progressSnapshot";
-import { buildTimelineRows, DEFAULT_WIDE_BATCH_THRESHOLD } from "../timelineRows";
+import {
+  buildTimelineRows,
+  DEFAULT_BATCH_PAGE_SIZE,
+  DEFAULT_WIDE_BATCH_THRESHOLD,
+  isTimelineRow,
+  TIMELINE_ENTRY_KIND,
+  type TimelineEntry,
+  type TimelineItemPager,
+  type TimelineRow,
+  type TimelineRowsOptions,
+} from "../timelineRows";
 
 const ROOT = "filings.review_filings";
 const BATCH = `${ROOT}/step_3`;
@@ -42,6 +52,25 @@ function snapshotOf(
   };
 }
 
+/** The invocation rows a snapshot draws, its pagers left out. */
+function rowsOf(snapshot: ProgressSnapshot, options?: TimelineRowsOptions) {
+  return buildTimelineRows(snapshot, options).filter(isTimelineRow);
+}
+
+/** What each entry stands for, in drawing order: a row's path, or `pager:` and its batch's path. */
+function outline(entries: TimelineEntry[]): string[] {
+  return entries.map((entry) =>
+    isTimelineRow(entry) ? entry.path : `${entry.kind}:${entry.batchPath}`,
+  );
+}
+
+function pagerOf(entries: TimelineEntry[], batchPath = BATCH): TimelineItemPager | undefined {
+  return entries.find(
+    (entry): entry is TimelineItemPager =>
+      entry.kind === TIMELINE_ENTRY_KIND.PAGER && entry.batchPath === batchPath,
+  );
+}
+
 /** A batch at step 3 of a four-step sequence, fanned out over `count` items. */
 function batchSnapshot(
   count: number,
@@ -76,7 +105,7 @@ function batchSnapshot(
 }
 
 describe("buildTimelineRows — nesting", () => {
-  const rows = buildTimelineRows(WORKED_EXAMPLE_SNAPSHOT);
+  const rows = rowsOf(WORKED_EXAMPLE_SNAPSHOT);
 
   it("draws one row per invocation, each before its descendants", () => {
     expect(rows.map((row) => row.path)).toEqual(
@@ -105,7 +134,7 @@ describe("buildTimelineRows — nesting", () => {
   });
 
   it("drops the count a parent does not carry", () => {
-    const rowsWithoutCounts = buildTimelineRows(
+    const rowsWithoutCounts = rowsOf(
       snapshotOf([
         invocation(ROOT, "review_filings", { pipe_type: "PipeSequence", status: "running" }),
         invocation(`${ROOT}/step_1`, "extract_filings"),
@@ -115,7 +144,7 @@ describe("buildTimelineRows — nesting", () => {
   });
 
   it("orders children by the number in their segment, whatever the snapshot's order", () => {
-    const shuffled = buildTimelineRows(
+    const shuffled = rowsOf(
       snapshotOf([
         invocation(ROOT, "review_filings", { pipe_type: "PipeSequence", step_count: 12 }),
         invocation(`${ROOT}/step_10`, "tenth"),
@@ -136,7 +165,7 @@ describe("buildTimelineRows — nesting", () => {
   });
 
   it("nests an invocation whose parent is missing under its nearest ancestor", () => {
-    const orphaned = buildTimelineRows(
+    const orphaned = rowsOf(
       snapshotOf([
         invocation(ROOT, "review_filings", { pipe_type: "PipeSequence", step_count: 4 }),
         invocation(`${BATCH}/item_2/step_1`, "read_filing"),
@@ -150,7 +179,7 @@ describe("buildTimelineRows — nesting", () => {
 
   it("draws a snapshot of part of a run from the invocation at its root_path", () => {
     const itemPath = `${BATCH}/item_2`;
-    const part = buildTimelineRows(
+    const part = rowsOf(
       snapshotOf(
         [
           invocation(itemPath, "summarize_filing", { pipe_type: "PipeSequence", step_count: 2 }),
@@ -168,7 +197,7 @@ describe("buildTimelineRows — nesting", () => {
   });
 
   it("keeps the first entry of a path listed twice", () => {
-    const doubled = buildTimelineRows(
+    const doubled = rowsOf(
       snapshotOf([invocation(ROOT, "first_entry"), invocation(ROOT, "second_entry")]),
     );
     expect(doubled.map((row) => row.invocation.pipe_code)).toEqual(["first_entry"]);
@@ -179,7 +208,7 @@ describe("buildTimelineRows — nesting", () => {
   });
 
   it("labels a segment it does not know with the segment itself", () => {
-    const unknown = buildTimelineRows(
+    const unknown = rowsOf(
       snapshotOf([invocation(ROOT, "root"), invocation(`${ROOT}/batch_branch`, "template")]),
     );
     expect(unknown[1].placeLabel).toBe("batch_branch");
@@ -188,7 +217,7 @@ describe("buildTimelineRows — nesting", () => {
 
 describe("buildTimelineRows — conditions", () => {
   it("names the chosen branch by the outcome the condition took", () => {
-    const rows = buildTimelineRows(WORKED_EXAMPLE_SNAPSHOT);
+    const rows = rowsOf(WORKED_EXAMPLE_SNAPSHOT);
     const branch = rows.find((row) => row.path === `${ROOT}/step_2/outcome_detailed`);
     expect(branch?.outcome).toEqual({ key: "detailed", fromResolution: true });
     expect(branch?.placeLabel).toBe("outcome detailed");
@@ -198,15 +227,13 @@ describe("buildTimelineRows — conditions", () => {
     // The default runs the same pipe as the key `quick`, so the path names the
     // group `outcome_quick`, but the outcome the condition took is its default.
     const lastWide = WIDE_BATCH_SNAPSHOTS[WIDE_BATCH_SNAPSHOTS.length - 1];
-    const branch = buildTimelineRows(lastWide).find(
-      (row) => row.path === `${ROOT}/step_2/outcome_quick`,
-    );
+    const branch = rowsOf(lastWide).find((row) => row.path === `${ROOT}/step_2/outcome_quick`);
     expect(branch?.outcome).toEqual({ key: null, fromResolution: true });
     expect(branch?.placeLabel).toBe("default outcome");
   });
 
   it("names the key matched when it is not the first key of its group", () => {
-    const rows = buildTimelineRows(
+    const rows = rowsOf(
       snapshotOf([
         invocation(`${ROOT}`, "triage", {
           pipe_type: "PipeCondition",
@@ -219,7 +246,7 @@ describe("buildTimelineRows — conditions", () => {
   });
 
   it("names each group of a dry run's condition, which resolves none, by its path", () => {
-    const rows = buildTimelineRows(
+    const rows = rowsOf(
       snapshotOf(
         [
           invocation(ROOT, "choose_depth", { pipe_type: "PipeCondition" }),
@@ -239,13 +266,13 @@ describe("buildTimelineRows — conditions", () => {
   });
 
   it("names nothing for a row that is no condition's branch", () => {
-    expect(buildTimelineRows(WORKED_EXAMPLE_SNAPSHOT)[1].outcome).toBeNull();
+    expect(rowsOf(WORKED_EXAMPLE_SNAPSHOT)[1].outcome).toBeNull();
   });
 });
 
 describe("buildTimelineRows — batches", () => {
   it("expands a narrow batch, carrying its counts and its items' strip", () => {
-    const rows = buildTimelineRows(WORKED_EXAMPLE_SNAPSHOT);
+    const rows = rowsOf(WORKED_EXAMPLE_SNAPSHOT);
     const batch = rows.find((row) => row.path === BATCH)?.batch;
     expect(batch).toEqual({
       counts: { total: 3, done: 1, running: 2, failed: 0 },
@@ -256,6 +283,9 @@ describe("buildTimelineRows — batches", () => {
       ],
       wide: false,
       expanded: true,
+      page: null,
+      nextTrouble: null,
+      troubleNotShown: { failed: 0, degraded: 0 },
       hiddenItemCount: 0,
     });
     expect(rows.filter((row) => row.path.startsWith(`${BATCH}/item_`))).toHaveLength(8);
@@ -263,7 +293,7 @@ describe("buildTimelineRows — batches", () => {
 
   it("collapses a wide batch into its one row", () => {
     const wide = batchSnapshot(DEFAULT_WIDE_BATCH_THRESHOLD + 1, () => "running");
-    const rows = buildTimelineRows(wide);
+    const rows = rowsOf(wide);
     expect(rows.map((row) => row.path)).toEqual([ROOT, BATCH]);
     expect(rows[1].batch).toMatchObject({
       counts: { total: 11, done: 0, running: 11, failed: 0 },
@@ -275,9 +305,7 @@ describe("buildTimelineRows — batches", () => {
   });
 
   it("keeps a batch at the threshold narrow", () => {
-    const atThreshold = buildTimelineRows(
-      batchSnapshot(DEFAULT_WIDE_BATCH_THRESHOLD, () => "running"),
-    );
+    const atThreshold = rowsOf(batchSnapshot(DEFAULT_WIDE_BATCH_THRESHOLD, () => "running"));
     expect(atThreshold[1].batch?.wide).toBe(false);
     expect(atThreshold).toHaveLength(DEFAULT_WIDE_BATCH_THRESHOLD + 2);
   });
@@ -289,7 +317,7 @@ describe("buildTimelineRows — batches", () => {
     snapshot.invocations.push(
       invocation(`${BATCH}/item_17/step_2`, "condense_filing", { status: "failed" }),
     );
-    const rows = buildTimelineRows(snapshot);
+    const rows = rowsOf(snapshot);
     expect(rows.map((row) => row.path)).toEqual([
       ROOT,
       BATCH,
@@ -315,7 +343,7 @@ describe("buildTimelineRows — batches", () => {
       failing_since: null,
       ends_at: null,
     };
-    const rows = buildTimelineRows(snapshot);
+    const rows = rowsOf(snapshot);
     expect(rows.map((row) => [row.path, row.keptVisible])).toEqual([
       [ROOT, null],
       [BATCH, null],
@@ -340,7 +368,7 @@ describe("buildTimelineRows — batches", () => {
         },
       }),
     );
-    const rows = buildTimelineRows(snapshot);
+    const rows = rowsOf(snapshot);
     expect(rows.map((row) => [row.path, row.keptVisible])).toEqual([
       [ROOT, null],
       [BATCH, null],
@@ -374,7 +402,7 @@ describe("buildTimelineRows — batches", () => {
       ...nestedItems,
       invocation(`${nested}/item_4/step_1`, "quote_clause", { status: "failed" }),
     );
-    const rows = buildTimelineRows(snapshot);
+    const rows = rowsOf(snapshot);
     expect(rows.map((row) => [row.path, row.keptVisible])).toEqual([
       [ROOT, null],
       [BATCH, null],
@@ -405,20 +433,23 @@ describe("buildTimelineRows — batches", () => {
         },
       }),
     );
-    const rows = buildTimelineRows(snapshot);
+    const rows = rowsOf(snapshot);
     expect(rows.find((row) => row.path === `${BATCH}/item_3`)?.keptVisible).toBe("failed");
     expect(rows.filter((row) => row.keptVisible)).toHaveLength(1);
   });
 
   it("follows what the reader expanded and collapsed", () => {
-    const wide = batchSnapshot(30, () => "succeeded");
-    const expanded = buildTimelineRows(wide, { expandedBatches: { [BATCH]: true } });
-    expect(expanded).toHaveLength(32);
+    const wide = batchSnapshot(DEFAULT_BATCH_PAGE_SIZE, () => "succeeded");
+    const expanded = rowsOf(wide, {
+      expandedBatches: { [BATCH]: true },
+      wideBatchThreshold: DEFAULT_BATCH_PAGE_SIZE - 1,
+    });
+    expect(expanded).toHaveLength(DEFAULT_BATCH_PAGE_SIZE + 2);
     expect(expanded[1].batch).toMatchObject({ wide: true, expanded: true, hiddenItemCount: 0 });
 
     // Collapsed, the worked example's batch keeps only item 3 in view, the
     // item its run is stuck at, with the step under it.
-    const narrow = buildTimelineRows(WORKED_EXAMPLE_SNAPSHOT, {
+    const narrow = rowsOf(WORKED_EXAMPLE_SNAPSHOT, {
       expandedBatches: { [BATCH]: false },
     });
     expect(narrow.filter((row) => row.path.startsWith(`${BATCH}/`)).map((row) => row.path)).toEqual(
@@ -428,7 +459,7 @@ describe("buildTimelineRows — batches", () => {
   });
 
   it("takes the wide threshold from its options", () => {
-    const rows = buildTimelineRows(WORKED_EXAMPLE_SNAPSHOT, { wideBatchThreshold: 2 });
+    const rows = rowsOf(WORKED_EXAMPLE_SNAPSHOT, { wideBatchThreshold: 2 });
     expect(rows.find((row) => row.path === BATCH)?.batch).toMatchObject({
       wide: true,
       expanded: false,
@@ -439,7 +470,7 @@ describe("buildTimelineRows — batches", () => {
     // The counts are the contract's, and `total − done − running − failed`
     // counts the items neither running nor ended by their own event.
     const scheduled = batchSnapshot(4, (item) => (item === 1 ? "running" : "scheduled"));
-    const batch = buildTimelineRows(scheduled)[1].batch;
+    const batch = rowsOf(scheduled)[1].batch;
     expect(batch?.counts).toEqual({ total: 4, done: 0, running: 1, failed: 0 });
     expect(batch?.strip).toEqual([
       { status: "running", firstItem: 1, count: 1 },
@@ -448,7 +479,7 @@ describe("buildTimelineRows — batches", () => {
   });
 
   it("treats a parent of item rows as a batch even before it carries counts", () => {
-    const rows = buildTimelineRows(
+    const rows = rowsOf(
       snapshotOf([
         invocation(BATCH, "summarize_filing_batch", { pipe_type: "PipeBatch", status: "running" }),
         invocation(`${BATCH}/item_1`, "summarize_filing", { status: "running" }),
@@ -470,7 +501,7 @@ describe("buildTimelineRows — batches", () => {
 
   it("collapses the wide recorded batch, keeping its failed item in view", () => {
     const last = WIDE_BATCH_SNAPSHOTS[WIDE_BATCH_SNAPSHOTS.length - 1];
-    const rows = buildTimelineRows(last);
+    const rows = rowsOf(last);
     const batch = rows.find((row) => row.path === BATCH);
     expect(batch?.batch).toMatchObject({
       counts: { total: 24, done: 23, running: 0, failed: 1 },
@@ -481,5 +512,290 @@ describe("buildTimelineRows — batches", () => {
     expect(rows.filter((row) => row.keptVisible).map((row) => row.path)).toEqual([
       `${BATCH}/item_9`,
     ]);
+  });
+});
+
+describe("buildTimelineRows — paging", () => {
+  const STEP_4 = `${ROOT}/step_4`;
+  const expandedBatch = { expandedBatches: { [BATCH]: true } };
+  const items = (from: number, to: number) =>
+    Array.from({ length: to - from + 1 }, (_, index) => `${BATCH}/item_${from + index}`);
+  const stuck = (message: string) => ({
+    reason: "workflow_task_failing" as const,
+    message,
+    failed_attempts: null,
+    failing_since: null,
+    ends_at: null,
+  });
+  /** A wide batch of `count` items, each with the given status, and the sequence's step 4 after it. */
+  function wideSnapshot(
+    count: number,
+    itemStatus: (item: number) => ProgressInvocation["status"] = () => "succeeded",
+  ): ProgressSnapshot {
+    const snapshot = batchSnapshot(count, itemStatus);
+    snapshot.invocations.push(invocation(STEP_4, "publish_digest", { status: "running" }));
+    return snapshot;
+  }
+
+  it("draws no pager for an expanded batch that fits on one page", () => {
+    const entries = buildTimelineRows(wideSnapshot(DEFAULT_BATCH_PAGE_SIZE), {
+      ...expandedBatch,
+      wideBatchThreshold: 1,
+    });
+    expect(pagerOf(entries)).toBeUndefined();
+    expect(outline(entries)).toEqual([ROOT, BATCH, ...items(1, DEFAULT_BATCH_PAGE_SIZE), STEP_4]);
+    expect(rowsOf(wideSnapshot(DEFAULT_BATCH_PAGE_SIZE))[1].batch?.page).toBeNull();
+  });
+
+  it("draws the first page of a wide expanded batch, then its pager", () => {
+    const entries = buildTimelineRows(wideSnapshot(400), expandedBatch);
+    expect(outline(entries)).toEqual([ROOT, BATCH, ...items(1, 10), `pager:${BATCH}`, STEP_4]);
+    const pager = pagerOf(entries);
+    expect(pager).toMatchObject({ batchPath: BATCH, pipeCode: "summarize_filing_batch", depth: 2 });
+    expect(pager?.batch).toMatchObject({
+      expanded: true,
+      page: { index: 0, count: 40, firstItem: 1, lastItem: 10 },
+      nextTrouble: null,
+      hiddenItemCount: 390,
+    });
+    // The pager carries the batch its row carries.
+    expect(pager?.batch).toBe((entries[1] as TimelineRow).batch);
+  });
+
+  it("draws a later page the reader turned to", () => {
+    const entries = buildTimelineRows(wideSnapshot(400), {
+      ...expandedBatch,
+      batchPages: { [BATCH]: 1 },
+    });
+    expect(outline(entries)).toEqual([ROOT, BATCH, ...items(11, 20), `pager:${BATCH}`, STEP_4]);
+    expect(pagerOf(entries)?.batch.page).toEqual({
+      index: 1,
+      count: 40,
+      firstItem: 11,
+      lastItem: 20,
+    });
+  });
+
+  it("draws the last page for an index past it, and its range stops at the last item", () => {
+    const entries = buildTimelineRows(wideSnapshot(24), {
+      ...expandedBatch,
+      batchPages: { [BATCH]: 9 },
+    });
+    expect(outline(entries)).toEqual([ROOT, BATCH, ...items(21, 24), `pager:${BATCH}`, STEP_4]);
+    expect(pagerOf(entries)?.batch.page).toEqual({
+      index: 2,
+      count: 3,
+      firstItem: 21,
+      lastItem: 24,
+    });
+    const negative = buildTimelineRows(wideSnapshot(24), {
+      ...expandedBatch,
+      batchPages: { [BATCH]: -3 },
+    });
+    expect(pagerOf(negative)?.batch.page?.index).toBe(0);
+  });
+
+  it("keeps a page's range while the batch fans out", () => {
+    // Early on, only items 1 to 14 have started; item 9 has not reached the snapshot.
+    const early = batchSnapshot(400, () => "running");
+    early.invocations = early.invocations.filter((each) => {
+      const match = /item_(\d+)$/.exec(each.path);
+      if (!match) return true;
+      const number = Number(match[1]);
+      return number <= 14 && number !== 9;
+    });
+    const options = { ...expandedBatch, batchPages: { [BATCH]: 0 } };
+    const earlyEntries = buildTimelineRows(early, options);
+    expect(outline(earlyEntries)).toEqual([
+      ROOT,
+      BATCH,
+      ...items(1, 8),
+      ...items(10, 10),
+      `pager:${BATCH}`,
+    ]);
+    expect(pagerOf(earlyEntries)?.batch.page).toMatchObject({ firstItem: 1, lastItem: 10 });
+    const laterEntries = buildTimelineRows(
+      batchSnapshot(400, () => "running"),
+      options,
+    );
+    expect(pagerOf(laterEntries)?.batch.page).toEqual(pagerOf(earlyEntries)?.batch.page);
+    expect(outline(laterEntries)).toEqual([ROOT, BATCH, ...items(1, 10), `pager:${BATCH}`]);
+  });
+
+  it("counts its pages from the highest item held when that passes the batch's total", () => {
+    const snapshot = batchSnapshot(12, () => "running");
+    snapshot.invocations.push(invocation(`${BATCH}/item_31`, "summarize_filing"));
+    const pager = pagerOf(buildTimelineRows(snapshot, expandedBatch));
+    expect(pager?.batch.page).toMatchObject({ count: 4 });
+  });
+
+  it("places the pager after the last item's descendants, before the batch's next sibling", () => {
+    const snapshot = wideSnapshot(30);
+    snapshot.invocations.push(
+      invocation(`${BATCH}/item_10/step_1`, "read_filing"),
+      invocation(`${BATCH}/item_10/step_2`, "condense_filing"),
+    );
+    const entries = buildTimelineRows(snapshot, expandedBatch);
+    expect(outline(entries).slice(-5)).toEqual([
+      `${BATCH}/item_10`,
+      `${BATCH}/item_10/step_1`,
+      `${BATCH}/item_10/step_2`,
+      `pager:${BATCH}`,
+      STEP_4,
+    ]);
+  });
+
+  it("places the pager right after the batch's row on a page the run has not reached", () => {
+    const sparse = batchSnapshot(400, () => "running");
+    sparse.invocations = sparse.invocations.filter((each) => !/item_(1\d|20)$/.test(each.path));
+    const sparseEntries = buildTimelineRows(sparse, {
+      ...expandedBatch,
+      batchPages: { [BATCH]: 1 },
+    });
+    expect(outline(sparseEntries)).toEqual([ROOT, BATCH, `pager:${BATCH}`]);
+    expect(pagerOf(sparseEntries)?.batch.hiddenItemCount).toBe(389);
+  });
+
+  it("jumps past the current page to the next item in trouble, wrapping to the start", () => {
+    const snapshot = wideSnapshot(400, (item) =>
+      item === 7 || item === 187 ? "failed" : "succeeded",
+    );
+    const onFirst = pagerOf(buildTimelineRows(snapshot, expandedBatch));
+    expect(onFirst?.batch.nextTrouble).toEqual({ item: 187, page: 18, reason: "failed" });
+    const pastIt = pagerOf(
+      buildTimelineRows(snapshot, { ...expandedBatch, batchPages: { [BATCH]: 30 } }),
+    );
+    expect(pastIt?.batch.nextTrouble).toEqual({ item: 7, page: 0, reason: "failed" });
+  });
+
+  it("offers no jump when the only trouble is on the page", () => {
+    const snapshot = wideSnapshot(400, (item) => (item === 7 ? "failed" : "succeeded"));
+    expect(pagerOf(buildTimelineRows(snapshot, expandedBatch))?.batch.nextTrouble).toBeNull();
+    const elsewhere = pagerOf(
+      buildTimelineRows(snapshot, { ...expandedBatch, batchPages: { [BATCH]: 4 } }),
+    );
+    expect(elsewhere?.batch.nextTrouble).toEqual({ item: 7, page: 0, reason: "failed" });
+  });
+
+  it("names an item stuck when it is, and failed when a failure lies beneath its stuck step", () => {
+    const snapshot = wideSnapshot(400, () => "running");
+    snapshot.invocations.find((each) => each.path === `${BATCH}/item_42`)!.degradation =
+      stuck("Item 42 is stuck.");
+    snapshot.invocations.push(
+      invocation(`${BATCH}/item_63/step_1`, "read_filing", { status: "failed" }),
+      invocation(`${BATCH}/item_63/step_2`, "condense_filing", {
+        status: "running",
+        ended_at: null,
+        degradation: stuck("Item 63 is stuck."),
+      }),
+    );
+    const onFirst = pagerOf(buildTimelineRows(snapshot, expandedBatch));
+    expect(onFirst?.batch.nextTrouble).toEqual({ item: 42, page: 4, reason: "degraded" });
+    const onFifth = pagerOf(
+      buildTimelineRows(snapshot, { ...expandedBatch, batchPages: { [BATCH]: 4 } }),
+    );
+    expect(onFifth?.batch.nextTrouble).toEqual({ item: 63, page: 6, reason: "failed" });
+  });
+
+  it("caps the items a collapsed batch keeps in view at one page, counting those left out", () => {
+    // Items 5, 10, 15, … fail, and items 3 and 300 are stuck: sixty-two in trouble.
+    const snapshot = wideSnapshot(400, (item) =>
+      item % 5 === 0 && item <= 300 ? "failed" : "running",
+    );
+    for (const number of [3, 303]) {
+      snapshot.invocations.find((each) => each.path === `${BATCH}/item_${number}`)!.degradation =
+        stuck(`Item ${number} is stuck.`);
+    }
+    const entries = buildTimelineRows(snapshot);
+    expect(outline(entries)).toEqual([
+      ROOT,
+      BATCH,
+      `${BATCH}/item_3`,
+      ...[5, 10, 15, 20, 25, 30, 35, 40, 45].map((number) => `${BATCH}/item_${number}`),
+      `pager:${BATCH}`,
+      STEP_4,
+    ]);
+    const kept = rowsOf(snapshot).filter((row) => row.keptVisible);
+    expect(kept.map((row) => row.keptVisible)).toEqual([
+      "degraded",
+      ...Array<string>(9).fill("failed"),
+    ]);
+    const batch = pagerOf(entries)?.batch;
+    expect(batch).toMatchObject({
+      expanded: false,
+      page: null,
+      troubleNotShown: { failed: 51, degraded: 1 },
+      nextTrouble: { item: 50, page: 4, reason: "failed" },
+      hiddenItemCount: 390,
+    });
+  });
+
+  it("draws no pager for a collapsed batch whose trouble fits on one page", () => {
+    const snapshot = wideSnapshot(400, (item) => (item <= 10 ? "failed" : "running"));
+    const entries = buildTimelineRows(snapshot);
+    expect(pagerOf(entries)).toBeUndefined();
+    expect(rowsOf(snapshot)[1].batch).toMatchObject({
+      troubleNotShown: { failed: 0, degraded: 0 },
+      nextTrouble: null,
+      hiddenItemCount: 390,
+    });
+  });
+
+  it("counts what is not drawn in both states", () => {
+    const snapshot = wideSnapshot(24, (item) => (item === 2 ? "failed" : "succeeded"));
+    expect(rowsOf(snapshot)[1].batch?.hiddenItemCount).toBe(23);
+    expect(rowsOf(snapshot, expandedBatch)[1].batch?.hiddenItemCount).toBe(14);
+    const last = rowsOf(snapshot, { ...expandedBatch, batchPages: { [BATCH]: 2 } });
+    expect(last[1].batch?.hiddenItemCount).toBe(20);
+  });
+
+  it("pages a nested batch by its own path", () => {
+    const nested = `${BATCH}/item_7/step_2`;
+    const snapshot = batchSnapshot(12, () => "running");
+    snapshot.invocations.push(
+      invocation(nested, "check_clause_batch", {
+        pipe_type: "PipeBatch",
+        status: "running",
+        ended_at: null,
+        batch: { total: 30, done: 0, running: 30, failed: 0 },
+      }),
+      ...Array.from({ length: 30 }, (_, index) =>
+        invocation(`${nested}/item_${index + 1}`, "check_clause", { status: "running" }),
+      ),
+    );
+    const entries = buildTimelineRows(snapshot, {
+      expandedBatches: { [BATCH]: true, [nested]: true },
+      batchPages: { [nested]: 2 },
+    });
+    const outer = pagerOf(entries, BATCH);
+    const inner = pagerOf(entries, nested);
+    expect(outer?.batch.page).toMatchObject({ index: 0, firstItem: 1, lastItem: 10 });
+    expect(inner?.batch.page).toMatchObject({ index: 2, firstItem: 21, lastItem: 30 });
+    expect(inner?.depth).toBe(4);
+    const order = outline(entries);
+    expect(order.indexOf(`pager:${nested}`)).toBe(order.indexOf(`${nested}/item_30`) + 1);
+    expect(order.indexOf(`pager:${nested}`)).toBeLessThan(order.indexOf(`${BATCH}/item_8`));
+  });
+
+  it("pages an expanded batch whose wide threshold was raised past the page size", () => {
+    const entries = buildTimelineRows(wideSnapshot(40), { wideBatchThreshold: 100 });
+    expect(rowsOf(wideSnapshot(40), { wideBatchThreshold: 100 })[1].batch).toMatchObject({
+      wide: false,
+      expanded: true,
+    });
+    expect(pagerOf(entries)?.batch.page).toMatchObject({ count: 4 });
+  });
+
+  it("takes the page size from its options, the default for a size below one", () => {
+    const sized = pagerOf(
+      buildTimelineRows(wideSnapshot(40), { ...expandedBatch, batchPageSize: 25 }),
+    );
+    expect(sized?.batch.page).toMatchObject({ count: 2, firstItem: 1, lastItem: 25 });
+    for (const batchPageSize of [0, -4, Number.NaN]) {
+      const fallback = pagerOf(
+        buildTimelineRows(wideSnapshot(40), { ...expandedBatch, batchPageSize }),
+      );
+      expect(fallback?.batch.page).toMatchObject({ count: 4, lastItem: 10 });
+    }
   });
 });

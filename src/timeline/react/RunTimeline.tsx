@@ -21,7 +21,12 @@ import {
   type TimelineStyleId,
 } from "@timeline/styles/timelineStyles";
 import type { TimelinePipeRegistry } from "@timeline/styles/registryJoin";
-import { buildTimelineRows, type TimelineBatch, type TimelineRow } from "@timeline/timelineRows";
+import {
+  buildTimelineRows,
+  isTimelineRow,
+  type TimelineBatch,
+  type TimelineRow,
+} from "@timeline/timelineRows";
 import {
   barFollowsClock,
   formatClockTime,
@@ -616,7 +621,7 @@ function DetailedTimeline({
   headerEnd,
 }: DetailedTimelineProps) {
   const rows = React.useMemo(
-    () => buildTimelineRows(held, { expandedBatches, wideBatchThreshold }),
+    () => buildTimelineRows(held, { expandedBatches, wideBatchThreshold }).filter(isTimelineRow),
     [held, expandedBatches, wideBatchThreshold],
   );
   const drawnRows = React.useMemo(
