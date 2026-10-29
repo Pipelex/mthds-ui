@@ -20,7 +20,7 @@ import { waitForGraphRender } from "./storyTestUtils";
  */
 const PROBLEM: Problem = {
   type: "https://mthds.ai/errors/pipe.function_raised",
-  title: "The method's function raised",
+  title: "The method's function failed",
   status: 422,
   detail: "The function 'funcs.score.score_match' of pipe 'score_match' raised an error.",
   code: "pipe.function_raised",
@@ -129,7 +129,7 @@ export const Dark: Story = {
     // Its panel opens on the problem.
     await userEvent.click(marked[0] as HTMLElement);
     const panel = await detailPanel(canvasElement);
-    await expect(await panel.findByText("The method's function raised")).toBeInTheDocument();
+    await expect(await panel.findByText("The method's function failed")).toBeInTheDocument();
     await expect(panel.getByText("pipe.function_raised")).toBeInTheDocument();
     await expect(panel.getByText("score_match (this pipe)")).toBeInTheDocument();
     await expect(panel.getByText("screen_candidate › score_match")).toBeInTheDocument();

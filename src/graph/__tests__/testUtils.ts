@@ -159,7 +159,7 @@ export function makeMinimalSpec(nodeCount: number): GraphSpec {
 /** `pipe.function_raised`, located at `score_match` beneath `screen_candidate`. */
 export const FUNCTION_RAISED_PROBLEM: Problem = {
   type: "https://mthds.ai/errors/pipe.function_raised",
-  title: "The method's function raised",
+  title: "The method's function failed",
   detail: "The function 'funcs.score.score_match' of pipe 'score_match' raised an error.",
   code: "pipe.function_raised",
   domain: "method",
@@ -167,7 +167,7 @@ export const FUNCTION_RAISED_PROBLEM: Problem = {
   next_step: {
     kind: "contact_owner",
     detail:
-      "Ask the method's owner to fix the function 'funcs.score.score_match' of pipe 'score_match'.",
+      "Ask the method's owner to fix the function 'funcs.score.score_match' of the step 'score_match'.",
   },
   params: { pipe: "score_match", function: "funcs.score.score_match" },
   location: { pipe: "score_match", path: ["screen_candidate", "score_match"] },
@@ -176,7 +176,7 @@ export const FUNCTION_RAISED_PROBLEM: Problem = {
 /** `pipe.binding_failed`, located at the sequence `review_catalog` holding the binding. */
 export const BINDING_FAILED_PROBLEM: Problem = {
   type: "https://mthds.ai/errors/pipe.binding_failed",
-  title: "A binding step could not bind its value",
+  title: "A step could not find a field in the value it reads",
   detail:
     "The binding 'editor_note' of pipe 'review_catalog' could not follow 'catalog' in this run's value.",
   code: "pipe.binding_failed",
@@ -184,7 +184,7 @@ export const BINDING_FAILED_PROBLEM: Problem = {
   retry: "no",
   next_step: {
     kind: "contact_owner",
-    detail: "Ask the method's owner to fix the binding 'editor_note' of pipe 'review_catalog'.",
+    detail: "Ask the method's owner to fix how the step 'review_catalog' reads 'editor_note'.",
   },
   params: { pipe: "review_catalog", binding: "editor_note", segment: "catalog" },
   location: { pipe: "review_catalog", path: ["review_catalog"] },

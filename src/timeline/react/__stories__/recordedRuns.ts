@@ -75,7 +75,7 @@ export const ENGINE_RETRY_PROBLEM: Problem = {
 /** The problem that ended the wide run's failed step, as the runtime recorded it, in the caller's view. */
 export const CONDENSE_FAILED_PROBLEM: Problem = {
   type: "https://mthds.ai/errors/pipe.output_invalid",
-  title: "A pipe's output does not fit its concept",
+  title: "A step's result does not have the structure the method declares",
   detail:
     "Pipe 'condense_filing' produced an output that does not fit the concept 'FilingSummary', at the fields text.",
   code: "pipe.output_invalid",
@@ -84,7 +84,7 @@ export const CONDENSE_FAILED_PROBLEM: Problem = {
   next_step: {
     kind: "contact_owner",
     detail:
-      "Ask the method's owner to make pipe 'condense_filing' produce an output that fits its concept.",
+      "Ask the method's owner to make the step 'condense_filing' produce a result with the structure the method declares.",
   },
   params: { pipe: "condense_filing", output_concept: "FilingSummary", fields: ["text"] },
   location: {

@@ -297,7 +297,9 @@ export const WideBatchFailedOpened: Story = {
       return line;
     });
     expect(failed.dataset.state).toBe("failed");
-    expect(failed.textContent).toContain("A pipe's output does not fit its concept");
+    expect(failed.textContent).toContain(
+      "A step's result does not have the structure the method declares",
+    );
     // Shown once: the batch's own line no longer carries it.
     const notes = lineAt(canvasElement, BATCH)?.querySelectorAll(
       ":scope > .mthds-simple-progress-notes .mthds-simple-progress-note--error",
