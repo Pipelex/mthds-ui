@@ -10,11 +10,11 @@
  * reviews twenty-four filings, so its batch is wide; its condition takes its
  * default outcome, one item is skipped, and one item's step fails after its
  * work was tried three times, which fails the run. `HUNDREDS_OF_ITEMS_RUN` is
- * the same method over four hundred filings, three of which fail, one early, one
+ * the same method over hundreds of filings, a few of which fail, one early, one
  * in the middle and one near the end, and `OUTAGE_RUN` the same again with most
  * items failing once a provider goes down; both are taken as single snapshots
  * with `snapshotAt`, since a replay of either would build a snapshot per change
- * over more than a thousand invocations. `VET_COMPANY_RUN` vets a
+ * over every one of their invocations. `VET_COMPANY_RUN` vets a
  * company: a sequence whose first step is a binding, a parallel of eight
  * sources, a batch over a dotted `batch_over`, and a chain of sequences four
  * levels deep.
@@ -675,7 +675,7 @@ export const WIDE_BATCH_SNAPSHOTS: ProgressSnapshot[] = recordedSnapshots(WIDE_B
 
 // ─── Hundreds of items ────────────────────────────────────────────────────────
 
-/** The items of the four-hundred-filing run that fail: one early, one in the middle, one near the end. */
+/** The items of the hundreds-of-filings run that fail: one early, one in the middle, one near the end. */
 export const HUNDREDS_OF_ITEMS_FAILED = [7, 187, 362] as const;
 
 const HUNDREDS_PLAN: WideItemsPlan = {
@@ -687,7 +687,7 @@ const HUNDREDS_PLAN: WideItemsPlan = {
 const HUNDREDS_TIMES = wideItemTimes(HUNDREDS_PLAN);
 const HUNDREDS_BATCH_END = Math.max(...HUNDREDS_TIMES.map((times) => times.end)) + 20;
 
-/** `filings.review_filings` over four hundred filings, three of which fail. */
+/** `filings.review_filings` over hundreds of filings, a few of which fail. */
 export const HUNDREDS_OF_ITEMS_RUN: RecordedRun = {
   pipelineRunId: "run_H4ndr3",
   mode: "live",
@@ -724,7 +724,7 @@ const OUTAGE_PLAN: WideItemsPlan = {
 const OUTAGE_TIMES = wideItemTimes(OUTAGE_PLAN);
 const OUTAGE_BATCH_END = Math.max(...OUTAGE_TIMES.map((times) => times.end)) + 20;
 
-/** The four-hundred-filing run during an outage: past the first thirty items, every item fails reading its filing. */
+/** The hundreds-of-filings run during an outage: past its first items, every item fails reading its filing. */
 export const OUTAGE_RUN: RecordedRun = {
   pipelineRunId: "run_0utag3",
   mode: "live",
