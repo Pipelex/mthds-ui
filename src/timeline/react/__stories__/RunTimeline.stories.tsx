@@ -8,6 +8,10 @@ import { SnapshotReplay } from "./SnapshotReplay";
 import { REVIEW_FILINGS_REGISTRY } from "./methodRegistries";
 import {
   CANCELED_RUN_SNAPSHOT,
+  HUNDREDS_OF_ITEMS_FAILED,
+  HUNDREDS_OF_ITEMS_MID_RUN_SNAPSHOT,
+  OUTAGE_END_SNAPSHOT,
+  OUTAGE_FIRST_FAILED_ITEM,
   REVIEW_FILINGS_SNAPSHOTS,
   WIDE_BATCH_SNAPSHOTS,
   WORKED_EXAMPLE_SNAPSHOT,
@@ -61,6 +65,27 @@ function timelineOf(canvasElement: HTMLElement): HTMLElement {
   const timeline = canvasElement.querySelector<HTMLElement>("section.mthds-run-timeline");
   if (!timeline) throw new Error("no timeline drawn");
   return timeline;
+}
+
+/** The paths of the batch's item rows drawn, in drawing order. */
+function itemPaths(canvasElement: HTMLElement, batch = BATCH): string[] {
+  const prefix = `${batch}/item_`;
+  return Array.from(canvasElement.querySelectorAll<HTMLElement>("li.mthds-run-timeline-row"))
+    .map((row) => row.dataset.path ?? "")
+    .filter((path) => path.startsWith(prefix) && /^\d+$/.test(path.slice(prefix.length)));
+}
+
+/** The paths of the items numbered `from` to `to`, as `itemPaths` gives them. */
+function itemRange(from: number, to: number): string[] {
+  return Array.from({ length: to - from + 1 }, (_, index) => `${BATCH}/item_${from + index}`);
+}
+
+function pagerAt(canvasElement: HTMLElement, batch = BATCH): HTMLElement | null {
+  return canvasElement.querySelector<HTMLElement>(`li[data-pager-for="${batch}"]`);
+}
+
+function batchToggle(canvasElement: HTMLElement): HTMLElement {
+  return within(canvasElement).getByRole("button", { name: /items of summarize_filing_batch/ });
 }
 
 /** The class the timeline carries while its own clock ticks. */
@@ -284,31 +309,145 @@ export const WideBatch: Story = {
 
 /**
  * The wide batch's run once it has failed. The batch starts collapsed, keeping
- * only its failed item in view; a click expands it into all its item rows.
+ * only its failed item in view; a click expands it onto the first of its pages
+ * of ten items, with a pager beneath them.
  */
 export const WideBatchCollapsed: Story = {
   args: { snapshot: WIDE_BATCH_SNAPSHOTS[WIDE_BATCH_SNAPSHOTS.length - 1] },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const itemRows = () =>
-      Array.from(canvasElement.querySelectorAll<HTMLElement>("li.mthds-run-timeline-row")).filter(
-        (row) => /\/item_\d+$/.test(row.dataset.path ?? ""),
-      );
-
-    const toggle = canvas.getByRole("button", { name: /items of summarize_filing_batch/ });
+    const toggle = batchToggle(canvasElement);
     expect(toggle).toHaveAttribute("aria-expanded", "false");
-    expect(itemRows().map((row) => row.dataset.path)).toEqual([`${BATCH}/item_9`]);
+    expect(itemPaths(canvasElement)).toEqual([`${BATCH}/item_9`]);
+    expect(pagerAt(canvasElement)).toBeNull();
     expect(rowAt(canvasElement, BATCH)?.textContent).toContain("23 of 24 done · 1 failed");
     expect(rowAt(canvasElement, `${ROOT}/step_2/outcome_quick`)?.textContent).toContain(
       "default outcome",
     );
 
     await userEvent.click(toggle);
-    await waitFor(() => expect(itemRows()).toHaveLength(24));
+    await waitFor(() => expect(itemPaths(canvasElement)).toEqual(itemRange(1, 10)));
     expect(toggle).toHaveAttribute("aria-expanded", "true");
+    const pagerElement = pagerAt(canvasElement);
+    if (!pagerElement) throw new Error("no pager drawn");
+    const pager = within(pagerElement);
+    expect(pager.getByRole("navigation", { name: "Items of summarize_filing_batch" })).toBeTruthy();
+    expect(pager.getByText("Items 1–10 of 24")).toBeInTheDocument();
+    expect(rowAt(canvasElement, BATCH)?.textContent).toContain("14 items hidden");
+    // The failed item is on this page, so the pager offers no jump.
+    expect(pager.queryByRole("button", { name: /Next failed/ })).toBeNull();
+    const previous = pager.getByRole("button", { name: "Previous" });
+    const next = pager.getByRole("button", { name: "Next" });
+    expect(previous).toHaveAttribute("aria-disabled", "true");
+
+    await userEvent.click(next);
+    await waitFor(() => expect(itemPaths(canvasElement)).toEqual(itemRange(11, 20)));
+    // The page turn keeps the pager, and focus on the button pressed.
+    expect(pagerAt(canvasElement)).toBe(pagerElement);
+    expect(next).toHaveFocus();
+    expect(pager.getByText("Items 11–20 of 24")).toBeInTheDocument();
+    expect(pager.getByRole("button", { name: "Next failed · item 9" })).toBeInTheDocument();
+
+    await userEvent.click(next);
+    await waitFor(() => expect(itemPaths(canvasElement)).toEqual(itemRange(21, 24)));
+    expect(next).toHaveAttribute("aria-disabled", "true");
+    expect(next).toHaveFocus();
+    expect(rowAt(canvasElement, BATCH)?.textContent).toContain("20 items hidden");
+    await userEvent.click(next);
+    expect(itemPaths(canvasElement)).toEqual(itemRange(21, 24));
+
+    // The jump turns back to the page holding the failed item; with no item in
+    // trouble left off the page, the jump goes, and focus moves to Previous.
+    await userEvent.click(pager.getByRole("button", { name: "Next failed · item 9" }));
+    await waitFor(() => expect(itemPaths(canvasElement)).toEqual(itemRange(1, 10)));
+    expect(rowAt(canvasElement, `${BATCH}/item_9`)?.dataset.status).toBe("failed");
+    expect(previous).toHaveFocus();
+
+    // The page is remembered across collapsing and expanding again.
+    await userEvent.click(next);
+    await waitFor(() => expect(itemPaths(canvasElement)).toEqual(itemRange(11, 20)));
+    await userEvent.click(toggle);
+    await waitFor(() => expect(itemPaths(canvasElement)).toEqual([`${BATCH}/item_9`]));
+    expect(pagerAt(canvasElement)).toBeNull();
+    await userEvent.click(toggle);
+    await waitFor(() => expect(itemPaths(canvasElement)).toEqual(itemRange(11, 20)));
+  },
+};
+
+/**
+ * A batch over four hundred filings, part-way through: two of its items have
+ * failed, one on its first page and one in the middle. Expanded, it draws ten
+ * items at a time; the pager turns its pages and jumps to the next failed item.
+ */
+export const HundredsOfItems: Story = {
+  args: { snapshot: HUNDREDS_OF_ITEMS_MID_RUN_SNAPSHOT, live: false },
+  play: async ({ canvasElement }) => {
+    const [early, middle] = HUNDREDS_OF_ITEMS_FAILED;
+    const toggle = batchToggle(canvasElement);
+    expect(toggle).toHaveAttribute("aria-expanded", "false");
+    expect(itemPaths(canvasElement)).toEqual([`${BATCH}/item_${early}`, `${BATCH}/item_${middle}`]);
 
     await userEvent.click(toggle);
-    await waitFor(() => expect(itemRows()).toHaveLength(1));
+    await waitFor(() => expect(itemPaths(canvasElement)).toEqual(itemRange(1, 10)));
+    const pagerElement = pagerAt(canvasElement);
+    if (!pagerElement) throw new Error("no pager drawn");
+    const pager = within(pagerElement);
+    expect(pager.getByText("Items 1–10 of 400")).toBeInTheDocument();
+    // The pager follows the last row of the page's last item, the rows before
+    // the batch stay drawn, and nothing of the batch lies past the pager.
+    expect(rowAt(canvasElement, `${BATCH}/item_10/step_2`)?.nextElementSibling).toBe(pagerElement);
+    expect(rowAt(canvasElement, `${ROOT}/step_2/outcome_quick`)).not.toBeNull();
+    const after = pagerElement.nextElementSibling as HTMLElement | null;
+    expect(after?.dataset.path?.startsWith(`${BATCH}/`) ?? false).toBe(false);
+
+    await userEvent.click(pager.getByRole("button", { name: "Next" }));
+    await waitFor(() => expect(itemPaths(canvasElement)).toEqual(itemRange(11, 20)));
+    expect(pager.getByText("Items 11–20 of 400")).toBeInTheDocument();
+
+    const jump = pager.getByRole("button", { name: `Next failed · item ${middle}` });
+    await userEvent.click(jump);
+    const pageStart = Math.floor((middle - 1) / 10) * 10 + 1;
+    await waitFor(() =>
+      expect(itemPaths(canvasElement)).toEqual(itemRange(pageStart, pageStart + 9)),
+    );
+    expect(rowAt(canvasElement, `${BATCH}/item_${middle}`)?.dataset.status).toBe("failed");
+    // Past the middle failure, the next one is the early item, from the start.
+    expect(jump).toHaveAccessibleName(`Next failed · item ${early}`);
+    expect(jump).toHaveFocus();
+  },
+};
+
+/**
+ * The same batch during an outage: past its first thirty items, every item
+ * failed. Collapsed, it keeps only its first ten failed items in view, and a
+ * row beneath them says how many more failed, with a button that opens the
+ * batch on the page of the first one not shown.
+ */
+export const HundredsOfItemsFailing: Story = {
+  args: { snapshot: OUTAGE_END_SNAPSHOT },
+  play: async ({ canvasElement }) => {
+    const first = OUTAGE_FIRST_FAILED_ITEM;
+    const toggle = batchToggle(canvasElement);
+    expect(toggle).toHaveAttribute("aria-expanded", "false");
+    expect(itemPaths(canvasElement)).toEqual(itemRange(first, first + 9));
+    const pagerElement = pagerAt(canvasElement);
+    if (!pagerElement) throw new Error("no overflow row drawn");
+    const pager = within(pagerElement);
+    expect(pager.getByText(`${400 - first + 1 - 10} more failed`)).toBeInTheDocument();
+    expect(rowAt(canvasElement, `${BATCH}/item_${first + 9}/step_1`)?.nextElementSibling).toBe(
+      pagerElement,
+    );
+
+    await userEvent.click(pager.getByRole("button", { name: `Expand at item ${first + 10}` }));
+    const pageStart = Math.floor((first + 10 - 1) / 10) * 10 + 1;
+    await waitFor(() =>
+      expect(itemPaths(canvasElement)).toEqual(itemRange(pageStart, pageStart + 9)),
+    );
+    expect(toggle).toHaveAttribute("aria-expanded", "true");
+    expect(pagerAt(canvasElement)).toBe(pagerElement);
+    expect(pager.getByText(`Items ${pageStart}–${pageStart + 9} of 400`)).toBeInTheDocument();
+    expect(rowAt(canvasElement, `${BATCH}/item_${first + 10}`)?.dataset.status).toBe("failed");
+    // The button pressed went with the collapsed row, so focus moved to the pager's first.
+    expect(pager.getByRole("button", { name: "Previous" })).toHaveFocus();
   },
 };
 
