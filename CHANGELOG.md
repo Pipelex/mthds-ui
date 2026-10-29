@@ -4,7 +4,7 @@
 
 ### Added
 
-- **`RunTimeline` pages a wide batch's items**: an expanded batch holding more items than `batchPageSize`, ten by default (`DEFAULT_BATCH_PAGE_SIZE`), draws them a page at a time by item number, with a pager row beneath them holding Previous, Next, the range drawn and a jump to the next failed or stuck item off the page, and a collapsed batch keeps at most one page of its failed or stuck items in view, a row beneath them saying how many more there are with a button that opens the batch on the page of the first. The page the reader turns to is remembered per batch, like the expansion, and a new snapshot never moves it. See [docs/run-timeline.md](docs/run-timeline.md).
+- **`RunTimeline` pages a wide batch's items**: an expanded batch holding more items than `batchPageSize`, ten by default (`DEFAULT_BATCH_PAGE_SIZE`), draws them a page at a time by item number, with a pager row beneath them holding Previous, Next, the range drawn and a jump to the next failed or stuck item off the page, and a collapsed batch keeps at most one page of its failed or stuck items in view, the stuck ones first, a row beneath them saying how many more there are with a button that opens the batch on the page of the first. The page the reader turns to is remembered per batch, like the expansion, and a new snapshot never moves it. See [docs/run-timeline.md](docs/run-timeline.md).
 
 ### Changed
 

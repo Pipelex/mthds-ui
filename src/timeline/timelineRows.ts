@@ -323,8 +323,9 @@ interface BatchView {
 /**
  * Lays one batch out. Expanded over more items than one page, it draws the
  * items numbered in the current page's range; expanded over one page, every
- * item. Collapsed, it draws its items in trouble, the first page of them by item
- * number. Either way, the first item in trouble left out is the jump.
+ * item. Collapsed, it draws its items in trouble, at most a page of them, those
+ * where the run is stuck first, then the failed ones, each by item number.
+ * Either way, the first item in trouble left out, by item number, is the jump.
  */
 function viewBatch(
   invocation: ProgressInvocation,
@@ -384,11 +385,20 @@ function viewBatch(
       for (const item of items) drawn.set(item, null);
     }
   } else {
-    troubled.forEach(({ node, reason }, rank) => {
-      if (rank < pageSize) drawn.set(node, reason);
+    // The page kept in view takes the items where the run is stuck first, since
+    // the run is waiting on them, then the failed ones, each by item number; the
+    // kept items are still drawn in item order.
+    const ranked = [...troubled].sort(
+      (a, b) =>
+        Number(a.reason !== KEPT_VISIBLE_REASON.DEGRADED) -
+          Number(b.reason !== KEPT_VISIBLE_REASON.DEGRADED) || a.number - b.number,
+    );
+    const kept = new Set(ranked.slice(0, pageSize).map((each) => each.node));
+    for (const { node, reason } of troubled) {
+      if (kept.has(node)) drawn.set(node, reason);
       else troubleNotShown[reason] += 1;
-    });
-    nextTrouble = jumpTo(troubled[pageSize]);
+    }
+    nextTrouble = jumpTo(troubled.find((each) => !kept.has(each.node)));
   }
 
   return {
@@ -419,13 +429,13 @@ function viewBatch(
  * Collapsed, it still draws each item holding an invocation that failed or
  * where the run is stuck (one carrying `degradation`), whether the item itself
  * or anything beneath it, a nested batch's item included, with everything under
- * it, so the trouble can always be pointed at, along with the rows leading to it.
+ * it, so the trouble can be pointed at, along with the rows leading to it.
  *
  * Both states are bounded by one page of items (`batchPageSize`). Expanded over
  * more items than a page, a batch draws the page the reader turned it to, by
  * item number, and a pager entry after the last row of its items. Collapsed, it
- * keeps at most one page of its items in trouble in view, the first by item
- * number, and when more are in trouble a pager entry stands after them saying
+ * keeps at most one page of its items in trouble in view, those where the run
+ * is stuck first, then the failed ones, each by item number, and when more are in trouble a pager entry stands after them saying
  * so. The pager carries the jump to the first item in trouble left out.
  *
  * Pure, and a function of the snapshot and the options alone: the same snapshot

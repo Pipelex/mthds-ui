@@ -711,8 +711,8 @@ describe("buildTimelineRows — paging", () => {
     expect(onFifth?.batch.nextTrouble).toEqual({ item: 63, page: 6, reason: "failed" });
   });
 
-  it("caps the items a collapsed batch keeps in view at one page, counting those left out", () => {
-    // Items 5, 10, 15, … fail, and items 3 and 300 are stuck: sixty-two in trouble.
+  it("caps the items a collapsed batch keeps in view at one page, stuck ones first, counting those left out", () => {
+    // Items 5, 10, 15, … up to 300 fail, and items 3 and 303 are stuck.
     const snapshot = wideSnapshot(400, (item) =>
       item % 5 === 0 && item <= 300 ? "failed" : "running",
     );
@@ -725,21 +725,23 @@ describe("buildTimelineRows — paging", () => {
       ROOT,
       BATCH,
       `${BATCH}/item_3`,
-      ...[5, 10, 15, 20, 25, 30, 35, 40, 45].map((number) => `${BATCH}/item_${number}`),
+      ...[5, 10, 15, 20, 25, 30, 35, 40].map((number) => `${BATCH}/item_${number}`),
+      `${BATCH}/item_303`,
       `pager:${BATCH}`,
       STEP_4,
     ]);
     const kept = rowsOf(snapshot).filter((row) => row.keptVisible);
     expect(kept.map((row) => row.keptVisible)).toEqual([
       "degraded",
-      ...Array<string>(9).fill("failed"),
+      ...Array<string>(8).fill("failed"),
+      "degraded",
     ]);
     const batch = pagerOf(entries)?.batch;
     expect(batch).toMatchObject({
       expanded: false,
       page: null,
-      troubleNotShown: { failed: 51, degraded: 1 },
-      nextTrouble: { item: 50, page: 4, reason: "failed" },
+      troubleNotShown: { failed: 52, degraded: 0 },
+      nextTrouble: { item: 45, page: 4, reason: "failed" },
       hiddenItemCount: 390,
     });
   });
