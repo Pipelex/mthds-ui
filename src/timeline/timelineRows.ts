@@ -78,6 +78,11 @@ export interface TimelineBatchPage {
   firstItem: number;
   /** The number of the last item in its range. */
   lastItem: number;
+  /**
+   * How many items the pages span: the batch's total, or the highest item
+   * number the snapshot holds when that is larger.
+   */
+  itemCount: number;
 }
 
 /** An item in trouble that is not drawn, and the page that holds it. */
@@ -366,7 +371,7 @@ function viewBatch(
       const index = pageIndexOf(settings.page, count);
       const firstItem = index * pageSize + 1;
       const lastItem = Math.min((index + 1) * pageSize, extent);
-      page = { index, count, firstItem, lastItem };
+      page = { index, count, firstItem, lastItem, itemCount: extent };
       for (const item of items) {
         const number = itemNumberOf(item);
         if (number >= firstItem && number <= lastItem) drawn.set(item, null);

@@ -11,6 +11,11 @@ import {
   CONDENSE_FAILED_PROBLEM,
   DRY_RUN_SNAPSHOTS,
   ENGINE_RETRY_PROBLEM,
+  HUNDREDS_OF_ITEMS_END_SNAPSHOT,
+  HUNDREDS_OF_ITEMS_FAILED,
+  HUNDREDS_OF_ITEMS_MID_RUN_SNAPSHOT,
+  OUTAGE_END_SNAPSHOT,
+  OUTAGE_FIRST_FAILED_ITEM,
   REVIEW_FILINGS_RUN,
   REVIEW_FILINGS_SNAPSHOTS,
   VET_COMPANY_SNAPSHOTS,
@@ -89,6 +94,48 @@ describe("the recorded runs", () => {
     expect(summaries.some((summary) => summary.endsWith("attempt 3"))).toBe(true);
   });
 
+  it("fail the four-hundred-item run's items early, in the middle and near the end", () => {
+    const batchOf = (snapshot: typeof OUTAGE_END_SNAPSHOT) =>
+      snapshot.invocations.find((each) => each.path === "filings.review_filings/step_3")?.batch;
+    const failedItems = (snapshot: typeof OUTAGE_END_SNAPSHOT) =>
+      snapshot.invocations
+        .filter((each) => /\/step_3\/item_\d+$/.test(each.path) && each.status === "failed")
+        .map((each) => Number(each.path.slice(each.path.lastIndexOf("_") + 1)));
+    const [early, middle, late] = HUNDREDS_OF_ITEMS_FAILED;
+
+    const mid = HUNDREDS_OF_ITEMS_MID_RUN_SNAPSHOT;
+    expect(mid.status).toBe("running");
+    expect(batchOf(mid)).toMatchObject({ total: 400, failed: 2 });
+    expect(failedItems(mid)).toEqual([early, middle]);
+    // Every item is in the snapshot once the batch has fanned out, those not yet started as scheduled.
+    expect(mid.invocations.filter((each) => /\/step_3\/item_\d+$/.test(each.path))).toHaveLength(
+      400,
+    );
+    expect(mid.invocations.some((each) => each.status === "scheduled")).toBe(true);
+
+    const end = HUNDREDS_OF_ITEMS_END_SNAPSHOT;
+    expect(end.status).toBe("failed");
+    expect(failedItems(end)).toEqual([early, middle, late]);
+    expect(batchOf(end)).toEqual({ total: 400, done: 397, running: 0, failed: 3 });
+  });
+
+  it("fail every item of the outage run past its first thirty, at their first step", () => {
+    const end = OUTAGE_END_SNAPSHOT;
+    expect(end.status).toBe("failed");
+    const batch = end.invocations.find((each) => each.path === "filings.review_filings/step_3");
+    expect(batch?.batch).toEqual({
+      total: 400,
+      done: OUTAGE_FIRST_FAILED_ITEM - 1,
+      running: 0,
+      failed: 400 - OUTAGE_FIRST_FAILED_ITEM + 1,
+    });
+    const firstFailed = `filings.review_filings/step_3/item_${OUTAGE_FIRST_FAILED_ITEM}`;
+    expect(end.invocations.find((each) => each.path === `${firstFailed}/step_1`)?.status).toBe(
+      "failed",
+    );
+    expect(end.invocations.some((each) => each.path === `${firstFailed}/step_2`)).toBe(false);
+  });
+
   it("write their problems as the standard's builder does", () => {
     expect(ENGINE_RETRY_PROBLEM).toEqual(buildProblem("runtime.unexpected", {}));
     expect(CONDENSE_FAILED_PROBLEM).toEqual(
@@ -128,6 +175,12 @@ describe("the recorded runs", () => {
     ["the wide batch's run", WIDE_BATCH_SNAPSHOTS, REVIEW_FILINGS_REGISTRY],
     ["the vetting run", VET_COMPANY_SNAPSHOTS, VET_COMPANY_REGISTRY],
     ["the dry run", DRY_RUN_SNAPSHOTS, REVIEW_FILINGS_REGISTRY],
+    [
+      "the four-hundred-item run",
+      [HUNDREDS_OF_ITEMS_MID_RUN_SNAPSHOT, HUNDREDS_OF_ITEMS_END_SNAPSHOT],
+      REVIEW_FILINGS_REGISTRY,
+    ],
+    ["the outage run", [OUTAGE_END_SNAPSHOT], REVIEW_FILINGS_REGISTRY],
   ])("run only pipes the method of %s declares", (_name, snapshots, registry) => {
     for (const snapshot of snapshots) {
       for (const invocation of snapshot.invocations) {

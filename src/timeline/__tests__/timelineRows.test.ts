@@ -573,6 +573,7 @@ describe("buildTimelineRows — paging", () => {
       count: 40,
       firstItem: 11,
       lastItem: 20,
+      itemCount: 400,
     });
   });
 
@@ -587,6 +588,7 @@ describe("buildTimelineRows — paging", () => {
       count: 3,
       firstItem: 21,
       lastItem: 24,
+      itemCount: 24,
     });
     const negative = buildTimelineRows(wideSnapshot(24), {
       ...expandedBatch,
@@ -638,7 +640,7 @@ describe("buildTimelineRows — paging", () => {
     const snapshot = batchSnapshot(12, () => "running");
     snapshot.invocations.push(invocation(`${BATCH}/item_31`, "summarize_filing"));
     const pager = pagerOf(buildTimelineRows(snapshot, expandedBatch));
-    expect(pager?.batch.page).toMatchObject({ count: 4 });
+    expect(pager?.batch.page).toMatchObject({ count: 4, itemCount: 31 });
   });
 
   it("places the pager after the last item's descendants, before the batch's next sibling", () => {
