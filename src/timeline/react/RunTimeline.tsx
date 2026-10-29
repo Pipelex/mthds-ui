@@ -512,7 +512,7 @@ const ItemPagerView = React.memo(function ItemPagerView({
           aria-disabled={atFirst}
           onClick={() => !atFirst && turn(page.index - 1, false)}
         >
-          <span aria-hidden="true">‹ </span>Previous
+          <span aria-hidden="true">‹</span>Previous
         </button>
         <span key="range" className="mthds-run-timeline-pager-range" aria-live="polite">
           {`Items ${page.firstItem}–${page.lastItem} of ${page.itemCount}`}
@@ -524,7 +524,7 @@ const ItemPagerView = React.memo(function ItemPagerView({
           aria-disabled={atLast}
           onClick={() => !atLast && turn(page.index + 1, false)}
         >
-          Next<span aria-hidden="true"> ›</span>
+          Next<span aria-hidden="true">›</span>
         </button>
         {jump && (
           <button
