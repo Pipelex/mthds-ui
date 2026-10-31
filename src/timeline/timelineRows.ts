@@ -25,6 +25,15 @@ import {
  */
 export const DEFAULT_WIDE_BATCH_THRESHOLD = 10;
 
+/**
+ * How many items one page of a batch holds: an expanded batch with more items
+ * than this draws them a page at a time, and a collapsed one keeps at most this
+ * many of its items in trouble in view. The same as the wide threshold, so an
+ * expanded batch never draws more items at once than a batch that starts
+ * expanded.
+ */
+export const DEFAULT_BATCH_PAGE_SIZE = 10;
+
 export interface TimelineRowsOptions {
   /**
    * The batches a reader expanded (`true`) or collapsed (`false`), by path. A
@@ -33,6 +42,17 @@ export interface TimelineRowsOptions {
   expandedBatches?: Readonly<Record<string, boolean>>;
   /** A batch with more items than this is wide. Defaults to `DEFAULT_WIDE_BATCH_THRESHOLD`. */
   wideBatchThreshold?: number;
+  /**
+   * The page the reader turned each batch to, by path, from 0. A batch absent
+   * from it opens on its first page, and an index past its last page draws the
+   * last one.
+   */
+  batchPages?: Readonly<Record<string, number>>;
+  /**
+   * How many items one page of a batch holds, whether it started collapsed or
+   * not. Defaults to `DEFAULT_BATCH_PAGE_SIZE`; a size below one takes the default.
+   */
+  batchPageSize?: number;
 }
 
 /** A run of consecutive items sharing one status, in item order: one cell of a batch's strip. */
@@ -42,6 +62,37 @@ export interface TimelineStripSegment {
   firstItem: number;
   /** How many items the run holds. */
   count: number;
+}
+
+/**
+ * The page of an expanded batch's items that is drawn: a fixed range of item
+ * numbers, never of positions among the items the snapshot holds, so an item
+ * appearing while the batch fans out lands inside the page it belongs to.
+ */
+export interface TimelineBatchPage {
+  /** Which page, from 0. */
+  index: number;
+  /** How many pages the batch's items make. */
+  count: number;
+  /** The number of the first item in its range, from 1. */
+  firstItem: number;
+  /** The number of the last item in its range. */
+  lastItem: number;
+  /**
+   * How many items the pages span: the batch's total, or the highest item
+   * number the snapshot holds when that is larger.
+   */
+  itemCount: number;
+}
+
+/** An item in trouble that is not drawn, and the page that holds it. */
+export interface TimelineTroubleJump {
+  /** The item's number, from 1. */
+  item: number;
+  /** The page holding it, from 0. */
+  page: number;
+  /** Why it is in trouble: a failure anywhere beneath it wins over a stuck invocation. */
+  reason: KeptVisibleReason;
 }
 
 /** What a batch's one row shows of its items. */
@@ -57,9 +108,23 @@ export interface TimelineBatch {
   /** True when its item rows are drawn. */
   expanded: boolean;
   /**
-   * How many of its item rows are hidden: none while expanded, and while
-   * collapsed every item but the ones kept in view, those holding a failed or
-   * stuck invocation, themselves or anywhere beneath them.
+   * While expanded and holding more items than one page, the page drawn;
+   * otherwise `null`: every item is drawn, or the batch is collapsed.
+   */
+  page: TimelineBatchPage | null;
+  /**
+   * The first item in trouble that is not drawn: while paged, the first after
+   * the current page, wrapping to the start of the batch; while collapsed, the
+   * first the one-page cap leaves out. `null` when every item in trouble is drawn.
+   */
+  nextTrouble: TimelineTroubleJump | null;
+  /** While collapsed, how many items in trouble the one-page cap leaves out, by reason. */
+  troubleNotShown: Record<KeptVisibleReason, number>;
+  /**
+   * How many of the items the snapshot holds are not drawn: while expanded,
+   * those off the current page; while collapsed, every item but the ones kept in
+   * view, those holding a failed or stuck invocation, themselves or anywhere
+   * beneath them, at most one page of them.
    */
   hiddenItemCount: number;
 }
@@ -91,8 +156,17 @@ export const KEPT_VISIBLE_REASON = {
 
 export type KeptVisibleReason = (typeof KEPT_VISIBLE_REASON)[keyof typeof KEPT_VISIBLE_REASON];
 
+/** The kinds of entry `buildTimelineRows` returns: an invocation's row, or a batch's pager. */
+export const TIMELINE_ENTRY_KIND = {
+  INVOCATION: "invocation",
+  PAGER: "pager",
+} as const;
+
+export type TimelineEntryKind = (typeof TIMELINE_ENTRY_KIND)[keyof typeof TIMELINE_ENTRY_KIND];
+
 /** One drawn row: one invocation, at its place in the tree. */
 export interface TimelineRow {
+  kind: typeof TIMELINE_ENTRY_KIND.INVOCATION;
   path: string;
   /** The path of the row it nests under: its nearest ancestor the snapshot holds, `null` at the top. */
   parentPath: string | null;
@@ -111,6 +185,32 @@ export interface TimelineRow {
   batch: TimelineBatch | null;
   /** Set on an item row drawn under a collapsed batch, saying why. */
   keptVisible: KeptVisibleReason | null;
+}
+
+/**
+ * A batch's pager, drawn after the last row of the items it shows, at their
+ * depth. While the batch is expanded over several pages, it turns them and
+ * offers the jump to the next item in trouble; while collapsed, it stands where
+ * the one-page cap left items in trouble out, and says how many.
+ */
+export interface TimelineItemPager {
+  kind: typeof TIMELINE_ENTRY_KIND.PAGER;
+  /** The batch's path. */
+  batchPath: string;
+  /** The batch's pipe code, which names the pager. */
+  pipeCode: string;
+  /** The depth of the batch's items, one below its row. */
+  depth: number;
+  /** The batch, as its row carries it. */
+  batch: TimelineBatch;
+}
+
+/** One entry of what a timeline draws, in drawing order. */
+export type TimelineEntry = TimelineRow | TimelineItemPager;
+
+/** Whether an entry is an invocation's row rather than a batch's pager. */
+export function isTimelineRow(entry: TimelineEntry): entry is TimelineRow {
+  return entry.kind === TIMELINE_ENTRY_KIND.INVOCATION;
 }
 
 type TreeNode = InvocationTreeNode;
@@ -196,6 +296,127 @@ function stripOf(items: TreeNode[]): TimelineStripSegment[] {
   return strip;
 }
 
+/** An item's number, read off its `item_<n>` segment. */
+function itemNumberOf(item: TreeNode): number {
+  return isOrdinalSegment(item.segment) ? item.segment.ordinal : 0;
+}
+
+/** The page size an option asks for, or the default when it asks for none, or for less than one item. */
+function pageSizeOf(requested: number | undefined): number {
+  return requested !== undefined && Number.isFinite(requested) && requested >= 1
+    ? Math.floor(requested)
+    : DEFAULT_BATCH_PAGE_SIZE;
+}
+
+/** The page a reader asked for, kept among the batch's pages: the first when none was asked for. */
+function pageIndexOf(requested: number | undefined, count: number): number {
+  if (requested === undefined || Number.isNaN(requested)) return 0;
+  return Math.min(Math.max(0, Math.floor(requested)), count - 1);
+}
+
+/** A batch's row and which of its items are drawn, each with why when kept in view. */
+interface BatchView {
+  batch: TimelineBatch;
+  drawn: Map<TreeNode, KeptVisibleReason | null>;
+}
+
+/**
+ * Lays one batch out. Expanded over more items than one page, it draws the
+ * items numbered in the current page's range; expanded over one page, every
+ * item. Collapsed, it draws its items in trouble, at most a page of them, those
+ * where the run is stuck first, then the failed ones, each by item number.
+ * Either way, the first item in trouble left out, by item number, is the jump.
+ */
+function viewBatch(
+  invocation: ProgressInvocation,
+  items: TreeNode[],
+  troubleOf: (node: TreeNode) => KeptVisibleReason | null,
+  settings: {
+    threshold: number;
+    pageSize: number;
+    expanded: boolean | undefined;
+    page: number | undefined;
+  },
+): BatchView {
+  const { threshold, pageSize } = settings;
+  const total = invocation.batch?.total ?? items.length;
+  const wide = total > threshold;
+  const expanded = settings.expanded ?? !wide;
+  // The items in trouble, in item order, each with its number and why.
+  const troubled = items.flatMap((node) => {
+    const reason = troubleOf(node);
+    return reason ? [{ node, number: itemNumberOf(node), reason }] : [];
+  });
+  const jumpTo = (target: (typeof troubled)[number] | undefined): TimelineTroubleJump | null =>
+    target
+      ? {
+          item: target.number,
+          page: Math.floor((target.number - 1) / pageSize),
+          reason: target.reason,
+        }
+      : null;
+  const drawn = new Map<TreeNode, KeptVisibleReason | null>();
+  const troubleNotShown: Record<KeptVisibleReason, number> = {
+    [KEPT_VISIBLE_REASON.FAILED]: 0,
+    [KEPT_VISIBLE_REASON.DEGRADED]: 0,
+  };
+  let page: TimelineBatchPage | null = null;
+  let nextTrouble: TimelineTroubleJump | null = null;
+
+  if (expanded) {
+    // Items are in item order, so the last one held has the highest number.
+    const highestHeld = items.length > 0 ? itemNumberOf(items[items.length - 1]) : 0;
+    const extent = Math.max(total, highestHeld);
+    const count = Math.max(1, Math.ceil(extent / pageSize));
+    if (count > 1) {
+      const index = pageIndexOf(settings.page, count);
+      const firstItem = index * pageSize + 1;
+      const lastItem = Math.min((index + 1) * pageSize, extent);
+      page = { index, count, firstItem, lastItem, itemCount: extent };
+      for (const item of items) {
+        const number = itemNumberOf(item);
+        if (number >= firstItem && number <= lastItem) drawn.set(item, null);
+      }
+      nextTrouble = jumpTo(
+        troubled.find((each) => each.number > lastItem) ??
+          troubled.find((each) => each.number < firstItem),
+      );
+    } else {
+      for (const item of items) drawn.set(item, null);
+    }
+  } else {
+    // The page kept in view takes the items where the run is stuck first, since
+    // the run is waiting on them, then the failed ones, each by item number; the
+    // kept items are still drawn in item order.
+    const ranked = [...troubled].sort(
+      (a, b) =>
+        Number(a.reason !== KEPT_VISIBLE_REASON.DEGRADED) -
+          Number(b.reason !== KEPT_VISIBLE_REASON.DEGRADED) || a.number - b.number,
+    );
+    const kept = new Set(ranked.slice(0, pageSize).map((each) => each.node));
+    for (const { node, reason } of troubled) {
+      if (kept.has(node)) drawn.set(node, reason);
+      else troubleNotShown[reason] += 1;
+    }
+    nextTrouble = jumpTo(troubled.find((each) => !kept.has(each.node)));
+  }
+
+  return {
+    batch: {
+      counts: invocation.batch ?? null,
+      total,
+      strip: stripOf(items),
+      wide,
+      expanded,
+      page,
+      nextTrouble,
+      troubleNotShown,
+      hiddenItemCount: items.length - drawn.size,
+    },
+    drawn,
+  };
+}
+
 /**
  * The rows a timeline draws for a snapshot, in drawing order: every invocation
  * before its descendants, nested by path, each labelled with its place under
@@ -208,19 +429,29 @@ function stripOf(items: TreeNode[]): TimelineStripSegment[] {
  * Collapsed, it still draws each item holding an invocation that failed or
  * where the run is stuck (one carrying `degradation`), whether the item itself
  * or anything beneath it, a nested batch's item included, with everything under
- * it, so the trouble can always be pointed at, along with the rows leading to it.
+ * it, so the trouble can be pointed at, along with the rows leading to it.
+ *
+ * Both states are bounded by one page of items (`batchPageSize`). Expanded over
+ * more items than a page, a batch draws the page the reader turned it to, by
+ * item number, and a pager entry after the last row of its items. Collapsed, it
+ * keeps at most one page of its items in trouble in view, those where the run
+ * is stuck first, then the failed ones, each by item number, and when more are in trouble a pager entry stands after them saying
+ * so. The pager carries the jump to the first item in trouble left out.
  *
  * Pure, and a function of the snapshot and the options alone: the same snapshot
  * always yields the same rows, so repainting with a newer snapshot keeps every
- * row it still holds at its place relative to the others.
+ * row it still holds at its place relative to the others, and a page keeps its
+ * range of items while the batch fans out.
  */
 export function buildTimelineRows(
   snapshot: ProgressSnapshot,
   options: TimelineRowsOptions = {},
-): TimelineRow[] {
+): TimelineEntry[] {
   const threshold = options.wideBatchThreshold ?? DEFAULT_WIDE_BATCH_THRESHOLD;
+  const pageSize = pageSizeOf(options.batchPageSize);
   const expandedBatches = options.expandedBatches ?? {};
-  const rows: TimelineRow[] = [];
+  const batchPages = options.batchPages ?? {};
+  const rows: TimelineEntry[] = [];
   const roots = buildInvocationTree(snapshot);
   const trouble: TroubleMap = new Map();
   for (const root of roots) markTrouble(root, trouble);
@@ -235,22 +466,15 @@ export function buildTimelineRows(
     const invocation = node.invocation;
     const items = node.children.filter(isItemNode);
     const isBatch = invocation.batch !== undefined || items.length > 0;
-    let batch: TimelineBatch | null = null;
-    let expanded = true;
-    if (isBatch) {
-      const total = invocation.batch?.total ?? items.length;
-      const wide = total > threshold;
-      expanded = expandedBatches[invocation.path] ?? !wide;
-      const keptCount = expanded ? 0 : items.filter((item) => troubleOf(item) !== null).length;
-      batch = {
-        counts: invocation.batch ?? null,
-        total,
-        strip: stripOf(items),
-        wide,
-        expanded,
-        hiddenItemCount: expanded ? 0 : items.length - keptCount,
-      };
-    }
+    const view = isBatch
+      ? viewBatch(invocation, items, troubleOf, {
+          threshold,
+          pageSize,
+          expanded: expandedBatches[invocation.path],
+          page: batchPages[invocation.path],
+        })
+      : null;
+    const batch = view?.batch ?? null;
     // A segment is worded against the invocation one level up, and only that
     // one: under an ancestor further up, its step count or batch total would
     // describe another controller.
@@ -258,6 +482,7 @@ export function buildTimelineRows(
       parent && parentInvocationPath(invocation.path) === parent.invocation.path ? parent : null;
     const outcome = outcomeOf(node, owner);
     rows.push({
+      kind: TIMELINE_ENTRY_KIND.INVOCATION,
       path: invocation.path,
       parentPath: node.parentPath,
       depth,
@@ -269,13 +494,36 @@ export function buildTimelineRows(
       batch,
       keptVisible,
     });
+    if (!view) {
+      for (const child of node.children) visit(child, node, depth + 1, null);
+      return;
+    }
+    const leftOut =
+      view.batch.troubleNotShown[KEPT_VISIBLE_REASON.FAILED] +
+      view.batch.troubleNotShown[KEPT_VISIBLE_REASON.DEGRADED];
+    const pager: TimelineItemPager | null =
+      view.batch.page || leftOut > 0
+        ? {
+            kind: TIMELINE_ENTRY_KIND.PAGER,
+            batchPath: invocation.path,
+            pipeCode: invocation.pipe_code,
+            depth: depth + 1,
+            batch: view.batch,
+          }
+        : null;
+    // The pager follows the last row of the items drawn, or the batch's own row
+    // when its page holds none the snapshot has reached.
+    let lastDrawn: TreeNode | null = null;
+    for (const child of node.children) if (view.drawn.has(child)) lastDrawn = child;
+    if (pager && !lastDrawn) rows.push(pager);
     for (const child of node.children) {
-      if (expanded || !isItemNode(child)) {
+      if (!isItemNode(child)) {
         visit(child, node, depth + 1, null);
         continue;
       }
-      const reason = troubleOf(child);
-      if (reason) visit(child, node, depth + 1, reason);
+      if (!view.drawn.has(child)) continue;
+      visit(child, node, depth + 1, view.drawn.get(child) ?? null);
+      if (pager && child === lastDrawn) rows.push(pager);
     }
   };
 

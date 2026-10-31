@@ -9,7 +9,12 @@
  * the example exactly, which `recordedRuns.test.ts` checks. `WIDE_BATCH_RUN`
  * reviews twenty-four filings, so its batch is wide; its condition takes its
  * default outcome, one item is skipped, and one item's step fails after its
- * work was tried three times, which fails the run. `VET_COMPANY_RUN` vets a
+ * work was tried three times, which fails the run. `HUNDREDS_OF_ITEMS_RUN` is
+ * the same method over hundreds of filings, a few of which fail, one early, one
+ * in the middle and one near the end, and `OUTAGE_RUN` the same again with most
+ * items failing once a provider goes down; both are taken as single snapshots
+ * with `snapshotAt`, since a replay of either would build a snapshot per change
+ * over every one of their invocations. `VET_COMPANY_RUN` vets a
  * company: a sequence whose first step is a binding, a parallel of eight
  * sources, a batch over a dotted `batch_over`, and a chain of sequences four
  * levels deep.
@@ -75,7 +80,7 @@ export const ENGINE_RETRY_PROBLEM: Problem = {
 /** The problem that ended the wide run's failed step, as the runtime recorded it, in the caller's view. */
 export const CONDENSE_FAILED_PROBLEM: Problem = {
   type: "https://mthds.ai/errors/pipe.output_invalid",
-  title: "A pipe's output does not fit its concept",
+  title: "A step's result does not have the structure the method declares",
   detail:
     "Pipe 'condense_filing' produced an output that does not fit the concept 'FilingSummary', at the fields text.",
   code: "pipe.output_invalid",
@@ -84,7 +89,7 @@ export const CONDENSE_FAILED_PROBLEM: Problem = {
   next_step: {
     kind: "contact_owner",
     detail:
-      "Ask the method's owner to make pipe 'condense_filing' produce an output that fits its concept.",
+      "Ask the method's owner to make the step 'condense_filing' produce a result with the structure the method declares.",
   },
   params: { pipe: "condense_filing", output_concept: "FilingSummary", fields: ["text"] },
   location: {
@@ -451,6 +456,9 @@ const WIDE_ITEM_COUNT = 24;
 const WIDE_CONCURRENCY = 6;
 const WIDE_SKIPPED_ITEM = 5;
 const WIDE_FAILED_ITEM = 9;
+/** When the wide run's batch fans out, and when its first item starts. */
+const BATCH_FAN_OUT_AT = 7_010;
+const FIRST_ITEM_AT = 7_050;
 
 /** A clock time `offsetMs` after 10:00 on the recording's day. */
 function clockAfterTen(offsetMs: number): string {
@@ -467,21 +475,42 @@ interface WideItemTimes {
   end: number;
 }
 
-/** When each item runs: six at a time, each next one starting when a slot frees. */
-function wideItemTimes(): WideItemTimes[] {
+/** How a batch's items run: how many, how many at a time, and which are skipped or fail at which step. */
+interface WideItemsPlan {
+  count: number;
+  concurrency: number;
+  skipped: ReadonlySet<number>;
+  /** The items that fail, each with the step of `summarize_filing` it fails at. */
+  failedAt: ReadonlyMap<number, 1 | 2>;
+}
+
+/** How long an item takes: a skip is near-instant, a failure at its first step quick. */
+function itemDuration(plan: WideItemsPlan, item: number): number {
+  if (plan.skipped.has(item)) return 40;
+  if (plan.failedAt.get(item) === 1) return 600 + ((item * 1_327) % 900);
+  return 5_200 + ((item * 2_731) % 3_400);
+}
+
+/** When each item runs: `concurrency` at a time, each next one starting when a slot frees. */
+function wideItemTimes(plan: WideItemsPlan): WideItemTimes[] {
   const times: WideItemTimes[] = [];
-  for (let item = 1; item <= WIDE_ITEM_COUNT; item += 1) {
+  for (let item = 1; item <= plan.count; item += 1) {
     const start =
-      item <= WIDE_CONCURRENCY
-        ? 7_050 + (item - 1) * 35
-        : times[item - 1 - WIDE_CONCURRENCY].end + 25;
-    const duration = item === WIDE_SKIPPED_ITEM ? 40 : 5_200 + ((item * 2_731) % 3_400);
-    times.push({ start, end: start + duration });
+      item <= plan.concurrency
+        ? FIRST_ITEM_AT + (item - 1) * 35
+        : times[item - 1 - plan.concurrency].end + 25;
+    times.push({ start, end: start + itemDuration(plan, item) });
   }
   return times;
 }
 
-const WIDE_TIMES = wideItemTimes();
+const WIDE_PLAN: WideItemsPlan = {
+  count: WIDE_ITEM_COUNT,
+  concurrency: WIDE_CONCURRENCY,
+  skipped: new Set([WIDE_SKIPPED_ITEM]),
+  failedAt: new Map([[WIDE_FAILED_ITEM, 2]]),
+};
+const WIDE_TIMES = wideItemTimes(WIDE_PLAN);
 const WIDE_BATCH_END = Math.max(...WIDE_TIMES.map((times) => times.end)) + 20;
 const WIDE_FAILED_STEP = `${BATCH}/item_${WIDE_FAILED_ITEM}/step_2`;
 const WIDE_FAILED_STEP_START = (() => {
@@ -489,12 +518,13 @@ const WIDE_FAILED_STEP_START = (() => {
   return start + Math.round((end - start) * 0.45) + 20;
 })();
 
-function wideItemInvocations(): RecordedInvocation[] {
+/** Every item of a batch run to `plan`, at `times`, with the steps each reached. */
+function wideItemInvocations(plan: WideItemsPlan, times: WideItemTimes[]): RecordedInvocation[] {
   const invocations: RecordedInvocation[] = [];
-  WIDE_TIMES.forEach(({ start, end }, index) => {
+  times.forEach(({ start, end }, index) => {
     const item = index + 1;
     const path = `${BATCH}/item_${item}`;
-    if (item === WIDE_SKIPPED_ITEM) {
+    if (plan.skipped.has(item)) {
       invocations.push({
         path,
         pipe: SUMMARIZE_FILING,
@@ -506,17 +536,28 @@ function wideItemInvocations(): RecordedInvocation[] {
       });
       return;
     }
-    const failed = item === WIDE_FAILED_ITEM;
+    const failedAt = plan.failedAt.get(item);
+    const itemInvocation: RecordedInvocation = {
+      path,
+      pipe: SUMMARIZE_FILING,
+      stepCount: 2,
+      startedAt: clockAfterTen(start),
+      endedAt: clockAfterTen(end),
+      outcome: failedAt ? "failed" : "succeeded",
+    };
+    if (failedAt === 1) {
+      invocations.push(itemInvocation, {
+        path: `${path}/step_1`,
+        pipe: READ_FILING,
+        startedAt: clockAfterTen(start + 18),
+        endedAt: clockAfterTen(end - 15),
+        outcome: "failed",
+      });
+      return;
+    }
     const readEnd = start + Math.round((end - start) * 0.45);
     invocations.push(
-      {
-        path,
-        pipe: SUMMARIZE_FILING,
-        stepCount: 2,
-        startedAt: clockAfterTen(start),
-        endedAt: clockAfterTen(end),
-        outcome: failed ? "failed" : "succeeded",
-      },
+      itemInvocation,
       {
         path: `${path}/step_1`,
         pipe: READ_FILING,
@@ -528,28 +569,32 @@ function wideItemInvocations(): RecordedInvocation[] {
         pipe: CONDENSE_FILING,
         startedAt: clockAfterTen(readEnd + 20),
         endedAt: clockAfterTen(end - 15),
-        outcome: failed ? "failed" : "succeeded",
+        outcome: failedAt ? "failed" : "succeeded",
       },
     );
   });
   return invocations;
 }
 
-const failedStepEnd = WIDE_TIMES[WIDE_FAILED_ITEM - 1].end - 15;
-
-/** `filings.review_filings` over twenty-four filings, its condition matching no key. */
-export const WIDE_BATCH_RUN: RecordedRun = {
-  pipelineRunId: "run_W1deB4",
-  mode: "live",
-  day: "2026-10-12",
-  invocations: [
+/**
+ * `filings.review_filings` up to and through its batch over `plan.count`
+ * filings, which fails when any item does, and the run with it: the steps
+ * before the batch, the batch, and every item.
+ */
+function batchRunInvocations(
+  plan: WideItemsPlan,
+  times: WideItemTimes[],
+  batchEnd: number,
+): RecordedInvocation[] {
+  const failed = plan.failedAt.size > 0;
+  return [
     {
       path: ROOT,
       pipe: REVIEW_FILINGS,
       stepCount: 4,
       startedAt: clockAfterTen(100),
-      endedAt: clockAfterTen(WIDE_BATCH_END + 15),
-      outcome: "failed",
+      endedAt: clockAfterTen(batchEnd + 15),
+      outcome: failed ? "failed" : "succeeded",
     },
     {
       path: `${ROOT}/step_1`,
@@ -576,12 +621,22 @@ export const WIDE_BATCH_RUN: RecordedRun = {
       path: BATCH,
       pipe: SUMMARIZE_FILING_BATCH,
       startedAt: clockAfterTen(7_000),
-      endedAt: clockAfterTen(WIDE_BATCH_END),
-      outcome: "failed",
-      fanOut: { at: clockAfterTen(7_010), itemCount: WIDE_ITEM_COUNT },
+      endedAt: clockAfterTen(batchEnd),
+      outcome: failed ? "failed" : "succeeded",
+      fanOut: { at: clockAfterTen(BATCH_FAN_OUT_AT), itemCount: plan.count },
     },
-    ...wideItemInvocations(),
-  ],
+    ...wideItemInvocations(plan, times),
+  ];
+}
+
+const failedStepEnd = WIDE_TIMES[WIDE_FAILED_ITEM - 1].end - 15;
+
+/** `filings.review_filings` over twenty-four filings, its condition matching no key. */
+export const WIDE_BATCH_RUN: RecordedRun = {
+  pipelineRunId: "run_W1deB4",
+  mode: "live",
+  day: "2026-10-12",
+  invocations: batchRunInvocations(WIDE_PLAN, WIDE_TIMES, WIDE_BATCH_END),
   health: [
     {
       path: WIDE_FAILED_STEP,
@@ -617,6 +672,71 @@ export const WIDE_BATCH_RUN: RecordedRun = {
 export const WIDE_BATCH_SNAPSHOTS: ProgressSnapshot[] = recordedSnapshots(WIDE_BATCH_RUN, [
   clockAfterTen(0),
 ]);
+
+// ─── Hundreds of items ────────────────────────────────────────────────────────
+
+/** The items of the hundreds-of-filings run that fail: one early, one in the middle, one near the end. */
+export const HUNDREDS_OF_ITEMS_FAILED = [7, 187, 362] as const;
+
+const HUNDREDS_PLAN: WideItemsPlan = {
+  count: 400,
+  concurrency: 12,
+  skipped: new Set([64, 255]),
+  failedAt: new Map(HUNDREDS_OF_ITEMS_FAILED.map((item) => [item, 2])),
+};
+const HUNDREDS_TIMES = wideItemTimes(HUNDREDS_PLAN);
+const HUNDREDS_BATCH_END = Math.max(...HUNDREDS_TIMES.map((times) => times.end)) + 20;
+
+/** `filings.review_filings` over hundreds of filings, a few of which fail. */
+export const HUNDREDS_OF_ITEMS_RUN: RecordedRun = {
+  pipelineRunId: "run_H4ndr3",
+  mode: "live",
+  day: "2026-10-12",
+  invocations: batchRunInvocations(HUNDREDS_PLAN, HUNDREDS_TIMES, HUNDREDS_BATCH_END),
+};
+
+/** The run part-way through its batch: the early and the middle failures have happened, the late one has not. */
+export const HUNDREDS_OF_ITEMS_MID_RUN_SNAPSHOT: ProgressSnapshot = snapshotAt(
+  HUNDREDS_OF_ITEMS_RUN,
+  clockAfterTen(HUNDREDS_TIMES[HUNDREDS_OF_ITEMS_FAILED[1] - 1].end + 2_000),
+);
+
+/** The run once it has failed, every item ended. */
+export const HUNDREDS_OF_ITEMS_END_SNAPSHOT: ProgressSnapshot = snapshotAt(
+  HUNDREDS_OF_ITEMS_RUN,
+  clockAfterTen(HUNDREDS_BATCH_END + 1_000),
+);
+
+/** The first item of the outage run to fail: from it on, every item fails at its first step. */
+export const OUTAGE_FIRST_FAILED_ITEM = 31;
+
+const OUTAGE_PLAN: WideItemsPlan = {
+  count: 400,
+  concurrency: 12,
+  skipped: new Set(),
+  failedAt: new Map(
+    Array.from({ length: 400 - OUTAGE_FIRST_FAILED_ITEM + 1 }, (_, index) => [
+      OUTAGE_FIRST_FAILED_ITEM + index,
+      1,
+    ]),
+  ),
+};
+const OUTAGE_TIMES = wideItemTimes(OUTAGE_PLAN);
+const OUTAGE_BATCH_END = Math.max(...OUTAGE_TIMES.map((times) => times.end)) + 20;
+
+/** The hundreds-of-filings run during an outage: past its first items, every item fails reading its filing. */
+export const OUTAGE_RUN: RecordedRun = {
+  pipelineRunId: "run_0utag3",
+  mode: "live",
+  day: "2026-10-12",
+  invocations: batchRunInvocations(OUTAGE_PLAN, OUTAGE_TIMES, OUTAGE_BATCH_END),
+};
+
+/** The outage run once it has failed. */
+export const OUTAGE_END_SNAPSHOT: ProgressSnapshot = snapshotAt(
+  OUTAGE_RUN,
+  clockAfterTen(OUTAGE_BATCH_END + 1_000),
+);
 
 // ─── A dry run ────────────────────────────────────────────────────────────────
 

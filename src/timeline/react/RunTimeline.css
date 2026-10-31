@@ -434,6 +434,92 @@
   border: 0;
 }
 
+/* ─── A batch's pager: a row of the list at its items' depth ─────────────── */
+/* Its content starts where an item row's dot does: past the toggle's 16px   */
+/* and the name's 6px gap. Previous and Next stay focusable at their ends,   */
+/* `aria-disabled` rather than disabled, so they are dimmed here.            */
+
+.mthds-run-timeline-pager {
+  display: flex;
+  align-items: center;
+  min-height: 30px;
+  border-bottom: 1px solid var(--border-subtle);
+  animation: mthds-run-timeline-appear 0.3s ease-out;
+}
+
+.mthds-run-timeline-pager-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 8px;
+  min-width: 0;
+  margin-left: 22px;
+  padding: 3px 0;
+}
+
+.mthds-run-timeline-pager-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 1px 8px;
+  border: 1px solid var(--border-default);
+  border-radius: 6px;
+  background: var(--surface-sunken);
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: 11px;
+  line-height: 18px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+/* A jump keeps the colour of its trouble on hover, so the neutral hover skips it. */
+.mthds-run-timeline-pager-btn:hover:not([aria-disabled="true"]):not(
+    .mthds-run-timeline-pager-jump
+  ) {
+  border-color: var(--border-strong);
+  background: var(--surface-elevated-hover);
+  color: var(--text-primary);
+}
+
+.mthds-run-timeline-pager-btn:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 1px;
+}
+
+.mthds-run-timeline-pager-btn[aria-disabled="true"] {
+  opacity: 0.45;
+  cursor: default;
+}
+
+/* The jump to an item in trouble, in the colour of its trouble. */
+.mthds-run-timeline-pager-jump--failed {
+  border-color: var(--color-error);
+  color: var(--color-error);
+}
+
+.mthds-run-timeline-pager-jump--degraded {
+  border-color: var(--color-warning);
+  color: var(--color-warning);
+}
+
+.mthds-run-timeline-pager-jump:hover {
+  border-color: currentColor;
+  background: var(--surface-elevated-hover);
+}
+
+.mthds-run-timeline-pager-range,
+.mthds-run-timeline-pager-more {
+  color: var(--text-muted);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.mthds-run-timeline-pager-more {
+  color: var(--text-secondary);
+}
+
 /* ─── The header's style menu ───────────────────────────────────────────── */
 /* The list is the graph viewer's (`StyleMenu.css`); the button is drawn     */
 /* here, in the header's own vocabulary.                                     */
@@ -518,6 +604,12 @@
   .mthds-run-timeline-track {
     min-height: 18px;
   }
+
+  /* The pager's buttons grow at narrow width, so they are easier to tap. */
+  .mthds-run-timeline-pager-btn {
+    padding: 4px 10px;
+    line-height: 20px;
+  }
 }
 
 @keyframes mthds-run-timeline-appear {
@@ -540,6 +632,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .mthds-run-timeline-row,
+  .mthds-run-timeline-pager,
   .mthds-run-timeline-bar--growing {
     animation: none;
   }

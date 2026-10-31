@@ -16,10 +16,10 @@ If you render the React components, one setup step follows the install: the form
 
 ### Peer dependencies
 
-| Dependency            | Required | Used by                                                     |
-| --------------------- | -------- | ----------------------------------------------------------- |
-| `react`, `react-dom`  | no       | React layer (`graph/react`, `form/react`, `timeline/react`) |
-| `shiki`               | no       | Syntax highlighting (`shiki`)                               |
+| Dependency           | Required | Used by                                                     |
+| -------------------- | -------- | ----------------------------------------------------------- |
+| `react`, `react-dom` | no       | React layer (`graph/react`, `form/react`, `timeline/react`) |
+| `shiki`              | no       | Syntax highlighting (`shiki`)                               |
 
 ### Bundled dependencies
 
@@ -402,7 +402,7 @@ Full contract, why this package stopped loading the kernel's stylesheet itself, 
 
 ## Run timeline
 
-`RunTimeline` draws a running run as nested rows, one per invocation of a pipe, each with a bar on a shared time axis that grows while the invocation runs. Its only input is the progress snapshot of the hosted progress contract: a batch is one collapsible row with its counts and a strip of its items' states, a condition's branch carries the outcome it took, and a retried or stuck invocation is marked on its own row.
+`RunTimeline` draws a running run as nested rows, one per invocation of a pipe, each with a bar on a shared time axis that grows while the invocation runs. Its only input is the progress snapshot of the hosted progress contract: a batch is one collapsible row with its counts and a strip of its items' states, whose items come a page at a time (`batchPageSize`, ten by default) with a jump to the next failed or stuck one, a condition's branch carries the outcome it took, and a retried or stuck invocation is marked on its own row.
 
 ```tsx
 import { RunTimeline } from "@pipelex/mthds-ui/timeline/react";

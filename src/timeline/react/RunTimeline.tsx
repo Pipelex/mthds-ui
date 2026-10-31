@@ -21,7 +21,15 @@ import {
   type TimelineStyleId,
 } from "@timeline/styles/timelineStyles";
 import type { TimelinePipeRegistry } from "@timeline/styles/registryJoin";
-import { buildTimelineRows, type TimelineBatch, type TimelineRow } from "@timeline/timelineRows";
+import {
+  KEPT_VISIBLE_REASON,
+  TIMELINE_ENTRY_KIND,
+  buildTimelineRows,
+  type KeptVisibleReason,
+  type TimelineBatch,
+  type TimelineItemPager,
+  type TimelineRow,
+} from "@timeline/timelineRows";
 import {
   barFollowsClock,
   formatClockTime,
@@ -37,7 +45,7 @@ import {
   type TimelineWindow,
 } from "@timeline/timelineTime";
 import { useHeldSnapshot, useReadingClock } from "@timeline/react/readingClock";
-import { useStreamExpansion } from "@timeline/react/streamExpansion";
+import { useStreamRecord } from "@timeline/react/streamRecord";
 import { SimpleProgressView } from "@timeline/react/styles/simple/SimpleProgressView";
 import { TimelineStyleMenu } from "@timeline/react/TimelineStyleMenu";
 
@@ -118,6 +126,13 @@ export interface RunTimelineProps {
   entryPipeRef?: string;
   /** A batch holding more items than this starts collapsed. Defaults to `DEFAULT_WIDE_BATCH_THRESHOLD`. */
   wideBatchThreshold?: number;
+  /**
+   * How many items one page of a batch holds in the detailed style: an expanded
+   * batch with more items draws them a page at a time, and a collapsed one keeps
+   * at most this many of its items in trouble in view. Defaults to
+   * `DEFAULT_BATCH_PAGE_SIZE`.
+   */
+  batchPageSize?: number;
   /**
    * In the simple style, a parallel with more branches than this folds its
    * finished branches into one line. Defaults to `DEFAULT_WIDE_PARALLEL_THRESHOLD`.
@@ -418,11 +433,144 @@ const TimelineRowView = React.memo(function TimelineRowView({
         {invocation.degradation && (
           <span className="mthds-run-timeline-badge mthds-run-timeline-badge--stuck">stuck</span>
         )}
-        {batch && !batch.expanded && batch.hiddenItemCount > 0 && (
+        {batch && batch.hiddenItemCount > 0 && (
           <span className="mthds-run-timeline-sr">{`, ${batch.hiddenItemCount} items hidden`}</span>
         )}
         <span className="mthds-run-timeline-detail">{rowDetailText(row, bar)}</span>
       </div>
+    </li>
+  );
+});
+
+/** A pager's React key: never a path, which keys the rows. */
+const PAGER_KEY_PREFIX = "pager:";
+
+/** How a pager words an item in trouble. */
+const TROUBLE_WORD: Record<KeptVisibleReason, string> = {
+  [KEPT_VISIBLE_REASON.FAILED]: "failed",
+  [KEPT_VISIBLE_REASON.DEGRADED]: "stuck",
+};
+
+/** The items in trouble a collapsed batch's cap leaves out, in words: `51 more failed · 1 more stuck`. */
+function troubleNotShownText(batch: TimelineBatch): string {
+  return [KEPT_VISIBLE_REASON.FAILED, KEPT_VISIBLE_REASON.DEGRADED]
+    .filter((reason) => batch.troubleNotShown[reason] > 0)
+    .map((reason) => `${batch.troubleNotShown[reason]} more ${TROUBLE_WORD[reason]}`)
+    .join(" · ");
+}
+
+interface ItemPagerViewProps {
+  pager: TimelineItemPager;
+  onToggleBatch: (path: string, expanded: boolean) => void;
+  onTurnPage: (path: string, page: number) => void;
+}
+
+/**
+ * A batch's pager, a row of the list at its items' depth. Expanded over several
+ * pages, it holds Previous and Next, the range drawn, and the jump to the next
+ * item in trouble when one lies off the page. Collapsed, it says how many items
+ * in trouble the cap leaves out, with a button opening the batch on the page of
+ * the first.
+ *
+ * Keyed by its batch, so a page turn keeps it and the button pressed keeps
+ * focus. Previous and Next are `aria-disabled` at their ends rather than
+ * disabled, so a button the reader is on stays focused when it reaches its end;
+ * a button that goes away with the turn hands focus to the pager's first.
+ */
+const ItemPagerView = React.memo(function ItemPagerView({
+  pager,
+  onToggleBatch,
+  onTurnPage,
+}: ItemPagerViewProps) {
+  const { batch, batchPath, pipeCode, depth } = pager;
+  const navRef = React.useRef<HTMLElement | null>(null);
+  const refocusRef = React.useRef(false);
+  React.useEffect(() => {
+    if (!refocusRef.current) return;
+    refocusRef.current = false;
+    const nav = navRef.current;
+    if (nav && !nav.contains(document.activeElement)) nav.querySelector("button")?.focus();
+  });
+  const turn = (page: number, expand: boolean) => {
+    refocusRef.current = true;
+    onTurnPage(batchPath, page);
+    if (expand) onToggleBatch(batchPath, true);
+  };
+  const page = batch.page;
+  const jump = batch.nextTrouble;
+
+  let content: React.ReactNode;
+  if (batch.expanded && page) {
+    const atFirst = page.index === 0;
+    const atLast = page.index === page.count - 1;
+    content = (
+      <>
+        <button
+          key="previous"
+          type="button"
+          className="mthds-run-timeline-pager-btn"
+          aria-disabled={atFirst}
+          onClick={() => !atFirst && turn(page.index - 1, false)}
+        >
+          <span aria-hidden="true">‹</span>Previous
+        </button>
+        <span key="range" className="mthds-run-timeline-pager-range" aria-live="polite">
+          {`Items ${page.firstItem}–${page.lastItem} of ${page.itemCount}`}
+        </span>
+        <button
+          key="next"
+          type="button"
+          className="mthds-run-timeline-pager-btn"
+          aria-disabled={atLast}
+          onClick={() => !atLast && turn(page.index + 1, false)}
+        >
+          Next<span aria-hidden="true">›</span>
+        </button>
+        {jump && (
+          <button
+            key="jump"
+            type="button"
+            className={`mthds-run-timeline-pager-btn mthds-run-timeline-pager-jump mthds-run-timeline-pager-jump--${jump.reason}`}
+            onClick={() => turn(jump.page, false)}
+          >
+            {`Next ${TROUBLE_WORD[jump.reason]} · item ${jump.item}`}
+          </button>
+        )}
+      </>
+    );
+  } else {
+    content = (
+      <>
+        <span key="more" className="mthds-run-timeline-pager-more">
+          {troubleNotShownText(batch)}
+        </span>
+        {jump && (
+          <button
+            key="expand"
+            type="button"
+            className={`mthds-run-timeline-pager-btn mthds-run-timeline-pager-jump mthds-run-timeline-pager-jump--${jump.reason}`}
+            onClick={() => turn(jump.page, true)}
+          >
+            {`Expand at item ${jump.item}`}
+          </button>
+        )}
+      </>
+    );
+  }
+
+  return (
+    <li
+      className="mthds-run-timeline-pager"
+      data-pager-for={batchPath}
+      style={{ paddingLeft: `calc(${depth} * var(--mthds-run-timeline-indent))` }}
+    >
+      <nav
+        ref={navRef}
+        className="mthds-run-timeline-pager-nav"
+        aria-label={`Items of ${pipeCode}`}
+      >
+        {content}
+      </nav>
     </li>
   );
 });
@@ -436,13 +584,15 @@ const TimelineRowView = React.memo(function TimelineRowView({
  * Nothing is drawn in advance: a row appears when the run reaches its
  * invocation, so there is no method graph behind it and no batch width is ever
  * guessed. A batch is one collapsible row carrying its counts and a strip of its
- * items' states; a wide one starts collapsed and keeps its failed items in view.
+ * items' states; a wide one starts collapsed and keeps its failed items in view,
+ * a page of them at most, and an expanded one draws its items a page at a time.
  * A condition's branch carries the outcome it took. A retried invocation shows
  * its attempts and where its last failure happened, and the invocation where
  * the run is stuck says so.
  *
  * Rows are keyed by path, so repainting with a newer snapshot keeps each drawn
- * row in place and what the reader expanded expanded. While the clock ticks,
+ * row in place, what the reader expanded expanded, and each batch on the page
+ * the reader turned it to. While the clock ticks,
  * only the axis and the rows whose bars follow the clock are drawn again.
  */
 export function RunTimeline({
@@ -458,6 +608,7 @@ export function RunTimeline({
   pipeRegistry,
   entryPipeRef,
   wideBatchThreshold,
+  batchPageSize,
   wideParallelThreshold,
   className,
 }: RunTimelineProps) {
@@ -530,7 +681,7 @@ export function RunTimeline({
   // What every style shares lives above the switch between them, so changing
   // style never moves the clock back or forgets what the reader opened: the
   // snapshot's moments, one reading clock ticking as often as the active
-  // style's drawing moves, and each style's expansion.
+  // style's drawing moves, each style's expansion, and the detailed style's pages.
   const times = React.useMemo(() => snapshotTimes(held), [held]);
   const followsClock = React.useMemo(
     () =>
@@ -545,8 +696,9 @@ export function RunTimeline({
     followsClock,
     tickMs: CLOCK_TICK_MS[activeStyle],
   });
-  const detailedExpansion = useStreamExpansion(streamKey);
-  const simpleExpansion = useStreamExpansion(streamKey);
+  const detailedExpansion = useStreamRecord<boolean>(streamKey);
+  const detailedPages = useStreamRecord<number>(streamKey);
+  const simpleExpansion = useStreamRecord<boolean>(streamKey);
 
   // Keyed by style, so a new style fails to compile until it has a view.
   const views: Record<TimelineStyleId, () => React.ReactElement> = {
@@ -557,8 +709,8 @@ export function RunTimeline({
         times={times}
         nowMs={clock.nowMs}
         ticking={clock.ticking}
-        expanded={simpleExpansion.expanded}
-        onToggle={simpleExpansion.toggle}
+        expanded={simpleExpansion.values}
+        onToggle={simpleExpansion.set}
         pipeRegistry={pipeRegistry}
         entryPipeRef={entryPipeRef}
         wideParallelThreshold={wideParallelThreshold}
@@ -573,9 +725,12 @@ export function RunTimeline({
         times={times}
         nowMs={clock.nowMs}
         ticking={clock.ticking}
-        expandedBatches={detailedExpansion.expanded}
-        onToggleBatch={detailedExpansion.toggle}
+        expandedBatches={detailedExpansion.values}
+        onToggleBatch={detailedExpansion.set}
+        batchPages={detailedPages.values}
+        onTurnPage={detailedPages.set}
         wideBatchThreshold={wideBatchThreshold}
+        batchPageSize={batchPageSize}
         containerClassName={containerClassName}
         containerStyle={paletteStyle}
         headerEnd={headerEnd}
@@ -585,7 +740,7 @@ export function RunTimeline({
   return views[activeStyle]();
 }
 
-/** What `RunTimeline` hands the detailed style: the snapshot it holds, the reading clock and the reader's expansion, which every style shares, and its own props. */
+/** What `RunTimeline` hands the detailed style: the snapshot it holds, the reading clock, the reader's expansion and pages, which outlive a style switch, and its own props. */
 interface DetailedTimelineProps {
   held: ProgressSnapshot;
   times: SnapshotTimes;
@@ -595,14 +750,28 @@ interface DetailedTimelineProps {
   /** The batches the reader opened or closed, by path. */
   expandedBatches: Readonly<Record<string, boolean>>;
   onToggleBatch: (path: string, expanded: boolean) => void;
+  /** The page the reader turned each batch to, by path. */
+  batchPages: Readonly<Record<string, number>>;
+  onTurnPage: (path: string, page: number) => void;
   wideBatchThreshold: number | undefined;
+  batchPageSize: number | undefined;
   containerClassName: string;
   containerStyle: React.CSSProperties;
   /** What `RunTimeline` puts at the end of the header: the style menu, when shown. */
   headerEnd: React.ReactNode;
 }
 
-/** The detailed style: every invocation as a row with its bar on the shared axis. */
+/** An entry as the detailed style draws it: a row with its moments parsed once per snapshot, or a pager. */
+type DrawnEntry =
+  | {
+      kind: typeof TIMELINE_ENTRY_KIND.INVOCATION;
+      row: TimelineRow;
+      times: InvocationTimes;
+      followsClock: boolean;
+    }
+  | TimelineItemPager;
+
+/** The detailed style: every invocation as a row with its bar on the shared axis, and each paged batch's pager. */
 function DetailedTimeline({
   held,
   times,
@@ -610,22 +779,32 @@ function DetailedTimeline({
   ticking,
   expandedBatches,
   onToggleBatch: toggleBatch,
+  batchPages,
+  onTurnPage: turnPage,
   wideBatchThreshold,
+  batchPageSize,
   containerClassName,
   containerStyle,
   headerEnd,
 }: DetailedTimelineProps) {
-  const rows = React.useMemo(
-    () => buildTimelineRows(held, { expandedBatches, wideBatchThreshold }),
-    [held, expandedBatches, wideBatchThreshold],
-  );
-  const drawnRows = React.useMemo(
+  const entries = React.useMemo(
     () =>
-      rows.map((row) => {
-        const rowTimes = times.invocations.get(row.path) ?? invocationTimes(row.invocation);
-        return { row, times: rowTimes, followsClock: barFollowsClock(row.invocation, rowTimes) };
+      buildTimelineRows(held, { expandedBatches, wideBatchThreshold, batchPages, batchPageSize }),
+    [held, expandedBatches, wideBatchThreshold, batchPages, batchPageSize],
+  );
+  const drawnEntries = React.useMemo(
+    () =>
+      entries.map((entry): DrawnEntry => {
+        if (entry.kind === TIMELINE_ENTRY_KIND.PAGER) return entry;
+        const rowTimes = times.invocations.get(entry.path) ?? invocationTimes(entry.invocation);
+        return {
+          kind: entry.kind,
+          row: entry,
+          times: rowTimes,
+          followsClock: barFollowsClock(entry.invocation, rowTimes),
+        };
       }),
-    [rows, times],
+    [entries, times],
   );
   const axis = timelineWindowAt(times, nowMs);
   const [axisTrackRef, tickBudget] = useTickBudget();
@@ -666,7 +845,7 @@ function DetailedTimeline({
           {held.degradation.message}
         </p>
       )}
-      {rows.length === 0 ? (
+      {entries.length === 0 ? (
         // A run that ended with nothing to draw, failed or canceled before its
         // first invocation started, is waiting for nothing.
         <p className="mthds-run-timeline-empty">
@@ -698,16 +877,25 @@ function DetailedTimeline({
             </div>
           )}
           <ol className="mthds-run-timeline-rows">
-            {drawnRows.map(({ row, times: rowTimes, followsClock }) => (
-              <TimelineRowView
-                key={row.path}
-                row={row}
-                times={rowTimes}
-                axis={followsClock ? axis : times.recorded}
-                nowMs={followsClock ? nowMs : null}
-                onToggleBatch={toggleBatch}
-              />
-            ))}
+            {drawnEntries.map((drawn) =>
+              drawn.kind === TIMELINE_ENTRY_KIND.PAGER ? (
+                <ItemPagerView
+                  key={`${PAGER_KEY_PREFIX}${drawn.batchPath}`}
+                  pager={drawn}
+                  onToggleBatch={toggleBatch}
+                  onTurnPage={turnPage}
+                />
+              ) : (
+                <TimelineRowView
+                  key={drawn.row.path}
+                  row={drawn.row}
+                  times={drawn.times}
+                  axis={drawn.followsClock ? axis : times.recorded}
+                  nowMs={drawn.followsClock ? nowMs : null}
+                  onToggleBatch={toggleBatch}
+                />
+              ),
+            )}
           </ol>
         </div>
       )}
