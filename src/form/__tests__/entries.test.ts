@@ -31,6 +31,7 @@ import type {
   FileSource,
   FillWithExampleProps,
   FilePickerProps,
+  FilePickerSource,
   RunPanelProps,
 } from "@form/react/index";
 
@@ -68,11 +69,14 @@ describe("the ./form/react entry", () => {
     expect(formReact.FilePicker).toBeTypeOf("function");
     expect(formReact.FilePickerEntry).toBeTypeOf("function");
     expectTypeOf<FillWithExampleProps["source"]>().toEqualTypeOf<ExampleSource>();
-    expectTypeOf<FilePickerProps["source"]>().toEqualTypeOf<FileSource>();
+    expectTypeOf<FilePickerProps["source"]>().toEqualTypeOf<FilePickerSource>();
   });
 
   it("carries the field environment that hands a file source to every control", () => {
-    expectTypeOf<FieldEnv["fileSource"]>().toEqualTypeOf<FileSource | undefined>();
+    // A `FilePickerSource` is a `FileSource` with an optional `renderGlyph`
+    // (kernel 0.23.2), so every `FileSource` a host already passes is one.
+    expectTypeOf<FieldEnv["fileSource"]>().toEqualTypeOf<FilePickerSource | undefined>();
+    expectTypeOf<FileSource>().toExtend<FilePickerSource>();
   });
 
   it("types RunPanel's two source props as the kernel's seams, and its fill callback", () => {

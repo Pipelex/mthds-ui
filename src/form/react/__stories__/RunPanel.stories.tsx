@@ -691,6 +691,94 @@ export const HostTrackerJoinsPanelUploads: Story = {
 };
 
 /**
+ * Several files dropped at once on a list of files, landing out of order.
+ *
+ * Kernel 0.24.0 gives a list whose item is a file a drop area of its own,
+ * offered because the panel supplies `onDropFile`. It writes the grown list
+ * once, then hands each file to the panel's `onDropFile` at its row's id
+ * (`cvs.0`, `cvs.1`, `cvs.2`), so three uploads are in flight in one list. The
+ * panel writes each result over its values as they are when the upload lands
+ * (the mirror in `RunPanel.tsx`), which is what the kernel asks of a host
+ * writing its own uploads back: a write over the values held at the drop would
+ * erase the rows the drop appended and every file that landed before it. Here
+ * the uploads settle last-first, and every row keeps its own file.
+ */
+export const ListTakesSeveralFilesAtOnce: Story = {
+  args: {
+    ...SCREEN_CVS,
+    title: "screen_cvs",
+    initialValues: { job_offer: { url: "https://files.test/job.pdf", filename: "job.pdf" } },
+  },
+  render: function Render(args) {
+    // Every upload is held open until the story releases it, newest first.
+    const pending = React.useRef<Array<() => void>>([]);
+    const uploadFile = React.useCallback(
+      (file: File) =>
+        new Promise<UploadedFile>((resolve) => {
+          pending.current.push(() =>
+            resolve({ url: `https://files.test/${file.name}`, filename: file.name }),
+          );
+        }),
+      [],
+    );
+    return (
+      <>
+        <PanelHost {...args} uploadFile={uploadFile} />
+        <button
+          type="button"
+          data-testid="settle-newest-upload"
+          onClick={() => pending.current.pop()?.()}
+        >
+          settle the newest upload
+        </button>
+      </>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const names = ["cv-ada.pdf", "cv-grace.pdf", "cv-alan.pdf"];
+
+    // The empty list offers its drop area in place of an empty row.
+    const area = await canvas.findByLabelText(/add files to cvs/i);
+    fireEvent.change(area, {
+      target: {
+        files: names.map((name) => new File(["pdf"], name, { type: "application/pdf" })),
+      },
+    });
+
+    // One row per file, each uploading, and Run held while any is in flight.
+    await waitFor(() =>
+      expect(canvasElement.querySelector(`[id="${ID_PREFIX}-cvs.2"]`)).not.toBeNull(),
+    );
+    await expect(canvas.getByRole("button", { name: "Run" })).toBeDisabled();
+
+    // The uploads land last-first: cv-alan, then cv-grace, then cv-ada.
+    for (const name of [...names].reverse()) {
+      await userEvent.click(canvas.getByTestId("settle-newest-upload"));
+      await waitFor(() => expect(canvas.getByText(name)).toBeInTheDocument());
+    }
+
+    // Every file is still on screen, none written over another.
+    for (const name of names) await expect(canvas.getByText(name)).toBeInTheDocument();
+    const run = canvas.getByRole("button", { name: "Run" });
+    await waitFor(() => expect(run).toBeEnabled());
+    await userEvent.click(run);
+
+    // The list ships the three files in the order they were dropped.
+    await waitFor(() => {
+      const payload = JSON.parse(canvas.getByTestId("run-payload").textContent ?? "{}") as Record<
+        string,
+        unknown
+      >;
+      const shipped = JSON.stringify(payload.cvs ?? null);
+      const at = names.map((name) => shipped.indexOf(`https://files.test/${name}`));
+      expect(at.every((index) => index >= 0)).toBe(true);
+      expect([...at].sort((a, b) => a - b)).toEqual(at);
+    });
+  },
+};
+
+/**
  * A decimal in a number field must not silently veto the run.
  *
  * The kernel's number control carries native `step`/`min`/`max` constraints, and
