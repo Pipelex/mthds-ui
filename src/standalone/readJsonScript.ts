@@ -1,3 +1,5 @@
+import { embedSelector } from "@static-graph/mthdsSourcesEmbed";
+
 /**
  * Parse the text content of an embedded `<script type="application/json">`
  * placeholder. Empty or whitespace-only content (an omitted/empty embed
@@ -21,7 +23,7 @@ export function parseJsonScriptText(text: string | null | undefined, id: string)
     return JSON.parse(trimmed);
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
-    throw new Error(`Failed to parse JSON from <script id="${id}">: ${message}`);
+    throw new Error(`Failed to parse JSON from ${embedSelector(id)}: ${message}`);
   }
 }
 

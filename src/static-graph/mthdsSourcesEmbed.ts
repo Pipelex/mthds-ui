@@ -11,8 +11,25 @@ import type { MthdsSource } from "./sourceOrder";
 /** The id of the `<script type="application/json">` element carrying the files. */
 export const MTHDS_SOURCES_EMBED_ID = "mthds-sources";
 
+/**
+ * How an error names an embed element: as a CSS selector, `script#<id>`, which
+ * a reader can hand to `document.querySelector` as it stands.
+ *
+ * Never as markup. These messages are compiled into the standalone bundle,
+ * which `graph-standalone.html` carries inline in a `<script>` element, after
+ * the form kernel's code, and that code holds a `<!--` no `-->` follows (its
+ * reader of extracted pages drops HTML comments). A `<script` opener in any
+ * string after it would keep the HTML tokenizer from ending the element, so
+ * the build refuses the bundle (`scripts/inlineHazards.mjs`).
+ */
+export function embedSelector(id: string): string {
+  return `script#${id}`;
+}
+
+const SOURCES = embedSelector(MTHDS_SOURCES_EMBED_ID);
+
 function describeEntry(index: number): string {
-  return `<script id="${MTHDS_SOURCES_EMBED_ID}"> entry ${index}`;
+  return `${SOURCES} entry ${index}`;
 }
 
 /**
@@ -25,12 +42,12 @@ function describeEntry(index: number): string {
 export function parseMthdsSourcesEmbed(raw: unknown): MthdsSource[] {
   if (!Array.isArray(raw)) {
     throw new Error(
-      `<script id="${MTHDS_SOURCES_EMBED_ID}"> must hold a JSON array of ` +
+      `${SOURCES} must hold a JSON array of ` +
         `{ "name", "content" } objects, one per .mthds file.`,
     );
   }
   if (raw.length === 0) {
-    throw new Error(`<script id="${MTHDS_SOURCES_EMBED_ID}"> lists no .mthds file.`);
+    throw new Error(`${SOURCES} lists no .mthds file.`);
   }
   const seen = new Set<string>();
   return raw.map((entry: unknown, index) => {

@@ -33,6 +33,14 @@
  *   `<!-->` and `<!--->` close themselves. esbuild escapes neither `<!--` nor
  *   `<script`.
  *
+ * The second is not hypothetical. Since `@pipelex/mthds-form` 0.25.0 the
+ * bundle holds a `<!--` that nothing closes: the kernel's reader of extracted
+ * pages tests a page's text for `"<!--"` to drop its HTML comments. esbuild
+ * places this package's own code after its dependencies', so no string of
+ * ours can hold a `<script` opener: an error naming an embed element names it
+ * as a selector, `script#mthds-sources`, through `embedSelector` in
+ * `src/static-graph/mthdsSourcesEmbed.ts`.
+ *
  * @param {string} js
  * @returns {string | null}
  */
