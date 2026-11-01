@@ -13,7 +13,7 @@ The standard answers the question, in an artifact built for it:
 | `output_form[pipe_ref]` | ONE descriptor node for the pipe's result — kind, concept identity, refinement chain, nested fields in authored order |
 | `pipe_io_contracts[pipe_ref].output.json_schema` | the payload's JSON Schema, naming the property the concept's content model wraps the value under |
 
-`buildResultField(descriptor, schema)` pairs them into a `RunField`, and `ResultPanel` lays that out **without ever inspecting the value**: a list of uniform records becomes a table, a structure a two-column grid, `native.Html` a sandboxed frame, images a gallery, prose typeset as markdown. The JSON view survives as one of the panel's two, because a receipt is worth having. "Pretty" and "HTML" do not, because they were two guesses at a question that now has an answer.
+`buildResultField(descriptor, schema)` pairs them into a `RunField`, and `ResultPanel` lays that out **without ever inspecting the value**: a list of uniform records becomes a table, a structure a two-column grid, `native.Html` a sandboxed frame, images a gallery, prose typeset as markdown, a page of an extracted document its text as a document with its tables drawn and its pictures under it, and a `native.Composite` its members, a picture drawn and a list of structures as a table. The JSON view survives as one of the panel's two, because a receipt is worth having. "Pretty" and "HTML" do not, because they were two guesses at a question that now has an answer.
 
 ## The kernel ships with this package, and that is the point
 
@@ -36,6 +36,14 @@ That optionality made sense while the kernel powered only the run form, which is
 The division of labour is unchanged: **the graph owns the selection and the lookup**, resolving the clicked node's digest to a `StuffLocation` (`src/graph/stuffLookup.ts`) and handing `StuffResultPanel` the item, its concept, the producing pipe and the first consuming one.
 
 A consumer that passes no artifacts gets the concept's structure table and **no data tab**. That is the deliberate floor, not a degraded mode — a static graph, or a spec restored without its validate report, genuinely has nothing to render a value from. A tab that opens onto an empty pane reads as data that failed to load.
+
+## The heading, in either presentation
+
+The panel is headed by the stuff's name, the one the reader clicked in the graph, never by the descriptor's: `build_output_form` names every pipe's root node `output`, which is right in the artifact and tells a reader nothing on screen. `StuffResultPanel` passes that name to the kernel's `StuffViewer`, which draws it as the method wrote it in the default `studio` presentation and in words (`candidate_assets` reads "Candidate assets") in `app`, except over an HTML page there, as the next paragraph explains.
+
+The name matters more in `app`. Since kernel 0.25.0 the kernel draws a title there only when its host gives it a name, so a host that heads a result itself gets no second heading under its own, and a list that is the whole result loses its count under an unnamed panel. The graph's panel heads nothing itself, so it always passes the stuff's name, and in a host that sets `app` around the graph with the kernel's `FieldPresentationProvider`, imported from `@pipelex/mthds-ui/form/react`, every result but an HTML page keeps its heading, and a list that is the whole result keeps its count under it. An HTML page (`native.Html`) is the one exception, and it is the kernel's design rather than something this panel can change: in `app` the kernel draws the page itself with no title above it, even when it is given a name, because the page heads itself. The same presentation draws a `native.YesNo`, `native.Rating` or `native.Choice` result as its answer with the producer's measure under it, and typesets a long text value under its label; `studio` shows the record and the plain text as before.
+
+The words of those arms are the kernel's `FieldStrings` keys `yesProbability`, `verdictConfidence`, `ratingLevel`, `pageNumber` and `extractedTable`, shipped in English and French. Like every other word of the panel, they come from a `FieldStringsProvider` mounted above the graph, and a host supplying a complete `FieldStrings` rather than a partial override adds them.
 
 ## The producer join, and its one wrinkle
 
