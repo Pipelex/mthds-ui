@@ -1,5 +1,16 @@
 import { describe, it, expect } from "vitest";
-import { parseMthdsSourcesEmbed, serializeMthdsSourcesEmbed } from "../mthdsSourcesEmbed";
+import {
+  embedSelector,
+  parseMthdsSourcesEmbed,
+  serializeMthdsSourcesEmbed,
+} from "../mthdsSourcesEmbed";
+
+describe("embedSelector", () => {
+  it("names an embed element as the selector that finds it, never as markup", () => {
+    expect(embedSelector("mthds-sources")).toBe("script#mthds-sources");
+    expect(embedSelector("pipelex-config")).not.toContain("<");
+  });
+});
 
 describe("parseMthdsSourcesEmbed", () => {
   it("keeps name and content and drops anything else", () => {

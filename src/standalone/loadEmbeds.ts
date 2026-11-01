@@ -16,7 +16,11 @@ import { VALIDATION_STATE } from "@graph/types";
 import { validateGraphSpec } from "@graph/validateGraphSpec";
 import { buildStaticGraphSpec } from "@static-graph/buildStaticGraphSpec";
 import { mergeBundles } from "@static-graph/mergeBundles";
-import { MTHDS_SOURCES_EMBED_ID, parseMthdsSourcesEmbed } from "@static-graph/mthdsSourcesEmbed";
+import {
+  MTHDS_SOURCES_EMBED_ID,
+  embedSelector,
+  parseMthdsSourcesEmbed,
+} from "@static-graph/mthdsSourcesEmbed";
 import { parseMthdsBundle } from "@static-graph/parseMthdsBundle";
 import { orderMthdsSources } from "@static-graph/sourceOrder";
 import { staticDiagnosticsToValidationIssues } from "@static-graph/validationIssues";
@@ -87,8 +91,8 @@ export function loadStandaloneEmbeds(texts: EmbedTexts): StandaloneViewerProps {
   const hasSources = !isBlankScriptText(texts.mthdsSources);
   if (rawGraphspec !== null && hasSources) {
     throw new Error(
-      `The page embeds both <script id="${EMBED_ID.GRAPHSPEC}"> and ` +
-        `<script id="${EMBED_ID.MTHDS_SOURCES}">; a page carries one graph, so embed one of them.`,
+      `The page embeds both ${embedSelector(EMBED_ID.GRAPHSPEC)} and ` +
+        `${embedSelector(EMBED_ID.MTHDS_SOURCES)}; a page carries one graph, so embed one of them.`,
     );
   }
   if (hasSources) return loadFromSources(rawConfig, rawSources);
