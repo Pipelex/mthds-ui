@@ -188,6 +188,8 @@ export function StuffResultPanel({
     // graph is the one that says. It is also what heads the panel in a host
     // that sets the `app` presentation: there the kernel draws a title only
     // when it is given a name, and nothing else here says which value is open.
+    // An HTML page (`native.Html`) is the one result it leaves untitled in
+    // `app` even when named, by design: the page heads itself.
     const panel = <StuffViewer field={field} value={stuff.data} name={stuff.name} />;
     // Installed only when the host said something, so a host that wraps the
     // whole graph in its own provider still reaches a panel given nothing.
