@@ -185,7 +185,9 @@ export function StuffResultPanel({
     // describes an output SLOT with no name of its own, and wrong on screen,
     // where the reader has just clicked a node called `report_pages` and every
     // other surface calls it that. The graph is the one that knows, so the
-    // graph is the one that says.
+    // graph is the one that says. It is also what heads the panel in a host
+    // that sets the `app` presentation: there the kernel draws a title only
+    // when it is given a name, and nothing else here says which value is open.
     const panel = <StuffViewer field={field} value={stuff.data} name={stuff.name} />;
     // Installed only when the host said something, so a host that wraps the
     // whole graph in its own provider still reaches a panel given nothing.

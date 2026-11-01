@@ -1,5 +1,12 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- **`@pipelex/mthds-form` ^0.25.0 (Breaking)**: the kernel's range moves from `^0.24.0` to `^0.25.0`, which a caret below 1.0 does not bridge, so a host reaches the kernel's 0.25.0 only through this release. With it, `GraphViewer`'s data panel, `StuffResultPanel` and every host rendering the kernel's result view through `./form/react` draw a page of an extracted document as its text, its tables and its pictures, a `native.Composite` member that is a picture or a list of structures as a picture or a table, and a list of stored pictures resolved through `resolveUrl` as a gallery; in the `app` presentation a `YesNo`, `Rating` or `Choice` verdict reads as its answer and a long text value is typeset as Markdown. In `app` the kernel's `StuffViewer` no longer draws an "Output" title, nor a whole-result list's count, when it is given no `name`, and the graph's panel always names the stuff, so it keeps its heading and its count. `FieldStrings` gains `yesProbability`, `verdictConfidence`, `ratingLevel`, `pageNumber` and `extractedTable`, in English and French, so a host supplying a complete `FieldStrings` adds them. See [docs/stuff-result-panel.md](docs/stuff-result-panel.md#the-heading-in-either-presentation).
+- **The standalone viewer's embed errors name the element as a selector**: a malformed or doubled embed is reported as `script#mthds-sources`, `script#pipelex-graphspec` or `script#pipelex-config` where the message wrote the element as markup, `<script id="…">`, and `serializeMthdsSourcesEmbed`'s errors read the same way. The kernel's 0.25.0 code carries an HTML comment opener that, followed by such markup, would keep `graph-standalone.html`'s inline `<script>` element from ending, and the build refuses a bundle that would.
+
 ## [v0.41.0] - 2026-10-31
 
 ### Added
