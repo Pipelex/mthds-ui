@@ -95,18 +95,20 @@ function renderPanel(
 const STUFFS = producedStuffs(LIVE_CV_SCREENING);
 
 /**
- * The `native.Html` result of pipeline 34's live run, as `render_html`, the
- * operator that rendered it, describes it. It is read off that pipe's node
- * rather than located by digest, because the parallel above it lists its
- * branches' outputs too and comes first in the spec, so a digest lookup would
- * name the parallel as the producer and describe the page as its composite.
+ * The `native.Html` result of pipeline 34's live run, located by digest as the
+ * graph locates it. The parallel above `render_html` lists its branches'
+ * outputs too and comes first in the spec, and the lookup still names
+ * `render_html`, the operator that rendered the page, so the page is described
+ * as a page rather than as the parallel's composite.
  */
 const HTML_PAGE: ProducedStuff | undefined = (() => {
-  const node = LIVE_ALL_NATIVE_CONCEPTS.nodes.find(
+  const digest = LIVE_ALL_NATIVE_CONCEPTS.nodes.find(
     (candidate) => candidate.pipe_code === "render_html",
-  );
-  const item = node?.io?.outputs?.[0];
-  return item ? { item, producerPipeRef: "native_sampler.render_html" } : undefined;
+  )?.io?.outputs?.[0]?.digest;
+  const location = digest ? findStuffByDigest(LIVE_ALL_NATIVE_CONCEPTS, digest) : null;
+  return location?.producerPipeRef
+    ? { item: location.item, producerPipeRef: location.producerPipeRef }
+    : undefined;
 })();
 
 function htmlPage(): ProducedStuff {
@@ -138,8 +140,8 @@ describe("StuffResultPanel's heading", () => {
   );
 
   describe("over an HTML page", () => {
-    it("has the live run's page to draw", () => {
-      expect(HTML_PAGE).toBeDefined();
+    it("has the live run's page to draw, produced by its renderer", () => {
+      expect(HTML_PAGE?.producerPipeRef).toBe("native_sampler.render_html");
     });
 
     it("names the page in studio, as the method wrote it", () => {

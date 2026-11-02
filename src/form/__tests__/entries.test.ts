@@ -22,6 +22,8 @@ import type {
   FileSourceQuery,
   FileSourceScope,
   FormExample,
+  SearchResultContentView,
+  SearchSourceView,
   SourceFile,
 } from "@form/index";
 import * as formReact from "@form/react/index";
@@ -33,6 +35,8 @@ import type {
   FillWithExampleProps,
   FilePickerProps,
   FilePickerSource,
+  MarkdownCitation,
+  MarkdownProps,
   RenditionRequest,
   ResolveRendition,
   RunPanelProps,
@@ -63,6 +67,19 @@ describe("the ./form entry", () => {
       (query: ExampleSourceQuery) => Promise<ExampleSourcePage>
     >();
     expectTypeOf<ExampleSourcePage["examples"]>().toEqualTypeOf<readonly FormExample[]>();
+  });
+
+  it("carries the readers of a search result, for a host drawing one its own way", () => {
+    // Kernel 0.27.0: the readers the kernel's search arm draws with.
+    expect(form.NATIVE_SEARCH_RESULT_CONCEPT_REF).toBe("native.SearchResult");
+    expect(form.isNativeSearchResultNode).toBeTypeOf("function");
+    expect(form.readSearchResultContent).toBeTypeOf("function");
+    expect(form.citedSource).toBeTypeOf("function");
+    expect(form.splitCitations).toBeTypeOf("function");
+    expectTypeOf(form.readSearchResultContent).returns.toEqualTypeOf<
+      SearchResultContentView | undefined
+    >();
+    expectTypeOf<SearchResultContentView["sources"][number]>().toEqualTypeOf<SearchSourceView>();
   });
 });
 
@@ -128,5 +145,18 @@ describe("the ./form/react entry", () => {
     for (const strings of [formReact.EN_FIELD_STRINGS, formReact.FR_FIELD_STRINGS]) {
       for (const key of keys) expect(strings[key], key).toBeDefined();
     }
+  });
+
+  it("carries the heading of a search result's sources, and where a citation leads", () => {
+    // Kernel 0.27.0. A host supplying a complete `FieldStrings` adds
+    // `searchSources`; a host typesetting its own text links citations through
+    // the re-exported `Markdown`'s `citations`.
+    for (const strings of [formReact.EN_FIELD_STRINGS, formReact.FR_FIELD_STRINGS]) {
+      expect(strings.searchSources).toBeTypeOf("string");
+    }
+    expectTypeOf<MarkdownCitation>().toEqualTypeOf<{ href: string; label: string }>();
+    expectTypeOf<MarkdownProps["citations"]>().toEqualTypeOf<
+      ((citation: number) => MarkdownCitation | undefined) | undefined
+    >();
   });
 });

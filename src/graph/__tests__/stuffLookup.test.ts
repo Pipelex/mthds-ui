@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
 import { findStuffByDigest, pipeRefOf } from "@graph/stuffLookup";
 import type { GraphSpec, GraphSpecNode } from "@graph/types";
+import { LIVE_CV_SCREENING } from "@graph/react/viewer/__stories__/pipelines/specs/_generated/live/pipeline_09";
+import { LIVE_ALL_NATIVE_CONCEPTS } from "@graph/react/viewer/__stories__/pipelines/specs/_generated/live/pipeline_34";
 
 /**
  * The walk from a data item back to the pipe that produced it.
@@ -163,5 +165,105 @@ describe("findStuffByDigest", () => {
 
   it("returns null for a digest no node carries", () => {
     expect(findStuffByDigest(spec([node({})]), "nope")).toBeNull();
+  });
+});
+
+describe("findStuffByDigest under a controller that lists its children's outputs", () => {
+  // A parallel with `add_each_output` lists each branch's output beside its
+  // own composite, and a sequence lists its last step's. The controller comes
+  // first in the spec, and its descriptor is the composite's, not the result's.
+  const parallel = node({
+    id: "parallel",
+    kind: "controller",
+    pipe_type: "PipeParallel",
+    domain_code: "d",
+    pipe_code: "enrich",
+    io: {
+      inputs: [],
+      outputs: [
+        { name: "search_result", concept: "SearchResult", digest: "branch", data: { a: 1 } },
+        { name: "assets", concept: "Composite", digest: "combined", data: { b: 2 } },
+      ],
+    },
+  });
+  const branch = node({
+    id: "branch",
+    pipe_type: "PipeSearch",
+    domain_code: "d",
+    pipe_code: "search",
+    io: {
+      inputs: [],
+      outputs: [
+        { name: "search_result", concept: "SearchResult", digest: "branch", data: { a: 1 } },
+      ],
+    },
+  });
+  const contains = (source: string, target: string) => ({
+    id: `${source}->${target}`,
+    source,
+    target,
+    kind: "contains",
+  });
+
+  it("names the branch that produced a result, not the parallel listing it", () => {
+    const graph = { nodes: [parallel, branch], edges: [contains("parallel", "branch")] };
+    const found = findStuffByDigest(graph as unknown as GraphSpec, "branch");
+    expect(found?.producerPipeRef).toBe("d.search");
+  });
+
+  it("names the parallel for the composite only it lists", () => {
+    const graph = { nodes: [parallel, branch], edges: [contains("parallel", "branch")] };
+    const found = findStuffByDigest(graph as unknown as GraphSpec, "combined");
+    expect(found?.producerPipeRef).toBe("d.enrich");
+  });
+
+  it("names the innermost controller when no operator lists the value", () => {
+    // A batch's list, which the parallel holding the batch lists too.
+    const outer = node({
+      id: "outer",
+      kind: "controller",
+      pipe_type: "PipeParallel",
+      domain_code: "d",
+      pipe_code: "outer",
+      io: { inputs: [], outputs: [{ name: "results", digest: "list", data: [] }] },
+    });
+    const batch = node({
+      id: "batch",
+      kind: "controller",
+      pipe_type: "PipeBatch",
+      domain_code: "d",
+      pipe_code: "each",
+      io: { inputs: [], outputs: [{ name: "results", digest: "list", data: [] }] },
+    });
+    const item = node({ id: "item", domain_code: "d", pipe_code: "one" });
+    const graph = {
+      nodes: [outer, batch, item],
+      edges: [contains("outer", "batch"), contains("batch", "item")],
+    };
+    const found = findStuffByDigest(graph as unknown as GraphSpec, "list");
+    expect(found?.producerPipeRef).toBe("d.each");
+  });
+});
+
+describe("findStuffByDigest on live runs", () => {
+  /** The pipe the graph names as the producer of `pipeCode`'s first output. */
+  function producerOfOutput(graph: GraphSpec, pipeCode: string): string | undefined {
+    const digest = graph.nodes.find((candidate) => candidate.pipe_code === pipeCode)?.io
+      ?.outputs?.[0]?.digest;
+    return digest ? findStuffByDigest(graph, digest)?.producerPipeRef : undefined;
+  }
+
+  it("names a parallel branch's search as the producer of its search result", () => {
+    // Pipeline 09: `enrich_candidate` runs `search_candidate` beside the card.
+    expect(producerOfOutput(LIVE_CV_SCREENING, "search_candidate")).toBe(
+      "recruitment.search_candidate",
+    );
+  });
+
+  it("names a parallel branch's renderer as the producer of its HTML page", () => {
+    // Pipeline 34: `sample_natives` runs every native sampler as a branch.
+    expect(producerOfOutput(LIVE_ALL_NATIVE_CONCEPTS, "render_html")).toBe(
+      "native_sampler.render_html",
+    );
   });
 });
