@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Fixed
+
+- **Escape closes a dialog above `DetailPanel` before the panel**: in `GraphViewer`'s detail panel, and in a `DetailPanel` a host renders itself, an Escape pressed while a dialog is open above the panel, such as the picture viewer a gallery tile opens, now closes that dialog alone and returns focus to the control that opened it, where it used to close the panel too and leave focus on the page's body; the next Escape closes the panel as before. The panel leaves the key to a dialog that has called `preventDefault()` on it, as Radix and shadcn dialogs do, or that the key was pressed inside. See [docs/stuff-result-panel.md](docs/stuff-result-panel.md#pictures-and-pdfs).
+
 ## [v0.43.0] - 2026-11-02
 
 ### Added
