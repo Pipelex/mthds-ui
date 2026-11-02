@@ -1,4 +1,15 @@
 import type { Preview } from "@storybook/react-vite";
+import { sb } from "storybook/test";
+
+// The graph's data panel, SPIED rather than replaced: every story draws the
+// real panel, and a play function can read the props `GraphViewer` handed it.
+// A hand-off that changes nothing a fixture draws is observable only there
+// (`HostKeepsCopiesOfPictures` in `GraphWithResultPanel.stories.tsx`). The path
+// carries its extension because Storybook resolves it the way Node does, and is
+// a string rather than an `import()` because the screenshot tests typecheck
+// this file, where TypeScript refuses a `.tsx` specifier.
+sb.mock("../src/graph/react/detail/StuffResultPanel.tsx", { spy: true });
+
 // The graph's stylesheets, in the order the `./graph/react` entry imports them:
 // only that entry imports them, never the components, so a story gets them here.
 import "../src/graph/react/graph-core.css";

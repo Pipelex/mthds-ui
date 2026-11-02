@@ -17,12 +17,14 @@
  * resolves a stored reference: the kernel asks for a copy only of a picture it
  * can already paint.
  *
- * `GraphViewer` threads the seam to this panel beside `resolveUrl`, and that
- * hop is pinned by type only. Located as the graph locates it, by digest, the
- * `illustrated` value is described by the parallel that lists it, whose
- * composite draws its pictures as rows rather than tiles, and no other live
- * fixture holds a gallery or a thumbnail, so a story mounting the graph has
- * no tile to observe.
+ * `GraphViewer` threads the seam to this panel beside `resolveUrl`. Located as
+ * the graph locates it, by digest, the `illustrated` value is described by the
+ * parallel that lists it, whose composite draws its pictures as rows rather
+ * than tiles, and no other live fixture holds a gallery or a thumbnail, so a
+ * story mounting the graph has no tile to observe. That hop is pinned at
+ * runtime instead by the `HostKeepsCopiesOfPictures` story in
+ * `GraphWithResultPanel.stories.tsx`, which reads the props the graph handed
+ * the panel through a spy, and here by type.
  */
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
@@ -81,7 +83,7 @@ function renderPanel(settings: Partial<StuffResultPanelProps>): string {
 }
 
 describe("StuffResultPanel's smaller copies of pictures", () => {
-  it("is the seam GraphViewer takes and hands the panel", () => {
+  it("is typed as the kernel's seam on GraphViewer and on the panel", () => {
     expectTypeOf<GraphViewerProps["resolveRendition"]>().toEqualTypeOf<
       ResolveRendition | undefined
     >();
