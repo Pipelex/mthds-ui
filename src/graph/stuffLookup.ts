@@ -73,17 +73,14 @@ export function pipeRefOf(node: GraphSpecNode): string | undefined {
  */
 export function findStuffByDigest(spec: GraphSpec, digest: string): StuffLocation | null {
   const consumer = findConsumer(spec, digest);
-  for (const node of spec.nodes) {
-    for (const output of node.io?.outputs ?? []) {
-      if (output.digest === digest) {
-        const producerPipeRef = pipeRefOf(node);
-        return {
-          item: output,
-          ...(producerPipeRef ? { producerPipeRef } : {}),
-          ...(consumer ? { consumer } : {}),
-        };
-      }
-    }
+  const produced = findProducer(spec, digest);
+  if (produced) {
+    const producerPipeRef = pipeRefOf(produced.node);
+    return {
+      item: produced.item,
+      ...(producerPipeRef ? { producerPipeRef } : {}),
+      ...(consumer ? { consumer } : {}),
+    };
   }
   for (const node of spec.nodes) {
     for (const input of node.io?.inputs ?? []) {
@@ -91,6 +88,70 @@ export function findStuffByDigest(spec: GraphSpec, digest: string): StuffLocatio
     }
   }
   return null;
+}
+
+/**
+ * The node whose output this digest is, and its copy of it: the INNERMOST node
+ * listing the digest among its outputs.
+ *
+ * A controller lists outputs of the pipes it contains as its own: a sequence
+ * its last step's, a condition its chosen branch's, and a parallel with
+ * `add_each_output` every branch's, beside the composite it combines them into.
+ * The controller comes first in the spec, so taking the first node listing the
+ * digest named the parallel as the producer of a branch's result, and the panel
+ * described that result with the parallel's `native.Composite` descriptor: a
+ * search result lost its answer-and-sources view, an HTML page its page, a
+ * gallery its tiles. The pipe that actually produced it is the one none of
+ * whose descendants lists the digest too, and that is the one whose descriptor
+ * says what the value is. It is the operator wherever one lists it, and a
+ * controller only for a value no operator lists, such as a batch's list, which
+ * the parallel holding that batch lists too.
+ *
+ * Descendants are read off the spec's `contains` edges, the containment the
+ * dataflow analysis draws the graph from (`graphAnalysis.ts`), so the panel
+ * names the pipe the graph draws the stuff's edge from.
+ */
+function findProducer(
+  spec: GraphSpec,
+  digest: string,
+): { node: GraphSpecNode; item: GraphSpecNodeIoItem } | undefined {
+  const listing: { node: GraphSpecNode; item: GraphSpecNodeIoItem }[] = [];
+  for (const node of spec.nodes) {
+    const item = node.io?.outputs?.find((output) => output.digest === digest);
+    if (item) listing.push({ node, item });
+  }
+  if (listing.length <= 1) return listing[0];
+  const children = new Map<string, string[]>();
+  for (const edge of spec.edges ?? []) {
+    if (edge.kind !== "contains") continue;
+    const contained = children.get(edge.source);
+    if (contained) contained.push(edge.target);
+    else children.set(edge.source, [edge.target]);
+  }
+  const listed = new Set(listing.map(({ node }) => node.id));
+  return (
+    listing.find(({ node }) => !containsAnyOf(node.id, children, listed)) ??
+    // A containment cycle, which a valid spec cannot hold: the first listing.
+    listing[0]
+  );
+}
+
+/** Whether any node nested under `id`, at any depth, is one of `targets`. */
+function containsAnyOf(
+  id: string,
+  children: ReadonlyMap<string, readonly string[]>,
+  targets: ReadonlySet<string>,
+): boolean {
+  const seen = new Set<string>([id]);
+  const pending = [...(children.get(id) ?? [])];
+  while (pending.length > 0) {
+    const next = pending.pop()!;
+    if (seen.has(next)) continue;
+    if (targets.has(next)) return true;
+    seen.add(next);
+    pending.push(...(children.get(next) ?? []));
+  }
+  return false;
 }
 
 /** The first pipe reading this digest, and the slot name it reads it as. */

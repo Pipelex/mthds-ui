@@ -1,5 +1,16 @@
 # Changelog
 
+## [v0.44.0] - 2026-11-02
+
+### Changed
+
+- **`@pipelex/mthds-form` ^0.27.0 (Breaking)**: the kernel's range moves from `^0.26.0` to `^0.27.0`, which a caret below 1.0 does not bridge, so a host reaches the kernel's 0.27.0 only through this release. With it, in the `app` presentation, `GraphViewer`'s data panel, `StuffResultPanel` and every host rendering the kernel's result view through `./form/react` draw a `native.SearchResult` as its answer, typeset as Markdown with each inline citation a link to the source it counts to, then a "Sources" list holding each page once as a link opening in a new tab, and a list of search results as one card per search, while `studio` keeps the record; a search result's Download saves its JSON copy and fetches none of its sources. `./form` carries the kernel's `readSearchResultContent`, `isNativeSearchResultNode`, `citedSource` and `splitCitations`, the `Markdown` that `./form/react` re-exports takes `citations`, and `FieldStrings` gains `searchSources`, in English and French, so a host supplying a complete `FieldStrings` adds it. See [docs/stuff-result-panel.md](docs/stuff-result-panel.md#a-search-result).
+
+### Fixed
+
+- **The graph's data panel describes a parallel branch's result by the branch**: `findStuffByDigest`, and with it `GraphViewer`'s data panel, names the innermost pipe listing a value as its producer, so a branch's result that a `PipeParallel` with `add_each_output` lists among its own outputs is drawn with the branch pipe's descriptor. It used to be drawn with the parallel's `native.Composite` descriptor, so a search run as a branch showed no answer-and-sources view, an HTML page no page and a gallery no tiles. See [docs/stuff-result-panel.md](docs/stuff-result-panel.md#the-producer-join-and-its-two-wrinkles).
+- **Escape closes a dialog above `DetailPanel` before the panel**: in `GraphViewer`'s detail panel, and in a `DetailPanel` a host renders itself, an Escape pressed while a dialog is open above the panel, such as the picture viewer a gallery tile opens, now closes that dialog alone and returns focus to the control that opened it, where it used to close the panel too and leave focus on the page's body; the next Escape closes the panel as before. The panel leaves the key to a dialog that has called `preventDefault()` on it, as Radix and shadcn dialogs do, or that the key was pressed inside. See [docs/stuff-result-panel.md](docs/stuff-result-panel.md#pictures-and-pdfs).
+
 ## [v0.43.0] - 2026-11-02
 
 ### Added
