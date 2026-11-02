@@ -100,7 +100,8 @@ The workspace principle applies here — flag and fix pre-existing bugs you find
 1. Edit the single `"@pipelex/mthds-form"` line under `dependencies` in `package.json` to `"^{TARGET_VERSION}"`. Keep the caret style; don't switch to an exact pin, and don't widen to `"^0.2.0 || ^0.3.0"` (the code can only be written against one shape, and the workspace runs no deprecation windows).
 2. `npm install` — not `--package-lock-only`. Storybook's prebuilt CSS lane and the smoke test read the installed `dist/`, not the manifest.
 3. Confirm: `node -p "require('./node_modules/@pipelex/mthds-form/package.json').version"` reads `TARGET_VERSION`.
-4. Run `make check && make test`. The node project runs the real gate over real contracts; the browser project runs the form stories against the kernel's real controls.
+4. Run `make use-npm`, which clears Vite's pre-bundle cache (`node_modules/.vite`, `node_modules/.cache/storybook`) and reinstalls the kernel at the range `package.json` now declares. Without it the first browser run after the install can serve a stale pre-bundle of the kernel: on the `0.25.0 → 0.26.0` bump, every test passed but many story files failed to import, all with one `SyntaxError` in `@storybook/addon-vitest`'s `setup-file-with-project-annotations.js`, and the same run passed once the cache was cleared. Read that error as the cache, not the kernel.
+5. Run `make check && make test`. The node project runs the real gate over real contracts; the browser project runs the form stories against the kernel's real controls.
 
 On failure, show the errors and connect them to the Step 4 checklist rather than dumping output. Ask how to proceed — fix, skip, abort.
 

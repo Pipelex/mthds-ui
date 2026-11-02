@@ -18,6 +18,7 @@ import {
   StuffViewer,
   useFieldStrings,
   type DownloadDisplay,
+  type ResolveRendition,
   type ResolveShareUrl,
   type ResolveUrl,
 } from "@pipelex/mthds-form/react";
@@ -82,7 +83,10 @@ import type { ConceptInfo, GraphSpecNodeIoItem, GraphTheme } from "@graph/types"
  * It does not resolve `pipelex-storage://` URIs itself. A host that can passes
  * `resolveUrl`, which is installed as the kernel's `ResultEnvProvider` so the
  * kernel's own file arms paint the file; without one, the panel paints whatever
- * `public_url` the payload carries.
+ * `public_url` the payload carries. A host that keeps smaller copies of its
+ * pictures passes `resolveRendition` on the same provider, and a gallery's
+ * tiles and a table cell's thumbnails are drawn from those copies while every
+ * other use of a picture keeps the whole one.
  *
  * ## Saving
  *
@@ -143,6 +147,14 @@ export interface StuffResultPanelProps extends StuffResultRendererOptions {
    */
   resolveUrl?: ResolveUrl;
   /**
+   * Answers a smaller copy of a picture, at the width the kernel asks for, so a
+   * gallery's tiles and a table cell's thumbnails stop loading the whole file.
+   * The viewer a picture opens, "Open the original", the copy control and every
+   * download keep the whole picture, and a copy that fails to load gives way to
+   * it. Unset, or for a picture it does not answer, the whole picture is drawn.
+   */
+  resolveRendition?: ResolveRendition;
+  /**
    * Mints a URL that works OUTSIDE this page — what the copy control hands over.
    * A display URL may sit behind the host's session; a shared one carries its
    * own credential.
@@ -168,6 +180,7 @@ export function StuffResultPanel({
   producerPipeRef,
   consumer,
   resolveUrl,
+  resolveRendition,
   resolveShareUrl,
   saveFiles,
   downloads,
@@ -193,9 +206,10 @@ export function StuffResultPanel({
     const panel = <StuffViewer field={field} value={stuff.data} name={stuff.name} />;
     // Installed only when the host said something, so a host that wraps the
     // whole graph in its own provider still reaches a panel given nothing.
-    return resolveUrl || resolveShareUrl || saveFiles || downloads ? (
+    return resolveUrl || resolveRendition || resolveShareUrl || saveFiles || downloads ? (
       <ResultEnvProvider
         resolveUrl={resolveUrl}
+        resolveRendition={resolveRendition}
         resolveShareUrl={resolveShareUrl}
         saveFiles={saveFiles}
         downloads={downloads}

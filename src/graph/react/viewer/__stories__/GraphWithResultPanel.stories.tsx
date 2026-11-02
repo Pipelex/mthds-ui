@@ -1,8 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, fn, userEvent, waitFor, within } from "storybook/test";
+import { expect, fn, mocked, userEvent, waitFor, within } from "storybook/test";
 import { GraphViewer } from "../GraphViewer";
 import type { SaveFiles } from "@pipelex/mthds-form";
+import type { ResolveRendition } from "@pipelex/mthds-form/react";
 import { GRAPH_THEME } from "@graph/types";
+import { StuffResultPanel } from "@graph/react/detail/StuffResultPanel";
 import { LIVE_CV_SCREENING } from "./pipelines/specs/_generated.live";
 import {
   CONTRACTS_CV_SCREENING,
@@ -199,6 +201,33 @@ export const HostSavesTheFiles: Story = {
     await expect(files.some((file) => file.kind === "data" && file.text !== undefined)).toBe(true);
     // Nothing reported failed, so the panel says nothing went missing.
     await expect(panel.queryByText(/could not be saved/)).toBeNull();
+  },
+};
+
+/**
+ * A host that keeps smaller copies of its pictures: `resolveRendition` goes on
+ * `GraphViewer`, which hands it to the data panel beside `resolveUrl`.
+ *
+ * The panel installs its own provider, which replaces one set around the graph,
+ * so this hand-off is the only way a host's copies reach a gallery's tiles or a
+ * table's thumbnails. No live fixture draws either for a node located the way
+ * the graph locates it, so the copy is never asked for here and the play
+ * function reads the hand-off off the panel instead: `.storybook/preview.ts`
+ * spies on `StuffResultPanel` while keeping the real one, and the panel drawn
+ * for the selected node must have received the host's own function.
+ */
+export const HostKeepsCopiesOfPictures: Story = {
+  args: {
+    ...args,
+    theme: GRAPH_THEME.LIGHT,
+    resolveRendition: fn<ResolveRendition>(),
+  },
+  play: async ({ args: storyArgs, canvasElement }) => {
+    await openFirstStuffNode(canvasElement);
+    await detailPanel(canvasElement);
+    const panel = mocked(StuffResultPanel);
+    await expect(panel).toHaveBeenCalled();
+    await expect(panel.mock.lastCall?.[0].resolveRendition).toBe(storyArgs.resolveRendition);
   },
 };
 
