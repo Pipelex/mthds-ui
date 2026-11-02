@@ -1,6 +1,6 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, userEvent, waitFor, within } from "storybook/test";
+import { expect, fn, userEvent, waitFor, within } from "storybook/test";
 import type { GraphSpecNodeIoItem } from "@graph/types";
 import { DetailPanel } from "@graph/react/detail/DetailPanel";
 import { StuffResultPanel } from "@graph/react/detail/StuffResultPanel";
@@ -148,5 +148,64 @@ export const EscapeClosesAPlainDialogFirst: Story = {
 
     await userEvent.keyboard("{Escape}");
     await waitFor(() => expect(isPanelOpen(canvasElement)).toBe(false));
+  },
+};
+
+/**
+ * A panel a host renders inside a dialog of its own. An Escape pressed in the
+ * panel is the panel's: the dialog it was pressed in is the one holding the
+ * panel, not one above it.
+ */
+function PanelInsideAHostDialog() {
+  const [open, setOpen] = React.useState(true);
+  const close = React.useCallback(() => setOpen(false), []);
+  return (
+    <div role="dialog" aria-modal="true" aria-label="A host dialog">
+      <DetailPanel isOpen={open} onClose={close}>
+        <button type="button">Something in the panel</button>
+      </DetailPanel>
+    </div>
+  );
+}
+
+export const EscapeClosesAPanelInsideAHostDialog: Story = {
+  render: () => <PanelInsideAHostDialog />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const hostDialog = canvas.getByRole("dialog", { name: "A host dialog" });
+    const inside = canvas.getByRole("button", { name: "Something in the panel" });
+
+    // The key must start inside the host's dialog. Pressed with focus on the
+    // page's body, it would find no dialog at all, and the story would pass
+    // whether or not the panel tells its own dialog from one above it.
+    await userEvent.click(inside);
+    await expect(inside).toHaveFocus();
+    await expect(hostDialog).toContainElement(inside);
+
+    await userEvent.keyboard("{Escape}");
+    await waitFor(() => expect(isPanelOpen(canvasElement)).toBe(false));
+  },
+};
+
+/** A panel whose host has turned its Escape off with `closeOnEscape={false}`. */
+export const EscapeLeavesThePanelAloneWhenTurnedOff: StoryObj<{ onClose: () => void }> = {
+  args: { onClose: fn() },
+  render: ({ onClose }) => (
+    <DetailPanel isOpen={true} onClose={onClose} closeOnEscape={false}>
+      <button type="button">Something in the panel</button>
+    </DetailPanel>
+  ),
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+    const inside = canvas.getByRole("button", { name: "Something in the panel" });
+    await userEvent.click(inside);
+    await expect(inside).toHaveFocus();
+
+    await userEvent.keyboard("{Escape}");
+    await expect(args.onClose).not.toHaveBeenCalled();
+
+    // The spy is the panel's own onClose: its close button still calls it.
+    await userEvent.click(canvas.getByRole("button", { name: "Close panel" }));
+    await expect(args.onClose).toHaveBeenCalledTimes(1);
   },
 };
