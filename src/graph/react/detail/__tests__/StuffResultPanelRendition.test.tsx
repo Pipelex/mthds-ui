@@ -11,18 +11,14 @@
  * setting given.
  *
  * The result is pipeline 34's live `illustrate` output, a text with a list of
- * pictures, read off that pipe's node as the heading test reads its HTML page.
- * Its picture's `url` member is whatever the model wrote, which no browser can
- * fetch, so the host's `resolveUrl` answers a fetchable one, exactly as a host
- * resolves a stored reference: the kernel asks for a copy only of a picture it
- * can already paint.
+ * pictures, read off that pipe's node, the pipe the graph names as its
+ * producer. Its picture's `url` member is whatever the model wrote, which no
+ * browser can fetch, so the host's `resolveUrl` answers a fetchable one,
+ * exactly as a host resolves a stored reference: the kernel asks for a copy
+ * only of a picture it can already paint.
  *
- * `GraphViewer` threads the seam to this panel beside `resolveUrl`. Located as
- * the graph locates it, by digest, the `illustrated` value is described by the
- * parallel that lists it, whose composite draws its pictures as rows rather
- * than tiles, and no other live fixture holds a gallery or a thumbnail, so a
- * story mounting the graph has no tile to observe. That hop is pinned at
- * runtime instead by the `HostKeepsCopiesOfPictures` story in
+ * `GraphViewer` threads the seam to this panel beside `resolveUrl`. That hop is
+ * pinned at runtime by the `HostKeepsCopiesOfPictures` story in
  * `GraphWithResultPanel.stories.tsx`, which reads the props the graph handed
  * the panel through a spy, and here by type.
  */

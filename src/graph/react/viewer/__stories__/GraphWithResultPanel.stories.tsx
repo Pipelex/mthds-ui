@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, fn, mocked, userEvent, waitFor, within } from "storybook/test";
 import { GraphViewer } from "../GraphViewer";
 import type { SaveFiles } from "@pipelex/mthds-form";
-import type { ResolveRendition } from "@pipelex/mthds-form/react";
+import { FieldPresentationProvider, type ResolveRendition } from "@pipelex/mthds-form/react";
 import { GRAPH_THEME } from "@graph/types";
 import { StuffResultPanel } from "@graph/react/detail/StuffResultPanel";
 import { LIVE_CV_SCREENING } from "./pipelines/specs/_generated.live";
@@ -210,9 +210,9 @@ export const HostSavesTheFiles: Story = {
  *
  * The panel installs its own provider, which replaces one set around the graph,
  * so this hand-off is the only way a host's copies reach a gallery's tiles or a
- * table's thumbnails. No live fixture draws either for a node located the way
- * the graph locates it, so the copy is never asked for here and the play
- * function reads the hand-off off the panel instead: `.storybook/preview.ts`
+ * table's thumbnails. This graph, pipeline 09, holds neither, so the copy is
+ * never asked for here and the play function reads the hand-off off the panel
+ * instead: `.storybook/preview.ts`
  * spies on `StuffResultPanel` while keeping the real one, and the panel drawn
  * for the selected node must have received the host's own function.
  */
@@ -228,6 +228,61 @@ export const HostKeepsCopiesOfPictures: Story = {
     const panel = mocked(StuffResultPanel);
     await expect(panel).toHaveBeenCalled();
     await expect(panel.mock.lastCall?.[0].resolveRendition).toBe(storyArgs.resolveRendition);
+  },
+};
+
+/**
+ * A search result in a host that sets the `app` presentation around the graph:
+ * the kernel's search arm draws the answer, typeset, with each inline citation
+ * a link to the source it counts to, then a "Sources" list holding each page
+ * once, each a link opening in a tab of its own.
+ *
+ * The result is the live run's own: pipeline 09 searches for the candidate in a
+ * branch of the `enrich_candidate` parallel, and its answer cites its sources
+ * as `[1][8]`. The parallel lists that result among its own outputs, so this is
+ * also the story that shows the panel naming the search, not the parallel, as
+ * its producer: described by the parallel's composite, the answer and its
+ * sources would be a record and a table with no citation linked.
+ */
+export const ASearchResultInAnApp: Story = {
+  args: { ...args, theme: GRAPH_THEME.LIGHT },
+  decorators: [
+    (StoryComponent) => (
+      <FieldPresentationProvider presentation="app">
+        <StoryComponent />
+      </FieldPresentationProvider>
+    ),
+  ],
+  play: async ({ canvasElement }) => {
+    await waitFor(
+      () => expect(canvasElement.querySelectorAll(".react-flow__node").length).toBeGreaterThan(0),
+      { timeout: 10000 },
+    );
+    const nodes = Array.from(canvasElement.querySelectorAll<HTMLElement>(".react-flow__node"));
+    const search = nodes.find(
+      (n) => n.textContent?.startsWith("search_result") && n.dataset.id?.includes("stuff_"),
+    );
+    await expect(search).toBeDefined();
+    await userEvent.click(search!);
+    const panel = within(
+      await waitFor(() => {
+        const el = canvasElement.querySelector<HTMLElement>(".detail-panel-content");
+        if (!el) throw new Error("no detail panel");
+        return el;
+      }),
+    );
+    // The sources, under their heading, each a link opening in a new tab.
+    const sources = await waitFor(() => panel.getByRole("list", { name: "Sources" }));
+    const entries = within(sources).getAllByRole("listitem");
+    await expect(entries.length).toBeGreaterThan(0);
+    const firstSource = within(entries[0]!).getByRole("link");
+    await expect(firstSource).toHaveAttribute("target", "_blank");
+    await expect(firstSource).toHaveAttribute("rel", "noopener noreferrer");
+    // A citation in the answer leads to the source it counts to.
+    const [citation] = panel.getAllByRole("link", { name: "[1]" });
+    await expect(citation).toHaveAttribute("href", firstSource.getAttribute("href")!);
+    // A source is a web page, not a file: nothing in the list downloads it.
+    await expect(within(sources).queryByRole("button", { name: /^Download/ })).toBeNull();
   },
 };
 
