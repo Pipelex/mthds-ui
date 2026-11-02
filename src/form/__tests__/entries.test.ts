@@ -10,6 +10,7 @@
  * sources' behaviour is the kernel's and is tested there; what `RunPanel` does
  * with them is pinned by its stories.
  */
+import type { ComponentProps } from "react";
 import { describe, expect, expectTypeOf, it } from "vitest";
 import * as form from "@form/index";
 import type {
@@ -32,6 +33,8 @@ import type {
   FillWithExampleProps,
   FilePickerProps,
   FilePickerSource,
+  RenditionRequest,
+  ResolveRendition,
   RunPanelProps,
 } from "@form/react/index";
 
@@ -95,6 +98,35 @@ describe("the ./form/react entry", () => {
       expect(strings.chooseFromSource).toBeTypeOf("string");
       expect(strings.fillWithExample).toBeTypeOf("string");
       expect(strings.replaceEnteredTitle).toBeTypeOf("string");
+    }
+  });
+
+  it("carries the result provider's seam for a host's smaller copies of its pictures", () => {
+    // Kernel 0.26.0. A host rendering the result view itself mounts the
+    // re-exported `ResultEnvProvider` and passes `resolveRendition` there.
+    expect(formReact.useResolveRendition).toBeTypeOf("function");
+    expectTypeOf<RenditionRequest>().toEqualTypeOf<{ width: number }>();
+    expectTypeOf<ResolveRendition>().toEqualTypeOf<
+      (url: string, request: RenditionRequest) => string | undefined
+    >();
+    expectTypeOf<
+      ComponentProps<typeof formReact.ResultEnvProvider>["resolveRendition"]
+    >().toEqualTypeOf<ResolveRendition | undefined>();
+  });
+
+  it("carries the strings of a PDF the browser cannot show and of the picture viewer", () => {
+    // Kernel 0.26.0. A host supplying a complete `FieldStrings` adds these.
+    const keys = [
+      "pdfViewerUnavailable",
+      "openInNewTab",
+      "viewImage",
+      "imagePosition",
+      "previousImage",
+      "nextImage",
+      "openOriginal",
+    ] as const satisfies readonly (keyof FieldStrings)[];
+    for (const strings of [formReact.EN_FIELD_STRINGS, formReact.FR_FIELD_STRINGS]) {
+      for (const key of keys) expect(strings[key], key).toBeDefined();
     }
   });
 });

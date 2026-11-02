@@ -1,5 +1,15 @@
 # Changelog
 
+## [v0.43.0] - 2026-11-02
+
+### Added
+
+- **`resolveRendition` on `GraphViewer` and `StuffResultPanel`**: a host that keeps smaller copies of its pictures passes the form kernel's `resolveRendition` (`(url, { width }) => string | undefined`), and the graph's data panel draws a gallery's tiles and a table cell's thumbnails from the copies it answers, while the picture viewer, "Open the original", the copy control and every download keep the whole picture. It goes on the panel's own result provider beside `resolveUrl`, since a provider set around the graph does not reach the panel; a host rendering the result view itself passes it to `ResultEnvProvider` from `./form/react`, which also exports `ResolveRendition`, `RenditionRequest` and `useResolveRendition`. See [docs/stuff-result-panel.md](docs/stuff-result-panel.md#pictures-and-pdfs).
+
+### Changed
+
+- **`@pipelex/mthds-form` ^0.26.0 (Breaking)**: the kernel's range moves from `^0.25.0` to `^0.26.0`, which a caret below 1.0 does not bridge, so a host reaches the kernel's 0.26.0 only through this release. With it, a picture painted in `GraphViewer`'s data panel, in `StuffResultPanel` or in any result view a host renders through `./form/react` is a button that opens the kernel's picture viewer over the result, where it was a link opening the file in a new tab, and the original opens from the viewer; in the `app` presentation a gallery's tiles show the picture and its caption alone and a result that is one PDF opens on its pages, a browser that cannot draw a PDF shows a card with a link to it instead of a blank frame, and a gallery keeps its layout while its pictures load. `FieldStrings` gains `pdfViewerUnavailable`, `openInNewTab`, `viewImage`, `imagePosition`, `previousImage`, `nextImage` and `openOriginal`, in English and French, so a host supplying a complete `FieldStrings` adds them. See [docs/stuff-result-panel.md](docs/stuff-result-panel.md#pictures-and-pdfs).
+
 ## [v0.42.0] - 2026-11-01
 
 ### Changed
