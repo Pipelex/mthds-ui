@@ -48,7 +48,12 @@ import {
 } from "@graph/graphValidation";
 import { findStuffByDigest } from "@graph/stuffLookup";
 import type { SaveFiles } from "@pipelex/mthds-form";
-import type { DownloadDisplay, ResolveShareUrl, ResolveUrl } from "@pipelex/mthds-form/react";
+import type {
+  DownloadDisplay,
+  ResolveRendition,
+  ResolveShareUrl,
+  ResolveUrl,
+} from "@pipelex/mthds-form/react";
 import { StuffResultPanel } from "../detail/StuffResultPanel";
 import { resultDescriptors, type GraphArtifacts } from "./graphArtifacts";
 import { DetailPanel } from "../detail/DetailPanel";
@@ -257,6 +262,20 @@ export interface GraphViewerProps {
    */
   resolveUrl?: ResolveUrl;
   /**
+   * Answers a smaller copy of a picture, so the result panel's gallery tiles
+   * and table thumbnails stop loading whole files.
+   *
+   * Called with the picture's own `url` member, as `resolveUrl` is, and the
+   * width the kernel asks for; answer the URL of a copy at least that wide, or
+   * `undefined` to have the whole picture drawn. Only those small pictures use
+   * it: the viewer a picture opens, "Open the original", the copy control and
+   * every download keep the whole picture. It goes on the panel's provider
+   * beside `resolveUrl`, which replaces an outer provider rather than merging
+   * with it, so a `resolveRendition` set around the graph does not reach the
+   * panel.
+   */
+  resolveRendition?: ResolveRendition;
+  /**
    * Mints a URL that works OUTSIDE this page, for the copy control.
    *
    * Distinct from `resolveUrl` because the two answers genuinely differ: a
@@ -315,6 +334,7 @@ function StuffNodeDetail({
   artifacts,
   theme,
   resolveUrl,
+  resolveRendition,
   resolveShareUrl,
   saveFiles,
   downloads,
@@ -329,6 +349,7 @@ function StuffNodeDetail({
   artifacts: GraphArtifacts | null;
   theme: GraphTheme;
   resolveUrl?: ResolveUrl;
+  resolveRendition?: ResolveRendition;
   resolveShareUrl?: ResolveShareUrl;
   saveFiles?: SaveFiles;
   downloads?: DownloadDisplay;
@@ -355,6 +376,7 @@ function StuffNodeDetail({
           {...(producerPipeRef ? { producerPipeRef } : {})}
           {...(consumer ? { consumer } : {})}
           {...(resolveUrl ? { resolveUrl } : {})}
+          {...(resolveRendition ? { resolveRendition } : {})}
           {...(resolveShareUrl ? { resolveShareUrl } : {})}
           {...(saveFiles ? { saveFiles } : {})}
           {...(downloads ? { downloads } : {})}
@@ -626,6 +648,7 @@ function GraphViewerCanvas(
     onPaneClick,
     renderDetailExtra,
     resolveUrl,
+    resolveRendition,
     resolveShareUrl,
     saveFiles,
     downloads,
@@ -1766,6 +1789,7 @@ function GraphViewerCanvas(
                   theme={resolvedTheme}
                   artifacts={graph}
                   resolveUrl={resolveUrl}
+                  resolveRendition={resolveRendition}
                   resolveShareUrl={resolveShareUrl}
                   saveFiles={saveFiles}
                   downloads={downloads}
