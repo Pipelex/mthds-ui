@@ -1263,6 +1263,14 @@ export interface GraphEdge {
   labelSize?: { width: number; height: number };
   /** The route the layout computed for the edge, when it was asked to (`LayoutConfig.routeEdges`). */
   route?: EdgeRoute;
+  /**
+   * For a style that draws values as arrows rather than nodes, the simple
+   * style: the digests of the values this arrow carries, in the order they
+   * were routed. An arrow joins two nodes once, so it may carry several; a
+   * decision's arrow to a branch that reads nothing from before the decision
+   * carries none.
+   */
+  carries?: string[];
 }
 
 /** A point in flow coordinates. */

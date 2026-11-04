@@ -21,6 +21,11 @@ export interface GraphStyleCapabilities {
    * frame.
    */
   foldAll: boolean;
+  /**
+   * The style draws values as arrows rather than nodes, so an arrow takes a
+   * click and opens the values it carries in the detail panel.
+   */
+  valueArrows: boolean;
 }
 
 /** What the registry says of one style: what it is called, what it is for, and what it supports. */
@@ -46,13 +51,13 @@ export const GRAPH_STYLES: Record<GraphStyleId, GraphStyleDescriptor> = {
     id: GRAPH_STYLE.DETAILED,
     name: "Detailed",
     description: "Every pipe with its inputs, outputs and settings",
-    capabilities: { controllerFrameToggle: true, foldAll: true },
+    capabilities: { controllerFrameToggle: true, foldAll: true, valueArrows: false },
   },
   [GRAPH_STYLE.SIMPLE]: {
     id: GRAPH_STYLE.SIMPLE,
     name: "Simple",
     description: "The method's steps in plain words",
-    capabilities: { controllerFrameToggle: false, foldAll: true },
+    capabilities: { controllerFrameToggle: false, foldAll: true, valueArrows: true },
     layout: {
       nodesep: 28,
       ranksep: 44,

@@ -1,0 +1,492 @@
+/* ─── The simple style's detail panel ───────────────────────────────────── */
+/* Token-only, like the rest of the panel: every colour comes from the active */
+/* theme palette on the viewer's container. It speaks the canvas's visual     */
+/* language: proportional type, the step's category tint, the same status     */
+/* marks (`.simple-status`, from SimpleStyle.css).                            */
+
+.simple-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  font-family: var(--font-sans);
+  color: var(--text-default);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.simple-detail p {
+  margin: 0;
+}
+
+/* ─── Header: what kind of node, and where its run stands ──────────────── */
+
+.simple-detail-header {
+  --simple-detail-accent: var(--text-muted);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  min-height: 22px;
+  /* Room for the panel's close button, which the close row tucks beside the
+     first line of the content. */
+  padding-right: 28px;
+}
+.simple-detail-header--ai,
+.simple-detail-header--judge {
+  --simple-detail-accent: var(--color-accent);
+}
+.simple-detail-header--decision {
+  --simple-detail-accent: var(--ctrl-condition-text);
+}
+.simple-detail-header--repeat {
+  --simple-detail-accent: var(--ctrl-batch-text);
+}
+
+.simple-detail-kind {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--simple-detail-accent, var(--text-muted));
+}
+.simple-detail-kind svg {
+  flex-shrink: 0;
+}
+.simple-detail-kind--output {
+  color: var(--color-success);
+}
+
+.simple-detail-run {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.simple-detail-run--failed {
+  color: var(--color-error);
+}
+
+/* Read by a screen reader, not shown: the status word a count line implies. */
+.simple-detail-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.simple-detail-title {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--text-primary);
+}
+
+.simple-detail-subtitle {
+  margin-top: -10px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.simple-detail-description {
+  color: var(--text-secondary);
+}
+
+.simple-detail-foreach {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  gap: 5px;
+  margin-top: -6px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--ctrl-batch-border);
+  background: var(--ctrl-batch-bg);
+  color: var(--ctrl-batch-text);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.simple-detail-note {
+  font-size: 12px;
+  color: var(--text-muted);
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: var(--surface-sunken);
+}
+
+/* ─── Sections ─────────────────────────────────────────────────────────── */
+
+.simple-detail-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.simple-detail-section-title {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-dim);
+}
+
+/* ─── A value ──────────────────────────────────────────────────────────── */
+
+.simple-value {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border-default);
+  background: var(--surface-sunken);
+}
+
+.simple-value-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+}
+
+.simple-value-icon {
+  display: inline-flex;
+  align-self: center;
+  color: var(--color-stuff-border, var(--text-muted));
+}
+.simple-value-icon--list {
+  filter: drop-shadow(2px -2px 0 var(--border-strong));
+}
+
+.simple-value-title {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.simple-value-kind {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.simple-value-description {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.simple-value-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 0;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.simple-value-links-label {
+  margin-right: 6px;
+}
+/* A flex item trims its trailing space, which would draw "a,b". */
+.simple-value-links-sep {
+  white-space: pre;
+}
+.simple-value-links--none {
+  font-style: italic;
+}
+
+.simple-value-fold {
+  margin-top: 4px;
+}
+.simple-detail-value {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ─── A link to a node on the canvas ───────────────────────────────────── */
+
+.simple-link {
+  all: unset;
+  cursor: pointer;
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--color-accent) 40%, transparent);
+  text-underline-offset: 2px;
+  font-size: inherit;
+  line-height: inherit;
+}
+.simple-link:hover {
+  text-decoration-color: currentColor;
+}
+.simple-link:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+.simple-link--static {
+  cursor: default;
+  color: inherit;
+  text-decoration: none;
+}
+
+.simple-detail-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+/* Numbered, since the order is the steps' order. Stated outright, since a
+   Tailwind host's preflight takes every list's markers away, and a block list,
+   since a flex container's items lose theirs. */
+.simple-detail-steps {
+  list-style: decimal;
+  margin: 0;
+  padding-left: 22px;
+}
+.simple-detail-steps > li + li {
+  margin-top: 4px;
+}
+.simple-detail-steps > li::marker {
+  color: var(--text-dim);
+  font-size: 12px;
+}
+
+/* ─── A decision's outcomes ────────────────────────────────────────────── */
+
+.simple-detail-outcomes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.simple-detail-outcome {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 8px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border-default);
+}
+.simple-detail-outcome--taken {
+  border-color: color-mix(in srgb, var(--color-success) 55%, transparent);
+  background: var(--color-success-bg);
+}
+.simple-detail-outcome--not-taken {
+  opacity: 0.7;
+}
+.simple-detail-outcome-label {
+  font-weight: 600;
+  color: var(--ctrl-condition-text);
+}
+.simple-detail-outcome-arrow {
+  color: var(--text-dim);
+}
+.simple-detail-outcome-target {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.simple-detail-outcome-taken {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+.simple-detail-outcome--taken .simple-detail-outcome-taken {
+  color: var(--color-success);
+}
+
+.simple-detail-outcome-note {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ctrl-condition-text);
+}
+
+/* ─── An arrow's two ends ──────────────────────────────────────────────── */
+
+.simple-detail-ends {
+  margin: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 12px;
+  align-items: baseline;
+}
+.simple-detail-ends dt {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-dim);
+}
+.simple-detail-ends dd {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* ─── What a value's concept contains ──────────────────────────────────── */
+
+.simple-detail-fields {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.simple-detail-fields dt {
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 6px;
+}
+.simple-detail-fields dt:first-child {
+  margin-top: 0;
+}
+.simple-detail-fields dd {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* ─── Folds: the prompt, a value, the technical details ────────────────── */
+
+.simple-detail-fold {
+  border-radius: 10px;
+  border: 1px solid var(--border-default);
+}
+.simple-value-fold {
+  border: none;
+}
+
+.simple-detail-fold-title {
+  cursor: pointer;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.simple-value-fold > .simple-detail-fold-title {
+  padding: 2px 0;
+  color: var(--color-accent);
+}
+.simple-detail-fold-title::-webkit-details-marker {
+  display: none;
+}
+.simple-detail-fold-title::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(-45deg);
+  transition: transform 0.15s;
+  flex-shrink: 0;
+}
+.simple-detail-fold[open] > .simple-detail-fold-title::before {
+  transform: rotate(45deg);
+}
+.simple-detail-fold-title:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: -2px;
+  border-radius: 10px;
+}
+
+.simple-detail-fold-body {
+  padding: 0 12px 12px;
+}
+.simple-value-fold > .simple-detail-fold-body {
+  padding: 6px 0 0;
+}
+
+.simple-detail-prompt {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--text-default);
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+/* The technical fold holds the detailed style's panel as it is: its own
+   sections keep their own spacing. */
+.simple-detail-technical-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 4px;
+}
+.simple-detail-technical-body .detail-sticky-header {
+  position: static;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/* ─── A problem ────────────────────────────────────────────────────────── */
+
+.simple-detail-problem {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--color-error) 55%, transparent);
+  background: var(--color-error-bg);
+}
+.simple-detail-problem-title {
+  font-weight: 600;
+  color: var(--color-error);
+}
+.simple-detail-problem-detail {
+  font-size: 12px;
+  color: var(--text-default);
+  overflow-wrap: anywhere;
+}
+.simple-detail-problem-next {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+.simple-detail-problem-next-label {
+  font-weight: 600;
+}
+
+/* ─── A button ─────────────────────────────────────────────────────────── */
+
+.simple-detail-button {
+  all: unset;
+  cursor: pointer;
+  align-self: flex-start;
+  padding: 5px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface-elevated);
+  color: var(--text-primary);
+  font-size: 12px;
+  font-weight: 600;
+}
+.simple-detail-button:hover {
+  background: var(--surface-elevated-hover);
+}
+.simple-detail-button:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* ─── An arrow that opens a panel ──────────────────────────────────────── */
+/* In a style whose arrows carry values, an arrow takes a click (through the
+   edge's own invisible hit path, wider than the line), and the arrow open in
+   the panel is drawn in the accent colour. */
+
+.react-flow-container--value-arrows .react-flow__edge-routed {
+  cursor: pointer;
+}
+.react-flow-container--value-arrows .react-flow__edge-routed.selected .react-flow__edge-path {
+  stroke: var(--color-accent) !important;
+  stroke-width: 2.5px !important;
+}
