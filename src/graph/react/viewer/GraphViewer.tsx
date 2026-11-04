@@ -1579,11 +1579,14 @@ function GraphViewerCanvas(
   }, [interactive]);
 
   // Dismiss detail panel on pane click
+  // The panel's close button and Escape come here too, so the open arrow's
+  // highlight goes with it, as ReactFlow's own pane click takes it off.
   const handlePaneClick = React.useCallback(() => {
     setDetailSelection(null);
     setConceptOverride(null);
+    setEdges((eds) => (eds.some((e) => e.selected) ? eds.map(deselect) : eds));
     onPaneClick?.();
-  }, [onPaneClick]);
+  }, [onPaneClick, setEdges]);
 
   // Navigate from pipe IO concept → concept detail
   const handleConceptClick = React.useCallback(

@@ -281,6 +281,13 @@ export const AnArrow: Story = {
     await userEvent.click(hit);
     await waitFor(() => expect(canvasElement.querySelector(".simple-detail")).toBeNull());
     await waitFor(() => expect(edge).not.toHaveClass("selected"));
+
+    // Escape closes the panel as its close button does, and takes the highlight with it.
+    await userEvent.click(hit);
+    await waitFor(() => expect(edge).toHaveClass("selected"));
+    await userEvent.keyboard("{Escape}");
+    await waitFor(() => expect(canvasElement.querySelector(".simple-detail")).toBeNull());
+    await waitFor(() => expect(edge).not.toHaveClass("selected"));
   },
 };
 

@@ -77,6 +77,8 @@ export interface SimpleRunTally {
 export interface SimpleRunSummary {
   /** The status the canvas shows, the worst of its runs for a node drawn once for several. */
   status: PipeStatus;
+  /** How many runs the node stands for: more than one for a step a batch ran once per item. */
+  runs: number;
   /** Seconds, for a node drawn for one run that recorded its time. */
   durationSeconds?: number;
   /**
@@ -293,7 +295,7 @@ export function buildSimpleNodeDetail(
   function runSummary(nodeId: string, status: PipeStatus): SimpleRunSummary | undefined {
     if (isStatic) return undefined;
     const ids = runs.get(nodeId) ?? [nodeId];
-    const summary: SimpleRunSummary = { status };
+    const summary: SimpleRunSummary = { status, runs: ids.length };
     if (ids.length > 1) {
       const statuses = runSpecs(nodeId).map((n) => n.status);
       // A host's `statusMap` sets one status per pipe code, so once it says
@@ -409,8 +411,7 @@ export function buildSimpleNodeDetail(
     };
     const listName = batchListName(graphspec, spec);
     const list = listName ? spec.io.inputs.find((item) => item.name === listName) : undefined;
-    const over = list ?? spec.io.inputs[0];
-    if (over) detail.over = value(over, node.id);
+    if (list) detail.over = value(list, node.id);
     if (!isStatic) {
       const items = (runs.get(node.id) ?? [node.id]).flatMap((id) =>
         childrenOf(id).map((child) => specById.get(child)?.status),

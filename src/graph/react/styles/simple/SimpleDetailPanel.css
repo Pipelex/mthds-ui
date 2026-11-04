@@ -188,6 +188,10 @@
 .simple-value-links-label {
   margin-right: 6px;
 }
+/* A flex item trims its trailing space, which would draw "a,b". */
+.simple-value-links-sep {
+  white-space: pre;
+}
 .simple-value-links--none {
   font-style: italic;
 }

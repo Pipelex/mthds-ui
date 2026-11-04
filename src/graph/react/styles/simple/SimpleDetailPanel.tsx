@@ -66,7 +66,7 @@ function StepView({
   renderTechnical,
   onOpenNode,
 }: ViewProps<SimpleStepDetail>) {
-  const runs = detail.run?.tally?.total ?? 1;
+  const runs = detail.run?.runs ?? 1;
   return (
     <>
       <Header

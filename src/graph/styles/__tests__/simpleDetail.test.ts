@@ -222,7 +222,7 @@ describe("buildSimpleNodeDetail: a step", () => {
         : n,
     );
     const step = detailOf({ ...input, nodes }, id, "step");
-    expect(step.run).toEqual({ status: "running" });
+    expect(step.run).toEqual({ status: "running", runs: 3 });
   });
 
   it("names the steps a folded sub-method holds", () => {
