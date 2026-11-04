@@ -336,6 +336,27 @@ export interface SimpleProjection {
   analysis: DataflowAnalysis;
   /** Each spec node the style does not draw, mapped to the drawn node that stands for it. */
   standIns: ReadonlyMap<string, string>;
+  /**
+   * Where each value goes among the drawn nodes, by digest: the steps, the
+   * decisions or the method input it comes from, and the ones that read it, a
+   * binding passing it through to its own readers. What the detail panel says
+   * of a value the canvas draws only as arrows.
+   */
+  valueFlows: ReadonlyMap<string, SimpleValueFlow>;
+  /**
+   * Every run each drawn node stands for, by the drawn node's id, itself
+   * included: one for a step outside a batch, one per item for a step a batch
+   * ran once per item. A node drawn for one run maps to itself alone.
+   */
+  runs: ReadonlyMap<string, readonly string[]>;
+}
+
+/** Where one value goes among the nodes the simple style draws. */
+export interface SimpleValueFlow {
+  /** The drawn nodes it comes from: the steps that wrote it, or the method input it is. */
+  from: readonly string[];
+  /** The drawn nodes that read it: steps, decisions, or the final output it is. */
+  to: readonly string[];
 }
 
 function parentMap(
@@ -421,8 +442,42 @@ function stepIdentity(spec: GraphSpecNode): string {
 }
 
 /** "For each page": an item name inside a sentence, keeping an acronym's capitals. */
-function forEachLabel(itemName: string): string {
+export function forEachLabel(itemName: string): string {
   return `For each ${humanizeInSentence(itemName)}`;
+}
+
+/**
+ * Whether a concept is one the standard defines (`Text`, `Image`, …), as the
+ * spec's concept registry records it, which says what kind of value something
+ * is without saying what it is.
+ */
+export function isBuiltInConcept(graphspec: GraphSpec, conceptRef: string): boolean {
+  const info = resolveConceptRef(graphspec, conceptRef);
+  if (info) return info.domain_code === NATIVE_DOMAIN;
+  return conceptRef.startsWith(`${NATIVE_DOMAIN}.`) || isGenericConcept(conceptRef);
+}
+
+/**
+ * What the simple style calls a value, on the canvas and in the detail panel
+ * alike. A value is named by its variable, with its concept's plain name beneath
+ * when that says more. The method's final output is named by its concept when
+ * the author defined it ("Bid summary"), and like any other value when the
+ * concept is built in, since a shape reading "Text" says nothing.
+ */
+export function simpleValueTitle(
+  graphspec: GraphSpec,
+  item: Pick<GraphSpecNodeIoItem, "name" | "concept">,
+  role: "input" | "output",
+): { title: string; subtitle?: string } {
+  const concept = item.concept;
+  if (role === "output" && concept && !isBuiltInConcept(graphspec, concept)) {
+    return { title: conceptPlainName(concept) };
+  }
+  const title = humanizeIdentifier(item.name);
+  const plain = concept ? conceptPlainName(concept) : undefined;
+  return plain && plain.toLowerCase() !== title.toLowerCase()
+    ? { title, subtitle: plain }
+    : { title };
 }
 
 /**
@@ -521,11 +576,15 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
   }
 
   const runStatuses = new Map<string, PipeStatus[]>();
+  const runIds = new Map<string, string[]>();
   for (const spec of graphspec.nodes) {
     const rep = repOf(spec.id);
     const statuses = runStatuses.get(rep);
     if (statuses) statuses.push(spec.status);
     else runStatuses.set(rep, [spec.status]);
+    const ids = runIds.get(rep);
+    if (ids) ids.push(spec.id);
+    else runIds.set(rep, [spec.id]);
   }
 
   /** A node's status; one drawn once for every batch item stands for all of its runs. */
@@ -573,6 +632,8 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
   // output, a batch's list of results, or the item a batch hands one branch.
   // Indexed once, since a batch run has one such value per item.
   const combinedFrom = new Map<string, string[]>();
+  // The other way: the values each value is combined into.
+  const combinedInto = new Map<string, string[]>();
   for (const edge of graphspec.edges) {
     const from = edge.source_stuff_digest;
     const into = edge.target_stuff_digest;
@@ -587,6 +648,9 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
     const list = combinedFrom.get(into);
     if (list) list.push(from);
     else combinedFrom.set(into, [from]);
+    const intos = combinedInto.get(from);
+    if (intos) intos.push(into);
+    else combinedInto.set(from, [into]);
   }
   const sourceMemo = new Map<string, string[]>();
   function sourcesOf(digest: string, visiting: Set<string> = new Set()): string[] {
@@ -674,14 +738,24 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
   // ── Edges.
   const edges = new Map<string, GraphEdge>();
   let edgeCount = 0;
-  function addEdge(source: string, target: string): void {
+  /**
+   * Join two nodes by an arrow, once, and record the value it carries: an
+   * arrow joining the same two nodes again carries one more value, unless the
+   * value is a later batch item's copy of one it already carries (`newOnly`).
+   */
+  function addEdge(source: string, target: string, digest?: string, newOnly = false): void {
     if (source === target) return;
     const key = `${source}->${target}`;
-    if (edges.has(key)) return;
-    const label = decisionSet.has(source)
-      ? outcomeFor(source, branchOf(source, target))
-      : undefined;
-    edges.set(key, simpleEdge(`simple_edge_${edgeCount++}`, source, target, label));
+    let edge = edges.get(key);
+    if (edge && newOnly) return;
+    if (!edge) {
+      const label = decisionSet.has(source)
+        ? outcomeFor(source, branchOf(source, target))
+        : undefined;
+      edge = simpleEdge(`simple_edge_${edgeCount++}`, source, target, label);
+      edges.set(key, edge);
+    }
+    if (digest && !edge.carries?.includes(digest)) edge.carries = [...(edge.carries ?? []), digest];
   }
 
   /**
@@ -690,15 +764,20 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
    * decision, the value goes to the decision, and the decision's arrow, labelled
    * with the branch's outcome, goes on — decision by decision, outermost first.
    */
-  function route(sources: readonly string[], target: string): void {
+  function route(
+    sources: readonly string[],
+    target: string,
+    digest: string,
+    newOnly = false,
+  ): void {
     let froms = [...sources];
     for (const decisionId of decisionsAbove(target)) {
       const outside = froms.filter((s) => !isInside(s, decisionId));
       if (outside.length === 0) continue;
-      for (const source of outside) addEdge(source, decisionId);
+      for (const source of outside) addEdge(source, decisionId, digest, newOnly);
       froms = [decisionId, ...froms.filter((s) => isInside(s, decisionId))];
     }
-    for (const source of froms) addEdge(source, target);
+    for (const source of froms) addEdge(source, target, digest, newOnly);
   }
 
   const danglingInputs = new Map<string, GraphSpecNodeIoItem>();
@@ -723,8 +802,10 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
   // A value with nothing drawn behind it is shown once, for the first run.
   function routeRead(digest: string, readerId: string): void {
     const target = drawnAs(readerId);
-    if (target === readerId) route(sourcesOrDangling(digest), target);
-    else route(sourcesOf(digest), target);
+    if (target === readerId) route(sourcesOrDangling(digest), target, digest);
+    // The arrow carries the values the run drawn reads, which are the ones the
+    // panel shows; a later run's copy rides only an arrow of its own.
+    else route(sourcesOf(digest), target, digest, true);
   }
   for (const [digest, consumers] of Object.entries(analysis.stuffConsumers)) {
     for (const consumerId of consumers) {
@@ -738,7 +819,7 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
     }
   }
   for (const digest of outputItems.keys()) {
-    for (const source of sourcesOf(digest)) addEdge(source, stuffNodeId(digest));
+    for (const source of sourcesOf(digest)) addEdge(source, stuffNodeId(digest), digest);
   }
 
   // A decision's arrow goes to the first steps of a branch only. A later step
@@ -780,36 +861,10 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
   // ── Nodes, in the spec's order: inputs, then steps and decisions, then outputs.
   const simpleNodes: GraphNode[] = [];
 
-  /**
-   * Whether a concept is one the standard defines (`Text`, `Image`, …), as the
-   * spec's concept registry records it, which says what kind of value
-   * something is without saying what it is.
-   */
-  function isBuiltInConcept(conceptRef: string): boolean {
-    const info = resolveConceptRef(graphspec, conceptRef);
-    if (info) return info.domain_code === NATIVE_DOMAIN;
-    return conceptRef.startsWith(`${NATIVE_DOMAIN}.`) || isGenericConcept(conceptRef);
-  }
-
-  /**
-   * A method input is named by its variable, with its concept's plain name
-   * beneath when that says more. The final output is named by its concept when
-   * the author defined it ("Bid summary"), and like an input when the concept
-   * is built in, since a shape reading "Text" says nothing.
-   */
   function terminalNode(item: GraphSpecNodeIoItem, kind: "input" | "output"): GraphNode {
     const digest = item.digest as string;
-    const concept = item.concept;
     const isList = isPluralMultiplicity(item.multiplicity);
-    let title: string;
-    let subtitle: string | undefined;
-    if (kind === "output" && concept && !isBuiltInConcept(concept)) {
-      title = conceptPlainName(concept);
-    } else {
-      title = humanizeIdentifier(item.name);
-      const plain = concept ? conceptPlainName(concept) : undefined;
-      subtitle = plain && plain.toLowerCase() !== title.toLowerCase() ? plain : undefined;
-    }
+    const { title, subtitle } = simpleValueTitle(graphspec, item, kind);
     const simple: SimpleNodePayload = { kind, title, isList, ...(subtitle ? { subtitle } : {}) };
     return {
       id: stuffNodeId(digest),
@@ -1067,10 +1122,65 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
   }
   for (const spec of graphspec.nodes) standIn(spec.id);
 
+  // ── Where each value goes, for the detail panel: the arrows say it for the
+  // values they carry, but a reader of a step's panel wants every reader of what
+  // it produced, not only the ones an arrow is left drawn to.
+  const decisionReads = new Map<string, string[]>();
+  for (const conditionId of liveControllers) {
+    const drawn = drawnAs(conditionId);
+    if (!decisionSet.has(drawn)) continue;
+    for (const item of specById.get(conditionId)?.io.inputs ?? []) {
+      if (!item.digest) continue;
+      const readers = decisionReads.get(item.digest);
+      if (readers) readers.push(drawn);
+      else decisionReads.set(item.digest, [drawn]);
+    }
+  }
+  function readersOf(digest: string, visiting: Set<string> = new Set()): string[] {
+    if (visiting.has(digest)) return [];
+    visiting.add(digest);
+    const found: string[] = [];
+    for (const consumerId of analysis.stuffConsumers[digest] ?? []) {
+      const drawn = drawnAs(consumerId);
+      if (drawnStepIds.has(drawn)) {
+        found.push(drawn);
+        continue;
+      }
+      // A binding not drawn hands what it picked on under a new name.
+      if (cards.get(drawn)?.data.pipeType === BINDING_STEP_TYPE) {
+        for (const item of specById.get(consumerId)?.io.outputs ?? []) {
+          if (item.digest) found.push(...readersOf(item.digest, visiting));
+        }
+      }
+    }
+    found.push(...(decisionReads.get(digest) ?? []));
+    // A value combined into another, such as the list a batch hands out item by
+    // item, is read by whatever reads what it is combined into.
+    for (const into of combinedInto.get(digest) ?? []) {
+      found.push(...readersOf(into, visiting));
+    }
+    if (outputItems.has(digest)) found.push(stuffNodeId(digest));
+    visiting.delete(digest);
+    return unique(found);
+  }
+  const valueFlows = new Map<string, SimpleValueFlow>();
+  for (const digest of Object.keys(analysis.stuffRegistry)) {
+    // A value read with no step drawn behind it is drawn as an input of its own.
+    const from = danglingInputs.has(digest)
+      ? [stuffNodeId(digest)]
+      : sourcesOf(digest).filter((id) => drawnIds.has(id));
+    const to = readersOf(digest).filter((id) => drawnIds.has(id) && !from.includes(id));
+    if (from.length > 0 || to.length > 0) valueFlows.set(digest, { from, to });
+  }
+  const runs = new Map<string, readonly string[]>();
+  for (const id of drawnIds) runs.set(id, runIds.get(id) ?? [id]);
+
   return {
     nodes: simpleNodes,
     edges: [...edges.values()],
     standIns,
+    valueFlows,
+    runs,
     analysis: {
       stuffRegistry: analysis.stuffRegistry,
       stuffProducers: {},

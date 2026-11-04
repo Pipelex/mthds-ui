@@ -34,10 +34,8 @@ import {
   EDGE_TYPE,
   EDGE_TYPE_ROUTED,
   FOLD_MODE,
-  GRAPH_SPEC_MODE,
   GRAPH_DIRECTION,
   GRAPH_THEME_MODE,
-  graphSpecMode,
 } from "@graph/types";
 import { useSystemTheme } from "./useSystemTheme";
 import { buildChildToControllerMap, resolveConceptRef } from "@graph/graphAnalysis";
@@ -54,12 +52,12 @@ import type {
   ResolveShareUrl,
   ResolveUrl,
 } from "@pipelex/mthds-form/react";
-import { StuffResultPanel } from "../detail/StuffResultPanel";
-import { resultDescriptors, type GraphArtifacts } from "./graphArtifacts";
+import type { GraphArtifacts } from "./graphArtifacts";
 import { DetailPanel } from "../detail/DetailPanel";
 import { useResizable } from "../detail/useResizable";
-import { PipeDetailPanel } from "../detail/PipeDetailPanel";
 import { ConceptDetailPanel } from "../detail/ConceptDetailPanel";
+import { STYLE_DETAIL_PANELS, selectedNodeId } from "./styleDetailPanels";
+import type { DetailSelection, StyleDrawing } from "./styleDetailPanels";
 import type { AppNode, AppEdge, AppRFInstance } from "../rfTypes";
 import { toAppNodes, toAppEdges } from "../rfTypes";
 import { buildGraph } from "@graph/graphBuilders";
@@ -69,6 +67,7 @@ import type { ControllerRect } from "@graph/graphControllers";
 import { DEFAULT_GRAPH_CONFIG, getPaletteForTheme } from "@graph/graphConfig";
 import { GRAPH_STYLES, resolveGraphStyle, resolveStyleMenu } from "@graph/styles/graphStyles";
 import { GRAPH_STYLE_PIPELINES } from "@graph/styles/stylePipelines";
+import type { SimpleValueFlow } from "@graph/styles/simpleStyle";
 import { hydrateLabels } from "./renderLabel";
 import {
   LAYOUT_FAILURE_ROUTE,
@@ -324,84 +323,6 @@ export interface GraphViewerProps {
   onValidationIssueClick?: (index: number, issue: ValidationIssue) => void;
 }
 
-/** Stuff node detail: concept structure, plus whatever the host renders for its data. */
-function StuffNodeDetail({
-  nodeId,
-  stuffData,
-  producerPipeRef,
-  consumer,
-  graphspec,
-  artifacts,
-  theme,
-  resolveUrl,
-  resolveRendition,
-  resolveShareUrl,
-  saveFiles,
-  downloads,
-}: {
-  /** Selected graph node id — identity for per-node panel state (tab reset). */
-  nodeId: string;
-  stuffData: GraphSpecNodeIoItem;
-  producerPipeRef?: string;
-  consumer?: { pipeRef: string; slotName: string };
-  graphspec: GraphSpec | null;
-  /** The descriptors that came with `graphspec`, in the same `graph` object. */
-  artifacts: GraphArtifacts | null;
-  theme: GraphTheme;
-  resolveUrl?: ResolveUrl;
-  resolveRendition?: ResolveRendition;
-  resolveShareUrl?: ResolveShareUrl;
-  saveFiles?: SaveFiles;
-  downloads?: DownloadDisplay;
-}) {
-  const conceptInfo =
-    stuffData.concept && graphspec ? resolveConceptRef(graphspec, stuffData.concept) : undefined;
-  const isDryRun = graphSpecMode(graphspec) === GRAPH_SPEC_MODE.DRY;
-
-  // Built here rather than inside `ConceptDetailPanel` so both branches below
-  // render the SAME panel: a stuff with no concept in the spec is still a stuff
-  // whose value can be shown, and it is exactly the case the old fallback
-  // treated as second-class.
-  //
-  // Both artifacts or neither. The contract names the payload's shape and the
-  // descriptor says what the result IS, so a panel given one of the two would be
-  // guessing the other — which is the whole failure `output_form` exists to end.
-  const descriptors = resultDescriptors(artifacts);
-  const renderData = descriptors
-    ? () => (
-        <StuffResultPanel
-          {...descriptors}
-          stuff={stuffData}
-          {...(conceptInfo ? { concept: conceptInfo } : {})}
-          {...(producerPipeRef ? { producerPipeRef } : {})}
-          {...(consumer ? { consumer } : {})}
-          {...(resolveUrl ? { resolveUrl } : {})}
-          {...(resolveRendition ? { resolveRendition } : {})}
-          {...(resolveShareUrl ? { resolveShareUrl } : {})}
-          {...(saveFiles ? { saveFiles } : {})}
-          {...(downloads ? { downloads } : {})}
-          theme={theme}
-        />
-      )
-    : undefined;
-
-  if (conceptInfo) {
-    return (
-      <ConceptDetailPanel
-        concept={conceptInfo}
-        ioData={stuffData}
-        isDryRun={isDryRun}
-        instanceKey={nodeId}
-        renderData={renderData}
-      />
-    );
-  }
-  if (isDryRun) return <div className="detail-not-available">Dry run data hidden</div>;
-  // No concept in the spec, so there is no structure to show and no tabs to
-  // choose between — just the data, if anything can render it.
-  return <>{renderData?.() ?? <div className="detail-not-available">No data</div>}</>;
-}
-
 /**
  * Translate a fold mode + the set of available controller IDs into an initial
  * `foldedControllers` Set. `"auto"` is reserved for a future renderer-defined
@@ -461,6 +382,11 @@ export function resolveToolbarPosition(
 }
 
 /** Remove the transient flash class (undefined when nothing else remains). */
+/** A node or an edge, no longer selected. */
+function deselect<T extends { selected?: boolean }>(element: T): T {
+  return element.selected ? { ...element, selected: false } : element;
+}
+
 function stripFlash(className: string | undefined): string | undefined {
   return className?.replace(/\s*\bnode-validation-flash\b/, "") || undefined;
 }
@@ -533,20 +459,6 @@ export function applyStatusOverrides(
   });
 }
 
-// ─── Detail panel selection state ──────────────────────────────────────
-
-interface DetailSelection {
-  kind: "pipe" | "stuff" | "concept";
-  nodeId: string;
-  nodeData: GraphNodeData;
-  conceptInfo?: ConceptInfo;
-  stuffData?: GraphSpecNodeIoItem;
-  /** `domain.code` of the pipe that produced the stuff, when one did. */
-  producerPipeRef?: string;
-  /** The first pipe reading it, for the method inputs no pipe produced. */
-  consumer?: { pipeRef: string; slotName: string };
-}
-
 /**
  * The viewer container's classes: its theme, its mode, the still presentation,
  * the error state drawn in place of the flow (`failed`), and a relayout's
@@ -559,13 +471,15 @@ function containerClassName(
     interactive,
     failed,
     relayoutFailed = false,
-  }: { interactive: boolean; failed: boolean; relayoutFailed?: boolean },
+    valueArrows = false,
+  }: { interactive: boolean; failed: boolean; relayoutFailed?: boolean; valueArrows?: boolean },
 ): string {
   return (
     `react-flow-container react-flow-container--theme-${theme} react-flow-container--mode-${mode}` +
     (interactive ? "" : " react-flow-container--still") +
     (failed ? " react-flow-container--failed" : "") +
-    (relayoutFailed ? " react-flow-container--relayout-failed" : "")
+    (relayoutFailed ? " react-flow-container--relayout-failed" : "") +
+    (valueArrows && interactive ? " react-flow-container--value-arrows" : "")
   );
 }
 
@@ -840,6 +754,10 @@ function GraphViewerCanvas(
     _graphStyle: GraphStyleId;
     /** What the style draws for each spec node it does not draw. */
     _standIns?: ReadonlyMap<string, string>;
+    /** Where each value goes among the drawn nodes, for a style that draws values as arrows. */
+    _valueFlows?: ReadonlyMap<string, SimpleValueFlow>;
+    /** Every run each drawn node stands for, for a style that draws several runs as one node. */
+    _runs?: ReadonlyMap<string, readonly string[]>;
   } | null>(null);
   /** Un-folded build output, cached so fold-state changes can re-derive without rebuilding. */
   const rawGraphDataRef = React.useRef<{
@@ -966,7 +884,7 @@ function GraphViewerCanvas(
   const validationIssuesRef = React.useRef(validationIssues);
   validationIssuesRef.current = validationIssues;
   const selectedNodeIdRef = React.useRef<string | null>(null);
-  selectedNodeIdRef.current = detailSelection?.nodeId ?? null;
+  selectedNodeIdRef.current = selectedNodeId(detailSelection);
 
   // Validation dropdown open state — owned here (not in GraphToolbar) so node
   // badges can open the panel too. The toolbar reports toggle/dismiss requests
@@ -1315,6 +1233,8 @@ function GraphViewerCanvas(
       _graphspec: graphspec,
       _graphStyle: style,
       ...(projected.standIns ? { _standIns: projected.standIns } : {}),
+      ...(projected.valueFlows ? { _valueFlows: projected.valueFlows } : {}),
+      ...(projected.runs ? { _runs: projected.runs } : {}),
     };
 
     void (async () => {
@@ -1435,6 +1355,8 @@ function GraphViewerCanvas(
       _graphspec: currentGraphspec,
       _graphStyle: style,
       ...(projected.standIns ? { _standIns: projected.standIns } : {}),
+      ...(projected.valueFlows ? { _valueFlows: projected.valueFlows } : {}),
+      ...(projected.runs ? { _runs: projected.runs } : {}),
     };
 
     void (async () => {
@@ -1526,7 +1448,7 @@ function GraphViewerCanvas(
 
       // Update detail panel (toggle off if same node clicked again)
       setConceptOverride(null);
-      if (detailSelection?.nodeId === node.id && !conceptOverride) {
+      if (selectedNodeId(detailSelection) === node.id && !conceptOverride) {
         setDetailSelection(null);
       } else if (nodeData.isPipe || nodeData.isController) {
         setDetailSelection({ kind: "pipe", nodeId: node.id, nodeData });
@@ -1543,9 +1465,12 @@ function GraphViewerCanvas(
       }
 
       setNodes((nds) => nds.map((n) => ({ ...n, selected: n.id === node.id })));
+      // The node is what is open now, not an arrow a click opened before it.
+      setEdges((eds) => (eds.some((e) => e.selected) ? eds.map(deselect) : eds));
     },
     [
       setNodes,
+      setEdges,
       onNavigateToPipe,
       onNodeSelect,
       onStuffNodeClick,
@@ -1553,6 +1478,45 @@ function GraphViewerCanvas(
       detailSelection,
       conceptOverride,
     ],
+  );
+
+  // An arrow of a style that draws values as arrows opens the values it
+  // carries (toggled off by a second click, as a node is). It is found again by
+  // its two ends, which a relayout keeps, rather than by its id, which a new
+  // projection may give another arrow.
+  const onEdgeClick = React.useCallback(
+    (_event: React.MouseEvent, edge: AppEdge) => {
+      setConceptOverride(null);
+      const open =
+        detailSelection?.kind === "arrow" &&
+        detailSelection.source === edge.source &&
+        detailSelection.target === edge.target;
+      setDetailSelection(
+        open ? null : { kind: "arrow", edgeId: edge.id, source: edge.source, target: edge.target },
+      );
+      setNodes((nds) => (nds.some((n) => n.selected) ? nds.map(deselect) : nds));
+      setEdges((eds) => eds.map((e) => ({ ...e, selected: !open && e.id === edge.id })));
+    },
+    [setNodes, setEdges, detailSelection],
+  );
+
+  // A link in the panel opens the node it names as a click on it would, then
+  // brings it into view at the reader's zoom or wider, never closer.
+  const onOpenNodeFromPanel = React.useCallback(
+    (nodeId: string, event: React.MouseEvent) => {
+      const node = nodesRef.current.find((n) => n.id === nodeId);
+      if (!node) return;
+      onNodeClick(event, node);
+      const flow = reactFlowRef.current;
+      if (!flow) return;
+      void flow.fitView({
+        nodes: [{ id: nodeId }],
+        duration: 400,
+        padding: 0.4,
+        maxZoom: flow.getZoom(),
+      });
+    },
+    [onNodeClick],
   );
 
   const onInit = React.useCallback(
@@ -1600,16 +1564,32 @@ function GraphViewerCanvas(
     [graphspec],
   );
 
-  // Resolve the selected card's GraphSpecNode for the detail panel — by node id,
-  // since a pipe code does not name one node: two invocations of a pipe share
-  // it, and so do two bindings of one path. A pipe card, a controller group and
-  // a folded controller's card all carry their spec node's id.
-  const selectedSpecNode =
-    detailSelection?.kind === "pipe" && graphspec
-      ? graphspec.nodes.find((n) => n.id === detailSelection.nodeId)
-      : undefined;
-
   const detailOpen = detailSelection !== null || conceptOverride !== null;
+
+  // The panel the active style opens, and what its projection says beyond the
+  // nodes, read once the drawing of that style is the one in place: until a
+  // switch of style is laid out, the projection is still the previous style's.
+  const StylePanel = STYLE_DETAIL_PANELS[graphStyle];
+  const projectedData = initialDataRef.current;
+  const drawing = React.useMemo<StyleDrawing | null>(
+    () =>
+      projectedData &&
+      projectedData._graphStyle === graphStyle &&
+      projectedData._valueFlows &&
+      projectedData._runs
+        ? {
+            edges: projectedData.edges,
+            valueFlows: projectedData._valueFlows,
+            runs: projectedData._runs,
+            frameContents: projectedData._analysis?.containmentTree ?? {},
+          }
+        : null,
+    [projectedData, graphStyle],
+  );
+  const valueOptions = React.useMemo(
+    () => ({ resolveUrl, resolveRendition, resolveShareUrl, saveFiles, downloads }),
+    [resolveUrl, resolveRendition, resolveShareUrl, saveFiles, downloads],
+  );
 
   // Controlled + reactive: resolved on every render (no local state) so a new
   // `toolbarPosition` prop or `config.toolbarPosition` propagates immediately.
@@ -1666,6 +1646,7 @@ function GraphViewerCanvas(
         interactive,
         failed,
         relayoutFailed: canvasFailure.overFlow !== null,
+        valueArrows: styleCapabilities.valueArrows,
       })}
       // A still error state takes the height of its message, not a drawing's.
       style={interactive || failed ? undefined : { height: stillHeight }}
@@ -1688,6 +1669,7 @@ function GraphViewerCanvas(
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
             onNodeClick={interactive ? onNodeClick : undefined}
+            onEdgeClick={interactive && styleCapabilities.valueArrows ? onEdgeClick : undefined}
             onPaneClick={interactive ? handlePaneClick : undefined}
             onInit={onInit}
             fitView={interactive}
@@ -1773,30 +1755,22 @@ function GraphViewerCanvas(
             >
               {conceptOverride ? (
                 <ConceptDetailPanel concept={conceptOverride} />
-              ) : selectedSpecNode && graphspec ? (
-                <PipeDetailPanel
-                  node={selectedSpecNode}
-                  spec={graphspec}
-                  onConceptClick={handleConceptClick}
-                />
-              ) : detailSelection?.stuffData ? (
-                <StuffNodeDetail
-                  nodeId={detailSelection.nodeId}
-                  stuffData={detailSelection.stuffData}
-                  producerPipeRef={detailSelection.producerPipeRef}
-                  consumer={detailSelection.consumer}
+              ) : detailSelection ? (
+                <StylePanel
+                  selection={detailSelection}
                   graphspec={graphspec}
-                  theme={resolvedTheme}
                   artifacts={graph}
-                  resolveUrl={resolveUrl}
-                  resolveRendition={resolveRendition}
-                  resolveShareUrl={resolveShareUrl}
-                  saveFiles={saveFiles}
-                  downloads={downloads}
+                  theme={resolvedTheme}
+                  valueOptions={valueOptions}
+                  nodes={nodes}
+                  drawing={drawing}
+                  onConceptClick={handleConceptClick}
+                  onOpenNode={onOpenNodeFromPanel}
                 />
               ) : null}
               {renderDetailExtra &&
                 detailSelection &&
+                detailSelection.kind !== "arrow" &&
                 !conceptOverride &&
                 renderDetailExtra(detailSelection.nodeId, detailSelection.nodeData)}
             </DetailPanel>

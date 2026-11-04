@@ -56,6 +56,7 @@ export default defineConfig({
     /viewer\/GraphToolbar\.css$/,
     /viewer\/StyleMenu\.css$/,
     /styles\/simple\/SimpleStyle\.css$/,
+    /styles\/simple\/SimpleDetailPanel\.css$/,
     /RunPanel\.css$/,
     /RunTimeline\.css$/,
     /styles\/simple\/SimpleProgress\.css$/,
@@ -82,6 +83,10 @@ export default defineConfig({
     cpSync(
       "src/graph/react/styles/simple/SimpleStyle.css",
       "dist/graph/react/styles/simple/SimpleStyle.css",
+    );
+    cpSync(
+      "src/graph/react/styles/simple/SimpleDetailPanel.css",
+      "dist/graph/react/styles/simple/SimpleDetailPanel.css",
     );
     mkdirSync("dist/form/react", { recursive: true });
     cpSync("src/form/react/RunPanel.css", "dist/form/react/RunPanel.css");
