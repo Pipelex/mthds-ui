@@ -37,6 +37,7 @@
     "./graph/react/viewer/GraphToolbar.css": "./dist/graph/react/viewer/GraphToolbar.css",
     "./graph/react/viewer/StyleMenu.css": "./dist/graph/react/viewer/StyleMenu.css",
     "./graph/react/styles/simple/SimpleStyle.css": "./dist/graph/react/styles/simple/SimpleStyle.css",
+    "./graph/react/styles/simple/SimpleDetailPanel.css": "./dist/graph/react/styles/simple/SimpleDetailPanel.css",
     "./form": {
       "import": "./dist/form/index.js",
       "types": "./dist/form/index.d.ts"
