@@ -10,6 +10,7 @@ import { GRAPH_STYLE } from "@graph/types";
 import { applyControllers } from "@graph/graphControllers";
 import type { ControllerRect } from "@graph/graphControllers";
 import { applySimpleFrames, projectSimpleGraph, simpleDefaultFolds } from "./simpleStyle";
+import type { SimpleValueFlow } from "./simpleStyle";
 
 /** What a style's projection receives: the dataflow graph after the folds, for one spec. */
 export interface StyleProjectionArgs {
@@ -33,6 +34,14 @@ export interface StyleProjection {
    * validation issue pinned to the first still badges the second.
    */
   standIns?: ReadonlyMap<string, string>;
+  /**
+   * For a style that draws values as arrows: where each value goes among the
+   * drawn nodes, by digest, so the detail panel can say what the canvas does
+   * not draw.
+   */
+  valueFlows?: ReadonlyMap<string, SimpleValueFlow>;
+  /** For a style that draws several runs as one node: every run each drawn node stands for. */
+  runs?: ReadonlyMap<string, readonly string[]>;
 }
 
 /** What a style's frame pass receives: the laid-out nodes, and the viewer's frame and fold state. */

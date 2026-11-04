@@ -17,6 +17,7 @@ import "../src/graph/react/detail/DetailPanel.css";
 import "../src/graph/react/viewer/GraphToolbar.css";
 import "../src/graph/react/viewer/StyleMenu.css";
 import "../src/graph/react/styles/simple/SimpleStyle.css";
+import "../src/graph/react/styles/simple/SimpleDetailPanel.css";
 // The run timeline's stylesheet, which only the `./timeline/react` entry imports.
 import "../src/timeline/react/RunTimeline.css";
 import "../src/timeline/react/styles/simple/SimpleProgress.css";

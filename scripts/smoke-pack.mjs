@@ -50,9 +50,11 @@
  *    nothing more — `tailwindcss`, `tw-animate-css`, the `.dark` class variant
  *    the kernel's dark mode follows, an `@theme inline` token mapping — with `@import "@pipelex/mthds-ui/tailwind.css"` in place of the
  *    setup's `@source` line. The oracle is the kernel's own prebuilt
- *    `styles.css`: every selector in its `utilities` layer must appear in the
- *    host's output. Finding one kernel class would prove only that the scan
- *    reached the package; the whole set proves the setup compiles what the
+ *    `styles.css`: every rule in its `utilities` layer must have a rule in the
+ *    host's output naming the same classes (`utilityKey`, which says why the
+ *    selector's exact text is not compared). Finding one kernel class would
+ *    prove only that the scan reached the package; the whole set proves the
+ *    setup compiles what the
  *    kernel needs, semantic colours and animations included, and it follows the
  *    kernel from release to release with nothing written here but the named
  *    exceptions in `SOURCE_ONLY_KERNEL_SELECTORS`. It runs under each install
@@ -125,6 +127,33 @@ const SOURCE_ONLY_KERNEL_SELECTORS = new Map([
   // source map under `dist`, which a host's `@source` scans, so a host compiles
   // it too.
 ]);
+
+/**
+ * What a utility rule is compared by: the classes its selector names, sorted,
+ * rather than the selector's text. The kernel's prebuilt sheet is compiled by
+ * whatever Tailwind 4 the kernel last built with, and the host by whatever
+ * `tailwindcss@4` resolves to today, and a Tailwind patch release may write the
+ * same rule's selector another way. Tailwind 4.3.4 did exactly that to every
+ * `group-*` and `peer-*` variant: 4.3.3 wrote
+ * `.group-aria-checked\:visible:is(:where(.group)[aria-checked=true] *)`, and
+ * 4.3.4 writes `:is(:where(.group)[aria-checked=true] .group-aria-checked\:visible)`
+ * for the same rule, so a text comparison reported two utilities missing that
+ * the host had compiled. Both name the classes `group` and
+ * `group-aria-checked\:visible`, and the class name already spells the variant,
+ * so the key keeps every failure this check exists for: a utility the scan
+ * never found, or one the host's theme compiles to nothing, has no rule at all.
+ *
+ * A class token is a `.` followed by identifier characters and CSS escapes,
+ * hex escapes included (`\32 xl\:` is Tailwind's `2xl:`), so it ends where an
+ * unescaped `:`, `[`, `(`, `)`, space or combinator begins.
+ */
+function utilityKey(selector) {
+  const classes = new Set();
+  for (const match of selector.matchAll(/\.((?:\\[0-9a-fA-F]{1,6} ?|\\.|[\w-])+)/g)) {
+    classes.add(match[1]);
+  }
+  return classes.size > 0 ? [...classes].sort().join(" ") : selector;
+}
 
 /**
  * The minimal Tailwind 4 host, run inside the consumer so that it resolves
@@ -244,20 +273,21 @@ function checkTailwindHost(consumer, layout) {
     result.kernel.length > 0,
   );
 
-  const host = new Set(result.host);
-  const kernel = new Set(result.kernel);
+  const host = new Set(result.host.map(utilityKey));
+  const kernel = new Set(result.kernel.map(utilityKey));
+  const exceptions = new Set([...SOURCE_ONLY_KERNEL_SELECTORS.keys()].map(utilityKey));
   const missing = result.kernel.filter(
-    (selector) => !host.has(selector) && !SOURCE_ONLY_KERNEL_SELECTORS.has(selector),
+    (selector) => !host.has(utilityKey(selector)) && !exceptions.has(utilityKey(selector)),
   );
   const shown = missing.slice(0, 12).join("  ") + (missing.length > 12 ? "  …" : "");
   check(
-    `${layout}: the kernel's ${kernel.size} utility selectors compile, named exceptions aside`,
+    `${layout}: the kernel's ${result.kernel.length} utility selectors compile, named exceptions aside`,
     missing.length === 0,
     `${missing.length} missing: ${shown}`,
   );
 
   const stale = [...SOURCE_ONLY_KERNEL_SELECTORS.keys()].filter(
-    (selector) => !kernel.has(selector) || host.has(selector),
+    (selector) => !kernel.has(utilityKey(selector)) || host.has(utilityKey(selector)),
   );
   check(
     `${layout}: every named exception is still a real difference`,
