@@ -275,8 +275,9 @@ function checkTailwindHost(consumer, layout) {
 
   const host = new Set(result.host.map(utilityKey));
   const kernel = new Set(result.kernel.map(utilityKey));
+  const exceptions = new Set([...SOURCE_ONLY_KERNEL_SELECTORS.keys()].map(utilityKey));
   const missing = result.kernel.filter(
-    (selector) => !host.has(utilityKey(selector)) && !SOURCE_ONLY_KERNEL_SELECTORS.has(selector),
+    (selector) => !host.has(utilityKey(selector)) && !exceptions.has(utilityKey(selector)),
   );
   const shown = missing.slice(0, 12).join("  ") + (missing.length > 12 ? "  …" : "");
   check(
