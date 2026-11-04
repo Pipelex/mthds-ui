@@ -1,10 +1,18 @@
 import { describe, it, expect } from "vitest";
 import type { GraphSpec, GraphSpecMode } from "@graph/types";
-import { NODE_TYPE_SIMPLE_STEP, STEP_CATEGORY, stuffNodeId } from "@graph/types";
-import { makeEmptyBindingSpec, makeNestedSpec } from "@graph/__tests__/testUtils";
+import {
+  NODE_TYPE_SIMPLE_DECISION,
+  NODE_TYPE_SIMPLE_STEP,
+  STEP_CATEGORY,
+  stuffNodeId,
+} from "@graph/types";
+import { findStuffByDigest } from "@graph/stuffLookup";
+import { makeEmptyBindingSpec, makeMinimalSpec, makeNestedSpec } from "@graph/__tests__/testUtils";
+import { LIVE_CV_ANALYZER } from "@graph/react/viewer/__stories__/liveGraphSpec";
 import { reviewSpec } from "@graph/react/viewer/__stories__/styleReviewFixtures";
 import type { ReviewFixtureId } from "@graph/react/viewer/__stories__/styleReviewFixtures";
 import { buildSimpleNodeDetail } from "../simpleDetail";
+import { simpleValueTitle } from "../simpleStyle";
 import type {
   SimpleArrowDetail,
   SimpleDecisionDetail,
@@ -87,6 +95,18 @@ describe("the simple projection: what each arrow carries", () => {
     const format = nodeIdByTitle(projection, "Format enriched record entry");
     for (const edge of projection.edges.filter((e) => e.target === format)) {
       expect(edge.carries).toHaveLength(1);
+    }
+  });
+
+  it("carries one copy of each value whatever order the spec lists a batch's runs in", () => {
+    // A concurrent batch numbers its runs by when each started, so a later
+    // item's run can come first in the spec.
+    const spec = structuredClone(reviewSpec("BATCH_WITH_INNER_SEQ", "live"));
+    spec.nodes.reverse();
+    const { projection } = drawn(spec);
+    for (const edge of projection.edges) {
+      const names = (edge.carries ?? []).map((d) => findStuffByDigest(spec, d)?.item.name);
+      expect(new Set(names).size).toBe(names.length);
     }
   });
 });
@@ -173,6 +193,38 @@ describe("buildSimpleNodeDetail: a step", () => {
     expect(step.run?.durationSeconds).toBeUndefined();
   });
 
+  it("shows the problem of a batch item that failed, though another item is the one drawn", () => {
+    const spec = structuredClone(reviewSpec("BATCH_WITH_INNER_SEQ", "live"));
+    const title = "Search for additional details about a record";
+    const before = drawn(spec).projection;
+    const drawnId = nodeIdByTitle(before, title);
+    const laterId = before.runs?.get(drawnId)?.find((id) => id !== drawnId);
+    const later = spec.nodes.find((n) => n.id === laterId);
+    const problem = makeEmptyBindingSpec("failed").nodes.find((n) => n.error)?.error;
+    if (!later || !problem) throw new Error("the fixture no longer has a later run to fail");
+    later.status = "failed";
+    later.error = problem;
+
+    const { projection, input } = drawn(spec);
+    expect(nodeIdByTitle(projection, title)).toBe(drawnId);
+    const step = detailOf(input, drawnId, "step");
+    expect(step.run?.status).toBe("failed");
+    expect(step.run?.tally?.byStatus.failed).toBe(1);
+    expect(step.problem).toEqual(problem);
+  });
+
+  it("drops the count of a batched step's runs once a host's status says otherwise", () => {
+    const { projection, input } = fixture("BATCH_WITH_INNER_SEQ", "live");
+    const id = nodeIdByTitle(projection, "Search for additional details about a record");
+    const nodes = input.nodes.map((n) =>
+      n.id === id && n.data.simple?.kind === "step"
+        ? { ...n, data: { ...n.data, simple: { ...n.data.simple, status: "running" as const } } }
+        : n,
+    );
+    const step = detailOf({ ...input, nodes }, id, "step");
+    expect(step.run).toEqual({ status: "running" });
+  });
+
   it("names the steps a folded sub-method holds", () => {
     const { projection, input } = drawn(makeNestedSpec(5));
     const folded = projection.nodes.find(
@@ -240,6 +292,16 @@ describe("buildSimpleNodeDetail: a decision", () => {
       "decision",
     );
     expect(decision.outcomes.map((o) => o.label)).toContain("Needs review or otherwise");
+  });
+
+  it("says what an outcome leading to no step does, and counts no run for it", () => {
+    const { projection, input } = drawn(LIVE_CV_ANALYZER);
+    const id = projection.nodes.find((n) => n.type === NODE_TYPE_SIMPLE_DECISION)?.id ?? "";
+    const decision = detailOf(input, id, "decision");
+    const otherwise = decision.outcomes.find((o) => o.label === "Otherwise");
+    expect(otherwise).toEqual({ label: "Otherwise", leadsToTitle: "", ends: "fail" });
+    // The others lead to steps, and a run says whether it took each.
+    expect(decision.outcomes.filter((o) => !o.ends).every((o) => o.taken !== undefined)).toBe(true);
   });
 
   it("resolves no outcome in a dry run, which runs every branch", () => {
@@ -312,5 +374,30 @@ describe("buildSimpleNodeDetail: what it does not draw", () => {
     expect(
       buildSimpleNodeDetail(input, { kind: "arrow", source: "nowhere", target: "else" }),
     ).toBeNull();
+  });
+});
+
+describe("simpleValueTitle", () => {
+  const spec = makeMinimalSpec(1);
+
+  it("names a value by its variable, with its concept's plain name beneath when it says more", () => {
+    expect(
+      simpleValueTitle(spec, { name: "review_notes", concept: "native.Text" }, "input"),
+    ).toEqual({ title: "Review notes", subtitle: "Text" });
+    expect(
+      simpleValueTitle(spec, { name: "bid_summary", concept: "bids.BidSummary" }, "input"),
+    ).toEqual({ title: "Bid summary" });
+  });
+
+  it("names the final output by its concept when the author defined it", () => {
+    expect(
+      simpleValueTitle(spec, { name: "result", concept: "bids.BidSummary" }, "output"),
+    ).toEqual({ title: "Bid summary" });
+  });
+
+  it("names a final output of a built-in concept by its variable, like any value", () => {
+    expect(
+      simpleValueTitle(spec, { name: "review_notes", concept: "native.Text" }, "output"),
+    ).toEqual({ title: "Review notes", subtitle: "Text" });
   });
 });

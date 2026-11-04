@@ -1,5 +1,5 @@
 import type { PipeStatus, StepCategory } from "@graph/types";
-import type { SimpleRunTally } from "@graph/styles/simpleDetail";
+import type { SimpleOutcomeEnd, SimpleRunTally } from "@graph/styles/simpleDetail";
 
 // The simple style's detail panel in English, in one table: each phrase a
 // string or a function of the values it carries, never a sentence assembled
@@ -76,6 +76,11 @@ export const SIMPLE_DETAIL_STRINGS = {
   groups: (count: number) => (count === 1 ? "Groups 1 step" : `Groups ${count} steps`),
   showSteps: "Show the steps",
   outcomes: "Possible outcomes",
+  /** What an outcome leading to no step does, in place of the step's name. */
+  outcomeEnds: {
+    fail: "The method stops with a failure",
+    continue: "Carries on without a step",
+  } satisfies Record<SimpleOutcomeEnd, string>,
   taken: (taken: number, runs: number) => {
     if (taken === 0) return "Not taken";
     if (runs <= 1 || taken === runs) return "Taken";

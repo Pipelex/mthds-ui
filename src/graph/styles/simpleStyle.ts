@@ -442,7 +442,7 @@ function stepIdentity(spec: GraphSpecNode): string {
 }
 
 /** "For each page": an item name inside a sentence, keeping an acronym's capitals. */
-export function forEachLabel(itemName: string): string {
+function forEachLabel(itemName: string): string {
   return `For each ${humanizeInSentence(itemName)}`;
 }
 
@@ -451,7 +451,7 @@ export function forEachLabel(itemName: string): string {
  * spec's concept registry records it, which says what kind of value something
  * is without saying what it is.
  */
-export function isBuiltInConcept(graphspec: GraphSpec, conceptRef: string): boolean {
+function isBuiltInConcept(graphspec: GraphSpec, conceptRef: string): boolean {
   const info = resolveConceptRef(graphspec, conceptRef);
   if (info) return info.domain_code === NATIVE_DOMAIN;
   return conceptRef.startsWith(`${NATIVE_DOMAIN}.`) || isGenericConcept(conceptRef);
@@ -800,12 +800,11 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
   // A later run reads its own item's values, which come from the same steps as
   // the first run's, so it only adds an arrow where its item went another way.
   // A value with nothing drawn behind it is shown once, for the first run.
+  const laterReads: [digest: string, readerId: string][] = [];
   function routeRead(digest: string, readerId: string): void {
     const target = drawnAs(readerId);
     if (target === readerId) route(sourcesOrDangling(digest), target, digest);
-    // The arrow carries the values the run drawn reads, which are the ones the
-    // panel shows; a later run's copy rides only an arrow of its own.
-    else route(sourcesOf(digest), target, digest, true);
+    else laterReads.push([digest, readerId]);
   }
   for (const [digest, consumers] of Object.entries(analysis.stuffConsumers)) {
     for (const consumerId of consumers) {
@@ -817,6 +816,13 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
     for (const item of specById.get(conditionId)?.io.inputs ?? []) {
       if (item.digest) routeRead(item.digest, conditionId);
     }
+  }
+  // The arrow carries the values the run drawn reads, which are the ones the
+  // panel shows; a later run's copy rides only an arrow of its own. The drawn
+  // runs' reads all go first, because the spec's order is not the items'
+  // order: a concurrent batch numbers its runs by when each started.
+  for (const [digest, readerId] of laterReads) {
+    route(sourcesOf(digest), drawnAs(readerId), digest, true);
   }
   for (const digest of outputItems.keys()) {
     for (const source of sourcesOf(digest)) addEdge(source, stuffNodeId(digest), digest);

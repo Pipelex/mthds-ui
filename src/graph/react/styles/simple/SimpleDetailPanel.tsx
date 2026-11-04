@@ -186,7 +186,9 @@ function DecisionView({
                     →
                   </span>
                   <span className="simple-detail-outcome-target">
-                    {outcome.leadsTo ? (
+                    {outcome.ends ? (
+                      S.outcomeEnds[outcome.ends]
+                    ) : outcome.leadsTo ? (
                       <NodeLink link={outcome.leadsTo} onOpenNode={onOpenNode} />
                     ) : (
                       outcome.leadsToTitle

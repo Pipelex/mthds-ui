@@ -24,7 +24,6 @@ import {
   NODE_TYPE_SIMPLE_STEP,
   NODE_TYPE_SIMPLE_TERMINAL,
   isDryGraphSpec,
-  isFailingPipeNode,
   isPluralMultiplicity,
   isStaticGraphSpec,
 } from "@graph/types";
@@ -33,7 +32,7 @@ import { makePipeRef, parsePipeRef } from "@graph/pipeRefs";
 import { findStuffByDigest } from "@graph/stuffLookup";
 import type { StuffLocation } from "@graph/stuffLookup";
 import { humanizeIdentifier, outcomeLabel, pipeTitle, stripDomain } from "./humanize";
-import { simpleValueTitle } from "./simpleStyle";
+import { aggregateStatus, simpleValueTitle } from "./simpleStyle";
 import type { SimpleValueFlow } from "./simpleStyle";
 
 // ─── The model ──────────────────────────────────────────────────────────────
@@ -97,17 +96,26 @@ export interface SimpleInstructions {
   text: string;
 }
 
+/**
+ * An outcome that leads to no step: `fail` stops the method with a failure,
+ * `continue` goes on past the decision without running a branch.
+ */
+export type SimpleOutcomeEnd = "fail" | "continue";
+
 /** One way a decision can go. */
 export interface SimpleOutcome {
   /** The outcome in plain words: "Needs review", "Yes", "Otherwise". */
   label: string;
-  /** The step it leads to, by the registry's title, drawn or not. */
+  /** The step it leads to, by the registry's title, drawn or not; empty when `ends` is set. */
   leadsToTitle: string;
+  /** Set when the outcome leads to no step, which the canvas draws no arrow for. */
+  ends?: SimpleOutcomeEnd;
   /** The drawn node its arrow goes to, when it is drawn. */
   leadsTo?: SimpleNodeLink;
   /**
    * In a run: how many of the decision's runs took it, out of `runs`. Absent in
-   * a static graph and in a dry run, which resolves no condition.
+   * a static graph and in a dry run, which resolves no condition, and for an
+   * outcome that `ends`, which leaves no branch to read it off.
    */
   taken?: number;
 }
@@ -118,10 +126,11 @@ interface SimpleNodeDetailBase {
   /** The spec node the panel's technical fold shows. */
   specNode: GraphSpecNode;
   run?: SimpleRunSummary;
-  /** Why it failed, first in the panel. */
+  /**
+   * Why it failed, first in the panel: for a node drawn once for several runs,
+   * the problem of the first run that failed, which need not be the drawn one.
+   */
   problem?: Problem;
-  /** Whether it is the pipe its run failed in, rather than a controller holding it. */
-  failedHere: boolean;
 }
 
 export interface SimpleStepDetail extends SimpleNodeDetailBase {
@@ -224,6 +233,7 @@ export function buildSimpleNodeDetail(
 ): SimpleDetail | null {
   const { graphspec, nodes, edges, valueFlows, runs, frameContents } = input;
   const specById = new Map(graphspec.nodes.map((n) => [n.id, n]));
+  const childrenOf = childrenIndex(graphspec);
   const nodeById = new Map(nodes.map((n) => [n.id, n]));
   const isStatic = isStaticGraphSpec(graphspec);
   const isDry = isDryGraphSpec(graphspec);
@@ -275,12 +285,21 @@ export function buildSimpleNodeDetail(
     return location ? value(location.item, selfId) : null;
   };
 
+  const runSpecs = (nodeId: string): GraphSpecNode[] =>
+    (runs.get(nodeId) ?? [nodeId])
+      .map((id) => specById.get(id))
+      .filter((n): n is GraphSpecNode => n !== undefined);
+
   function runSummary(nodeId: string, status: PipeStatus): SimpleRunSummary | undefined {
     if (isStatic) return undefined;
     const ids = runs.get(nodeId) ?? [nodeId];
     const summary: SimpleRunSummary = { status };
     if (ids.length > 1) {
-      summary.tally = tallyOf(ids.map((id) => specById.get(id)?.status));
+      const statuses = runSpecs(nodeId).map((n) => n.status);
+      // A host's `statusMap` sets one status per pipe code, so once it says
+      // something other than the runs do, a count of the runs would contradict
+      // the status shown beside it, and it cannot be told how each run went.
+      if (aggregateStatus(statuses) === status) summary.tally = tallyOf(statuses);
     } else {
       const duration = specById.get(nodeId)?.timing?.duration;
       if (typeof duration === "number") summary.durationSeconds = duration;
@@ -290,15 +309,13 @@ export function buildSimpleNodeDetail(
 
   function base(node: Pick<GraphNode, "id" | "data">, spec: GraphSpecNode, title: string) {
     const status = statusOf(node, spec);
-    const detail: SimpleNodeDetailBase = {
-      nodeId: node.id,
-      title,
-      specNode: spec,
-      failedHere: isFailingPipeNode(spec),
-    };
+    const detail: SimpleNodeDetailBase = { nodeId: node.id, title, specNode: spec };
     const run = runSummary(node.id, status);
     if (run) detail.run = run;
-    if (spec.error) detail.problem = spec.error;
+    // The drawn run first, then the others it stands for: a batch item that
+    // failed is not necessarily the one drawn.
+    const problem = spec.error ?? runSpecs(node.id).find((n) => n.error)?.error;
+    if (problem) detail.problem = problem;
     return detail;
   }
 
@@ -356,7 +373,7 @@ export function buildSimpleNodeDetail(
     if (simple.innerStepCount !== undefined) {
       detail.inner = {
         count: simple.innerStepCount,
-        steps: stepTitlesInside(graphspec, spec.id),
+        steps: stepTitlesInside(specById, childrenOf, spec.id),
         ...(simple.onExpand ? { onExpand: simple.onExpand } : {}),
       };
     } else {
@@ -368,9 +385,7 @@ export function buildSimpleNodeDetail(
   }
 
   if (node.type === NODE_TYPE_SIMPLE_DECISION && simple?.kind === "decision") {
-    const decisionRuns = (runs.get(node.id) ?? [node.id])
-      .map((id) => specById.get(id))
-      .filter((n): n is GraphSpecNode => n !== undefined);
+    const decisionRuns = runSpecs(node.id);
     return {
       ...base(node, spec, simple.title),
       kind: "decision",
@@ -379,6 +394,8 @@ export function buildSimpleNodeDetail(
         resolved: !isStatic && !isDry,
         edges: edges.filter((e) => e.source === node.id),
         link,
+        specById,
+        childrenOf,
       }),
       runs: decisionRuns.length,
     };
@@ -396,7 +413,7 @@ export function buildSimpleNodeDetail(
     if (over) detail.over = value(over, node.id);
     if (!isStatic) {
       const items = (runs.get(node.id) ?? [node.id]).flatMap((id) =>
-        childrenOf(graphspec, id).map((child) => specById.get(child)?.status),
+        childrenOf(id).map((child) => specById.get(child)?.status),
       );
       if (items.length > 0) detail.items = tallyOf(items);
     }
@@ -438,23 +455,33 @@ function tallyOf(statuses: readonly (PipeStatus | undefined)[]): SimpleRunTally 
   return { total, byStatus };
 }
 
-/** A node's direct children in the spec's containment. */
-function childrenOf(graphspec: GraphSpec, id: string): string[] {
-  return graphspec.edges
-    .filter((e) => e.kind === "contains" && e.source === id)
-    .map((e) => e.target);
+/** A node's direct children in the spec's containment, indexed once per build. */
+type ChildrenOf = (id: string) => readonly string[];
+
+function childrenIndex(graphspec: GraphSpec): ChildrenOf {
+  const children = new Map<string, string[]>();
+  for (const edge of graphspec.edges) {
+    if (edge.kind !== "contains") continue;
+    const list = children.get(edge.source);
+    if (list) list.push(edge.target);
+    else children.set(edge.source, [edge.target]);
+  }
+  return (id) => children.get(id) ?? [];
 }
 
 /**
  * The titles of the steps a folded sub-method holds, in order: its operators,
  * a batch's branch counted once, as the canvas counts them.
  */
-function stepTitlesInside(graphspec: GraphSpec, id: string): string[] {
-  const specById = new Map(graphspec.nodes.map((n) => [n.id, n]));
+function stepTitlesInside(
+  specById: ReadonlyMap<string, GraphSpecNode>,
+  childrenOf: ChildrenOf,
+  id: string,
+): string[] {
   const titles: string[] = [];
   const visit = (nodeId: string) => {
     const spec = specById.get(nodeId);
-    const children = childrenOf(graphspec, nodeId);
+    const children = childrenOf(nodeId);
     if (children.length === 0) {
       if (spec?.kind === "operator") {
         titles.push(pipeTitle(spec.description, spec.pipe_code ?? "").title);
@@ -518,6 +545,8 @@ function decisionOutcomes(
     resolved: boolean;
     edges: readonly Pick<GraphEdge, "target" | "label">[];
     link: (nodeId: string) => SimpleNodeLink | null;
+    specById: ReadonlyMap<string, GraphSpecNode>;
+    childrenOf: ChildrenOf;
   },
 ): SimpleOutcome[] {
   if (!decision.domain_code || !decision.pipe_code) return [];
@@ -528,8 +557,12 @@ function decisionOutcomes(
   if (blueprint?.type !== "PipeCondition") return [];
   const domain = decision.domain_code;
 
-  // The branch each outcome names, by its pipe's full reference.
+  const { specById, childrenOf } = context;
+
+  // The branch each outcome names, by its pipe's full reference; `fail` and
+  // `continue` name no pipe, and keep their own key.
   const fullRef = (pipeRef: string): string => {
+    if (isOutcomeEnd(pipeRef)) return pipeRef;
     const parsed = parsePipeRef(pipeRef);
     return parsed ? makePipeRef(parsed.domainPath ?? domain, parsed.pipeCode) : pipeRef;
   };
@@ -537,15 +570,15 @@ function decisionOutcomes(
   const named: [string, string][] = Object.entries(blueprint.outcome_map);
   if (blueprint.default_outcome) named.push(["default", blueprint.default_outcome]);
   for (const [outcome, pipeRef] of named) {
+    if (!pipeRef) continue;
     const ref = fullRef(pipeRef);
     const outcomes = byBranch.get(ref);
     if (outcomes) outcomes.push(outcome);
     else byBranch.set(ref, [outcome]);
   }
 
-  const specById = new Map(graphspec.nodes.map((n) => [n.id, n]));
   const ranIn = (ref: string, run: GraphSpecNode): boolean =>
-    childrenOf(graphspec, run.id).some((childId) => {
+    childrenOf(run.id).some((childId) => {
       const child = specById.get(childId);
       if (!child?.pipe_code) return false;
       const childRef = makePipeRef(child.domain_code ?? domain, child.pipe_code);
@@ -554,6 +587,7 @@ function decisionOutcomes(
 
   return [...byBranch.entries()].map(([ref, outcomes]) => {
     const label = outcomeLabel(outcomes.join("|"));
+    if (isOutcomeEnd(ref)) return { label, leadsToTitle: "", ends: ref };
     const branch = getPipeBlueprint(graphspec, ref);
     const parsed = parsePipeRef(ref);
     const code = parsed?.pipeCode ?? stripDomain(ref);
@@ -567,6 +601,11 @@ function decisionOutcomes(
     if (context.resolved) row.taken = decisionRuns.filter((run) => ranIn(ref, run)).length;
     return row;
   });
+}
+
+/** Whether a decision's outcome names no pipe: the method fails, or carries on past it. */
+function isOutcomeEnd(pipeRef: string): pipeRef is SimpleOutcomeEnd {
+  return pipeRef === "fail" || pipeRef === "continue";
 }
 
 /** A concept's fields in plain words, from its JSON schema. */
