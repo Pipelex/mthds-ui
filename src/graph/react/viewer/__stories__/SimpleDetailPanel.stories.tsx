@@ -1,7 +1,9 @@
+import React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, waitFor, within } from "storybook/test";
 import { GraphViewer } from "../GraphViewer";
 import { GRAPH_STYLE, GRAPH_THEME } from "@graph/types";
+import type { GraphStyleId, PipeStatus } from "@graph/types";
 import { LIVE_BATCH_WITH_INNER_SEQ, LIVE_CV_SCREENING, LIVE_EMAIL_TRIAGE } from "./liveGraphSpec";
 import { DRY_CV_SCREENING } from "./mockGraphSpec";
 import { STATIC_CV_SCREENING } from "./staticGraphSpec";
@@ -279,6 +281,66 @@ export const AnArrow: Story = {
     await userEvent.click(hit);
     await waitFor(() => expect(canvasElement.querySelector(".simple-detail")).toBeNull());
     await waitFor(() => expect(edge).not.toHaveClass("selected"));
+  },
+};
+
+/**
+ * A viewer with two buttons standing in for what a host does to it while an
+ * arrow is open: switch to the detailed style, or send a run's status update.
+ */
+function ArrowHost(props: React.ComponentProps<typeof GraphViewer>) {
+  const [style, setStyle] = React.useState<GraphStyleId | undefined>(props.graphStyle);
+  const [statusMap, setStatusMap] = React.useState<Record<string, PipeStatus>>();
+  const pipeCode = LIVE_CV_SCREENING.nodes.find((n) => n.kind === "operator")?.pipe_code ?? "";
+  return (
+    <>
+      <div
+        style={{ position: "absolute", left: 8, bottom: 8, zIndex: 10, display: "flex", gap: 8 }}
+      >
+        <button type="button" onClick={() => setStatusMap({ [pipeCode]: "running" })}>
+          Send a status update
+        </button>
+        <button type="button" onClick={() => setStyle(GRAPH_STYLE.DETAILED)}>
+          Switch to the detailed style
+        </button>
+      </div>
+      <GraphViewer {...props} graphStyle={style} statusMap={statusMap} />
+    </>
+  );
+}
+
+/**
+ * An open arrow keeps its highlight through a run's status update, and a switch
+ * to a style that draws no value arrows closes its panel rather than leaving it
+ * open on nothing.
+ */
+export const AnArrowThroughAStatusUpdateAndAStyleSwitch: Story = {
+  args: { ...base, graph: CV_SCREENING },
+  render: (args) => <ArrowHost {...args} />,
+  play: async ({ canvasElement }) => {
+    await waitForGraphRender(canvasElement);
+    const canvas = within(canvasElement);
+    const edge = await waitFor(() => {
+      const el = canvasElement.querySelector<SVGGElement>(".react-flow__edge-routed");
+      if (!el) throw new Error("no arrow");
+      return el;
+    });
+    await userEvent.click(edge.querySelector(".react-flow__edge-interaction") ?? edge);
+    await simplePanel(canvasElement);
+    await waitFor(() => expect(edge).toHaveClass("selected"));
+
+    await userEvent.click(canvas.getByRole("button", { name: "Send a status update" }));
+    // Give the rebuilt edges the time to land, then check the arrow is still lit.
+    await new Promise((resolve) => setTimeout(resolve, 300));
+    await expect(
+      canvasElement.querySelector(".react-flow__edge-routed.selected"),
+    ).toBeInTheDocument();
+    await expect(canvasElement.querySelector(".simple-detail")).toBeInTheDocument();
+
+    await userEvent.click(canvas.getByRole("button", { name: "Switch to the detailed style" }));
+    await waitFor(() =>
+      expect(canvasElement.querySelector(".detail-panel")).toHaveClass("detail-panel--closed"),
+    );
   },
 };
 

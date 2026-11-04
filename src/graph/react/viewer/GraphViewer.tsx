@@ -381,12 +381,12 @@ export function resolveToolbarPosition(
   return positionProp ?? configPosition ?? DEFAULT_GRAPH_CONFIG.toolbarPosition;
 }
 
-/** Remove the transient flash class (undefined when nothing else remains). */
 /** A node or an edge, no longer selected. */
 function deselect<T extends { selected?: boolean }>(element: T): T {
   return element.selected ? { ...element, selected: false } : element;
 }
 
+/** Remove the transient flash class (undefined when nothing else remains). */
 function stripFlash(className: string | undefined): string | undefined {
   return className?.replace(/\s*\bnode-validation-flash\b/, "") || undefined;
 }
@@ -885,6 +885,18 @@ function GraphViewerCanvas(
   validationIssuesRef.current = validationIssues;
   const selectedNodeIdRef = React.useRef<string | null>(null);
   selectedNodeIdRef.current = selectedNodeId(detailSelection);
+  const selectedArrowRef = React.useRef<{ source: string; target: string } | null>(null);
+  selectedArrowRef.current = detailSelection?.kind === "arrow" ? detailSelection : null;
+
+  // An arrow stays open only while the drawing holds it: a style that draws no
+  // value arrows, or a fold that took its two ends apart, closes the panel
+  // rather than leaving it open on nothing.
+  React.useEffect(() => {
+    if (detailSelection?.kind !== "arrow") return;
+    const { source, target } = detailSelection;
+    const drawn = edges.some((e) => e.source === source && e.target === target);
+    if (!styleCapabilities.valueArrows || !drawn) setDetailSelection(null);
+  }, [detailSelection, edges, styleCapabilities.valueArrows]);
 
   // Validation dropdown open state — owned here (not in GraphToolbar) so node
   // badges can open the panel too. The toolbar reports toggle/dismiss requests
@@ -926,6 +938,18 @@ function GraphViewerCanvas(
     },
     [openValidationPanel],
   );
+
+  // The arrow open in the detail panel stays selected through a rebuild — a
+  // status update, a fold, a re-layout — found again by its two ends, as the
+  // panel finds it.
+  const decorateEdges = React.useCallback((graphEdges: GraphEdge[]): AppEdge[] => {
+    const appEdges = toAppEdges(graphEdges);
+    const arrow = selectedArrowRef.current;
+    if (!arrow) return appEdges;
+    return appEdges.map((e) =>
+      e.source === arrow.source && e.target === arrow.target ? { ...e, selected: true } : e,
+    );
+  }, []);
 
   // The style's frame pass over a laid-out graph: the one place the viewer
   // wraps nodes in frames, shared by every path that re-renders from a layout.
@@ -1089,7 +1113,7 @@ function GraphViewerCanvas(
           data._analysis,
         );
         setNodes(decorateNodes(withControllers.nodes));
-        setEdges(toAppEdges(withControllers.edges));
+        setEdges(decorateEdges(withControllers.edges));
         drawnSpecRef.current = data._graphspec;
         setLayoutFailure(null);
         setTimeout(() => {
@@ -1117,8 +1141,15 @@ function GraphViewerCanvas(
     if (!cache || !data || !cacheMatchesData()) return;
     const withControllers = frameLayout(cache.graphStyle, cache, data._graphspec, data._analysis);
     setNodes(decorateNodes(withControllers.nodes));
-    setEdges(toAppEdges(withControllers.edges));
-  }, [showControllers, expandedControllers, toggleCollapse, toggleFold, decorateNodes]);
+    setEdges(decorateEdges(withControllers.edges));
+  }, [
+    showControllers,
+    expandedControllers,
+    toggleCollapse,
+    toggleFold,
+    decorateNodes,
+    decorateEdges,
+  ]);
 
   // Build + layout when graphspec/edgeType changes
   React.useEffect(() => {
@@ -1272,7 +1303,7 @@ function GraphViewerCanvas(
         const withControllers = frameLayout(style, layouted, graphspec, projected.analysis);
 
         setNodes(decorateNodes(withControllers.nodes));
-        setEdges(toAppEdges(withControllers.edges));
+        setEdges(decorateEdges(withControllers.edges));
         drawnSpecRef.current = graphspec;
         setLayoutFailure(null);
 
@@ -1379,7 +1410,7 @@ function GraphViewerCanvas(
         };
         const withControllers = frameLayout(style, layouted, currentGraphspec, projected.analysis);
         setNodes(decorateNodes(withControllers.nodes));
-        setEdges(toAppEdges(withControllers.edges));
+        setEdges(decorateEdges(withControllers.edges));
         drawnSpecRef.current = currentGraphspec;
         setLayoutFailure(null);
         setTimeout(() => {
@@ -1407,8 +1438,8 @@ function GraphViewerCanvas(
     if (!cache || !data || !cacheMatchesData()) return;
     const withControllers = frameLayout(cache.graphStyle, cache, data._graphspec, data._analysis);
     setNodes(decorateNodes(withControllers.nodes));
-    setEdges(toAppEdges(withControllers.edges));
-  }, [statusMap, decorateNodes]);
+    setEdges(decorateEdges(withControllers.edges));
+  }, [statusMap, decorateNodes, decorateEdges]);
 
   // Re-stamp validation decorations when the issues change (reuses cached
   // layout — a verdict flip must never re-run ELK or reset the viewport).
