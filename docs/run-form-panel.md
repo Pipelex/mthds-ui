@@ -16,7 +16,7 @@ npm install @pipelex/mthds-ui
 
 `make smoke-pack` asserts exactly that from a scratch consumer declaring only this package and React: the kernel arrives without being named, it is a dependency rather than a peer, there is **exactly one copy** in the tree, both React entries import it rather than inlining it, `.`, `./graph` and `./static-graph` never reach it, and `./form/brand` imports the kernel's `./brand` entry alone and runs in plain Node. The controls' styling is a separate step a host takes itself; see "Styling, and the trap in it" below.
 
-The kernel declares `mthds` as a required peer of its own and re-exports its protocol types. A package manager with peer auto-installation supplies it; one that does not will ask for it. This library never imports it.
+The kernel lists `mthds` under its own `dependencies`, so it arrives with the kernel and you declare nothing for it, and the kernel re-exports its protocol types, `PipeIOContract`, `PipeInputFormDescriptor` and the rest, from `mthds/protocol`. The kernel's only peers are `react` and `react-dom`. This library declares `mthds` as a dependency of its own, for the graph's `Problem` type from `mthds/errors`, which it imports as a type only, so no code of `mthds` runs in its React-free entries.
 
 ## Using it
 
