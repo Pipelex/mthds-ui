@@ -7,8 +7,6 @@ import {
   isFilled,
   sameRunValues,
   setValueAtPath,
-  type ExampleSource,
-  type FileSource,
   type FormExample,
   type PipeInputFormDescriptor,
   type PipeIOContract,
@@ -19,7 +17,9 @@ import {
   FieldRenderer,
   FillWithExample,
   OptionalToggle,
+  type ExamplePickerSource,
   type FieldEnv,
+  type FilePickerSource,
 } from "@pipelex/mthds-form/react";
 import { getPaletteForTheme } from "@graph/graphConfig";
 import { GRAPH_THEME, type GraphTheme } from "@graph/types";
@@ -124,8 +124,10 @@ export interface RunPanelProps {
   uploadFile?: (file: File, fieldId: string) => Promise<UploadedFile>;
   /**
    * Where a file field can take a file the host already stores: the first of
-   * the kernel's two host seams beside the upload, its shape the kernel's
-   * `FileSource`. Given one, every empty file field offers
+   * the kernel's two host seams beside the upload, its shape the one the
+   * kernel's controls take, `FilePickerSource`: a `FileSource`, so every file
+   * source is one, with an optional `renderGlyph` drawing a row's glyph in
+   * place of the kernel's outline. Given one, every empty file field offers
    * "Choose from your team's files", and a list of files offers it for several
    * at once; the host lists the files, one page per query, and the kernel's
    * sheet does the rest. A chosen file is written as `{ url, filename }`
@@ -137,13 +139,17 @@ export interface RunPanelProps {
    * key, as `env.onDropFile` wins over `uploadFile`. Left unset, no file field
    * offers anything it did not offer before.
    */
-  fileSource?: FileSource;
+  fileSource?: FilePickerSource;
   /**
    * Where the form can take a saved example of the method: the second of the
-   * kernel's two host seams beside the upload, its shape the kernel's
-   * `ExampleSource`. Given one, the panel offers "Fill with an example" above
-   * the fields, which sets every value at once through `onValuesChange` and
-   * never starts a run.
+   * kernel's two host seams beside the upload, its shape the one the kernel's
+   * control takes, `ExamplePickerSource`: an `ExampleSource`, so every example
+   * source is one, with an optional `renderDetail` drawing a line under each
+   * row's name. Given one, the panel offers "Fill with an example" above the
+   * fields, which sets every value at once through `onValuesChange` and never
+   * starts a run. The source's `open`, given, hands a row's example to the
+   * host's own surface with a `fill` that fills exactly as choosing the row
+   * does, through everything below.
    *
    * A form holding work of the person's own is asked "Replace what you
    * entered?" first. The panel counts as such work a value that would send a
@@ -159,7 +165,7 @@ export interface RunPanelProps {
    * on a pipe switch. An upload the host runs itself through `env.onDropFile`
    * is the host's to abandon, from `onFill`. Left unset, nothing is offered.
    */
-  exampleSource?: ExampleSource;
+  exampleSource?: ExamplePickerSource;
   /**
    * Called once an example has filled the form, after `onValuesChange` has
    * been handed the example's values, with those values and the example.

@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- **`RunPanel` takes the controls' picker sources**: `fileSource` is typed `FilePickerSource` and `exampleSource` `ExamplePickerSource`, the shapes the kernel's controls take, so a host draws a file row's glyph with `renderGlyph` and an example row's second line with `renderDetail` through the panel, and a source typed over the host's own rows fits as it does for the kernel's own form. Every `FileSource` and `ExampleSource` a host already passes still fits. See [docs/run-form-panel.md](docs/run-form-panel.md#the-teams-files-and-the-methods-examples).
+
 ### Changed
 
 - **`@pipelex/mthds-form` ^0.28.0 (Breaking)**: the kernel's range moves from `^0.27.0` to `^0.28.0`, which a caret below 1.0 does not bridge, so a host reaches the kernel's 0.28.0 only through this release. With it, `ExampleSource`, re-exported from `./form` and `./form/react`, gains `open(example, fill)`, which puts Open first in each row's menu of the examples list and hands the host the example with `fill`, the row's own choice of it, so a source given to `RunPanel` with `open` gets the Open item and its `fill` resets the panel as choosing the row does; and `./form/react` carries the kernel's new `ExamplePickerSource`, an `ExampleSource` with an optional `renderDetail(example, fields)` drawn under a row's name and read with it, which `FillWithExample`, `MethodForm` and `useMethodForm` take. `open`, `rename` and `delete` are declared as optional methods, so a source typed over the host's own example or written as a class compiles under `strictFunctionTypes`, a `renderGlyph` or `renderDetail` returning an array of nothing draws nothing, and `FieldStrings` gains `openExample`, in English and French, so a host supplying a complete `FieldStrings` adds it. See [docs/run-form-panel.md](docs/run-form-panel.md#the-teams-files-and-the-methods-examples).

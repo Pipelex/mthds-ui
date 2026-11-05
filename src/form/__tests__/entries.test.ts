@@ -123,9 +123,23 @@ describe("the ./form/react entry", () => {
     expectTypeOf<FileSource>().toExtend<FilePickerSource>();
   });
 
-  it("types RunPanel's two source props as the kernel's seams, and its fill callback", () => {
-    expectTypeOf<RunPanelProps["fileSource"]>().toEqualTypeOf<FileSource | undefined>();
-    expectTypeOf<RunPanelProps["exampleSource"]>().toEqualTypeOf<ExampleSource | undefined>();
+  it("types RunPanel's two source props as the kernel's controls take them, and its fill callback", () => {
+    // The panel hands both sources to the kernel's controls as they are, so it
+    // takes what they take: a row's glyph and a row's second line reach them.
+    expectTypeOf<RunPanelProps["fileSource"]>().toEqualTypeOf<FilePickerSource | undefined>();
+    expectTypeOf<RunPanelProps["exampleSource"]>().toEqualTypeOf<ExamplePickerSource | undefined>();
+    // Every core source still fits, and so does a host's source typed over its
+    // own rows, whose handlers the kernel declares as methods.
+    expectTypeOf<FileSource>().toExtend<NonNullable<RunPanelProps["fileSource"]>>();
+    expectTypeOf<ExampleSource>().toExtend<NonNullable<RunPanelProps["exampleSource"]>>();
+    type HostFile = SourceFile & { readonly folder: string };
+    type HostExample = FormExample & { readonly savedBy: string };
+    expectTypeOf<FilePickerSource<HostFile>>().toExtend<NonNullable<RunPanelProps["fileSource"]>>();
+    expectTypeOf<{
+      list: ExampleSource["list"];
+      open(example: HostExample, fill: () => void): void;
+      renderDetail(example: HostExample, fields: readonly RunField[]): ReactNode;
+    }>().toExtend<NonNullable<RunPanelProps["exampleSource"]>>();
     expectTypeOf<RunPanelProps["onFill"]>().toEqualTypeOf<
       ((values: Record<string, unknown>, example: FormExample) => void) | undefined
     >();
