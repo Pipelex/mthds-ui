@@ -10,7 +10,7 @@
  * sources' behaviour is the kernel's and is tested there; what `RunPanel` does
  * with them is pinned by its stories.
  */
-import type { ComponentProps } from "react";
+import type { ComponentProps, ReactNode } from "react";
 import { describe, expect, expectTypeOf, it } from "vitest";
 import * as form from "@form/index";
 import type {
@@ -22,12 +22,14 @@ import type {
   FileSourceQuery,
   FileSourceScope,
   FormExample,
+  RunField,
   SearchResultContentView,
   SearchSourceView,
   SourceFile,
 } from "@form/index";
 import * as formReact from "@form/react/index";
 import type {
+  ExamplePickerSource,
   ExampleSource,
   FieldEnv,
   FieldStrings,
@@ -40,6 +42,7 @@ import type {
   RenditionRequest,
   ResolveRendition,
   RunPanelProps,
+  UseMethodFormOptions,
 } from "@form/react/index";
 
 describe("the ./form entry", () => {
@@ -69,6 +72,14 @@ describe("the ./form entry", () => {
     expectTypeOf<ExampleSourcePage["examples"]>().toEqualTypeOf<readonly FormExample[]>();
   });
 
+  it("carries the example source's open capability", () => {
+    // Kernel 0.28.0: `open` hands a row's example to the host's own surface,
+    // with `fill` the row's own choice of it.
+    expectTypeOf<CoreExampleSource["open"]>().toEqualTypeOf<
+      ((example: FormExample, fill: () => void) => void) | undefined
+    >();
+  });
+
   it("carries the readers of a search result, for a host drawing one its own way", () => {
     // Kernel 0.27.0: the readers the kernel's search arm draws with.
     expect(form.NATIVE_SEARCH_RESULT_CONCEPT_REF).toBe("native.SearchResult");
@@ -88,8 +99,21 @@ describe("the ./form/react entry", () => {
     expect(formReact.FillWithExample).toBeTypeOf("function");
     expect(formReact.FilePicker).toBeTypeOf("function");
     expect(formReact.FilePickerEntry).toBeTypeOf("function");
-    expectTypeOf<FillWithExampleProps["source"]>().toEqualTypeOf<ExampleSource>();
+    expectTypeOf<FillWithExampleProps["source"]>().toEqualTypeOf<ExamplePickerSource>();
     expectTypeOf<FilePickerProps["source"]>().toEqualTypeOf<FilePickerSource>();
+  });
+
+  it("carries the example source a row's second line is drawn from", () => {
+    // An `ExamplePickerSource` is an `ExampleSource` with an optional
+    // `renderDetail` (kernel 0.28.0), so every `ExampleSource` a host already
+    // passes is one, and the kernel's own form takes it as the control does.
+    expectTypeOf<ExampleSource>().toExtend<ExamplePickerSource>();
+    expectTypeOf<ExamplePickerSource["renderDetail"]>().toEqualTypeOf<
+      ((example: FormExample, fields: readonly RunField[]) => ReactNode) | undefined
+    >();
+    expectTypeOf<UseMethodFormOptions["exampleSource"]>().toEqualTypeOf<
+      ExamplePickerSource | undefined
+    >();
   });
 
   it("carries the field environment that hands a file source to every control", () => {
@@ -111,10 +135,14 @@ describe("the ./form/react entry", () => {
     expectTypeOf<FieldStrings>().toHaveProperty("chooseFromSource");
     expectTypeOf<FieldStrings>().toHaveProperty("fillWithExample");
     expectTypeOf<FieldStrings>().toHaveProperty("replaceEnteredTitle");
+    // Kernel 0.28.0: the row menu's Open. A host supplying a complete
+    // `FieldStrings` adds it.
+    expectTypeOf<FieldStrings>().toHaveProperty("openExample");
     for (const strings of [formReact.EN_FIELD_STRINGS, formReact.FR_FIELD_STRINGS]) {
       expect(strings.chooseFromSource).toBeTypeOf("string");
       expect(strings.fillWithExample).toBeTypeOf("string");
       expect(strings.replaceEnteredTitle).toBeTypeOf("string");
+      expect(strings.openExample).toBeTypeOf("string");
     }
   });
 
