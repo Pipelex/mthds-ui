@@ -6,7 +6,6 @@ import {
   getPipeInputForm,
   getPipeIOContract,
   type ExampleSource,
-  type FileSource,
   type FileSourcePage,
   type FileSourceQuery,
   type FormExample,
@@ -14,7 +13,7 @@ import {
   type PipeIOContract,
   type SourceFile,
 } from "@pipelex/mthds-form";
-import type { FieldEnv } from "@pipelex/mthds-form/react";
+import type { ExamplePickerSource, FieldEnv, FilePickerSource } from "@pipelex/mthds-form/react";
 import { RunPanel, type UploadedFile } from "@form/react/RunPanel";
 import { GRAPH_THEME, type GraphTheme } from "@graph/types";
 import {
@@ -168,8 +167,8 @@ function PanelHost({
   initialValues?: Record<string, unknown>;
   env?: FieldEnv;
   uploadFile?: (file: File, fieldId: string) => Promise<UploadedFile>;
-  fileSource?: FileSource;
-  exampleSource?: ExampleSource;
+  fileSource?: FilePickerSource;
+  exampleSource?: ExamplePickerSource;
   onFill?: React.ComponentProps<typeof RunPanel>["onFill"];
   translate?: React.ComponentProps<typeof RunPanel>["translate"];
 }) {
@@ -1804,6 +1803,36 @@ export const HostEnvFileSourceWins: Story = {
   },
 };
 
+/**
+ * A file source's `renderGlyph` reaches the sheet's rows through the panel.
+ *
+ * The panel hands its `fileSource` to every file field as it is, so a host
+ * drawing its own glyph for a row, a thumbnail say, sees it in place of the
+ * kernel's outline, and a row the host draws nothing for keeps the outline.
+ */
+export const FileSourceDrawsTheHostsGlyph: Story = {
+  args: {
+    ...EXTRACT,
+    title: "extract_and_analyze",
+    fileSource: {
+      initialScope: "mine",
+      list: () => Promise.resolve({ files: TEAM_FILES }),
+      renderGlyph: (file) =>
+        file.kind === "test" ? null : <span data-testid={`host-glyph-${file.id}`}>PDF</span>,
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole("button", { name: /choose from your team's files/i }));
+    const sheet = await within(canvasElement).findByRole("dialog", { name: "Your team's files" });
+
+    const drawn = await within(sheet).findByRole("radio", { name: /INV-2291\.pdf/ });
+    await expect(within(drawn).getByTestId("host-glyph-file_2291")).toBeInTheDocument();
+    const kept = within(sheet).getByRole("radio", { name: /INV-2288\.pdf/ });
+    await expect(within(kept).queryByTestId(/^host-glyph-/)).toBeNull();
+  },
+};
+
 /** A method's saved examples, in the run-input shape a host stores them in. */
 const NOTICE_EXAMPLES: readonly FormExample[] = [
   {
@@ -1907,6 +1936,84 @@ export const ExampleAsksBeforeReplacingEdits: Story = {
     await chooseExample(canvasElement, "Summer fete");
     await waitFor(() => expect(subject()).toHaveValue("Summer fete on the green"));
     await expect(canvas.queryByRole("alertdialog")).not.toBeInTheDocument();
+  },
+};
+
+/** What a host opened from a row's menu: the example, and the fill it was handed. */
+interface OpenedExample {
+  example: FormExample;
+  fill: () => void;
+}
+
+/**
+ * An example source's `renderDetail` and `open` reach the list through the panel.
+ *
+ * Each row reads its name and then the host's line under it, here how many of
+ * the form's inputs the example holds. Open, in a row's menu, closes the list,
+ * gives focus back to "Fill with an example" and hands the host the example,
+ * which this host shows in a surface of its own. That surface's fill is the
+ * row's own choice of the example, so it goes through the panel's fill: over
+ * the person's own words it asks first, and Replace fills without a run.
+ */
+export const ExampleOpensInTheHostsSurface: Story = {
+  args: { ...NOTICE, title: "draft_notice" },
+  render: function Render(args) {
+    const [opened, setOpened] = React.useState<OpenedExample | null>(null);
+    const source = React.useMemo<ExamplePickerSource>(
+      () => ({
+        list: noticeExamples.list,
+        open: (example, fill) => setOpened({ example, fill }),
+        renderDetail: (example, fields) => {
+          const held = fields.filter((field) => example.inputs[field.name] !== undefined);
+          return `Holds ${held.length} of ${fields.length} inputs`;
+        },
+      }),
+      [],
+    );
+    return (
+      <>
+        <PanelHost {...args} exampleSource={source} />
+        {opened && (
+          <section aria-label="Opened example">
+            <p>Opened: {opened.example.name}</p>
+            <button type="button" onClick={opened.fill}>
+              Fill the form
+            </button>
+          </section>
+        )}
+      </>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
+    // Re-read each time: a fill remounts the fields.
+    const subject = () => canvas.getByLabelText(/subject/i);
+    await userEvent.type(subject(), "Road works on the high street");
+
+    await userEvent.click(canvas.getByRole("button", { name: /fill with an example/i }));
+    const list = await canvas.findByRole("dialog", { name: "Examples" });
+    await expect(
+      await within(list).findByRole("button", { name: "Bridge closure Holds 2 of 2 inputs" }),
+    ).toBeVisible();
+    await expect(
+      within(list).getByRole("button", { name: "Summer fete Holds 1 of 2 inputs" }),
+    ).toBeVisible();
+
+    await userEvent.click(within(list).getByRole("button", { name: "Actions for Bridge closure" }));
+    await userEvent.click(await body.findByRole("menuitem", { name: "Open" }));
+    await waitFor(() => expect(canvas.queryByRole("dialog", { name: "Examples" })).toBeNull());
+    const surface = await canvas.findByRole("region", { name: "Opened example" });
+    await expect(within(surface).getByText("Opened: Bridge closure")).toBeVisible();
+    await expect(canvas.getByRole("button", { name: /fill with an example/i })).toHaveFocus();
+    await expect(subject()).toHaveValue("Road works on the high street");
+
+    await userEvent.click(within(surface).getByRole("button", { name: "Fill the form" }));
+    const question = await canvas.findByRole("alertdialog", { name: "Replace what you entered?" });
+    await userEvent.click(within(question).getByRole("button", { name: "Replace" }));
+    await waitFor(() => expect(subject()).toHaveValue("Bridge closure on Mill Lane"));
+    await expect(canvas.getByLabelText(/style_hint/i)).toHaveValue("Plain and friendly");
+    await expect(canvas.getByTestId("run-payload")).toHaveTextContent("onRun has not fired yet");
   },
 };
 
