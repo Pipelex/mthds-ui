@@ -6,30 +6,46 @@
  * itself. These assertions notice an entry that stops carrying it: a re-export
  * narrowed to a list, a copy of the kernel's functions rather than the kernel's
  * own, or a kernel range from before the derivation stopped falling back to a
- * colour nobody set. The derivation's guarantees are the kernel's and are
- * tested there across a sweep of seeds; here one seed goes through each
- * function, to show the entry is wired to code that works rather than to names
- * that resolve.
+ * colour nobody set, or from before the app styles and typefaces (kernel
+ * 0.30.0). The derivation's guarantees are the kernel's and are tested there
+ * across a sweep of seeds and styles; here one seed and one style go through
+ * each function, to show the entry is wired to code that works rather than to
+ * names that resolve.
  */
 import { describe, expect, expectTypeOf, it } from "vitest";
 import * as kernelBrand from "@pipelex/mthds-form/brand";
 import type {
+  AppStyleId as KernelAppStyleId,
   BrandRoles as KernelBrandRoles,
   BrandSeeds as KernelBrandSeeds,
+  RoleColor as KernelRoleColor,
+  StyleRoles as KernelStyleRoles,
   TextOnFill as KernelTextOnFill,
+  Typeface as KernelTypeface,
 } from "@pipelex/mthds-form/brand";
 import * as brand from "@form/brand/index";
 import {
+  APP_STYLE_IDS,
+  APP_STYLES,
+  TYPEFACES,
   contrastRatio,
   deriveBrandRoles,
+  deriveStyleRoles,
   isAccentAdjusted,
   isActionFaint,
+  isAppStyle,
+  isTypeface,
   readableTextOn,
   resolveDarkSeeds,
+  resolveRoleColor,
+  type AppStyleId,
   type BrandRoles,
   type BrandSeeds,
+  type RoleColor,
   type SrgbColor,
+  type StyleRoles,
   type TextOnFill,
+  type Typeface,
 } from "@form/brand/index";
 
 const LIGHT_PAGE = "#ffffff";
@@ -130,6 +146,63 @@ describe("one seed through the entry", () => {
     if (dark.accentInk === undefined) throw new Error("the accent's roles are absent");
     expect(isAccentAdjusted(darkSeeds, DARK_PAGE)).toBe(dark.accentInk !== dark.accent);
     expect(contrast(dark.accentInk, DARK_PAGE)).toBeGreaterThanOrEqual(4.5);
+  });
+});
+
+describe("the app styles and typefaces, through the entry", () => {
+  it("re-exports the kernel's own style functions and lists, not copies of them", () => {
+    expect(brand.deriveStyleRoles).toBe(kernelBrand.deriveStyleRoles);
+    expect(brand.isAppStyle).toBe(kernelBrand.isAppStyle);
+    expect(brand.isTypeface).toBe(kernelBrand.isTypeface);
+    expect(brand.resolveRoleColor).toBe(kernelBrand.resolveRoleColor);
+    expect(brand.APP_STYLES).toBe(kernelBrand.APP_STYLES);
+    expect(brand.APP_STYLE_IDS).toBe(kernelBrand.APP_STYLE_IDS);
+    expect(brand.TYPEFACES).toBe(kernelBrand.TYPEFACES);
+  });
+
+  it("carries the style types, the same ones the kernel declares", () => {
+    expectTypeOf<AppStyleId>().toEqualTypeOf<KernelAppStyleId>();
+    expectTypeOf<Typeface>().toEqualTypeOf<KernelTypeface>();
+    expectTypeOf<StyleRoles>().toEqualTypeOf<KernelStyleRoles>();
+    expectTypeOf<RoleColor>().toEqualTypeOf<KernelRoleColor>();
+    expectTypeOf(deriveStyleRoles).returns.toEqualTypeOf<StyleRoles>();
+  });
+
+  it("names the styles a team picks from, and the faces it may pick", () => {
+    expect([...APP_STYLE_IDS].sort()).toEqual(["bold", "editorial", "quiet", "soft"]);
+    for (const id of APP_STYLE_IDS) {
+      expect(isAppStyle(id)).toBe(true);
+      expect(APP_STYLES[id].id).toBe(id);
+    }
+    expect(isAppStyle("neon")).toBe(false);
+    // A body face is a team's choice; a style's own heading face is not.
+    for (const face of TYPEFACES) expect(isTypeface(face.id)).toBe(face.use === "body");
+    expect(isTypeface("comic-sans")).toBe(false);
+  });
+
+  it("sets nothing for quiet with no typeface, so the host's own look stands", () => {
+    expect(deriveStyleRoles("quiet", null)).toEqual({});
+    expect(deriveStyleRoles(undefined)).toEqual({});
+  });
+
+  it("returns a style's roles as roles a host maps, and resolves one over a palette", () => {
+    const roles = deriveStyleRoles("bold", null);
+    expect(roles.bodyFace?.family).toBe("Space Grotesk");
+    expect(roles.headingWeight).toBe(700);
+    // Roles, never custom property names: nothing the entry returns names a token.
+    expect(JSON.stringify(roles)).not.toMatch(/--[a-z]/);
+
+    // A panel colour is a contract role; `resolveRoleColor` turns it into the
+    // colour it paints over a host's palette, here the muted fill as set.
+    const fill = roles.panel?.light.fill;
+    if (fill === undefined) throw new Error("bold sets no panel");
+    expect(fill.role).toBe("muted");
+    expect(resolveRoleColor(fill, { muted: "#f4f4f5" })).toBe("#f4f4f5");
+  });
+
+  it("lets the team's typeface replace the style's body face", () => {
+    expect(deriveStyleRoles("bold", "inter").bodyFace?.family).toBe("Inter");
+    expect(deriveStyleRoles("quiet", "inter").bodyFace?.family).toBe("Inter");
   });
 });
 

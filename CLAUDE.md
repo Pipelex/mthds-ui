@@ -69,7 +69,7 @@ src/
           pipeCardRegistry.ts     # Pipe type → component registry
   form/                           # Run form panel over @pipelex/mthds-form (separate entry point):
     runGate.ts                    #   The submit path, React-free: the kernel's four-step gate + error summary
-    brand/index.ts                #   The ./form/brand entry: the kernel's ./brand entry (seed colours → roles), re-exported
+    brand/index.ts                #   The ./form/brand entry: the kernel's ./brand entry (seed colours and app styles → roles), re-exported
     generative/index.ts           #   The ./form/generative entry: the kernel's ./generative entry (designed pages), re-exported
     react/
       RunPanel.tsx                #   The panel — fields, readiness, the gate
@@ -162,7 +162,7 @@ Verify after building: `grep "Foo.css" dist/graph/react/index.js` must show the 
 
 **The route to "dependency" matters, because the obvious answer failed.** A *required peer* is auto-installed by npm and **not by pnpm**, which reports it unmet and installs nothing even with `auto-install-peers=true` (tested, not assumed). A property that holds on one package manager is not one a library can offer, so a host would still have had to declare the kernel — the thing the change exists to remove.
 
-So: a dependency, plus four re-export entries. **`./form`** is the kernel's React-free surface (descriptor vocabulary, derivation, readiness, run gate, value plumbing — importable from a server action or a worker), **`./form/brand`** the kernel's isomorphic `./brand` entry (the seed colour derivation and the brand contract), **`./form/react`** its controls, and **`./form/generative`** its generative layer (a designed page over the controls, and the designer method's inputs). A kernel entry this package re-exports is named in tsup's `external` array, or it gets bundled. A host installs `@pipelex/mthds-ui` and imports everything from it.
+So: a dependency, plus four re-export entries. **`./form`** is the kernel's React-free surface (descriptor vocabulary, derivation, readiness, run gate, value plumbing — importable from a server action or a worker), **`./form/brand`** the kernel's isomorphic `./brand` entry (the seed colour derivation, the app styles and typefaces, and the brand contract), **`./form/react`** its controls, and **`./form/generative`** its generative layer (a designed page over the controls, and the designer method's inputs). A kernel entry this package re-exports is named in tsup's `external` array, or it gets bundled. A host installs `@pipelex/mthds-ui` and imports everything from it.
 
 **A kernel FILE a host needs is copied, because an export map cannot point into a dependency.** The designer method, `./form/layout-design.mthds`, is the kernel's `layout-design.mthds` copied into `dist/form/` by `tsup.config.ts`'s `onSuccess` from the kernel the build resolves. The copy must stay the kernel's file byte for byte, since the kernel's `PROMPT_HASH` names that file and a host stamps its layouts with it, and `make smoke-pack` compares the two in the consumer it installs (`docs/generative-layout.md`).
 
