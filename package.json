@@ -46,6 +46,11 @@
       "import": "./dist/form/brand/index.js",
       "types": "./dist/form/brand/index.d.ts"
     },
+    "./form/generative": {
+      "import": "./dist/form/generative/index.js",
+      "types": "./dist/form/generative/index.d.ts"
+    },
+    "./form/layout-design.mthds": "./dist/form/layout-design.mthds",
     "./form/react": {
       "import": "./dist/form/react/index.js",
       "types": "./dist/form/react/index.d.ts"

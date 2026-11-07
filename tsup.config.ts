@@ -1,4 +1,5 @@
 import { cpSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { createRequire } from "node:module";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "tsup";
@@ -24,6 +25,7 @@ export default defineConfig({
     "src/graph/react/index.ts",
     "src/form/index.ts",
     "src/form/brand/index.ts",
+    "src/form/generative/index.ts",
     "src/form/react/index.ts",
     "src/shiki/index.ts",
     "src/static-graph/index.ts",
@@ -48,6 +50,7 @@ export default defineConfig({
     // nothing stops the bundler from inlining a package that is always present.
     "@pipelex/mthds-form",
     "@pipelex/mthds-form/brand",
+    "@pipelex/mthds-form/generative",
     "@pipelex/mthds-form/react",
     "react",
     "react-dom",
@@ -104,6 +107,21 @@ export default defineConfig({
     mkdirSync("dist/styles", { recursive: true });
     cpSync("src/styles/form-kernel.css", "dist/styles/form-kernel.css");
     cpSync("src/styles/tailwind.css", "dist/styles/tailwind.css");
+    // The designer method, a file a host reads and hands a runner, never a
+    // module anything imports. An export map cannot point into a dependency, so
+    // the kernel's own file is copied beside `./form/generative`, from the
+    // kernel this build resolves, which the lock pins. `make smoke-pack` holds
+    // the copy to the kernel a consumer installs, byte for byte, because a
+    // method that differs from the kernel's own is one its `PROMPT_HASH` does
+    // not name (docs/generative-layout.md).
+    mkdirSync("dist/form", { recursive: true });
+    cpSync(
+      createRequire(path.join(dirname, "package.json")).resolve(
+        "@pipelex/mthds-form/layout-design.mthds",
+      ),
+      "dist/form/layout-design.mthds",
+    );
     prependUseClient("dist/form/react/index.js");
+    prependUseClient("dist/form/generative/index.js");
   },
 });

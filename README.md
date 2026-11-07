@@ -303,18 +303,20 @@ See `graphConfig.ts` for the full default palette.
 
 ## Entry points
 
-| Import path                         | Content                                                            |
-| ----------------------------------- | ------------------------------------------------------------------ |
-| `@pipelex/mthds-ui`                 | Pure-TS graph logic — types, builders, layout, controllers, config |
-| `@pipelex/mthds-ui/graph/react`     | React components — `GraphViewer`, label helpers, type converters   |
-| `@pipelex/mthds-ui/form`            | The form kernel's React-free surface, re-exported                  |
-| `@pipelex/mthds-ui/form/brand`      | The kernel's brand entry: seed colours into readable colour roles  |
-| `@pipelex/mthds-ui/form/react`      | `RunPanel` — a pipe's input form — and the kernel's controls       |
-| `@pipelex/mthds-ui/timeline`        | A run's progress snapshot: types, path grammar, rows and time axis |
-| `@pipelex/mthds-ui/timeline/react`  | `RunTimeline` — a run's progress as growing bars or a checklist    |
-| `@pipelex/mthds-ui/shiki`           | MTHDS syntax highlighting with shiki                               |
-| `@pipelex/mthds-ui/tailwind.css`    | Where the kernel's classes are, for a Tailwind 4 host              |
-| `@pipelex/mthds-ui/form-kernel.css` | The kernel's prebuilt stylesheet, for a host without Tailwind      |
+| Import path                                  | Content                                                            |
+| -------------------------------------------- | ------------------------------------------------------------------ |
+| `@pipelex/mthds-ui`                          | Pure-TS graph logic — types, builders, layout, controllers, config |
+| `@pipelex/mthds-ui/graph/react`              | React components — `GraphViewer`, label helpers, type converters   |
+| `@pipelex/mthds-ui/form`                     | The form kernel's React-free surface, re-exported                  |
+| `@pipelex/mthds-ui/form/brand`               | The kernel's brand entry: seed colours into readable colour roles  |
+| `@pipelex/mthds-ui/form/generative`          | The kernel's generative layer: a designed page over its controls   |
+| `@pipelex/mthds-ui/form/layout-design.mthds` | The designer method that produces such a page, as a file           |
+| `@pipelex/mthds-ui/form/react`               | `RunPanel` — a pipe's input form — and the kernel's controls       |
+| `@pipelex/mthds-ui/timeline`                 | A run's progress snapshot: types, path grammar, rows and time axis |
+| `@pipelex/mthds-ui/timeline/react`           | `RunTimeline` — a run's progress as growing bars or a checklist    |
+| `@pipelex/mthds-ui/shiki`                    | MTHDS syntax highlighting with shiki                               |
+| `@pipelex/mthds-ui/tailwind.css`             | Where the kernel's classes are, for a Tailwind 4 host              |
+| `@pipelex/mthds-ui/form-kernel.css`          | The kernel's prebuilt stylesheet, for a host without Tailwind      |
 
 ## Pure TypeScript usage
 
@@ -399,6 +401,8 @@ Either way, the shadcn token values are yours to supply, and each must be a **co
 To brand the controls with a team's own colours, `@pipelex/mthds-ui/form/brand` derives colour roles from up to three colours a person picked, every text colour readable on the theme's page: a host writes `action` onto `--primary`, `accentInk` onto the optional `--link` (the accent as text) and onto `--ring` (every focus the controls draw), and `accentFill` onto the optional `--selected` (the pale fill of a selected pill, tag or step). A role the team left unset comes back absent, so the host writes no token for it and keeps its own, and a page that defines neither `--link` nor `--selected` falls back to `--primary` for both.
 
 Full contract, why this package stopped loading the kernel's stylesheet itself, the `.dark` bridge, the `mthds-run-panel` token hook and the brand tokens: [docs/run-form-panel.md](./docs/run-form-panel.md).
+
+To show a method's form or its result as a designed page, `@pipelex/mthds-ui/form/generative` carries the kernel's generative layer: `GenerativePage` renders a layout a model wrote once for the method over the same controls, after the checks that decide whether the layout can be trusted, and the kernel's plain form renders whenever it cannot. The method that designs such a page ships beside it as `@pipelex/mthds-ui/form/layout-design.mthds`, a file a producer reads and hands to a runner with the catalog and the brief the entry builds. How to import both, and what keeps the file the kernel's own: [docs/generative-layout.md](./docs/generative-layout.md).
 
 ## Run timeline
 

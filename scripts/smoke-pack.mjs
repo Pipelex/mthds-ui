@@ -32,9 +32,9 @@
  *    bundled into an `index.css` beside its entry that nothing loads.
  * 2. Every React entry carries `"use client"`. All of them: the toolchain
  *    currently preserves the directive on its own, and `prependUseClient` only
- *    re-adds it to `./form/react`, so `./graph/react` and `./timeline/react`
- *    are the entries standing on the bundler alone and are precisely the ones
- *    worth asserting.
+ *    re-adds it to `./form/react` and `./form/generative`, so `./graph/react`
+ *    and `./timeline/react` are the entries standing on the bundler alone and
+ *    are precisely the ones worth asserting.
  * 3. The kernel is left as a bare import, never inlined (a bundled copy is a
  *    second React context identity, so a host's
  *    `FieldStringsProvider` would not resolve inside the panel).
@@ -44,8 +44,15 @@
  *    construction has not installed it. `./form/brand` is the kernel's
  *    isomorphic `./brand` entry re-exported, so it imports that entry and
  *    nothing else, and it loads and derives a colour in plain Node, where a
- *    server action or a build script runs it.
- * 5. A minimal Tailwind 4 host compiles every utility the kernel's controls
+ *    server action or a build script runs it. `./form/generative` is the
+ *    kernel's `./generative` entry re-exported, so it too imports that one
+ *    entry and nothing else.
+ * 5. The designer method a host reads, `./form/layout-design.mthds`, is the
+ *    kernel's own file, byte for byte, in the kernel the consumer installed.
+ *    The build copies it, because an export map cannot point into a
+ *    dependency, and a copy that drifted from the kernel's would be a method
+ *    the kernel's `PROMPT_HASH` does not name.
+ * 6. A minimal Tailwind 4 host compiles every utility the kernel's controls
  *    need. Its stylesheet is the kernel's documented Tailwind 4 setup and
  *    nothing more — `tailwindcss`, `tw-animate-css`, the `.dark` class variant
  *    the kernel's dark mode follows, an `@theme inline` token mapping — with `@import "@pipelex/mthds-ui/tailwind.css"` in place of the
@@ -82,6 +89,7 @@ import {
   rmSync,
   writeFileSync,
 } from "node:fs";
+import { createRequire } from "node:module";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -426,6 +434,7 @@ try {
   process.stdout.write("\nEvery React entry is a client module\n");
   for (const relative of [
     "dist/form/react/index.js",
+    "dist/form/generative/index.js",
     "dist/graph/react/index.js",
     "dist/timeline/react/index.js",
   ]) {
@@ -577,6 +586,77 @@ try {
     "./form/brand loads in plain Node and derives a seed's roles",
     derivedAction === "#facc15",
     derivedAction,
+  );
+
+  // `./form/generative` re-exports the kernel's `./generative` entry, the layer
+  // that renders a produced layout and builds what the designer method is
+  // handed. It imports that one kernel entry, bare, and nothing else: React,
+  // json-render and zod reach it through the kernel, and exactly one bare
+  // import rules out the bundled copy, which carries none.
+  const generativeExternals = externalsPerEntry.get("./form/generative") ?? [];
+  check(
+    "./form/generative imports the kernel's ./generative entry and nothing else",
+    generativeExternals.length === 1 &&
+      generativeExternals[0] === "@pipelex/mthds-form/generative",
+    generativeExternals.join(", ") || "no bare import — it looks bundled, or it built to nothing",
+  );
+  // Nothing it reaches imports a stylesheet, so plain Node evaluates it, as a
+  // script that builds the designer's inputs would. The catalog it builds and
+  // the pin it carries prove the re-export reaches working code from a
+  // consumer that declared no kernel.
+  let generativeLoad = "";
+  try {
+    generativeLoad = run(
+      "node",
+      [
+        "--input-type=module",
+        "-e",
+        'const g = await import("@pipelex/mthds-ui/form/generative"); process.stdout.write(`${g.PROMPT_HASH} ${g.designerCatalog().components.length}`);',
+      ],
+      scratch,
+    );
+  } catch (error) {
+    generativeLoad = String(error.stderr ?? error.message).split("\n").find(Boolean) ?? "";
+  }
+  check(
+    "./form/generative loads in plain Node and builds the designer's catalog",
+    /^[0-9a-f]{12} [1-9][0-9]*$/.test(generativeLoad),
+    generativeLoad,
+  );
+
+  process.stdout.write("\nThe designer method ships beside ./form/generative\n");
+  // A host resolves the method from its own root, through this package's export
+  // map, and never names the kernel; the kernel's own file is resolved from
+  // this package, which is where the copy the consumer runs against lives.
+  // Byte for byte, because the kernel's `PROMPT_HASH` names the kernel's file:
+  // a copy that drifted would stamp every layout produced from it with a pin
+  // that names another method.
+  const readResolved = (from, specifier) => {
+    try {
+      return readFileSync(createRequire(from).resolve(specifier), "utf8");
+    } catch (error) {
+      return `unresolved: ${String(error.message).split("\n")[0]}`;
+    }
+  };
+  const shippedMethod = readResolved(
+    path.join(scratch, "package.json"),
+    "@pipelex/mthds-ui/form/layout-design.mthds",
+  );
+  const kernelMethod = readResolved(
+    path.join(installed, "package.json"),
+    "@pipelex/mthds-form/layout-design.mthds",
+  );
+  check(
+    "@pipelex/mthds-ui/form/layout-design.mthds resolves from the consumer's root",
+    !shippedMethod.startsWith("unresolved:") && shippedMethod.length > 0,
+    shippedMethod.slice(0, 160),
+  );
+  check(
+    "it is the kernel's own layout-design.mthds, byte for byte",
+    shippedMethod === kernelMethod,
+    kernelMethod.startsWith("unresolved:")
+      ? kernelMethod.slice(0, 160)
+      : "the copy differs from the kernel's file — the build copied it from another kernel than the one a consumer installs",
   );
 
   // ONE copy of the kernel, and this is the assertion the dependency choice

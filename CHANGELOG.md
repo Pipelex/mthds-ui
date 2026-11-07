@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+### Added
+
+- **`./form/generative`, the kernel's generative layer**: `@pipelex/mthds-ui/form/generative` re-exports the form kernel's `./generative` entry wholesale, so a host shows a method's form or its result as a designed page through this package and never names the kernel: `GenerativePage` renders a stored layout over the kernel's controls, `specFromJsonl` compiles the JSONL a layout is stored as, `validateAgainstCatalog`, `layoutFits` and `PROMPT_HASH` decide whether it can be rendered, and `designerCatalog`, `inputBrief` and `resultBrief` build what the designer method is handed. It is a client module, as the kernel's entry is, so in a host running React Server Components its functions run in client code or a plain Node process, never in a server component or a server action. See [docs/generative-layout.md](docs/generative-layout.md).
+- **The designer method, as a file**: `@pipelex/mthds-ui/form/layout-design.mthds` is the kernel's `layout-design.mthds`, the bundle whose `design_layout` pipe produces a layout, which a producer reads as text and hands to a runner. A host resolves it from its own code under every install layout, pnpm's included, where it cannot resolve the kernel itself. The build copies it from the kernel, and `make smoke-pack` holds the copy to the kernel a consumer installs, byte for byte, because the kernel's `PROMPT_HASH` names that file. See [docs/generative-layout.md](docs/generative-layout.md#the-file-is-a-copy-and-what-keeps-it-the-kernels).
+
 ### Changed
 
 - **`@pipelex/mthds-form` ^0.29.0 (Breaking)**: the kernel's range moves from `^0.28.0` to `^0.29.0`, which a caret below 1.0 does not bridge, so a host reaches the kernel's 0.29.0 only through this release. With it, `./form` carries `humanizeEnumValue`, which words one enum code (`HIGH_RISK` → "High risk"), `enumValueLabeler`, which words one enum's values and falls back to the codes when two would read the same, and `humanizeFieldName`, so a host drawing a choice of its own words its options as the kernel's controls do, with no React; and a designed page's `Select`, `Radio` and `Segmented` show each option in those words in the `app` presentation, while `studio` keeps the codes. Nothing a host renders through `RunPanel` or `GraphViewer` changes.
