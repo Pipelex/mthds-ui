@@ -6,10 +6,14 @@
  * roles a page paints with, every text role readable at WCAG AA, and returns
  * only the roles a set colour produces, so a host keeps its own token wherever
  * the team set nothing. `resolveDarkSeeds`, `isActionFaint`, `isAccentAdjusted`
- * and `readableTextOn` are the rules around it. The same entry carries the rest
- * of the kernel's brand surface: the theme contract, the token file's
- * validator, and the manifest, provenance and compiler a full brand goes
- * through.
+ * and `readableTextOn` are the rules around it. A team's app style and
+ * typeface come through it too: `deriveStyleRoles` turns the two ids a host
+ * stored into the faces, heading weight and tracking, radius, panel and
+ * call-to-action treatment the choice sets, as roles rather than custom
+ * property names, beside `APP_STYLES`, `TYPEFACES`, `isAppStyle`, `isTypeface`
+ * and `resolveRoleColor`. The same entry carries the rest of the kernel's
+ * brand surface: the theme contract, the token file's validator, and the
+ * manifest, provenance and compiler a full brand goes through.
  *
  * It is its own entry rather than part of `./form` because the kernel keeps it
  * apart from its `.` entry, and for the same reason: it is isomorphic and
@@ -21,8 +25,9 @@
  * this package, never directly, so its tree holds one copy of it.
  *
  * Mapping the roles onto the tokens the kernel's controls read — `--primary`,
- * `--primary-foreground`, `--link`, `--selected` and `--ring` — is described in
- * `docs/run-form-panel.md`.
+ * `--primary-foreground`, `--link`, `--selected` and `--ring` for the colours,
+ * `--font-heading`, `--heading-weight`, `--heading-tracking`, `--panel-*` and
+ * `--action-shadow` for a style — is described in `docs/run-form-panel.md`.
  */
 
 export * from "@pipelex/mthds-form/brand";

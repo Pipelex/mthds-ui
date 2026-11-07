@@ -9,9 +9,12 @@
  * assertions notice a panel that stops doing so, in a host that sets `app`
  * around the graph as much as in the default `studio`.
  *
- * An HTML page (`native.Html`) is the one result the kernel leaves untitled in
- * `app` even when named, by its own design: the page heads itself. The last
- * case pins that exception, so the docs' claim about it stays true.
+ * Two kinds of result the kernel leaves untitled in `app` even when named, by
+ * its own design, because each heads itself: an HTML page (`native.Html`), and,
+ * since kernel 0.30.0, a text whose Markdown opens with a heading of its own,
+ * which says the name to assistive technology instead of drawing it over that
+ * heading. The last cases pin both exceptions, so the docs' claim about them
+ * stays true.
  */
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
@@ -95,6 +98,23 @@ function renderPanel(
 const STUFFS = producedStuffs(LIVE_CV_SCREENING);
 
 /**
+ * The values of pipeline 09's live run that are a text opening with a heading
+ * of its own: the screening report, whose Markdown starts with
+ * `# Candidate Screening Report`. Named here rather than detected, so a fixture
+ * that gains or loses one is a red test to read, not a case that moves quietly.
+ */
+const SELF_HEADED_TEXTS: ReadonlySet<string> = new Set(["report"]);
+
+const TITLED_STUFFS = STUFFS.filter((stuff) => !SELF_HEADED_TEXTS.has(stuff.item.name));
+const SELF_HEADED_STUFFS = STUFFS.filter((stuff) => SELF_HEADED_TEXTS.has(stuff.item.name));
+
+/** The kernel's assistive-technology label for a value it draws no title over. */
+function screenReaderName(html: string, label: string): boolean {
+  const escaped = label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return new RegExp(`<span class="sr-only">${escaped}(?::[^<]*)?</span>`).test(html);
+}
+
+/**
  * The `native.Html` result of pipeline 34's live run, located by digest as the
  * graph locates it. The parallel above `render_html` lists its branches'
  * outputs too and comes first in the spec, and the lookup still names
@@ -128,7 +148,7 @@ describe("StuffResultPanel's heading", () => {
     },
   );
 
-  it.each(STUFFS.map((stuff) => [stuff.item.name, stuff] as const))(
+  it.each(TITLED_STUFFS.map((stuff) => [stuff.item.name, stuff] as const))(
     "names %s in app, in words, rather than leaving the value unheaded",
     (name, stuff) => {
       const html = renderPanel(stuff, "app");
@@ -138,6 +158,31 @@ describe("StuffResultPanel's heading", () => {
       expect(html).not.toContain(">Output<");
     },
   );
+
+  describe("over a text that opens with its own heading", () => {
+    it("has the live run's self-headed texts to draw", () => {
+      expect(SELF_HEADED_STUFFS.map((stuff) => stuff.item.name).sort()).toEqual(
+        [...SELF_HEADED_TEXTS].sort(),
+      );
+    });
+
+    it.each(SELF_HEADED_STUFFS.map((stuff) => [stuff.item.name, stuff] as const))(
+      "draws %s in app under its own heading, the name said to assistive technology alone",
+      (name, stuff) => {
+        const html = renderPanel(stuff, "app");
+        const label = humanizeFieldName(name);
+        // The text's own heading is drawn, and the panel's name is not drawn
+        // over it: the same title twice is what the kernel stopped doing.
+        expect(html).toMatch(/<h1[^>]*>[^<]+<\/h1>/);
+        expect(html).not.toContain(`>${label}<`);
+        expect(html).not.toContain(`>${name}<`);
+        // The name the panel passed still reaches assistive technology, so the
+        // value is never unnamed.
+        expect(screenReaderName(html, label)).toBe(true);
+        expect(html).not.toContain(">Output<");
+      },
+    );
+  });
 
   describe("over an HTML page", () => {
     it("has the live run's page to draw, produced by its renderer", () => {
