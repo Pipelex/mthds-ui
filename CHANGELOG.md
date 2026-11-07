@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- **`@pipelex/mthds-form` ^0.29.0 (Breaking)**: the kernel's range moves from `^0.28.0` to `^0.29.0`, which a caret below 1.0 does not bridge, so a host reaches the kernel's 0.29.0 only through this release. With it, `./form` carries `humanizeEnumValue`, which words one enum code (`HIGH_RISK` → "High risk"), `enumValueLabeler`, which words one enum's values and falls back to the codes when two would read the same, and `humanizeFieldName`, so a host drawing a choice of its own words its options as the kernel's controls do, with no React; and a designed page's `Select`, `Radio` and `Segmented` show each option in those words in the `app` presentation, while `studio` keeps the codes. Nothing a host renders through `RunPanel` or `GraphViewer` changes.
+
 ## [v0.46.0] - 2026-11-05
 
 ### Added
