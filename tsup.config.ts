@@ -7,10 +7,13 @@ import { defineConfig } from "tsup";
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 /**
- * esbuild strips directive prologues, so a `"use client"` written in the source
- * never survives into the bundle. Re-prepend it onto the built entries that a
- * React Server Components host must treat as client code — the same fix
- * `mthds-form/tsup.config.ts` applies to its own react entry.
+ * Re-prepends `"use client"` onto a built entry that a React Server Components
+ * host must treat as client code — the same fix `mthds-form/tsup.config.ts`
+ * applies to its own rendering entries. At the pinned toolchain esbuild keeps
+ * the directive on its own, which `dist/graph/react/index.js` shows with no
+ * call here, so this is a guard against a bundler that starts stripping it,
+ * idempotent and free. What proves the directive ships is `make smoke-pack`,
+ * which checks every React entry, these included.
  */
 function prependUseClient(file: string) {
   const source = readFileSync(file, "utf8");

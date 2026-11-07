@@ -17,7 +17,7 @@ The entry is re-exported wholesale (`export *`), so it follows the kernel from r
 
 ## Rendering a stored layout
 
-A host compiles the stored JSONL, runs the checks, and renders the page only when all of them pass:
+A host compiles the stored JSONL, runs the checks, and renders the page only when all of them pass, falling back to the plain form otherwise:
 
 ```tsx
 "use client";
@@ -30,16 +30,24 @@ import {
   validateAgainstCatalog,
 } from "@pipelex/mthds-ui/form/generative";
 
-const spec = specFromJsonl(stored.jsonl);
-const renderable =
-  stored.promptHash === PROMPT_HASH &&
-  validateAgainstCatalog(spec).ok &&
-  layoutFits({ inputs: fields }, spec);
+function MethodPage({ stored, fields, store, brand, onRun, plainForm }) {
+  // `specFromJsonl` never throws: a line it cannot apply is dropped, and what
+  // survives is a partial spec the two checks then refuse.
+  const spec = stored ? specFromJsonl(stored.jsonl) : null;
+  const renderable =
+    spec !== null &&
+    stored.promptHash === PROMPT_HASH &&
+    validateAgainstCatalog(spec).ok &&
+    layoutFits({ inputs: fields }, spec);
 
-// Otherwise the kernel's plain form, which always works.
+  if (!renderable) return plainForm; // the kernel's plain form, which always works
+  return (
+    <GenerativePage spec={spec} store={store} scope={{ inputs: fields }} brand={brand} onRun={onRun} />
+  );
+}
 ```
 
-`fields` is the descriptor the host already derives for the plain form, through `@pipelex/mthds-ui/form`. What `GenerativePage` takes beyond the layout — the state store the host owns, the descriptor scope, the brand its app bar reads — is in the kernel's document, under "Rendering a page".
+`fields` is the descriptor the host already derives for the plain form, through `@pipelex/mthds-ui/form`, and `plainForm` is that form, such as a `RunPanel` from `@pipelex/mthds-ui/form/react`. `store` is the json-render state store the host owns, seeded with `seedInputs(fields)` and read back to start the run. The kernel's document, under "Rendering a page", says what the store, the scope and the brand each carry. A render error is the fallback's last case, and a host catches it with an error boundary of its own around the page.
 
 **The entry is a client module**, as the kernel's is: its first line is `"use client"`, and `make smoke-pack` holds the built file to it. In a host that runs React Server Components, the server's module graph therefore sees every export as a client reference, the plain functions included, so `designerCatalog`, `inputBrief`, `specFromJsonl` and the two checks run in client code, or in a plain Node process such as a script or a worker, where the directive means nothing. They do not run in a server component or a server action.
 
