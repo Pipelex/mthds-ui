@@ -308,7 +308,7 @@ See `graphConfig.ts` for the full default palette.
 | `@pipelex/mthds-ui`                          | Pure-TS graph logic — types, builders, layout, controllers, config |
 | `@pipelex/mthds-ui/graph/react`              | React components — `GraphViewer`, label helpers, type converters   |
 | `@pipelex/mthds-ui/form`                     | The form kernel's React-free surface, re-exported                  |
-| `@pipelex/mthds-ui/form/brand`               | The kernel's brand entry: seed colours into readable colour roles  |
+| `@pipelex/mthds-ui/form/brand`               | The kernel's brand entry: seed colours and app styles into roles   |
 | `@pipelex/mthds-ui/form/generative`          | The kernel's generative layer: a designed page over its controls   |
 | `@pipelex/mthds-ui/form/layout-design.mthds` | The designer method that produces such a page, as a file           |
 | `@pipelex/mthds-ui/form/react`               | `RunPanel` — a pipe's input form — and the kernel's controls       |
@@ -399,6 +399,8 @@ Tailwind 3 hosts and Tailwind 4 hosts that configure a prefix are not supported:
 Either way, the shadcn token values are yours to supply, and each must be a **complete colour** — `hsl(240 10% 3.9%)`, `#0a0711`, `oklch(…)` — never a bare HSL triplet. Since kernel `0.8.0` the sheet emits `background-color: var(--background)` rather than `hsl(var(--background))`, so a triplet computes to something that is not a colour and the browser discards the declaration instead of overriding with it: green build, token inspectable, style silently absent.
 
 To brand the controls with a team's own colours, `@pipelex/mthds-ui/form/brand` derives colour roles from up to three colours a person picked, every text colour readable on the theme's page: a host writes `action` onto `--primary`, `accentInk` onto the optional `--link` (the accent as text) and onto `--ring` (every focus the controls draw), and `accentFill` onto the optional `--selected` (the pale fill of a selected pill, tag or step). A role the team left unset comes back absent, so the host writes no token for it and keeps its own, and a page that defines neither `--link` nor `--selected` falls back to `--primary` for both.
+
+The same entry carries the app styles a team picks from (`quiet`, `soft`, `editorial`, `bold`) and a closed list of typefaces: `deriveStyleRoles(style, typeface)` returns the faces, heading weight and tracking, radius, panel and call-to-action treatment the choice sets, as roles a host writes onto the tokens the controls read: the body face onto `--font-sans` and the radius onto `--radius`, which the controls already read, and the rest onto optional tokens (`--font-heading`, `--heading-weight`, `--heading-tracking`, and a designed page's `--panel-*` and `--action-shadow`), each falling back to what the control painted before. `quiet` with no typeface sets nothing.
 
 Full contract, why this package stopped loading the kernel's stylesheet itself, the `.dark` bridge, the `mthds-run-panel` token hook and the brand tokens: [docs/run-form-panel.md](./docs/run-form-panel.md).
 
