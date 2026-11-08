@@ -50,6 +50,10 @@
       "import": "./dist/form/generative/index.js",
       "types": "./dist/form/generative/index.d.ts"
     },
+    "./form/generative/headless": {
+      "import": "./dist/form/generative/headless/index.js",
+      "types": "./dist/form/generative/headless/index.d.ts"
+    },
     "./form/layout-design.mthds": "./dist/form/layout-design.mthds",
     "./form/react": {
       "import": "./dist/form/react/index.js",
@@ -100,7 +104,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@pipelex/mthds-form": "^0.30.0",
+    "@pipelex/mthds-form": "^0.32.0",
     "@xyflow/react": "^12",
     "elkjs": "^0.11.1",
     "mthds": "^0.34.0",

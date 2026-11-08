@@ -12,9 +12,9 @@ The kernel is an ordinary **dependency** of this package, so install this packag
 npm install @pipelex/mthds-ui
 ```
 
-**Do not declare `@pipelex/mthds-form` yourself, and reach it through `@pipelex/mthds-ui/form`, `@pipelex/mthds-ui/form/react`, `@pipelex/mthds-ui/form/brand` and `@pipelex/mthds-ui/form/generative` rather than importing it directly.** A second declaration is a second copy in the tree, and that bites silently: `FieldStringsProvider` and `FieldPresentationProvider` are React contexts, so with two copies a provider you mount above the panel does not resolve inside it — the panel reads the kernel's defaults while your app reads yours, with nothing in the console to say why. A host that declares nothing cannot produce a second copy, which is what makes the dependency arrangement safe where a nested copy would not be.
+**Do not declare `@pipelex/mthds-form` yourself, and reach it through `@pipelex/mthds-ui/form`, `@pipelex/mthds-ui/form/react`, `@pipelex/mthds-ui/form/brand`, `@pipelex/mthds-ui/form/generative` and `@pipelex/mthds-ui/form/generative/headless` rather than importing it directly.** A second declaration is a second copy in the tree, and that bites silently: `FieldStringsProvider` and `FieldPresentationProvider` are React contexts, so with two copies a provider you mount above the panel does not resolve inside it — the panel reads the kernel's defaults while your app reads yours, with nothing in the console to say why. A host that declares nothing cannot produce a second copy, which is what makes the dependency arrangement safe where a nested copy would not be.
 
-`make smoke-pack` asserts exactly that from a scratch consumer declaring only this package and React: the kernel arrives without being named, it is a dependency rather than a peer, there is **exactly one copy** in the tree, `./form/react` and `./graph/react` import it rather than inlining it, `.`, `./graph` and `./static-graph` never reach it, `./form/brand` imports the kernel's `./brand` entry alone and runs in plain Node, and `./form/generative` imports the kernel's `./generative` entry alone, beside the designer method copied from the kernel byte for byte ([generative-layout.md](generative-layout.md)). The controls' styling is a separate step a host takes itself; see "Styling, and the trap in it" below.
+`make smoke-pack` asserts exactly that from a scratch consumer declaring only this package and React: the kernel arrives without being named, it is a dependency rather than a peer, there is **exactly one copy** in the tree, `./form/react` and `./graph/react` import it rather than inlining it, `.`, `./graph` and `./static-graph` never reach it, `./form/brand` imports the kernel's `./brand` entry alone and runs in plain Node, `./form/generative` imports the kernel's `./generative` entry alone, beside the designer method copied from the kernel byte for byte, and `./form/generative/headless` imports the kernel's `./generative/headless` entry alone, carries no `"use client"` and loads under Node's `react-server` condition ([generative-layout.md](generative-layout.md)). The controls' styling is a separate step a host takes itself; see "Styling, and the trap in it" below.
 
 The kernel lists `mthds` under its own `dependencies`, so it arrives with the kernel and you declare nothing for it, and the kernel re-exports its protocol types, `PipeIOContract`, `PipeInputFormDescriptor` and the rest, from `mthds/protocol`. The kernel's only peers are `react` and `react-dom`. This library declares `mthds` as a dependency of its own, for the graph's `Problem` type from `mthds/errors`, which it imports as a type only, so no code of `mthds` runs in its React-free entries.
 
@@ -337,8 +337,10 @@ src/form/
   __tests__/entries.test.ts     # what ./form and ./form/react carry of the kernel's sources
   __tests__/brandEntry.test.ts  # what ./form/brand carries of the kernel's ./brand entry
   __tests__/generativeEntry.test.ts  # what ./form/generative carries of the kernel's ./generative entry
+  __tests__/generativeHeadlessEntry.test.ts  # what ./form/generative/headless carries of the kernel's headless entry
   brand/index.ts                # the ./form/brand entry
   generative/index.ts           # the ./form/generative entry; the designer method is copied beside it at build
+  generative/headless/index.ts  # the ./form/generative/headless entry, for a server: no React, no "use client"
   react/
     RunPanel.tsx                # the panel
     RunPanel.css                # panel chrome only
