@@ -8,8 +8,9 @@
  * `frameCatalog`), the brief projected from the descriptor (`inputBrief`,
  * `resultBrief`), the concepts the designer's inputs travel under, the prompt
  * pin (`PROMPT_HASH`), `seedLine`, the JSONL compiler (`specFromJsonl`,
- * `specToJsonl`) and the checks (`validateAgainstCatalog`, `layoutFits`,
- * `layoutProblems`, `layoutCheckProblems`, `REPAIR_ATTEMPTS`).
+ * `specToJsonl`), the checks (`validateAgainstCatalog`, `layoutFits`,
+ * `layoutProblems`, `layoutCheckProblems`, `REPAIR_ATTEMPTS`) and the check on
+ * a sample the designer wrote for itself (`writtenSampleOf`).
  *
  * It is its own entry, with no `"use client"` directive, because the kernel
  * keeps it apart from its `./generative` entry for exactly that reason. In a

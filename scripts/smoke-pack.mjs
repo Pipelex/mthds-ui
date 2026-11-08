@@ -56,11 +56,13 @@
  *    with no React, so it imports that one entry, and it loads and builds the
  *    designer's catalog under Node's `react-server` condition, the module
  *    graph a React Server Components host gives its server.
- * 5. The designer method a host reads, `./form/layout-design.mthds`, is the
- *    kernel's own file, byte for byte, in the kernel the consumer installed.
- *    The build copies it, because an export map cannot point into a
- *    dependency, and a copy that drifted from the kernel's would be a method
- *    the kernel's `PROMPT_HASH` does not name.
+ * 5. The designer method's two files a host reads, `./form/layout-design.mthds`
+ *    and `./form/layout-sample.mthds`, are the kernel's own files, byte for
+ *    byte, in the kernel the consumer installed. The build copies them, because
+ *    an export map cannot point into a dependency, and a `layout-design.mthds`
+ *    that drifted from the kernel's would be a method the kernel's
+ *    `PROMPT_HASH` does not name, while `layout-sample.mthds` reads that file's
+ *    concepts and pipes.
  * 6. A minimal Tailwind 4 host compiles every utility the kernel's controls
  *    need. Its stylesheet is the kernel's documented Tailwind 4 setup and
  *    nothing more — `tailwindcss`, `tw-animate-css`, the `.dark` class variant
@@ -696,7 +698,7 @@ try {
         "--conditions=react-server",
         "--input-type=module",
         "-e",
-        'const h = await import("@pipelex/mthds-ui/form/generative/headless"); process.stdout.write(`${h.PROMPT_HASH} ${h.designerCatalog({ frame: "composer" }).components.length} ${h.layoutCheckProblems(null, { frame: "composer" }).length > 0}`);',
+        'const h = await import("@pipelex/mthds-ui/form/generative/headless"); const sample = h.writtenSampleOf({ kind: "text", name: "note", required: true, gating: false }, JSON.stringify("hello")); process.stdout.write(`${h.PROMPT_HASH} ${h.designerCatalog({ frame: "composer" }).components.length} ${h.layoutCheckProblems(null, { frame: "composer" }).length > 0} ${sample.state === "hello" && sample.problems.length === 0}`);',
       ],
       scratch,
     );
@@ -704,8 +706,8 @@ try {
     headlessLoad = String(error.stderr ?? error.message).split("\n").find(Boolean) ?? "";
   }
   check(
-    "./form/generative/headless loads under the react-server condition and builds the composer's catalog",
-    /^[0-9a-f]{12} [1-9][0-9]* true$/.test(headlessLoad),
+    "./form/generative/headless loads under the react-server condition, builds the composer's catalog and checks a written sample",
+    /^[0-9a-f]{12} [1-9][0-9]* true true$/.test(headlessLoad),
     headlessLoad,
   );
   check(
@@ -714,13 +716,14 @@ try {
     `${headlessLoad.split(" ")[0]} against ${generativeLoad.split(" ")[0]}`,
   );
 
-  process.stdout.write("\nThe designer method ships beside ./form/generative\n");
-  // A host resolves the method from its own root, through this package's export
+  process.stdout.write("\nThe designer method's files ship beside ./form/generative\n");
+  // A host resolves each file from its own root, through this package's export
   // map, and never names the kernel; the kernel's own file is resolved from
   // this package, which is where the copy the consumer runs against lives.
-  // Byte for byte, because the kernel's `PROMPT_HASH` names the kernel's file:
-  // a copy that drifted would stamp every layout produced from it with a pin
-  // that names another method.
+  // Byte for byte, because the kernel's `PROMPT_HASH` names the kernel's
+  // `layout-design.mthds`: a copy that drifted would stamp every layout
+  // produced from it with a pin that names another method. `layout-sample.mthds`
+  // reads that file's concepts and pipes, and a host sends the two together.
   const readResolved = (from, specifier) => {
     try {
       return readFileSync(createRequire(from).resolve(specifier), "utf8");
@@ -728,26 +731,28 @@ try {
       return `unresolved: ${String(error.message).split("\n")[0]}`;
     }
   };
-  const shippedMethod = readResolved(
-    path.join(scratch, "package.json"),
-    "@pipelex/mthds-ui/form/layout-design.mthds",
-  );
-  const kernelMethod = readResolved(
-    path.join(installed, "package.json"),
-    "@pipelex/mthds-form/layout-design.mthds",
-  );
-  check(
-    "@pipelex/mthds-ui/form/layout-design.mthds resolves from the consumer's root",
-    !shippedMethod.startsWith("unresolved:") && shippedMethod.length > 0,
-    shippedMethod.slice(0, 160),
-  );
-  check(
-    "it is the kernel's own layout-design.mthds, byte for byte",
-    shippedMethod === kernelMethod,
-    kernelMethod.startsWith("unresolved:")
-      ? kernelMethod.slice(0, 160)
-      : "the copy differs from the kernel's file — the build copied it from another kernel than the one a consumer installs",
-  );
+  for (const methodFile of ["layout-design.mthds", "layout-sample.mthds"]) {
+    const shippedMethod = readResolved(
+      path.join(scratch, "package.json"),
+      `@pipelex/mthds-ui/form/${methodFile}`,
+    );
+    const kernelMethod = readResolved(
+      path.join(installed, "package.json"),
+      `@pipelex/mthds-form/${methodFile}`,
+    );
+    check(
+      `@pipelex/mthds-ui/form/${methodFile} resolves from the consumer's root`,
+      !shippedMethod.startsWith("unresolved:") && shippedMethod.length > 0,
+      shippedMethod.slice(0, 160),
+    );
+    check(
+      `it is the kernel's own ${methodFile}, byte for byte`,
+      shippedMethod === kernelMethod,
+      kernelMethod.startsWith("unresolved:")
+        ? kernelMethod.slice(0, 160)
+        : "the copy differs from the kernel's file — the build copied it from another kernel than the one a consumer installs",
+    );
+  }
 
   // ONE copy of the kernel, and this is the assertion the dependency choice
   // rests on. Two copies means two React context identities, so a host's
