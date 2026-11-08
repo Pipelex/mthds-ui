@@ -20,6 +20,7 @@ import { describe, expect, expectTypeOf, it } from "vitest";
 import * as kernelGenerative from "@pipelex/mthds-form/generative";
 import type {
   BrandBarProps as KernelBrandBarProps,
+  CheckedField as KernelCheckedField,
   DesignerBrief as KernelDesignerBrief,
   DesignerCatalog as KernelDesignerCatalog,
   ElementErrorHandler as KernelElementErrorHandler,
@@ -43,6 +44,7 @@ import {
   specToJsonl,
   validateAgainstCatalog,
   type BrandBarProps,
+  type CheckedField,
   type DesignerBrief,
   type DesignerCatalog,
   type ElementErrorHandler,
@@ -123,6 +125,22 @@ describe("the ./form/generative entry", () => {
       ElementErrorHandler | undefined
     >();
     expectTypeOf<ElementErrorInfo["type"]>().toEqualTypeOf<string>();
+  });
+
+  it("carries what a host's own checked control and hidden panel need (kernel 0.33.0 and 0.34.0)", () => {
+    // A host's own control that carries checks calls `useCheckedField` in place
+    // of json-render's `useFieldValidation` and attaches the `focusRef` it
+    // returns (0.34.0) to what a refused run should focus; a host's own
+    // component that hides part of a page wraps each panel in `RevealPanel`.
+    expect(generative.useCheckedField).toBe(kernelGenerative.useCheckedField);
+    expect(generative.RevealPanel).toBe(kernelGenerative.RevealPanel);
+    expectTypeOf<CheckedField>().toEqualTypeOf<KernelCheckedField>();
+    expectTypeOf(generative.useCheckedField).returns.toEqualTypeOf<CheckedField>();
+    expectTypeOf<CheckedField["focusRef"]>().toEqualTypeOf<(element: HTMLElement | null) => void>();
+  });
+
+  it("carries the checks' verdict with its flag (kernel 0.33.0)", () => {
+    expect(generative.layoutCheck).toBe(kernelGenerative.layoutCheck);
   });
 
   it("carries the whole of the headless entry, the same functions", () => {
