@@ -21,11 +21,14 @@
  * whichever render it lands in.
  */
 
-/** What a host's upload returns: the stored URL, and optionally a display name. */
-export interface UploadedFile {
-  url: string;
-  filename?: string;
-}
+import type { UploadedFile } from "@pipelex/mthds-form/react";
+
+/**
+ * What an upload stored, as the panel writes it: the URL, and the display name
+ * when the host gave one. A host's upload may resolve to the URL alone, as the
+ * kernel's `UploadedFile` allows, and the panel reads that as this with no name.
+ */
+export type StoredFile = Exclude<UploadedFile, string>;
 
 /** The steps of one upload, each supplied by the panel. */
 export interface PanelUpload {
@@ -36,7 +39,7 @@ export interface PanelUpload {
   /** Whether the form the file was dropped in is still the one on screen. */
   isCurrent: () => boolean;
   /** Writes what the upload stored at the field's path and returns the value written. */
-  write: (stored: UploadedFile) => UploadedFile;
+  write: (stored: StoredFile) => StoredFile;
   /** Takes the field out of the panel's set of uploads in flight. */
   endFlight: () => void;
   /** Where a bug in `write` is reported: an unhandled rejection unless a test passes its own. */
@@ -64,7 +67,7 @@ export function runPanelUpload({
   write,
   endFlight,
   reportBug = surfaceAsUnhandledRejection,
-}: PanelUpload): Promise<UploadedFile> {
+}: PanelUpload): Promise<StoredFile> {
   // Called through an async wrapper rather than directly. `uploadFile` is the
   // HOST's function and is typed as a plain function returning a promise —
   // nothing obliges it to be `async`. One that validates before it starts the
@@ -77,7 +80,7 @@ export function runPanelUpload({
   // the rejection this chain already cleans up, which makes the SAME host logic
   // behave the same way whether it was written `async` or not — the only
   // difference between those two spellings being the keyword.
-  const landed = (async () => await start())().then((stored) => {
+  const landed = (async () => await start())().then((uploaded) => {
     // The form this file was dropped in is gone: another pipe, an example's
     // fill, or the panel unmounting (see the generation marker in
     // `RunPanel.tsx`). Writing now would land the file in a form that never
@@ -88,7 +91,10 @@ export function runPanelUpload({
       );
     }
     try {
-      return write(stored);
+      // The kernel's `UploadedFile` lets a host resolve to the URL alone, as
+      // its own form's `uploadFile` does; anything else goes to `write` as it
+      // came, so a host's `undefined` still reaches the bug report below.
+      return write(typeof uploaded === "string" ? { url: uploaded } : uploaded);
     } catch (bug) {
       // A bug in the write-back, not a failed upload. `uploadFile` is typed
       // `Promise<UploadedFile>`, but a type is not a runtime guarantee: a host

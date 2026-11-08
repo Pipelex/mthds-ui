@@ -20,14 +20,13 @@ import {
   type ExamplePickerSource,
   type FieldEnv,
   type FilePickerSource,
+  type UploadedFile,
 } from "@pipelex/mthds-form/react";
 import { getPaletteForTheme } from "@graph/graphConfig";
 import { GRAPH_THEME, type GraphTheme } from "@graph/types";
 import { runSubmitGate, type RunPanelTranslate } from "@form/runGate";
-import { runPanelUpload, type UploadedFile } from "./panelUpload";
+import { runPanelUpload, type StoredFile } from "./panelUpload";
 import "./RunPanel.css";
-
-export type { UploadedFile } from "./panelUpload";
 
 export interface RunPanelProps {
   /**
@@ -114,12 +113,14 @@ export interface RunPanelProps {
    */
   env?: FieldEnv;
   /**
-   * Stores a dropped file and returns its URL. The host performs the upload —
-   * this library never touches an API client — while the panel owns the
-   * bookkeeping around it: marking the field busy, writing the result back at
-   * the field's dotted path, and answering the field with the file it wrote, so
-   * the dropped file's preview stays whichever render your values reach the
-   * screen in.
+   * Stores a dropped file and returns its URL, or its URL and a display name:
+   * the kernel's `UploadedFile`, the type its own `MethodForm` takes. The host
+   * performs the upload — this library never touches an API client — while
+   * the panel owns the bookkeeping around it: marking the field busy, writing
+   * the result back at the field's dotted path (named after the dropped file
+   * when the host gave no name), and answering the field with the file it
+   * wrote, so the dropped file's preview stays whichever render your values
+   * reach the screen in.
    */
   uploadFile?: (file: File, fieldId: string) => Promise<UploadedFile>;
   /**
@@ -385,7 +386,7 @@ export function RunPanel({
   // when nothing was (`panelUpload.ts` says why, and how a write-back bug stays
   // visible now that the field handles the rejection).
   const handleDropFile = React.useCallback(
-    (id: string, file: File): Promise<UploadedFile> | undefined => {
+    (id: string, file: File): Promise<StoredFile> | undefined => {
       if (!uploadFile) return undefined;
       const startedAt = generationRef.current;
       setUploadingIds((previous) => new Set(previous).add(id));

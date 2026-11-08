@@ -13,8 +13,13 @@ import {
   type PipeIOContract,
   type SourceFile,
 } from "@pipelex/mthds-form";
-import type { ExamplePickerSource, FieldEnv, FilePickerSource } from "@pipelex/mthds-form/react";
-import { RunPanel, type UploadedFile } from "@form/react/RunPanel";
+import type {
+  ExamplePickerSource,
+  FieldEnv,
+  FilePickerSource,
+  UploadedFile,
+} from "@pipelex/mthds-form/react";
+import { RunPanel } from "@form/react/RunPanel";
 import { GRAPH_THEME, type GraphTheme } from "@graph/types";
 import {
   CONTRACTS_CV_ANALYZER,

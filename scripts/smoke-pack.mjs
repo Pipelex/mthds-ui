@@ -34,7 +34,12 @@
  *    currently preserves the directive on its own, and `prependUseClient` only
  *    re-adds it to `./form/react` and `./form/generative`, so `./graph/react`
  *    and `./timeline/react` are the entries standing on the bundler alone and
- *    are precisely the ones worth asserting.
+ *    are precisely the ones worth asserting. The inverse holds for the form
+ *    entries a server imports, `./form`, `./form/brand` and
+ *    `./form/generative/headless`: none carries the directive, nor does the
+ *    kernel entry each re-exports, because a server component or a server
+ *    action calling a function through a client module gets a reference that
+ *    throws.
  * 3. The kernel is left as a bare import, never inlined (a bundled copy is a
  *    second React context identity, so a host's
  *    `FieldStringsProvider` would not resolve inside the panel).
@@ -46,7 +51,11 @@
  *    nothing else, and it loads and derives a colour in plain Node, where a
  *    server action or a build script runs it. `./form/generative` is the
  *    kernel's `./generative` entry re-exported, so it too imports that one
- *    entry and nothing else.
+ *    entry and nothing else. `./form/generative/headless` is the kernel's
+ *    `./generative/headless` entry re-exported, the producer and the checks
+ *    with no React, so it imports that one entry, and it loads and builds the
+ *    designer's catalog under Node's `react-server` condition, the module
+ *    graph a React Server Components host gives its server.
  * 5. The designer method a host reads, `./form/layout-design.mthds`, is the
  *    kernel's own file, byte for byte, in the kernel the consumer installed.
  *    The build copies it, because an export map cannot point into a
@@ -443,6 +452,46 @@ try {
     check(`${relative} starts with "use client"`, source.startsWith('"use client"'));
   }
 
+  process.stdout.write("\nEvery form entry a server imports is no client module\n");
+  // Each entry and the kernel entry it re-exports: a directive on either one
+  // makes a React Server Components host's server see every export as a client
+  // reference, so a server action calling `inputBrief` or `deriveBrandRoles`
+  // gets a function that throws. `./form/generative/headless` exists for that
+  // server alone.
+  // The kernel's entries export an `import` condition alone, which `require`
+  // resolution cannot see, so each is resolved as this package's own ESM
+  // resolves it: `import.meta.resolve` evaluated from the package's directory.
+  const resolveFromPackage = (specifier) =>
+    fileURLToPath(
+      run(
+        "node",
+        ["--input-type=module", "-e", `process.stdout.write(import.meta.resolve(${JSON.stringify(specifier)}))`],
+        installed,
+      ),
+    );
+  for (const [relative, kernelSpecifier] of [
+    ["dist/form/index.js", "@pipelex/mthds-form"],
+    ["dist/form/brand/index.js", "@pipelex/mthds-form/brand"],
+    ["dist/form/generative/headless/index.js", "@pipelex/mthds-form/generative/headless"],
+  ]) {
+    const entryPath = path.join(installed, relative);
+    check(`${relative} ships`, existsSync(entryPath));
+    const source = existsSync(entryPath) ? readFileSync(entryPath, "utf8") : "";
+    check(`${relative} has no "use client"`, !/^\s*["']use client["']/.test(source));
+    let kernelSource = "";
+    try {
+      kernelSource = readFileSync(resolveFromPackage(kernelSpecifier), "utf8");
+    } catch (error) {
+      check(
+        `${kernelSpecifier} resolves from the package`,
+        false,
+        String(error.stderr ?? error.message).split("\n").find(Boolean),
+      );
+      continue;
+    }
+    check(`${kernelSpecifier} has no "use client"`, !/^\s*["']use client["']/.test(kernelSource));
+  }
+
   process.stdout.write("\nEvery exported stylesheet is reached by the JS that needs it\n");
   // One shared `seen` across every entry, which is the right shape for this
   // question — "does ANY entry import this file" — and the wrong shape for the
@@ -622,6 +671,47 @@ try {
     "./form/generative loads in plain Node and builds the designer's catalog",
     /^[0-9a-f]{12} [1-9][0-9]*$/.test(generativeLoad),
     generativeLoad,
+  );
+
+  // `./form/generative/headless` re-exports the kernel's `./generative/headless`
+  // entry, the half of the layer that renders nothing, so it imports that one
+  // kernel entry, bare, and nothing else.
+  const headlessExternals = externalsPerEntry.get("./form/generative/headless") ?? [];
+  check(
+    "./form/generative/headless imports the kernel's ./generative/headless entry and nothing else",
+    headlessExternals.length === 1 &&
+      headlessExternals[0] === "@pipelex/mthds-form/generative/headless",
+    headlessExternals.join(", ") || "no bare import — it looks bundled, or it built to nothing",
+  );
+  // Evaluated under the `react-server` condition, which resolves React to its
+  // server build, the one without hooks or a DOM: a module reaching a client
+  // API through this entry fails to link here as it would on a host's server.
+  // The pin must be the client entry's own, since a host stamps a layout on its
+  // server and compares the stamp wherever it renders.
+  let headlessLoad = "";
+  try {
+    headlessLoad = run(
+      "node",
+      [
+        "--conditions=react-server",
+        "--input-type=module",
+        "-e",
+        'const h = await import("@pipelex/mthds-ui/form/generative/headless"); process.stdout.write(`${h.PROMPT_HASH} ${h.designerCatalog({ frame: "composer" }).components.length} ${h.layoutCheckProblems(null, { frame: "composer" }).length > 0}`);',
+      ],
+      scratch,
+    );
+  } catch (error) {
+    headlessLoad = String(error.stderr ?? error.message).split("\n").find(Boolean) ?? "";
+  }
+  check(
+    "./form/generative/headless loads under the react-server condition and builds the composer's catalog",
+    /^[0-9a-f]{12} [1-9][0-9]* true$/.test(headlessLoad),
+    headlessLoad,
+  );
+  check(
+    "./form/generative/headless carries the same PROMPT_HASH as ./form/generative",
+    headlessLoad.split(" ")[0] === generativeLoad.split(" ")[0],
+    `${headlessLoad.split(" ")[0]} against ${generativeLoad.split(" ")[0]}`,
   );
 
   process.stdout.write("\nThe designer method ships beside ./form/generative\n");

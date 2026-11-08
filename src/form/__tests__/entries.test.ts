@@ -42,8 +42,10 @@ import type {
   RenditionRequest,
   ResolveRendition,
   RunPanelProps,
+  UploadedFile,
   UseMethodFormOptions,
 } from "@form/react/index";
+import type { UploadedFile as KernelUploadedFile } from "@pipelex/mthds-form/react";
 
 describe("the ./form entry", () => {
   it("carries the rules that write a chosen file into a value", () => {
@@ -142,6 +144,17 @@ describe("the ./form/react entry", () => {
     }>().toExtend<NonNullable<RunPanelProps["exampleSource"]>>();
     expectTypeOf<RunPanelProps["onFill"]>().toEqualTypeOf<
       ((values: Record<string, unknown>, example: FormExample) => void) | undefined
+    >();
+  });
+
+  it("carries the kernel's upload result, the one RunPanel and MethodForm both take", () => {
+    // The panel once exported an `UploadedFile` of its own, narrower than the
+    // kernel's, which shadowed the kernel's in this entry: a host typing
+    // `MethodForm`'s `uploadFile` through it got the panel's type instead.
+    expectTypeOf<UploadedFile>().toEqualTypeOf<KernelUploadedFile>();
+    expectTypeOf<UploadedFile>().toEqualTypeOf<string | { url: string; filename?: string }>();
+    expectTypeOf<NonNullable<RunPanelProps["uploadFile"]>>().returns.toEqualTypeOf<
+      Promise<UploadedFile>
     >();
   });
 

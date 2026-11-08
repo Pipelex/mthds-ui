@@ -19,14 +19,18 @@
 import { describe, expect, expectTypeOf, it } from "vitest";
 import * as kernelGenerative from "@pipelex/mthds-form/generative";
 import type {
+  BrandBarProps as KernelBrandBarProps,
   DesignerBrief as KernelDesignerBrief,
   DesignerCatalog as KernelDesignerCatalog,
+  ElementErrorHandler as KernelElementErrorHandler,
+  ElementErrorInfo as KernelElementErrorInfo,
   GenerativePageProps as KernelGenerativePageProps,
   LayoutDescriptor as KernelLayoutDescriptor,
   SpecVerdict as KernelSpecVerdict,
 } from "@pipelex/mthds-form/generative";
 import { fieldsForContract, getPipeInputForm, getPipeIOContract } from "@form/index";
 import * as generative from "@form/generative/index";
+import * as headless from "@form/generative/headless/index";
 import {
   DESIGNER_BRIEF_CONCEPT,
   DESIGNER_CATALOG_CONCEPT,
@@ -38,8 +42,11 @@ import {
   specFromJsonl,
   specToJsonl,
   validateAgainstCatalog,
+  type BrandBarProps,
   type DesignerBrief,
   type DesignerCatalog,
+  type ElementErrorHandler,
+  type ElementErrorInfo,
   type GenerativePageProps,
   type LayoutDescriptor,
   type SpecVerdict,
@@ -101,6 +108,31 @@ describe("the ./form/generative entry", () => {
     expect(generative.designerCatalog).toBe(kernelGenerative.designerCatalog);
     expect(generative.inputBrief).toBe(kernelGenerative.inputBrief);
     expect(generative.resultBrief).toBe(kernelGenerative.resultBrief);
+  });
+
+  it("carries the brand's bar a host draws as its own chrome (kernel 0.32.0)", () => {
+    expect(generative.BrandBar).toBe(kernelGenerative.BrandBar);
+    expect(generative.BrandProvider).toBe(kernelGenerative.BrandProvider);
+    expectTypeOf<BrandBarProps>().toEqualTypeOf<KernelBrandBarProps>();
+  });
+
+  it("carries the page's element-error seam a host falls back to its plain view on (kernel 0.32.0)", () => {
+    expectTypeOf<ElementErrorHandler>().toEqualTypeOf<KernelElementErrorHandler>();
+    expectTypeOf<ElementErrorInfo>().toEqualTypeOf<KernelElementErrorInfo>();
+    expectTypeOf<GenerativePageProps["onElementError"]>().toEqualTypeOf<
+      ElementErrorHandler | undefined
+    >();
+    expectTypeOf<ElementErrorInfo["type"]>().toEqualTypeOf<string>();
+  });
+
+  it("carries the whole of the headless entry, the same functions", () => {
+    // `./form/generative/headless` is the half of this entry a server imports;
+    // a client host keeps importing all of it from here.
+    for (const name of Object.keys(headless)) {
+      expect((generative as Record<string, unknown>)[name], name).toBe(
+        (headless as Record<string, unknown>)[name],
+      );
+    }
   });
 
   it("carries the kernel's prompt pin and the concepts the designer's inputs travel under", () => {
