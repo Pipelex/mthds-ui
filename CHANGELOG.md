@@ -1,5 +1,24 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+
+- **`useCheckedField`, `CheckedField` and `RevealPanel` in `./form/generative`**: a host's own control that carries checks calls `useCheckedField(path, config)` in place of json-render's `useFieldValidation`, so its checks hold the run only while it is mounted and combine with those of any other control bound to the same path, and it attaches the `focusRef` the returned `CheckedField` carries to the element a refused run should focus; a host's own component that hides part of a page wraps each hidden panel in `<RevealPanel open={…}>`, so a refused run reaches it. All three stay off `./form/generative/headless`, which a server imports. See [docs/generative-layout.md](docs/generative-layout.md#rendering-a-stored-layout).
+- **`layoutCheck` in `./form/generative` and `./form/generative/headless`**: `layoutCheck(spec, { frame, descriptor })` answers `{ problems, checksFailed }`, the problems `layoutCheckProblems` returns beside a flag saying that no repair of the layout can help, because a check itself threw or the frame or the descriptor handed over is not one, so a producer stops there rather than paying the repair pass. See [docs/generative-layout.md](docs/generative-layout.md#the-designer-method).
+
+- **`framed` on `StuffViewer` and `ResultEnvProvider` in `./form/react`**: a host that draws a result inside a panel of its own says so, and a table of records then draws no outline of its own inside it, keeping its header band and row rules; a host that sets nothing renders as before. The wrapper that outlines a field in error in the `app` presentation carries `data-error-outline`, for a host's stylesheet or test to find the mark.
+
+### Changed
+
+- **`@pipelex/mthds-form` ^0.34.0 (Breaking)**: the kernel's range moves from `^0.32.0` to `^0.34.0`, which a caret below 1.0 does not bridge, so a host resolves the kernel's 0.33.0 and 0.34.0 only through this release. `PROMPT_HASH` stays `30cf9bc059f6` and `./form/layout-design.mthds` is the same method, so no stored layout goes stale by its hash. See [docs/run-form-panel.md](docs/run-form-panel.md).
+- **`FieldStrings` gains `runWaitsFor` (Breaking)**: a `Composer`'s action row names the fields the run still needs, worded by `runWaitsFor(names, more)`, and a host supplying a complete `FieldStrings` rather than a partial override adds it.
+- **Focus and error marks in `RunPanel` and on a designed page (Breaking)**: the toggle, the switch, a file field's drop target and a produced page's buttons draw a 2px outline in `--ring` with a 1px gap, a field in error in the `app` presentation is a 1px `--destructive` outline 4px off it, and a structure's card or rule in error is solid `border-destructive`, so a host's visual references for a focused or refused control move. See [docs/run-form-panel.md](docs/run-form-panel.md#the-theme-bridge-and-the-hook-for-overriding-tokens).
+- **`soft` and `bold` lift their dark `field` (Breaking)**: `deriveStyleRoles` returns a dark `field` a step lighter than its panel where both styles returned `background`, so a host writing `field` onto `--input` sees that fill move. See [docs/run-form-panel.md](docs/run-form-panel.md#a-teams-style-and-typeface).
+- **The layout checks refuse more, so a stored layout may fall back to the plain form (Breaking)**: `validateAgainstCatalog` and `layoutFits` refuse a layout offering nothing of a required structure whose members are all optional, an expression key json-render would not resolve, a fixed-set prop nested inside another unless written as a literal, a named slot the component does not declare, a `ProportionBar` amount or `total` that does not read as a number, and a `root` or a child that is not a text key; and a `layoutCheck` with an unknown frame or a misshapen descriptor sets `checksFailed`. See [docs/generative-layout.md](docs/generative-layout.md#rendering-a-stored-layout).
+- **A produced page formats in en-GB (Breaking)**: `DataTable`, `Metric`, `ProportionBar` and `DateText` share one formatter, so a compact `Metric` reads "1.3m" rather than "1.3M" and an amount in USD reads "US$5"; a host asserting on a page's words updates them. See [docs/generative-layout.md](docs/generative-layout.md#rendering-a-stored-layout).
+- **A vertical `Stack` asked to centre gains a DOM wrapper (Breaking)**: its children share one column centred by an outer `div`, so a host's selector or test that reads them as direct children of the element it draws finds that column between them. See [docs/generative-layout.md](docs/generative-layout.md#rendering-a-stored-layout).
+
 ## [v0.49.0] - 2026-11-08
 
 ### Added

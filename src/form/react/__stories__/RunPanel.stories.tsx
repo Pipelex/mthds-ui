@@ -418,8 +418,8 @@ export const InvalidSubmit: Story = {
     title: "triage_case",
     initialValues: {
       invoice: { amount: "twelve euros", invoice_number: "INV-1" },
-      priority: { number: "3" },
-      question: { text: "Is this covered?" },
+      priority: 3,
+      question: "Is this covered?",
       tags: [],
     },
   },
