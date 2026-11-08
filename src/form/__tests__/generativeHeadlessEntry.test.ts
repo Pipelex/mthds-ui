@@ -39,6 +39,7 @@ import {
   designerCatalog,
   frameCatalog,
   inputBrief,
+  layoutCheck,
   layoutCheckProblems,
   validateAgainstCatalog,
   type DesignerBrief,
@@ -122,6 +123,7 @@ describe("the ./form/generative/headless entry", () => {
     expect(headless.validateAgainstCatalog).toBe(kernelHeadless.validateAgainstCatalog);
     expect(headless.layoutFits).toBe(kernelHeadless.layoutFits);
     expect(headless.layoutCheckProblems).toBe(kernelHeadless.layoutCheckProblems);
+    expect(headless.layoutCheck).toBe(kernelHeadless.layoutCheck);
   });
 
   it("is the half of ./form/generative that renders nothing: the same functions and the same pin", () => {
@@ -137,6 +139,10 @@ describe("the ./form/generative/headless entry", () => {
     expect(PROMPT_HASH).toMatch(/^[0-9a-f]{12}$/);
     expect(Object.keys(headless)).not.toContain("GenerativePage");
     expect(Object.keys(headless)).not.toContain("BrandBar");
+    // What a host's own checked control and hidden panel call, and client-only
+    // with it: `./form/generative` carries them and this entry must not.
+    expect(Object.keys(headless)).not.toContain("useCheckedField");
+    expect(Object.keys(headless)).not.toContain("RevealPanel");
   });
 
   it("carries the producer's types, the same ones the kernel declares", () => {
@@ -168,6 +174,26 @@ describe("what a producer runs on its server, through the entry", () => {
     });
     expect(brief.side).toBe("input");
     expect(brief.paths.map((entry) => entry.path)).toEqual(["/inputs/text"]);
+  });
+
+  it("answers the checks' verdict with its flag, and flags what no repair can mend (kernel 0.33.0)", () => {
+    // A producer reads `checksFailed`, not the problem lines, to stop instead
+    // of paying the repair pass for a defect no layout can fix: a frame this
+    // package does not draw, or a descriptor that is not one.
+    const composer = summarizeComposer({ press: { action: "run" } });
+    const fit = { frame: "composer", descriptor: { inputs: summarizeFields() } } as const;
+    expect(layoutCheck(composer, fit)).toEqual({ problems: [], checksFailed: false });
+
+    const unknownFrame = layoutCheck(composer, { ...fit, frame: "nonsense" as Frame });
+    expect(unknownFrame.checksFailed).toBe(true);
+    expect(unknownFrame.problems).not.toEqual([]);
+
+    const misshapen = layoutCheck(composer, {
+      ...fit,
+      descriptor: { inputs: [null] } as unknown as LayoutDescriptor,
+    });
+    expect(misshapen.checksFailed).toBe(true);
+    expect(misshapen.problems).not.toEqual([]);
   });
 
   it("accepts a composer that runs on its own button", () => {

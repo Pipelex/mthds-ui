@@ -418,8 +418,8 @@ export const InvalidSubmit: Story = {
     title: "triage_case",
     initialValues: {
       invoice: { amount: "twelve euros", invoice_number: "INV-1" },
-      priority: { number: "3" },
-      question: { text: "Is this covered?" },
+      priority: 3,
+      question: "Is this covered?",
       tags: [],
     },
   },
@@ -571,8 +571,8 @@ export const HostTranslatesTheErrorSummary: Story = {
     title: "triage_case",
     initialValues: {
       invoice: { amount: "twelve euros", invoice_number: "INV-1" },
-      priority: { number: "3" },
-      question: { text: "Is this covered?" },
+      priority: 3,
+      question: "Is this covered?",
       tags: [],
     },
     translate: () => "TRADUIT PAR L'HÔTE",
@@ -1589,8 +1589,8 @@ export const SubmitErrorClearedOnPipeSwitch: Story = {
     title: "triage_case",
     initialValues: {
       invoice: { amount: "twelve euros", invoice_number: "INV-1" },
-      priority: { number: "3" },
-      question: { text: "Is this covered?" },
+      priority: 3,
+      question: "Is this covered?",
       tags: [],
     },
   },

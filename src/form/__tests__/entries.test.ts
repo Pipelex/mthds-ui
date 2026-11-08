@@ -214,4 +214,24 @@ describe("the ./form/react entry", () => {
       ((citation: number) => MarkdownCitation | undefined) | undefined
     >();
   });
+
+  it("carries the seam for a result drawn inside a host's own panel", () => {
+    // Kernel 0.34.0: a table of records draws no outline of its own there.
+    expectTypeOf<ComponentProps<typeof formReact.ResultEnvProvider>["framed"]>().toEqualTypeOf<
+      boolean | undefined
+    >();
+    expectTypeOf<ComponentProps<typeof formReact.StuffViewer>["framed"]>().toEqualTypeOf<
+      boolean | undefined
+    >();
+  });
+
+  it("carries the line a composer's action row says it waits for", () => {
+    // Kernel 0.34.0. A host supplying a complete `FieldStrings` adds it.
+    expectTypeOf<FieldStrings["runWaitsFor"]>().toEqualTypeOf<
+      (names: readonly string[], more: number) => string
+    >();
+    for (const strings of [formReact.EN_FIELD_STRINGS, formReact.FR_FIELD_STRINGS]) {
+      expect(strings.runWaitsFor(["City"], 0)).toBeTypeOf("string");
+    }
+  });
 });
