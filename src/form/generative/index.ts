@@ -13,7 +13,9 @@
  * hands the designer method: the catalog as data (`designerCatalog`), the brief
  * projected from the descriptor (`inputBrief`, `resultBrief`) and the concepts
  * each travels under. The method itself is a file rather than code, shipped
- * beside this entry as `@pipelex/mthds-ui/form/layout-design.mthds`.
+ * beside this entry as `@pipelex/mthds-ui/form/layout-design.mthds`, with
+ * `@pipelex/mthds-ui/form/layout-sample.mthds`, its entry for a result page
+ * with no run to read.
  *
  * It is its own entry rather than part of `./form/react` because the kernel
  * keeps it apart from its `./react` entry: it brings json-render and zod, which

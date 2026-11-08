@@ -1,12 +1,13 @@
 # A designed page: the generative entry
 
-A method's form or its result can be shown as a **designed page**: a layout a model wrote once for the method, rendered over the form kernel's own controls, with the kernel's plain form as the fallback whenever the layout cannot be trusted. The layer that renders it, and the method that designs it, both belong to the form kernel `@pipelex/mthds-form`. This package carries them to a host under three names:
+A method's form or its result can be shown as a **designed page**: a layout a model wrote once for the method, rendered over the form kernel's own controls, with the kernel's plain form as the fallback whenever the layout cannot be trusted. The layer that renders it, and the method that designs it, both belong to the form kernel `@pipelex/mthds-form`. This package carries them to a host under these names:
 
 | Import path                                  | What it is                                                                                                                                     |
 | -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
 | `@pipelex/mthds-ui/form/generative`          | The kernel's `./generative` entry, re-exported wholesale: the page, the brand's bar, the checks, and the designer's inputs. A client module    |
 | `@pipelex/mthds-ui/form/generative/headless` | The kernel's `./generative/headless` entry, re-exported wholesale: the designer's inputs and the checks, with no React and no client directive |
 | `@pipelex/mthds-ui/form/layout-design.mthds` | The designer method, a `.mthds` bundle a producer reads as text and hands to a runner, the kernel's own file                                   |
+| `@pipelex/mthds-ui/form/layout-sample.mthds` | The designer's entry for a result page with no run to read, which writes its own sample first, the kernel's own file                           |
 
 The layer's whole contract — the layout's wire format, what each check refuses, the fallback rule, the escape hatches, the brief and the catalog as data — is the kernel's, and it is documented once, in the kernel's [`docs/generative-ui.md`](https://github.com/Pipelex/mthds-form/blob/main/docs/generative-ui.md). This page says what this package adds to it: where a host imports each half from, and what holds about the method file.
 
@@ -18,7 +19,7 @@ Both entries are re-exported wholesale (`export *`), so they follow the kernel f
 
 ## Which entry, where
 
-The two entries are one layer split by where its code may run. **`./form/generative/headless` renders nothing**: the designer's catalog and the frames' vocabularies (`designerCatalog`, `frameCatalog`, `FRAMES`), the brief (`inputBrief`, `resultBrief`), the concepts the designer's inputs travel under, the prompt pin (`PROMPT_HASH`, `promptHashSubject`), `seedLine`, the JSONL compiler (`specFromJsonl`, `specToJsonl`), the checks (`validateAgainstCatalog`, `layoutFits`, `layoutProblems`, `layoutCheck`, `layoutCheckProblems`, `REPAIR_ATTEMPTS`), the state paths and `payloadToState`. It has no React and no `"use client"` directive. **`./form/generative` is all of that, plus what renders**: `GenerativePage`, `BrandBar`, `BrandProvider`, `FrameHostProvider`, `createStateStore`, `useCheckedField`, `RevealPanel` and the rest of the page's React surface. Its first line is `"use client"`.
+The two entries are one layer split by where its code may run. **`./form/generative/headless` renders nothing**: the designer's catalog and the frames' vocabularies (`designerCatalog`, `frameCatalog`, `FRAMES`), the brief (`inputBrief`, `resultBrief`), the concepts the designer's inputs travel under, the prompt pin (`PROMPT_HASH`, `promptHashSubject`), `seedLine`, the JSONL compiler (`specFromJsonl`, `specToJsonl`), the checks (`validateAgainstCatalog`, `layoutFits`, `layoutProblems`, `layoutCheck`, `layoutCheckProblems`, `REPAIR_ATTEMPTS`), the check on a sample the designer wrote (`writtenSampleOf`), the state paths and `payloadToState`. It has no React and no `"use client"` directive. **`./form/generative` is all of that, plus what renders**: `GenerativePage`, `BrandBar`, `BrandProvider`, `FrameHostProvider`, `createStateStore`, `useCheckedField`, `RevealPanel` and the rest of the page's React surface. Its first line is `"use client"`.
 
 The directive is why the split exists. In a host running React Server Components, the server's module graph sees every export of a client module as a client reference, the plain functions included, and calling one there throws. So:
 
@@ -86,6 +87,8 @@ function MethodPage({ stored, fields, store, brand, onRun, plainForm }) {
 
 **What a produced page draws differently since kernel 0.34.0.** `DataTable`, `Metric`, `ProportionBar` and `DateText` format through one formatter in en-GB, so a compact `Metric` reads "1.3m" rather than "1.3M", an amount in USD reads "US$5", and a day its month does not have shows no day at all. A vertical `Stack` asked to centre lays its children out in one column as wide as the widest of them, centred by an outer `div` it adds, so a host's selector or test that reads the children as direct children of the element finds that column between them. A `Composer`'s action row names the fields the run still needs, worded by `FieldStrings.runWaitsFor(names, more)`, so a host supplying a complete `FieldStrings` rather than a partial override adds that key.
 
+**What a produced page does differently since kernel 0.35.0.** `GenerativePage`'s root is a query container, and the composer's and the result page's components lay out by the width of that container, with one threshold of 512 pixels, where they used the viewport's. A page in a narrow pane on a wide screen therefore lays out for the pane, and a host places the page in a box sized from outside, since a query container takes its width from its parent. `GenerativePage` also mounts the `app` presentation around the page rather than inheriting the host's, so a delegated field reads with the app's label and chrome and a layout's `Select`, `Radio` and `Segmented` word their options; its new `presentation` prop takes `studio` for a builder's preview. `PROMPT_HASH` has not moved, so none of this stales a stored layout.
+
 ## The designer method
 
 The method that produces a layout is the kernel's `layout-design.mthds`: a bundle whose main pipe, `design_layout`, takes the catalog and the brief as data and an optional seed, and whose second pipe, `repair_layout`, takes a refused page with the problems `layoutCheckProblems` found in it and writes the page again. A producer reads it as text and hands it to a runner with the two inputs the headless entry builds, on a server or in a script:
@@ -117,13 +120,37 @@ A layout for one moment of a host's app rather than a whole page takes the frame
 
 A host resolves the file through this package, from its own code, exactly as the kernel's document resolves it through the kernel. It works under every install layout, pnpm's included, where the kernel is linked beside this package and a host's own code cannot resolve `@pipelex/mthds-form` at all. `@pipelex/mthds-ui/form/layout-design.mthds` is a key of this package's `exports`, mapped to the file itself, so `require.resolve` and `import.meta.resolve` both return its path; a bundler that follows such a resolve to decide which files a server deploys must be told to keep a file nothing imports, which is the host's configuration rather than this package's.
 
-### The file is a copy, and what keeps it the kernel's
+### A result page with no run to read
 
-An export map cannot point into a dependency, so the file this package exports is a copy: the build copies the kernel's `layout-design.mthds` into `dist/form/` from the kernel it resolves, which `package-lock.json` pins. The copy has to be the kernel's file exactly, because the two halves of a produced layout come from different places. The method a host sends comes from this package, while the `PROMPT_HASH` the host stamps the layout with, and later compares against, comes from the kernel the host installed. The kernel's pin names its own file, so a copy that differed from it would stamp every layout produced from it with a hash that names another method, and the stale-prompt check would never fire for them.
+A result page is normally designed from the state of one real run. A producer that has none leaves `state` `undefined` in `resultBrief`, so the brief carries no `sample_state`, and starts the method's written-sample entry, `layout_sample.design_from_written_sample`, which invents one state of the result and then designs from it. That entry is a second file, `@pipelex/mthds-ui/form/layout-sample.mthds`, kept apart so that writing a sample moves no `PROMPT_HASH`. Its stages read the designer's own concepts and pipes, so a producer sends the text of both files and names the entry as the run's pipe:
+
+```ts
+const resolveFromHere = createRequire(import.meta.url).resolve;
+const request = {
+  mthds_contents: [
+    readFileSync(resolveFromHere("@pipelex/mthds-ui/form/layout-design.mthds"), "utf8"),
+    readFileSync(resolveFromHere("@pipelex/mthds-ui/form/layout-sample.mthds"), "utf8"),
+  ],
+  pipe_code: "layout_sample.design_from_written_sample",
+  inputs: {
+    catalog: { concept: DESIGNER_CATALOG_CONCEPT, content: designerCatalog({ frame: "result" }) },
+    brief: {
+      concept: DESIGNER_BRIEF_CONCEPT,
+      content: resultBrief({ pipeRef }, resultField, undefined, { frame: "result" }),
+    },
+  },
+};
+```
+
+The sample is invented, so it holds no customer data, and it leaves out files and images, since a made-up link would draw nothing. A producer that stores it beside the layout reads it out of the run's working memory under `written_sample` and checks it with `writtenSampleOf(field, text)` from the headless entry, which answers `{ state, problems }`: the parsed sample, a code fence around it tolerated, and what it gets wrong against the result's descriptor. It never throws, and a sample with problems never blocks a layout. The kernel's document describes the entry in full.
+
+### The files are copies, and what keeps them the kernel's
+
+An export map cannot point into a dependency, so the two files this package exports are copies: the build copies the kernel's `layout-design.mthds` and `layout-sample.mthds` into `dist/form/` from the kernel it resolves, which `package-lock.json` pins. The copy of `layout-design.mthds` has to be the kernel's file exactly, because the two halves of a produced layout come from different places. The method a host sends comes from this package, while the `PROMPT_HASH` the host stamps the layout with, and later compares against, comes from the kernel the host installed. The kernel's pin names its own file, so a copy that differed from it would stamp every layout produced from it with a hash that names another method, and the stale-prompt check would never fire for them. `layout-sample.mthds` is hashed by nothing a layout records, but it reads that file's concepts and pipes by name, so it has to come from the same kernel.
 
 Two things keep the two in step:
 
-- **`make smoke-pack` compares them, byte for byte**, in a consumer that installed the packed tarball: the file resolved through `@pipelex/mthds-ui/form/layout-design.mthds` from the consumer's root against the kernel's own `layout-design.mthds` resolved from this package. It is the release's own gate, so a release whose copy drifted from the kernel a consumer installs does not ship.
+- **`make smoke-pack` compares them, byte for byte**, in a consumer that installed the packed tarball: each file resolved through `@pipelex/mthds-ui/form/` from the consumer's root against the kernel's own file resolved from this package. It is the release's own gate, so a release whose copies drifted from the kernel a consumer installs does not ship.
 - **The kernel ships a changed method in a minor release, never in a patch.** A changed method moves `PROMPT_HASH` and stales every stored layout at once, a change a host observes in what it stores and compares, and the kernel's release rule keeps such a change out of a patch. A caret range below 1.0 does not bridge a minor, so a kernel with a new method reaches a host only through a release of this package that moves the kernel's range, and that release's build copies the new file.
 
 ## Styling
@@ -134,9 +161,9 @@ Nothing to add. A designed page renders the kernel's controls and the kernel's o
 
 From a consumer that declared only this package and React:
 
-- `@pipelex/mthds-ui/form/generative`, `@pipelex/mthds-ui/form/generative/headless` and `@pipelex/mthds-ui/form/layout-design.mthds` resolve through the export map, each to a file that ships;
+- `@pipelex/mthds-ui/form/generative`, `@pipelex/mthds-ui/form/generative/headless`, `@pipelex/mthds-ui/form/layout-design.mthds` and `@pipelex/mthds-ui/form/layout-sample.mthds` resolve through the export map, each to a file that ships;
 - the client entry's built file starts with `"use client"`, and neither the headless entry's built file nor the kernel's `./generative/headless` file it re-exports carries the directive;
 - each entry imports its one kernel entry, bare, and nothing else, which also rules out a bundled copy of the kernel;
 - the client entry loads in plain Node and builds the designer's catalog, so the re-export reaches working code from a consumer that never named the kernel;
-- the headless entry loads under Node's `react-server` condition, the module graph a React Server Components host gives its server, builds the composer's catalog and answers a malformed layout with problems rather than a throw, and its `PROMPT_HASH` is the client entry's;
-- the method file is the kernel's own, byte for byte, in the kernel the consumer installed.
+- the headless entry loads under Node's `react-server` condition, the module graph a React Server Components host gives its server, builds the composer's catalog, answers a malformed layout with problems rather than a throw and checks a written sample through `writtenSampleOf`, and its `PROMPT_HASH` is the client entry's;
+- both method files are the kernel's own, byte for byte, in the kernel the consumer installed.
