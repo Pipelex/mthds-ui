@@ -9,14 +9,15 @@
  * proves that an upload which wrote nothing leaves none behind.
  */
 import { describe, expect, it, vi } from "vitest";
-import { runPanelUpload, type PanelUpload, type UploadedFile } from "@form/react/panelUpload";
+import type { UploadedFile } from "@pipelex/mthds-form/react";
+import { runPanelUpload, type PanelUpload, type StoredFile } from "@form/react/panelUpload";
 
-const STORED: UploadedFile = { url: "pipelex-storage://org/assets/cv.pdf" };
-const WRITTEN: UploadedFile = { url: STORED.url, filename: "cv.pdf" };
+const STORED: StoredFile = { url: "pipelex-storage://org/assets/cv.pdf" };
+const WRITTEN: StoredFile = { url: STORED.url, filename: "cv.pdf" };
 
 /** An upload whose steps are spies, current unless a test says otherwise. */
 function steps(overrides: Partial<PanelUpload> = {}) {
-  const write = vi.fn((stored: UploadedFile) => ({ url: stored.url, filename: "cv.pdf" }));
+  const write = vi.fn((stored: StoredFile) => ({ url: stored.url, filename: "cv.pdf" }));
   const endFlight = vi.fn();
   const reportBug = vi.fn();
   const upload: PanelUpload = {
@@ -45,6 +46,17 @@ describe("runPanelUpload", () => {
     expect(reportBug).not.toHaveBeenCalled();
   });
 
+  it("reads an upload that resolved to its URL alone as that URL with no name", async () => {
+    // The kernel's `UploadedFile` allows it, as its own form's `uploadFile`
+    // does; the panel names the value after the dropped file in `write`.
+    const { upload, write, endFlight } = steps({ start: () => Promise.resolve(STORED.url) });
+
+    await expect(runPanelUpload(upload)).resolves.toEqual(WRITTEN);
+    expect(write).toHaveBeenCalledExactlyOnceWith({ url: STORED.url });
+    await settled();
+    expect(endFlight).toHaveBeenCalledOnce();
+  });
+
   it("rejects with the upload's own failure, writes nothing and ends the flight", async () => {
     const refusal = new Error("storage refused the file");
     const { upload, write, endFlight, reportBug } = steps({ start: () => Promise.reject(refusal) });
@@ -65,7 +77,7 @@ describe("runPanelUpload", () => {
       },
     });
 
-    let answer: Promise<UploadedFile> | undefined;
+    let answer: Promise<StoredFile> | undefined;
     expect(() => {
       answer = runPanelUpload(upload);
     }).not.toThrow();

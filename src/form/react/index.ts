@@ -42,7 +42,9 @@
 export * from "@pipelex/mthds-form/react";
 
 export { RunPanel } from "./RunPanel";
-export type { RunPanelProps, UploadedFile } from "./RunPanel";
+// No `UploadedFile` of the panel's own: `uploadFile` resolves to the kernel's,
+// which the line above carries, so `MethodForm` and `RunPanel` take one type.
+export type { RunPanelProps } from "./RunPanel";
 
 // The submit path, React-free and re-exported for hosts that run the gate
 // outside a panel (a toolbar button, a keyboard shortcut).

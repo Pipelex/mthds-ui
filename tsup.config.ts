@@ -29,6 +29,7 @@ export default defineConfig({
     "src/form/index.ts",
     "src/form/brand/index.ts",
     "src/form/generative/index.ts",
+    "src/form/generative/headless/index.ts",
     "src/form/react/index.ts",
     "src/shiki/index.ts",
     "src/static-graph/index.ts",
@@ -54,6 +55,7 @@ export default defineConfig({
     "@pipelex/mthds-form",
     "@pipelex/mthds-form/brand",
     "@pipelex/mthds-form/generative",
+    "@pipelex/mthds-form/generative/headless",
     "@pipelex/mthds-form/react",
     "react",
     "react-dom",
@@ -126,5 +128,9 @@ export default defineConfig({
     );
     prependUseClient("dist/form/react/index.js");
     prependUseClient("dist/form/generative/index.js");
+    // Never `dist/form/generative/headless/index.js`: that entry exists so a
+    // server component or a server action can call the producer's functions,
+    // and the directive would turn every one of them into a client reference.
+    // `make smoke-pack` fails if it acquires one.
   },
 });
