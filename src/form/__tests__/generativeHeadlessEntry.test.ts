@@ -28,8 +28,15 @@ import type {
   LayoutCheck as KernelLayoutCheck,
   LayoutDescriptor as KernelLayoutDescriptor,
   SpecVerdict as KernelSpecVerdict,
+  WrittenSample as KernelWrittenSample,
 } from "@pipelex/mthds-form/generative/headless";
-import { fieldsForContract, getPipeInputForm, getPipeIOContract } from "@form/index";
+import {
+  buildResultField,
+  fieldsForContract,
+  getPipeInputForm,
+  getPipeIOContract,
+  getPipeOutputForm,
+} from "@form/index";
 import * as generative from "@form/generative/index";
 import * as headless from "@form/generative/headless/index";
 import {
@@ -41,18 +48,25 @@ import {
   inputBrief,
   layoutCheck,
   layoutCheckProblems,
+  resultBrief,
   validateAgainstCatalog,
+  writtenSampleOf,
   type DesignerBrief,
   type DesignerCatalog,
   type Frame,
   type LayoutCheck,
   type LayoutDescriptor,
   type SpecVerdict,
+  type WrittenSample,
 } from "@form/generative/headless/index";
 import {
   CONTRACTS_SINGLE_PIPE,
   INPUT_FORM_SINGLE_PIPE,
 } from "@form/react/__stories__/contracts/_generated/pipeline_01";
+import {
+  CONTRACTS_SIMPLE_PARALLEL,
+  OUTPUT_FORM_SIMPLE_PARALLEL,
+} from "@form/react/__stories__/contracts/_generated/pipeline_05";
 
 const ENTRY_SOURCE = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -70,6 +84,18 @@ function summarizeFields() {
     throw new Error("the generated fixture no longer carries text_processing.summarize");
   }
   return fieldsForContract(contract, descriptor);
+}
+
+/** The generated fixture's structured result: a sentiment, its confidence, why. */
+function sentimentResultField() {
+  const domain = "text_analysis";
+  const pipeCode = "analyze_sentiment";
+  const descriptor = getPipeOutputForm(OUTPUT_FORM_SIMPLE_PARALLEL, domain, pipeCode);
+  const contract = getPipeIOContract(CONTRACTS_SIMPLE_PARALLEL, domain, pipeCode);
+  if (descriptor === undefined || contract === undefined) {
+    throw new Error("the generated fixture no longer carries text_analysis.analyze_sentiment");
+  }
+  return buildResultField(descriptor, contract.output.json_schema);
 }
 
 /** What an element's `on` binds, as the checks take a layout. */
@@ -124,6 +150,7 @@ describe("the ./form/generative/headless entry", () => {
     expect(headless.layoutFits).toBe(kernelHeadless.layoutFits);
     expect(headless.layoutCheckProblems).toBe(kernelHeadless.layoutCheckProblems);
     expect(headless.layoutCheck).toBe(kernelHeadless.layoutCheck);
+    expect(headless.writtenSampleOf).toBe(kernelHeadless.writtenSampleOf);
   });
 
   it("is the half of ./form/generative that renders nothing: the same functions and the same pin", () => {
@@ -152,9 +179,11 @@ describe("the ./form/generative/headless entry", () => {
     expectTypeOf<LayoutCheck>().toEqualTypeOf<KernelLayoutCheck>();
     expectTypeOf<LayoutDescriptor>().toEqualTypeOf<KernelLayoutDescriptor>();
     expectTypeOf<SpecVerdict>().toEqualTypeOf<KernelSpecVerdict>();
+    expectTypeOf<WrittenSample>().toEqualTypeOf<KernelWrittenSample>();
     expectTypeOf(designerCatalog).returns.toEqualTypeOf<DesignerCatalog>();
     expectTypeOf(inputBrief).returns.toEqualTypeOf<DesignerBrief>();
     expectTypeOf(layoutCheckProblems).returns.toEqualTypeOf<string[]>();
+    expectTypeOf(writtenSampleOf).returns.toEqualTypeOf<WrittenSample>();
   });
 });
 
@@ -237,6 +266,46 @@ describe("what a producer runs on its server, through the entry", () => {
       });
       expect(problems.join("\n"), chain).toContain(`on.press.${chain} chains a run`);
     }
+  });
+
+  it("leaves the sample out of a result's brief when there is no run to read (kernel 0.35.0)", () => {
+    const subject = { pipeRef: "text_analysis.analyze_sentiment" };
+    expect(resultBrief(subject, sentimentResultField(), undefined)).not.toHaveProperty(
+      "sample_state",
+    );
+    expect(
+      resultBrief(subject, sentimentResultField(), {
+        sentiment: "positive",
+        confidence: 0.9,
+        explanation: "It reads warmly.",
+      }).sample_state,
+    ).toContain("positive");
+  });
+
+  it("checks a sample the designer wrote against the result's descriptor (kernel 0.35.0)", () => {
+    const sample = { sentiment: "positive", confidence: 0.9, explanation: "It reads warmly." };
+    expect(writtenSampleOf(sentimentResultField(), JSON.stringify(sample))).toEqual({
+      state: sample,
+      problems: [],
+    });
+    // A model's answer often arrives inside a code fence.
+    expect(
+      writtenSampleOf(sentimentResultField(), `\`\`\`json\n${JSON.stringify(sample)}\n\`\`\``)
+        .state,
+    ).toEqual(sample);
+  });
+
+  it("names what a written sample gets wrong rather than throwing", () => {
+    expect(writtenSampleOf(sentimentResultField(), "not json")).toEqual({
+      state: undefined,
+      problems: ["the written sample is not JSON"],
+    });
+    const { problems } = writtenSampleOf(
+      sentimentResultField(),
+      JSON.stringify({ sentiment: "positive", confidence: "high", invented: true }),
+    );
+    expect(problems.join("\n")).toContain("confidence");
+    expect(problems.join("\n")).toContain("invented");
   });
 
   it("answers a layout that is not one with a problem line rather than a throw", () => {

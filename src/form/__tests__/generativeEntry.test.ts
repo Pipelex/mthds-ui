@@ -12,9 +12,10 @@
  * to show the entry is wired to code that works rather than to names that
  * resolve.
  *
- * The method file shipped beside the entry, `./form/layout-design.mthds`, is a
- * copy the build takes, so only the packed tarball holds it: `make smoke-pack`
- * is where it is checked against the kernel a consumer installs.
+ * The method files shipped beside the entry, `./form/layout-design.mthds` and
+ * `./form/layout-sample.mthds`, are copies the build takes, so only the packed
+ * tarball holds them: `make smoke-pack` is where they are checked against the
+ * kernel a consumer installs.
  */
 import { describe, expect, expectTypeOf, it } from "vitest";
 import * as kernelGenerative from "@pipelex/mthds-form/generative";

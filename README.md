@@ -312,6 +312,7 @@ See `graphConfig.ts` for the full default palette.
 | `@pipelex/mthds-ui/form/generative`          | The kernel's generative layer: a designed page over its controls   |
 | `@pipelex/mthds-ui/form/generative/headless` | The same layer's producer and checks, for a server: no React       |
 | `@pipelex/mthds-ui/form/layout-design.mthds` | The designer method that produces such a page, as a file           |
+| `@pipelex/mthds-ui/form/layout-sample.mthds` | Its entry for a result page with no run to read, as a file         |
 | `@pipelex/mthds-ui/form/react`               | `RunPanel` — a pipe's input form — and the kernel's controls       |
 | `@pipelex/mthds-ui/timeline`                 | A run's progress snapshot: types, path grammar, rows and time axis |
 | `@pipelex/mthds-ui/timeline/react`           | `RunTimeline` — a run's progress as growing bars or a checklist    |
@@ -405,7 +406,7 @@ The same entry carries the app styles a team picks from (`quiet`, `soft`, `edito
 
 Full contract, why this package stopped loading the kernel's stylesheet itself, the `.dark` bridge, the `mthds-run-panel` token hook and the brand tokens: [docs/run-form-panel.md](./docs/run-form-panel.md).
 
-To show a method's form or its result as a designed page, `@pipelex/mthds-ui/form/generative` carries the kernel's generative layer: `GenerativePage` renders a layout a model wrote once for the method over the same controls, after the checks that decide whether the layout can be trusted, and the kernel's plain form renders whenever it cannot. The method that designs such a page ships beside it as `@pipelex/mthds-ui/form/layout-design.mthds`, a file a producer reads and hands to a runner with the catalog and the brief the entry builds. The entry is a client module, so a server component or a server action builds those inputs and checks a stored layout through `@pipelex/mthds-ui/form/generative/headless`, the same functions with no React and no `"use client"`. Which entry to import where, and what keeps the file the kernel's own: [docs/generative-layout.md](./docs/generative-layout.md).
+To show a method's form or its result as a designed page, `@pipelex/mthds-ui/form/generative` carries the kernel's generative layer: `GenerativePage` renders a layout a model wrote once for the method over the same controls, after the checks that decide whether the layout can be trusted, and the kernel's plain form renders whenever it cannot. The method that designs such a page ships beside it as `@pipelex/mthds-ui/form/layout-design.mthds`, a file a producer reads and hands to a runner with the catalog and the brief the entry builds, and `@pipelex/mthds-ui/form/layout-sample.mthds` is that method's entry for a result page with no run to read, sent with it. The entry is a client module, so a server component or a server action builds those inputs and checks a stored layout through `@pipelex/mthds-ui/form/generative/headless`, the same functions with no React and no `"use client"`. Which entry to import where, and what keeps the files the kernel's own: [docs/generative-layout.md](./docs/generative-layout.md).
 
 ## Run timeline
 

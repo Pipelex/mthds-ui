@@ -1,5 +1,24 @@
 # Changelog
 
+## [v0.51.0] - 2026-11-08
+
+### Added
+
+- **`@pipelex/mthds-ui/form/layout-sample.mthds`**: the designer method's entry for a result page with no run to read, whose pipe `layout_sample.design_from_written_sample` invents one state of the result and designs from it. A producer sends this file with `./form/layout-design.mthds`, and leaves `state` `undefined` in `resultBrief`, which then omits `sample_state`. The build copies it from the kernel, and `make smoke-pack` holds the copy to the kernel a consumer installs, byte for byte. See [docs/generative-layout.md](docs/generative-layout.md#a-result-page-with-no-run-to-read).
+- **`writtenSampleOf` and `WrittenSample` in `./form/generative` and `./form/generative/headless`**: `writtenSampleOf(field, text)` parses a sample the designer wrote, a code fence around it tolerated, and answers `{ state, problems }`, what it gets wrong against the result's descriptor. It never throws, and a sample with problems never blocks a layout. See [docs/generative-layout.md](docs/generative-layout.md#a-result-page-with-no-run-to-read).
+
+### Changed
+
+- **`@pipelex/mthds-form` ^0.35.0 (Breaking)**: the kernel's range moves from `^0.34.0` to `^0.35.0`, which a caret below 1.0 does not bridge, so a host resolves the kernel's 0.35.0 only through this release. `PROMPT_HASH` stays `30cf9bc059f6` and `./form/layout-design.mthds` is the same method, so no stored layout goes stale by its hash. See [docs/run-form-panel.md](docs/run-form-panel.md).
+- **The file field and the optional mark speak in sentences (Breaking)**: the default `dropOrBrowse` is "Choose a file or drop it here", `dropFilesOrBrowse` "Choose files or drop them here", `pasteUrlInstead` "Paste a link instead" and `optionalBadge` "Optional", in English and French alike, so a host that finds a control by its English name, in a test for instance, updates it. See [docs/run-form-panel.md](docs/run-form-panel.md).
+- **The controls' chrome in the `app` presentation**: the optional mark is the word "Optional" in the page's face, a list's count, its row numbers and a file field's formats are in the page's face rather than in mono, an empty list shows its Add button alone, the Add button is a hairline row, and a description that only restates its label is left out. `studio` keeps its mono, its dashed slot and every description. See [docs/run-form-panel.md](docs/run-form-panel.md).
+- **A designed page fits the width it is given (Breaking)**: `GenerativePage`'s root is a query container and the composer's and the result page's components lay out by its width, with one threshold of 512 pixels, where they used the viewport's, so a page in a narrow pane on a wide screen lays out for the pane and a host places the page in a box sized from outside. See [docs/generative-layout.md](docs/generative-layout.md#rendering-a-stored-layout).
+- **A generative page renders the kernel's controls in `app`**: `GenerativePage` mounts the `app` presentation around the page rather than inheriting the host's, so a delegated field reads with the app's label and chrome and a layout's `Select`, `Radio` and `Segmented` word their options; a new `presentation` prop takes `studio` for a builder's preview. See [docs/generative-layout.md](docs/generative-layout.md#rendering-a-stored-layout).
+
+### Fixed
+
+- **The date input reads as empty when it is, and its calendar follows a dark page**: its empty face is muted until a whole date is entered, and under `.dark` the browser's calendar icon and the calendar it opens are dark. See [docs/run-form-panel.md](docs/run-form-panel.md).
+
 ## [v0.50.0] - 2026-11-08
 
 ### Added
