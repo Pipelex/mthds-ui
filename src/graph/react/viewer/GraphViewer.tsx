@@ -48,6 +48,7 @@ import { findStuffByDigest } from "@graph/stuffLookup";
 import type { SaveFiles } from "@pipelex/mthds-form";
 import type {
   DownloadDisplay,
+  ResolveDocumentPdf,
   ResolveRendition,
   ResolveShareUrl,
   ResolveUrl,
@@ -274,6 +275,22 @@ export interface GraphViewerProps {
    * panel.
    */
   resolveRendition?: ResolveRendition;
+  /**
+   * Answers whether the host has a PDF of a document the browser cannot render,
+   * such as a Word, Excel or PowerPoint file, so the result panel can preview
+   * that document's pages.
+   *
+   * Called with the document's own `url` member, as `resolveUrl` is, and what
+   * the payload declares about it (`{ filename, mimeType }`); answer
+   * `undefined` for a document the host cannot convert, or an ask the panel
+   * calls when the reader opens the preview, and again while the host answers
+   * `preparing`. Only the preview uses it: the document's name, its copy
+   * control and every download keep the original. It goes on the panel's
+   * provider beside `resolveUrl`, which replaces an outer provider rather than
+   * merging with it, so a `resolveDocumentPdf` set around the graph does not
+   * reach the panel.
+   */
+  resolveDocumentPdf?: ResolveDocumentPdf;
   /**
    * Mints a URL that works OUTSIDE this page, for the copy control.
    *
@@ -563,6 +580,7 @@ function GraphViewerCanvas(
     renderDetailExtra,
     resolveUrl,
     resolveRendition,
+    resolveDocumentPdf,
     resolveShareUrl,
     saveFiles,
     downloads,
@@ -1621,8 +1639,15 @@ function GraphViewerCanvas(
     [projectedData, graphStyle],
   );
   const valueOptions = React.useMemo(
-    () => ({ resolveUrl, resolveRendition, resolveShareUrl, saveFiles, downloads }),
-    [resolveUrl, resolveRendition, resolveShareUrl, saveFiles, downloads],
+    () => ({
+      resolveUrl,
+      resolveRendition,
+      resolveDocumentPdf,
+      resolveShareUrl,
+      saveFiles,
+      downloads,
+    }),
+    [resolveUrl, resolveRendition, resolveDocumentPdf, resolveShareUrl, saveFiles, downloads],
   );
 
   // Controlled + reactive: resolved on every render (no local state) so a new

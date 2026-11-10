@@ -18,6 +18,7 @@ import {
   StuffViewer,
   useFieldStrings,
   type DownloadDisplay,
+  type ResolveDocumentPdf,
   type ResolveRendition,
   type ResolveShareUrl,
   type ResolveUrl,
@@ -86,7 +87,10 @@ import type { ConceptInfo, GraphSpecNodeIoItem, GraphTheme } from "@graph/types"
  * `public_url` the payload carries. A host that keeps smaller copies of its
  * pictures passes `resolveRendition` on the same provider, and a gallery's
  * tiles and a table cell's thumbnails are drawn from those copies while every
- * other use of a picture keeps the whole one.
+ * other use of a picture keeps the whole one. A host that can make a PDF of a
+ * document the browser cannot render, such as a Word, Excel or PowerPoint file,
+ * passes `resolveDocumentPdf` there too, and that document's preview shows the
+ * PDF's pages.
  *
  * ## Saving
  *
@@ -155,6 +159,15 @@ export interface StuffResultPanelProps extends StuffResultRendererOptions {
    */
   resolveRendition?: ResolveRendition;
   /**
+   * Answers whether the host has a PDF of a document the browser cannot render,
+   * such as a Word, Excel or PowerPoint file: `undefined` for one it cannot
+   * convert, or an ask the kernel calls when the reader opens the preview. The
+   * document's preview then shows the PDF's pages, while its name, its copy
+   * control and every download keep the original. Unset, such a document
+   * offers no preview.
+   */
+  resolveDocumentPdf?: ResolveDocumentPdf;
+  /**
    * Mints a URL that works OUTSIDE this page — what the copy control hands over.
    * A display URL may sit behind the host's session; a shared one carries its
    * own credential.
@@ -181,6 +194,7 @@ export function StuffResultPanel({
   consumer,
   resolveUrl,
   resolveRendition,
+  resolveDocumentPdf,
   resolveShareUrl,
   saveFiles,
   downloads,
@@ -206,10 +220,16 @@ export function StuffResultPanel({
     const panel = <StuffViewer field={field} value={stuff.data} name={stuff.name} />;
     // Installed only when the host said something, so a host that wraps the
     // whole graph in its own provider still reaches a panel given nothing.
-    return resolveUrl || resolveRendition || resolveShareUrl || saveFiles || downloads ? (
+    return resolveUrl ||
+      resolveRendition ||
+      resolveDocumentPdf ||
+      resolveShareUrl ||
+      saveFiles ||
+      downloads ? (
       <ResultEnvProvider
         resolveUrl={resolveUrl}
         resolveRendition={resolveRendition}
+        resolveDocumentPdf={resolveDocumentPdf}
         resolveShareUrl={resolveShareUrl}
         saveFiles={saveFiles}
         downloads={downloads}

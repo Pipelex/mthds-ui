@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+
+- **`resolveDocumentPdf` on `GraphViewer` and `StuffResultPanel`**: a host that can make a PDF of a document the browser cannot render, such as a Word, Excel or PowerPoint file, passes the form kernel's `resolveDocumentPdf` (`(url, { filename, mimeType }) => AskDocumentPdf | undefined`), and that document in the graph's data panel offers its Preview toggle and opens onto the PDF's pages, the kernel asking the host only when a reader opens it; a host that passes nothing sees no change. It goes on the panel's own result provider beside `resolveUrl`, since a provider set around the graph does not reach the panel, and a host rendering the result view itself passes it to `ResultEnvProvider` from `./form/react`, which also exports `ResolveDocumentPdf`, `AskDocumentPdf`, `DocumentPdfAnswer`, `DocumentPdfRequest` and `useResolveDocumentPdf`. A host that supplies a complete `FieldStrings` rather than a partial override adds the kernel's `documentPdfPreparing`, `documentPdfFailed` and `documentPdfUnavailable`. See [docs/stuff-result-panel.md](docs/stuff-result-panel.md#pictures-and-pdfs).
+
 ## [v0.51.0] - 2026-11-08
 
 ### Added

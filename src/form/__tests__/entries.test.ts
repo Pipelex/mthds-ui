@@ -29,6 +29,9 @@ import type {
 } from "@form/index";
 import * as formReact from "@form/react/index";
 import type {
+  AskDocumentPdf,
+  DocumentPdfAnswer,
+  DocumentPdfRequest,
   ExamplePickerSource,
   ExampleSource,
   FieldEnv,
@@ -40,6 +43,7 @@ import type {
   MarkdownCitation,
   MarkdownProps,
   RenditionRequest,
+  ResolveDocumentPdf,
   ResolveRendition,
   RunPanelProps,
   UploadedFile,
@@ -184,6 +188,29 @@ describe("the ./form/react entry", () => {
     expectTypeOf<
       ComponentProps<typeof formReact.ResultEnvProvider>["resolveRendition"]
     >().toEqualTypeOf<ResolveRendition | undefined>();
+  });
+
+  it("carries the result provider's seam for a host's PDF of a document the browser cannot render", () => {
+    // A host rendering the result view itself mounts the re-exported
+    // `ResultEnvProvider` and passes `resolveDocumentPdf` there. A host
+    // supplying a complete `FieldStrings` adds the preview's three strings.
+    expect(formReact.useResolveDocumentPdf).toBeTypeOf("function");
+    expectTypeOf<DocumentPdfRequest>().toEqualTypeOf<{ filename?: string; mimeType?: string }>();
+    expectTypeOf<AskDocumentPdf>().toEqualTypeOf<() => Promise<DocumentPdfAnswer>>();
+    expectTypeOf<ResolveDocumentPdf>().toEqualTypeOf<
+      (url: string, request: DocumentPdfRequest) => AskDocumentPdf | undefined
+    >();
+    expectTypeOf<
+      ComponentProps<typeof formReact.ResultEnvProvider>["resolveDocumentPdf"]
+    >().toEqualTypeOf<ResolveDocumentPdf | undefined>();
+    const keys = [
+      "documentPdfPreparing",
+      "documentPdfFailed",
+      "documentPdfUnavailable",
+    ] as const satisfies readonly (keyof FieldStrings)[];
+    for (const strings of [formReact.EN_FIELD_STRINGS, formReact.FR_FIELD_STRINGS]) {
+      for (const key of keys) expect(strings[key]).toBeTypeOf("string");
+    }
   });
 
   it("carries the strings of a PDF the browser cannot show and of the picture viewer", () => {
