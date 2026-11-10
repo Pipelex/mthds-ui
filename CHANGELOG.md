@@ -1,10 +1,14 @@
 # Changelog
 
-## [Unreleased]
+## [v0.52.0] - 2026-11-10
 
 ### Added
 
 - **`resolveDocumentPdf` on `GraphViewer` and `StuffResultPanel`**: a host that can make a PDF of a document the browser cannot render, such as a Word, Excel or PowerPoint file, passes the form kernel's `resolveDocumentPdf` (`(url, { filename, mimeType }) => AskDocumentPdf | undefined`), and that document in the graph's data panel offers its Preview toggle and opens onto the PDF's pages, the kernel asking the host only when a reader opens it; a host that passes nothing sees no change. It goes on the panel's own result provider beside `resolveUrl`, since a provider set around the graph does not reach the panel, and a host rendering the result view itself passes it to `ResultEnvProvider` from `./form/react`, which also exports `ResolveDocumentPdf`, `AskDocumentPdf`, `DocumentPdfAnswer`, `DocumentPdfRequest` and `useResolveDocumentPdf`. A host that supplies a complete `FieldStrings` rather than a partial override adds the kernel's `documentPdfPreparing`, `documentPdfFailed` and `documentPdfUnavailable`. See [docs/stuff-result-panel.md](docs/stuff-result-panel.md#pictures-and-pdfs).
+
+### Changed
+
+- **`@pipelex/mthds-form` ^0.36.0 (Breaking)**: the kernel's range moves from `^0.35.0` to `^0.36.0`, which a caret below 1.0 does not bridge, so a host resolves the kernel's 0.36.0, the release that carries `resolveDocumentPdf` and its three strings, only through this release. `PROMPT_HASH` stays `30cf9bc059f6` and `./form/layout-design.mthds` and `./form/layout-sample.mthds` are the same methods, so no stored layout goes stale by its hash. See [docs/run-form-panel.md](docs/run-form-panel.md).
 
 ## [v0.51.0] - 2026-11-08
 
