@@ -2,7 +2,11 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, fn, mocked, userEvent, waitFor, within } from "storybook/test";
 import { GraphViewer } from "../GraphViewer";
 import type { SaveFiles } from "@pipelex/mthds-form";
-import { FieldPresentationProvider, type ResolveRendition } from "@pipelex/mthds-form/react";
+import {
+  FieldPresentationProvider,
+  type ResolveDocumentPdf,
+  type ResolveRendition,
+} from "@pipelex/mthds-form/react";
 import { GRAPH_THEME } from "@graph/types";
 import { StuffResultPanel } from "@graph/react/detail/StuffResultPanel";
 import { LIVE_CV_SCREENING } from "./pipelines/specs/_generated.live";
@@ -228,6 +232,33 @@ export const HostKeepsCopiesOfPictures: Story = {
     const panel = mocked(StuffResultPanel);
     await expect(panel).toHaveBeenCalled();
     await expect(panel.mock.lastCall?.[0].resolveRendition).toBe(storyArgs.resolveRendition);
+  },
+};
+
+/**
+ * A host that makes a PDF of a document the browser cannot render, such as a
+ * Word, Excel or PowerPoint file: `resolveDocumentPdf` goes on `GraphViewer`,
+ * which hands it to the data panel beside `resolveUrl`.
+ *
+ * The panel installs its own provider, which replaces one set around the graph,
+ * so this hand-off is the only way a host's PDFs reach a document's preview in
+ * the graph. This graph, pipeline 09, holds a PDF, which the browser renders,
+ * so the host is never asked here and the play function reads the hand-off off
+ * the panel instead, as `HostKeepsCopiesOfPictures` does. The panel's own use
+ * of it is pinned by `StuffResultPanelDocumentPdf.test.tsx`.
+ */
+export const HostConvertsOfficeDocuments: Story = {
+  args: {
+    ...args,
+    theme: GRAPH_THEME.LIGHT,
+    resolveDocumentPdf: fn<ResolveDocumentPdf>(),
+  },
+  play: async ({ args: storyArgs, canvasElement }) => {
+    await openFirstStuffNode(canvasElement);
+    await detailPanel(canvasElement);
+    const panel = mocked(StuffResultPanel);
+    await expect(panel).toHaveBeenCalled();
+    await expect(panel.mock.lastCall?.[0].resolveDocumentPdf).toBe(storyArgs.resolveDocumentPdf);
   },
 };
 

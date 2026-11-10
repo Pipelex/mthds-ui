@@ -2,6 +2,7 @@ import React from "react";
 import type { SaveFiles } from "@pipelex/mthds-form";
 import type {
   DownloadDisplay,
+  ResolveDocumentPdf,
   ResolveRendition,
   ResolveShareUrl,
   ResolveUrl,
@@ -67,6 +68,7 @@ export function selectedNodeId(selection: DetailSelection | null): string | null
 export interface ValueRenderOptions {
   resolveUrl?: ResolveUrl;
   resolveRendition?: ResolveRendition;
+  resolveDocumentPdf?: ResolveDocumentPdf;
   resolveShareUrl?: ResolveShareUrl;
   saveFiles?: SaveFiles;
   downloads?: DownloadDisplay;
@@ -237,7 +239,14 @@ function ResultView({
   if (!descriptors) return null;
   const concept =
     stuff.concept && graphspec ? resolveConceptRef(graphspec, stuff.concept) : undefined;
-  const { resolveUrl, resolveRendition, resolveShareUrl, saveFiles, downloads } = valueOptions;
+  const {
+    resolveUrl,
+    resolveRendition,
+    resolveDocumentPdf,
+    resolveShareUrl,
+    saveFiles,
+    downloads,
+  } = valueOptions;
   return (
     <StuffResultPanel
       {...descriptors}
@@ -247,6 +256,7 @@ function ResultView({
       {...(consumer ? { consumer } : {})}
       {...(resolveUrl ? { resolveUrl } : {})}
       {...(resolveRendition ? { resolveRendition } : {})}
+      {...(resolveDocumentPdf ? { resolveDocumentPdf } : {})}
       {...(resolveShareUrl ? { resolveShareUrl } : {})}
       {...(saveFiles ? { saveFiles } : {})}
       {...(downloads ? { downloads } : {})}
