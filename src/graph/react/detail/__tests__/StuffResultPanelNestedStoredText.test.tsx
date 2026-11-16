@@ -8,10 +8,10 @@
  * stored texts nested in a node's value itself, through the host's `loadText`,
  * with the kernel's own walk (`loadStoredValues`), and draws the loaded value.
  *
- * These assertions pin that load in Node: what it hands back for a `Page[]`
- * whose text the runtime stored, for a read that fails, and for a value that
- * holds no stored text, and the rule that picks what the panel shows while a
- * load runs. The panel drawing the loaded text when its node is opened, its
+ * These assertions pin that load in Node: whether a value holds a stored
+ * text, what the load hands back for a `Page[]` whose text the runtime
+ * stored, for a read that fails, and for a value that holds no stored text,
+ * and the rule that picks what the panel shows while a load runs. The panel drawing the loaded text when its node is opened, its
  * Download when a text could not be read, a node opened again after a failed
  * read, and a host re-polling an equal value are pinned in a browser by the
  * `HostLoadsStoredPageTexts`, `StoredPageTextFails`,
@@ -35,6 +35,7 @@ import {
 import { findStuffByDigest } from "@graph/stuffLookup";
 import { parsePipeRef } from "@graph/pipeRefs";
 import {
+  holdsStoredTexts,
   loadNestedStoredTexts,
   shownNestedValue,
   type SettledNestedTexts,
@@ -107,6 +108,21 @@ function storedPages(): { items: PageData[] } {
   };
 }
 
+describe("holdsStoredTexts", () => {
+  it("finds a page text the runtime stored", () => {
+    expect(holdsStoredTexts(pagesField(), storedPages())).toBe(true);
+  });
+
+  it("finds none in pages whose texts arrived inline", () => {
+    expect(holdsStoredTexts(pagesField(), inlinePages())).toBe(false);
+  });
+
+  it("finds none in an absent value", () => {
+    expect(holdsStoredTexts(pagesField(), null)).toBe(false);
+    expect(holdsStoredTexts(pagesField(), undefined)).toBe(false);
+  });
+});
+
 describe("loadNestedStoredTexts", () => {
   it("loads the whole text of each page whose text the runtime stored", async () => {
     const texts = pageTexts();
@@ -115,9 +131,7 @@ describe("loadNestedStoredTexts", () => {
 
     const loaded = await loadNestedStoredTexts(pagesField(), stored, load);
 
-    expect(loaded).not.toBeNull();
-    expect(loaded?.unloaded).toBe(0);
-    const pages = (loaded?.value as { items: PageData[] }).items;
+    const pages = (loaded as { items: PageData[] }).items;
     expect(pages).toHaveLength(stored.items.length);
     pages.forEach((page, index) => {
       expect(page.text_and_images.text).toEqual({ text: texts.get(pageUrl(index)) });
@@ -127,30 +141,29 @@ describe("loadNestedStoredTexts", () => {
     expect(stored.items[0]?.text_and_images.text).toHaveProperty("url", pageUrl(0));
   });
 
-  it("keeps the references, and counts them, when a read fails", async () => {
+  it("answers the same value, its references kept, when every read fails", async () => {
     const load = vi.fn<LoadText>(() => Promise.reject(new Error("refused")));
     const stored = storedPages();
 
     const loaded = await loadNestedStoredTexts(pagesField(), stored, load);
 
-    expect(loaded?.unloaded).toBe(stored.items.length);
+    expect(load).toHaveBeenCalledTimes(stored.items.length);
     // Nothing was loaded, so the value is the same one: no reference is turned into a text.
-    expect(loaded?.value).toBe(stored);
+    expect(loaded).toBe(stored);
   });
 
-  it("reads nothing, and answers null, for a value that holds no stored text", async () => {
+  it("reads nothing, and answers the same value, for a value that holds no stored text", async () => {
     const load = vi.fn<LoadText>(() => Promise.resolve("never"));
+    const inline = inlinePages();
 
-    const loaded = await loadNestedStoredTexts(pagesField(), inlinePages(), load);
-
-    expect(loaded).toBeNull();
+    await expect(loadNestedStoredTexts(pagesField(), inline, load)).resolves.toBe(inline);
     expect(load).not.toHaveBeenCalled();
   });
 
   it("reads nothing for an absent value", async () => {
     const load = vi.fn<LoadText>(() => Promise.resolve("never"));
     await expect(loadNestedStoredTexts(pagesField(), null, load)).resolves.toBeNull();
-    await expect(loadNestedStoredTexts(pagesField(), undefined, load)).resolves.toBeNull();
+    await expect(loadNestedStoredTexts(pagesField(), undefined, load)).resolves.toBeUndefined();
     expect(load).not.toHaveBeenCalled();
   });
 });
@@ -180,6 +193,15 @@ describe("shownNestedValue", () => {
     const repolled = structuredClone(stored);
     expect(repolled).not.toBe(stored);
     expect(shownNestedValue(settled, NODE, repolled)).toBe(settled.shown);
+  });
+
+  it("shows a poll's new content as it came, never the node's older data", () => {
+    const { stored, settled } = settledPages();
+    const changed = structuredClone(stored);
+    const first = changed.items[0];
+    if (!first) throw new Error("pipeline 09's live run has no pages");
+    first.text_and_images.images = [{ url: "pipelex-storage://run/generated/pages/0/new.png" }];
+    expect(shownNestedValue(settled, NODE, changed)).toBe(changed);
   });
 
   it("never shows one node's loaded value on another node", () => {

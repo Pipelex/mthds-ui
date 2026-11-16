@@ -460,6 +460,43 @@ export const HostLoadsStoredPageTexts: Story = {
   },
 };
 
+/** The words the panel says while the stored texts in a value are being loaded. */
+const LOADING_TEXTS = /^Loading the whole text/;
+
+/**
+ * While the page texts are being read, a line above the value says so rather
+ * than leaving the pages to read as if they had no text, and it goes once the
+ * texts arrive. A node holding no stored text never shows it.
+ */
+export const StoredPageTextsLoading: Story = {
+  args: {
+    ...args,
+    graph: { ...args.graph, graphSpec: withStoredPageTexts(LIVE_CV_SCREENING) },
+    theme: GRAPH_THEME.LIGHT,
+    loadText: fn<LoadText>(),
+  },
+  play: async ({ args: storyArgs, canvasElement }) => {
+    const loadText = storyArgs.loadText as ReturnType<typeof fn<LoadText>>;
+    let release: () => void = () => {};
+    const held = new Promise<void>((resolve) => {
+      release = resolve;
+    });
+    loadText.mockImplementation((url) => held.then(() => PAGE_TEXTS.get(url) ?? ""));
+
+    const cv = await openStuffNode(canvasElement, "cv");
+    await expect(cv.queryByText(LOADING_TEXTS)).toBeNull();
+
+    const panel = await openStuffNode(canvasElement, "pages");
+    const status = await waitFor(() => panel.getByText(LOADING_TEXTS));
+    await expect(status).toHaveAttribute("role", "status");
+    await expect(panel.queryByText(new RegExp(DEEP_PAGE_LINE))).toBeNull();
+
+    release();
+    await waitFor(() => expect(panel.getByText(new RegExp(DEEP_PAGE_LINE))).toBeInTheDocument());
+    await expect(panel.queryByText(LOADING_TEXTS)).toBeNull();
+  },
+};
+
 /**
  * The same pages when the host cannot read their texts: the page keeps its
  * stored reference, so the panel never draws an address as if it were the
@@ -482,6 +519,8 @@ export const StoredPageTextFails: Story = {
     const panel = await openStuffNode(canvasElement, "pages");
     // Every page's text was asked for once, and every read failed.
     await waitFor(() => expect(loadText).toHaveBeenCalledTimes(PAGE_TEXTS.size));
+    // The load settled: the line saying it was running is gone.
+    await waitFor(() => expect(panel.queryByText(LOADING_TEXTS)).toBeNull());
     await expect(panel.queryByText(new RegExp(DEEP_PAGE_LINE))).toBeNull();
     await expect(panel.queryByText(/pipelex-storage:/)).toBeNull();
 
@@ -584,9 +623,11 @@ function RepollingHost({ loadText }: { loadText: LoadText }) {
 
 /**
  * A re-poll re-creates the value: the texts already read stay on screen, and
- * never flash back to their references while the new value is read again. A
- * watcher on the panel records every state the page commits, so a single
- * frame without the text fails the story.
+ * never flash back to their references, nor to the loading line, while the
+ * equal value is read again. A watcher on the panel records every state the
+ * page commits, so a single frame without the text fails the story. A poll
+ * that changes the content is shown as it came instead, never the older data
+ * (`StuffResultPanelNestedStoredText.test.tsx`).
  */
 export const RepolledPagesKeepTheirTexts: Story = {
   args: {
@@ -603,7 +644,8 @@ export const RepolledPagesKeepTheirTexts: Story = {
 
     let lost = false;
     const watcher = new MutationObserver(() => {
-      if (!panelEl.textContent?.includes(DEEP_PAGE_LINE)) lost = true;
+      const text = panelEl.textContent ?? "";
+      if (!text.includes(DEEP_PAGE_LINE) || text.includes("Loading the whole text")) lost = true;
     });
     watcher.observe(panelEl, { childList: true, subtree: true, characterData: true });
     try {

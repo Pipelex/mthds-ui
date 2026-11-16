@@ -111,9 +111,10 @@ import type { ConceptInfo, GraphSpecNodeIoItem, GraphTheme } from "@graph/types"
  * text in the value with the kernel's own walk (`useNestedStoredTexts`),
  * through the provider's loader, which asks the host once per address for
  * this load and the kernel's own views alike. The value shows as it came until
- * the texts are read, then with them inline, and keeps them while an equal
- * value a host re-creates is read again. A value holding none is read with no
- * request; a text whose read fails keeps its reference. The kernel's
+ * the texts are read, with a line saying they are being loaded, then with
+ * them inline, and keeps them while an equal value a host re-creates is read
+ * again. A value holding none is read with no request; a text whose read
+ * fails keeps its reference. The kernel's
  * whole-result Download loads the value's stored texts again itself, so it
  * saves the texts it can read and says how many it could not.
  *
@@ -329,6 +330,13 @@ export function StuffResultPanel({
  * outer one the host installed, so it loads through that provider's
  * `loadText`, which asks each address once for this load and the kernel's own
  * view of a stored text alike.
+ *
+ * While the load runs, a line above the value says so in the kernel's own
+ * words (`storedTextLoading`), since a view that reads a nested text only
+ * inline, such as the kernel's page view, would otherwise say the text is
+ * absent. It is drawn from the first render of a value holding stored texts,
+ * never for one holding none, and goes in the same render that brings the
+ * texts in.
  */
 function LoadedStuffViewer({
   field,
@@ -341,8 +349,18 @@ function LoadedStuffViewer({
   value: unknown;
   name: string;
 }) {
+  const s = useFieldStrings();
   const shown = useNestedStoredTexts(field, nodeKey, value, useLoadText());
-  return <StuffViewer field={field} value={shown} name={name} />;
+  return (
+    <>
+      {shown.loading && (
+        <p role="status" className="detail-stored-texts-loading">
+          {s.storedTextLoading(undefined)}
+        </p>
+      )}
+      <StuffViewer field={field} value={shown.value} name={name} />
+    </>
+  );
 }
 
 function UndescribedValue({ value }: { value: unknown }) {

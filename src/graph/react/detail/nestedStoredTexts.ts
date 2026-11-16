@@ -1,5 +1,10 @@
 import * as React from "react";
-import { loadStoredValues, type LoadText, type RunField } from "@pipelex/mthds-form";
+import {
+  loadStoredValues,
+  readStoredReference,
+  type LoadText,
+  type RunField,
+} from "@pipelex/mthds-form";
 
 /**
  * The stored texts nested in a node's value, loaded for the graph's data panel.
@@ -14,46 +19,53 @@ import { loadStoredValues, type LoadText, type RunField } from "@pipelex/mthds-f
  * lists and natives alike, and draws the loaded value.
  */
 
-/** A node's value with its stored texts loaded, and how many could not be. */
-export interface NestedTextsLoaded {
-  /**
-   * The value with every stored text that was read put inline. The value it
-   * was loaded from, the same object, when none could be read.
-   */
-  value: unknown;
-  /** How many stored texts kept their reference because their read failed. */
-  unloaded: number;
+/**
+ * Whether `value` holds a stored text anywhere the kernel's walk would load
+ * one: the value itself when the field is a stored value's node, and the
+ * members of a structure and the items of a list beneath it. It follows
+ * `loadStoredValues`'s own walk, reading each place with the kernel's
+ * `readStoredReference`, and answers at once, so the panel knows from its
+ * first render whether a load is coming and never says so for a value that
+ * holds none.
+ */
+export function holdsStoredTexts(field: RunField, value: unknown): boolean {
+  if (readStoredReference(field, value)) return true;
+  if (field.kind === "list" && Array.isArray(value)) {
+    return value.some((item) => holdsStoredTexts(field.item, item));
+  }
+  if (field.kind === "list" && field.contentKey !== undefined && isRecord(value)) {
+    const items = Object.hasOwn(value, field.contentKey) ? value[field.contentKey] : undefined;
+    return Array.isArray(items) && holdsStoredTexts(field, items);
+  }
+  if (field.kind === "object" && isRecord(value)) {
+    return field.fields.some(
+      (member) => Object.hasOwn(value, member.name) && holdsStoredTexts(member, value[member.name]),
+    );
+  }
+  return false;
 }
 
 /**
- * Load the stored texts nested in `value` through `load`. `null` when the value
- * holds none, in which case nothing was read and the caller keeps its value as
- * it is. Never rejects: a read that fails leaves that text's reference in place
- * and is counted in `unloaded`, and a value none of whose texts could be read
- * comes back as the same object.
+ * Load the stored texts nested in `value` through `load`, with the kernel's
+ * `loadStoredValues`, which never rejects: a read that fails leaves that
+ * text's reference in place. Answers the value with every text that was read
+ * put inline, or the value it was given, the same object, when nothing was
+ * read: it held no stored text, or none could be read.
  */
 export async function loadNestedStoredTexts(
   field: RunField,
   value: unknown,
   load: LoadText,
-): Promise<NestedTextsLoaded | null> {
-  if (value === null || value === undefined) return null;
-  let asked = 0;
-  let read = 0;
-  const counted: LoadText = (url) => {
-    asked += 1;
-    return load(url).then((text) => {
-      read += 1;
+): Promise<unknown> {
+  if (value === null || value === undefined) return value;
+  let read = false;
+  const loaded = await loadStoredValues(field, value, (url) =>
+    load(url).then((text) => {
+      read = true;
       return text;
-    });
-  };
-  try {
-    const loaded = await loadStoredValues(field, value, counted);
-    if (asked === 0) return null;
-    return { value: read === 0 ? value : loaded.value, unloaded: loaded.unloaded };
-  } catch {
-    return asked === 0 ? null : { value, unloaded: Math.max(asked - read, 1) };
-  }
+    }),
+  );
+  return read ? loaded.value : value;
 }
 
 /**
@@ -70,32 +82,55 @@ export interface SettledNestedTexts {
 }
 
 /**
+ * Whether the last load that settled answers for node `key`'s `value`: the
+ * same node, and the value it read or one structurally equal to it, as a host
+ * re-polling its run hands over. A value with any other content is not
+ * answered for, whatever node it belongs to.
+ */
+export function settledFor(
+  settled: SettledNestedTexts | null,
+  key: string,
+  value: unknown,
+): settled is SettledNestedTexts {
+  return (
+    settled !== null &&
+    settled.key === key &&
+    (settled.value === value || sameJsonValue(settled.value, value))
+  );
+}
+
+/**
  * What the panel shows for node `key`'s `value`, given the last load that
- * settled. The same node's value is shown as that load left it, even while a
- * load of a new value is still running, so a host that re-creates an equal
- * value on every poll never sees the texts flash back to their references.
- * Another node's load is never shown: until this node's own load settles, its
- * value is shown as it came.
+ * settled: what that load left when it answers for this value
+ * (`settledFor`), so a host that re-creates an equal value on every poll
+ * never sees the texts flash back to their references; the value as it came
+ * otherwise, so neither another node's data nor this node's older data is
+ * ever drawn while new content is read.
  */
 export function shownNestedValue(
   settled: SettledNestedTexts | null,
   key: string,
   value: unknown,
 ): unknown {
-  if (!settled || settled.key !== key) return value;
-  // The same node: either the value that load read, or a newer one whose own
-  // load has not settled yet (every load settles, with or without texts), so
-  // the last value read stands until it does.
-  return settled.shown;
+  return settledFor(settled, key, value) ? settled.shown : value;
+}
+
+/** What the panel draws for a node's value. */
+export interface NestedTextsShown {
+  /** The value, with its stored texts inline once they are read. */
+  value: unknown;
+  /** True while the value holds stored texts whose load has not settled. */
+  loading: boolean;
 }
 
 /**
  * A node's value as the panel shows it: at once as the spec holds it, then,
  * once its nested stored texts are read through `load`, with them inline. A
- * value holding no stored text is read with no request and handed back as the
- * same object, and so is one none of whose texts could be read. `key` names
- * the node the value belongs to: while a new value of the same node is being
- * read, the last one read is still shown (`shownNestedValue`), and a load
+ * value holding no stored text is read with no request, never reported as
+ * loading, and handed back as the same object; so is one none of whose texts
+ * could be read, once its load settles. `key` names the node the value
+ * belongs to: a value equal to the one last read for that node keeps showing
+ * that load's texts while it is read again (`shownNestedValue`), and a load
  * still running when another node opens is discarded. With no `load`, no
  * `field` or no value, the value stays as it came.
  *
@@ -109,27 +144,58 @@ export function useNestedStoredTexts(
   key: string,
   value: unknown,
   load: LoadText | undefined,
-): unknown {
+): NestedTextsShown {
   const [settled, setSettled] = React.useState<SettledNestedTexts | null>(null);
   const loadRef = React.useRef(load);
   loadRef.current = load;
   const canLoad = load !== undefined;
+  const holds = React.useMemo(
+    () => field !== null && value !== null && value !== undefined && holdsStoredTexts(field, value),
+    [field, value],
+  );
+  const loads = canLoad && holds;
 
   React.useEffect(() => {
-    if (!canLoad || !field || value === null || value === undefined) return;
+    if (!loads || !field) return;
     let live = true;
     const latest: LoadText = (url) => {
       const current = loadRef.current;
       return current ? current(url) : Promise.reject(new Error("No loader."));
     };
-    void loadNestedStoredTexts(field, value, latest).then((loaded) => {
-      if (live) setSettled({ key, value, shown: loaded ? loaded.value : value });
+    void loadNestedStoredTexts(field, value, latest).then((shown) => {
+      if (live) setSettled({ key, value, shown });
     });
     return () => {
       live = false;
     };
-  }, [field, key, value, canLoad]);
+  }, [loads, field, key, value]);
 
-  if (!canLoad || !field || value === null || value === undefined) return value;
-  return shownNestedValue(settled, key, value);
+  if (!loads) return { value, loading: false };
+  return settledFor(settled, key, value)
+    ? { value: settled.shown, loading: false }
+    : { value, loading: true };
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+/**
+ * Whether two values a spec holds, plain JSON, have the same content: the same
+ * primitives, arrays of equal items in order, and objects with the same keys
+ * holding equal values.
+ */
+function sameJsonValue(a: unknown, b: unknown): boolean {
+  if (a === b) return true;
+  if (Array.isArray(a)) {
+    return (
+      Array.isArray(b) && a.length === b.length && a.every((item, i) => sameJsonValue(item, b[i]))
+    );
+  }
+  if (!isRecord(a) || !isRecord(b)) return false;
+  const keys = Object.keys(a);
+  return (
+    keys.length === Object.keys(b).length &&
+    keys.every((name) => Object.hasOwn(b, name) && sameJsonValue(a[name], b[name]))
+  );
 }
