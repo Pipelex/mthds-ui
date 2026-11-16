@@ -594,6 +594,13 @@
   outline-offset: 2px;
 }
 
+/* The line above a value whose nested stored texts are being loaded. */
+.detail-stored-texts-loading {
+  margin: 0 0 8px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
 /* ─── Concept panel header ──────────────────────────────────────────────── */
 
 .detail-concept-code {
