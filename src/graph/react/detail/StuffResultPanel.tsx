@@ -111,10 +111,11 @@ import type { ConceptInfo, GraphSpecNodeIoItem, GraphTheme } from "@graph/types"
  * text in the value with the kernel's own walk (`useNestedStoredTexts`),
  * through the provider's loader, which asks the host once per address for
  * this load and the kernel's own views alike. The value shows as it came until
- * the texts are read, then with them inline. A value holding none is read with
- * no request; a text whose read fails keeps its reference, and a panel that
- * installs its own provider then holds back the whole-result Download, which
- * would save that address in place of the text.
+ * the texts are read, then with them inline, and keeps them while an equal
+ * value a host re-creates is read again. A value holding none is read with no
+ * request; a text whose read fails keeps its reference. The kernel's
+ * whole-result Download loads the value's stored texts again itself, so it
+ * saves the texts it can read and says how many it could not.
  *
  * ## Saving
  *
@@ -252,13 +253,16 @@ export function StuffResultPanel({
       ),
     [pipeIoContracts, outputForm, inputForm, producerPipeRef, consumerPipeRef, consumerSlot],
   );
-  // Whether a stored text in the value could not be read, as `LoadedStuffViewer`
-  // reports it. Such a text keeps its reference, and the whole-result Download
-  // would save that address where the text belongs, so it is held back.
-  const [textsHeld, setTextsHeld] = React.useState(false);
-  const shownDownloads: DownloadDisplay | undefined = textsHeld
-    ? { ...downloads, result: false }
-    : downloads;
+  // The node the value belongs to, so a value loaded for one node is never
+  // shown on another, while a host re-creating the same node's value keeps
+  // the texts already read.
+  const nodeKey = [
+    stuff.digest ?? "",
+    stuff.name,
+    producerPipeRef ?? "",
+    consumerPipeRef ?? "",
+    consumerSlot ?? "",
+  ].join("\u0000");
 
   if (field) {
     // The STUFF's name, not the descriptor's. `build_output_form` names every
@@ -272,12 +276,7 @@ export function StuffResultPanel({
     // An HTML page (`native.Html`) is the one result it leaves untitled in
     // `app` even when named, by design: the page heads itself.
     const panel = (
-      <LoadedStuffViewer
-        field={field}
-        value={stuff.data}
-        name={stuff.name}
-        onTextsHeld={setTextsHeld}
-      />
+      <LoadedStuffViewer field={field} nodeKey={nodeKey} value={stuff.data} name={stuff.name} />
     );
     // Installed only when the host said something, so a host that wraps the
     // whole graph in its own provider still reaches a panel given nothing.
@@ -295,7 +294,7 @@ export function StuffResultPanel({
         resolveDocumentPdf={resolveDocumentPdf}
         resolveShareUrl={resolveShareUrl}
         saveFiles={saveFiles}
-        downloads={shownDownloads}
+        downloads={downloads}
       >
         {panel}
       </ResultEnvProvider>
@@ -326,27 +325,24 @@ export function StuffResultPanel({
 /**
  * The kernel's `StuffViewer` over a value whose nested stored texts are loaded
  * (`useNestedStoredTexts`): drawn at once as the spec holds it, then with the
- * texts inline once they are read. Rendered inside the panel's provider, so it
- * loads through the provider's `loadText`, which asks each address once for
- * this load and the kernel's own view of a stored text alike, and reports up
- * whether a text could not be read.
+ * texts inline once they are read. Rendered inside the panel's provider, or an
+ * outer one the host installed, so it loads through that provider's
+ * `loadText`, which asks each address once for this load and the kernel's own
+ * view of a stored text alike.
  */
 function LoadedStuffViewer({
   field,
+  nodeKey,
   value,
   name,
-  onTextsHeld,
 }: {
   field: RunField;
+  nodeKey: string;
   value: unknown;
   name: string;
-  onTextsHeld: (held: boolean) => void;
 }) {
-  const shown = useNestedStoredTexts(field, value, useLoadText());
-  React.useEffect(() => {
-    onTextsHeld(shown.textsHeld);
-  }, [shown.textsHeld, onTextsHeld]);
-  return <StuffViewer field={field} value={shown.value} name={name} />;
+  const shown = useNestedStoredTexts(field, nodeKey, value, useLoadText());
+  return <StuffViewer field={field} value={shown} name={name} />;
 }
 
 function UndescribedValue({ value }: { value: unknown }) {

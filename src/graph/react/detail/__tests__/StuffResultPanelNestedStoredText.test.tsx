@@ -10,10 +10,13 @@
  *
  * These assertions pin that load in Node: what it hands back for a `Page[]`
  * whose text the runtime stored, for a read that fails, and for a value that
- * holds no stored text. The panel drawing the loaded text when its node is
- * opened, and holding back its Download when a text could not be read, is
- * pinned in a browser by the `HostLoadsStoredPageTexts` and
- * `StoredPageTextFails` stories in `GraphWithResultPanel.stories.tsx`.
+ * holds no stored text, and the rule that picks what the panel shows while a
+ * load runs. The panel drawing the loaded text when its node is opened, its
+ * Download when a text could not be read, a node opened again after a failed
+ * read, and a host re-polling an equal value are pinned in a browser by the
+ * `HostLoadsStoredPageTexts`, `StoredPageTextFails`,
+ * `StoredPageTextReadsAgainOnReopen` and `RepolledPagesKeepTheirTexts` stories
+ * in `GraphWithResultPanel.stories.tsx`.
  *
  * The value is pipeline 09's live `pages`, the `Page[]` its extract step
  * produced, located by digest as the graph locates it and described by the
@@ -31,7 +34,11 @@ import {
 } from "@pipelex/mthds-form";
 import { findStuffByDigest } from "@graph/stuffLookup";
 import { parsePipeRef } from "@graph/pipeRefs";
-import { loadNestedStoredTexts } from "@graph/react/detail/nestedStoredTexts";
+import {
+  loadNestedStoredTexts,
+  shownNestedValue,
+  type SettledNestedTexts,
+} from "@graph/react/detail/nestedStoredTexts";
 import { LIVE_CV_SCREENING } from "@graph/react/viewer/__stories__/pipelines/specs/_generated/live/pipeline_09";
 import {
   CONTRACTS_CV_SCREENING,
@@ -145,5 +152,40 @@ describe("loadNestedStoredTexts", () => {
     await expect(loadNestedStoredTexts(pagesField(), null, load)).resolves.toBeNull();
     await expect(loadNestedStoredTexts(pagesField(), undefined, load)).resolves.toBeNull();
     expect(load).not.toHaveBeenCalled();
+  });
+});
+
+describe("shownNestedValue", () => {
+  const NODE = "stuff_pages";
+  const OTHER_NODE = "stuff_other";
+
+  /** The pages of `NODE` once their texts were read. */
+  function settledPages(): { stored: { items: PageData[] }; settled: SettledNestedTexts } {
+    const stored = storedPages();
+    return { stored, settled: { key: NODE, value: stored, shown: inlinePages() } };
+  }
+
+  it("shows the value as it came before any load settled", () => {
+    const stored = storedPages();
+    expect(shownNestedValue(null, NODE, stored)).toBe(stored);
+  });
+
+  it("shows the loaded value for the value it was loaded from", () => {
+    const { stored, settled } = settledPages();
+    expect(shownNestedValue(settled, NODE, stored)).toBe(settled.shown);
+  });
+
+  it("keeps the loaded value while an equal value re-created by a poll is read again", () => {
+    const { stored, settled } = settledPages();
+    const repolled = structuredClone(stored);
+    expect(repolled).not.toBe(stored);
+    expect(shownNestedValue(settled, NODE, repolled)).toBe(settled.shown);
+  });
+
+  it("never shows one node's loaded value on another node", () => {
+    const { stored, settled } = settledPages();
+    expect(shownNestedValue(settled, OTHER_NODE, stored)).toBe(stored);
+    const repolled = structuredClone(stored);
+    expect(shownNestedValue(settled, OTHER_NODE, repolled)).toBe(repolled);
   });
 });

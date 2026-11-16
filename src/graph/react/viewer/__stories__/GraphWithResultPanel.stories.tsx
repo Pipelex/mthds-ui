@@ -1,3 +1,4 @@
+import * as React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, fn, mocked, userEvent, waitFor, within } from "storybook/test";
 import { GraphViewer } from "../GraphViewer";
@@ -9,6 +10,7 @@ import {
 } from "@pipelex/mthds-form/react";
 import { GRAPH_THEME, type GraphSpec, type GraphSpecNodeIoItem } from "@graph/types";
 import { StuffResultPanel } from "@graph/react/detail/StuffResultPanel";
+import { findStuffByDigest } from "@graph/stuffLookup";
 import { LIVE_CV_SCREENING } from "./pipelines/specs/_generated.live";
 import {
   CONTRACTS_CV_SCREENING,
@@ -461,8 +463,10 @@ export const HostLoadsStoredPageTexts: Story = {
 /**
  * The same pages when the host cannot read their texts: the page keeps its
  * stored reference, so the panel never draws an address as if it were the
- * text, and holds back the whole-result Download, which would otherwise save
- * the references in place of the texts.
+ * text. The kernel's whole-result Download stays: it loads the value's stored
+ * texts again itself, asking the host afresh since the kernel forgets a failed
+ * read, saves what it has, and says how many texts it could not load, the
+ * file holding their links instead.
  */
 export const StoredPageTextFails: Story = {
   args: {
@@ -470,14 +474,150 @@ export const StoredPageTextFails: Story = {
     graph: { ...args.graph, graphSpec: withStoredPageTexts(LIVE_CV_SCREENING) },
     theme: GRAPH_THEME.LIGHT,
     loadText: fn<LoadText>(() => Promise.reject(new Error("The stored text could not be read."))),
+    saveFiles: fn<SaveFiles>(() => Promise.resolve({ failed: [] })),
   },
   play: async ({ args: storyArgs, canvasElement }) => {
     const loadText = storyArgs.loadText as ReturnType<typeof fn<LoadText>>;
+    const saveFiles = storyArgs.saveFiles as ReturnType<typeof fn<SaveFiles>>;
     const panel = await openStuffNode(canvasElement, "pages");
-    await waitFor(() => expect(loadText).toHaveBeenCalledWith(storedPageUrl(0)));
-    await waitFor(() => expect(panel.queryByRole("button", { name: /^Download/ })).toBeNull());
+    // Every page's text was asked for once, and every read failed.
+    await waitFor(() => expect(loadText).toHaveBeenCalledTimes(PAGE_TEXTS.size));
     await expect(panel.queryByText(new RegExp(DEEP_PAGE_LINE))).toBeNull();
     await expect(panel.queryByText(/pipelex-storage:/)).toBeNull();
+
+    await userEvent.click(panel.getByRole("button", { name: /^Download/ }));
+    await waitFor(() =>
+      expect(
+        panel.getByText(/could not be loaded; the file holds (its link|their links) instead/),
+      ).toBeInTheDocument(),
+    );
+    await expect(saveFiles).toHaveBeenCalledTimes(1);
+    // The Download asked the host again rather than reusing the failed reads.
+    await expect(loadText).toHaveBeenCalledTimes(PAGE_TEXTS.size * 2);
+  },
+};
+
+/**
+ * A read that fails once, as a transient error does: closing the node and
+ * opening it again reads its stored texts afresh, and the texts show. The
+ * panel's load runs while its node is open, and the kernel's provider forgets
+ * a failed read, so nothing keeps the first failure.
+ */
+export const StoredPageTextReadsAgainOnReopen: Story = {
+  args: {
+    ...args,
+    graph: { ...args.graph, graphSpec: withStoredPageTexts(LIVE_CV_SCREENING) },
+    theme: GRAPH_THEME.LIGHT,
+    loadText: fn<LoadText>(),
+  },
+  play: async ({ args: storyArgs, canvasElement }) => {
+    const loadText = storyArgs.loadText as ReturnType<typeof fn<LoadText>>;
+    const failedOnce = new Set<string>();
+    loadText.mockImplementation((url) => {
+      if (!failedOnce.has(url)) {
+        failedOnce.add(url);
+        return Promise.reject(new Error("The storage did not answer in time."));
+      }
+      return Promise.resolve(PAGE_TEXTS.get(url) ?? "");
+    });
+
+    let panel = await openStuffNode(canvasElement, "pages");
+    await waitFor(() => expect(loadText).toHaveBeenCalledTimes(PAGE_TEXTS.size));
+    await expect(panel.queryByText(new RegExp(DEEP_PAGE_LINE))).toBeNull();
+
+    const close = canvasElement.querySelector<HTMLElement>(".detail-panel-close");
+    await expect(close).not.toBeNull();
+    await userEvent.click(close!);
+    // Closed: the panel's result view, and the load with it, is gone.
+    await waitFor(() =>
+      expect(canvasElement.querySelector(".detail-panel")).toHaveClass("detail-panel--closed"),
+    );
+    await expect(
+      within(canvasElement.querySelector<HTMLElement>(".detail-panel-content")!).queryByRole(
+        "button",
+        { name: "Result" },
+      ),
+    ).toBeNull();
+
+    panel = await openStuffNode(canvasElement, "pages");
+    await waitFor(() => expect(panel.getByText(new RegExp(DEEP_PAGE_LINE))).toBeInTheDocument());
+    await expect(loadText).toHaveBeenCalledTimes(PAGE_TEXTS.size * 2);
+  },
+};
+
+/** Pipeline 09's `pages`, each page's text stored, as a host rendering the panel itself holds them. */
+const STORED_PAGES = findStuffByDigest(withStoredPageTexts(LIVE_CV_SCREENING), "UbyYf");
+
+/**
+ * A host that renders `StuffResultPanel` itself and re-polls its run, handing
+ * the panel a new but equal value on every poll.
+ */
+function RepollingHost({ loadText }: { loadText: LoadText }) {
+  const base = STORED_PAGES?.item;
+  const [stuff, setStuff] = React.useState(() => (base ? structuredClone(base) : undefined));
+  const [polls, setPolls] = React.useState(0);
+  if (!stuff || !STORED_PAGES?.producerPipeRef) return <p>pipeline 09 has no pages</p>;
+  return (
+    <div style={{ padding: 16 }}>
+      <button
+        type="button"
+        onClick={() => {
+          setStuff(structuredClone(base));
+          setPolls((n) => n + 1);
+        }}
+      >
+        Poll again
+      </button>
+      <p>Polled {polls} times</p>
+      <div data-testid="repolled-panel">
+        <StuffResultPanel
+          pipeIoContracts={CONTRACTS_CV_SCREENING}
+          outputForm={OUTPUT_FORM_CV_SCREENING}
+          stuff={stuff}
+          producerPipeRef={STORED_PAGES.producerPipeRef}
+          loadText={loadText}
+        />
+      </div>
+    </div>
+  );
+}
+
+/**
+ * A re-poll re-creates the value: the texts already read stay on screen, and
+ * never flash back to their references while the new value is read again. A
+ * watcher on the panel records every state the page commits, so a single
+ * frame without the text fails the story.
+ */
+export const RepolledPagesKeepTheirTexts: Story = {
+  args: {
+    ...args,
+    loadText: fn<LoadText>((url) => Promise.resolve(PAGE_TEXTS.get(url) ?? "")),
+  },
+  render: (storyArgs) => <RepollingHost loadText={storyArgs.loadText as LoadText} />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const panelEl = await canvas.findByTestId("repolled-panel");
+    await waitFor(() => expect(panelEl.textContent).toContain(DEEP_PAGE_LINE), {
+      timeout: 10000,
+    });
+
+    let lost = false;
+    const watcher = new MutationObserver(() => {
+      if (!panelEl.textContent?.includes(DEEP_PAGE_LINE)) lost = true;
+    });
+    watcher.observe(panelEl, { childList: true, subtree: true, characterData: true });
+    try {
+      for (let poll = 1; poll <= 3; poll += 1) {
+        await userEvent.click(canvas.getByRole("button", { name: "Poll again" }));
+        await waitFor(() => expect(canvas.getByText(`Polled ${poll} times`)).toBeInTheDocument());
+        // Let the new value's load run and settle.
+        await new Promise((resolve) => setTimeout(resolve, 100));
+      }
+    } finally {
+      watcher.disconnect();
+    }
+    await expect(lost).toBe(false);
+    await expect(panelEl.textContent).toContain(DEEP_PAGE_LINE);
   },
 };
 

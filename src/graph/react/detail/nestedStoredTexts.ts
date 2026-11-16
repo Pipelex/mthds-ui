@@ -56,38 +56,61 @@ export async function loadNestedStoredTexts(
   }
 }
 
-/** A load's answer, kept with what it was loaded from, so a newer value never shows an older text. */
-interface Settled {
-  field: RunField;
+/**
+ * The last load that settled for a node: the node it belongs to, the value it
+ * was loaded from, and what that value is shown as.
+ */
+export interface SettledNestedTexts {
+  /** Which node's value was loaded, as the panel names it (`useNestedStoredTexts`). */
+  key: string;
+  /** The value the load read, as the spec held it. */
   value: unknown;
-  loaded: NestedTextsLoaded;
+  /** What it is shown as: the value with its stored texts inline, or the value itself. */
+  shown: unknown;
 }
 
-/** What the panel draws: the value, and whether a stored text in it could not be read. */
-export interface NestedTextsShown {
-  value: unknown;
-  /** True once a load has settled with a stored text it could not read. */
-  textsHeld: boolean;
+/**
+ * What the panel shows for node `key`'s `value`, given the last load that
+ * settled. The same node's value is shown as that load left it, even while a
+ * load of a new value is still running, so a host that re-creates an equal
+ * value on every poll never sees the texts flash back to their references.
+ * Another node's load is never shown: until this node's own load settles, its
+ * value is shown as it came.
+ */
+export function shownNestedValue(
+  settled: SettledNestedTexts | null,
+  key: string,
+  value: unknown,
+): unknown {
+  if (!settled || settled.key !== key) return value;
+  // The same node: either the value that load read, or a newer one whose own
+  // load has not settled yet (every load settles, with or without texts), so
+  // the last value read stands until it does.
+  return settled.shown;
 }
 
 /**
  * A node's value as the panel shows it: at once as the spec holds it, then,
  * once its nested stored texts are read through `load`, with them inline. A
  * value holding no stored text is read with no request and handed back as the
- * same object, and so is one none of whose texts could be read. A load still
- * running when another node's value arrives is discarded. With no `load` or no
- * `field`, the value stays as it came.
+ * same object, and so is one none of whose texts could be read. `key` names
+ * the node the value belongs to: while a new value of the same node is being
+ * read, the last one read is still shown (`shownNestedValue`), and a load
+ * still running when another node opens is discarded. With no `load`, no
+ * `field` or no value, the value stays as it came.
  *
  * Runs only while the panel is drawn, which is only while its node is open, so
- * nothing is read for a node never opened. `load`'s identity need not be
- * stable: the latest one is called, and a new one does not start another load.
+ * nothing is read for a node never opened, and reopening a node reads again.
+ * `load`'s identity need not be stable: the latest one is called, and a new
+ * one does not start another load.
  */
 export function useNestedStoredTexts(
   field: RunField | null,
+  key: string,
   value: unknown,
   load: LoadText | undefined,
-): NestedTextsShown {
-  const [settled, setSettled] = React.useState<Settled | null>(null);
+): unknown {
+  const [settled, setSettled] = React.useState<SettledNestedTexts | null>(null);
   const loadRef = React.useRef(load);
   loadRef.current = load;
   const canLoad = load !== undefined;
@@ -100,15 +123,13 @@ export function useNestedStoredTexts(
       return current ? current(url) : Promise.reject(new Error("No loader."));
     };
     void loadNestedStoredTexts(field, value, latest).then((loaded) => {
-      if (live && loaded) setSettled({ field, value, loaded });
+      if (live) setSettled({ key, value, shown: loaded ? loaded.value : value });
     });
     return () => {
       live = false;
     };
-  }, [field, value, canLoad]);
+  }, [field, key, value, canLoad]);
 
-  if (settled && settled.field === field && settled.value === value) {
-    return { value: settled.loaded.value, textsHeld: settled.loaded.unloaded > 0 };
-  }
-  return { value, textsHeld: false };
+  if (!canLoad || !field || value === null || value === undefined) return value;
+  return shownNestedValue(settled, key, value);
 }

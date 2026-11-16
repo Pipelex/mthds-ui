@@ -4,7 +4,7 @@
 
 ### Fixed
 
-- **A stored text nested in a value shows in the graph's data panel**: a text the runtime stored inside another value, such as a `Page[]` whose `text_and_images.text` arrives as its reference, read as "Not provided" in the panel, since the kernel's page view reads a page's text only when it arrived inline. Given `loadText`, the panel now loads every stored text in the opened node's value with the kernel's `loadStoredValues`, showing the value as it came until the texts are read and then with them inline, reads nothing for a value holding none, and holds back the whole-result Download while a text it could not read keeps its reference. See [docs/stuff-result-panel.md](docs/stuff-result-panel.md#stored-texts).
+- **A stored text nested in a value shows in the graph's data panel**: a text the runtime stored inside another value, such as a `Page[]` whose `text_and_images.text` arrives as its reference, read as "Not provided" in the panel, since the kernel's page view reads a page's text only when it arrived inline. Given `loadText`, the panel now loads every stored text in the opened node's value with the kernel's `loadStoredValues`, showing the value as it came until the texts are read and then with them inline, keeps them on screen when a host hands it a new but equal value, reads nothing for a value holding none, and reads afresh when a node whose read failed is opened again. A text it could not read keeps its reference, and the whole-result Download, which loads the texts again itself, says how many it could not load. See [docs/stuff-result-panel.md](docs/stuff-result-panel.md#stored-texts).
 
 ## [v0.53.0] - 2026-11-16
 
