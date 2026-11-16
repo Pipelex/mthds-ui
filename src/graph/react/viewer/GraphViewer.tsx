@@ -45,7 +45,7 @@ import {
   resolveIssueTargetNodeId,
 } from "@graph/graphValidation";
 import { findStuffByDigest } from "@graph/stuffLookup";
-import type { SaveFiles } from "@pipelex/mthds-form";
+import type { LoadText, SaveFiles } from "@pipelex/mthds-form";
 import type {
   DownloadDisplay,
   ResolveDocumentPdf,
@@ -261,6 +261,21 @@ export interface GraphViewerProps {
    * durable, so supply one if your storage has an authenticated read path.
    */
   resolveUrl?: ResolveUrl;
+  /**
+   * Reads a stored text, so the result panel can show a `Text`, `Markdown`,
+   * `Html` or `JSON` value the runtime stored rather than inlined.
+   *
+   * Such a value arrives as its reference, `{url, size, mime_type, preview}`.
+   * Called with that `url`, resolve to the text as stored (a JSON value's
+   * serialized form included), or reject when it cannot be read; the panel
+   * shows the reference's `preview` and size until it answers, then the value
+   * as if it had arrived inline. It is called when the reader opens the
+   * value's node, never while the graph draws, and its identity need not be
+   * stable. It goes on the panel's provider beside `resolveUrl`, which
+   * replaces an outer provider rather than merging with it, so a `loadText`
+   * set around the graph does not reach the panel.
+   */
+  loadText?: LoadText;
   /**
    * Answers a smaller copy of a picture, so the result panel's gallery tiles
    * and table thumbnails stop loading whole files.
@@ -579,6 +594,7 @@ function GraphViewerCanvas(
     onPaneClick,
     renderDetailExtra,
     resolveUrl,
+    loadText,
     resolveRendition,
     resolveDocumentPdf,
     resolveShareUrl,
@@ -1641,13 +1657,22 @@ function GraphViewerCanvas(
   const valueOptions = React.useMemo(
     () => ({
       resolveUrl,
+      loadText,
       resolveRendition,
       resolveDocumentPdf,
       resolveShareUrl,
       saveFiles,
       downloads,
     }),
-    [resolveUrl, resolveRendition, resolveDocumentPdf, resolveShareUrl, saveFiles, downloads],
+    [
+      resolveUrl,
+      loadText,
+      resolveRendition,
+      resolveDocumentPdf,
+      resolveShareUrl,
+      saveFiles,
+      downloads,
+    ],
   );
 
   // Controlled + reactive: resolved on every render (no local state) so a new

@@ -1,5 +1,5 @@
 import React from "react";
-import type { SaveFiles } from "@pipelex/mthds-form";
+import type { LoadText, SaveFiles } from "@pipelex/mthds-form";
 import type {
   DownloadDisplay,
   ResolveDocumentPdf,
@@ -67,6 +67,7 @@ export function selectedNodeId(selection: DetailSelection | null): string | null
 /** How the result view fetches and saves a value's files: the viewer's own props, passed on. */
 export interface ValueRenderOptions {
   resolveUrl?: ResolveUrl;
+  loadText?: LoadText;
   resolveRendition?: ResolveRendition;
   resolveDocumentPdf?: ResolveDocumentPdf;
   resolveShareUrl?: ResolveShareUrl;
@@ -241,6 +242,7 @@ function ResultView({
     stuff.concept && graphspec ? resolveConceptRef(graphspec, stuff.concept) : undefined;
   const {
     resolveUrl,
+    loadText,
     resolveRendition,
     resolveDocumentPdf,
     resolveShareUrl,
@@ -255,6 +257,7 @@ function ResultView({
       {...(producerPipeRef ? { producerPipeRef } : {})}
       {...(consumer ? { consumer } : {})}
       {...(resolveUrl ? { resolveUrl } : {})}
+      {...(loadText ? { loadText } : {})}
       {...(resolveRendition ? { resolveRendition } : {})}
       {...(resolveDocumentPdf ? { resolveDocumentPdf } : {})}
       {...(resolveShareUrl ? { resolveShareUrl } : {})}
