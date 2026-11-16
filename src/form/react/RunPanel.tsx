@@ -8,6 +8,7 @@ import {
   sameRunValues,
   setValueAtPath,
   type FormExample,
+  type LoadText,
   type PipeInputFormDescriptor,
   type PipeIOContract,
   type RunField,
@@ -89,10 +90,11 @@ export interface RunPanelProps {
   /**
    * Ambient field state, passed to every control.
    *
-   * For `disabled`, `onDropFile`, `fileSource` and `resolveUrl` the host's
-   * value wins PER KEY: the panel fills in only what the host left undefined —
-   * `disabled` from `running`, `onDropFile` from its own upload tracking when
-   * `uploadFile` is supplied, `fileSource` from the prop of that name.
+   * For `disabled`, `onDropFile`, `fileSource`, `loadText` and `resolveUrl`
+   * the host's value wins PER KEY: the panel fills in only what the host left
+   * undefined — `disabled` from `running`, `onDropFile` from its own upload
+   * tracking when `uploadFile` is supplied, `fileSource` and `loadText` from
+   * the props of those names.
    *
    * `uploadingIds` is the exception, and deliberately so: it is the UNION of
    * your set and the panel's, never a replacement. Because the keys default
@@ -167,6 +169,22 @@ export interface RunPanelProps {
    * is the host's to abandon, from `onFill`. Left unset, nothing is offered.
    */
   exampleSource?: ExamplePickerSource;
+  /**
+   * Reads a stored text: the kernel's `LoadText`, the loader its own
+   * `MethodForm` takes. A runtime stores a large text input when a run starts,
+   * so a host that hands a past run's inputs back to the form hands back the
+   * reference, `{url, size, mime_type, preview}`, in its place. The field
+   * shows the text's start and size, and the reference is a value the runtime
+   * takes, so it fills the input and goes back as it came. Given a loader, the
+   * field also offers "Edit the text", which calls it with the reference's
+   * `url` and puts the whole text in the field's own control, to be edited and
+   * sent inline; a text it cannot read leaves the reference in place.
+   *
+   * The panel hands it to every control as `FieldEnv.loadText`, which is all
+   * this prop does: an `env.loadText` of the host's own wins over it. Left
+   * unset, a stored text can only be replaced.
+   */
+  loadText?: LoadText;
   /**
    * Called once an example has filled the form, after `onValuesChange` has
    * been handed the example's values, with those values and the example.
@@ -247,6 +265,7 @@ export function RunPanel({
   uploadFile,
   fileSource,
   exampleSource,
+  loadText,
   onFill,
   title,
   theme = GRAPH_THEME.LIGHT,
@@ -432,6 +451,10 @@ export function RunPanel({
       // pages and writes the chosen file through the field's own `onChange`,
       // which is `commitValues` like any other edit.
       fileSource: env?.fileSource ?? fileSource,
+      // Passed through as well: the kernel's stored-text field calls it when
+      // the person asks to edit the text, and writes what it loads through
+      // the field's own `onChange`.
+      loadText: env?.loadText ?? loadText,
       // The UNION, not the host's set winning outright: `onDropFile` and
       // `uploadingIds` default independently per key, so a host may hand us
       // `uploadFile` (leaving the panel to own the drop, and to mark the field
@@ -442,7 +465,7 @@ export function RunPanel({
       // its set — "yours win" still holds where that clause applies.
       uploadingIds: new Set([...(env?.uploadingIds ?? EMPTY_IDS), ...uploadingIds]),
     }),
-    [env, running, uploadFile, handleDropFile, fileSource, uploadingIds],
+    [env, running, uploadFile, handleDropFile, fileSource, loadText, uploadingIds],
   );
 
   // Readiness alone would let a run go out while a file is still uploading: a

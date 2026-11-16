@@ -9,6 +9,7 @@ import {
   type FileSourcePage,
   type FileSourceQuery,
   type FormExample,
+  type LoadText,
   type PipeInputFormDescriptor,
   type PipeIOContract,
   type SourceFile,
@@ -163,6 +164,7 @@ function PanelHost({
   exampleSource,
   onFill,
   translate,
+  loadText,
 }: {
   contract: PipeIOContract;
   descriptor: PipeInputFormDescriptor;
@@ -176,6 +178,7 @@ function PanelHost({
   exampleSource?: ExamplePickerSource;
   onFill?: React.ComponentProps<typeof RunPanel>["onFill"];
   translate?: React.ComponentProps<typeof RunPanel>["translate"];
+  loadText?: LoadText;
 }) {
   const [values, setValues] = React.useState<Record<string, unknown>>(initialValues);
   const [payload, setPayload] = React.useState<Record<string, unknown> | null>(null);
@@ -198,6 +201,7 @@ function PanelHost({
         exampleSource={exampleSource}
         onFill={onFill}
         translate={translate}
+        loadText={loadText}
       />
       <pre
         data-testid="run-payload"
@@ -2511,5 +2515,73 @@ export const OnFillLetsTheHostAbandonItsUpload: Story = {
     await userEvent.click(canvas.getByTestId("settle-upload"));
     await expect(canvas.getByText("march-invoice.pdf")).toBeInTheDocument();
     await expect(canvas.queryByText("dropped.pdf")).not.toBeInTheDocument();
+  },
+};
+
+/** A stored text a past run's inputs hand back: what the runtime stored `subject` as. */
+const STORED_SUBJECT = {
+  url: "pipelex-storage://run/inputs/subject.txt",
+  size: 48213,
+  mime_type: "text/plain",
+  preview: "Bridge closure on Main Street",
+};
+const STORED_SUBJECT_TEXT = "Bridge closure on Main Street, from Monday to Friday.";
+
+/**
+ * An input holding a stored text, as a host that hands a past run's inputs
+ * back to the form does: the runtime stored the large text when the run
+ * started, so the value is its reference. The panel hands its `loadText` to
+ * every control as `env.loadText`, so the field offers "Edit the text", which
+ * loads the whole text through the host into the field's own control.
+ */
+export const StoredTextInputLoadsThroughTheHost: Story = {
+  args: {
+    ...NOTICE,
+    title: "draft_notice",
+    initialValues: { subject: STORED_SUBJECT },
+    loadText: fn<LoadText>(() => Promise.resolve(STORED_SUBJECT_TEXT)),
+  },
+  play: async ({ args: storyArgs, canvasElement }) => {
+    const canvas = within(canvasElement);
+    const loadText = storyArgs.loadText as ReturnType<typeof fn<LoadText>>;
+    // Shown by its reference until asked: its start, and nothing loaded yet.
+    await expect(canvas.getByText(/Bridge closure on Main Street…/)).toBeInTheDocument();
+    await expect(loadText).not.toHaveBeenCalled();
+
+    await userEvent.click(canvas.getByRole("button", { name: "Edit the text" }));
+    await waitFor(() => expect(canvas.getByLabelText(/subject/i)).toHaveValue(STORED_SUBJECT_TEXT));
+    await expect(loadText).toHaveBeenCalledWith(STORED_SUBJECT.url);
+
+    // Loaded into the field, it is sent inline like any text typed there.
+    await userEvent.click(canvas.getByRole("button", { name: "Run" }));
+    await waitFor(() =>
+      expect(payloadOf(canvasElement).subject).toEqual({
+        concept: "native.Text",
+        content: { text: STORED_SUBJECT_TEXT },
+      }),
+    );
+  },
+};
+
+/**
+ * The same input in a panel given no loader: the field shows the stored text's
+ * start and offers only "Replace", since nothing can read the whole text.
+ *
+ * It stops short of Run on purpose. A runtime that stores texts declares the
+ * reference's members on `native.Text`'s schema, and the gate then sends the
+ * reference back as it came (the kernel's tests pin that); the generated
+ * contracts here predate those members, so their schema still requires `text`.
+ */
+export const StoredTextInputWithoutALoader: Story = {
+  args: {
+    ...NOTICE,
+    title: "draft_notice",
+    initialValues: { subject: STORED_SUBJECT },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText(/Bridge closure on Main Street…/)).toBeInTheDocument();
+    await expect(canvas.getByRole("button", { name: "Replace" })).toBeInTheDocument();
+    await expect(canvas.queryByRole("button", { name: "Edit the text" })).toBeNull();
   },
 };
