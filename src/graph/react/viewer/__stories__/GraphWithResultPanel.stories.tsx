@@ -338,6 +338,149 @@ export const HostLoadsStoredTexts: Story = {
   },
 };
 
+/** Where page `index` of pipeline 09's `pages` would sit had the runtime stored its text. */
+function storedPageUrl(index: number): string {
+  return `pipelex-storage://run/generated/pages/${index}/value.txt`;
+}
+
+/** A line deep in the first page's text, past the start a stored reference previews. */
+const DEEP_PAGE_LINE = "OBJECTIVE: Design apparel print for an innovative retail company";
+
+interface PageValue {
+  text_and_images: { text: unknown; images: unknown[] };
+}
+
+/** Each page's text in pipeline 09's live `pages`, by the address its stored copy holds it at. */
+function pageTexts(spec: GraphSpec): Map<string, string> {
+  const texts = new Map<string, string>();
+  for (const node of spec.nodes) {
+    for (const item of node.io.outputs) {
+      if (item.name !== "pages") continue;
+      (item.data as { items: PageValue[] }).items.forEach((page, index) => {
+        texts.set(storedPageUrl(index), (page.text_and_images.text as { text: string }).text);
+      });
+    }
+  }
+  return texts;
+}
+
+/**
+ * Pipeline 09's live graph with each page of its `pages` (`Page[]`) holding its
+ * text as the reference a runtime that stored it hands back, under
+ * `text_and_images.text`, at every place the spec carries that value. The
+ * run's pages arrived inline; nothing else about the spec changes, and the
+ * fixture itself is not touched.
+ */
+function withStoredPageTexts(spec: GraphSpec): GraphSpec {
+  const stored = (item: GraphSpecNodeIoItem): GraphSpecNodeIoItem => {
+    if (item.name !== "pages" || !item.data) return item;
+    const { items } = item.data as { items: PageValue[] };
+    return {
+      ...item,
+      data: {
+        items: items.map((page, index) => {
+          const text = (page.text_and_images.text as { text: string }).text;
+          return {
+            ...page,
+            text_and_images: {
+              ...page.text_and_images,
+              text: {
+                url: storedPageUrl(index),
+                size: new TextEncoder().encode(text).length,
+                mime_type: "text/plain",
+                preview: text.slice(0, 10),
+              },
+            },
+          };
+        }),
+      },
+    };
+  };
+  return {
+    ...spec,
+    nodes: spec.nodes.map((node) => ({
+      ...node,
+      io: {
+        ...node.io,
+        inputs: node.io.inputs.map(stored),
+        outputs: node.io.outputs.map(stored),
+      },
+    })),
+  };
+}
+
+const PAGE_TEXTS = pageTexts(LIVE_CV_SCREENING);
+
+/** Open the stuff node whose label starts with `name`. */
+async function openStuffNode(canvasElement: HTMLElement, name: string) {
+  await waitFor(
+    () => expect(canvasElement.querySelectorAll(".react-flow__node").length).toBeGreaterThan(0),
+    { timeout: 10000 },
+  );
+  const nodes = Array.from(canvasElement.querySelectorAll<HTMLElement>(".react-flow__node"));
+  const node = nodes.find(
+    (n) => n.textContent?.startsWith(name) && n.dataset.id?.includes("stuff_"),
+  );
+  await expect(node).toBeDefined();
+  await userEvent.click(node!);
+  return detailPanel(canvasElement);
+}
+
+/**
+ * A stored text nested inside a value: each page of a `Page[]` whose text the
+ * runtime stored. The kernel's page view reads a page's text only when it
+ * arrived inline, so the panel loads the stored texts nested in a node's value
+ * itself, through the host's `loadText`, when the node is opened, and draws
+ * the value with the whole texts once they are read.
+ *
+ * Nothing is read while the graph draws, nor for a node holding no stored
+ * text: the method's `cv` input is opened first, and the loader is not asked.
+ * The load's own rules are pinned by `StuffResultPanelNestedStoredText.test.tsx`.
+ */
+export const HostLoadsStoredPageTexts: Story = {
+  args: {
+    ...args,
+    graph: { ...args.graph, graphSpec: withStoredPageTexts(LIVE_CV_SCREENING) },
+    theme: GRAPH_THEME.LIGHT,
+    loadText: fn<LoadText>((url) => Promise.resolve(PAGE_TEXTS.get(url) ?? "")),
+  },
+  play: async ({ args: storyArgs, canvasElement }) => {
+    const loadText = storyArgs.loadText as ReturnType<typeof fn<LoadText>>;
+    await openStuffNode(canvasElement, "cv");
+    await expect(loadText).not.toHaveBeenCalled();
+
+    const panel = await openStuffNode(canvasElement, "pages");
+    await waitFor(() => expect(panel.getByText(new RegExp(DEEP_PAGE_LINE))).toBeInTheDocument());
+    await expect(loadText).toHaveBeenCalledWith(storedPageUrl(0));
+    await expect(panel.queryByText(/Not provided/)).toBeNull();
+    // Every text was read, so the whole-result Download is offered.
+    await expect(panel.getByRole("button", { name: /^Download/ })).toBeInTheDocument();
+  },
+};
+
+/**
+ * The same pages when the host cannot read their texts: the page keeps its
+ * stored reference, so the panel never draws an address as if it were the
+ * text, and holds back the whole-result Download, which would otherwise save
+ * the references in place of the texts.
+ */
+export const StoredPageTextFails: Story = {
+  args: {
+    ...args,
+    graph: { ...args.graph, graphSpec: withStoredPageTexts(LIVE_CV_SCREENING) },
+    theme: GRAPH_THEME.LIGHT,
+    loadText: fn<LoadText>(() => Promise.reject(new Error("The stored text could not be read."))),
+  },
+  play: async ({ args: storyArgs, canvasElement }) => {
+    const loadText = storyArgs.loadText as ReturnType<typeof fn<LoadText>>;
+    const panel = await openStuffNode(canvasElement, "pages");
+    await waitFor(() => expect(loadText).toHaveBeenCalledWith(storedPageUrl(0)));
+    await waitFor(() => expect(panel.queryByRole("button", { name: /^Download/ })).toBeNull());
+    await expect(panel.queryByText(new RegExp(DEEP_PAGE_LINE))).toBeNull();
+    await expect(panel.queryByText(/pipelex-storage:/)).toBeNull();
+  },
+};
+
 /**
  * A search result in a host that sets the `app` presentation around the graph:
  * the kernel's search arm draws the answer, typeset, with each inline citation

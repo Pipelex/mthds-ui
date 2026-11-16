@@ -18,6 +18,7 @@ import {
   ResultEnvProvider,
   StuffViewer,
   useFieldStrings,
+  useLoadText,
   type DownloadDisplay,
   type ResolveDocumentPdf,
   type ResolveRendition,
@@ -25,6 +26,7 @@ import {
   type ResolveUrl,
 } from "@pipelex/mthds-form/react";
 import { parsePipeRef } from "@graph/pipeRefs";
+import { useNestedStoredTexts } from "@graph/react/detail/nestedStoredTexts";
 import type { ConceptInfo, GraphSpecNodeIoItem, GraphTheme } from "@graph/types";
 
 /**
@@ -102,6 +104,17 @@ import type { ConceptInfo, GraphSpecNodeIoItem, GraphTheme } from "@graph/types"
  * provider as `resolveUrl`, and since the kernel loads a value only when its
  * view renders, and the graph renders this panel only when a node is opened, a
  * stored text is loaded when its node is opened, never while the graph draws.
+ *
+ * A stored text nested in another native's content, such as a `Page`'s text
+ * under `text_and_images.text`, is one the kernel's views do not load
+ * themselves. So whenever a loader is reachable the panel loads every stored
+ * text in the value with the kernel's own walk (`useNestedStoredTexts`),
+ * through the provider's loader, which asks the host once per address for
+ * this load and the kernel's own views alike. The value shows as it came until
+ * the texts are read, then with them inline. A value holding none is read with
+ * no request; a text whose read fails keeps its reference, and a panel that
+ * installs its own provider then holds back the whole-result Download, which
+ * would save that address in place of the text.
  *
  * ## Saving
  *
@@ -222,12 +235,30 @@ export function StuffResultPanel({
   saveFiles,
   downloads,
 }: StuffResultPanelProps) {
+  // Keyed on the consumer's two strings rather than its object, so a host that
+  // rebuilds the object on each render does not rebuild the field, and with it
+  // start another load of the value's stored texts.
+  const consumerPipeRef = consumer?.pipeRef;
+  const consumerSlot = consumer?.slotName;
   const field = React.useMemo(
     () =>
       fromProducer(pipeIoContracts, outputForm, producerPipeRef) ??
-      fromConsumer(pipeIoContracts, inputForm, consumer),
-    [pipeIoContracts, outputForm, inputForm, producerPipeRef, consumer],
+      fromConsumer(
+        pipeIoContracts,
+        inputForm,
+        consumerPipeRef !== undefined && consumerSlot !== undefined
+          ? { pipeRef: consumerPipeRef, slotName: consumerSlot }
+          : undefined,
+      ),
+    [pipeIoContracts, outputForm, inputForm, producerPipeRef, consumerPipeRef, consumerSlot],
   );
+  // Whether a stored text in the value could not be read, as `LoadedStuffViewer`
+  // reports it. Such a text keeps its reference, and the whole-result Download
+  // would save that address where the text belongs, so it is held back.
+  const [textsHeld, setTextsHeld] = React.useState(false);
+  const shownDownloads: DownloadDisplay | undefined = textsHeld
+    ? { ...downloads, result: false }
+    : downloads;
 
   if (field) {
     // The STUFF's name, not the descriptor's. `build_output_form` names every
@@ -240,7 +271,14 @@ export function StuffResultPanel({
     // when it is given a name, and nothing else here says which value is open.
     // An HTML page (`native.Html`) is the one result it leaves untitled in
     // `app` even when named, by design: the page heads itself.
-    const panel = <StuffViewer field={field} value={stuff.data} name={stuff.name} />;
+    const panel = (
+      <LoadedStuffViewer
+        field={field}
+        value={stuff.data}
+        name={stuff.name}
+        onTextsHeld={setTextsHeld}
+      />
+    );
     // Installed only when the host said something, so a host that wraps the
     // whole graph in its own provider still reaches a panel given nothing.
     return resolveUrl ||
@@ -257,7 +295,7 @@ export function StuffResultPanel({
         resolveDocumentPdf={resolveDocumentPdf}
         resolveShareUrl={resolveShareUrl}
         saveFiles={saveFiles}
-        downloads={downloads}
+        downloads={shownDownloads}
       >
         {panel}
       </ResultEnvProvider>
@@ -283,6 +321,32 @@ export function StuffResultPanel({
   return stuff.data === undefined || stuff.data === null ? null : (
     <UndescribedValue value={stuff.data} />
   );
+}
+
+/**
+ * The kernel's `StuffViewer` over a value whose nested stored texts are loaded
+ * (`useNestedStoredTexts`): drawn at once as the spec holds it, then with the
+ * texts inline once they are read. Rendered inside the panel's provider, so it
+ * loads through the provider's `loadText`, which asks each address once for
+ * this load and the kernel's own view of a stored text alike, and reports up
+ * whether a text could not be read.
+ */
+function LoadedStuffViewer({
+  field,
+  value,
+  name,
+  onTextsHeld,
+}: {
+  field: RunField;
+  value: unknown;
+  name: string;
+  onTextsHeld: (held: boolean) => void;
+}) {
+  const shown = useNestedStoredTexts(field, value, useLoadText());
+  React.useEffect(() => {
+    onTextsHeld(shown.textsHeld);
+  }, [shown.textsHeld, onTextsHeld]);
+  return <StuffViewer field={field} value={shown.value} name={name} />;
 }
 
 function UndescribedValue({ value }: { value: unknown }) {
