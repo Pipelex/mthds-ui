@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, fn, mocked, userEvent, waitFor, within } from "storybook/test";
 import { GraphViewer } from "../GraphViewer";
-import type { SaveFiles } from "@pipelex/mthds-form";
+import type { LoadText, SaveFiles } from "@pipelex/mthds-form";
 import {
   FieldPresentationProvider,
   type ResolveDocumentPdf,
   type ResolveRendition,
 } from "@pipelex/mthds-form/react";
-import { GRAPH_THEME } from "@graph/types";
+import { GRAPH_THEME, type GraphSpec, type GraphSpecNodeIoItem } from "@graph/types";
 import { StuffResultPanel } from "@graph/react/detail/StuffResultPanel";
 import { LIVE_CV_SCREENING } from "./pipelines/specs/_generated.live";
 import {
@@ -259,6 +259,82 @@ export const HostConvertsOfficeDocuments: Story = {
     const panel = mocked(StuffResultPanel);
     await expect(panel).toHaveBeenCalled();
     await expect(panel.mock.lastCall?.[0].resolveDocumentPdf).toBe(storyArgs.resolveDocumentPdf);
+  },
+};
+
+/** Where pipeline 09's `report` would sit had the runtime stored it, and what the host loads there. */
+const STORED_REPORT_URL = "pipelex-storage://run/generated/report/value.md";
+const STORED_REPORT_LINE = "The whole report, loaded by the host when its node was opened.";
+
+/**
+ * Pipeline 09's live graph with its `report` held as the reference a runtime
+ * that stored it hands back, `{url, size, mime_type, preview}`, at every place
+ * the spec carries that value. The run's report arrived inline; nothing else
+ * about the spec changes, and the fixture itself is not touched.
+ */
+function withStoredReport(spec: GraphSpec): GraphSpec {
+  const reference = {
+    url: STORED_REPORT_URL,
+    size: 48213,
+    mime_type: "text/markdown",
+    preview: "# Candidate Screening Report",
+  };
+  const stored = (item: GraphSpecNodeIoItem): GraphSpecNodeIoItem =>
+    item.name === "report" ? { ...item, data: reference } : item;
+  return {
+    ...spec,
+    nodes: spec.nodes.map((node) => ({
+      ...node,
+      io: {
+        ...node.io,
+        inputs: node.io.inputs.map(stored),
+        outputs: node.io.outputs.map(stored),
+      },
+    })),
+  };
+}
+
+/**
+ * A host whose runtime stores large texts: `loadText` goes on `GraphViewer`,
+ * which hands it to the data panel beside `resolveUrl`, and the panel loads a
+ * stored text when its node is opened, showing the text's start until then.
+ *
+ * The panel installs its own provider, which replaces one set around the graph,
+ * so this hand-off is the only way a host's loader reaches a stored text in the
+ * graph. Nothing is loaded while the graph is drawn: the kernel loads a value
+ * when its view renders, and the panel renders a value only when its node is
+ * opened. The panel's own use of the loader is pinned by
+ * `StuffResultPanelStoredText.test.tsx`.
+ */
+export const HostLoadsStoredTexts: Story = {
+  args: {
+    ...args,
+    graph: { ...args.graph, graphSpec: withStoredReport(LIVE_CV_SCREENING) },
+    theme: GRAPH_THEME.LIGHT,
+    loadText: fn<LoadText>(() =>
+      Promise.resolve(`# Candidate Screening Report\n\n${STORED_REPORT_LINE}\n`),
+    ),
+  },
+  play: async ({ args: storyArgs, canvasElement }) => {
+    await waitFor(
+      () => expect(canvasElement.querySelectorAll(".react-flow__node").length).toBeGreaterThan(0),
+      { timeout: 10000 },
+    );
+    const loadText = storyArgs.loadText as ReturnType<typeof fn<LoadText>>;
+    await expect(loadText).not.toHaveBeenCalled();
+
+    const nodes = Array.from(canvasElement.querySelectorAll<HTMLElement>(".react-flow__node"));
+    const report = nodes.find(
+      (n) => n.textContent?.startsWith("report") && n.dataset.id?.includes("stuff_"),
+    );
+    await expect(report).toBeDefined();
+    await userEvent.click(report!);
+    const panel = await detailPanel(canvasElement);
+
+    await waitFor(() => expect(panel.getByText(STORED_REPORT_LINE)).toBeInTheDocument());
+    await expect(loadText).toHaveBeenCalledWith(STORED_REPORT_URL);
+    // Loaded, so the text replaced its start and nothing says it is loading.
+    await expect(panel.queryByText(/Loading the whole text/)).toBeNull();
   },
 };
 

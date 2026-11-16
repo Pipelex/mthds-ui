@@ -7,6 +7,7 @@ import {
   getPipeIOContract,
   getPipeOutputForm,
   type InputForm,
+  type LoadText,
   type OutputForm,
   type PipeIOContracts,
   type RunField,
@@ -92,6 +93,16 @@ import type { ConceptInfo, GraphSpecNodeIoItem, GraphTheme } from "@graph/types"
  * passes `resolveDocumentPdf` there too, and that document's preview shows the
  * PDF's pages.
  *
+ * ## Stored texts
+ *
+ * A runtime may store a large `Text`, `Markdown`, `Html` or `JSON` value and
+ * hand back its reference, `{url, size, mime_type, preview}`, in its place. The
+ * kernel shows the reference's preview and, given the host's `loadText`, loads
+ * the whole text and draws it as if it had arrived inline. It goes on the same
+ * provider as `resolveUrl`, and since the kernel loads a value only when its
+ * view renders, and the graph renders this panel only when a node is opened, a
+ * stored text is loaded when its node is opened, never while the graph draws.
+ *
  * ## Saving
  *
  * The kernel's Download control and its per-file download buttons save through
@@ -168,6 +179,17 @@ export interface StuffResultPanelProps extends StuffResultRendererOptions {
    */
   resolveDocumentPdf?: ResolveDocumentPdf;
   /**
+   * Reads a stored text: called with the reference's `url` when the panel
+   * shows a `Text`, `Markdown`, `Html` or `JSON` value the runtime stored
+   * rather than inlined, it resolves to the text as stored and rejects when it
+   * cannot be read. Until it answers the panel shows the text's start (the
+   * reference's `preview`) and its size; once it answers, the value is drawn
+   * as if it had arrived inline; when it rejects, the start stays with a line
+   * saying the rest could not be loaded. Unset, the start is all the panel
+   * shows.
+   */
+  loadText?: LoadText;
+  /**
    * Mints a URL that works OUTSIDE this page — what the copy control hands over.
    * A display URL may sit behind the host's session; a shared one carries its
    * own credential.
@@ -193,6 +215,7 @@ export function StuffResultPanel({
   producerPipeRef,
   consumer,
   resolveUrl,
+  loadText,
   resolveRendition,
   resolveDocumentPdf,
   resolveShareUrl,
@@ -221,6 +244,7 @@ export function StuffResultPanel({
     // Installed only when the host said something, so a host that wraps the
     // whole graph in its own provider still reaches a panel given nothing.
     return resolveUrl ||
+      loadText ||
       resolveRendition ||
       resolveDocumentPdf ||
       resolveShareUrl ||
@@ -228,6 +252,7 @@ export function StuffResultPanel({
       downloads ? (
       <ResultEnvProvider
         resolveUrl={resolveUrl}
+        loadText={loadText}
         resolveRendition={resolveRendition}
         resolveDocumentPdf={resolveDocumentPdf}
         resolveShareUrl={resolveShareUrl}

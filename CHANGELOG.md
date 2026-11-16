@@ -1,5 +1,15 @@
 # Changelog
 
+## [v0.53.0] - 2026-11-16
+
+### Added
+
+- **`loadText` on `GraphViewer`, `StuffResultPanel` and `RunPanel`**: a host whose runtime stores large texts passes the form kernel's `loadText` (`(url) => Promise<string>`), and a `Text`, `Markdown`, `Html` or `JSON` value that arrives as its stored reference, `{url, size, mime_type, preview}`, shows its start and size in the graph's data panel until the host's text arrives, then the value as if it had arrived inline; the panel loads it when its node is opened, never while the graph draws. `RunPanel` hands it to every control as `env.loadText`, so an input holding a stored text offers "Edit the text", and a host rendering the result view itself passes it to `ResultEnvProvider` from `./form/react`, which also exports `useLoadText`, while `./form` exports `LoadText`, `loadStoredValues` and the readers of a stored value. A host that supplies a complete `FieldStrings` rather than a partial override adds the kernel's `storedTextLoading`, `storedTextStart`, `storedTextUnloaded`, `storedTextHeld`, `storedTextEdit`, `storedTextReplace`, `storedTextEditFailed` and `storedTextsNotLoaded`. See [docs/stuff-result-panel.md](docs/stuff-result-panel.md#stored-texts).
+
+### Changed
+
+- **`@pipelex/mthds-form` ^0.37.0 (Breaking)**: the kernel's range moves from `^0.36.0` to `^0.37.0`, which a caret below 1.0 does not bridge, so a host resolves the kernel's 0.37.0, the release that reads stored texts and carries their eight strings, only through this release. The same kernel names a text's wrapper by its concept, so a `native.Text` input still goes out as `{text}` against a runtime whose text schema declares the stored reference's members beside `text`. `PROMPT_HASH` stays `30cf9bc059f6` and `./form/layout-design.mthds` and `./form/layout-sample.mthds` are the same methods, so no stored layout goes stale by its hash. See [docs/run-form-panel.md](docs/run-form-panel.md).
+
 ## [v0.52.0] - 2026-11-10
 
 ### Added

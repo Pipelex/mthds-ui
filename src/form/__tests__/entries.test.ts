@@ -22,6 +22,7 @@ import type {
   FileSourceQuery,
   FileSourceScope,
   FormExample,
+  LoadText as CoreLoadText,
   RunField,
   SearchResultContentView,
   SearchSourceView,
@@ -40,6 +41,7 @@ import type {
   FillWithExampleProps,
   FilePickerProps,
   FilePickerSource,
+  LoadText,
   MarkdownCitation,
   MarkdownProps,
   RenditionRequest,
@@ -84,6 +86,19 @@ describe("the ./form entry", () => {
     expectTypeOf<CoreExampleSource["open"]>().toEqualTypeOf<
       ((example: FormExample, fill: () => void) => void) | undefined
     >();
+  });
+
+  it("carries the readers of a stored text, for a host loading one before it draws", () => {
+    // Kernel 0.37.0: a `Text`, `Markdown`, `Html` or `JSON` value a runtime
+    // stored arrives as its reference, read by the value's concept.
+    expect(form.storedValueKeyOf).toBeTypeOf("function");
+    expect(form.isStoredValueNode).toBeTypeOf("function");
+    expect(form.readStoredReference).toBeTypeOf("function");
+    expect(form.inlineStoredValue).toBeTypeOf("function");
+    expect(form.loadStoredValues).toBeTypeOf("function");
+    expect(form.loadedRunValue).toBeTypeOf("function");
+    expectTypeOf<CoreLoadText>().toEqualTypeOf<(url: string) => Promise<string>>();
+    expectTypeOf<CoreLoadText>().toEqualTypeOf<LoadText>();
   });
 
   it("carries the readers of a search result, for a host drawing one its own way", () => {
@@ -210,6 +225,32 @@ describe("the ./form/react entry", () => {
     ] as const satisfies readonly (keyof FieldStrings)[];
     for (const strings of [formReact.EN_FIELD_STRINGS, formReact.FR_FIELD_STRINGS]) {
       for (const key of keys) expect(strings[key]).toBeTypeOf("string");
+    }
+  });
+
+  it("carries the loader of a stored text, on the result provider, the form and the panel", () => {
+    // Kernel 0.37.0. A host rendering the result view itself passes `loadText`
+    // to the re-exported `ResultEnvProvider`; the run form takes it as
+    // `FieldEnv.loadText`, which `RunPanel` fills from its own `loadText`. A
+    // host supplying a complete `FieldStrings` adds the stored text's strings.
+    expect(formReact.useLoadText).toBeTypeOf("function");
+    expectTypeOf<ComponentProps<typeof formReact.ResultEnvProvider>["loadText"]>().toEqualTypeOf<
+      LoadText | undefined
+    >();
+    expectTypeOf<FieldEnv["loadText"]>().toEqualTypeOf<LoadText | undefined>();
+    expectTypeOf<RunPanelProps["loadText"]>().toEqualTypeOf<LoadText | undefined>();
+    const keys = [
+      "storedTextLoading",
+      "storedTextStart",
+      "storedTextUnloaded",
+      "storedTextHeld",
+      "storedTextEdit",
+      "storedTextReplace",
+      "storedTextEditFailed",
+      "storedTextsNotLoaded",
+    ] as const satisfies readonly (keyof FieldStrings)[];
+    for (const strings of [formReact.EN_FIELD_STRINGS, formReact.FR_FIELD_STRINGS]) {
+      for (const key of keys) expect(strings[key], key).toBeDefined();
     }
   });
 
