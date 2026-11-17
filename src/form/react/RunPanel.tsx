@@ -465,9 +465,13 @@ export function RunPanel({
   // or removed while its file is made). Only the count matters to Run, so the
   // panel keeps the tokens alone. It never clears them on a pipe switch or a
   // fill, as it does its uploads: the field always ends its report, at the
-  // hand-off, when it gives up, or when it unmounts. A fill remounts every
-  // field, and so does a switch, except a field of the same name in both pipes,
-  // whose pages are still on screen and whose file is still on its way.
+  // hand-off, when it gives up, or when it unmounts, and a fill and a pipe
+  // switch both remount every field (the fields' key, below). The switch has to
+  // remount them for this seam's sake too: an upload belongs to the form
+  // generation current when the field hands its file over, and a camera's file
+  // is handed over only once it is made, possibly after the switch. A field of
+  // the same name in both pipes that survived the switch would store a photo
+  // taken for the pipe the person left as the new pipe's input.
   //
   // The host's own `env.onPreparingFile` is called beside it, the union rule
   // `uploadingIds` follows: a host that tracks the camera itself still has Run
@@ -617,7 +621,11 @@ export function RunPanel({
   // would hide the control from the next pipe's examples for good. It counts
   // contracts rather than keying on the source object, which a host may build
   // inline on every render: that would remount the control on each one, read
-  // the list each time and close a sheet the person has open.
+  // the list each time and close a sheet the person has open. The fields are
+  // keyed by it too, so a switch remounts every field even where both pipes
+  // declare an input of the same name: a field's work for the pipe the person
+  // left, a photo still being made into a file, is dropped with it rather than
+  // handed over to the new pipe's upload.
   const [contractTurns, setContractTurns] = React.useState(0);
   // Read this render off the local value, never off `revealed`: a state update
   // made during render is not visible until the re-render it schedules, and the
@@ -790,7 +798,7 @@ export function RunPanel({
             )}
             {visibleFields.map((field) => (
               <FieldRenderer
-                key={`${field.name}:${fills}`}
+                key={`${field.name}:${fills}:${contractTurnsNow}`}
                 field={field}
                 value={values[field.name]}
                 onChange={(value) => {

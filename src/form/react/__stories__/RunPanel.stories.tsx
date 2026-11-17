@@ -1131,6 +1131,85 @@ export const UploadDiscardedAfterPipeSwitch: Story = {
 };
 
 /**
+ * A photo taken for one pipe must not land in the next one either.
+ *
+ * The camera hands its file to the panel's upload only once the photo is read
+ * and the PDF bound, which can be well after the person took it. An upload is
+ * tied to the form generation current at the hand-off, so a file whose making
+ * outlived a pipe switch would be stored as the new pipe's, and both pipes here
+ * take a required `cv`: the photo would arrive in `extract_cv` looking like a
+ * deliberate answer. The panel remounts its fields on a switch, so the field
+ * that took the photo is gone, drops what it was making and hands nothing over,
+ * and its report ends with it.
+ */
+export const PhotoDiscardedAfterPipeSwitch: Story = {
+  args: { ...CV_SCREENING, title: "cv_screening" },
+  render: function Render(args) {
+    const [pipe, setPipe] = React.useState<PipeArtifacts>({
+      contract: args.contract,
+      descriptor: args.descriptor,
+    });
+    const [stored, setStored] = React.useState<string[]>([]);
+    const uploadFile = React.useCallback((file: File) => {
+      setStored((previous) => [...previous, file.name]);
+      return Promise.resolve<UploadedFile>({
+        url: `https://files.test/${file.name}`,
+        filename: file.name,
+      });
+    }, []);
+    return (
+      <>
+        <PanelHost {...args} {...pipe} uploadFile={uploadFile} />
+        <button type="button" data-testid="switch-pipe" onClick={() => setPipe(EXTRACT_CV)}>
+          switch to extract_cv
+        </button>
+        <output data-testid="stored-files">{stored.join(", ") || "nothing stored yet"}</output>
+      </>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const run = () => canvas.getByRole("button", { name: "Run" });
+    const camera = canvasElement.querySelector<HTMLInputElement>("input[data-camera-input]");
+    if (!camera) throw new Error("no camera input for cv");
+
+    const photo = await pagePhoto();
+    const openDecoder = holdDecoder();
+    try {
+      // A photo of a CV under `cv_screening`, still being read.
+      const files = new DataTransfer();
+      files.items.add(photo);
+      camera.files = files.files;
+      camera.dispatchEvent(new Event("change", { bubbles: true }));
+      await waitFor(() => expect(canvasElement.querySelector("[data-photo-pages]")).not.toBeNull());
+
+      // Switch to `extract_cv`, which also takes a required `cv`, by a prop
+      // change: the panel stays mounted.
+      await userEvent.click(canvas.getByTestId("switch-pipe"));
+      await waitFor(() => expect(canvasElement.querySelector("[data-photo-pages]")).toBeNull());
+    } finally {
+      openDecoder();
+    }
+
+    // Long enough for the photo to be read and its PDF bound, had the field
+    // that took it lived on: nothing was handed to the upload.
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+    await expect(canvas.getByTestId("stored-files")).toHaveTextContent("nothing stored yet");
+    await expect(canvas.getByText(/still needed/)).toBeInTheDocument();
+
+    // And the photo's report has ended: a file dropped on the new pipe's `cv`
+    // lets Run go once it is stored.
+    const fileInput = canvasElement.querySelector<HTMLInputElement>(`input[id="${ID_PREFIX}-cv"]`);
+    if (!fileInput) throw new Error("no file input for cv");
+    fireEvent.change(fileInput, {
+      target: { files: [new File(["%PDF"], "cv.pdf", { type: "application/pdf" })] },
+    });
+    await waitFor(() => expect(canvas.getByTestId("stored-files")).toHaveTextContent("cv.pdf"));
+    await waitFor(() => expect(run()).toBeEnabled());
+  },
+};
+
+/**
  * Settles the departed upload from inside the switch's own commit.
  *
  * A layout effect is the only place a test can stand to observe the window this
