@@ -174,6 +174,10 @@ export interface StuffResultPanelProps extends StuffResultRendererOptions {
    * into the stored result — so a run opened the next morning shows broken
    * images, and the URL answers `403` in a way that reads as a permissions
    * problem rather than an expiry. A resolver is what makes a result durable.
+   *
+   * A document is framed only when this answers it on the page's own origin,
+   * as a root-relative path or an absolute URL there; anything else, a URL
+   * the payload names included, is shown as the document's link.
    */
   resolveUrl?: ResolveUrl;
   /**
