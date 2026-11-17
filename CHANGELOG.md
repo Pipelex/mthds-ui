@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- **The bundled schema describes `sheet_range`**: `data/schema/mthds_schema.json` is copied from pipelex v0.108.0. A `PipeStructure` gains the optional `sheet_range`, with an optional `sheet` and `header_row`, which reads a plain range on a worksheet holding no Excel Table, and a `PipeDocGen` gains a `sheet_range` that also names, in its required `list`, the list of records filling the range. Nothing is removed or renamed, so a bundle the schema accepted is still accepted.
+
 ## [v0.54.0] - 2026-11-17
 
 ### Added
