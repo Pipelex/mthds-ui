@@ -1,5 +1,15 @@
 # Changelog
 
+## [v0.55.0] - 2026-11-17
+
+### Changed
+
+- **The bundled schema describes `sheet_range`**: `data/schema/mthds_schema.json` is copied from pipelex v0.108.0. A `PipeStructure` gains the optional `sheet_range`, with an optional `sheet` and `header_row`, which reads a plain range on a worksheet holding no Excel Table, and a `PipeDocGen` gains a `sheet_range` that also names, in its required `list`, the list of records filling the range. Nothing is removed or renamed, so a bundle the schema accepted is still accepted.
+
+### Security
+
+- **A document is framed only from the host's own origin, through `@pipelex/mthds-form` ^0.39.0 (Breaking)**: the kernel's range moves from `^0.38.0` to `^0.39.0`, which a caret below 1.0 does not bridge, so the graph's data panel, and every result view a host draws through `./form/react`, previews a document in a frame only when the host's `resolveUrl` or `resolveDocumentPdf` answered it on the page's own origin, as a root-relative path or an absolute URL there. A URL the payload names, a third party's `https:` PDF included, a resolver's answer on another origin, such as a CDN or a presigned storage URL, and a resolver that hands the payload's URL back unchanged all show the document as its link, with no Preview, so a method can no longer draw someone else's page inside the host's. A host that wants its documents previewed serves them on its own origin. See [docs/stuff-result-panel.md](docs/stuff-result-panel.md#pictures-and-pdfs).
+
 ## [v0.54.0] - 2026-11-17
 
 ### Added

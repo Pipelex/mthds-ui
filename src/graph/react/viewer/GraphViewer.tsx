@@ -259,6 +259,14 @@ export interface GraphViewerProps {
    * images, and the URL answers `403` in a way that reads as a permissions
    * problem rather than an expiry. A resolver is what makes a stored result
    * durable, so supply one if your storage has an authenticated read path.
+   *
+   * It is also what decides whether a document is previewed. The panel frames
+   * a PDF or picture document only when this answers it on the page's own
+   * origin, as a root-relative path (`/api/assets/…`) or an absolute URL
+   * there; a URL the payload names, an answer on another origin (a CDN, a
+   * presigned storage URL) and an answer that hands the payload's URL back
+   * unchanged are shown as the document's link, with no preview. Serve your
+   * documents on your own origin to have them previewed.
    */
   resolveUrl?: ResolveUrl;
   /**
@@ -304,6 +312,11 @@ export interface GraphViewerProps {
    * provider beside `resolveUrl`, which replaces an outer provider rather than
    * merging with it, so a `resolveDocumentPdf` set around the graph does not
    * reach the panel.
+   *
+   * The PDF's URL in a `ready` answer is framed only on the page's own origin,
+   * as a root-relative path or an absolute URL there, as `resolveUrl`'s answer
+   * is; an answer on another origin, such as a CDN or a presigned storage URL,
+   * reads as `unavailable`.
    */
   resolveDocumentPdf?: ResolveDocumentPdf;
   /**
