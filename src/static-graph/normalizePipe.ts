@@ -1023,6 +1023,8 @@ export function normalizePipe(
         doc_gen_choice: isPlainObject(raw.model) ? raw.model : strOrNull(raw.model),
         template: strOrNull(raw.template),
         template_file: strOrNull(raw.template_file),
+        template_input: strOrNull(raw.template_input),
+        table_fill: strOrNull(raw.table_fill),
         filename: strOrNull(raw.filename),
       };
     case "PipeSignature": {

@@ -645,4 +645,27 @@ filename = "notice.pdf"
       filename: "notice.pdf",
     });
   });
+
+  it("reads a document generation step that fills a workbook the run supplies", () => {
+    const { bundle, diagnostics } = parseMthdsBundle(`
+domain = "d"
+[pipe.fill_expenses]
+type = "PipeDocGen"
+description = "Fills the empty categories"
+inputs = { workbook = "Document", expenses = "Expense[]" }
+output = "Document"
+format = "xlsx"
+template_input = "workbook"
+table_fill = "update"
+match_row = "row"
+`);
+    expect(diagnostics).toEqual([]);
+    expect(bundle.pipes.fill_expenses as PipeDocGenBlueprint).toMatchObject({
+      doc_gen_format: "xlsx",
+      template: null,
+      template_file: null,
+      template_input: "workbook",
+      table_fill: "update",
+    });
+  });
 });

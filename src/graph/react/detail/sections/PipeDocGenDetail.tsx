@@ -19,10 +19,16 @@ type PipeDocGenBlueprint = Extract<PipeBlueprintUnion, { type: "PipeDocGen" }>;
  * The source token a step composes from, derived from the blueprint alone for a
  * graph that ran nothing, by the runtime's own rule: no template is the
  * auto-layout, and a template is HTML for a pdf, inline or read from its file,
- * and a template file for any other format.
+ * and a template file for any other format, whether the method holds the file
+ * or the run supplies it as an input.
  */
 function declaredSource(blueprint: PipeDocGenBlueprint): string {
-  if (blueprint.template == null && blueprint.template_file == null) return "layout";
+  if (
+    blueprint.template == null &&
+    blueprint.template_file == null &&
+    blueprint.template_input == null
+  )
+    return "layout";
   if (blueprint.template != null || blueprint.doc_gen_format === "pdf") return "html";
   return "template_file";
 }
@@ -79,6 +85,8 @@ export function PipeDocGenSection({
       )}
       <KV label="Source" value={DOC_GEN_SOURCE_LABELS[source] ?? source} />
       <KV label="Template File" value={blueprint.template_file} />
+      <KV label="Template Input" value={blueprint.template_input} />
+      <KV label="Table Fill" value={blueprint.table_fill} />
       <KV label="File Name" value={blueprint.filename} />
       {renderedFilename && renderedFilename !== blueprint.filename && (
         <KV label="Stored As" value={renderedFilename} />
