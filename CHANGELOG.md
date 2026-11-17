@@ -1,5 +1,16 @@
 # Changelog
 
+## [v0.54.0] - 2026-11-17
+
+### Added
+
+- **`RunPanel`'s file inputs take photos on a touch screen**: wherever the panel can store a file, an empty document or image input, and each row of a list of them, shows the kernel's "Take photo", which stores a document's pages as one PDF, or an image's photo as a JPEG, through the panel's upload like a dropped file; on a computer nothing changes. `./form` exports `takesPhotos(field)`, and a host supplying a complete `FieldStrings` rather than a partial override adds `takePhoto`, `takePhotoAria`, `addPage`, `photoPage`, `photoImage`, `photoDocument`, `retakePhoto`, `removePhoto`, `readingPhoto`, `photoUndecodable`, `photoNotKept`, `photoPagesChip` and `photoChip`. See [docs/run-form-panel.md](docs/run-form-panel.md).
+- **A file the camera is still making holds `RunPanel`'s Run button**: the panel supplies the kernel's `FieldEnv.onPreparingFile` and counts each report as an upload in flight, so a list of files or an optional file input no longer lets a run go out while its photographed file is still being made. A host's own `env.onPreparingFile` is called beside the panel's, as its `uploadingIds` joins the panel's set, and `useMethodForm` from `./form/react` returns the same as `preparingIds` and `preparingFile`. See [docs/run-form-panel.md](docs/run-form-panel.md).
+
+### Changed
+
+- **`@pipelex/mthds-form` ^0.38.0 (Breaking)**: the kernel's range moves from `^0.37.0` to `^0.38.0`, which a caret below 1.0 does not bridge, so a host resolves the kernel's camera only through this release. Its `useMethodForm` counts a file being made in `uploading`, `ready` and `touched`, so a host driving its own form sees `uploading` true and `ready` false while a photo is read; `PROMPT_HASH` stays `30cf9bc059f6`, so no stored layout goes stale. See [docs/run-form-panel.md](docs/run-form-panel.md).
+
 ## [v0.53.2] - 2026-11-17
 
 ### Changed

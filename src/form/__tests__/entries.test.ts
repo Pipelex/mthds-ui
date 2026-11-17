@@ -43,6 +43,7 @@ import type {
   FilePickerSource,
   LoadText,
   MarkdownCitation,
+  MethodFormController,
   MarkdownProps,
   RenditionRequest,
   ResolveDocumentPdf,
@@ -101,6 +102,12 @@ describe("the ./form entry", () => {
     expectTypeOf<CoreLoadText>().toEqualTypeOf<LoadText>();
   });
 
+  it("carries the rule that says which file inputs the camera fills", () => {
+    // Kernel 0.38.0: a document input accepting PDF and an image input
+    // accepting JPEG are offered the camera on a touch screen.
+    expect(form.takesPhotos).toBeTypeOf("function");
+  });
+
   it("carries the readers of a search result, for a host drawing one its own way", () => {
     // Kernel 0.27.0: the readers the kernel's search arm draws with.
     expect(form.NATIVE_SEARCH_RESULT_CONCEPT_REF).toBe("native.SearchResult");
@@ -142,6 +149,19 @@ describe("the ./form/react entry", () => {
     // (kernel 0.23.2), so every `FileSource` a host already passes is one.
     expectTypeOf<FieldEnv["fileSource"]>().toEqualTypeOf<FilePickerSource | undefined>();
     expectTypeOf<FileSource>().toExtend<FilePickerSource>();
+  });
+
+  it("carries the seam by which a field reports a file its camera is still making", () => {
+    // Kernel 0.38.0. A host rendering its own fields passes it as `MethodForm`
+    // does, from the controller's `preparingFile`, and counts `preparingIds`
+    // as uploads in flight.
+    expectTypeOf<FieldEnv["onPreparingFile"]>().toEqualTypeOf<
+      ((id: string) => () => void) | undefined
+    >();
+    expectTypeOf<MethodFormController["preparingFile"]>().toEqualTypeOf<
+      (id: string) => () => void
+    >();
+    expectTypeOf<MethodFormController["preparingIds"]>().toEqualTypeOf<ReadonlySet<string>>();
   });
 
   it("types RunPanel's two source props as the kernel's controls take them, and its fill callback", () => {
@@ -291,6 +311,29 @@ describe("the ./form/react entry", () => {
     expectTypeOf<ComponentProps<typeof formReact.StuffViewer>["framed"]>().toEqualTypeOf<
       boolean | undefined
     >();
+  });
+
+  it("carries the camera's strings, in every supplied language", () => {
+    // Kernel 0.38.0. A host supplying a complete `FieldStrings` adds them.
+    const keys = [
+      "takePhoto",
+      "takePhotoAria",
+      "addPage",
+      "photoPage",
+      "photoImage",
+      "photoDocument",
+      "retakePhoto",
+      "removePhoto",
+      "readingPhoto",
+      "photoUndecodable",
+      "photoNotKept",
+      "photoPagesChip",
+      "photoChip",
+    ] as const satisfies readonly (keyof FieldStrings)[];
+    for (const strings of [formReact.EN_FIELD_STRINGS, formReact.FR_FIELD_STRINGS]) {
+      for (const key of keys) expect(strings[key], key).toBeDefined();
+      expect(strings.photoPagesChip("Invoice", 2)).toBeTypeOf("string");
+    }
   });
 
   it("carries the line a composer's action row says it waits for", () => {
