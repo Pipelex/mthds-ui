@@ -2,8 +2,13 @@
 
 ## [Unreleased]
 
+### Added
+
+- **`RunPanel`'s file inputs take photos on a touch screen**: wherever the panel can store a file, an empty document or image input, and each row of a list of them, shows the kernel's "Take photo", which stores a document's pages as one PDF, or an image's photo as a JPEG, through the panel's upload like a dropped file; on a computer nothing changes. `./form` exports `takesPhotos(field)`, and a host supplying a complete `FieldStrings` rather than a partial override adds `takePhoto`, `takePhotoAria`, `addPage`, `photoPage`, `photoImage`, `photoDocument`, `retakePhoto`, `removePhoto`, `readingPhoto`, `photoUndecodable`, `photoNotKept`, `photoPagesChip` and `photoChip`. See [docs/run-form-panel.md](docs/run-form-panel.md).
+
 ### Changed
 
+- **`@pipelex/mthds-form` ^0.38.0 (Breaking)**: the kernel's range moves from `^0.37.0` to `^0.38.0`, which a caret below 1.0 does not bridge, so a host resolves the kernel's camera only through this release. Its `useMethodForm` counts a file being made in `uploading`, `ready` and `touched`, so a host driving its own form sees `uploading` true and `ready` false while a photo is read; `PROMPT_HASH` stays `30cf9bc059f6`, so no stored layout goes stale. See [docs/run-form-panel.md](docs/run-form-panel.md).
 - **The bundled schema describes the spreadsheet-reading `PipeStructure` and the workbook-editing `PipeDocGen`**: `data/schema/mthds_schema.json` is copied from pipelex v0.107.0. A `PipeStructure` gains the optional `table` and `row_field`, which read an Excel Table or a CSV file into a list of records, and a `PipeDocGen` gains the optional `template_input`, `table_fill` (`replace`, `append` or `update`), `match_on`, `match_row` and `cells` (`fill_empty` or `overwrite`), which return an edited copy of a workbook supplied as a run input. Nothing is removed or renamed, so a bundle the schema accepted is still accepted.
 
 ### Fixed
