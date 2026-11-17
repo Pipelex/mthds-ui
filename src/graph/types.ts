@@ -662,6 +662,10 @@ export interface PipeDocGenBlueprint extends PipeBlueprintBase {
   template?: string | null;
   /** The template file as the method names it. */
   template_file?: string | null;
+  /** The input whose file the step fills as its template, a workbook the run is given. */
+  template_input?: string | null;
+  /** How the step fills its workbook's Tables: `replace`, `append` or `update`. */
+  table_fill?: string | null;
   /** The file name the document is stored under, a template. */
   filename?: string | null;
 }
