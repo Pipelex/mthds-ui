@@ -174,6 +174,10 @@ export interface StuffResultPanelProps extends StuffResultRendererOptions {
    * into the stored result — so a run opened the next morning shows broken
    * images, and the URL answers `403` in a way that reads as a permissions
    * problem rather than an expiry. A resolver is what makes a result durable.
+   *
+   * A document is framed only when this answers it on the page's own origin,
+   * as a root-relative path or an absolute URL there; anything else, a URL
+   * the payload names included, is shown as the document's link.
    */
   resolveUrl?: ResolveUrl;
   /**
@@ -190,7 +194,8 @@ export interface StuffResultPanelProps extends StuffResultRendererOptions {
    * convert, or an ask the kernel calls when the reader opens the preview. The
    * document's preview then shows the PDF's pages, while its name, its copy
    * control and every download keep the original. Unset, such a document
-   * offers no preview.
+   * offers no preview. The PDF's URL in a `ready` answer is framed only on the
+   * page's own origin; an answer on another origin reads as `unavailable`.
    */
   resolveDocumentPdf?: ResolveDocumentPdf;
   /**
