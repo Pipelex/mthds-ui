@@ -312,6 +312,11 @@ export interface GraphViewerProps {
    * provider beside `resolveUrl`, which replaces an outer provider rather than
    * merging with it, so a `resolveDocumentPdf` set around the graph does not
    * reach the panel.
+   *
+   * The PDF's URL in a `ready` answer is framed only on the page's own origin,
+   * as a root-relative path or an absolute URL there, as `resolveUrl`'s answer
+   * is; an answer on another origin, such as a CDN or a presigned storage URL,
+   * reads as `unavailable`.
    */
   resolveDocumentPdf?: ResolveDocumentPdf;
   /**

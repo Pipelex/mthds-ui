@@ -194,7 +194,8 @@ export interface StuffResultPanelProps extends StuffResultRendererOptions {
    * convert, or an ask the kernel calls when the reader opens the preview. The
    * document's preview then shows the PDF's pages, while its name, its copy
    * control and every download keep the original. Unset, such a document
-   * offers no preview.
+   * offers no preview. The PDF's URL in a `ready` answer is framed only on the
+   * page's own origin; an answer on another origin reads as `unavailable`.
    */
   resolveDocumentPdf?: ResolveDocumentPdf;
   /**
