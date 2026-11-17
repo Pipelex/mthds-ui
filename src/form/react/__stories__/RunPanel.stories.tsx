@@ -786,6 +786,146 @@ export const ListTakesSeveralFilesAtOnce: Story = {
   },
 };
 
+/** A photographed page, as a phone's camera hands one to the page: a JPEG drawn on a canvas. */
+async function pagePhoto(): Promise<File> {
+  const canvas = document.createElement("canvas");
+  canvas.width = 600;
+  canvas.height = 800;
+  const context = canvas.getContext("2d");
+  if (!context) throw new Error("no 2d context");
+  context.fillStyle = "#f3efe6";
+  context.fillRect(0, 0, canvas.width, canvas.height);
+  context.fillStyle = "#2b2925";
+  context.font = "32px sans-serif";
+  context.fillText("CURRICULUM VITAE", 40, 80);
+  const blob = await new Promise<Blob | null>((resolve) =>
+    canvas.toBlob(resolve, "image/jpeg", 0.9),
+  );
+  if (!blob) throw new Error("the sample photo could not be drawn");
+  return new File([blob], "IMG_4201.jpg", { type: "image/jpeg" });
+}
+
+/**
+ * Holds the browser's decoder shut until the returned function opens it, so a
+ * photo taken meanwhile stays "being read" for as long as the story needs, and
+ * is then read for real. The returned function also puts the decoder back.
+ */
+function holdDecoder(): () => void {
+  const real = window.createImageBitmap;
+  let open: () => void = () => {};
+  const gate = new Promise<void>((resolve) => {
+    open = resolve;
+  });
+  window.createImageBitmap = ((...args: unknown[]) =>
+    gate.then(() =>
+      (real as (...decodeArgs: unknown[]) => Promise<ImageBitmap>).apply(window, args),
+    )) as typeof window.createImageBitmap;
+  return () => {
+    window.createImageBitmap = real;
+    open();
+  };
+}
+
+/** The host's own camera report, called beside the panel's. */
+const hostPreparingSpy = fn();
+const hostPreparingReleaseSpy = fn();
+
+/**
+ * A file the camera is still making holds Run, as an upload in flight does.
+ *
+ * Kernel 0.38.0 offers a camera on a touch screen wherever the panel stores
+ * files, and makes a document's file in the browser before it hands it to the
+ * panel's upload. The field reports that through `FieldEnv.onPreparingFile`,
+ * which the panel supplies: without it, the field would empty its value and
+ * leave Run live, so a list of files, which never gates readiness, would run
+ * without the file being photographed. The host's own `env.onPreparingFile` is
+ * called beside the panel's, as its `uploadingIds` joins the panel's set.
+ *
+ * The photo is handed to the row's camera input, as a phone's shutter does, so
+ * the story runs on any pointer; "Take photo" itself is drawn on a touch screen
+ * only, and the kernel's own stories cover it.
+ */
+export const PhotoBeingMadeHoldsRun: Story = {
+  args: {
+    ...SCREEN_CVS,
+    title: "screen_cvs",
+    initialValues: { job_offer: { url: "https://files.test/job.pdf", filename: "job.pdf" } },
+    env: {
+      onPreparingFile: (id: string) => {
+        hostPreparingSpy(id);
+        return hostPreparingReleaseSpy;
+      },
+    },
+  },
+  render: function Render(args) {
+    const pending = React.useRef<(() => void) | null>(null);
+    const [stored, setStored] = React.useState<string | null>(null);
+    const uploadFile = React.useCallback(
+      (file: File) =>
+        new Promise<UploadedFile>((resolve) => {
+          setStored(file.type);
+          pending.current = () =>
+            resolve({ url: "https://files.test/cv-photo.pdf", filename: file.name });
+        }),
+      [],
+    );
+    return (
+      <>
+        <PanelHost {...args} uploadFile={uploadFile} />
+        <output data-testid="stored-type">{stored ?? "nothing stored yet"}</output>
+        <button type="button" data-testid="settle-upload" onClick={() => pending.current?.()}>
+          settle upload
+        </button>
+      </>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    hostPreparingSpy.mockClear();
+    hostPreparingReleaseSpy.mockClear();
+    const canvas = within(canvasElement);
+    const run = () => canvas.getByRole("button", { name: "Run" });
+    // The list never gates readiness and the job offer is filled, so only the
+    // upload gate can hold Run.
+    await expect(run()).toBeEnabled();
+
+    await userEvent.click(canvas.getByRole("button", { name: "Add item" }));
+    const camera = await waitFor(() => {
+      const found = canvasElement.querySelector<HTMLInputElement>("input[data-camera-input]");
+      if (!found) throw new Error("no camera input on the row");
+      return found;
+    });
+
+    const photo = await pagePhoto();
+    const openDecoder = holdDecoder();
+    try {
+      const files = new DataTransfer();
+      files.items.add(photo);
+      camera.files = files.files;
+      camera.dispatchEvent(new Event("change", { bubbles: true }));
+
+      // The photo is being read: the field reports it, and Run waits.
+      await waitFor(() => expect(hostPreparingSpy).toHaveBeenCalledWith("cvs.0"));
+      await waitFor(() => expect(run()).toBeDisabled());
+      await expect(canvas.getByTestId("stored-type")).toHaveTextContent("nothing stored yet");
+    } finally {
+      openDecoder();
+    }
+
+    // Read and bound into a PDF, the file goes through the panel's upload,
+    // which holds Run in turn; the field's report has ended.
+    await waitFor(
+      () => expect(canvas.getByTestId("stored-type")).toHaveTextContent("application/pdf"),
+      { timeout: 10_000 },
+    );
+    await waitFor(() => expect(hostPreparingReleaseSpy).toHaveBeenCalled());
+    await expect(run()).toBeDisabled();
+
+    // The upload lands, and Run is live again.
+    await userEvent.click(canvas.getByTestId("settle-upload"));
+    await waitFor(() => expect(run()).toBeEnabled());
+  },
+};
+
 /**
  * A decimal in a number field must not silently veto the run.
  *

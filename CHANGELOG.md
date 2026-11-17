@@ -5,6 +5,7 @@
 ### Added
 
 - **`RunPanel`'s file inputs take photos on a touch screen**: wherever the panel can store a file, an empty document or image input, and each row of a list of them, shows the kernel's "Take photo", which stores a document's pages as one PDF, or an image's photo as a JPEG, through the panel's upload like a dropped file; on a computer nothing changes. `./form` exports `takesPhotos(field)`, and a host supplying a complete `FieldStrings` rather than a partial override adds `takePhoto`, `takePhotoAria`, `addPage`, `photoPage`, `photoImage`, `photoDocument`, `retakePhoto`, `removePhoto`, `readingPhoto`, `photoUndecodable`, `photoNotKept`, `photoPagesChip` and `photoChip`. See [docs/run-form-panel.md](docs/run-form-panel.md).
+- **A file the camera is still making holds `RunPanel`'s Run button**: the panel supplies the kernel's `FieldEnv.onPreparingFile` and counts each report as an upload in flight, so a list of files or an optional file input no longer lets a run go out while its photographed file is still being made. A host's own `env.onPreparingFile` is called beside the panel's, as its `uploadingIds` joins the panel's set, and `useMethodForm` from `./form/react` returns the same as `preparingIds` and `preparingFile`. See [docs/run-form-panel.md](docs/run-form-panel.md).
 
 ### Changed
 

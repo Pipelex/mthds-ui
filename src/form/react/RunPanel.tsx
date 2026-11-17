@@ -105,6 +105,11 @@ export interface RunPanelProps {
    * whole loop supplies `onDropFile` too, so the panel's set is empty and the
    * union is exactly your set.
    *
+   * `onPreparingFile` joins the same way. The panel always supplies its own,
+   * so a file the kernel's camera is still making holds Run as an upload in
+   * flight does, and calls yours beside it when you pass one: your report
+   * starts with the panel's, and the release the field calls ends both.
+   *
    * A host owning the whole loop answers the field as the panel does: its
    * `onDropFile` returns its upload, a promise of what it stored that resolves
    * to the file it wrote and rejects when it wrote nothing. One that returns
@@ -240,6 +245,7 @@ export interface RunPanelProps {
 }
 
 const EMPTY_IDS: ReadonlySet<string> = new Set<string>();
+const NO_REPORTS: ReadonlySet<number> = new Set<number>();
 const NOTHING_REVEALED: ReadonlySet<string> = new Set<string>();
 
 /**
@@ -275,6 +281,9 @@ export function RunPanel({
 }: RunPanelProps) {
   const [showOptional, setShowOptional] = React.useState(false);
   const [uploadingIds, setUploadingIds] = React.useState<ReadonlySet<string>>(EMPTY_IDS);
+  // The files the kernel's camera is still making, one entry per report
+  // (`handlePreparingFile` below).
+  const [preparing, setPreparing] = React.useState<ReadonlySet<number>>(NO_REPORTS);
   const [submitError, setSubmitError] = React.useState<string | null>(null);
   // What the person's own work is measured against, for "Fill with an example":
   // the values the form held just before their first edit in this panel, or the
@@ -442,6 +451,52 @@ export function RunPanel({
     [uploadFile, commitValues],
   );
 
+  // The field's `onPreparingFile`. Since kernel 0.38.0 a file field offers a
+  // camera wherever the panel stores files, and makes a document's PDF in the
+  // browser before it hands the file to `onDropFile`: until then the value is
+  // about to change, and a run started meanwhile would send the file the field
+  // held before the last photo, or none. So a file being made holds Run exactly
+  // as an upload in flight does. Without this seam the kernel empties the value
+  // instead, which a list of files or an optional file input does not gate on,
+  // so the method would run with the photographed file simply absent.
+  //
+  // Each report is a token, never an id: the kernel ends a report by calling
+  // the release it was handed, and a report outlives its id (a list's row moved
+  // or removed while its file is made). Only the count matters to Run, so the
+  // panel keeps the tokens alone. It never clears them on a pipe switch or a
+  // fill, as it does its uploads: the field always ends its report, at the
+  // hand-off, when it gives up, or when it unmounts. A fill remounts every
+  // field, and so does a switch, except a field of the same name in both pipes,
+  // whose pages are still on screen and whose file is still on its way.
+  //
+  // The host's own `env.onPreparingFile` is called beside it, the union rule
+  // `uploadingIds` follows: a host that tracks the camera itself still has Run
+  // held by the panel. Read off a ref so the seam keeps its identity when a
+  // host builds `env` inline.
+  const hostPreparingRef = React.useRef(env?.onPreparingFile);
+  React.useLayoutEffect(() => {
+    hostPreparingRef.current = env?.onPreparingFile;
+  }, [env?.onPreparingFile]);
+  const reportCounter = React.useRef(0);
+  const handlePreparingFile = React.useCallback((id: string): (() => void) => {
+    reportCounter.current += 1;
+    const token = reportCounter.current;
+    setPreparing((previous) => new Set(previous).add(token));
+    const releaseHost = hostPreparingRef.current?.(id);
+    let released = false;
+    return () => {
+      if (released) return;
+      released = true;
+      setPreparing((previous) => {
+        if (!previous.has(token)) return previous;
+        const next = new Set(previous);
+        next.delete(token);
+        return next;
+      });
+      releaseHost?.();
+    };
+  }, []);
+
   const fieldEnv = React.useMemo<FieldEnv>(
     () => ({
       ...env,
@@ -464,8 +519,19 @@ export function RunPanel({
       // supplies `onDropFile` too, so our set is empty and the union is exactly
       // its set — "yours win" still holds where that clause applies.
       uploadingIds: new Set([...(env?.uploadingIds ?? EMPTY_IDS), ...uploadingIds]),
+      // Always the panel's, which calls the host's beside it (above).
+      onPreparingFile: handlePreparingFile,
     }),
-    [env, running, uploadFile, handleDropFile, fileSource, loadText, uploadingIds],
+    [
+      env,
+      running,
+      uploadFile,
+      handleDropFile,
+      fileSource,
+      loadText,
+      uploadingIds,
+      handlePreparingFile,
+    ],
   );
 
   // Readiness alone would let a run go out while a file is still uploading: a
@@ -473,8 +539,9 @@ export function RunPanel({
   // never counts toward readiness, so Run stays live through its upload and the
   // method would run with the file simply absent. Read off `fieldEnv` rather
   // than the raw state, so a host driving its own loop through
-  // `env.uploadingIds` gets the same gate.
-  const uploading = (fieldEnv.uploadingIds?.size ?? 0) > 0;
+  // `env.uploadingIds` gets the same gate. A file the camera is still making
+  // counts too: it is an upload that has not started yet.
+  const uploading = (fieldEnv.uploadingIds?.size ?? 0) > 0 || preparing.size > 0;
   const notReady = readiness.missing.length > 0;
 
   // ONE expression, read by the button and by the submit path, because they are
