@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- **The bundled schema describes the spreadsheet-reading `PipeStructure` and the workbook-editing `PipeDocGen`**: `data/schema/mthds_schema.json` is copied from pipelex v0.107.0. A `PipeStructure` gains the optional `table` and `row_field`, which read an Excel Table or a CSV file into a list of records, and a `PipeDocGen` gains the optional `template_input`, `table_fill` (`replace`, `append` or `update`), `match_on`, `match_row` and `cells` (`fill_empty` or `overwrite`), which return an edited copy of a workbook supplied as a run input. Nothing is removed or renamed, so a bundle the schema accepted is still accepted.
+
 ## [v0.53.1] - 2026-11-16
 
 ### Fixed
