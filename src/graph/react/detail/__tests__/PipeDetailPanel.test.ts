@@ -524,6 +524,20 @@ describe("PipeDetailPanel on a PipeDocGen step", () => {
     expect(inline).toContain("&lt;h1&gt;{{ notice.title }}&lt;/h1&gt;");
   });
 
+  it("names a workbook the run supplies as a template file, with its input and how its Tables fill", () => {
+    const html = renderDocGen("static", {
+      ...DOC_GEN_BLUEPRINT,
+      doc_gen_format: "xlsx",
+      template_input: "expenses_workbook",
+      table_fill: "update",
+    });
+
+    expect(html).toContain(kvRow("Source", "template file"));
+    expect(html).toContain(kvRow("Template Input", "expenses_workbook"));
+    expect(html).toContain(kvRow("Table Fill", "update"));
+    expect(html).not.toContain("Template File");
+  });
+
   it("shows a dry step's resolved engine and source, but not the name a mock run rendered", () => {
     const html = renderDocGen("dry");
 
