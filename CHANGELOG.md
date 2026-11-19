@@ -1,5 +1,11 @@
 # Changelog
 
+## [v0.55.1] - 2026-11-19
+
+### Fixed
+
+- **The simple style's detail panel describes a text as a text**: under "What it contains", an input or a result whose concept is `Text`, `Markdown`, `Html` or `JSON`, or refines one, no longer lists the members of the form in which such a value travels as a reference to storage (URL, size, MIME type and preview), which the schema of these natives carries since pipelex 0.106.0. A concept with a structure of its own still lists every field it declares, one called `url` included, and the other natives keep their members. See [docs/graph-styles.md](docs/graph-styles.md#the-detail-panel).
+
 ## [v0.55.0] - 2026-11-17
 
 ### Changed

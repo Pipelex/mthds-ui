@@ -8,7 +8,12 @@ import {
 } from "@graph/types";
 import { findStuffByDigest } from "@graph/stuffLookup";
 import { makeEmptyBindingSpec, makeMinimalSpec, makeNestedSpec } from "@graph/__tests__/testUtils";
-import { LIVE_CV_ANALYZER } from "@graph/react/viewer/__stories__/liveGraphSpec";
+import {
+  LIVE_CV_ANALYZER,
+  LIVE_CV_BATCH_SCREENING,
+  LIVE_EMAIL_TRIAGE,
+} from "@graph/react/viewer/__stories__/liveGraphSpec";
+import { withStoredTextMembers } from "@graph/react/viewer/__stories__/storedTextSpec";
 import { reviewSpec } from "@graph/react/viewer/__stories__/styleReviewFixtures";
 import type { ReviewFixtureId } from "@graph/react/viewer/__stories__/styleReviewFixtures";
 import { buildSimpleNodeDetail } from "../simpleDetail";
@@ -342,6 +347,52 @@ describe("buildSimpleNodeDetail: an input or an output", () => {
     expect(detail.value.from).toEqual([]);
     expect(titles(detail.value.to)).toEqual(["Extract pages from document"]);
     expect(detail.fields.map((f) => f.title)).toContain("URL");
+  });
+
+  it("describes a native text input as a text, without its stored-reference members", () => {
+    const { projection, input } = drawn(withStoredTextMembers(LIVE_EMAIL_TRIAGE));
+    const node = projection.nodes.find((n) => n.data.stuffRole === "input");
+    const detail = detailOf(input, node?.id ?? "", "value");
+    // The spec does carry them: the panel is what leaves them out.
+    const registry = input.graphspec.concept_registry ?? {};
+    expect(Object.keys(registry["native.Text"]?.json_schema?.properties ?? {})).toContain("url");
+    expect(detail.fields).toEqual([{ title: "Text", description: "The text" }]);
+  });
+
+  it("describes a result refining Text as a text too", () => {
+    const { projection, input } = drawn(withStoredTextMembers(LIVE_EMAIL_TRIAGE));
+    const node = projection.nodes.find((n) => n.data.stuffRole === "output");
+    const detail = detailOf(input, node?.id ?? "", "value");
+    expect(detail.fields.map((f) => f.title)).toEqual(["Text"]);
+  });
+
+  it("lists every field of a method's own structure, one called url included", () => {
+    const spec = LIVE_CV_BATCH_SCREENING;
+    const registry = spec.concept_registry ?? {};
+    const match = registry["cv_batch_screening.CandidateMatch"];
+    const withUrl: GraphSpec = {
+      ...spec,
+      concept_registry: {
+        ...registry,
+        "cv_batch_screening.CandidateMatch": {
+          ...match,
+          json_schema: {
+            ...match.json_schema,
+            properties: {
+              ...(match.json_schema?.properties as Record<string, unknown>),
+              url: { type: "string", description: "The candidate's portfolio" },
+              size: { type: "integer" },
+            },
+          },
+        },
+      },
+    };
+    const { projection, input } = drawn(withUrl);
+    const node = projection.nodes.find((n) => n.data.stuffRole === "output");
+    const detail = detailOf(input, node?.id ?? "", "value");
+    expect(detail.fields.map((f) => f.title)).toEqual(
+      expect.arrayContaining(["Match score", "Strengths", "URL", "Size"]),
+    );
   });
 
   it("names the step that made the final output", () => {
