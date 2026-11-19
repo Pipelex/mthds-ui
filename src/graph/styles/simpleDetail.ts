@@ -9,6 +9,7 @@
 
 import type { Problem } from "mthds/errors";
 import type {
+  ConceptInfo,
   FoldToggleOptions,
   GraphEdge,
   GraphNode,
@@ -32,6 +33,7 @@ import { makePipeRef, parsePipeRef } from "@graph/pipeRefs";
 import { findStuffByDigest } from "@graph/stuffLookup";
 import type { StuffLocation } from "@graph/stuffLookup";
 import { humanizeIdentifier, outcomeLabel, pipeTitle, stripDomain } from "./humanize";
+import { STORED_VALUE_REFERENCE_MEMBERS, isStoredValueConcept } from "./nativeConcepts";
 import { aggregateStatus, simpleValueTitle } from "./simpleStyle";
 import type { SimpleValueFlow } from "./simpleStyle";
 
@@ -356,7 +358,7 @@ export function buildSimpleNodeDetail(
       nodeId: node.id,
       role,
       value: located,
-      fields: conceptFields(concept?.json_schema),
+      fields: concept ? conceptFields(graphspec, concept) : [],
     };
   }
 
@@ -609,13 +611,27 @@ function isOutcomeEnd(pipeRef: string): pipeRef is SimpleOutcomeEnd {
   return pipeRef === "fail" || pipeRef === "continue";
 }
 
-/** A concept's fields in plain words, from its JSON schema. */
+/**
+ * A concept's fields in plain words, from its JSON schema. A text is described
+ * as a text: a native whose value may live in storage (`Text`, `Markdown`,
+ * `Html`, `JSON`), or a concept refining one, leaves out the members of its
+ * stored form (`url`, `size`, `mime_type`, `preview`), which say how the
+ * runtime carries the value rather than what it is. Every other concept lists
+ * all its fields, a method's own field called `url` included.
+ */
 function conceptFields(
-  schema: Record<string, unknown> | undefined,
+  graphspec: GraphSpec,
+  concept: ConceptInfo,
 ): { title: string; description?: string }[] {
-  const properties = schema?.properties as Record<string, Record<string, unknown>> | undefined;
+  const properties = concept.json_schema?.properties as
+    | Record<string, Record<string, unknown>>
+    | undefined;
   if (!properties) return [];
-  return Object.entries(properties).map(([name, field]) => {
+  const storedValue = isStoredValueConcept(graphspec, concept);
+  const entries = Object.entries(properties).filter(
+    ([name]) => !(storedValue && STORED_VALUE_REFERENCE_MEMBERS.has(name)),
+  );
+  return entries.map(([name, field]) => {
     const description =
       typeof field.description === "string" ? field.description.trim() : undefined;
     return description

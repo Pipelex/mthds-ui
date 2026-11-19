@@ -4,18 +4,27 @@ import { expect, userEvent, waitFor, within } from "storybook/test";
 import { GraphViewer } from "../GraphViewer";
 import { GRAPH_STYLE, GRAPH_THEME } from "@graph/types";
 import type { GraphStyleId, PipeStatus } from "@graph/types";
-import { LIVE_BATCH_WITH_INNER_SEQ, LIVE_CV_SCREENING, LIVE_EMAIL_TRIAGE } from "./liveGraphSpec";
+import {
+  LIVE_BATCH_WITH_INNER_SEQ,
+  LIVE_CV_BATCH_SCREENING,
+  LIVE_CV_SCREENING,
+  LIVE_EMAIL_TRIAGE,
+} from "./liveGraphSpec";
 import { DRY_CV_SCREENING } from "./mockGraphSpec";
 import { STATIC_CV_SCREENING } from "./staticGraphSpec";
+import { withStoredTextMembers } from "./storedTextSpec";
 import { waitForGraphRender } from "./storyTestUtils";
 import {
   CONTRACTS_BATCH_WITH_INNER_SEQ,
+  CONTRACTS_CV_BATCH_SCREENING,
   CONTRACTS_CV_SCREENING,
   CONTRACTS_EMAIL_TRIAGE,
   INPUT_FORM_BATCH_WITH_INNER_SEQ,
+  INPUT_FORM_CV_BATCH_SCREENING,
   INPUT_FORM_CV_SCREENING,
   INPUT_FORM_EMAIL_TRIAGE,
   OUTPUT_FORM_BATCH_WITH_INNER_SEQ,
+  OUTPUT_FORM_CV_BATCH_SCREENING,
   OUTPUT_FORM_CV_SCREENING,
   OUTPUT_FORM_EMAIL_TRIAGE,
 } from "@form/react/__stories__/contracts/_generated.contracts";
@@ -258,6 +267,72 @@ export const AnInputAndTheResult: Story = {
     await expect(
       panel.getByText("Result", { selector: ".simple-detail-kind" }),
     ).toBeInTheDocument();
+  },
+};
+
+/** The members listed under "What it contains" in the open panel, in order. */
+async function containedMembers(canvasElement: HTMLElement): Promise<string[]> {
+  return waitFor(() => {
+    const list = canvasElement.querySelector(".detail-panel-content .simple-detail-fields");
+    if (!list) throw new Error("no members listed");
+    return Array.from(list.querySelectorAll("dt")).map((dt) => dt.textContent ?? "");
+  });
+}
+
+/** The method's terminal of one role, its input or its result. */
+async function terminal(canvasElement: HTMLElement, kind: "input" | "output") {
+  await waitForGraphRender(canvasElement);
+  return waitFor(() => {
+    const found = canvasElement.querySelector<HTMLElement>(`.simple-terminal--${kind}`);
+    if (!found) throw new Error(`no ${kind} terminal`);
+    return found;
+  });
+}
+
+/**
+ * A native text input is described as a text. Since pipelex 0.106 a text's
+ * schema carries the members of the form in which it travels as a reference to
+ * storage (URL, size, MIME type, preview) beside the text itself; this run's
+ * spec carries them, and the panel lists the text alone.
+ */
+export const ANativeTextInput: Story = {
+  args: {
+    ...base,
+    graph: {
+      graphSpec: withStoredTextMembers(LIVE_EMAIL_TRIAGE),
+      pipeIoContracts: CONTRACTS_EMAIL_TRIAGE,
+      inputForm: INPUT_FORM_EMAIL_TRIAGE,
+      outputForm: OUTPUT_FORM_EMAIL_TRIAGE,
+    },
+  },
+  play: async ({ canvasElement }) => {
+    await userEvent.click(await terminal(canvasElement, "input"));
+    const panel = await simplePanel(canvasElement);
+    await expect(panel.getByRole("heading", { name: "What it contains" })).toBeInTheDocument();
+    await expect(await containedMembers(canvasElement)).toEqual(["Text"]);
+  },
+};
+
+/**
+ * For contrast, a result whose concept is the method's own structure lists
+ * every field the method declares.
+ */
+export const AMethodStructureResult: Story = {
+  args: {
+    ...base,
+    graph: {
+      graphSpec: LIVE_CV_BATCH_SCREENING,
+      pipeIoContracts: CONTRACTS_CV_BATCH_SCREENING,
+      inputForm: INPUT_FORM_CV_BATCH_SCREENING,
+      outputForm: OUTPUT_FORM_CV_BATCH_SCREENING,
+    },
+  },
+  play: async ({ canvasElement }) => {
+    await userEvent.click(await terminal(canvasElement, "output"));
+    const members = await containedMembers(canvasElement);
+    await expect(members).toEqual(
+      expect.arrayContaining(["Match score", "Strengths", "Gaps", "Overall assessment"]),
+    );
   },
 };
 

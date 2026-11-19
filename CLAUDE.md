@@ -36,6 +36,7 @@ src/
       stylePipelines.ts           #   Each style's default folds, projection and frame pass
       simpleStyle.ts              #   The simple style's projection: steps, decisions, inputs, outputs
       humanize.ts                 #   Identifiers → plain words
+      nativeConcepts.ts           #   What the styles know of natives: the stored-value natives and their reference members (not exported)
       textMetrics.ts              #   Glyph-width table: text width and wrap estimates before render
       styleMetrics.ts             #   The review rubric's measurements (tests and capture only; not exported)
     __tests__/                    # Unit tests (co-located)
