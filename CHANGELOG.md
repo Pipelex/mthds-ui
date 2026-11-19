@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- **The bundled schema checks a structure field's `item_type` and `value_type` (Breaking)**: `data/schema/mthds_schema.json` is copied from pipelex v0.110.0. A concept structure field's `item_type` or `value_type` must now be one of `text`, `list`, `dict`, `integer`, `boolean`, `number`, `date`, `datetime`, `time`, `concept` or `Any`, where the schema accepted any string, so a bundle declaring another value is no longer accepted. Nothing is added or renamed.
+
 ## [v0.55.1] - 2026-11-19
 
 ### Fixed
