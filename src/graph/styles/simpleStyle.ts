@@ -62,9 +62,7 @@ import {
   stripDomain,
 } from "./humanize";
 import { estimateWrap, textWidthPx, type WrapEstimate } from "./textMetrics";
-
-/** The domain of the concepts the standard defines, as a spec's concept registry records them. */
-const NATIVE_DOMAIN = "native";
+import { NATIVE_DOMAIN } from "./nativeConcepts";
 
 // ─── Metrics (keep in sync with SimpleStyle.css) ────────────────────────────
 // The layout sizes every node before the DOM exists, so these mirror the
