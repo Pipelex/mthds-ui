@@ -20,7 +20,7 @@ import {
 } from "@pipelex/mthds-form";
 
 /**
- * How many ajv errors the summary quotes when the missing-input scan comes up
+ * How many schema errors the summary quotes when the missing-input scan comes up
  * empty. A form with a deep mismatch can produce dozens; past a handful the
  * line stops being readable and the user acts on the first one anyway.
  */
@@ -35,7 +35,7 @@ export type RunGateOutcome =
  * Every message key the error summary can render — the kernel's, plus the two
  * this panel owns.
  *
- * The kernel's keys describe one ajv error each and are rendered by
+ * The kernel's keys describe one schema error each and are rendered by
  * `describeValidationError`. The `runPanel.` ones are lines the panel writes
  * itself, around those errors, and they carry the prefix precisely so the
  * ownership is legible at the call site and in a host's translation file.
@@ -94,7 +94,7 @@ export const defaultValidationTranslate: RunPanelTranslate = (key, values) => {
  * `missingInputs` is the good case: it names the VARIABLES at fault, which is
  * what the user clicks on. The scan can legitimately come up empty on an
  * invalid form (a wrong value shape, a nested mismatch), and that is exactly
- * when falling back to the raw ajv errors keeps the failure diagnosable rather
+ * when falling back to the raw schema errors keeps the failure diagnosable rather
  * than silent — see `validateRunInputs` in the kernel.
  *
  * All three routes go through `t`. Which one runs is decided by the kernel's
@@ -129,7 +129,7 @@ export function summarizeVerdict(
  *
  * Assembling those steps here instead was the earlier shape and it was wrong in
  * a way nothing local could see. The chain's schema validation is not the whole
- * rule: ajv's `required` only asserts a key is PRESENT, and a content model
+ * rule: JSON Schema's `required` only asserts a key is PRESENT, and a content model
  * carries no `minLength`, so a required input that arrived empty — `{text: ""}`
  * from an untouched text field, `{url: ""}` from an untouched file field —
  * satisfied the schema and the run went out. The Run button refuses exactly

@@ -46,8 +46,12 @@ const DOCX_URL = "pipelex-storage://run/inputs/John-Doe-CV.docx";
 const DOCX_NAME = "John-Doe-CV.docx";
 const DOCX_TYPE = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
 
-/** The kernel's Preview toggle, closed, as the server renders it. */
-const PREVIEW_TOGGLE = 'aria-expanded="false"';
+/**
+ * The kernel's Preview toggle, open or folded. A preview starts open since kernel
+ * 0.39.1, so the server renders it expanded; matching either state keeps the
+ * cases that expect no toggle at all from passing against an open one.
+ */
+const PREVIEW_TOGGLE = "aria-expanded=";
 
 const CV = findStuffByDigest(LIVE_CV_SCREENING, CV_DIGEST);
 
@@ -110,7 +114,8 @@ describe("StuffResultPanel's PDF of an office document", () => {
       mimeType: DOCX_TYPE,
     });
     expect(html).toContain(PREVIEW_TOGGLE);
-    // Deciding is not asking: the conversion starts only when a reader opens it.
+    // Deciding is not asking: the conversion starts as the open preview mounts
+    // in a browser, which a server render never reaches.
     expect(ask).not.toHaveBeenCalled();
   });
 

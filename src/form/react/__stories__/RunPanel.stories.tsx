@@ -411,8 +411,8 @@ export const Running: Story = {
  * A form that passes readiness and still fails the gate.
  *
  * Every gating input has a value, so readiness is satisfied — but `amount` is a
- * number field holding prose, which ajv rejects. The missing-input scan finds
- * nothing to name (nothing IS missing), so the summary falls back to the ajv
+ * number field holding prose, which schema validation rejects. The missing-input scan finds
+ * nothing to name (nothing IS missing), so the summary falls back to the schema
  * errors: the documented legitimate state that, without the fallback, would
  * block the run while saying nothing about why.
  */
@@ -1488,7 +1488,7 @@ export const UploadDiscardedOnUnmount: Story = {
  * Three panels because the button gates on three terms and none is covered by the
  * kernel gate that runs afterwards. **Uploading**: a non-gating file input never
  * counts toward readiness, so the run goes out without its file. **Not ready**: a
- * blank required text input reaches ajv as `{ text: "" }`, a perfectly valid
+ * blank required text input reaches the schema validator as `{ text: "" }`, a perfectly valid
  * string, so `runSubmitGate` accepts it and only readiness objects — pinned in
  * `runGate.test.ts`. **Running**: a second run over the first is a duplicate
  * execution. Each panel is blocked by exactly one of them.
@@ -2554,15 +2554,16 @@ async function dropCard(canvasElement: HTMLElement) {
 }
 
 /**
- * Settles the upload, waits for the card, opens its preview and answers whether
- * it paints the dropped file (an object URL) rather than the stored reference,
- * which with no resolver shows the "cannot be shown" state.
+ * Settles the upload, waits for the card and its preview, which starts open,
+ * and answers whether it paints the dropped file (an object URL) rather than
+ * the stored reference, which with no resolver shows the "cannot be shown"
+ * state.
  */
 async function settledCardPaintsDroppedFile(canvasElement: HTMLElement): Promise<boolean> {
   const canvas = within(canvasElement);
   await userEvent.click(canvas.getByTestId("settle-upload"));
   await waitFor(() => expect(canvas.getByText("card.png")).toBeInTheDocument());
-  await userEvent.click(canvas.getByRole("button", { name: /^preview$/i }));
+  await waitFor(() => expect(canvas.getByRole("button", { name: /^preview$/i })).toBeVisible());
   return canvasElement.querySelector('[src^="blob:"]') !== null;
 }
 
