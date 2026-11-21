@@ -39,7 +39,7 @@ const TEXT_INPUT: PipeInputContract = {
 /**
  * A structured concept with one required, format-constrained subfield — the
  * shape that produces both interesting verdicts: absent, the scan names the
- * VARIABLE; present but malformed, the scan finds nothing and only ajv has
+ * VARIABLE; present but malformed, the scan finds nothing and only the schema validator has
  * anything to say.
  */
 const BOOKING_INPUT: PipeInputContract = {
@@ -176,6 +176,69 @@ const PLURAL_IMAGES_SLOT: TestSlot = {
   }),
 };
 
+/** One optional, nullable member of the text's content model, as the runtime states it. */
+function nullableMember(type: "string" | "integer", title: string) {
+  return { anyOf: [{ type }, { type: "null" }], default: null, title };
+}
+
+/**
+ * A description-only concept (`Topic = "A subject to write about"`) as the
+ * runtime states it: no structure and no native ancestor, so the descriptor
+ * names no `native.Text`, yet the contract backs it with the text's content
+ * model — `text` beside the stored reference's members, all optional. The
+ * value has to travel as `{ text }`, and a bare string is refused with
+ * `'topic' must be object`.
+ */
+function descriptionOnlyContract(conceptRef: string, description: string): PipeInputContract {
+  return {
+    concept_ref: conceptRef,
+    presence: "plain",
+    multiplicity: "single",
+    item_count: null,
+    json_schema: {
+      title: conceptRef,
+      description,
+      type: "object",
+      properties: {
+        text: nullableMember("string", "Text"),
+        url: nullableMember("string", "Url"),
+        size: nullableMember("integer", "Size"),
+        mime_type: nullableMember("string", "Mime Type"),
+        preview: nullableMember("string", "Preview"),
+      },
+    },
+  };
+}
+
+/** The concept itself, which the descriptor states as `prose`. */
+const TOPIC_SLOT: TestSlot = {
+  contract: descriptionOnlyContract("prose_topic.Topic", "A subject to write about"),
+  field: (name) => ({
+    kind: "prose",
+    name,
+    concept_ref: "prose_topic.Topic",
+    description: "A subject to write about",
+    required: true,
+    presence: "plain",
+    gating: true,
+  }),
+};
+
+/** One under a `label` intent, which the descriptor states as `text`. */
+const HEADLINE_SLOT: TestSlot = {
+  contract: descriptionOnlyContract("prose_topic.Headline", "A one-line title"),
+  field: (name) => ({
+    kind: "text",
+    name,
+    concept_ref: "prose_topic.Headline",
+    description: "A one-line title",
+    required: true,
+    presence: "plain",
+    gating: true,
+    hints: { intent: "label" },
+  }),
+};
+
 /** A pipe's two artifacts, exactly as the panel receives them. */
 interface PipeArtifacts {
   contract: PipeIOContract;
@@ -256,7 +319,7 @@ describe("runSubmitGate", () => {
     expect(outcome.summary).toContain("booking");
   });
 
-  it("falls back to the ajv errors when the scan cannot name anything", () => {
+  it("falls back to the schema errors when the scan cannot name anything", () => {
     // Every required field IS filled — just not with a valid value — so the
     // missing-input scan comes up empty. That is a documented legitimate state,
     // and without the fallback the run would be blocked with nothing said about
@@ -273,7 +336,7 @@ describe("runSubmitGate", () => {
   /**
    * The assertion this file used to make was the opposite one, and it was the
    * shape of a real hole rather than a property worth pinning: an empty
-   * REQUIRED text input reaches ajv as `{ text: "" }`, a perfectly valid
+   * REQUIRED text input reaches the schema validator as `{ text: "" }`, a perfectly valid
    * string, so schema validation alone waves it through. The Run button never
    * did — it gates on `computeReadiness` — which left the two halves refusing
    * different things, and a host driving the panel programmatically (or any
@@ -281,7 +344,7 @@ describe("runSubmitGate", () => {
    * run the interface would have blocked.
    *
    * `gateRunInputs` closes it by re-running readiness' own predicates after
-   * ajv, so the name comes back rather than the run going out.
+   * schema validation, so the name comes back rather than the run going out.
    */
   it("catches a required text input left blank, and names it", () => {
     const pipe = pipeOf({ quote: TEXT_SLOT, subject: TEXT_SLOT });
@@ -305,6 +368,25 @@ describe("runSubmitGate", () => {
     expect(outcome.ok).toBe(false);
     if (outcome.ok) return;
     expect(outcome.missingInputs).toEqual(["quote"]);
+  });
+
+  /**
+   * A description-only concept is text-valued, but its descriptor names no
+   * `native.Text`, so until the kernel derived its content key the form sent
+   * the bare string and the gate refused every value with `'topic' must be
+   * object` — no method taking such an input could be run from the panel.
+   */
+  it("wraps a description-only concept's text under `text`, so the gate passes it", () => {
+    const pipe = pipeOf({ topic: TOPIC_SLOT, headline: HEADLINE_SLOT });
+    const outcome = gate(pipe, { topic: "a dog", headline: "Good dog" });
+
+    expect(outcome).toEqual({
+      ok: true,
+      apiInputs: {
+        topic: { concept: "prose_topic.Topic", content: { text: "a dog" } },
+        headline: { concept: "prose_topic.Headline", content: { text: "Good dog" } },
+      },
+    });
   });
 
   it("runs a pipe that takes no inputs", () => {

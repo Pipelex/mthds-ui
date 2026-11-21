@@ -561,7 +561,7 @@ export function RunPanel({
   // kernel gate that runs afterwards. `uploading`: a non-gating file input
   // (optional, or plural — `mustBeFilled` excludes lists) never counts toward
   // readiness, so without this the method runs with the file simply absent.
-  // `notReady`: an empty REQUIRED text input reaches ajv as `{ text: "" }`, a
+  // `notReady`: an empty REQUIRED text input reaches the schema validator as `{ text: "" }`, a
   // perfectly valid string, so the gate passes it and only readiness notices —
   // that is pinned in `runGate.test.ts` and is exactly why the button gates on
   // readiness at all. `running`: a second run started over the first is a
@@ -766,7 +766,7 @@ export function RunPanel({
         // browser's is not merely redundant beside it — it is WRONG. The kernel's
         // number control carries `step={integer ? 1 : 0.1}`, so any float with
         // more than one decimal is a `stepMismatch` even though `native.Number`
-        // accepts it and the kernel's own ajv pass does too. Interactive
+        // accepts it and the kernel's own schema validation does too. Interactive
         // validation then aborts submission before `onSubmit` runs at all: no
         // gate, no `onRun`, no error from the panel, and a native message that is
         // wrong about the domain ("nearest valid values are 87.2 and 87.3").

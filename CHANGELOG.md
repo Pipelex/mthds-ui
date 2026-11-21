@@ -6,6 +6,10 @@
 
 - **The bundled schema checks a structure field's `item_type` and `value_type` (Breaking)**: `data/schema/mthds_schema.json` is copied from pipelex v0.110.0. A concept structure field's `item_type` or `value_type` must now be one of `text`, `list`, `dict`, `integer`, `boolean`, `number`, `date`, `datetime`, `time`, `concept` or `Any`, where the schema accepted any string, so a bundle declaring another value is no longer accepted. Nothing is added or renamed. The vendored MTHDS Test Corpus in `data/mthds-corpus/` is pipelex v0.110.0's, whose structured-output entry now names its list items with `item_type = "concept"` and `item_concept_ref`.
 
+### Fixed
+
+- **A description-only concept input is runnable from `RunPanel` again, through `@pipelex/mthds-form` ^0.40.0 (Breaking)**: the kernel's range moves from `^0.39.0` to `^0.40.0`, which a caret below 1.0 does not bridge, so an input whose concept declares only a description (`Topic = "A subject to write about"`), refines one or carries a `label` intent is sent as `{text: "…"}`, where the panel sent the bare string and the run gate refused every value with `'topic' must be object` ("This value couldn't be used as Topic."). Such a value read back from a run, and such a result in the graph's data panel, may also be a stored reference, kept and shown as a stored text as for `native.Text`. The range also brings the kernel's 0.39 patches to a host whose lockfile held 0.39.0: the run gate validates without `eval`, so it runs under a Content Security Policy refusing `'unsafe-eval'` and `ajv` is no longer installed, a document input takes Word, Excel, PowerPoint and CSV files, and every preview starts open, so a host's `resolveUrl` and `resolveDocumentPdf` are called as it mounts rather than on a click.
+
 ## [v0.55.1] - 2026-11-19
 
 ### Fixed
