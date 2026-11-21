@@ -35,8 +35,12 @@ const CV_DIGEST = "AyZkr";
 const HOST_PATH = "/api/assets/John-Doe-CV.pdf";
 const CDN_URL = "https://cdn.example/John-Doe-CV.pdf";
 
-/** The kernel's Preview toggle, closed, as the server renders it. */
-const PREVIEW_TOGGLE = 'aria-expanded="false"';
+/**
+ * The kernel's Preview toggle, open or folded. A preview starts open since kernel
+ * 0.39.1, so the server renders it expanded; matching either state keeps the
+ * cases that expect no toggle at all from passing against an open one.
+ */
+const PREVIEW_TOGGLE = "aria-expanded=";
 
 const CV = findStuffByDigest(LIVE_CV_SCREENING, CV_DIGEST);
 
