@@ -48,6 +48,9 @@ import { findStuffByDigest } from "@graph/stuffLookup";
 import type { LoadText, SaveFiles } from "@pipelex/mthds-form";
 import type {
   DownloadDisplay,
+  LoadBytes,
+  OpenExternal,
+  PdfWorkerConfig,
   ResolveDocumentPdf,
   ResolveRendition,
   ResolveShareUrl,
@@ -319,6 +322,42 @@ export interface GraphViewerProps {
    * reads as `unavailable`.
    */
   resolveDocumentPdf?: ResolveDocumentPdf;
+  /**
+   * Reads a document's bytes, so the result panel can draw a PDF it cannot
+   * frame (one `resolveUrl` answers on another origin, such as a presigned
+   * storage URL) page by page with pdf.js. It takes effect only with
+   * `pdfWorker`.
+   *
+   * Called with the document's own `url` member, as `resolveUrl` is, and a
+   * `{ maxBytes, signal }` request; resolve to the file's bytes as a
+   * `Uint8Array` or an `ArrayBuffer`, pass `signal` to your `fetch`, and reject
+   * for anything that is not a reference you store yourself: the method chose
+   * the URL, so never fetch an arbitrary one with credentials or through your
+   * own server. It goes on the panel's provider beside `resolveUrl`, which
+   * replaces an outer provider rather than merging with it, so a `loadBytes`
+   * set around the graph does not reach the panel.
+   */
+  loadBytes?: LoadBytes;
+  /**
+   * Names pdf.js's worker for the PDFs the result panel draws from `loadBytes`:
+   * a `workerSrc` URL of `pdf.worker.min.mjs` from the same `pdfjs-dist` the
+   * kernel's `react-pdf` resolves, or a `workerPort` the host started, with an
+   * optional `version` checked against pdf.js's and the optional data-file
+   * directories. Unset, no PDF is drawn and each keeps its link. Keep its
+   * identity stable (a constant or a memoized object). It goes on the panel's
+   * provider beside `resolveUrl`, so one set around the graph does not reach
+   * the panel.
+   */
+  pdfWorker?: PdfWorkerConfig;
+  /**
+   * Opens an external link in a PDF the result panel draws, for a host whose
+   * view cannot open a tab itself (a sandboxed frame). Called with the link's
+   * `http:`, `https:` or `mailto:` URL on a click or a middle click. Unset,
+   * such a link opens in a new tab with `noopener noreferrer`. It goes on the
+   * panel's provider beside `resolveUrl`, so one set around the graph does
+   * not reach the panel.
+   */
+  openExternal?: OpenExternal;
   /**
    * Mints a URL that works OUTSIDE this page, for the copy control.
    *
@@ -610,6 +649,9 @@ function GraphViewerCanvas(
     loadText,
     resolveRendition,
     resolveDocumentPdf,
+    loadBytes,
+    pdfWorker,
+    openExternal,
     resolveShareUrl,
     saveFiles,
     downloads,
@@ -1673,6 +1715,9 @@ function GraphViewerCanvas(
       loadText,
       resolveRendition,
       resolveDocumentPdf,
+      loadBytes,
+      pdfWorker,
+      openExternal,
       resolveShareUrl,
       saveFiles,
       downloads,
@@ -1682,6 +1727,9 @@ function GraphViewerCanvas(
       loadText,
       resolveRendition,
       resolveDocumentPdf,
+      loadBytes,
+      pdfWorker,
+      openExternal,
       resolveShareUrl,
       saveFiles,
       downloads,

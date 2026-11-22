@@ -1,5 +1,16 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+
+- **A PDF the graph's data panel cannot frame is drawn from the host's bytes, through `@pipelex/mthds-form` ^0.41.0 (Breaking)**: the kernel's range moves from `^0.40.0` to `^0.41.0`, which a caret below 1.0 does not bridge, and `GraphViewer` and `StuffResultPanel` take the kernel's `loadBytes`, `pdfWorker` and `openExternal` and install them on the panel's own result provider, so a PDF served from another origin, such as a presigned storage URL, is drawn page by page with pdf.js when the host reads its bytes and names pdf.js's worker, and its links leave through `openExternal` when the view cannot open a tab. `./form/react` re-exports `LoadBytes`, `BytesRequest`, `PdfWorkerConfig`, `PdfWorkerSource`, `OpenExternal`, `useLoadBytes`, `usePdfWorker`, `useOpenExternal`, `PDF_PAGES_MAX_BYTES`, `PDF_PAGES_MAX_PAGES` and `PDF_PAGES_MAX_IMAGE_PIXELS`, and a host that supplies a complete `FieldStrings` adds the kernel's `pdfPageNotDrawn` and `pdfPagesContinue`. See [docs/stuff-result-panel.md](docs/stuff-result-panel.md#pictures-and-pdfs).
+- **`@pipelex/mthds-ui/pdf-layers.css`**: the text and annotation layer styles of the pages the kernel draws, for a host with Tailwind 4 that supplies `loadBytes`, imported beside `@pipelex/mthds-ui/tailwind.css` without naming the kernel; `form-kernel.css` already carries them for a host without Tailwind. See [docs/run-form-panel.md](docs/run-form-panel.md#a-host-with-tailwind-4).
+
+### Changed
+
+- **The package needs Node.js 22.13 or later (Breaking)**: `engines.node` is `>=22.13`, the kernel's own floor since it brings `react-pdf`, whose `pdfjs-dist` requires it.
+
 ## [v0.56.0] - 2026-11-21
 
 ### Changed

@@ -15,7 +15,7 @@
     "**/*.css"
   ],
   "engines": {
-    "node": ">=22"
+    "node": ">=22.13"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -80,7 +80,8 @@
     "./timeline/react/RunTimeline.css": "./dist/timeline/react/RunTimeline.css",
     "./timeline/react/styles/simple/SimpleProgress.css": "./dist/timeline/react/styles/simple/SimpleProgress.css",
     "./tailwind.css": "./dist/styles/tailwind.css",
-    "./form-kernel.css": "./dist/styles/form-kernel.css"
+    "./form-kernel.css": "./dist/styles/form-kernel.css",
+    "./pdf-layers.css": "./dist/styles/pdf-layers.css"
   },
   "files": [
     "dist"
@@ -105,7 +106,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@pipelex/mthds-form": "^0.40.0",
+    "@pipelex/mthds-form": "^0.41.0",
     "@xyflow/react": "^12",
     "elkjs": "^0.11.1",
     "mthds": "^0.34.0",

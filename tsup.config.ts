@@ -108,13 +108,14 @@ export default defineConfig({
       "src/timeline/react/styles/simple/SimpleProgress.css",
       "dist/timeline/react/styles/simple/SimpleProgress.css",
     );
-    // The two stylesheets a HOST imports, never this package's JavaScript, so
-    // they have no `external` pattern: only this copy and an `exports` entry.
+    // The stylesheets a HOST imports, never this package's JavaScript, so they
+    // have no `external` pattern: only this copy and an `exports` entry.
     // `tailwind.css`'s `@source` paths are relative to `dist/styles/`, so it
     // must land exactly here.
     mkdirSync("dist/styles", { recursive: true });
     cpSync("src/styles/form-kernel.css", "dist/styles/form-kernel.css");
     cpSync("src/styles/tailwind.css", "dist/styles/tailwind.css");
+    cpSync("src/styles/pdf-layers.css", "dist/styles/pdf-layers.css");
     // The designer method's two files, which a host reads and hands a runner,
     // never modules anything imports. An export map cannot point into a
     // dependency, so the kernel's own files are copied beside
