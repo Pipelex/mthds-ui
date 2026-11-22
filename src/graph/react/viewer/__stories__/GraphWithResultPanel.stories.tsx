@@ -5,6 +5,8 @@ import { GraphViewer } from "../GraphViewer";
 import type { LoadText, SaveFiles } from "@pipelex/mthds-form";
 import {
   FieldPresentationProvider,
+  type LoadBytes,
+  type OpenExternal,
   type ResolveDocumentPdf,
   type ResolveRendition,
 } from "@pipelex/mthds-form/react";
@@ -261,6 +263,38 @@ export const HostConvertsOfficeDocuments: Story = {
     const panel = mocked(StuffResultPanel);
     await expect(panel).toHaveBeenCalled();
     await expect(panel.mock.lastCall?.[0].resolveDocumentPdf).toBe(storyArgs.resolveDocumentPdf);
+  },
+};
+
+/**
+ * A host whose documents the panel cannot frame, because it serves them from
+ * another origin such as a presigned storage URL: `loadBytes`, `pdfWorker` and
+ * `openExternal` go on `GraphViewer`, which hands them to the data panel beside
+ * `resolveUrl`, and the kernel draws such a PDF's pages itself with pdf.js.
+ *
+ * The panel installs its own provider, which replaces one set around the graph,
+ * so this hand-off is the only way a host's bytes reach a document in the
+ * graph. The play function reads the hand-off off the panel, as
+ * `HostKeepsCopiesOfPictures` does; the panel's own use of the three is pinned
+ * by `StuffResultPanelPdfPages.test.tsx`, and the drawing by the kernel's suite.
+ */
+export const HostDrawsPdfsFromBytes: Story = {
+  args: {
+    ...args,
+    theme: GRAPH_THEME.LIGHT,
+    loadBytes: fn<LoadBytes>(() => Promise.reject(new Error("Not one of this host's files."))),
+    pdfWorker: { workerSrc: "/pdf.worker.min.mjs" },
+    openExternal: fn<OpenExternal>(),
+  },
+  play: async ({ args: storyArgs, canvasElement }) => {
+    await openFirstStuffNode(canvasElement);
+    await detailPanel(canvasElement);
+    const panel = mocked(StuffResultPanel);
+    await expect(panel).toHaveBeenCalled();
+    const handed = panel.mock.lastCall?.[0];
+    await expect(handed?.loadBytes).toBe(storyArgs.loadBytes);
+    await expect(handed?.pdfWorker).toBe(storyArgs.pdfWorker);
+    await expect(handed?.openExternal).toBe(storyArgs.openExternal);
   },
 };
 

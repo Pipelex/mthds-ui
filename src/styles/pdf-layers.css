@@ -1,0 +1,32 @@
+/**
+ * The text and annotation layer styles of a PDF the form kernel's result view
+ * draws itself, for a host WITH Tailwind 4.
+ *
+ * Since kernel 0.41.0 the result view draws a PDF it cannot frame page by page
+ * with pdf.js, when the host hands it the document's bytes (`loadBytes` and
+ * `pdfWorker`, on `GraphViewer`, `StuffResultPanel` or the kernel's
+ * `ResultEnvProvider`). Each drawn page carries a transparent text layer laid
+ * exactly over its canvas, so text can be selected and copied, and an
+ * annotation layer for its links. Without these styles that text sits visibly
+ * out of place over the page.
+ *
+ * They are plain CSS for pdf.js's own elements, not utilities a Tailwind build
+ * could compile from the kernel's JavaScript, so `./tailwind.css`'s `@source`
+ * lines cannot bring them. A Tailwind 4 host that supplies `loadBytes` writes,
+ * beside its import of `@pipelex/mthds-ui/tailwind.css`:
+ *
+ *   @import "@pipelex/mthds-ui/pdf-layers.css";
+ *
+ * The import below is resolved from where this file really lands, inside this
+ * package, so it reaches the kernel this package depends on in every install
+ * layout, pnpm's virtual store included, and the host never names the kernel.
+ *
+ * A host WITHOUT Tailwind needs nothing more: the kernel folds these rules into
+ * its `styles.css`, which `./form-kernel.css` already imports.
+ *
+ * Every rule in the kernel's sheet is scoped under the renderer's frame except
+ * one on `body`, which sets the two marker properties react-pdf reads to warn
+ * in development that the styles are missing, and styles nothing. No
+ * JavaScript in this package imports this file.
+ */
+@import "@pipelex/mthds-form/pdf-layers.css";

@@ -31,6 +31,7 @@ import type {
 import * as formReact from "@form/react/index";
 import type {
   AskDocumentPdf,
+  BytesRequest,
   DocumentPdfAnswer,
   DocumentPdfRequest,
   ExamplePickerSource,
@@ -41,10 +42,14 @@ import type {
   FillWithExampleProps,
   FilePickerProps,
   FilePickerSource,
+  LoadBytes,
   LoadText,
   MarkdownCitation,
   MethodFormController,
   MarkdownProps,
+  OpenExternal,
+  PdfWorkerConfig,
+  PdfWorkerSource,
   RenditionRequest,
   ResolveDocumentPdf,
   ResolveRendition,
@@ -245,6 +250,39 @@ describe("the ./form/react entry", () => {
     ] as const satisfies readonly (keyof FieldStrings)[];
     for (const strings of [formReact.EN_FIELD_STRINGS, formReact.FR_FIELD_STRINGS]) {
       for (const key of keys) expect(strings[key]).toBeTypeOf("string");
+    }
+  });
+
+  it("carries the result provider's settings for a PDF the view draws from the host's bytes", () => {
+    // Kernel 0.41.0. A host rendering the result view itself passes
+    // `loadBytes`, `pdfWorker` and `openExternal` to the re-exported
+    // `ResultEnvProvider`; `GraphViewer` and `StuffResultPanel` take them as
+    // props. A host supplying a complete `FieldStrings` adds the two strings
+    // the drawn pages speak.
+    expect(formReact.useLoadBytes).toBeTypeOf("function");
+    expect(formReact.usePdfWorker).toBeTypeOf("function");
+    expect(formReact.useOpenExternal).toBeTypeOf("function");
+    expect(formReact.PDF_PAGES_MAX_BYTES).toBe(32 * 1024 * 1024);
+    expect(formReact.PDF_PAGES_MAX_PAGES).toBe(500);
+    expect(formReact.PDF_PAGES_MAX_IMAGE_PIXELS).toBe(40_000_000);
+    expectTypeOf<BytesRequest>().toEqualTypeOf<{ maxBytes: number; signal: AbortSignal }>();
+    expectTypeOf<LoadBytes>().toEqualTypeOf<
+      (url: string, request: BytesRequest) => Promise<Uint8Array | ArrayBuffer>
+    >();
+    expectTypeOf<OpenExternal>().toEqualTypeOf<(url: string) => void>();
+    expectTypeOf<PdfWorkerConfig>().toExtend<PdfWorkerSource>();
+    expectTypeOf<ComponentProps<typeof formReact.ResultEnvProvider>["loadBytes"]>().toEqualTypeOf<
+      LoadBytes | undefined
+    >();
+    expectTypeOf<ComponentProps<typeof formReact.ResultEnvProvider>["pdfWorker"]>().toEqualTypeOf<
+      PdfWorkerConfig | undefined
+    >();
+    expectTypeOf<
+      ComponentProps<typeof formReact.ResultEnvProvider>["openExternal"]
+    >().toEqualTypeOf<OpenExternal | undefined>();
+    for (const strings of [formReact.EN_FIELD_STRINGS, formReact.FR_FIELD_STRINGS]) {
+      expect(strings.pdfPageNotDrawn).toBeTypeOf("string");
+      expect(strings.pdfPagesContinue).toBeTypeOf("function");
     }
   });
 

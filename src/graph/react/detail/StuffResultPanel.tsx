@@ -20,6 +20,9 @@ import {
   useFieldStrings,
   useLoadText,
   type DownloadDisplay,
+  type LoadBytes,
+  type OpenExternal,
+  type PdfWorkerConfig,
   type ResolveDocumentPdf,
   type ResolveRendition,
   type ResolveShareUrl,
@@ -93,7 +96,11 @@ import type { ConceptInfo, GraphSpecNodeIoItem, GraphTheme } from "@graph/types"
  * other use of a picture keeps the whole one. A host that can make a PDF of a
  * document the browser cannot render, such as a Word, Excel or PowerPoint file,
  * passes `resolveDocumentPdf` there too, and that document's preview shows the
- * PDF's pages.
+ * PDF's pages. A host whose documents the panel cannot frame, because they are
+ * served from another origin such as a presigned storage URL, passes
+ * `loadBytes` and `pdfWorker` there as well, and the kernel draws such a PDF's
+ * pages itself with pdf.js; `openExternal` is how the links inside those pages
+ * leave a view that cannot open a tab.
  *
  * ## Stored texts
  *
@@ -199,6 +206,28 @@ export interface StuffResultPanelProps extends StuffResultRendererOptions {
    */
   resolveDocumentPdf?: ResolveDocumentPdf;
   /**
+   * Reads a document's bytes, for a PDF the panel cannot frame because the
+   * frame rule refused it (another origin, such as a presigned storage URL):
+   * called with the document's own `url` member and `{ maxBytes, signal }`, it
+   * resolves to the file as a `Uint8Array` or an `ArrayBuffer`, and the kernel
+   * draws its pages with pdf.js. It takes effect only with `pdfWorker`. The
+   * method chose the URL, so it reads only references the host stores itself
+   * and rejects every other.
+   */
+  loadBytes?: LoadBytes;
+  /**
+   * pdf.js's worker for the PDFs drawn from `loadBytes`: a `workerSrc` URL or a
+   * host-started `workerPort`, with an optional `version` and data-file
+   * directories. Unset, no PDF is drawn and each keeps its link.
+   */
+  pdfWorker?: PdfWorkerConfig;
+  /**
+   * Opens an external link inside a drawn PDF, for a view that cannot open a
+   * tab itself. Unset, such a link opens in a new tab with
+   * `noopener noreferrer`.
+   */
+  openExternal?: OpenExternal;
+  /**
    * Reads a stored text: called with the reference's `url` when the panel
    * shows a `Text`, `Markdown`, `Html` or `JSON` value the runtime stored
    * rather than inlined, it resolves to the text as stored and rejects when it
@@ -238,6 +267,9 @@ export function StuffResultPanel({
   loadText,
   resolveRendition,
   resolveDocumentPdf,
+  loadBytes,
+  pdfWorker,
+  openExternal,
   resolveShareUrl,
   saveFiles,
   downloads,
@@ -290,6 +322,9 @@ export function StuffResultPanel({
       loadText ||
       resolveRendition ||
       resolveDocumentPdf ||
+      loadBytes ||
+      pdfWorker ||
+      openExternal ||
       resolveShareUrl ||
       saveFiles ||
       downloads ? (
@@ -298,6 +333,9 @@ export function StuffResultPanel({
         loadText={loadText}
         resolveRendition={resolveRendition}
         resolveDocumentPdf={resolveDocumentPdf}
+        loadBytes={loadBytes}
+        pdfWorker={pdfWorker}
+        openExternal={openExternal}
         resolveShareUrl={resolveShareUrl}
         saveFiles={saveFiles}
         downloads={downloads}

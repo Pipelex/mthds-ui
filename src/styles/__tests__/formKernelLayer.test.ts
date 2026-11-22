@@ -15,7 +15,11 @@
  *     holds only the `@source` directives that find the kernel's shipped
  *     JavaScript, and compiles the kernel's classes itself;
  *   - a host without Tailwind imports `@pipelex/mthds-ui/form-kernel.css`, the
- *     kernel's sheet under a layer.
+ *     kernel's sheet under a layer;
+ *   - a host with Tailwind 4 that hands the result view a PDF's bytes also
+ *     imports `@pipelex/mthds-ui/pdf-layers.css`, the kernel's plain CSS for
+ *     pdf.js's text and annotation layers, which no `@source` scan can compile
+ *     (the kernel folds the same rules into the sheet `form-kernel.css` loads).
  *
  * The first block below keeps the injection from coming back by accident. The
  * others hold the shape of each host stylesheet, which is the part a future
@@ -118,6 +122,31 @@ describe("form-kernel.css, for a host without Tailwind", () => {
 
   it("does not import theme.css, which would repaint the host's tokens", () => {
     expect(read("src/styles/form-kernel.css")).not.toContain('theme.css"');
+  });
+});
+
+describe("pdf-layers.css, for a Tailwind 4 host whose result view draws PDFs", () => {
+  it("imports the kernel's PDF layer styles and nothing else", () => {
+    const statements = stripCssComments(read("src/styles/pdf-layers.css"))
+      .split(";")
+      .map((statement) => statement.trim())
+      .filter(Boolean);
+    expect(statements).toEqual(['@import "@pipelex/mthds-form/pdf-layers.css"']);
+  });
+
+  it("points at a stylesheet the kernel exports", () => {
+    const kernel = JSON.parse(read("node_modules/@pipelex/mthds-form/package.json")) as {
+      exports: Record<string, unknown>;
+    };
+    expect(kernel.exports["./pdf-layers.css"]).toBeTypeOf("string");
+  });
+
+  it("ships to dist/styles/ and is exported", () => {
+    expect(read("tsup.config.ts")).toContain(
+      'cpSync("src/styles/pdf-layers.css", "dist/styles/pdf-layers.css")',
+    );
+    const manifest = JSON.parse(read("package.json")) as { exports: Record<string, unknown> };
+    expect(manifest.exports["./pdf-layers.css"]).toBe("./dist/styles/pdf-layers.css");
   });
 });
 
