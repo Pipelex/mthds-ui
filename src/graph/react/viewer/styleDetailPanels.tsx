@@ -2,6 +2,9 @@ import React from "react";
 import type { LoadText, SaveFiles } from "@pipelex/mthds-form";
 import type {
   DownloadDisplay,
+  LoadBytes,
+  OpenExternal,
+  PdfWorkerConfig,
   ResolveDocumentPdf,
   ResolveRendition,
   ResolveShareUrl,
@@ -70,6 +73,9 @@ export interface ValueRenderOptions {
   loadText?: LoadText;
   resolveRendition?: ResolveRendition;
   resolveDocumentPdf?: ResolveDocumentPdf;
+  loadBytes?: LoadBytes;
+  pdfWorker?: PdfWorkerConfig;
+  openExternal?: OpenExternal;
   resolveShareUrl?: ResolveShareUrl;
   saveFiles?: SaveFiles;
   downloads?: DownloadDisplay;
@@ -245,6 +251,9 @@ function ResultView({
     loadText,
     resolveRendition,
     resolveDocumentPdf,
+    loadBytes,
+    pdfWorker,
+    openExternal,
     resolveShareUrl,
     saveFiles,
     downloads,
@@ -260,6 +269,9 @@ function ResultView({
       {...(loadText ? { loadText } : {})}
       {...(resolveRendition ? { resolveRendition } : {})}
       {...(resolveDocumentPdf ? { resolveDocumentPdf } : {})}
+      {...(loadBytes ? { loadBytes } : {})}
+      {...(pdfWorker ? { pdfWorker } : {})}
+      {...(openExternal ? { openExternal } : {})}
       {...(resolveShareUrl ? { resolveShareUrl } : {})}
       {...(saveFiles ? { saveFiles } : {})}
       {...(downloads ? { downloads } : {})}

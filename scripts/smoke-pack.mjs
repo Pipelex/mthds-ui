@@ -23,11 +23,12 @@
  *    `dist/<entry>/index.css` nobody imports and the `className` ships unstyled.
  *    Checked by walking the installed module graph — verified against a build
  *    with `/RunPanel\.css$/` removed from `external`, which this file used to
- *    report as entirely `ok`. The two stylesheets a HOST imports,
- *    `./tailwind.css` and `./form-kernel.css`, are the inverse case: no
- *    JavaScript in the package may import either, because injecting the form
- *    kernel's sheet into every host is what v0.20.0 through v0.24.0 did, and
- *    no cascade position for it served a host with Tailwind 4. And no other
+ *    report as entirely `ok`. The stylesheets a HOST imports,
+ *    `./tailwind.css`, `./form-kernel.css` and `./pdf-layers.css`, are the
+ *    inverse case: no JavaScript in the package may import any, because
+ *    injecting the form kernel's sheet into every host is what v0.20.0
+ *    through v0.24.0 did, and no cascade position for it served a host with
+ *    Tailwind 4. And no other
  *    stylesheet ships: a component importing its own stylesheet gets it
  *    bundled into an `index.css` beside its entry that nothing loads.
  * 2. Every React entry carries `"use client"`. All of them: the toolchain
@@ -67,8 +68,10 @@
  *    need. Its stylesheet is the kernel's documented Tailwind 4 setup and
  *    nothing more — `tailwindcss`, `tw-animate-css`, the `.dark` class variant
  *    the kernel's dark mode follows, an `@theme inline` token mapping — with `@import "@pipelex/mthds-ui/tailwind.css"` in place of the
- *    setup's `@source` line. The oracle is the kernel's own prebuilt
- *    `styles.css`: every rule in its `utilities` layer must have a rule in the
+ *    setup's `@source` line, and `@import "@pipelex/mthds-ui/pdf-layers.css"`
+ *    for the PDF pages the kernel draws, whose rules (scoped under
+ *    `.mthds-pdf-pages`) must reach the output. The oracle is the kernel's
+ *    own prebuilt `styles.css`: every rule in its `utilities` layer must have a rule in the
  *    host's output naming the same classes (`utilityKey`, which says why the
  *    selector's exact text is not compared). Finding one kernel class would
  *    prove only that the scan reached the package; the whole set proves the
@@ -120,7 +123,11 @@ function run(command, args, cwd) {
 }
 
 /** The stylesheets a host imports itself. No JavaScript in the package imports them. */
-const HOST_IMPORTED_STYLESHEETS = new Set(["./tailwind.css", "./form-kernel.css"]);
+const HOST_IMPORTED_STYLESHEETS = new Set([
+  "./tailwind.css",
+  "./form-kernel.css",
+  "./pdf-layers.css",
+]);
 
 /** What a host with Tailwind 4 installs beside this package, per the kernel's documented setup. */
 const TAILWIND_HOST_PACKAGES = [
@@ -229,6 +236,7 @@ const hostCss = [
   '@import "tailwindcss";',
   '@import "tw-animate-css";',
   '@import "@pipelex/mthds-ui/tailwind.css";',
+  '@import "@pipelex/mthds-ui/pdf-layers.css";',
   "",
   "@custom-variant dark (&:is(.dark *));",
   "",
@@ -264,6 +272,7 @@ process.stdout.write(
     tokens,
     kernel: utilitySelectors(readFileSync(stylesFile, "utf8")),
     host: utilitySelectors(compiled.css),
+    pdfLayers: compiled.css.includes(".mthds-pdf-pages"),
   }),
 );
 `;
@@ -290,6 +299,12 @@ function checkTailwindHost(consumer, layout) {
   check(
     `${layout}: the kernel's sheet has a utilities layer to compare against`,
     result.kernel.length > 0,
+  );
+
+  check(
+    `${layout}: the host's import of ./pdf-layers.css reaches the kernel's PDF layer styles`,
+    result.pdfLayers,
+    "no rule scoped under .mthds-pdf-pages in the compiled sheet",
   );
 
   const host = new Set(result.host.map(utilityKey));
