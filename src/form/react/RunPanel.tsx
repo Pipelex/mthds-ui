@@ -94,7 +94,11 @@ export interface RunPanelProps {
    * the host's value wins PER KEY: the panel fills in only what the host left
    * undefined — `disabled` from `running`, `onDropFile` from its own upload
    * tracking when `uploadFile` is supplied, `fileSource` and `loadText` from
-   * the props of those names.
+   * the props of those names. Every other key reaches the controls as the host
+   * gave it, the result view's file settings `loadBytes`, `pdfWorker` and
+   * `openExternal` among them: with `pdfWorker` a file field draws a PDF's
+   * pages, from the dropped file's bytes or, for a stored one, from
+   * `loadBytes`, and without it shows a compact card.
    *
    * `uploadingIds` is the exception, and deliberately so: it is the UNION of
    * your set and the panel's, never a replacement. Because the keys default

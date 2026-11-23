@@ -2555,16 +2555,16 @@ async function dropCard(canvasElement: HTMLElement) {
 
 /**
  * Settles the upload, waits for the card and its preview, which starts open,
- * and answers whether it paints the dropped file (an object URL) rather than
- * the stored reference, which with no resolver shows the "cannot be shown"
- * state.
+ * and answers whether it paints the dropped file (a `data:` URL read from its
+ * bytes, since kernel 0.42.0, where it was an object URL) rather than the
+ * stored reference, which with no resolver shows the "cannot be shown" state.
  */
 async function settledCardPaintsDroppedFile(canvasElement: HTMLElement): Promise<boolean> {
   const canvas = within(canvasElement);
   await userEvent.click(canvas.getByTestId("settle-upload"));
   await waitFor(() => expect(canvas.getByText("card.png")).toBeInTheDocument());
   await waitFor(() => expect(canvas.getByRole("button", { name: /^preview$/i })).toBeVisible());
-  return canvasElement.querySelector('[src^="blob:"]') !== null;
+  return canvasElement.querySelector('[src^="data:"]') !== null;
 }
 
 /**
