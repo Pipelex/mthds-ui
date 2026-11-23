@@ -1,5 +1,15 @@
 # Changelog
 
+## [v0.58.0] - 2026-11-24
+
+### Changed
+
+- **`RunPanel`'s file fields preview through the result view's file settings, through `@pipelex/mthds-form` ^0.42.0 (Breaking)**: the kernel's range moves from `^0.41.0` to `^0.42.0`, which a caret below 1.0 does not bridge. `FieldEnv`, and so `RunPanel`'s `env`, takes the `loadBytes`, `pdfWorker` and `openExternal` a host hands `GraphViewer`, and with `pdfWorker` a file field draws a PDF's pages, a dropped one from its own bytes and a stored one through `loadBytes`; a PDF is never previewed in an `<object>` any more, and without `pdfWorker` it is a compact card with its format and size or its link, so a host that relied on the browser's PDF viewer in the form passes `pdfWorker`. A dropped picture and each camera page paint from a `data:` URL rather than a `blob:` one, so a host whose frame policy refuses `blob:` images shows them. `FieldEnv.resolveUrl` is typed by the new `FormResolveUrl`, re-exported from `./form/react`, the result view's synchronous `ResolveUrl` or an asynchronous resolver, so one function serves the form and the graph. See [docs/run-form-panel.md](docs/run-form-panel.md).
+
+### Fixed
+
+- **An HTML result's links open beside it, in the graph's data panel and every result view a host draws through `./form/react` (Breaking)**: a `native.Html` page's links are rewritten before it is framed, so a link to another site or a relative one opens in a new tab, an in-page `#` link scrolls the frame, a link of another scheme than `http:`, `https:` and `mailto:` loses its `href`, and a meta refresh is removed, where a click used to load the other page inside the frame; the frame is sandboxed with popups allowed, and a page that moves its frame twice is replaced by a notice. A host that supplies a complete `FieldStrings` rather than a partial override adds the kernel's `pageLeftFrame`. See [docs/stuff-result-panel.md](docs/stuff-result-panel.md#pictures-and-pdfs).
+
 ## [v0.57.0] - 2026-11-22
 
 ### Added
