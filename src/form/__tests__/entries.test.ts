@@ -42,10 +42,12 @@ import type {
   FillWithExampleProps,
   FilePickerProps,
   FilePickerSource,
+  FormResolveUrl,
   LoadBytes,
   LoadText,
   MarkdownCitation,
   MethodFormController,
+  MethodFormProps,
   MarkdownProps,
   OpenExternal,
   PdfWorkerConfig,
@@ -53,6 +55,7 @@ import type {
   RenditionRequest,
   ResolveDocumentPdf,
   ResolveRendition,
+  ResolveUrl,
   RunPanelProps,
   UploadedFile,
   UseMethodFormOptions,
@@ -283,6 +286,37 @@ describe("the ./form/react entry", () => {
     for (const strings of [formReact.EN_FIELD_STRINGS, formReact.FR_FIELD_STRINGS]) {
       expect(strings.pdfPageNotDrawn).toBeTypeOf("string");
       expect(strings.pdfPagesContinue).toBeTypeOf("function");
+    }
+  });
+
+  it("carries the result view's file settings on the form, the panel's env and the file fields", () => {
+    // Kernel 0.42.0. The form's file fields take the result view's own
+    // `loadBytes`, `pdfWorker` and `openExternal`, so a host hands the form the
+    // functions it hands `ResultEnvProvider`: on `FieldEnv`, which `RunPanel`'s
+    // `env` passes through to every control, on `MethodForm`, and on
+    // `DocumentField` and `ImageField`. `FieldEnv.resolveUrl` takes either shape
+    // of resolver, the result view's synchronous `ResolveUrl` or an
+    // asynchronous one. A host supplying a complete `FieldStrings` adds
+    // `pageLeftFrame`.
+    expectTypeOf<FormResolveUrl>().toEqualTypeOf<
+      ResolveUrl | ((uri: string) => PromiseLike<string | null | undefined>)
+    >();
+    expectTypeOf<FieldEnv["resolveUrl"]>().toEqualTypeOf<FormResolveUrl | undefined>();
+    expectTypeOf<FieldEnv["loadBytes"]>().toEqualTypeOf<LoadBytes | undefined>();
+    expectTypeOf<FieldEnv["pdfWorker"]>().toEqualTypeOf<PdfWorkerConfig | undefined>();
+    expectTypeOf<FieldEnv["openExternal"]>().toEqualTypeOf<OpenExternal | undefined>();
+    expectTypeOf<NonNullable<RunPanelProps["env"]>>().toEqualTypeOf<FieldEnv>();
+    expectTypeOf<MethodFormProps["loadBytes"]>().toEqualTypeOf<LoadBytes | undefined>();
+    expectTypeOf<MethodFormProps["pdfWorker"]>().toEqualTypeOf<PdfWorkerConfig | undefined>();
+    expectTypeOf<MethodFormProps["openExternal"]>().toEqualTypeOf<OpenExternal | undefined>();
+    expectTypeOf<ComponentProps<typeof formReact.DocumentField>["loadBytes"]>().toEqualTypeOf<
+      LoadBytes | undefined
+    >();
+    expectTypeOf<ComponentProps<typeof formReact.ImageField>["loadBytes"]>().toEqualTypeOf<
+      LoadBytes | undefined
+    >();
+    for (const strings of [formReact.EN_FIELD_STRINGS, formReact.FR_FIELD_STRINGS]) {
+      expect(strings.pageLeftFrame).toBeTypeOf("string");
     }
   });
 
