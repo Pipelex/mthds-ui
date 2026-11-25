@@ -217,6 +217,17 @@ export interface RunPanelProps {
    */
   theme?: GraphTheme;
   /**
+   * Sparse overrides of the palette, merged per key over `theme`'s, as
+   * `GraphViewer`'s `config.paletteColors` and `RunTimeline`'s `paletteColors`:
+   * `{ "--color-accent": "var(--link)" }`. The palette is set inline on the
+   * panel's `<form>`, so this is how a host gives the panel's chrome (its
+   * container, header, Run button and error summary) its own colours: a
+   * `--color-*` or `--surface-*` declared on `.mthds-run-panel` in a stylesheet
+   * loses to the inline value. The kernel's controls read the shadcn tokens, not
+   * this palette (see "The theme bridge" in docs/run-form-panel.md).
+   */
+  paletteColors?: Record<string, string>;
+  /**
    * Renders the whole error summary in the host's language. English by default.
    *
    * It covers the panel's own lines (`runPanel.*`) as well as the kernel's
@@ -279,6 +290,7 @@ export function RunPanel({
   onFill,
   title,
   theme = GRAPH_THEME.LIGHT,
+  paletteColors,
   translate,
   idPrefix,
   className,
@@ -750,9 +762,11 @@ export function RunPanel({
     onRun(outcome.apiInputs);
   };
 
+  // The theme's palette is the base; the host's `paletteColors` win per key, as on
+  // `GraphViewer` and `RunTimeline`.
   const paletteStyle = React.useMemo(
-    () => getPaletteForTheme(theme) as React.CSSProperties,
-    [theme],
+    () => ({ ...getPaletteForTheme(theme), ...paletteColors }) as React.CSSProperties,
+    [theme, paletteColors],
   );
 
   // One provider around the whole panel, which is exactly one form — the scope
