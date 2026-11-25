@@ -244,32 +244,32 @@ A dry run does not emit this shape yet. pipelex runs every outcome into the same
 
 A sequence step written `{ from = "invoice.total", result = "total_amount" }` runs no pipe: it stores the value at a path under a new name, for the steps after it to read. The static builder draws it as a run graph does, as a node of its own:
 
-| Field | Value |
-| --- | --- |
-| `kind` | `"binding"` |
-| `pipe_type` | `"BindingStep"` (`BINDING_STEP_TYPE`), the step's own class, never a pipe's |
-| `pipe_code` | the `from` path |
-| `description` | `Binds '<from>' to '<result>'` |
-| `domain_code` | the sequence's domain |
-| `execution_data` | `{ from, result }` |
-| `io.inputs` | the root's stuff, under the root's name |
-| `io.outputs` | the bound stuff, under the `result` name, at `<node id>:<result>` |
+| Field            | Value                                                                       |
+| ---------------- | --------------------------------------------------------------------------- |
+| `kind`           | `"binding"`                                                                 |
+| `pipe_type`      | `"BindingStep"` (`BINDING_STEP_TYPE`), the step's own class, never a pipe's |
+| `pipe_code`      | the `from` path                                                             |
+| `description`    | `Binds '<from>' to '<result>'`                                              |
+| `domain_code`    | the sequence's domain                                                       |
+| `execution_data` | `{ from, result }`                                                          |
+| `io.inputs`      | the root's stuff, under the root's name                                     |
+| `io.outputs`     | the bound stuff, under the `result` name, at `<node id>:<result>`           |
 
 A `contains` edge joins it to its sequence, and the registry holds no entry for it, since no pipe declares it. The bound stuff is written into scope under its `result` name, so a later step reading that name is wired to the binding, and a binding that ends its sequence is the sequence's output, as the runtime stores it as the main stuff. A root nothing in scope holds draws a dangling input, as any unbound name does. Working memory is matched by exact name: an input is satisfied by a stuff of the same name, and by nothing else.
 
 **What a binding binds is derived, never declared.** `src/static-graph/bindingWalk.ts` walks the path through the structures the method's concepts declare, as the runtime does, one segment at a time:
 
-| The segment names a field declared as | The walk continues into, or the result is |
-| --- | --- |
-| `concept`, `concept_ref = X` | `X`, whose structure the next segment walks |
-| `list`, `item_type = "concept"`, `item_concept_ref = X` | `X`, crossing a list |
-| `text`, or no `type` (a field of `choices`), or a shorthand string | `native.Text`, a leaf |
-| `number` or `integer` | `native.Number`, a leaf |
-| `boolean` | `native.YesNo`, a leaf |
-| `date` or `datetime` | `native.Date`, a leaf |
-| `time` | `native.Time`, a leaf |
-| `dict` | `native.JSON`, a leaf |
-| `list` with a scalar `item_type` | that scalar's native, a leaf, crossing a list |
+| The segment names a field declared as                              | The walk continues into, or the result is     |
+| ------------------------------------------------------------------ | --------------------------------------------- |
+| `concept`, `concept_ref = X`                                       | `X`, whose structure the next segment walks   |
+| `list`, `item_type = "concept"`, `item_concept_ref = X`            | `X`, crossing a list                          |
+| `text`, or no `type` (a field of `choices`), or a shorthand string | `native.Text`, a leaf                         |
+| `number` or `integer`                                              | `native.Number`, a leaf                       |
+| `boolean`                                                          | `native.YesNo`, a leaf                        |
+| `date` or `datetime`                                               | `native.Date`, a leaf                         |
+| `time`                                                             | `native.Time`, a leaf                         |
+| `dict`                                                             | `native.JSON`, a leaf                         |
+| `list` with a scalar `item_type`                                   | that scalar's native, a leaf, crossing a list |
 
 Crossing any list, or starting from a plural root, makes the result a list (`true`); a bare name keeps its root's concept and multiplicity. A refinement inherits the structure it refines. Natives are walked through their pinned fields, read off the [native concept catalog](#native-concepts): a single-field native (`Text`, `Number`, `Time`, `JSON`, `Markdown`) is a leaf a path may end on but never enter, and `Dynamic`, `Anything` and `Composite` have no structure. A concept declared with a description alone, one whose `structure` names a Python class, and one of a dependency have nothing a bundle shows, so a path cannot walk into them. A path the walk cannot follow binds `native.Anything` and reports a `binding-path-unresolved` warning naming the segment that failed and, where there is one, the fields available there.
 

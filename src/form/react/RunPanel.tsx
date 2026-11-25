@@ -219,12 +219,13 @@ export interface RunPanelProps {
   /**
    * Sparse overrides of the palette, merged per key over `theme`'s, as
    * `GraphViewer`'s `config.paletteColors` and `RunTimeline`'s `paletteColors`:
-   * `{ "--color-accent": "var(--link)" }`. The palette is set inline on the
+   * `{ "--surface-panel": "var(--surface)" }`. The palette is set inline on the
    * panel's `<form>`, so this is how a host gives the panel's chrome (its
-   * container, header, Run button and error summary) its own colours: a
-   * `--color-*` or `--surface-*` declared on `.mthds-run-panel` in a stylesheet
-   * loses to the inline value. The kernel's controls read the shadcn tokens, not
-   * this palette (see "The theme bridge" in docs/run-form-panel.md).
+   * container, header, footer, focus ring and error summary) its own colours: a
+   * `--surface-*`, `--text-*`, `--border-*` or `--color-error-*` declared on
+   * `.mthds-run-panel` in a stylesheet loses to the inline value. The Run button
+   * paints literal colours and reads none of it, and the kernel's controls read
+   * the shadcn tokens (see "The theme bridge" in docs/run-form-panel.md).
    */
   paletteColors?: Record<string, string>;
   /**

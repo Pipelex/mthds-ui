@@ -8,10 +8,10 @@ The three tabs were an honest admission of an unanswerable question. A `GraphSpe
 
 The standard answers the question, in an artifact built for it:
 
-| Artifact | What it states |
-| --- | --- |
-| `output_form[pipe_ref]` | ONE descriptor node for the pipe's result — kind, concept identity, refinement chain, nested fields in authored order |
-| `pipe_io_contracts[pipe_ref].output.json_schema` | the payload's JSON Schema, naming the property the concept's content model wraps the value under |
+| Artifact                                         | What it states                                                                                                        |
+| ------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------- |
+| `output_form[pipe_ref]`                          | ONE descriptor node for the pipe's result — kind, concept identity, refinement chain, nested fields in authored order |
+| `pipe_io_contracts[pipe_ref].output.json_schema` | the payload's JSON Schema, naming the property the concept's content model wraps the value under                      |
 
 `buildResultField(descriptor, schema)` pairs them into a `RunField`, and `ResultPanel` lays that out **without ever inspecting the value**: a list of uniform records becomes a table, a structure a two-column grid, `native.Html` a sandboxed frame, images a gallery, prose typeset as markdown, a page of an extracted document its text as a document with its tables drawn and its pictures under it, a `native.Composite` its members, a picture drawn and a list of structures as a table, and, in the `app` presentation, a search result its answer with each citation linked to its source and the sources listed after it. The JSON view survives as one of the panel's two, because a receipt is worth having. "Pretty" and "HTML" do not, because they were two guesses at a question that now has an answer.
 
@@ -29,7 +29,7 @@ There was a render prop here for about a day (`renderStuffData`), and it was the
 
 That optionality made sense while the kernel powered only the run form, which is genuinely an add-on: a host embedding a graph viewer need not offer a way to run methods. It stopped making sense the moment `output_form` became **how this viewer shows a result at all**. A viewer whose detail panel cannot display data is not a viewer, so the kernel stopped being optional, `GraphViewer` imports the panel directly, and the seam is gone.
 
-**A dependency, and the route there is worth recording.** The obvious answer — a *required* peer — is auto-installed by npm and **not by pnpm**, which reports it unmet and installs nothing even with `auto-install-peers=true`. A property that holds on one package manager is not one a library can offer. So the kernel is a dependency and is re-exported from `./form` and `./form/react`; a host installs this package alone and imports everything from it. The objection to depending on a package carrying React context — two copies, two context identities — is answered by the rule that comes with it: **import the kernel through those entries, never directly.** A host that declares nothing cannot produce a second copy, and `make smoke-pack` asserts exactly one copy from a bare consumer.
+**A dependency, and the route there is worth recording.** The obvious answer — a _required_ peer — is auto-installed by npm and **not by pnpm**, which reports it unmet and installs nothing even with `auto-install-peers=true`. A property that holds on one package manager is not one a library can offer. So the kernel is a dependency and is re-exported from `./form` and `./form/react`; a host installs this package alone and imports everything from it. The objection to depending on a package carrying React context — two copies, two context identities — is answered by the rule that comes with it: **import the kernel through those entries, never directly.** A host that declares nothing cannot produce a second copy, and `make smoke-pack` asserts exactly one copy from a bare consumer.
 
 **The panel's controls are the kernel's, and styling them is a step the host takes.** Neither React entry imports a stylesheet for them, so a host that only shows graphs still loads one: `@pipelex/mthds-ui/tailwind.css` in a Tailwind 4 build, or `@pipelex/mthds-ui/form-kernel.css` in a host without Tailwind. A Tailwind 4 host that forgets gets a panel that is mostly styled, missing exactly the classes only the kernel uses, and a host without Tailwind gets unstyled controls. See `docs/run-form-panel.md`, "Styling, and the trap in it".
 

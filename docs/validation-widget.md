@@ -6,12 +6,12 @@ An opt-in status widget in the graph toolbar that surfaces a host's validation l
 
 The widget renders only when `GraphViewer` receives a `validationState`; `undefined` (the default) disables the feature entirely — nothing is rendered, no behavior changes for existing consumers.
 
-| State | Meaning | Rendering |
-| --- | --- | --- |
-| `validating` | A verdict is being produced | Spinner |
-| `valid` | The validator accepted the method | Green check |
-| `invalid` | The validator rejected the method | Red cross + issue-count badge |
-| `error` | No verdict could be produced (validator unavailable, timeout, auth…) | Warning triangle |
+| State         | Meaning                                                                        | Rendering                            |
+| ------------- | ------------------------------------------------------------------------------ | ------------------------------------ |
+| `validating`  | A verdict is being produced                                                    | Spinner                              |
+| `valid`       | The validator accepted the method                                              | Green check                          |
+| `invalid`     | The validator rejected the method                                              | Red cross + issue-count badge        |
+| `error`       | No verdict could be produced (validator unavailable, timeout, auth…)           | Warning triangle                     |
 | `unvalidated` | The host has no validator at all; the issues are what reading the source found | Information mark + issue-count badge |
 
 `unvalidated` is for a host that renders a method without ever validating it, such as the standalone page that draws a method from its embedded `.mthds` files (see `docs/static-graph.md`). None of the four lifecycle states fits it: `invalid` and `valid` would claim a verdict nobody produced, `validating` would spin forever, and `error` says a validator failed to run. The button keeps its neutral colour and badges its notes in the warning tone, and its label reads "Not validated — 2 issues found reading the source".
@@ -33,7 +33,7 @@ Constants and types are exported from the package root: `VALIDATION_STATE`, `Val
 - `validationIssues?: ValidationIssue[]` — the rows listed in the dropdown; the badge shows their count. Each issue carries `severity` (`error`/`warning`), `message`, and optionally `context` (a locator chip such as `pipe.analyze_candidate` or a TOML path), `file` (owning-file basename), `suggestedFix` (human-readable fix line), `origin` (`validator` vs `static`), and the targeting fields below.
 - `onValidationIssueClick?: (index, issue) => void` — optional row-click handler; wire it to source navigation in the host. It's additive: clicking a row always pans/flashes to the issue's target node (see [Interactions](#interactions)), so rows stay interactive whether or not this is set — this handler just adds the host source-jump.
 
-The widget itself is **presentation-only**: the viewer never interprets issues, produces verdicts, or decides which issues to show per state — that policy belongs to the host (the VS Code extension, for instance, shows static diagnostics while `validating`, the validator's errors on `invalid`, and static warnings only on `valid`). The one exception is the pair of optional *targeting fields*, which the viewer resolves to graph nodes for the decorations below.
+The widget itself is **presentation-only**: the viewer never interprets issues, produces verdicts, or decides which issues to show per state — that policy belongs to the host (the VS Code extension, for instance, shows static diagnostics while `validating`, the validator's errors on `invalid`, and static warnings only on `valid`). The one exception is the pair of optional _targeting fields_, which the viewer resolves to graph nodes for the decorations below.
 
 ## Node decorations
 
@@ -49,7 +49,7 @@ A decorated node renders a **severity ring** (outline — layout-neutral, node g
 
 ### Interactions
 
-- **Panel → graph**: clicking an issue row still calls `onValidationIssueClick` (host source-jump), and *additionally* pans the viewport to the issue's target node (`fitView` on that node, animated) and flashes a temporary halo around it. Panel-only issues just do the host callback.
+- **Panel → graph**: clicking an issue row still calls `onValidationIssueClick` (host source-jump), and _additionally_ pans the viewport to the issue's target node (`fitView` on that node, animated) and flashes a temporary halo around it. Panel-only issues just do the host callback.
 - **Graph → panel**: clicking a node's count badge opens the validation panel (the dropdown open state lives in `GraphViewer` for exactly this reason; the toolbar reports toggle/outside-click/Escape through `onValidationOpenChange`).
 
 The decoration internals (`buildValidationDecorations`, `applyValidationDecorations`, `resolveIssueTargetNodeId`, `NodeValidationSummary`) are exported from the package root for hosts that need the same mapping outside the viewer.

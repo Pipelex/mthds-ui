@@ -62,11 +62,11 @@ describe("RunPanel's palette", () => {
     const light = getPaletteForTheme(GRAPH_THEME.LIGHT);
     const style = formStyle({
       theme: GRAPH_THEME.LIGHT,
-      paletteColors: { "--color-accent": "var(--link)", "--surface-panel": "var(--surface)" },
+      paletteColors: { "--surface-panel": "var(--surface)", "--text-default": "var(--ink)" },
     });
-    expect(style.get("--color-accent")).toBe("var(--link)");
     expect(style.get("--surface-panel")).toBe("var(--surface)");
+    expect(style.get("--text-default")).toBe("var(--ink)");
     // Every key the host left alone keeps the theme's value.
-    expect(style.get("--text-default")).toBe(light["--text-default"]);
+    expect(style.get("--text-muted")).toBe(light["--text-muted"]);
   });
 });

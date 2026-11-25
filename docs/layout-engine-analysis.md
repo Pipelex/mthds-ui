@@ -39,15 +39,15 @@ Additionally, `buildControllerNodes()` computes controller group bounding boxes 
 
 ### Why ELK solves our problems
 
-| Current problem | ELK solution |
-|---|---|
+| Current problem                       | ELK solution                                                               |
+| ------------------------------------- | -------------------------------------------------------------------------- |
 | Controller groups containing children | **Compound graphs** — nodes have `children` arrays, ELK layouts inside-out |
-| Edges crossing group boundaries | **Cross-hierarchy edge routing** — `hierarchyHandling: 'INCLUDE_CHILDREN'` |
-| Output overlapping its card | **Automatic spacing** — ELK computes parent size from children |
-| Edge spaghetti | **Orthogonal/spline routing** with obstacle avoidance |
-| Input alignment | **Layered algorithm** handles this natively |
-| Overlap resolution | **Built-in** — no post-layout fixups needed |
-| Port-based connections | **Ports** — edges connect to specific points on nodes |
+| Edges crossing group boundaries       | **Cross-hierarchy edge routing** — `hierarchyHandling: 'INCLUDE_CHILDREN'` |
+| Output overlapping its card           | **Automatic spacing** — ELK computes parent size from children             |
+| Edge spaghetti                        | **Orthogonal/spline routing** with obstacle avoidance                      |
+| Input alignment                       | **Layered algorithm** handles this natively                                |
+| Overlap resolution                    | **Built-in** — no post-layout fixups needed                                |
+| Port-based connections                | **Ports** — edges connect to specific points on nodes                      |
 
 ### ELK graph structure (maps naturally to our data)
 
@@ -70,7 +70,7 @@ Additionally, `buildControllerNodes()` computes controller group bounding boxes 
         { "id": "stuff_node", "width": 180, "height": 60 },
         {
           "id": "parallel_controller",
-          "children": [ "..." ]
+          "children": ["..."]
         }
       ],
       "edges": []
@@ -109,29 +109,33 @@ Additionally, `buildControllerNodes()` computes controller group bounding boxes 
 elkjs is licensed under **EPL-2.0** (Eclipse Public License 2.0), a weak copyleft license.
 
 ### What EPL-2.0 allows
+
 - Using elkjs as a dependency — your code keeps its own license
 - Bundling in commercial applications — fully permitted
 - No obligation to open-source your own code
 
 ### What EPL-2.0 requires
+
 - Modifications **to elkjs itself** must be released under EPL-2.0
 - If distributing elkjs, its source must be available (already on GitHub)
 
 ### What EPL-2.0 is NOT
+
 - NOT GPL — does not "infect" your code with copyleft
 - NOT viral — only modifications to elkjs are covered
 
 ### Risk
+
 Some organizations have blanket policies against any copyleft (even weak) in their dependency tree. This should be evaluated before adopting elkjs.
 
 ### Permissively-licensed alternatives
 
-| Library | License | Compound support | Notes |
-|---|---|---|---|
-| dagre | MIT | No | Current engine, requires extensive fixups |
-| d3-dag | Apache-2.0 | No | Sugiyama-based, no compound/nested nodes |
-| WebCola | MIT | Partial | Constraint-based, different paradigm |
-| Custom dagre wrapper | MIT | Manual | Run dagre per-group, stitch results |
+| Library              | License    | Compound support | Notes                                     |
+| -------------------- | ---------- | ---------------- | ----------------------------------------- |
+| dagre                | MIT        | No               | Current engine, requires extensive fixups |
+| d3-dag               | Apache-2.0 | No               | Sugiyama-based, no compound/nested nodes  |
+| WebCola              | MIT        | Partial          | Constraint-based, different paradigm      |
+| Custom dagre wrapper | MIT        | Manual           | Run dagre per-group, stitch results       |
 
 ## Decision needed
 
