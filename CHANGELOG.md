@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Fixed
+
+- **A pipe's run status follows the palette**: the status dot and label on a detailed-style card, the status in the detail panel and a condition's chosen outcome painted fixed colours (`#50FA7B`, `#FF5555`, `#8BE9FD`, `#6272a4`) whatever the theme or the host's `paletteColors`. They now read `--color-success`, `--color-error`, `--color-accent` and `--text-dim`, with those colours as fallbacks, so the dark theme looks as it did, the light theme takes its darker states, and a host's palette re-themes them.
+
 ## [v0.58.1] - 2026-11-25
 
 ### Added

@@ -40,6 +40,19 @@ describe("PipeCardBase static chrome", () => {
     expect(html).toContain("pipe-card-status-dot--pulse");
     expect(html).toContain("Running");
   });
+
+  it("paints the status from the palette, so a host's paletteColors re-themes it", () => {
+    for (const [status, variable] of [
+      ["succeeded", "--color-success"],
+      ["failed", "--color-error"],
+      ["running", "--color-accent"],
+      ["scheduled", "--text-dim"],
+    ] as const) {
+      const html = renderCard({ ...BASE_CARD, status });
+      expect(html, status).toContain(`background:var(${variable},`);
+      expect(html, status).not.toMatch(/background:#/);
+    }
+  });
 });
 
 describe("PipeCardBase document format chip", () => {
