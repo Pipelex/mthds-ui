@@ -1,7 +1,7 @@
 import React from "react";
 import type { PipeBlueprintUnion } from "@graph/types";
 import { KV, PromptBlock } from "./shared";
-import { PIPE_STATUS_COLOR } from "../../statusColors";
+import { PIPE_STATUS_COLOR } from "@graph/react/statusColors";
 
 export function PipeConditionSection({
   blueprint,

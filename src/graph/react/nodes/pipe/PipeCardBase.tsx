@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import type { NodePipeType, PipeCardData, PipeControllerType, PipeStatus } from "./pipeCardTypes";
 import { BINDING_STEP_TYPE } from "@graph/types";
 import { NodeValidationBadge, validationRingClass } from "../NodeValidationBadge";
-import { PIPE_STATUS_COLOR } from "../../statusColors";
+import { PIPE_STATUS_COLOR } from "@graph/react/statusColors";
 
 // ─── Pipe type badge labels ──────────────────────────────────────────────
 

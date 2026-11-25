@@ -13,7 +13,7 @@ import {
   isStaticGraphSpec,
   multiplicitySuffix,
 } from "@graph/types";
-import { PIPE_STATUS_COLOR } from "../statusColors";
+import { PIPE_STATUS_COLOR } from "@graph/react/statusColors";
 import { resolveNodeBlueprint } from "@graph/graphAnalysis";
 import {
   formatDuration,
