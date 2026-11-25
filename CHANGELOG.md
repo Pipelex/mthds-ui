@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+
+- **`RunPanel` takes `paletteColors`**, sparse overrides of its palette merged per key over `theme`'s, the same map `GraphViewer` takes as `config.paletteColors` and `RunTimeline` as `paletteColors`. The palette is set inline on the panel's `<form>`, so a host could not recolour the panel's container, header, footer, focus ring or error summary from a stylesheet; now it passes the map it gives the graph and gets one look across the three. The Run button keeps its literal colours and is restyled from a stylesheet, as before. See [docs/run-form-panel.md](docs/run-form-panel.md#the-theme-bridge-and-the-hook-for-overriding-tokens).
+
 ## [v0.58.0] - 2026-11-24
 
 ### Changed
