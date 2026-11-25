@@ -83,7 +83,7 @@ onThemeChange={(mode, resolvedTheme) => {
 
 ## The palette is the contract — never re-pin it
 
-`GraphViewer` derives the palette from the resolved theme and applies it as inline CSS vars on its container. `config.paletteColors` is a **sparse override** merged _on top_ of the theme palette (per-key) — never a full palette. Passing a complete palette re-pins node/edge colors to one theme and breaks theme switching (the colors stop following the toggle). Component CSS must reference the semantic tokens (`var(--token)`) and never hardcode hex/rgba — that is what lets a new theme be just a new set of token values. See `src/graph/graphConfig.ts` for the token catalog.
+`GraphViewer` derives the palette from the resolved theme and applies it as inline CSS vars on its container. `config.paletteColors` is a **sparse override** merged _on top_ of the theme palette (per-key) — never a full palette. Passing a complete palette re-pins node/edge colors to one theme and breaks theme switching (the colors stop following the toggle). Component CSS must reference the semantic tokens (`var(--token)`) and never hardcode hex/rgba — that is what lets a new theme be just a new set of token values. See `src/graph/graphConfig.ts` for the token catalog. A pipe's run status reads the palette too, through `PIPE_STATUS_COLOR` in `src/graph/react/statusColors.ts`: succeeded is `--color-success`, failed `--color-error`, running `--color-accent`, and scheduled, skipped and canceled `--text-dim`, on a card's status dot and in the detail panel alike, and a condition's chosen outcome is `--color-success` on `--color-success-bg`.
 
 ## Standalone wrapper
 

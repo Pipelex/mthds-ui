@@ -1,6 +1,7 @@
 import React from "react";
 import type { PipeBlueprintUnion } from "@graph/types";
 import { KV, PromptBlock } from "./shared";
+import { PIPE_STATUS_COLOR } from "@graph/react/statusColors";
 
 export function PipeConditionSection({
   blueprint,
@@ -23,13 +24,17 @@ export function PipeConditionSection({
             key={outcome}
             className="detail-kv-row"
             style={
-              selectedOutcome === pipeCode ? { background: "rgba(80,250,123,0.08)" } : undefined
+              selectedOutcome === pipeCode
+                ? { background: "var(--color-success-bg, rgba(80,250,123,0.08))" }
+                : undefined
             }
           >
             <span className="detail-kv-key">{outcome}</span>
             <span
               className="detail-kv-value"
-              style={selectedOutcome === pipeCode ? { color: "#50FA7B" } : undefined}
+              style={
+                selectedOutcome === pipeCode ? { color: PIPE_STATUS_COLOR.succeeded } : undefined
+              }
             >
               {pipeCode}
             </span>

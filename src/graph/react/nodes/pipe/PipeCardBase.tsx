@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import type { NodePipeType, PipeCardData, PipeControllerType, PipeStatus } from "./pipeCardTypes";
 import { BINDING_STEP_TYPE } from "@graph/types";
 import { NodeValidationBadge, validationRingClass } from "../NodeValidationBadge";
+import { PIPE_STATUS_COLOR } from "@graph/react/statusColors";
 
 // ─── Pipe type badge labels ──────────────────────────────────────────────
 
@@ -37,12 +38,12 @@ function isControllerType(pipeType: NodePipeType): pipeType is PipeControllerTyp
 }
 
 const STATUS_CONFIG: Record<PipeStatus, { color: string; label: string }> = {
-  succeeded: { color: "#50FA7B", label: "Succeeded" },
-  failed: { color: "#FF5555", label: "Failed" },
-  running: { color: "#8BE9FD", label: "Running" },
-  scheduled: { color: "#6272a4", label: "Scheduled" },
-  skipped: { color: "#6272a4", label: "Skipped" },
-  canceled: { color: "#6272a4", label: "Canceled" },
+  succeeded: { color: PIPE_STATUS_COLOR.succeeded, label: "Succeeded" },
+  failed: { color: PIPE_STATUS_COLOR.failed, label: "Failed" },
+  running: { color: PIPE_STATUS_COLOR.running, label: "Running" },
+  scheduled: { color: PIPE_STATUS_COLOR.scheduled, label: "Scheduled" },
+  skipped: { color: PIPE_STATUS_COLOR.skipped, label: "Skipped" },
+  canceled: { color: PIPE_STATUS_COLOR.canceled, label: "Canceled" },
 };
 
 const MAX_VISIBLE_INPUTS = 4;

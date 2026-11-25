@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Fixed
+
+- **A pipe's run status follows the palette**: the status dot and label on a detailed-style card, the status in the detail panel and a condition's chosen outcome painted fixed colours (`#50FA7B`, `#FF5555`, `#8BE9FD`, `#6272a4`) whatever the theme or the host's `paletteColors`. They now read `--color-success`, `--color-error`, `--color-accent` and `--text-dim`, and the chosen outcome's row `--color-success-bg`, with the old colours as fallbacks outside a viewer, so a host's palette re-themes them. In the dark theme succeeded, failed and running keep their colours, while scheduled, skipped and canceled turn from blue-violet to the palette's slate `--text-dim` and the chosen outcome's row takes the palette's stronger success ground; the light theme takes its darker states throughout.
+
 ## [v0.58.1] - 2026-11-25
 
 ### Added
