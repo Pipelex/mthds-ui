@@ -13,6 +13,7 @@ import {
   isStaticGraphSpec,
   multiplicitySuffix,
 } from "@graph/types";
+import { PIPE_STATUS_COLOR } from "@graph/react/statusColors";
 import { resolveNodeBlueprint } from "@graph/graphAnalysis";
 import {
   formatDuration,
@@ -63,14 +64,7 @@ const CONTROLLER_TYPES = new Set<string>([
   "PipeBatch",
 ]);
 
-const STATUS_COLORS: Record<string, string> = {
-  succeeded: "#50FA7B",
-  failed: "#FF5555",
-  running: "#8BE9FD",
-  scheduled: "#6272a4",
-  skipped: "#6272a4",
-  canceled: "#6272a4",
-};
+const STATUS_COLORS: Record<string, string> = PIPE_STATUS_COLOR;
 
 // ─── Props ──────────────────────────────────────────────────────────────
 
@@ -92,7 +86,7 @@ export function PipeDetailPanel({ node, spec, onConceptClick }: PipeDetailPanelP
   const showsGeneratedData = !isStatic && !isDryGraphSpec(spec);
   const badge = PIPE_TYPE_BADGES[pipeType];
   const status = node.status;
-  const statusColor = STATUS_COLORS[status] ?? "#6272a4";
+  const statusColor = STATUS_COLORS[status] ?? PIPE_STATUS_COLOR.scheduled;
 
   // The same lookup the card makes, so the two never disagree about which pipe
   // a node runs; a binding node has none.

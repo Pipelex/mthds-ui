@@ -193,9 +193,7 @@
   pointer-events: auto;
   /* The error tint laid over the opaque panel surface, so the drawing beneath
      never shows through the text. */
-  background:
-    linear-gradient(var(--color-error-bg), var(--color-error-bg)),
-    var(--surface-panel);
+  background: linear-gradient(var(--color-error-bg), var(--color-error-bg)), var(--surface-panel);
   box-shadow: var(--shadow-md);
 }
 .react-flow__node {
