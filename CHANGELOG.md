@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+
+- **A converted Office document on another origin is drawn from the host's bytes, through `@pipelex/mthds-form` ^0.42.3**: when a host's `resolveDocumentPdf` answers `ready` with a PDF on another origin, such as a presigned storage link, and the host also passes `loadBytes` and `pdfWorker` to `GraphViewer` or `StuffResultPanel`, the data panel draws that PDF page by page, asking `loadBytes` with the answer's URL, where it used to show the document as unavailable; a host's `loadBytes` must therefore accept the URLs of its own `ready` answers. `DocumentPdfAnswer`'s `failed` member, re-exported from `./form/react`, takes `final: true` for a document asking again cannot help, and the preview then offers no Try again. See [docs/stuff-result-panel.md](docs/stuff-result-panel.md#pictures-and-pdfs).
+
 ## [v0.58.2] - 2026-11-25
 
 ### Fixed

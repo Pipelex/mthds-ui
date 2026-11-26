@@ -240,6 +240,13 @@ describe("the ./form/react entry", () => {
     expect(formReact.useResolveDocumentPdf).toBeTypeOf("function");
     expectTypeOf<DocumentPdfRequest>().toEqualTypeOf<{ filename?: string; mimeType?: string }>();
     expectTypeOf<AskDocumentPdf>().toEqualTypeOf<() => Promise<DocumentPdfAnswer>>();
+    // Kernel 0.42.3: a host that knows asking again cannot help answers a
+    // final failure, which the preview shows with no Try again.
+    expectTypeOf<Extract<DocumentPdfAnswer, { state: "failed" }>>().toEqualTypeOf<{
+      state: "failed";
+      message?: string;
+      final?: boolean;
+    }>();
     expectTypeOf<ResolveDocumentPdf>().toEqualTypeOf<
       (url: string, request: DocumentPdfRequest) => AskDocumentPdf | undefined
     >();

@@ -202,13 +202,16 @@ export interface StuffResultPanelProps extends StuffResultRendererOptions {
    * document's preview then shows the PDF's pages, while its name, its copy
    * control and every download keep the original. Unset, such a document
    * offers no preview. The PDF's URL in a `ready` answer is framed only on the
-   * page's own origin; an answer on another origin reads as `unavailable`.
+   * page's own origin; an answer on another origin is drawn from `loadBytes`
+   * when `pdfWorker` is also given, and reads as `unavailable` otherwise. A
+   * `failed` answer with `final: true` shows no Try again.
    */
   resolveDocumentPdf?: ResolveDocumentPdf;
   /**
    * Reads a document's bytes, for a PDF the panel cannot frame because the
    * frame rule refused it (another origin, such as a presigned storage URL):
-   * called with the document's own `url` member and `{ maxBytes, signal }`, it
+   * called with the document's own `url` member, or the `url` of the host's
+   * own `ready` answer to `resolveDocumentPdf`, and `{ maxBytes, signal }`, it
    * resolves to the file as a `Uint8Array` or an `ArrayBuffer`, and the kernel
    * draws its pages with pdf.js. It takes effect only with `pdfWorker`. The
    * method chose the URL, so it reads only references the host stores itself
