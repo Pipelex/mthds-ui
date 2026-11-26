@@ -28,6 +28,8 @@ import { describe, expect, expectTypeOf, it, vi } from "vitest";
 import {
   ResultEnvProvider,
   type AskDocumentPdf,
+  type LoadBytes,
+  type PdfWorkerConfig,
   type ResolveDocumentPdf,
 } from "@pipelex/mthds-form/react";
 import type { GraphSpecNodeIoItem } from "@graph/types";
@@ -40,6 +42,13 @@ import {
   INPUT_FORM_CV_SCREENING,
   OUTPUT_FORM_CV_SCREENING,
 } from "@form/react/__stories__/contracts/_generated/pipeline_09";
+
+// The kernel's provider, spied on so a case reads the props the panel really
+// handed it; it renders as the kernel's own.
+vi.mock("@pipelex/mthds-form/react", async (importOriginal) => {
+  const kernel = await importOriginal<typeof import("@pipelex/mthds-form/react")>();
+  return { ...kernel, ResultEnvProvider: vi.fn(kernel.ResultEnvProvider) };
+});
 
 const CV_DIGEST = "AyZkr";
 const DOCX_URL = "pipelex-storage://run/inputs/John-Doe-CV.docx";
@@ -131,6 +140,34 @@ describe("StuffResultPanel's PDF of an office document", () => {
     );
     expect(resolveDocumentPdf).toHaveBeenCalled();
     expect(html).toContain(PREVIEW_TOGGLE);
+  });
+
+  it("hands one provider the conversion, the bytes and the worker a converted PDF on another origin needs", () => {
+    // Since kernel 0.42.3 a `ready` answer on another origin, such as a
+    // presigned storage link, is drawn from `loadBytes`, asked with that
+    // answer's URL, when the same provider also holds `pdfWorker`. The
+    // drawing happens in a browser, after the ask settles, which a server
+    // render never reaches, so what this package owns is that the three
+    // settings arrive together on the provider the kernel reads.
+    const { ask, resolveDocumentPdf } = converts();
+    const loadBytes = vi.fn<LoadBytes>(() => new Promise(() => {}));
+    const pdfWorker: PdfWorkerConfig = { workerSrc: "/pdf.worker.min.mjs" };
+    vi.mocked(ResultEnvProvider).mockClear();
+    const html = renderToStaticMarkup(panel({ resolveDocumentPdf, loadBytes, pdfWorker }));
+    const providers = vi.mocked(ResultEnvProvider).mock.calls.map(([props]) => props);
+    expect(providers).toHaveLength(1);
+    expect(providers[0]?.resolveDocumentPdf).toBe(resolveDocumentPdf);
+    expect(providers[0]?.loadBytes).toBe(loadBytes);
+    expect(providers[0]?.pdfWorker).toBe(pdfWorker);
+    expect(resolveDocumentPdf).toHaveBeenCalledWith(DOCX_URL, {
+      filename: DOCX_NAME,
+      mimeType: DOCX_TYPE,
+    });
+    expect(html).toContain(PREVIEW_TOGGLE);
+    // The ask, and the bytes of the PDF it answers, are asked for in a
+    // browser only, as the open preview mounts and nears the viewport.
+    expect(ask).not.toHaveBeenCalled();
+    expect(loadBytes).not.toHaveBeenCalled();
   });
 
   it("installs its own provider when the host's resolveDocumentPdf is the only setting it is given", () => {
