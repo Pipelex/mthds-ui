@@ -318,8 +318,10 @@ export interface GraphViewerProps {
    *
    * The PDF's URL in a `ready` answer is framed only on the page's own origin,
    * as a root-relative path or an absolute URL there, as `resolveUrl`'s answer
-   * is; an answer on another origin, such as a CDN or a presigned storage URL,
-   * reads as `unavailable`.
+   * is. An answer on another origin, such as a CDN or a presigned storage URL,
+   * is drawn page by page from `loadBytes`, asked with that URL, when the host
+   * also passes `loadBytes` and `pdfWorker`, and reads as `unavailable`
+   * otherwise. A `failed` answer with `final: true` shows no Try again.
    */
   resolveDocumentPdf?: ResolveDocumentPdf;
   /**
@@ -328,7 +330,8 @@ export interface GraphViewerProps {
    * storage URL) page by page with pdf.js. It takes effect only with
    * `pdfWorker`.
    *
-   * Called with the document's own `url` member, as `resolveUrl` is, and a
+   * Called with the document's own `url` member, as `resolveUrl` is, or with
+   * the `url` of the host's own `ready` answer to `resolveDocumentPdf`, and a
    * `{ maxBytes, signal }` request; resolve to the file's bytes as a
    * `Uint8Array` or an `ArrayBuffer`, pass `signal` to your `fetch`, and reject
    * for anything that is not a reference you store yourself: the method chose
