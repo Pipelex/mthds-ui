@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- **`RunTimeline`'s style switch (Breaking)**: `styleMenu` now shows two icon buttons side by side in the header, one per style, the current one pressed, instead of a button opening a drop-down menu; a host that drove the menu in a test finds a `group` named "Timeline style" holding a `button` per style, named `"<Style>: <what it draws>"` with `aria-pressed`. See [docs/timeline-styles.md](docs/timeline-styles.md).
+
 ## [v0.58.3] - 2026-11-26
 
 ### Added
