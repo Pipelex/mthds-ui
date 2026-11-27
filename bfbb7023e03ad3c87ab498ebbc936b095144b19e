@@ -1,0 +1,21 @@
+.claude/skills/release/SKILL.md
+  s_26d4068d7c7d12::t_dc74f6c8d0059d 65
+.github/workflows/cla.yml
+  s_26d4068d7c7d12::t_115a60f3f12a4b 1-4,21
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "bfbb7023e03ad3c87ab498ebbc936b095144b19e",
+  "prompts": {},
+  "sessions": {
+    "s_26d4068d7c7d12": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "273ce13b-3e96-4c0f-812d-f7e7a835795f",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "thomashebrard <thomas@pipelex.com>"
+    }
+  }
+}

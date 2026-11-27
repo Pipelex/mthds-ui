@@ -1,0 +1,23 @@
+src/graph/react/GraphViewer.tsx
+  93075735f071de07 137-141,143
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.12",
+  "base_commit_sha": "7c89b9c950a6679c6d305da16edb3c872f020372",
+  "prompts": {
+    "93075735f071de07": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "aec79a30-276e-4683-9630-42ad303833eb",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Louis Choquel <lchoquel@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 7,
+      "total_deletions": 1,
+      "accepted_lines": 6,
+      "overriden_lines": 0
+    }
+  }
+}

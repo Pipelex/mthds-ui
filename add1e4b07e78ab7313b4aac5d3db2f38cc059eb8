@@ -1,0 +1,23 @@
+src/graph/react/stuff/StuffViewer.tsx
+  d392971b44884305 192,202,261,275,284,292
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.3",
+  "base_commit_sha": "add1e4b07e78ab7313b4aac5d3db2f38cc059eb8",
+  "prompts": {
+    "d392971b44884305": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fa17ce9e-92f7-495a-97d3-c681f15990fa",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Louis Choquel",
+      "messages": [],
+      "total_additions": 16,
+      "total_deletions": 11,
+      "accepted_lines": 6,
+      "overriden_lines": 0
+    }
+  }
+}

@@ -1,0 +1,25 @@
+src/graph/react/stuff/StuffViewer.css
+  3e1e98c5495d992e 201
+CHANGELOG.md
+  3e1e98c5495d992e 7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.3",
+  "base_commit_sha": "999bdf721cf111d4b5bdad43ecb29019df5e0400",
+  "prompts": {
+    "3e1e98c5495d992e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "829b7367-7b9f-41f2-af95-03a6ba6eec47",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Louis Choquel",
+      "messages": [],
+      "total_additions": 2,
+      "total_deletions": 3,
+      "accepted_lines": 2,
+      "overriden_lines": 0
+    }
+  }
+}

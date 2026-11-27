@@ -1,0 +1,42 @@
+src/graph/react/stuff/__stories__/StuffViewer.stories.tsx
+  d6c4596336167bf6 114-131,194-202
+src/graph/react/stuff/StuffViewer.css
+  d6c4596336167bf6 201-207
+package.json
+  3e1e98c5495d992e 3
+CHANGELOG.md
+  3e1e98c5495d992e 3-12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.3",
+  "base_commit_sha": "8e6b8ee1316028257df3325a078b4cb6d5c69a17",
+  "prompts": {
+    "3e1e98c5495d992e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "829b7367-7b9f-41f2-af95-03a6ba6eec47",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Louis Choquel",
+      "messages": [],
+      "total_additions": 11,
+      "total_deletions": 1,
+      "accepted_lines": 11,
+      "overriden_lines": 0
+    },
+    "d6c4596336167bf6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "992da8de-e7f5-47dd-a5bd-5d232675af24",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Louis Choquel",
+      "messages": [],
+      "total_additions": 35,
+      "total_deletions": 1,
+      "accepted_lines": 34,
+      "overriden_lines": 0
+    }
+  }
+}

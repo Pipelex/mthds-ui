@@ -1,0 +1,23 @@
+TODOS.md
+  s_9edaf443b6802c::t_57ec3325e65a45 425
+wip/adopt-form/deferred-kernel-fix-coverage.md
+  s_9edaf443b6802c::t_5276f0e9d497a3 19-24
+  s_9edaf443b6802c::t_2411dc825f04d7 38-44,46-54,58
+  ai_agent 45,56
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "821536c23e4405fc93179ac3ab60006dbf5dd470",
+  "prompts": {},
+  "sessions": {
+    "s_9edaf443b6802c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4aa1c64b-998a-4b88-a78c-662dfcabfccf",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Louis Choquel <louis@pipelex.com>"
+    }
+  }
+}
