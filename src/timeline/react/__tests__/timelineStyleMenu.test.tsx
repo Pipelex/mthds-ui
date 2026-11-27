@@ -21,7 +21,7 @@ describe("timelineStyleMenuLabel", () => {
   it("names the active style and what the button does", () => {
     for (const style of TIMELINE_STYLE_IDS) {
       expect(timelineStyleMenuLabel(style)).toBe(
-        `Timeline style: ${TIMELINE_STYLES[style].name} — choose how the run is drawn`,
+        `${TIMELINE_STYLES[style].name}: ${TIMELINE_STYLES[style].description}`,
       );
     }
   });

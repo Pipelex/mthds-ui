@@ -520,33 +520,51 @@
   color: var(--text-secondary);
 }
 
-/* ─── The header's style menu ───────────────────────────────────────────── */
-/* The list is the graph viewer's (`StyleMenu.css`); the button is drawn     */
-/* here, in the header's own vocabulary.                                     */
+/* ─── The header's style switch ─────────────────────────────────────────── */
+/* Two icon buttons side by side in a sunken pill, the pressed one raised    */
+/* onto the panel, as a segmented control.                                   */
 
 .mthds-run-timeline-header-end {
   margin-left: auto;
+}
+
+.mthds-run-timeline-style-switch {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 10px;
+  background: var(--surface-sunken);
 }
 
 .mthds-run-timeline-style-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 26px;
-  height: 26px;
+  width: 30px;
+  height: 28px;
   padding: 0;
-  border: 1px solid var(--border-default);
-  border-radius: 6px;
-  background: var(--surface-sunken);
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
   color: var(--text-secondary);
   cursor: pointer;
 }
 
-.mthds-run-timeline-style-btn:hover,
-.mthds-run-timeline-style-btn--open {
-  border-color: var(--border-strong);
-  background: var(--surface-elevated-hover);
+.mthds-run-timeline-style-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.mthds-run-timeline-style-btn:hover {
   color: var(--text-primary);
+}
+
+.mthds-run-timeline-style-btn[aria-pressed="true"] {
+  background: var(--surface-panel);
+  color: var(--text-primary);
+  box-shadow:
+    0 0 0 1px var(--border-default),
+    0 1px 2px rgba(0, 0, 0, 0.08);
 }
 
 .mthds-run-timeline-style-btn:focus-visible {
@@ -554,12 +572,11 @@
   outline-offset: 1px;
 }
 
-/* On a phone the button is a 44×44 target, as the graph toolbar's are. */
+/* On a phone each button is a 44×44 target, as the graph toolbar's are. */
 @media (max-width: 639.98px) {
   .mthds-run-timeline-style-btn {
     width: 44px;
     height: 44px;
-    border-radius: 8px;
   }
 
   .mthds-run-timeline-style-btn svg {

@@ -666,7 +666,7 @@ export function RunTimeline({
   React.useEffect(() => {
     if (!refocusMenuRef.current) return;
     refocusMenuRef.current = false;
-    menuSlotRef.current?.querySelector("button")?.focus();
+    menuSlotRef.current?.querySelector<HTMLButtonElement>('button[aria-pressed="true"]')?.focus();
   }, [styleState]);
   const headerEnd =
     styleMenuOptions.length > 0 ? (

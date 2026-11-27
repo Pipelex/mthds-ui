@@ -7,8 +7,8 @@ import { REVIEW_FILINGS_REGISTRY } from "./methodRegistries";
 import { WORKED_EXAMPLE_SNAPSHOT } from "./recordedRuns";
 
 /**
- * The timeline header's style menu: opt-in with `styleMenu`, the graph
- * viewer's menu over the timeline's styles, reporting a choice through
+ * The timeline header's style switch: opt-in with `styleMenu`, one icon
+ * button per style side by side, reporting a choice through
  * `onTimelineStyleChange`. Each story's play test drives one behavior.
  */
 const meta: Meta<typeof RunTimeline> = {
@@ -35,7 +35,7 @@ const meta: Meta<typeof RunTimeline> = {
 export default meta;
 type Story = StoryObj<typeof RunTimeline>;
 
-const MENU_BUTTON = /^Timeline style: /;
+const SWITCH = "Timeline style";
 
 /** Which style the timeline draws, read from what only that style draws. */
 function drawnStyle(canvasElement: HTMLElement): TimelineStyleId | null {
@@ -45,10 +45,8 @@ function drawnStyle(canvasElement: HTMLElement): TimelineStyleId | null {
 }
 
 async function chooseStyle(canvasElement: HTMLElement, name: string) {
-  const canvas = within(canvasElement);
-  await userEvent.click(canvas.getByRole("button", { name: MENU_BUTTON }));
-  const menu = await canvas.findByRole("menu", { name: "Timeline style" });
-  await userEvent.click(within(menu).getByRole("menuitemradio", { name: new RegExp(name) }));
+  const group = within(canvasElement).getByRole("group", { name: SWITCH });
+  await userEvent.click(within(group).getByRole("button", { name: new RegExp(`^${name}:`) }));
 }
 
 export const ChooseAStyle: Story = {
@@ -58,30 +56,30 @@ export const ChooseAStyle: Story = {
     // Nothing is reported on mount.
     expect(args.onTimelineStyleChange).not.toHaveBeenCalled();
 
-    const button = canvas.getByRole("button", { name: /^Timeline style: Detailed/ });
-    await userEvent.click(button);
-    expect(button).toHaveAttribute("aria-expanded", "true");
-    const menu = await canvas.findByRole("menu", { name: "Timeline style" });
+    const group = canvas.getByRole("group", { name: SWITCH });
 
-    // Every style, by name and description, the current one checked.
-    const items = within(menu).getAllByRole("menuitemradio");
-    expect(items).toHaveLength(2);
-    expect(items[0]).toHaveTextContent("Detailed");
-    expect(items[0]).toHaveTextContent("Every pipe, with a bar on a time axis");
-    expect(items[0]).toHaveAttribute("aria-checked", "true");
-    expect(items[1]).toHaveTextContent("Simple");
-    expect(items[1]).toHaveAttribute("aria-checked", "false");
-    await waitFor(() => expect(items[0]).toHaveFocus());
+    // Two buttons, each naming its style and what it draws, the current one pressed.
+    const buttons = within(group).getAllByRole("button");
+    expect(buttons).toHaveLength(2);
+    expect(buttons[0]).toHaveAccessibleName("Detailed: Every pipe, with a bar on a time axis");
+    expect(buttons[0]).toHaveAttribute("aria-pressed", "true");
+    expect(buttons[1]).toHaveAccessibleName(/^Simple:/);
+    expect(buttons[1]).toHaveAttribute("aria-pressed", "false");
 
-    // Choosing redraws the run, closes the menu and reports the choice once.
-    await userEvent.click(items[1]);
+    // Pressing the current one changes nothing.
+    await userEvent.click(buttons[0]);
+    expect(args.onTimelineStyleChange).not.toHaveBeenCalled();
+
+    // Choosing the other redraws the run and reports the choice once.
+    await userEvent.click(buttons[1]);
     await waitFor(() => expect(drawnStyle(canvasElement)).toBe("simple"));
-    expect(canvas.queryByRole("menu")).toBeNull();
     expect(args.onTimelineStyleChange).toHaveBeenCalledTimes(1);
     expect(args.onTimelineStyleChange).toHaveBeenCalledWith("simple");
-    // The choice redrew the header: focus is on the new button, not lost to the page.
-    await waitFor(() =>
-      expect(canvas.getByRole("button", { name: /^Timeline style: Simple/ })).toHaveFocus(),
+    // The choice redrew the header: focus is on the pressed button, not lost to the page.
+    await waitFor(() => expect(canvas.getByRole("button", { name: /^Simple:/ })).toHaveFocus());
+    expect(canvas.getByRole("button", { name: /^Simple:/ })).toHaveAttribute(
+      "aria-pressed",
+      "true",
     );
 
     // And back.
@@ -124,7 +122,7 @@ export const SwitchKeepsTheReading: Story = {
   },
 };
 
-/** The menu in the light theme, opened: it takes the timeline's palette. */
+/** The switch in the light theme: it takes the timeline's palette. */
 export const OpenedLight: Story = {
   args: { theme: "light", timelineStyle: "simple" },
   decorators: [
@@ -136,12 +134,15 @@ export const OpenedLight: Story = {
   ],
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await userEvent.click(await canvas.findByRole("button", { name: MENU_BUTTON }));
-    await expect(await canvas.findByRole("menu", { name: "Timeline style" })).toBeInTheDocument();
+    const group = await canvas.findByRole("group", { name: SWITCH });
+    await expect(within(group).getByRole("button", { name: /^Simple:/ })).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
   },
 };
 
-/** No `styleMenu`, no menu; and a list naming one style offers nothing to choose between. */
+/** No `styleMenu`, no switch; and a list naming one style offers nothing to choose between. */
 export const NoMenu: Story = {
   args: { styleMenu: undefined },
   render: (args) => (
@@ -154,7 +155,7 @@ export const NoMenu: Story = {
     await waitFor(() =>
       expect(canvasElement.querySelectorAll("section.mthds-run-timeline")).toHaveLength(2),
     );
-    expect(within(canvasElement).queryByRole("button", { name: MENU_BUTTON })).toBeNull();
+    expect(within(canvasElement).queryByRole("group", { name: SWITCH })).toBeNull();
   },
 };
 
@@ -190,7 +191,7 @@ export const HostDrivenStyle: Story = {
     await waitFor(() => expect(drawnStyle(canvasElement)).toBe("simple"));
     expect(args.onTimelineStyleChange).not.toHaveBeenCalled();
 
-    // The menu changes the style the host passed.
+    // The switch changes the style the host passed.
     await chooseStyle(canvasElement, "Detailed");
     await waitFor(() => expect(drawnStyle(canvasElement)).toBe("detailed"));
     expect(args.onTimelineStyleChange).toHaveBeenLastCalledWith("detailed");

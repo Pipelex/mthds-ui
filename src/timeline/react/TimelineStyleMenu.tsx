@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleMenu, type StyleMenuEntry } from "@graph/react/viewer/StyleMenu";
+import type { StyleMenuEntry } from "@graph/react/viewer/StyleMenu";
 import {
   TIMELINE_STYLE,
   TIMELINE_STYLES,
@@ -51,9 +51,9 @@ export const TIMELINE_STYLE_MENU_ENTRIES: Record<TimelineStyleId, StyleMenuEntry
   },
 };
 
-/** Accessible label of the menu button: the current style, and what the button does. */
+/** Accessible label of one style's button: the style's name, and what choosing it draws. */
 export function timelineStyleMenuLabel(style: TimelineStyleId): string {
-  return `Timeline style: ${TIMELINE_STYLES[style].name} — choose how the run is drawn`;
+  return `${TIMELINE_STYLES[style].name}: ${TIMELINE_STYLES[style].description}`;
 }
 
 export interface TimelineStyleMenuProps {
@@ -61,24 +61,43 @@ export interface TimelineStyleMenuProps {
   /** The styles offered, in order: two at least. */
   options: readonly TimelineStyleId[];
   onChange: (style: TimelineStyleId) => void;
-  /** The element the menu sits in, for `RunTimeline` to find its button again after a choice redraws it. */
+  /** The element the switch sits in, for `RunTimeline` to focus the chosen button again after a choice redraws it. */
   slotRef?: React.Ref<HTMLDivElement>;
 }
 
-/** The style menu at the end of the timeline's header: the graph viewer's menu, over the timeline's styles. */
+/**
+ * The style switch at the end of the timeline's header: one icon button per
+ * style, side by side in a small segmented group, the current one pressed.
+ * Each button names its style and says what it draws, as its accessible name
+ * and its tooltip. Choosing the pressed one again does nothing.
+ */
 export function TimelineStyleMenu({ value, options, onChange, slotRef }: TimelineStyleMenuProps) {
   return (
-    <div className="mthds-run-timeline-header-end" ref={slotRef}>
-      <StyleMenu
-        value={value}
-        options={options}
-        onChange={onChange}
-        placement="down-end"
-        entries={TIMELINE_STYLE_MENU_ENTRIES}
-        menuLabel="Timeline style"
-        buttonLabel={timelineStyleMenuLabel}
-        buttonClassName="mthds-run-timeline-style-btn"
-      />
+    <div
+      className="mthds-run-timeline-header-end mthds-run-timeline-style-switch"
+      role="group"
+      aria-label="Timeline style"
+      ref={slotRef}
+    >
+      {options.map((style) => {
+        const entry = TIMELINE_STYLE_MENU_ENTRIES[style];
+        const pressed = style === value;
+        return (
+          <button
+            key={style}
+            type="button"
+            className="mthds-run-timeline-style-btn"
+            aria-pressed={pressed}
+            aria-label={timelineStyleMenuLabel(style)}
+            title={`${entry.name} — ${entry.description}`}
+            onClick={() => {
+              if (!pressed) onChange(style);
+            }}
+          >
+            {entry.icon}
+          </button>
+        );
+      })}
     </div>
   );
 }
