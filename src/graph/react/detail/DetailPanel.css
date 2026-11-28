@@ -328,6 +328,15 @@
   flex-shrink: 0; /* label stays at its natural width */
 }
 
+/* An outcome's key column carries its label, which a method may write as a
+   sentence: it shares the row with the pipe it names instead of squeezing it. */
+.detail-kv-key--outcome {
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: 60%;
+  overflow-wrap: anywhere;
+}
+
 .detail-kv-value {
   font-family: var(--font-mono);
   color: var(--text-default);

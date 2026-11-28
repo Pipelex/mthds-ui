@@ -6,7 +6,7 @@
  * fragments elsewhere, since another language orders its words differently.
  */
 import type { SimpleItemTally, SimpleLineState } from "@timeline/styles/simpleProgress";
-import { outcomeLabel } from "@graph/styles/humanize";
+import { outcomeKeyLabel } from "@graph/styles/humanize";
 import { formatDuration } from "@timeline/timelineTime";
 
 export interface SimpleProgressStrings {
@@ -121,10 +121,10 @@ export const DEFAULT_SIMPLE_PROGRESS_STRINGS: SimpleProgressStrings = {
 
   together: "at the same time",
   forEach: (item) => `for each ${item ?? "item"}`,
-  outcomeTaken: (key, label) => `→ ${label ?? (key === null ? "Default" : outcomeLabel(key))}`,
+  outcomeTaken: (key, label) => `→ ${label ?? (key === null ? "Default" : outcomeKeyLabel(key))}`,
   branchFor: (key, label) => {
     if (key === null) return label === null ? "otherwise" : `otherwise: ${label}`;
-    return `if ${label ?? outcomeLabel(key)}`;
+    return `if ${label ?? outcomeKeyLabel(key)}`;
   },
   finishedBranches: (count) => `${count} done`,
   now: "Now:",

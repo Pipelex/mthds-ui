@@ -15,6 +15,7 @@ import {
 } from "@graph/types";
 import { PIPE_STATUS_COLOR } from "@graph/react/statusColors";
 import { resolveNodeBlueprint } from "@graph/graphAnalysis";
+import { activityTitle } from "@graph/styles/methodWords";
 import {
   formatDuration,
   KV,
@@ -98,7 +99,7 @@ export function PipeDetailPanel({ node, spec, onConceptClick }: PipeDetailPanelP
   const outputs = node.io?.outputs ?? [];
   const description = blueprint?.description ?? node.description;
   // The words a person watching a run reads for the step, beside the builder's description.
-  const activity = node.activity ?? blueprint?.activity ?? null;
+  const activity = activityTitle(node) ?? activityTitle(blueprint);
 
   return (
     <>

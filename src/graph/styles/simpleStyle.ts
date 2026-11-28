@@ -10,7 +10,8 @@
 // - a condition is a decision whose arrows carry its outcomes, by the labels
 //   its outcome tables give them;
 // - a batch runs "for each" item: its branch is drawn once, in a frame when it
-//   has several steps, as one marked step when it has one;
+//   has several steps, as one marked step when it has one, either titled by
+//   the batch's own `activity` when it states one;
 // - sequences and parallels have no frame: the arrows are the order, and
 //   parallel branches are side by side because nothing joins them until a step
 //   reads both;
@@ -61,7 +62,14 @@ import {
   isGenericConcept,
   stripDomain,
 } from "./humanize";
-import { DEFAULT_OUTCOME_KEY, outcomeArrowLabel, stepWording } from "./methodWords";
+import {
+  activityTitle,
+  conditionBranches,
+  outcomeArrowLabel,
+  outcomeKeysFromTag,
+  stepWording,
+  type OutcomeKey,
+} from "./methodWords";
 import { estimateWrap, textWidthPx, type WrapEstimate } from "./textMetrics";
 import { NATIVE_DOMAIN } from "./nativeConcepts";
 
@@ -688,40 +696,48 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
     return current;
   }
 
-  function outcomeFor(decisionId: string, branchId: string): string | undefined {
+  /**
+   * The outcomes a decision's branch is taken on, and its arrow's label. Read
+   * off the condition's blueprint when the spec has it (`conditionBranches`,
+   * which tells the default outcome from one the method names `default`, and
+   * keeps two branches from reading alike); else off the outcome a static
+   * graph tags the branch with, or the label of the edge that contains it.
+   */
+  function outcomeFor(
+    decisionId: string,
+    branchId: string,
+  ): { label: string; outcomes: OutcomeKey[] } | undefined {
     const branch = specById.get(branchId);
     const decision = specById.get(decisionId);
     const blueprint =
       decision?.domain_code && decision.pipe_code
         ? getPipeBlueprint(graphspec, makePipeRef(decision.domain_code, decision.pipe_code))
         : undefined;
-    const tagged = branch?.tags?.outcome;
-    if (tagged) return outcomeArrowLabel(tagged, blueprint);
-    const contains = graphspec.edges.find(
-      (e) =>
-        e.kind === "contains" && repOf(e.source) === decisionId && e.target === branchId && e.label,
-    );
-    if (contains?.label) return outcomeArrowLabel(contains.label, blueprint);
-    if (!decision?.domain_code || !branch?.pipe_code) return undefined;
-    if (blueprint?.type !== "PipeCondition") return undefined;
-    // An outcome is the branch's when it names the branch's pipe: its code, and
-    // its domain, which a bare reference takes from the condition's own.
-    const conditionDomain = decision.domain_code;
-    const branchCode = branch.pipe_code;
-    function namesBranch(pipeRef: string): boolean {
-      const parsed = parsePipeRef(pipeRef);
-      if (!parsed) return stripDomain(pipeRef) === branchCode;
-      if (parsed.pipeCode !== branchCode) return false;
-      const domain = parsed.domainPath ?? conditionDomain;
-      return branch?.domain_code === undefined || branch.domain_code === domain;
+    if (blueprint?.type === "PipeCondition") {
+      if (!branch?.pipe_code) return undefined;
+      // A branch is the one whose pipe the outcomes name: its code, and its
+      // domain, which a bare reference takes from the condition's own.
+      const branchCode = branch.pipe_code;
+      const named = conditionBranches(blueprint).find(({ target }) => {
+        const parsed = parsePipeRef(target);
+        if (!parsed) return stripDomain(target) === branchCode;
+        if (parsed.pipeCode !== branchCode) return false;
+        return branch.domain_code === undefined || branch.domain_code === parsed.domainPath;
+      });
+      return named ? { label: named.label, outcomes: named.outcomes } : undefined;
     }
-    const outcomes = Object.entries(blueprint.outcome_map)
-      .filter(([, pipeRef]) => namesBranch(pipeRef))
-      .map(([outcome]) => outcome);
-    if (blueprint.default_outcome && namesBranch(blueprint.default_outcome)) {
-      outcomes.push(DEFAULT_OUTCOME_KEY);
-    }
-    return outcomes.length > 0 ? outcomeArrowLabel(outcomes.join("|"), blueprint) : undefined;
+    const tagged =
+      branch?.tags?.outcome ??
+      graphspec.edges.find(
+        (e) =>
+          e.kind === "contains" &&
+          repOf(e.source) === decisionId &&
+          e.target === branchId &&
+          e.label,
+      )?.label;
+    if (!tagged) return undefined;
+    const outcomes = outcomeKeysFromTag(tagged);
+    return outcomes.length > 0 ? { label: outcomeArrowLabel(outcomes, null), outcomes } : undefined;
   }
 
   function decisionsAbove(nodeId: string): string[] {
@@ -748,10 +764,11 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
     let edge = edges.get(key);
     if (edge && newOnly) return;
     if (!edge) {
-      const label = decisionSet.has(source)
+      const outcome = decisionSet.has(source)
         ? outcomeFor(source, branchOf(source, target))
         : undefined;
-      edge = simpleEdge(`simple_edge_${edgeCount++}`, source, target, label);
+      edge = simpleEdge(`simple_edge_${edgeCount++}`, source, target, outcome?.label);
+      if (outcome) edge.outcomes = outcome.outcomes;
       edges.set(key, edge);
     }
     if (digest && !edge.carries?.includes(digest)) edge.carries = [...(edge.carries ?? []), digest];
@@ -937,17 +954,23 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
   }
 
   /**
-   * What a step box says: its `activity`, else its description, or for a
-   * folded batch, its own activity, else its branch's wording. A binding step, drawn only when it failed, names the field it was
-   * picking, the last segment of its path, since its description is the
-   * runtime's own sentence about names.
+   * What a step box says: its `activity`, else its description. A batch is
+   * worded by its own `activity` when it states one, which words the whole
+   * batch (MTHDS, "What a Run Shows"): on its folded step, and on the one step
+   * of its branch it is drawn as; without one, either reads as its branch. A
+   * binding step, drawn only when it failed, names the field it was picking,
+   * the last segment of its path, since its description is the runtime's own
+   * sentence about names.
    */
   function stepTitle(spec: GraphSpecNode, folded: boolean): string {
     if (spec.pipe_type === BINDING_STEP_TYPE) {
       return humanizeIdentifier(spec.pipe_code?.split(".").pop() ?? "");
     }
+    const markingBatch = markedSteps[spec.id] ? specById.get(markedSteps[spec.id]) : undefined;
+    const batchWords = activityTitle(markingBatch);
+    if (batchWords) return batchWords;
     let source = spec;
-    if (folded && spec.pipe_type === "PipeBatch" && !spec.activity) {
+    if (folded && spec.pipe_type === "PipeBatch" && !activityTitle(spec)) {
       const branch = specById.get(rawAnalysis.containmentTree[spec.id]?.[0] ?? "");
       if (branch) source = branch;
     }
@@ -1057,7 +1080,8 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
   for (const frameId of frameSet) {
     const spec = specById.get(frameId);
     if (!spec) continue;
-    const title = forEachLabel(itemName(frameId) || "item");
+    // A batch that words itself is titled so; else its frame says "for each".
+    const title = activityTitle(spec) ?? forEachLabel(itemName(frameId) || "item");
     simpleNodes.push({
       id: frameId,
       type: NODE_TYPE_SIMPLE_FRAME,

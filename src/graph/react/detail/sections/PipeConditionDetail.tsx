@@ -1,7 +1,7 @@
 import React from "react";
 import type { PipeBlueprintUnion } from "@graph/types";
-import { OUTCOME_TONE } from "@graph/types";
 import {
+  outcomeTone,
   outcomeWordsOf,
   selectedOutcomeWords,
   type OutcomeWordsRead,
@@ -9,12 +9,43 @@ import {
 import { KV, PromptBlock } from "./shared";
 import { PIPE_STATUS_COLOR } from "@graph/react/statusColors";
 
-/** An outcome's label in its tone: an outcome with words and no tone reads as neutral. */
-function OutcomeLabel({ words }: { words: OutcomeWordsRead }) {
-  const tone = words.tone ?? OUTCOME_TONE.NEUTRAL;
+/**
+ * An outcome's name, in its tone when it has one (`outcomeTone`): the label
+ * the method gives it, else `fallback`, the key or the pipe it names. A tone
+ * is never shown as a name.
+ */
+function OutcomeName({ words, fallback }: { words: OutcomeWordsRead | null; fallback: string }) {
+  const tone = outcomeTone(words);
   return (
-    <span className={`detail-outcome-label detail-outcome-label--${tone}`}>
-      {words.label ?? tone}
+    <span className={`detail-outcome-label${tone ? ` detail-outcome-label--${tone}` : ""}`}>
+      {words?.label ?? fallback}
+    </span>
+  );
+}
+
+/**
+ * An outcome row's key column: the key as the method writes it, followed by
+ * its label in its tone, or, with no label, the key itself in its tone. The
+ * column may wrap, so a sentence-long label leaves room for the pipe it names.
+ */
+function OutcomeKeyCell({
+  outcomeKey,
+  words,
+}: {
+  outcomeKey: string;
+  words: OutcomeWordsRead | null;
+}) {
+  return (
+    <span className="detail-kv-key detail-kv-key--outcome">
+      {words?.label ? (
+        <>
+          {outcomeKey} <OutcomeName words={words} fallback={outcomeKey} />
+        </>
+      ) : outcomeTone(words) ? (
+        <OutcomeName words={words} fallback={outcomeKey} />
+      ) : (
+        outcomeKey
+      )}
     </span>
   );
 }
@@ -40,7 +71,7 @@ export function PipeConditionSection({
         <div className="detail-kv-row">
           <span className="detail-kv-key">Outcome Taken</span>
           <span className="detail-kv-value">
-            <OutcomeLabel words={taken} />
+            <OutcomeName words={taken} fallback={selectedOutcome ?? ""} />
             {taken.description && (
               <span className="detail-outcome-description">{taken.description}</span>
             )}
@@ -62,15 +93,7 @@ export function PipeConditionSection({
               }
               title={words?.description ?? undefined}
             >
-              <span className="detail-kv-key">
-                {outcome}
-                {words && (
-                  <>
-                    {" "}
-                    <OutcomeLabel words={words} />
-                  </>
-                )}
-              </span>
+              <OutcomeKeyCell outcomeKey={outcome} words={words} />
               <span
                 className="detail-kv-value"
                 style={
@@ -83,15 +106,7 @@ export function PipeConditionSection({
           );
         })}
         <div className="detail-kv-row" title={defaultWords?.description ?? undefined}>
-          <span className="detail-kv-key">
-            default
-            {defaultWords && (
-              <>
-                {" "}
-                <OutcomeLabel words={defaultWords} />
-              </>
-            )}
-          </span>
+          <OutcomeKeyCell outcomeKey="default" words={defaultWords} />
           <span className="detail-kv-value">{blueprint.default_outcome}</span>
         </div>
       </div>

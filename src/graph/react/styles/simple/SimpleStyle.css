@@ -417,6 +417,13 @@
   font-weight: 600;
   color: var(--ctrl-batch-text);
   white-space: nowrap;
+  min-width: 0;
+}
+/* A batch's own activity can outrun its frame's width, which its steps set:
+   it is cut with an ellipsis, the whole of it in the title's tooltip. */
+.simple-frame-title-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .simple-frame-header .simple-status,
 .simple-frame-header .node-validation-badge {

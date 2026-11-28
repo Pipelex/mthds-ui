@@ -21,7 +21,9 @@ import {
   WORDING_SOURCE,
   activityTitle,
   isPlumbingStep,
+  registryConceptLookup,
   stepWording,
+  type ConceptLookup,
   type StepWording,
 } from "@graph/styles/methodWords";
 import { PATH_SEGMENT_KIND, isOrdinalSegment } from "../invocationPath";
@@ -210,17 +212,41 @@ export function titleOf(
   return stepWording(pipeOf(registry, pipeRef), pipeCode);
 }
 
+/** Each registry's concept lookup, built on first use and kept: the checklist asks once per line. */
+const CONCEPT_LOOKUPS = new WeakMap<TimelinePipeRegistry, ConceptLookup>();
+
+/** The concepts a registry's pipes read and write, by full reference (`registryConceptLookup`). */
+function conceptLookupOf(registry: TimelinePipeRegistry | undefined): ConceptLookup | undefined {
+  if (!registry) return undefined;
+  let lookup = CONCEPT_LOOKUPS.get(registry);
+  if (!lookup) {
+    lookup = registryConceptLookup(registry);
+    CONCEPT_LOOKUPS.set(registry, lookup);
+  }
+  return lookup;
+}
+
 /**
- * Whether the pipe a `pipe_ref` names is plumbing, which the simple style does
- * not show (`isPlumbingStep`): a PipeCompose or a binding step always is, a
- * PipeFunc when the registry says its output is not a file.
+ * Whether a pipe is plumbing, which the simple style does not show
+ * (`isPlumbingStep`): a PipeCompose or a binding step always is, a PipeFunc
+ * when its output's refinements, followed through the concepts the registry
+ * declares, reach no file. A PipeFunc the registry cannot describe is shown.
  */
+export function isPlumbingPipe(
+  registry: TimelinePipeRegistry | undefined,
+  pipeType: string,
+  pipe: PipeBlueprintUnion | null,
+): boolean {
+  return isPlumbingStep(pipeType, pipe, conceptLookupOf(registry));
+}
+
+/** Whether the pipe a `pipe_ref` names is plumbing (`isPlumbingPipe`), by the type the run reports for it. */
 export function isPlumbingRef(
   registry: TimelinePipeRegistry | undefined,
   pipeRef: string,
   pipeType: string,
 ): boolean {
-  return isPlumbingStep(pipeType, pipeOf(registry, pipeRef));
+  return isPlumbingPipe(registry, pipeType, pipeOf(registry, pipeRef));
 }
 
 /** What a batch's one line is named after: the pipe its items run, and the name of an item. */

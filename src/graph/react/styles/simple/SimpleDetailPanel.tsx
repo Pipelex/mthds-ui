@@ -178,7 +178,7 @@ function DecisionView({
                 outcome.taken === undefined ? undefined : outcome.taken > 0 ? "taken" : "not-taken";
               return (
                 <li
-                  key={outcome.label}
+                  key={outcome.target}
                   className={`simple-detail-outcome${state ? ` simple-detail-outcome--${state}` : ""}`}
                 >
                   <span

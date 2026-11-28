@@ -4,8 +4,8 @@ import {
   humanizeIdentifier,
   humanizeInSentence,
   isGenericConcept,
+  outcomeKeyLabel,
   outcomeLabel,
-  pipeTitle,
   sentenceCase,
   stripDomain,
 } from "../humanize";
@@ -94,22 +94,6 @@ describe("sentenceCase", () => {
   });
 });
 
-describe("pipeTitle", () => {
-  it("titles a pipe by its description, as a title", () => {
-    expect(pipeTitle("  summarize a single\n page. ", "summarize_page")).toEqual({
-      title: "Summarize a single page",
-      fromDescription: true,
-    });
-  });
-
-  it("falls back to the humanized code when the description is missing or blank", () => {
-    const fallback = { title: "Extract CV", fromDescription: false };
-    expect(pipeTitle(undefined, "extract_cv")).toEqual(fallback);
-    expect(pipeTitle(null, "extract_cv")).toEqual(fallback);
-    expect(pipeTitle("   ", "hiring.extract_cv")).toEqual(fallback);
-  });
-});
-
 describe("humanizeInSentence", () => {
   it("lowers the first letter unless the first word is an acronym", () => {
     expect(humanizeInSentence("filing")).toBe("filing");
@@ -132,5 +116,13 @@ describe("outcomeLabel", () => {
   it("joins the outcomes of a branch taken on several", () => {
     expect(outcomeLabel("needs_review | default")).toBe("Needs review or otherwise");
     expect(outcomeLabel("a|b")).toBe("A or b");
+  });
+});
+
+describe("outcomeKeyLabel", () => {
+  it("words one outcome key, and a key named default as the method's own outcome", () => {
+    expect(outcomeKeyLabel("high_priority")).toBe("High priority");
+    expect(outcomeKeyLabel("TRUE")).toBe("Yes");
+    expect(outcomeKeyLabel("default")).toBe("Default");
   });
 });

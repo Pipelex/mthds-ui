@@ -12,12 +12,7 @@
 import type { Problem } from "mthds/errors";
 import type { OutcomeTone, PipeBlueprintUnion, PipeSequenceBlueprint } from "@graph/types";
 import { humanizeInSentence } from "@graph/styles/humanize";
-import {
-  WORDING_SOURCE,
-  isPlumbingStep,
-  outcomeWordsOf,
-  type WordingSource,
-} from "@graph/styles/methodWords";
+import { WORDING_SOURCE, outcomeWordsOf, type WordingSource } from "@graph/styles/methodWords";
 import {
   DEGRADATION_REASON,
   INVOCATION_STATUS,
@@ -40,6 +35,7 @@ import {
   type InvocationTreeNode,
 } from "../invocationTree";
 import {
+  isPlumbingPipe,
   isPlumbingRef,
   joinBatch,
   joinedSequence,
@@ -473,7 +469,7 @@ function hidesAsPlumbing(ctx: Context, invocation: ProgressInvocation): boolean 
 function isPlumbingUpcoming(ctx: Context, step: NumberedStep): boolean {
   if (ctx.showPlumbing || step.spec.batch_params) return false;
   const pipe = pipeOf(ctx.registry, step.pipeRef);
-  return pipe !== null && isPlumbingStep(pipe.type, pipe);
+  return pipe !== null && isPlumbingPipe(ctx.registry, pipe.type, pipe);
 }
 
 /** The children of a node the checklist draws a line for: every one but the plumbing it leaves out. */

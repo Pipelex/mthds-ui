@@ -226,16 +226,16 @@ export function SimpleDecisionNode({ data, sourcePosition, targetPosition }: Sim
 
 // ─── "For each" frame ───────────────────────────────────────────────────────
 
-/** A batch whose branch has several steps: a light frame saying "for each", with a stack behind it. */
+/** A batch whose branch has several steps: a light frame titled by the batch's activity, else "for each", with a stack behind it. */
 export function SimpleFrameNode({ data }: { data: GraphNodeData }) {
   const frame = payloadOf(data, ["frame"] as const);
   if (!frame) return null;
   return (
     <div className={`simple-frame${validationRingClass(data.validation)}`}>
       <div className="simple-frame-header">
-        <span className="simple-frame-title">
+        <span className="simple-frame-title" title={frame.title}>
           <Icon size={12}>{CATEGORY_ICONS.repeat}</Icon>
-          {frame.title}
+          <span className="simple-frame-title-text">{frame.title}</span>
         </span>
         <StatusMark status={frame.status} graphMode={frame.graphMode} />
         <ValidationMark validation={data.validation} onClick={data.onValidationBadgeClick} />

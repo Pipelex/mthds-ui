@@ -21,7 +21,7 @@ import {
   type SimpleProgressLine,
   type SimpleRunNote,
 } from "@timeline/styles/simpleProgress";
-import { OUTCOME_TONE } from "@graph/types";
+import { outcomeTone } from "@graph/styles/methodWords";
 import type { TimelinePipeRegistry } from "@timeline/styles/registryJoin";
 import { invocationTimes, type SnapshotTimes } from "@timeline/timelineTime";
 import {
@@ -317,13 +317,13 @@ function itemOfChild(parent: SimpleProgressLine, child: SimpleProgressLine): str
 }
 
 /**
- * An outcome's class: its tone's when the method gives the outcome words, an
- * outcome with a label and no tone reading as neutral, and none for an outcome
- * named by its key alone, which keeps the line's own colour.
+ * An outcome's class: its tone's by the one rule every view colours an
+ * outcome by (`outcomeTone`), and none for an outcome with no tone, which
+ * keeps the line's own colour.
  */
 function outcomeClass(outcome: SimpleOutcome): string {
   const base = "mthds-simple-progress-outcome";
-  const tone = outcome.tone ?? (outcome.label !== null ? OUTCOME_TONE.NEUTRAL : null);
+  const tone = outcomeTone(outcome);
   return tone === null ? base : `${base} ${base}--${tone}`;
 }
 

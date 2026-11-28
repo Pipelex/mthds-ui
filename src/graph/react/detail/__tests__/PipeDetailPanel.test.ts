@@ -596,30 +596,34 @@ describe("PipeDetailPanel in the method's words", () => {
     default_outcome_words: { label: "Standard check", description: null, tone: null },
   };
 
-  function renderCondition(): string {
+  function renderCondition(
+    blueprint: PipeBlueprintUnion = condition,
+    executionData: Record<string, unknown> = {
+      evaluated_expression: "high",
+      selected_outcome: "detailed_check",
+      selected_outcome_label: "Detailed check",
+      selected_outcome_description: "A lawyer-grade review",
+      selected_outcome_tone: "caution",
+    },
+    activity = "Deciding how closely to check",
+  ): string {
     const node: GraphSpecNode = {
       id: "cond1",
       kind: "controller",
       pipe_code: "route_by_risk",
       pipe_type: "PipeCondition",
       description: "Pick how closely to check",
-      activity: "Deciding how closely to check",
+      activity,
       domain_code: "legal",
       status: "succeeded",
       io: { inputs: [], outputs: [] },
-      execution_data: {
-        evaluated_expression: "high",
-        selected_outcome: "detailed_check",
-        selected_outcome_label: "Detailed check",
-        selected_outcome_description: "A lawyer-grade review",
-        selected_outcome_tone: "caution",
-      },
+      execution_data: executionData,
     };
     const spec: GraphSpec = {
       meta: { format: "mthds", mode: "live" },
       nodes: [node],
       edges: [],
-      pipe_registry: { "legal.route_by_risk": condition },
+      pipe_registry: { "legal.route_by_risk": blueprint },
     };
     return renderToStaticMarkup(React.createElement(PipeDetailPanel, { node, spec }));
   }
@@ -637,5 +641,35 @@ describe("PipeDetailPanel in the method's words", () => {
     expect(html).toContain("A lawyer-grade review");
     // A label with no tone reads as neutral.
     expect(html).toContain('detail-outcome-label detail-outcome-label--neutral">Standard check');
+  });
+
+  it("shows the activity as a title, as every other view does", () => {
+    const html = renderCondition(condition, {}, "  deciding how closely\n to check. ");
+    expect(html).toContain("Deciding how closely to check</div>");
+  });
+
+  it("never names an outcome by its tone: a key, in its tone, stands where there is no label", () => {
+    const toneOnly: PipeBlueprintUnion = {
+      ...condition,
+      outcome_words: { high: { tone: "caution", description: "A lawyer-grade review" } },
+      default_outcome_words: { description: "The usual pass" },
+    };
+    const html = renderCondition(toneOnly, {
+      selected_outcome: "detailed_check",
+      selected_outcome_tone: "caution",
+      selected_outcome_description: "A lawyer-grade review",
+    });
+    for (const tone of ["caution", "neutral"]) expect(html).not.toContain(`>${tone}<`);
+    expect(html).toContain('detail-outcome-label detail-outcome-label--caution">high<');
+    // The outcome taken, with no label, is named by the pipe it ran, in its tone.
+    expect(html).toContain('detail-outcome-label detail-outcome-label--caution">detailed_check<');
+    expect(html).toContain("A lawyer-grade review");
+    // A description alone gives no tone: the default's key stays plain.
+    expect(html).toContain('detail-kv-key detail-kv-key--outcome">default<');
+    expect(html).toContain('title="The usual pass"');
+  });
+
+  it("lets an outcome's key column wrap, beside the pipe it names", () => {
+    expect(renderCondition()).toContain('class="detail-kv-key detail-kv-key--outcome"');
   });
 });

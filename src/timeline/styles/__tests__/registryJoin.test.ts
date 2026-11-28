@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import type { PipeBatchBlueprint, PipeSequenceBlueprint } from "@graph/types";
+import type {
+  ConceptInfo,
+  PipeBatchBlueprint,
+  PipeBlueprintUnion,
+  PipeSequenceBlueprint,
+} from "@graph/types";
 import { DRY_SIMPLE_BATCH } from "@graph/react/viewer/__stories__/pipelines/specs/_generated/dry/pipeline_08";
 import {
   REVIEW_FILINGS_REGISTRY,
@@ -8,6 +13,7 @@ import {
 import { WORKED_EXAMPLE_SNAPSHOT } from "@timeline/react/__stories__/recordedRuns";
 import { buildInvocationTree, type InvocationTreeNode } from "@timeline/invocationTree";
 import {
+  isPlumbingRef,
   joinBatch,
   joinedSequence,
   pipeOf,
@@ -219,5 +225,42 @@ describe("joinBatch", () => {
       title: { title: "Summarize a single page", source: "description" },
       itemName: "page",
     });
+  });
+});
+
+describe("isPlumbingRef", () => {
+  const concept = (code: string, refines: string | null): ConceptInfo => ({
+    code,
+    domain_code: "legal",
+    description: code,
+    structure_class_name: code,
+    refines,
+  });
+  const func = (code: string, output: ConceptInfo, input?: ConceptInfo): PipeBlueprintUnion => ({
+    type: "PipeFunc",
+    pipe_category: "PipeOperator",
+    code,
+    domain_code: "legal",
+    description: code,
+    inputs: input ? { source: { concept: input } } : {},
+    output: { concept: output },
+  });
+
+  it("follows a bare refinement through the concepts the registry's pipes declare", () => {
+    const scan = concept("Scan", "native.Image");
+    const notes = concept("Notes", "native.Text");
+    const registry: TimelinePipeRegistry = {
+      "legal.sign": func("sign", concept("Signed", "Scan"), scan),
+      "legal.tidy": func("tidy", concept("Tidy", "Notes"), notes),
+      "legal.guess": func("guess", concept("Guess", "Unknown")),
+    };
+    // Refines Scan, which refines native.Image: it writes a file, so it is a step.
+    expect(isPlumbingRef(registry, "legal.sign", "PipeFunc")).toBe(false);
+    // Refines Notes, which refines native.Text: plumbing.
+    expect(isPlumbingRef(registry, "legal.tidy", "PipeFunc")).toBe(true);
+    // A refinement the registry cannot follow is shown, never hidden on a guess.
+    expect(isPlumbingRef(registry, "legal.guess", "PipeFunc")).toBe(false);
+    expect(isPlumbingRef(registry, "legal.missing", "PipeFunc")).toBe(false);
+    expect(isPlumbingRef(registry, "legal.any", "PipeCompose")).toBe(true);
   });
 });

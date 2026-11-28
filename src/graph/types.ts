@@ -1329,6 +1329,12 @@ export interface GraphEdge {
    * carries none.
    */
   carries?: string[];
+  /**
+   * For the simple style, on a decision's arrow: the outcomes it is taken on,
+   * each a key of the condition's outcome map or `null` for its default
+   * outcome. It identifies the branch, where `label` only says it.
+   */
+  outcomes?: (string | null)[];
 }
 
 /** A point in flow coordinates. */

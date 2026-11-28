@@ -349,12 +349,12 @@ function validateNode(node: unknown, path: string): void {
     );
   }
   requireNonEmptyString(node.description, `${path}.description`);
-  // `activity` is absent or null on a pipe that states none, as pydantic writes
-  // `None`; a present one is the words a run view shows for the step.
-  if (node.activity === null) {
+  // `activity` is presentation only, the words a run view shows for the step:
+  // one that is null, as pydantic writes `None`, empty or not a string is
+  // dropped, and the step is titled by its description, rather than the whole
+  // spec refused over a phrase.
+  if (typeof node.activity !== "string" || node.activity.trim() === "") {
     delete node.activity;
-  } else if (node.activity !== undefined) {
-    requireNonEmptyString(node.activity, `${path}.activity`);
   }
   requireNonEmptyString(node.domain_code, `${path}.domain_code`);
 
