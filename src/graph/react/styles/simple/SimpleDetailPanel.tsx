@@ -178,10 +178,14 @@ function DecisionView({
                 outcome.taken === undefined ? undefined : outcome.taken > 0 ? "taken" : "not-taken";
               return (
                 <li
-                  key={outcome.label}
+                  key={outcome.target}
                   className={`simple-detail-outcome${state ? ` simple-detail-outcome--${state}` : ""}`}
                 >
-                  <span className="simple-detail-outcome-label">{outcome.label}</span>
+                  <span
+                    className={`simple-detail-outcome-label${outcome.tone ? ` simple-detail-outcome-label--${outcome.tone}` : ""}`}
+                  >
+                    {outcome.label}
+                  </span>
                   <span className="simple-detail-outcome-arrow" aria-hidden="true">
                     →
                   </span>
@@ -198,6 +202,9 @@ function DecisionView({
                     <span className="simple-detail-outcome-taken">
                       {S.taken(outcome.taken, detail.runs)}
                     </span>
+                  )}
+                  {outcome.description && (
+                    <span className="simple-detail-outcome-description">{outcome.description}</span>
                   )}
                 </li>
               );

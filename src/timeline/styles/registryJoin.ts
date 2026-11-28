@@ -16,7 +16,16 @@ import type {
   SubPipeSpec,
 } from "@graph/types";
 import { isBindingStepSpec } from "@graph/types";
-import { humanizeInSentence, pipeTitle } from "@graph/styles/humanize";
+import { humanizeInSentence } from "@graph/styles/humanize";
+import {
+  WORDING_SOURCE,
+  activityTitle,
+  isPlumbingStep,
+  registryConceptLookup,
+  stepWording,
+  type ConceptLookup,
+  type StepWording,
+} from "@graph/styles/methodWords";
 import { PATH_SEGMENT_KIND, isOrdinalSegment } from "../invocationPath";
 import type { InvocationTreeNode } from "../invocationTree";
 
@@ -28,11 +37,8 @@ import type { InvocationTreeNode } from "../invocationTree";
  */
 export type TimelinePipeRegistry = Readonly<Record<string, PipeBlueprintUnion>>;
 
-/** A line's title in plain words, and whether it is the author's description. */
-export interface JoinedTitle {
-  title: string;
-  fromDescription: boolean;
-}
+/** A line's title in plain words, and where it came from: the pipe's `activity`, its description or its code. */
+export type JoinedTitle = StepWording;
 
 /** A pipe step of a sequence, with the number the contract gives it. */
 export interface NumberedStep {
@@ -194,22 +200,60 @@ export function joinedSequence(
 }
 
 /**
- * A pipe's title by its `pipe_ref`: its description as a title, else its
- * humanized code, `pipeCode` when given and otherwise the ref's last segment.
+ * A pipe's title by its `pipe_ref`: its `activity`, the words written for the
+ * person watching the run; else its description; else its humanized code,
+ * `pipeCode` when given and otherwise the ref's last segment (`stepWording`).
  */
 export function titleOf(
   registry: TimelinePipeRegistry | undefined,
   pipeRef: string,
   pipeCode: string = pipeRef,
 ): JoinedTitle {
-  return pipeTitle(pipeOf(registry, pipeRef)?.description, pipeCode);
+  return stepWording(pipeOf(registry, pipeRef), pipeCode);
+}
+
+/** Each registry's concept lookup, built on first use and kept: the checklist asks once per line. */
+const CONCEPT_LOOKUPS = new WeakMap<TimelinePipeRegistry, ConceptLookup>();
+
+/** The concepts a registry's pipes read and write, by full reference (`registryConceptLookup`). */
+function conceptLookupOf(registry: TimelinePipeRegistry | undefined): ConceptLookup | undefined {
+  if (!registry) return undefined;
+  let lookup = CONCEPT_LOOKUPS.get(registry);
+  if (!lookup) {
+    lookup = registryConceptLookup(registry);
+    CONCEPT_LOOKUPS.set(registry, lookup);
+  }
+  return lookup;
+}
+
+/**
+ * Whether a pipe is plumbing, which the simple style does not show
+ * (`isPlumbingStep`): a PipeCompose or a binding step always is, a PipeFunc
+ * when its output's refinements, followed through the concepts the registry
+ * declares, reach no file. A PipeFunc the registry cannot describe is shown.
+ */
+export function isPlumbingPipe(
+  registry: TimelinePipeRegistry | undefined,
+  pipeType: string,
+  pipe: PipeBlueprintUnion | null,
+): boolean {
+  return isPlumbingStep(pipeType, pipe, conceptLookupOf(registry));
+}
+
+/** Whether the pipe a `pipe_ref` names is plumbing (`isPlumbingPipe`), by the type the run reports for it. */
+export function isPlumbingRef(
+  registry: TimelinePipeRegistry | undefined,
+  pipeRef: string,
+  pipeType: string,
+): boolean {
+  return isPlumbingPipe(registry, pipeType, pipeOf(registry, pipeRef));
 }
 
 /** What a batch's one line is named after: the pipe its items run, and the name of an item. */
 export interface JoinedBatch {
   /** The branch pipe's `pipe_ref`, or `null` when neither the registry nor the snapshot names it. */
   branchRef: string | null;
-  /** The line's title: the branch's description, never the batch's own. */
+  /** The line's title: the batch's own `activity` when it states one, else the branch's wording, never the batch's description. */
   title: JoinedTitle;
   /** The item's name in a sentence (`filing`), or `null` when the registry does not name it. */
   itemName: string | null;
@@ -247,6 +291,11 @@ export function joinBatch(
     const item = node.children.find((child) => child.segment?.kind === PATH_SEGMENT_KIND.ITEM);
     branchRef = item?.invocation.pipe_ref ?? null;
   }
-  const title = branchRef ? titleOf(registry, branchRef) : pipeTitle(null, invocation.pipe_code);
+  const own = activityTitle(batch);
+  const title: JoinedTitle = own
+    ? { title: own, source: WORDING_SOURCE.ACTIVITY }
+    : branchRef
+      ? titleOf(registry, branchRef)
+      : stepWording(null, invocation.pipe_code);
   return { branchRef, title, itemName: itemName ? humanizeInSentence(itemName) : null };
 }

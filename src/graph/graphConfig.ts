@@ -24,6 +24,12 @@ import {
  *   color-*     → domain-semantic colors (pipe accents, edges, status); kept
  *                 separate because they're meaningful in both themes (a pipe is
  *                 still red), only the *value* shifts for contrast.
+ *
+ * The tone roles (`--positive`, `--caution`, `--negative`, `--neutral`) are
+ * NOT in these palettes, which are set inline and so beat every stylesheet:
+ * they are the form kernel's tokens too, which a host sets from its own
+ * stylesheet, so their defaults live in CSS at zero specificity instead
+ * (`OUTCOME_TONE_COLORS`).
  */
 const FONT_TOKENS: Record<string, string> = {
   "--font-sans": '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
@@ -189,6 +195,34 @@ export const LIGHT_PALETTE_COLORS: Record<string, string> = {
   "--color-bg-dots": "rgba(15, 23, 42, 0.18)",
   "--color-text-muted": "#475569",
   "--color-controller-text": "#475569",
+};
+
+/**
+ * The tone roles' default values per theme: how a condition's outcome reads
+ * to a person (MTHDS "tone"), never a brand colour. Named and valued as the
+ * form kernel's status tokens in its `theme.css`, so one value a host sets
+ * serves the form, the graph and the timeline: the 400 shades on the dark
+ * page, the 700 shades and zinc-600 on the light one.
+ *
+ * These are documentation and the tests' reference, not applied from here.
+ * The defaults are declared in CSS at zero specificity on the graph's and the
+ * timeline's containers (`:where(...)` in `graph-core.css` and
+ * `RunTimeline.css`), so a host's stylesheet rule on a container wins over
+ * them, and `paletteColors` still wins over both, being inline.
+ */
+export const OUTCOME_TONE_COLORS: Readonly<Record<GraphTheme, Readonly<Record<string, string>>>> = {
+  [GRAPH_THEME.DARK]: {
+    "--positive": "hsl(142 69% 58%)",
+    "--caution": "hsl(43 96% 56%)",
+    "--negative": "hsl(0 91% 71%)",
+    "--neutral": "hsl(240 5% 64.9%)",
+  },
+  [GRAPH_THEME.LIGHT]: {
+    "--positive": "hsl(142 72% 29%)",
+    "--caution": "hsl(26 90% 37%)",
+    "--negative": "hsl(0 74% 42%)",
+    "--neutral": "hsl(240 5.2% 33.9%)",
+  },
 };
 
 export function getPaletteForTheme(theme: GraphTheme): Record<string, string> {

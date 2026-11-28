@@ -3,9 +3,9 @@ import {
   conceptPlainName,
   humanizeIdentifier,
   humanizeInSentence,
+  wordsInSentence,
   isGenericConcept,
-  outcomeLabel,
-  pipeTitle,
+  outcomeKeyLabel,
   sentenceCase,
   stripDomain,
 } from "../humanize";
@@ -94,22 +94,6 @@ describe("sentenceCase", () => {
   });
 });
 
-describe("pipeTitle", () => {
-  it("titles a pipe by its description, as a title", () => {
-    expect(pipeTitle("  summarize a single\n page. ", "summarize_page")).toEqual({
-      title: "Summarize a single page",
-      fromDescription: true,
-    });
-  });
-
-  it("falls back to the humanized code when the description is missing or blank", () => {
-    const fallback = { title: "Extract CV", fromDescription: false };
-    expect(pipeTitle(undefined, "extract_cv")).toEqual(fallback);
-    expect(pipeTitle(null, "extract_cv")).toEqual(fallback);
-    expect(pipeTitle("   ", "hiring.extract_cv")).toEqual(fallback);
-  });
-});
-
 describe("humanizeInSentence", () => {
   it("lowers the first letter unless the first word is an acronym", () => {
     expect(humanizeInSentence("filing")).toBe("filing");
@@ -117,20 +101,19 @@ describe("humanizeInSentence", () => {
     expect(humanizeInSentence("cv_file")).toBe("CV file");
     expect(humanizeInSentence("")).toBe("");
   });
+
+  it("moves words already in sentence case inside a sentence, an acronym kept", () => {
+    expect(wordsInSentence("High risk")).toBe("high risk");
+    expect(wordsInSentence("PDF file")).toBe("PDF file");
+    expect(wordsInSentence("A")).toBe("a");
+    expect(wordsInSentence("")).toBe("");
+  });
 });
 
-describe("outcomeLabel", () => {
-  it("humanizes an outcome and names the default branch", () => {
-    expect(outcomeLabel("english")).toBe("English");
-    expect(outcomeLabel("high_priority")).toBe("High priority");
-    expect(outcomeLabel("default")).toBe("Otherwise");
-    expect(outcomeLabel("true")).toBe("Yes");
-    expect(outcomeLabel("False")).toBe("No");
-    expect(outcomeLabel("false | default")).toBe("No or otherwise");
-  });
-
-  it("joins the outcomes of a branch taken on several", () => {
-    expect(outcomeLabel("needs_review | default")).toBe("Needs review or otherwise");
-    expect(outcomeLabel("a|b")).toBe("A or b");
+describe("outcomeKeyLabel", () => {
+  it("words one outcome key, and a key named default as the method's own outcome", () => {
+    expect(outcomeKeyLabel("high_priority")).toBe("High priority");
+    expect(outcomeKeyLabel("TRUE")).toBe("Yes");
+    expect(outcomeKeyLabel("default")).toBe("Default");
   });
 });

@@ -4,7 +4,7 @@
  *
  *   ✓ Extract the filings from the document
  *   ◐ Summarize a filing · for each filing [1/3 done, 2 running] {stuck 1}
- *   ○ Assemble the report
+ *   ○ Write your review
  *
  * The marks are the state (`○` upcoming, `◐` running, `✓` done, `✗` failed,
  * `–` skipped, `■` stopped, `◌` never run), `→` an outcome taken, `=` an outcome a branch

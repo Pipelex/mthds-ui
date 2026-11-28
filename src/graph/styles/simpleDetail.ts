@@ -16,6 +16,8 @@ import type {
   GraphSpec,
   GraphSpecNode,
   GraphSpecNodeIoItem,
+  OutcomeTone,
+  PipeConditionBlueprint,
   PipeStatus,
   StepCategory,
 } from "@graph/types";
@@ -32,7 +34,14 @@ import { getPipeBlueprint, resolveConceptRef, resolveNodeBlueprint } from "@grap
 import { makePipeRef, parsePipeRef } from "@graph/pipeRefs";
 import { findStuffByDigest } from "@graph/stuffLookup";
 import type { StuffLocation } from "@graph/stuffLookup";
-import { humanizeIdentifier, outcomeLabel, pipeTitle, stripDomain } from "./humanize";
+import { humanizeIdentifier, stripDomain } from "./humanize";
+import {
+  branchOutcomeWords,
+  conditionBranches,
+  sameOutcomes,
+  stepWording,
+  type OutcomeKey,
+} from "./methodWords";
 import { STORED_VALUE_REFERENCE_MEMBERS, isStoredValueConcept } from "./nativeConcepts";
 import { aggregateStatus, simpleValueTitle } from "./simpleStyle";
 import type { SimpleValueFlow } from "./simpleStyle";
@@ -108,8 +117,24 @@ export type SimpleOutcomeEnd = "fail" | "continue";
 
 /** One way a decision can go. */
 export interface SimpleOutcome {
-  /** The outcome in plain words: "Needs review", "Yes", "Otherwise". */
+  /**
+   * What the outcome leads to, the branch's identity: the pipe's full
+   * reference, or `fail` or `continue`. Unique among a decision's rows, so a
+   * view keys a row by it, never by its label.
+   */
+  target: string;
+  /** The outcomes the row stands for: keys of the outcome map, `null` for the default outcome. */
+  outcomes: OutcomeKey[];
+  /**
+   * The outcome in plain words, as its arrow says it: its label when the method
+   * gives one ("Detailed check"), else "Needs review", "Yes", "Otherwise".
+   * Presentation only (`conditionBranches`).
+   */
   label: string;
+  /** What taking the outcome means, when the condition's outcome table says. */
+  description?: string;
+  /** How the row reads, by `sharedOutcomeTone`: set only when every outcome in it has a tone and they agree. */
+  tone?: OutcomeTone;
   /** The step it leads to, by the registry's title, drawn or not; empty when `ends` is set. */
   leadsToTitle: string;
   /** Set when the outcome leads to no step, which the canvas draws no arrow for. */
@@ -213,7 +238,7 @@ export interface SimpleDetailInput {
    * status is the one the canvas shows, a host's `statusMap` included.
    */
   nodes: readonly Pick<GraphNode, "id" | "type" | "data">[];
-  edges: readonly Pick<GraphEdge, "id" | "source" | "target" | "label" | "carries">[];
+  edges: readonly Pick<GraphEdge, "id" | "source" | "target" | "label" | "carries" | "outcomes">[];
   /** The projection's value flows (`SimpleProjection.valueFlows`). */
   valueFlows: ReadonlyMap<string, SimpleValueFlow>;
   /** The projection's runs (`SimpleProjection.runs`). */
@@ -487,7 +512,7 @@ function stepTitlesInside(
     const children = childrenOf(nodeId);
     if (children.length === 0) {
       if (spec?.kind === "operator") {
-        titles.push(pipeTitle(spec.description, spec.pipe_code ?? "").title);
+        titles.push(stepWording(spec, spec.pipe_code ?? "").title);
       }
       return;
     }
@@ -546,7 +571,7 @@ function decisionOutcomes(
   decisionRuns: readonly GraphSpecNode[],
   context: {
     resolved: boolean;
-    edges: readonly Pick<GraphEdge, "target" | "label">[];
+    edges: readonly Pick<GraphEdge, "target" | "outcomes">[];
     link: (nodeId: string) => SimpleNodeLink | null;
     specById: ReadonlyMap<string, GraphSpecNode>;
     childrenOf: ChildrenOf;
@@ -562,24 +587,6 @@ function decisionOutcomes(
 
   const { specById, childrenOf } = context;
 
-  // The branch each outcome names, by its pipe's full reference; `fail` and
-  // `continue` name no pipe, and keep their own key.
-  const fullRef = (pipeRef: string): string => {
-    if (isOutcomeEnd(pipeRef)) return pipeRef;
-    const parsed = parsePipeRef(pipeRef);
-    return parsed ? makePipeRef(parsed.domainPath ?? domain, parsed.pipeCode) : pipeRef;
-  };
-  const byBranch = new Map<string, string[]>();
-  const named: [string, string][] = Object.entries(blueprint.outcome_map);
-  if (blueprint.default_outcome) named.push(["default", blueprint.default_outcome]);
-  for (const [outcome, pipeRef] of named) {
-    if (!pipeRef) continue;
-    const ref = fullRef(pipeRef);
-    const outcomes = byBranch.get(ref);
-    if (outcomes) outcomes.push(outcome);
-    else byBranch.set(ref, [outcome]);
-  }
-
   const ranIn = (ref: string, run: GraphSpecNode): boolean =>
     childrenOf(run.id).some((childId) => {
       const child = specById.get(childId);
@@ -588,22 +595,46 @@ function decisionOutcomes(
       return childRef === ref && child.status !== "skipped" && child.status !== "scheduled";
     });
 
-  return [...byBranch.entries()].map(([ref, outcomes]) => {
-    const label = outcomeLabel(outcomes.join("|"));
-    if (isOutcomeEnd(ref)) return { label, leadsToTitle: "", ends: ref };
-    const branch = getPipeBlueprint(graphspec, ref);
-    const parsed = parsePipeRef(ref);
-    const code = parsed?.pipeCode ?? stripDomain(ref);
+  return conditionBranches(blueprint).map(({ target, outcomes, label }) => {
+    const words = outcomeWords(blueprint, outcomes);
+    if (isOutcomeEnd(target))
+      return { target, outcomes, label, leadsToTitle: "", ends: target, ...words };
+    const branch = getPipeBlueprint(graphspec, target);
+    const parsed = parsePipeRef(target);
+    const code = parsed?.pipeCode ?? stripDomain(target);
     const row: SimpleOutcome = {
+      target,
+      outcomes,
       label,
-      leadsToTitle: pipeTitle(branch?.description, code).title,
+      leadsToTitle: stepWording(branch, code).title,
+      ...words,
     };
-    const edge = context.edges.find((e) => e.label === label);
+    // The arrow is found by the outcomes it is taken on, never by its label,
+    // which two branches' words could share.
+    const edge = context.edges.find((e) => e.outcomes && sameOutcomes(e.outcomes, outcomes));
     const leadsTo = edge ? context.link(edge.target) : null;
     if (leadsTo) row.leadsTo = leadsTo;
-    if (context.resolved) row.taken = decisionRuns.filter((run) => ranIn(ref, run)).length;
+    if (context.resolved) row.taken = decisionRuns.filter((run) => ranIn(target, run)).length;
     return row;
   });
+}
+
+/**
+ * The description and tone of a row's outcomes, when the condition's outcome
+ * tables give them (`branchOutcomeWords`): a row standing for several
+ * outcomes takes a description only when exactly one of them has one, and a
+ * tone only when every outcome in it has one and they agree, since one row
+ * cannot say two things.
+ */
+function outcomeWords(
+  blueprint: PipeConditionBlueprint,
+  outcomes: readonly OutcomeKey[],
+): Pick<SimpleOutcome, "description" | "tone"> {
+  const { description, tone } = branchOutcomeWords(blueprint, outcomes);
+  const result: Pick<SimpleOutcome, "description" | "tone"> = {};
+  if (description) result.description = description;
+  if (tone) result.tone = tone;
+  return result;
 }
 
 /** Whether a decision's outcome names no pipe: the method fails, or carries on past it. */

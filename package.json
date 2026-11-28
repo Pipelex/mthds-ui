@@ -105,7 +105,7 @@
     "@pipelex/mthds-form": "^0.43.0",
     "@xyflow/react": "^12",
     "elkjs": "^0.11.1",
-    "mthds": "^0.34.0",
+    "mthds": "^0.38.0",
     "smol-toml": "^1.7.0"
   },
   "peerDependencies": {

@@ -85,6 +85,23 @@ onThemeChange={(mode, resolvedTheme) => {
 
 `GraphViewer` derives the palette from the resolved theme and applies it as inline CSS vars on its container. `config.paletteColors` is a **sparse override** merged _on top_ of the theme palette (per-key) — never a full palette. Passing a complete palette re-pins node/edge colors to one theme and breaks theme switching (the colors stop following the toggle). Component CSS must reference the semantic tokens (`var(--token)`) and never hardcode hex/rgba — that is what lets a new theme be just a new set of token values. See `src/graph/graphConfig.ts` for the token catalog. A pipe's run status reads the palette too, through `PIPE_STATUS_COLOR` in `src/graph/react/statusColors.ts`: succeeded is `--color-success`, failed `--color-error`, running `--color-accent`, and scheduled, skipped and canceled `--text-dim`, on a card's status dot and in the detail panel alike, and a condition's chosen outcome is `--color-success` on `--color-success-bg`.
 
+## The tone tokens
+
+An outcome of a condition can carry a `tone` in its method, one of `positive`, `caution`, `negative` and `neutral`. Four tokens colour it, `--positive`, `--caution`, `--negative` and `--neutral`, under the same names and values the form kernel's `theme.css` uses, so the graph, the run timeline and a run form read one vocabulary. The simple graph style's decision panel, the detailed style's condition panel and the simple timeline's decision line colour an outcome's name through these tokens and never through a literal colour, by one rule (`outcomeTone`): the tone the method states, else neutral for an outcome the method gives a label, else none. Nothing infers a tone the method did not state.
+
+**They are not in the inline palette, and that is deliberate.** The palette is set inline, so it beats every stylesheet rule; the tone tokens are also the form kernel's, which a host sets from its own stylesheet, on `.mthds-run-panel` as `docs/run-form-panel.md` describes, and an inline value would silently win over that. So their defaults, a dark and a light value each (`OUTCOME_TONE_COLORS` in `graphConfig.ts`), are declared in CSS at zero specificity, per theme, on the containers that draw outcomes: `:where(.react-flow-container)` and `:where(.react-flow-container--theme-light)` in `graph-core.css`, `:where(.mthds-run-timeline--dark)` and `:where(.mthds-run-timeline--light)` in `RunTimeline.css`. They are declared on the container rather than read with a fallback, so a page-wide value meant for one theme, such as the kernel's own `:root` block, never reaches a graph drawn in the other. The run panel declares none and reads the kernel's.
+
+A host recolours a tone in one of two ways. From a stylesheet, on the container, which wins over the defaults in whatever order the sheets load:
+
+```css
+.react-flow-container,
+.mthds-run-timeline {
+  --caution: #b45309;
+}
+```
+
+Or through `paletteColors` (`{ "--caution": "#b45309" }`), which is inline and wins over both.
+
 ## Standalone wrapper
 
 The standalone HTML wrapper has no theme button of its own — the in-graph toolbar is the single toggle. The adapter mirrors each `(mode, resolvedTheme)` onto page chrome: `body[data-theme]` carries the _mode_ (so the CSS chrome/logo rules, including the `system` `prefers-color-scheme` media queries, react) and the body palette is set from the _resolved_ theme.

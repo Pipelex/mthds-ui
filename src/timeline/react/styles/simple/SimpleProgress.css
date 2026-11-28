@@ -158,6 +158,31 @@
   color: var(--text-secondary);
 }
 
+/* An outcome the method gives words reads in its tone, through the tone
+   tokens (--positive, --caution, --negative, --neutral), never a literal. */
+.mthds-simple-progress-outcome--positive {
+  color: var(--positive);
+}
+
+.mthds-simple-progress-outcome--caution {
+  color: var(--caution);
+}
+
+.mthds-simple-progress-outcome--negative {
+  color: var(--negative);
+}
+
+.mthds-simple-progress-outcome--neutral {
+  color: var(--neutral);
+}
+
+/* What taking the outcome means, under the decision's row, aligned with its title. */
+.mthds-simple-progress-outcome-description {
+  margin: 2px 0 0 calc(var(--mthds-simple-progress-mark-size) + 8px);
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
 .mthds-simple-progress-time {
   flex: none;
   color: var(--text-muted);

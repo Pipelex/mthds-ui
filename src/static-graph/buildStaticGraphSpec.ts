@@ -450,6 +450,8 @@ function emitNode(
     pipeCode: string;
     pipeType: NodePipeType;
     description: string;
+    /** The pipe's `activity`, mirrored onto the node as a run graph carries it. */
+    activity?: string | null;
     domainCode: string;
     ioInputs: GraphSpecNodeIoItem[];
     parentId: string | null;
@@ -463,6 +465,7 @@ function emitNode(
     pipe_type: args.pipeType,
     // validateGraphSpec requires a non-empty description; WIP pipes may lack one.
     description: args.description.length > 0 ? args.description : args.pipeCode,
+    ...(args.activity ? { activity: args.activity } : {}),
     domain_code: args.domainCode,
     status: "scheduled",
     io: { inputs: args.ioInputs, outputs: [] },
@@ -534,6 +537,7 @@ function walkPipe(
     pipeCode: code,
     pipeType: blueprint.type,
     description: blueprint.description,
+    activity: blueprint.activity,
     domainCode: blueprint.domain_code,
     ioInputs,
     parentId,
@@ -1106,6 +1110,7 @@ function walkInlineBatch(
     pipeCode: code,
     pipeType: "PipeBatch",
     description: blueprint.description,
+    activity: blueprint.activity,
     domainCode: domain,
     ioInputs,
     parentId,

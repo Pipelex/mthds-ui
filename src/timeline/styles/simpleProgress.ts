@@ -3,15 +3,23 @@
  * method's pipe registry, as a checklist of lines in the method's own words.
  *
  * Pure and language-free. A line carries its kind, its state, its title as the
- * author wrote it, its counts, its outcome and its health as data, never a
+ * author wrote it (the pipe's `activity`, else its description), its counts, its outcome and its health as data, never a
  * sentence: the React view words them through its strings table, and a host can
  * read the same lines to word progress elsewhere. It keys nothing on time, so
  * the view keeps every line it drew in place across snapshots and only the
  * durations move with the clock.
  */
 import type { Problem } from "mthds/errors";
-import type { PipeBlueprintUnion, PipeSequenceBlueprint } from "@graph/types";
+import type { OutcomeTone, PipeBlueprintUnion, PipeSequenceBlueprint } from "@graph/types";
 import { humanizeInSentence } from "@graph/styles/humanize";
+import {
+  WORDING_SOURCE,
+  branchOutcomeWords,
+  conditionBranches,
+  outcomeTone,
+  outcomeWordsOf,
+  type WordingSource,
+} from "@graph/styles/methodWords";
 import {
   DEGRADATION_REASON,
   INVOCATION_STATUS,
@@ -34,14 +42,18 @@ import {
   type InvocationTreeNode,
 } from "../invocationTree";
 import {
+  isPlumbingPipe,
+  isPlumbingRef,
   joinBatch,
   joinedSequence,
   pipeOf,
+  qualifyPipeCode,
   sequenceMatches,
   sequenceOf,
   stepNumberOf,
   stepsAfter,
   titleOf,
+  type JoinedTitle,
   type NumberedStep,
   type TimelinePipeRegistry,
 } from "./registryJoin";
@@ -108,12 +120,32 @@ export const DEFAULT_WIDE_PARALLEL_THRESHOLD = 5;
  */
 export const SIMPLE_MAX_DEPTH = 2;
 
-/** On a decision, the outcome it took; on a branch of a condition that resolved none, the outcome it stands for. */
+/**
+ * On a decision, the outcome it took; on a branch of a condition that resolved
+ * none, the outcome it stands for. Its words come from the condition's outcome
+ * table in the registry (MTHDS, "Outcome Labels"), each `null` when the method
+ * gives none: then the view words the key itself.
+ */
 export interface SimpleOutcome {
   /** The outcome map's key, decoded; `null` for the default outcome. */
   key: string | null;
   /** True when it is the condition's `selected_outcome`, false when read off the branch's path. */
   resolved: boolean;
+  /**
+   * The outcome's name for people ("Detailed check"). On a dry run's branch
+   * that several outcomes share, the branch's name, as its arrow in the graph
+   * reads ("Approve or Standard check").
+   */
+  label: string | null;
+  /** What taking the outcome means, which the view shows under the line where there is room. */
+  description: string | null;
+  /**
+   * The tone the outcome reads in, by the rule every view follows
+   * (`outcomeTone`): the tone the method states, else neutral when it gives
+   * the outcome a label, else `null`. A branch several outcomes share takes a
+   * tone only when every one of them has one and they agree.
+   */
+  tone: OutcomeTone | null;
 }
 
 /** On a branch step of an expanded batch, how many items stand at each state of it. */
@@ -168,9 +200,10 @@ export interface SimpleProgressLine {
   key: string;
   kind: SimpleLineKind;
   state: SimpleLineState;
-  /** The pipe's description as a title, or its humanized code when the registry has none. */
+  /** The pipe's `activity`, else its description, as a title, or its humanized code when the registry has neither. */
   title: string;
-  titleFromDescription: boolean;
+  /** Where the title came from. */
+  titleSource: WordingSource;
   /** On a for-each line, the item's name in a sentence (`filing`), `null` when the registry does not name it. */
   forEachItem: string | null;
   outcome: SimpleOutcome | null;
@@ -250,6 +283,13 @@ export interface SimpleProgressOptions {
   expanded?: Readonly<Record<string, boolean>>;
   /** A parallel with more branches than this folds its finished ones. Defaults to `DEFAULT_WIDE_PARALLEL_THRESHOLD`. */
   wideParallelThreshold?: number;
+  /**
+   * Draw the plumbing steps too: a PipeCompose, and a PipeFunc whose output is
+   * no file (MTHDS, "What a Run Shows"). Off by default, since a person
+   * following a run waits for none of them; a plumbing step that failed, is
+   * being tried again or where the run is stuck is drawn either way.
+   */
+  showPlumbing?: boolean;
 }
 
 const STATE_OF_STATUS: Record<InvocationStatus, SimpleLineState> = {
@@ -287,7 +327,7 @@ function isBatchNode(node: InvocationTreeNode): boolean {
   );
 }
 
-function kindOfNode(node: InvocationTreeNode): SimpleLineKind {
+function kindOfNode(ctx: Context, node: InvocationTreeNode): SimpleLineKind {
   if (isBatchNode(node)) return SIMPLE_LINE_KIND.FOR_EACH;
   switch (node.invocation.pipe_type) {
     case "PipeSequence":
@@ -297,7 +337,8 @@ function kindOfNode(node: InvocationTreeNode): SimpleLineKind {
     case "PipeCondition":
       return SIMPLE_LINE_KIND.DECISION;
     default:
-      return node.children.length > 0 ? SIMPLE_LINE_KIND.GROUP : SIMPLE_LINE_KIND.STEP;
+      // A pipe whose only children are plumbing has nothing to show beneath it.
+      return shownChildren(ctx, node).length > 0 ? SIMPLE_LINE_KIND.GROUP : SIMPLE_LINE_KIND.STEP;
   }
 }
 
@@ -424,20 +465,83 @@ interface Context {
   registry: TimelinePipeRegistry | undefined;
   expanded: Readonly<Record<string, boolean>>;
   wideParallelThreshold: number;
+  showPlumbing: boolean;
+}
+
+/**
+ * Whether an invocation is a plumbing step the checklist leaves out: one that
+ * only reshapes data, unless it is in trouble, since a failure, a retry or a
+ * stuck run must show where it is.
+ */
+function hidesAsPlumbing(ctx: Context, invocation: ProgressInvocation): boolean {
+  if (ctx.showPlumbing) return false;
+  if (!isPlumbingRef(ctx.registry, invocation.pipe_ref, invocation.pipe_type)) return false;
+  return !(
+    invocation.status === INVOCATION_STATUS.FAILED ||
+    isRetrying(invocation) ||
+    invocation.degradation !== undefined
+  );
+}
+
+/** Whether a step the run has not reached is plumbing, by the pipe the registry declares there. */
+function isPlumbingUpcoming(ctx: Context, step: NumberedStep): boolean {
+  if (ctx.showPlumbing || step.spec.batch_params) return false;
+  const pipe = pipeOf(ctx.registry, step.pipeRef);
+  return pipe !== null && isPlumbingPipe(ctx.registry, pipe.type, pipe);
+}
+
+/** The children of a node the checklist draws a line for: every one but the plumbing it leaves out. */
+function shownChildren(ctx: Context, node: InvocationTreeNode): InvocationTreeNode[] {
+  return node.children.filter((child) => !hidesAsPlumbing(ctx, child.invocation));
+}
+
+/**
+ * The words a condition's registry entry gives one of its outcomes, as a line
+ * carries them, each read by the rule the graph's panels follow. The outcome a
+ * condition took is that one outcome. A dry run's branch stands for every
+ * outcome leading to its pipe, and the runtime names its group after the first
+ * of them, so a branch several outcomes share reads as the whole branch: the
+ * label its arrow carries in the graph ("Approve or Standard check",
+ * `conditionBranches`), and a tone only when every outcome in it has one and
+ * they agree (`branchOutcomeWords`).
+ */
+function outcomeOf(
+  ctx: Context,
+  conditionRef: string | undefined,
+  key: string | null,
+  resolved: boolean,
+): SimpleOutcome {
+  const condition = conditionRef ? pipeOf(ctx.registry, conditionRef) : null;
+  const branch =
+    !resolved && condition?.type === "PipeCondition"
+      ? conditionBranches(condition).find(({ outcomes }) => outcomes[0] === key)
+      : undefined;
+  if (branch && branch.outcomes.length > 1) {
+    const { description, tone } = branchOutcomeWords(condition, branch.outcomes);
+    return { key, resolved, label: branch.label, description, tone };
+  }
+  const words = outcomeWordsOf(condition, key);
+  return {
+    key,
+    resolved,
+    label: words?.label ?? null,
+    description: words?.description ?? null,
+    tone: outcomeTone(words),
+  };
 }
 
 function blankLine(
   key: string,
   kind: SimpleLineKind,
   state: SimpleLineState,
-  title: { title: string; fromDescription: boolean },
+  title: JoinedTitle,
 ): SimpleProgressLine {
   return {
     key,
     kind,
     state,
     title: title.title,
-    titleFromDescription: title.fromDescription,
+    titleSource: title.source,
     forEachItem: null,
     outcome: null,
     counts: null,
@@ -469,6 +573,7 @@ function upcomingLine(ctx: Context, sequencePath: string, step: NumberedStep): S
 
 /** The outcome a branch of a condition stands for, when its condition's line does not already say it. */
 function branchOutcome(
+  ctx: Context,
   node: InvocationTreeNode,
   parent: InvocationTreeNode | null,
 ): SimpleOutcome | null {
@@ -479,10 +584,12 @@ function branchOutcome(
     return null;
   }
   const segment = node.segment;
-  return {
-    key: segment?.kind === PATH_SEGMENT_KIND.OUTCOME ? segment.key : null,
-    resolved: false,
-  };
+  return outcomeOf(
+    ctx,
+    parent?.invocation.pipe_ref,
+    segment?.kind === PATH_SEGMENT_KIND.OUTCOME ? segment.key : null,
+    false,
+  );
 }
 
 /**
@@ -491,6 +598,7 @@ function branchOutcome(
  * in, so the line naming a failure and the run's headline name the same one.
  */
 function deepestBeneath(
+  ctx: Context,
   node: InvocationTreeNode,
   state: SimpleLineState,
 ): InvocationTreeNode | null {
@@ -498,7 +606,7 @@ function deepestBeneath(
   let foundDepth = -1;
   const visit = (current: InvocationTreeNode) => {
     for (const child of current.children) {
-      if (stateOf(child.invocation) === state) {
+      if (stateOf(child.invocation) === state && !hidesAsPlumbing(ctx, child.invocation)) {
         const depth = invocationPathDepth(child.invocation.path);
         if (depth > foundDepth) {
           found = child;
@@ -526,7 +634,7 @@ function nowLine(
     stateOf(node.invocation) === SIMPLE_LINE_STATE.FAILED
       ? [SIMPLE_LINE_STATE.FAILED, SIMPLE_LINE_STATE.RUNNING]
       : [SIMPLE_LINE_STATE.RUNNING, SIMPLE_LINE_STATE.FAILED];
-  const target = deepestBeneath(node, first) ?? deepestBeneath(node, second);
+  const target = deepestBeneath(ctx, node, first) ?? deepestBeneath(ctx, node, second);
   if (!target) return null;
   const invocation = target.invocation;
   const state = stateOf(invocation);
@@ -604,9 +712,10 @@ function branchStepLines(
       }
     }
   }
-  const groups = nested
-    ? [items]
-    : [...bySegment.values()].sort((a, b) => compareSiblings(a[0], b[0]));
+  // A branch step that is plumbing is left out, unless one of its items is in trouble there.
+  const groups = (
+    nested ? [items] : [...bySegment.values()].sort((a, b) => compareSiblings(a[0], b[0]))
+  ).filter((group) => !group.every((node) => hidesAsPlumbing(ctx, node.invocation)));
 
   const lines = groups.map((group) => {
     const first = group[0].invocation;
@@ -671,6 +780,7 @@ function branchStepLines(
       for (const child of item.children) reached = Math.max(reached, stepNumberOf(child) ?? 0);
     }
     for (const step of stepsAfter(branch, reached)) {
+      if (isPlumbingUpcoming(ctx, step)) continue;
       const line = upcomingLine(ctx, `${batchNode.invocation.path}/*`, step);
       line.kind = SIMPLE_LINE_KIND.BRANCH_STEP;
       line.tally = emptyTally();
@@ -776,7 +886,8 @@ function unreachedSteps(
     return { sequence, steps: [], ended };
   }
   const reached = Math.max(0, ...node.children.map((child) => stepNumberOf(child) ?? 0));
-  return { sequence, steps: stepsAfter(sequence, reached), ended };
+  const steps = stepsAfter(sequence, reached).filter((step) => !isPlumbingUpcoming(ctx, step));
+  return { sequence, steps, ended };
 }
 
 /**
@@ -790,7 +901,9 @@ function childLines(
   state: SimpleLineState,
   unreached: UnreachedSteps = unreachedSteps(ctx, node, state),
 ): SimpleProgressLine[] {
-  let lines = node.children.map((child) => lineOf(ctx, child, node, depth, unreached.sequence));
+  let lines = shownChildren(ctx, node).map((child) =>
+    lineOf(ctx, child, node, depth, unreached.sequence),
+  );
   for (const step of unreached.steps) {
     const line = upcomingLine(ctx, node.invocation.path, step);
     if (unreached.ended) line.state = SIMPLE_LINE_STATE.NOT_RUN;
@@ -798,11 +911,35 @@ function childLines(
   }
   if (
     node.invocation.pipe_type === "PipeParallel" &&
-    Math.max(node.children.length, node.invocation.branch_count ?? 0) > ctx.wideParallelThreshold
+    shownBranchCount(ctx, node) > ctx.wideParallelThreshold
   ) {
     lines = foldFinished(node, lines);
   }
   return lines;
+}
+
+/**
+ * How many branches of a parallel the checklist shows: those it draws, or,
+ * while some have not started, the count the run reports less the branches
+ * that are plumbing, the more of the started ones it hid and the ones the
+ * registry declares.
+ */
+function shownBranchCount(ctx: Context, node: InvocationTreeNode): number {
+  const shown = shownChildren(ctx, node).length;
+  const reported = node.invocation.branch_count;
+  if (reported === undefined) return shown;
+  const parallel = pipeOf(ctx.registry, node.invocation.pipe_ref);
+  const declaredPlumbing =
+    ctx.showPlumbing ||
+    parallel?.type !== "PipeParallel" ||
+    !Array.isArray(parallel.parallel_sub_pipes)
+      ? 0
+      : parallel.parallel_sub_pipes.filter((sub) => {
+          const pipe = pipeOf(ctx.registry, qualifyPipeCode(sub.pipe_code, parallel.domain_code));
+          return pipe !== null && isPlumbingPipe(ctx.registry, pipe.type, pipe);
+        }).length;
+  const hidden = Math.max(node.children.length - shown, declaredPlumbing);
+  return Math.max(shown, reported - hidden);
 }
 
 /**
@@ -817,10 +954,7 @@ function foldFinished(node: InvocationTreeNode, lines: SimpleProgressLine[]): Si
     `${node.invocation.path}#finished`,
     SIMPLE_LINE_KIND.FINISHED,
     SIMPLE_LINE_STATE.DONE,
-    {
-      title: "",
-      fromDescription: false,
-    },
+    { title: "", source: WORDING_SOURCE.CODE },
   );
   folded.foldedCount = finished.length;
   const kept: SimpleProgressLine[] = [];
@@ -840,10 +974,10 @@ function lineOf(
   depth: number,
   parentSequence: PipeSequenceBlueprint | null,
 ): SimpleProgressLine {
-  const kind = kindOfNode(node);
+  const kind = kindOfNode(ctx, node);
   if (kind === SIMPLE_LINE_KIND.FOR_EACH) {
     const line = forEachLine(ctx, node, depth, parentSequence);
-    line.outcome = branchOutcome(node, parent);
+    line.outcome = branchOutcome(ctx, node, parent);
     return line;
   }
   const invocation = node.invocation;
@@ -857,8 +991,8 @@ function lineOf(
   line.invocation = invocation;
   line.outcome =
     kind === SIMPLE_LINE_KIND.DECISION && invocation.condition
-      ? { key: invocation.condition.selected_outcome, resolved: true }
-      : branchOutcome(node, parent);
+      ? outcomeOf(ctx, invocation.pipe_ref, invocation.condition.selected_outcome, true)
+      : branchOutcome(ctx, node, parent);
 
   if (kind === SIMPLE_LINE_KIND.STEP) {
     line.health = healthOf(state, invocation, gatherBeneath(node), true);
@@ -885,7 +1019,7 @@ function lineOf(
   // Its children's lines are built only when drawn: a folded group needs to
   // know only that it has some.
   const unreached = unreachedSteps(ctx, node, state);
-  line.expandable = node.children.length > 0 || unreached.steps.length > 0;
+  line.expandable = shownChildren(ctx, node).length > 0 || unreached.steps.length > 0;
   line.expanded = line.expandable && (ctx.expanded[line.key] ?? isActiveState(state));
   if (line.expanded) {
     const children = childLines(ctx, node, depth + 1, state, unreached);
@@ -901,7 +1035,9 @@ function lineOf(
 function previewLines(ctx: Context, entryPipeRef: string): SimpleProgressLine[] {
   const sequence = sequenceOf(ctx.registry, entryPipeRef);
   if (sequence) {
-    return stepsAfter(sequence, 0).map((step) => upcomingLine(ctx, entryPipeRef, step));
+    return stepsAfter(sequence, 0)
+      .filter((step) => !isPlumbingUpcoming(ctx, step))
+      .map((step) => upcomingLine(ctx, entryPipeRef, step));
   }
   const pipe = pipeOf(ctx.registry, entryPipeRef);
   if (!pipe) return [];
@@ -997,6 +1133,12 @@ function runNoteOf(snapshot: ProgressSnapshot, lines: SimpleProgressLine[]): Sim
  * branches into one line. Annotations of work no line shows are shown on the
  * nearest drawn line.
  *
+ * A line is titled by its pipe's `activity`, else its description, else its
+ * humanized code, and a decision's outcome carries the words its outcome table
+ * gives it. Plumbing (`isPlumbingStep`: a PipeCompose, a binding step, a
+ * PipeFunc that writes no file) has no line unless it failed, is retrying or is
+ * stuck, or `showPlumbing` asks for every step.
+ *
  * Pure, and a function of its arguments alone.
  */
 export function buildSimpleProgress(
@@ -1007,6 +1149,7 @@ export function buildSimpleProgress(
     registry: options.pipeRegistry,
     expanded: options.expanded ?? {},
     wideParallelThreshold: options.wideParallelThreshold ?? DEFAULT_WIDE_PARALLEL_THRESHOLD,
+    showPlumbing: options.showPlumbing ?? false,
   };
   const roots = buildInvocationTree(snapshot);
   let lines: SimpleProgressLine[];

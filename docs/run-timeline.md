@@ -40,7 +40,7 @@ Timestamps are read as the contract writes them, RFC 3339 with an upper-case `T`
 | `timelineStyle` | `"detailed"` | The style the run is drawn in: `detailed`, described on this page, or `simple`, a checklist of the steps in the method's own words. Reactive, like `theme`. See [timeline-styles.md](timeline-styles.md). |
 | `styleMenu` | — | Shows a style menu at the end of the header: `true` for every style, or a list of styles in the order offered. |
 | `onTimelineStyleChange` | — | Called whenever the style changes, from the menu or the prop, never on mount. |
-| `pipeRegistry` | — | The registry of the method's pipes, keyed by `pipe_ref`, as a `GraphSpec`'s `pipe_registry`, which the simple style titles its lines from. The detailed style does not read it. |
+| `pipeRegistry` | — | The registry of the method's pipes, keyed by `pipe_ref`, as a `GraphSpec`'s `pipe_registry`, which the simple style titles its lines from: each step's `activity` or description, a condition's outcome words, and which steps are plumbing it leaves out. The detailed style does not read it. |
 | `entryPipeRef` | — | The `pipe_ref` the run starts from, so the simple style lists the steps of a run that has not started yet. |
 | `wideParallelThreshold` | `5` (`DEFAULT_WIDE_PARALLEL_THRESHOLD`) | In the simple style, a parallel with more branches than this folds its finished branches into one line. |
 | `className` | — | Appended to the container's class list. |

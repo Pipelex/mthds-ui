@@ -289,6 +289,18 @@ describe("validateGraphSpec — node fields", () => {
     expectInvalid(spec, "nodes[0].id");
   });
 
+  it("keeps a node's activity, and drops one that is null, empty or not a string", () => {
+    const spec = makeValidSpec();
+    const node = (spec.nodes as Record<string, unknown>[])[0];
+    node.activity = "Reading the NDA";
+    expect(validateGraphSpec(spec).nodes[0].activity).toBe("Reading the NDA");
+    // A presentation-only phrase never refuses the whole spec.
+    for (const unusable of [null, "", "   ", 42, { text: "Reading" }]) {
+      node.activity = unusable;
+      expect("activity" in validateGraphSpec(spec).nodes[0]).toBe(false);
+    }
+  });
+
   it("throws when node kind is unknown", () => {
     const spec = makeValidSpec();
     (spec.nodes as Record<string, unknown>[])[0].kind = "wat";

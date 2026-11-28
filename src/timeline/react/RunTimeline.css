@@ -9,6 +9,24 @@
 /* `--mthds-run-timeline-axis-span` is no hook: the component sets it on its  */
 /* body as the axis grows.                                                    */
 
+/* The tone roles (`OUTCOME_TONE_COLORS` in `graphConfig.ts`), which colour a */
+/* decision's outcome. Not in the inline palette: they are the form kernel's */
+/* tokens too, which a host sets from its own stylesheet, so their defaults  */
+/* are declared here at zero specificity, per theme, and a host rule on the  */
+/* container wins over them; `paletteColors`, inline, wins over both.        */
+:where(.mthds-run-timeline--dark) {
+  --positive: hsl(142 69% 58%);
+  --caution: hsl(43 96% 56%);
+  --negative: hsl(0 91% 71%);
+  --neutral: hsl(240 5% 64.9%);
+}
+:where(.mthds-run-timeline--light) {
+  --positive: hsl(142 72% 29%);
+  --caution: hsl(26 90% 37%);
+  --negative: hsl(0 74% 42%);
+  --neutral: hsl(240 5.2% 33.9%);
+}
+
 .mthds-run-timeline {
   --mthds-run-timeline-name-width: minmax(8rem, 36%);
   --mthds-run-timeline-meta-width: 10.5rem;
