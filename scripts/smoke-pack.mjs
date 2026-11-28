@@ -36,7 +36,7 @@
  *    re-adds it to `./form/react` and `./form/generative`, so `./graph/react`
  *    and `./timeline/react` are the entries standing on the bundler alone and
  *    are precisely the ones worth asserting. The inverse holds for the form
- *    entries a server imports, `./form`, `./form/brand` and
+ *    entries a server imports, `./form` and
  *    `./form/generative/headless`: none carries the directive, nor does the
  *    kernel entry each re-exports, because a server component or a server
  *    action calling a function through a client module gets a reference that
@@ -47,10 +47,7 @@
  * 4. The kernel is imported (never inlined) by the React entries, and absent
  *    from the React-free ones. Any other
  *    entry referencing it would break every graph-only consumer, who by
- *    construction has not installed it. `./form/brand` is the kernel's
- *    isomorphic `./brand` entry re-exported, so it imports that entry and
- *    nothing else, and it loads and derives a colour in plain Node, where a
- *    server action or a build script runs it. `./form/generative` is the
+ *    construction has not installed it. `./form/generative` is the
  *    kernel's `./generative` entry re-exported, so it too imports that one
  *    entry and nothing else. `./form/generative/headless` is the kernel's
  *    `./generative/headless` entry re-exported, the producer and the checks
@@ -488,7 +485,6 @@ try {
     );
   for (const [relative, kernelSpecifier] of [
     ["dist/form/index.js", "@pipelex/mthds-form"],
-    ["dist/form/brand/index.js", "@pipelex/mthds-form/brand"],
     ["dist/form/generative/headless/index.js", "@pipelex/mthds-form/generative/headless"],
   ]) {
     const entryPath = path.join(installed, relative);
@@ -619,40 +615,6 @@ try {
       kernelImports.join(", "),
     );
   }
-
-  // `./form/brand` re-exports the kernel's `./brand` entry, which is isomorphic:
-  // a settings screen, a server action and a build script all import it. So it
-  // imports that one kernel entry, bare, and nothing else — not the kernel's
-  // `.` or `./react`, and not React, which a server or a script may not have.
-  // Exactly one bare import also rules out the bundled copy, which carries none.
-  const brandExternals = externalsPerEntry.get("./form/brand") ?? [];
-  check(
-    "./form/brand imports the kernel's ./brand entry and nothing else",
-    brandExternals.length === 1 && brandExternals[0] === "@pipelex/mthds-form/brand",
-    brandExternals.join(", ") || "no bare import — it looks bundled, or it built to nothing",
-  );
-  // Unlike the other entries, nothing it reaches imports a stylesheet, so plain
-  // Node can evaluate it rather than only resolve it. One derivation proves the
-  // re-export reaches working code from a consumer that declared no kernel.
-  let derivedAction = "";
-  try {
-    derivedAction = run(
-      "node",
-      [
-        "--input-type=module",
-        "-e",
-        'const b = await import("@pipelex/mthds-ui/form/brand"); process.stdout.write(b.deriveBrandRoles({ action: "#FACC15" }, "#ffffff").action);',
-      ],
-      scratch,
-    );
-  } catch (error) {
-    derivedAction = String(error.stderr ?? error.message).split("\n").find(Boolean) ?? "";
-  }
-  check(
-    "./form/brand loads in plain Node and derives a seed's roles",
-    derivedAction === "#facc15",
-    derivedAction,
-  );
 
   // `./form/generative` re-exports the kernel's `./generative` entry, the layer
   // that renders a produced layout and builds what the designer method is
