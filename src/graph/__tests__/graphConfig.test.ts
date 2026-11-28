@@ -1,9 +1,11 @@
+import { readFileSync } from "node:fs";
 import { describe, it, expect } from "vitest";
 import { GRAPH_THEME, GRAPH_THEME_MODE } from "../types";
 import {
   DARK_PALETTE_COLORS,
   DEFAULT_GRAPH_CONFIG,
   LIGHT_PALETTE_COLORS,
+  OUTCOME_TONE_COLORS,
   getPaletteColors,
   getPaletteForTheme,
 } from "../graphConfig";
@@ -89,5 +91,49 @@ describe("getPaletteColors", () => {
   it("returns an object with all palette keys", () => {
     const colors = getPaletteColors();
     expect(Object.keys(colors).length).toBeGreaterThan(10);
+  });
+});
+
+/** The custom properties one `selector { … }` rule of a stylesheet declares. */
+function declaredIn(css: string, selector: string): Record<string, string> {
+  const start = css.indexOf(`${selector} {`);
+  expect(start, `${selector} is declared`).toBeGreaterThan(-1);
+  const body = css.slice(css.indexOf("{", start) + 1, css.indexOf("}", start));
+  return Object.fromEntries(
+    [...body.matchAll(/(--[\w-]+):\s*([^;]+);/g)].map(([, name, value]) => [name, value.trim()]),
+  );
+}
+
+describe("the tone roles", () => {
+  const graphCss = readFileSync(new URL("../react/graph-core.css", import.meta.url), "utf8");
+  const timelineCss = readFileSync(
+    new URL("../../timeline/react/RunTimeline.css", import.meta.url),
+    "utf8",
+  );
+
+  it("stay out of the inline palettes, which would beat a host's stylesheet", () => {
+    for (const palette of [DARK_PALETTE_COLORS, LIGHT_PALETTE_COLORS]) {
+      for (const token of ["--positive", "--caution", "--negative", "--neutral"]) {
+        expect(palette[token]).toBeUndefined();
+      }
+    }
+  });
+
+  it("are declared at zero specificity on the graph's container, per theme", () => {
+    expect(declaredIn(graphCss, ":where(.react-flow-container)")).toEqual(
+      OUTCOME_TONE_COLORS[GRAPH_THEME.DARK],
+    );
+    expect(declaredIn(graphCss, ":where(.react-flow-container--theme-light)")).toEqual(
+      OUTCOME_TONE_COLORS[GRAPH_THEME.LIGHT],
+    );
+  });
+
+  it("are declared at zero specificity on the timeline's container, per theme", () => {
+    expect(declaredIn(timelineCss, ":where(.mthds-run-timeline--dark)")).toEqual(
+      OUTCOME_TONE_COLORS[GRAPH_THEME.DARK],
+    );
+    expect(declaredIn(timelineCss, ":where(.mthds-run-timeline--light)")).toEqual(
+      OUTCOME_TONE_COLORS[GRAPH_THEME.LIGHT],
+    );
   });
 });

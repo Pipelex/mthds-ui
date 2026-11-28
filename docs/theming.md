@@ -87,7 +87,20 @@ onThemeChange={(mode, resolvedTheme) => {
 
 ## The tone tokens
 
-An outcome of a condition can carry a `tone` in its method, one of `positive`, `caution`, `negative` and `neutral`. The palette defines a token for each, `--positive`, `--caution`, `--negative` and `--neutral`, with a dark and a light value, under the same names and values the form kernel's `theme.css` uses, so the graph, the run timeline and a run form read one vocabulary. The simple graph style's decision panel, the detailed style's condition panel and the simple timeline's decision line colour an outcome's label through these tokens and never through a literal colour. A host recolours a tone like any token, through `paletteColors` (`{ "--caution": "#b45309" }`). A labelled outcome without a tone takes `--neutral`; nothing infers a tone the method did not state.
+An outcome of a condition can carry a `tone` in its method, one of `positive`, `caution`, `negative` and `neutral`. Four tokens colour it, `--positive`, `--caution`, `--negative` and `--neutral`, under the same names and values the form kernel's `theme.css` uses, so the graph, the run timeline and a run form read one vocabulary. The simple graph style's decision panel, the detailed style's condition panel and the simple timeline's decision line colour an outcome's name through these tokens and never through a literal colour, by one rule (`outcomeTone`): the tone the method states, else neutral for an outcome the method gives a label, else none. Nothing infers a tone the method did not state.
+
+**They are not in the inline palette, and that is deliberate.** The palette is set inline, so it beats every stylesheet rule; the tone tokens are also the form kernel's, which a host sets from its own stylesheet, on `.mthds-run-panel` as `docs/run-form-panel.md` describes, and an inline value would silently win over that. So their defaults, a dark and a light value each (`OUTCOME_TONE_COLORS` in `graphConfig.ts`), are declared in CSS at zero specificity, per theme, on the containers that draw outcomes: `:where(.react-flow-container)` and `:where(.react-flow-container--theme-light)` in `graph-core.css`, `:where(.mthds-run-timeline--dark)` and `:where(.mthds-run-timeline--light)` in `RunTimeline.css`. They are declared on the container rather than read with a fallback, so a page-wide value meant for one theme, such as the kernel's own `:root` block, never reaches a graph drawn in the other. The run panel declares none and reads the kernel's.
+
+A host recolours a tone in one of two ways. From a stylesheet, on the container, which wins over the defaults in whatever order the sheets load:
+
+```css
+.react-flow-container,
+.mthds-run-timeline {
+  --caution: #b45309;
+}
+```
+
+Or through `paletteColors` (`{ "--caution": "#b45309" }`), which is inline and wins over both.
 
 ## Standalone wrapper
 

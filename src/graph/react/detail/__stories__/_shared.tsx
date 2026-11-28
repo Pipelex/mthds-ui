@@ -12,7 +12,7 @@
 
 import React from "react";
 import type { Decorator } from "@storybook/react-vite";
-import { DARK_PALETTE_COLORS } from "../../../graphConfig";
+import { DARK_PALETTE_COLORS, OUTCOME_TONE_COLORS } from "../../../graphConfig";
 import { DetailPanel } from "../DetailPanel";
 import { PipeDetailPanel } from "../PipeDetailPanel";
 import type {
@@ -38,6 +38,8 @@ export const detailPanelDecorator: Decorator = (Story) => (
       position: "relative",
       background: "#0a0a0f",
       ...(DARK_PALETTE_COLORS as React.CSSProperties),
+      // The tone roles are declared on the graph's container in CSS, which this wrapper is not.
+      ...(OUTCOME_TONE_COLORS.dark as React.CSSProperties),
     }}
   >
     <Story />
