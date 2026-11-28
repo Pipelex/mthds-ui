@@ -669,6 +669,38 @@ describe("PipeDetailPanel in the method's words", () => {
     expect(html).toContain('title="The usual pass"');
   });
 
+  it("highlights the row of the outcome taken, the default outcome's included", () => {
+    /** The rows drawn as taken, by their text: the ones on the taken background. */
+    const takenRows = (html: string): string[] =>
+      [
+        ...html.matchAll(/<div class="detail-kv-row" style="background:[^"]*"[^>]*>(.*?)<\/div>/g),
+      ].map((match) =>
+        match[1]
+          .replace(/<[^>]+>/g, "")
+          .replace(/\s+/g, " ")
+          .trim(),
+      );
+    // The runtime records the pipe the outcome map names, and the value the expression rendered.
+    expect(takenRows(renderCondition())).toEqual(["high Detailed checkdetailed_check"]);
+    expect(
+      takenRows(
+        renderCondition(condition, {
+          evaluated_expression: "low",
+          selected_outcome: "standard_check",
+        }),
+      ),
+    ).toEqual(["default Standard checkstandard_check"]);
+    // A dry run took none.
+    expect(
+      takenRows(
+        renderCondition(condition, {
+          evaluated_expression: "dry_run",
+          selected_outcome: "all_outcomes",
+        }),
+      ),
+    ).toEqual([]);
+  });
+
   it("lets an outcome's key column wrap, beside the pipe it names", () => {
     expect(renderCondition()).toContain('class="detail-kv-key detail-kv-key--outcome"');
   });

@@ -4,6 +4,7 @@ import {
   outcomeTone,
   outcomeWordsOf,
   selectedOutcomeWords,
+  takenOutcomeKey,
   type OutcomeWordsRead,
 } from "@graph/styles/methodWords";
 import { KV, PromptBlock } from "./shared";
@@ -50,6 +51,12 @@ function OutcomeKeyCell({
   );
 }
 
+/** How the row of the outcome a live run took is drawn, and its pipe. */
+const TAKEN_ROW_STYLE: React.CSSProperties = {
+  background: "var(--color-success-bg, rgba(80,250,123,0.08))",
+};
+const TAKEN_PIPE_STYLE: React.CSSProperties = { color: PIPE_STATUS_COLOR.succeeded };
+
 export function PipeConditionSection({
   blueprint,
   executionData,
@@ -59,6 +66,8 @@ export function PipeConditionSection({
 }) {
   const evaluatedExpression = executionData?.evaluated_expression as string | undefined;
   const selectedOutcome = executionData?.selected_outcome as string | undefined;
+  // The outcome taken, by its key (`null` for the default), so the default's row lights too.
+  const takenKey = takenOutcomeKey(blueprint, executionData);
   // A live run records the words of the outcome it took on the condition's node.
   const taken = selectedOutcomeWords(executionData);
   const defaultWords = outcomeWordsOf(blueprint, null);
@@ -82,32 +91,33 @@ export function PipeConditionSection({
         <div className="detail-section-label">Outcomes</div>
         {Object.entries(blueprint.outcome_map).map(([outcome, pipeCode]) => {
           const words = outcomeWordsOf(blueprint, outcome);
+          const taken = takenKey === outcome;
           return (
             <div
               key={outcome}
               className="detail-kv-row"
-              style={
-                selectedOutcome === pipeCode
-                  ? { background: "var(--color-success-bg, rgba(80,250,123,0.08))" }
-                  : undefined
-              }
+              style={taken ? TAKEN_ROW_STYLE : undefined}
               title={words?.description ?? undefined}
             >
               <OutcomeKeyCell outcomeKey={outcome} words={words} />
-              <span
-                className="detail-kv-value"
-                style={
-                  selectedOutcome === pipeCode ? { color: PIPE_STATUS_COLOR.succeeded } : undefined
-                }
-              >
+              <span className="detail-kv-value" style={taken ? TAKEN_PIPE_STYLE : undefined}>
                 {pipeCode}
               </span>
             </div>
           );
         })}
-        <div className="detail-kv-row" title={defaultWords?.description ?? undefined}>
+        <div
+          className="detail-kv-row"
+          style={takenKey === null ? TAKEN_ROW_STYLE : undefined}
+          title={defaultWords?.description ?? undefined}
+        >
           <OutcomeKeyCell outcomeKey="default" words={defaultWords} />
-          <span className="detail-kv-value">{blueprint.default_outcome}</span>
+          <span
+            className="detail-kv-value"
+            style={takenKey === null ? TAKEN_PIPE_STYLE : undefined}
+          >
+            {blueprint.default_outcome}
+          </span>
         </div>
       </div>
       <KV label="Alias Expression To" value={blueprint.add_alias_from_expression_to} />
