@@ -6,6 +6,7 @@
 import type { PipeBlueprintUnion } from "@graph/types";
 import { buildStaticGraphSpecFromToml } from "@static-graph/buildStaticGraphSpec";
 import reviewFilingsBundle from "./methods/review_filings.mthds?raw";
+import reviewNdaBundle from "./methods/review_nda.mthds?raw";
 import vetCompanyBundle from "./methods/vet_company.mthds?raw";
 
 export type PipeRegistry = Readonly<Record<string, PipeBlueprintUnion>>;
@@ -19,3 +20,6 @@ export const REVIEW_FILINGS_REGISTRY: PipeRegistry = registryOf(reviewFilingsBun
 
 /** `diligence.vet_company`, the method of `VET_COMPANY_RUN`. */
 export const VET_COMPANY_REGISTRY: PipeRegistry = registryOf(vetCompanyBundle);
+
+/** `legal.review_nda`, the method of `REVIEW_NDA_RUN`: an `activity` on each pipe and labelled outcomes. */
+export const REVIEW_NDA_REGISTRY: PipeRegistry = registryOf(reviewNdaBundle);

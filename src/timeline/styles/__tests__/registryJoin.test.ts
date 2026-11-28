@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import type { PipeBatchBlueprint, PipeSequenceBlueprint } from "@graph/types";
+import type {
+  ConceptInfo,
+  PipeBatchBlueprint,
+  PipeBlueprintUnion,
+  PipeSequenceBlueprint,
+} from "@graph/types";
 import { DRY_SIMPLE_BATCH } from "@graph/react/viewer/__stories__/pipelines/specs/_generated/dry/pipeline_08";
 import {
   REVIEW_FILINGS_REGISTRY,
@@ -8,6 +13,7 @@ import {
 import { WORKED_EXAMPLE_SNAPSHOT } from "@timeline/react/__stories__/recordedRuns";
 import { buildInvocationTree, type InvocationTreeNode } from "@timeline/invocationTree";
 import {
+  isPlumbingRef,
   joinBatch,
   joinedSequence,
   pipeOf,
@@ -143,11 +149,11 @@ describe("titleOf", () => {
   it("titles by the description, else by the humanized code", () => {
     expect(titleOf(REVIEW_FILINGS_REGISTRY, "filings.extract_filings", "extract_filings")).toEqual({
       title: "Extract the filings from the document",
-      fromDescription: true,
+      source: "description",
     });
     expect(titleOf(undefined, "filings.extract_filings", "extract_filings")).toEqual({
       title: "Extract filings",
-      fromDescription: false,
+      source: "code",
     });
   });
 });
@@ -160,7 +166,7 @@ describe("joinBatch", () => {
   it("names a batch after its branch and item, from the batch the registry holds", () => {
     expect(joinBatch(REVIEW_FILINGS_REGISTRY, batchNode(), null)).toEqual({
       branchRef: "filings.summarize_filing",
-      title: { title: "Summarize a filing", fromDescription: true },
+      title: { title: "Summarize a filing", source: "description" },
       itemName: "filing",
     });
   });
@@ -169,7 +175,7 @@ describe("joinBatch", () => {
     const withoutBatch = without(REVIEW_FILINGS_REGISTRY, "filings.summarize_filing_batch");
     expect(joinBatch(withoutBatch, batchNode(), reviewFilings())).toEqual({
       branchRef: "filings.summarize_filing",
-      title: { title: "Summarize a filing", fromDescription: true },
+      title: { title: "Summarize a filing", source: "description" },
       itemName: "filing",
     });
   });
@@ -177,13 +183,13 @@ describe("joinBatch", () => {
   it("falls back to the pipe its items run, then to the batch's own code, never its description", () => {
     expect(joinBatch(undefined, batchNode(), null)).toEqual({
       branchRef: "filings.summarize_filing",
-      title: { title: "Summarize filing", fromDescription: false },
+      title: { title: "Summarize filing", source: "code" },
       itemName: null,
     });
     const unfanned: InvocationTreeNode = { ...batchNode(), children: [] };
     expect(joinBatch(undefined, unfanned, null)).toEqual({
       branchRef: null,
-      title: { title: "Summarize filing batch", fromDescription: false },
+      title: { title: "Summarize filing batch", source: "code" },
       itemName: null,
     });
   });
@@ -192,7 +198,7 @@ describe("joinBatch", () => {
     const withoutBranch = without(REVIEW_FILINGS_REGISTRY, "filings.summarize_filing");
     expect(joinBatch(withoutBranch, batchNode(), null).title).toEqual({
       title: "Summarize filing",
-      fromDescription: false,
+      source: "code",
     });
   });
 
@@ -216,8 +222,45 @@ describe("joinBatch", () => {
     };
     expect(joinBatch(RUN_GRAPH_REGISTRY, node, null)).toEqual({
       branchRef: "document_batch.summarize_page",
-      title: { title: "Summarize a single page", fromDescription: true },
+      title: { title: "Summarize a single page", source: "description" },
       itemName: "page",
     });
+  });
+});
+
+describe("isPlumbingRef", () => {
+  const concept = (code: string, refines: string | null): ConceptInfo => ({
+    code,
+    domain_code: "legal",
+    description: code,
+    structure_class_name: code,
+    refines,
+  });
+  const func = (code: string, output: ConceptInfo, input?: ConceptInfo): PipeBlueprintUnion => ({
+    type: "PipeFunc",
+    pipe_category: "PipeOperator",
+    code,
+    domain_code: "legal",
+    description: code,
+    inputs: input ? { source: { concept: input } } : {},
+    output: { concept: output },
+  });
+
+  it("follows a bare refinement through the concepts the registry's pipes declare", () => {
+    const scan = concept("Scan", "native.Image");
+    const notes = concept("Notes", "native.Text");
+    const registry: TimelinePipeRegistry = {
+      "legal.sign": func("sign", concept("Signed", "Scan"), scan),
+      "legal.tidy": func("tidy", concept("Tidy", "Notes"), notes),
+      "legal.guess": func("guess", concept("Guess", "Unknown")),
+    };
+    // Refines Scan, which refines native.Image: it writes a file, so it is a step.
+    expect(isPlumbingRef(registry, "legal.sign", "PipeFunc")).toBe(false);
+    // Refines Notes, which refines native.Text: plumbing.
+    expect(isPlumbingRef(registry, "legal.tidy", "PipeFunc")).toBe(true);
+    // A refinement the registry cannot follow is shown, never hidden on a guess.
+    expect(isPlumbingRef(registry, "legal.guess", "PipeFunc")).toBe(false);
+    expect(isPlumbingRef(registry, "legal.missing", "PipeFunc")).toBe(false);
+    expect(isPlumbingRef(registry, "legal.any", "PipeCompose")).toBe(true);
   });
 });

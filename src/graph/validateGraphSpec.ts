@@ -349,6 +349,13 @@ function validateNode(node: unknown, path: string): void {
     );
   }
   requireNonEmptyString(node.description, `${path}.description`);
+  // `activity` is presentation only, the words a run view shows for the step:
+  // one that is null, as pydantic writes `None`, empty or not a string is
+  // dropped, and the step is titled by its description, rather than the whole
+  // spec refused over a phrase.
+  if (typeof node.activity !== "string" || node.activity.trim() === "") {
+    delete node.activity;
+  }
   requireNonEmptyString(node.domain_code, `${path}.domain_code`);
 
   // `io` is always emitted by pipelex; tolerate an absent key (the pipelex

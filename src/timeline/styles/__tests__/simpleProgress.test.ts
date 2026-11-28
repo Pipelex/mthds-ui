@@ -1,20 +1,25 @@
 import { describe, expect, it } from "vitest";
 import type { ProgressInvocation, ProgressSnapshot } from "@timeline/progressSnapshot";
+import type { PipeConditionBlueprint } from "@graph/types";
 import {
   CANCELED_RUN_SNAPSHOT,
   CONDENSE_FAILED_PROBLEM,
   DRY_RUN_SNAPSHOTS,
   REVIEW_FILINGS_SNAPSHOTS,
+  REVIEW_NDA_CANCELED_SNAPSHOT,
+  REVIEW_NDA_SNAPSHOTS,
   VET_COMPANY_SNAPSHOTS,
   WIDE_BATCH_SNAPSHOTS,
   WORKED_EXAMPLE_SNAPSHOT,
 } from "@timeline/react/__stories__/recordedRuns";
 import {
   REVIEW_FILINGS_REGISTRY,
+  REVIEW_NDA_REGISTRY,
   VET_COMPANY_REGISTRY,
 } from "@timeline/react/__stories__/methodRegistries";
 import { outline } from "@timeline/__tests__/simpleOutline";
 import { lastPathSegment } from "@timeline/invocationPath";
+import { isPlumbingStep } from "@graph/styles/methodWords";
 import {
   SIMPLE_MAX_DEPTH,
   buildSimpleProgress,
@@ -113,12 +118,12 @@ describe("the worked example", () => {
       "✓ Extract the filings from the document",
       "✓ Decide how deep to check → detailed ▸",
       "◐ Summarize a filing · for each filing [1/3 done, 2 running] {retrying 1, stuck 1} ▸",
-      "○ Assemble the report",
     ]);
     const batch = lineAt(progress.lines, BATCH);
     expect(batch.health?.degradation?.ends_at).toBe("2026-10-12T09:45:33.480Z");
     expect(batch.health?.retryAttempt).toBeNull();
-    expect(lineAt(progress.lines, `${ROOT}/step_4`).invocation).toBeNull();
+    // The report is only assembled from what came before: plumbing, with no line.
+    expect(lineAtOrNull(progress.lines, `${ROOT}/step_4`)).toBeNull();
     // The batch's line carries the run's degradation, so the run needs no note of its own.
     expect(progress.runNote).toBeNull();
     expect(progress.failure).toBeNull();
@@ -160,7 +165,7 @@ describe("the worked example", () => {
       "✓ Choose depth → detailed ▸",
       "◐ Summarize filing · for each item [1/3 done, 2 running] {retrying 1, stuck 1} ▸",
     ]);
-    expect(progress.lines.every((line) => !line.titleFromDescription)).toBe(true);
+    expect(progress.lines.every((line) => line.titleSource === "code")).toBe(true);
   });
 
   it("unfolds the active path: a running condition shows the branch it took", () => {
@@ -172,7 +177,6 @@ describe("the worked example", () => {
       "    ✓ Check the figures",
       "    ◐ Check the wording",
       "○ Summarize a filing · for each filing",
-      "○ Assemble the report",
     ]);
   });
 
@@ -237,7 +241,12 @@ describe("every recorded moment", () => {
       const sequence = options.pipeRegistry[entryPipeRef];
       const steps =
         sequence?.type === "PipeSequence"
-          ? sequence.sequential_sub_pipes.filter((step) => "pipe_code" in step).length
+          ? sequence.sequential_sub_pipes.filter((step) => {
+              if (!("pipe_code" in step)) return false;
+              // A plumbing step, which only reshapes data, has no line.
+              const pipe = options.pipeRegistry[`${sequence.domain_code}.${step.pipe_code}`];
+              return step.batch_params || !pipe || !isPlumbingStep(pipe.type, pipe);
+            }).length
           : 0;
       // A run that failed or was canceled never reaches the steps after its end.
       for (const snapshot of snapshots.filter(
@@ -259,13 +268,11 @@ describe("a run not started yet", () => {
       "○ Extract the filings from the document",
       "○ Decide how deep to check",
       "○ Summarize a filing · for each filing",
-      "○ Assemble the report",
     ]);
     expect(progress.lines.map((line) => line.key)).toEqual([
       `${ROOT}/step_1`,
       `${ROOT}/step_2`,
       `${ROOT}/step_3`,
-      `${ROOT}/step_4`,
     ]);
   });
 
@@ -292,7 +299,6 @@ describe("a run not started yet", () => {
       "○ Gather the claims the sources make",
       "○ Verify a claim · for each claim",
       "○ Weigh the risks of signing",
-      "○ Write the memo",
     ]);
   });
 });
@@ -304,7 +310,6 @@ describe("a run that ended", () => {
       "✓ Extract the filings from the document",
       "✓ Decide how deep to check → (default) ▸",
       "✗ Summarize a filing · for each filing [23/24 done, 1 failed, 1 skipped] {problem pipe.output_invalid} ▸",
-      "◌ Assemble the report",
     ]);
     expect(progress.failure).toEqual({
       lineKey: BATCH,
@@ -333,9 +338,9 @@ describe("a run that ended", () => {
       "✓ Extract the filings from the document",
       "✓ Decide how deep to check → detailed ▸",
       "■ Summarize a filing · for each filing [0/3 done] ▸",
-      "◌ Assemble the report",
     ]);
-    expect(lineAt(progress.lines, `${ROOT}/step_4`).invocation).toBeNull();
+    // The report is only assembled from what came before: plumbing, with no line.
+    expect(lineAtOrNull(progress.lines, `${ROOT}/step_4`)).toBeNull();
     expect(progress.failure).toBeNull();
   });
 
@@ -415,7 +420,13 @@ describe("a condition that resolved", () => {
   it("says the outcome it took on its own line, the default outcome as a null key", () => {
     const progress = buildSimpleProgress(at(WIDE_BATCH_SNAPSHOTS, "10:00:05.000"), filings);
     const decision = lineAt(progress.lines, `${ROOT}/step_2`);
-    expect(decision.outcome).toEqual({ key: null, resolved: true });
+    expect(decision.outcome).toEqual({
+      key: null,
+      resolved: true,
+      label: null,
+      description: null,
+      tone: null,
+    });
     expect(outline(decision.children)).toEqual(["◐ Check the filings quickly"]);
   });
 
@@ -494,7 +505,6 @@ describe("a nesting deeper than the indentation cap", () => {
       "      ◐ Now: Run the worst case",
       "    ○ Summarize the exposure",
       "  ○ Rate the risk",
-      "○ Write the memo",
     ]);
     const now = lineAt(progress.lines, `${VET_ROOT}/step_5/step_1/step_1#now`);
     expect(now.invocation?.pipe_code).toBe("run_stress_case");
@@ -1071,5 +1081,264 @@ describe("what changed between two readings", () => {
     const ended = buildSimpleProgress(LAST_WIDE, filings);
     expect(simpleProgressChanges(beforeEnd, ended)).toMatchObject({ runEnded: true });
     expect(simpleProgressChanges(ended, ended).runEnded).toBe(false);
+  });
+});
+
+describe("in the method's words", () => {
+  const NDA_ROOT = "legal.review_nda";
+  const reviewing = { pipeRegistry: REVIEW_NDA_REGISTRY };
+  const LAST_NDA = REVIEW_NDA_SNAPSHOTS[REVIEW_NDA_SNAPSHOTS.length - 1];
+
+  it("titles each step by its activity, and leaves the plumbing out", () => {
+    const progress = buildSimpleProgress(LAST_NDA, {
+      ...reviewing,
+      expanded: { [`${NDA_ROOT}/step_4`]: true },
+    });
+    expect(outline(progress)).toEqual([
+      "✓ Reading the NDA",
+      "✓ Sizing up the risk",
+      "✓ Deciding how closely to check → high ▾",
+      "  ✓ Checking each clause against your playbook",
+      "✓ Writing your review",
+      "✓ Preparing the PDF",
+    ]);
+    expect(progress.lines.every((line) => line.titleSource === "activity")).toBe(true);
+    // The PipeCompose that gathers the clauses has an activity, and still no line.
+    expect(lineAtOrNull(progress.lines, `${NDA_ROOT}/step_2`)).toBeNull();
+  });
+
+  it("names the outcome a condition took by its label, with its description and tone", () => {
+    const progress = buildSimpleProgress(LAST_NDA, reviewing);
+    expect(lineAt(progress.lines, `${NDA_ROOT}/step_4`).outcome).toEqual({
+      key: "high",
+      resolved: true,
+      label: "Detailed check",
+      description: "A lawyer-grade review of every clause",
+      tone: "caution",
+    });
+  });
+
+  it("reads the default outcome's words from its table", () => {
+    const snapshot = snapshotOf([
+      invocation("legal.route_by_risk", "legal.route_by_risk", "PipeCondition", "succeeded", {
+        condition: { selected_outcome: null },
+      }),
+    ]);
+    const decision = buildSimpleProgress(snapshot, reviewing).lines[0];
+    expect(decision.outcome).toMatchObject({
+      key: null,
+      label: "Standard check",
+      description: null,
+      tone: "positive",
+    });
+  });
+
+  it("labels a dry run's branches by their outcomes' labels", () => {
+    const snapshot = snapshotOf(
+      [
+        invocation("legal.route_by_risk", "legal.route_by_risk", "PipeCondition", "succeeded"),
+        invocation(
+          "legal.route_by_risk/outcome_high",
+          "legal.detailed_check",
+          "PipeLLM",
+          "succeeded",
+        ),
+        invocation("legal.route_by_risk/default", "legal.standard_check", "PipeLLM", "succeeded"),
+      ],
+      { mode: "dry" },
+    );
+    const decision = buildSimpleProgress(snapshot, {
+      ...reviewing,
+      expanded: { "legal.route_by_risk": true },
+    }).lines[0];
+    expect(decision.children.map((child) => child.outcome?.label)).toEqual([
+      "Detailed check",
+      "Standard check",
+    ]);
+  });
+
+  it("lists the steps of a run not started yet without the plumbing", () => {
+    const progress = buildSimpleProgress(REVIEW_NDA_SNAPSHOTS[0], {
+      ...reviewing,
+      entryPipeRef: NDA_ROOT,
+    });
+    expect(outline(progress)).toEqual([
+      "○ Reading the NDA",
+      "○ Sizing up the risk",
+      "○ Deciding how closely to check",
+      "○ Writing your review",
+      "○ Preparing the PDF",
+    ]);
+  });
+
+  it("lists the steps a canceled run never ran, without the plumbing", () => {
+    const progress = buildSimpleProgress(REVIEW_NDA_CANCELED_SNAPSHOT, reviewing);
+    expect(outline(progress)).toEqual([
+      "✓ Reading the NDA",
+      "✓ Sizing up the risk",
+      "■ Deciding how closely to check → high ▸",
+      "◌ Writing your review",
+      "◌ Preparing the PDF",
+    ]);
+  });
+
+  it("draws the plumbing when asked to", () => {
+    const progress = buildSimpleProgress(LAST_NDA, { ...reviewing, showPlumbing: true });
+    expect(lineAt(progress.lines, `${NDA_ROOT}/step_2`).title).toBe("Gathering the clauses");
+  });
+
+  it("keeps a plumbing step that failed, so the run shows where it stopped", () => {
+    const failed = snapshotOf(
+      [
+        invocation(NDA_ROOT, NDA_ROOT, "PipeSequence", "failed"),
+        invocation(`${NDA_ROOT}/step_1`, "legal.read_nda", "PipeExtract", "succeeded"),
+        invocation(`${NDA_ROOT}/step_2`, "legal.gather_clauses", "PipeCompose", "failed", {
+          last_failure: { problem: CONDENSE_FAILED_PROBLEM },
+        }),
+      ],
+      { status: "failed" },
+    );
+    const progress = buildSimpleProgress(failed, reviewing);
+    expect(lineAt(progress.lines, `${NDA_ROOT}/step_2`).state).toBe("failed");
+    expect(progress.failure?.lineKey).toBe(`${NDA_ROOT}/step_2`);
+  });
+
+  it("hides a PipeCompose without a registry, by its type alone", () => {
+    const snapshot = snapshotOf([
+      invocation(NDA_ROOT, NDA_ROOT, "PipeSequence", "running"),
+      invocation(`${NDA_ROOT}/step_1`, "legal.read_nda", "PipeExtract", "succeeded"),
+      invocation(`${NDA_ROOT}/step_2`, "legal.gather_clauses", "PipeCompose", "running"),
+    ]);
+    expect(outline(buildSimpleProgress(snapshot))).toEqual(["✓ Read nda"]);
+  });
+
+  it("titles a batch by its own activity when it states one", () => {
+    const registry = {
+      ...REVIEW_FILINGS_REGISTRY,
+      "filings.summarize_filing_batch": {
+        type: "PipeBatch" as const,
+        pipe_category: "PipeController" as const,
+        code: "summarize_filing_batch",
+        domain_code: "filings",
+        description: "Batch processing for summarize_filing",
+        activity: "Summarizing every filing",
+        inputs: {},
+        output: REVIEW_FILINGS_REGISTRY["filings.summarize_filing"].output,
+        branch_pipe_code: "summarize_filing",
+        batch_params: { input_list_stuff_name: "filings", input_item_stuff_name: "filing" },
+      },
+    };
+    const line = lineAt(
+      buildSimpleProgress(WORKED_EXAMPLE_SNAPSHOT, { pipeRegistry: registry }).lines,
+      BATCH,
+    );
+    expect(line.title).toBe("Summarizing every filing");
+    expect(line.titleSource).toBe("activity");
+  });
+});
+
+describe("review round 2 of the method's words", () => {
+  const route = REVIEW_NDA_REGISTRY["legal.route_by_risk"] as PipeConditionBlueprint;
+
+  function routed(extra: Partial<PipeConditionBlueprint>) {
+    return {
+      pipeRegistry: { ...REVIEW_NDA_REGISTRY, "legal.route_by_risk": { ...route, ...extra } },
+    };
+  }
+
+  function dryBranches(options: ReturnType<typeof routed>) {
+    const snapshot = snapshotOf(
+      [
+        invocation("legal.route_by_risk", "legal.route_by_risk", "PipeCondition", "succeeded"),
+        invocation(
+          "legal.route_by_risk/outcome_high",
+          "legal.detailed_check",
+          "PipeLLM",
+          "succeeded",
+        ),
+        invocation(
+          "legal.route_by_risk/outcome_approve",
+          "legal.standard_check",
+          "PipeLLM",
+          "succeeded",
+        ),
+      ],
+      { mode: "dry" },
+    );
+    return buildSimpleProgress(snapshot, {
+      ...options,
+      expanded: { "legal.route_by_risk": true },
+    }).lines[0].children.map((child) => child.outcome);
+  }
+
+  it("reads a dry run's branch shared by several outcomes as the whole branch", () => {
+    const outcome_map = { high: "detailed_check", approve: "standard_check" };
+    const agreeing = dryBranches(
+      routed({
+        outcome_map,
+        outcome_words: {
+          ...route.outcome_words,
+          approve: { label: "Approve", tone: "positive" },
+        },
+      }),
+    );
+    expect(agreeing[1]).toMatchObject({
+      key: "approve",
+      label: "Approve or Standard check",
+      tone: "positive",
+    });
+    const disagreeing = dryBranches(
+      routed({
+        outcome_map,
+        outcome_words: { ...route.outcome_words, approve: { label: "Approve", tone: "caution" } },
+      }),
+    );
+    expect(disagreeing[1]).toMatchObject({ label: "Approve or Standard check", tone: null });
+    // A branch of one outcome keeps that outcome's own words.
+    expect(disagreeing[0]).toMatchObject({ key: "high", label: "Detailed check", tone: "caution" });
+  });
+
+  it("stores the tone an outcome reads in, neutral for a label alone", () => {
+    const decision = (words: PipeConditionBlueprint["default_outcome_words"]) =>
+      buildSimpleProgress(
+        snapshotOf([
+          invocation("legal.route_by_risk", "legal.route_by_risk", "PipeCondition", "succeeded", {
+            condition: { selected_outcome: null },
+          }),
+        ]),
+        routed({ default_outcome_words: words }),
+      ).lines[0].outcome;
+    expect(decision({ label: "Standard check", tone: null })?.tone).toBe("neutral");
+    expect(decision({ description: "The usual pass" })?.tone).toBeNull();
+    expect(decision({ label: "Standard check", tone: "positive" })?.tone).toBe("positive");
+  });
+
+  it("counts only the branches it shows when it decides a parallel is wide", () => {
+    const branch = (n: number, type: string) =>
+      invocation(`d.gather/branch_${n}`, `d.step_${n}`, type, "succeeded");
+    const snapshot = snapshotOf([
+      invocation("d.gather", "d.gather", "PipeParallel", "running", { branch_count: 6 }),
+      branch(1, "PipeLLM"),
+      branch(2, "PipeLLM"),
+      branch(3, "PipeLLM"),
+      branch(4, "PipeLLM"),
+      branch(5, "PipeCompose"),
+      branch(6, "PipeCompose"),
+    ]);
+    const lines = buildSimpleProgress(snapshot).lines[0].children;
+    expect(lines.map((line) => line.kind)).toEqual(["step", "step", "step", "step"]);
+  });
+
+  it("draws a pipe whose only children are plumbing as a step", () => {
+    const snapshot = snapshotOf([
+      invocation("d.tomorrow", "d.tomorrow", "PipeTomorrow", "succeeded"),
+      invocation("d.tomorrow/branch_1", "d.reshape", "PipeCompose", "succeeded"),
+    ]);
+    expect(buildSimpleProgress(snapshot).lines[0].kind).toBe("step");
+  });
+
+  it("keeps a run whose entry pipe is itself plumbing on one line", () => {
+    const snapshot = snapshotOf([invocation("d.reshape", "d.reshape", "PipeCompose", "succeeded")]);
+    expect(buildSimpleProgress(snapshot).lines.map((line) => line.title)).toEqual(["Reshape"]);
   });
 });

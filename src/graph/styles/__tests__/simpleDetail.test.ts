@@ -304,7 +304,13 @@ describe("buildSimpleNodeDetail: a decision", () => {
     const id = projection.nodes.find((n) => n.type === NODE_TYPE_SIMPLE_DECISION)?.id ?? "";
     const decision = detailOf(input, id, "decision");
     const otherwise = decision.outcomes.find((o) => o.label === "Otherwise");
-    expect(otherwise).toEqual({ label: "Otherwise", leadsToTitle: "", ends: "fail" });
+    expect(otherwise).toEqual({
+      target: "fail",
+      outcomes: [null],
+      label: "Otherwise",
+      leadsToTitle: "",
+      ends: "fail",
+    });
     // The others lead to steps, and a run says whether it took each.
     expect(decision.outcomes.filter((o) => !o.ends).every((o) => o.taken !== undefined)).toBe(true);
   });

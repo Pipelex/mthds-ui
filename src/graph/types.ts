@@ -286,6 +286,13 @@ export interface GraphSpecNode {
   pipe_code?: string;
   pipe_type: NodePipeType;
   description?: string;
+  /**
+   * The pipe's `activity`: the present-tense words a person watching the run
+   * reads for this step ("Reading the NDA"), shown in place of its description
+   * (MTHDS, "What a Run Shows"). Absent when the pipe states none;
+   * `validateGraphSpec` drops a `null` one.
+   */
+  activity?: string;
   domain_code?: string;
   status: PipeStatus;
   timing?: GraphSpecNodeTiming;
@@ -467,6 +474,42 @@ export function isBindingStepSpec(step: SequenceStepSpec): step is BindingStepSp
   return "from_path" in step;
 }
 
+// ─── The words a method gives people for a code ───────────────────────────
+
+/**
+ * How an outcome or a choice option reads to a person (MTHDS, "Choice
+ * Options"): never a colour. Each renderer maps a tone to its own style role,
+ * here the `--positive`, `--caution`, `--negative` and `--neutral` tokens.
+ */
+export const OUTCOME_TONE = {
+  POSITIVE: "positive",
+  CAUTION: "caution",
+  NEGATIVE: "negative",
+  NEUTRAL: "neutral",
+} as const;
+
+export type OutcomeTone = (typeof OUTCOME_TONE)[keyof typeof OUTCOME_TONE];
+
+const OUTCOME_TONES: ReadonlySet<string> = new Set<string>(Object.values(OUTCOME_TONE));
+
+/** Whether a value is one of the four tones; anything else, a newer runtime's word included, reads as no tone. */
+export function isOutcomeTone(value: unknown): value is OutcomeTone {
+  return typeof value === "string" && OUTCOME_TONES.has(value);
+}
+
+/**
+ * The words an outcome table carries beside its pipe, as the runtime
+ * serializes them: its name for people, what taking it means, and how it
+ * reads. Each is presentation only and may be absent or null. `tone` is kept a
+ * string because the registry crosses the boundary unvalidated: narrow it with
+ * `isOutcomeTone`.
+ */
+export interface OutcomeWords {
+  label?: string | null;
+  description?: string | null;
+  tone?: string | null;
+}
+
 // ─── PipeAbstract base (common to all pipe types) ──────────────────────
 
 export interface PipeBlueprintBase {
@@ -475,6 +518,8 @@ export interface PipeBlueprintBase {
   code: string;
   domain_code: string;
   description: string;
+  /** The pipe's `activity`, the words a run view shows for it in place of its description; absent or null when it has none. */
+  activity?: string | null;
   inputs: Record<string, StuffSpecInfo>;
   output: StuffSpecInfo;
 }
@@ -712,8 +757,17 @@ export interface PipeParallelBlueprint extends PipeBlueprintBase {
 export interface PipeConditionBlueprint extends PipeBlueprintBase {
   type: "PipeCondition";
   expression: string;
+  /** Expression result → pipe reference (or `fail` / `continue`), whichever form each outcome was written in. */
   outcome_map: Record<string, string>;
   default_outcome: string;
+  /**
+   * The words an outcome table gives people, keyed like `outcome_map` (MTHDS,
+   * "Outcome Labels"): only an outcome written as a table has an entry. Read
+   * them with `outcomeWordsOf`.
+   */
+  outcome_words?: Record<string, OutcomeWords> | null;
+  /** The words of `default_outcome`, when it is written as a table. */
+  default_outcome_words?: OutcomeWords | null;
   add_alias_from_expression_to?: string | null;
 }
 
@@ -1275,6 +1329,12 @@ export interface GraphEdge {
    * carries none.
    */
   carries?: string[];
+  /**
+   * For the simple style, on a decision's arrow: the outcomes it is taken on,
+   * each a key of the condition's outcome map or `null` for its default
+   * outcome. It identifies the branch, where `label` only says it.
+   */
+  outcomes?: (string | null)[];
 }
 
 /** A point in flow coordinates. */

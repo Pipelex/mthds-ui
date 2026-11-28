@@ -11,6 +11,7 @@ import type {
   BindingStepSpec,
   ConceptInfo,
   JudgmentQuestionSpec,
+  OutcomeWords,
   PipeBlueprintUnion,
   PipeComposeConstructBlueprint,
   PipeComposeConstructField,
@@ -775,6 +776,29 @@ function resolvePipeTypeTag(
   return null;
 }
 
+// ─── Outcomes ────────────────────────────────────────────────────────────────
+
+/**
+ * An authored outcome, written as a pipe reference or as an outcome table
+ * carrying its `pipe` beside the words people read (MTHDS, "Outcome Labels"):
+ * its pipe reference, and the words of a table, kept as the runtime's registry
+ * keeps them (`outcome_words`). `null` when it names no pipe. Lenient, as the
+ * rest of this module: a word of the wrong type is left out rather than
+ * refusing the outcome, since the runtime is what judges a method.
+ */
+function readOutcome(value: unknown): { pipe: string; words: OutcomeWords | null } | null {
+  if (typeof value === "string") return value.length > 0 ? { pipe: value, words: null } : null;
+  if (!isPlainObject(value)) return null;
+  const pipe = strOrNull(value.pipe);
+  if (!pipe) return null;
+  const words: OutcomeWords = {};
+  for (const key of ["label", "description", "tone"] as const) {
+    const word = strOrNull(value[key]);
+    if (word) words[key] = word;
+  }
+  return { pipe, words: Object.keys(words).length > 0 ? words : null };
+}
+
 // ─── Per-type normalization ──────────────────────────────────────────────────
 
 /**
@@ -794,6 +818,7 @@ export function normalizePipe(
     code,
     domain_code: ctx.domain,
     description: strOrNull(raw.description) ?? "",
+    ...(strOrNull(raw.activity) ? { activity: strOrNull(raw.activity) } : {}),
     inputs: normalizeInputs(raw.inputs, code, ctx),
     output: normalizeOutput(raw.output, code, ctx),
   };
@@ -822,10 +847,13 @@ export function normalizePipe(
       };
     case "PipeCondition": {
       const outcomeMap: Record<string, string> = {};
+      const outcomeWords: Record<string, OutcomeWords> = {};
       if (isPlainObject(raw.outcomes)) {
-        for (const [outcome, pipeRef] of Object.entries(raw.outcomes)) {
-          if (typeof pipeRef === "string" && pipeRef.length > 0) {
-            outcomeMap[outcome] = pipeRef;
+        for (const [outcome, value] of Object.entries(raw.outcomes)) {
+          const read = readOutcome(value);
+          if (read) {
+            outcomeMap[outcome] = read.pipe;
+            if (read.words) outcomeWords[outcome] = read.words;
           } else {
             ctx.diagnostics.push({
               severity: "warning",
@@ -836,13 +864,16 @@ export function normalizePipe(
           }
         }
       }
+      const defaultOutcome = readOutcome(raw.default_outcome);
       return {
         ...base,
         type,
         pipe_category: "PipeController",
         expression: strOrNull(raw.expression) ?? strOrNull(raw.expression_template) ?? "",
         outcome_map: outcomeMap,
-        default_outcome: strOrNull(raw.default_outcome) ?? "",
+        default_outcome: defaultOutcome?.pipe ?? "",
+        ...(Object.keys(outcomeWords).length > 0 ? { outcome_words: outcomeWords } : {}),
+        ...(defaultOutcome?.words ? { default_outcome_words: defaultOutcome.words } : {}),
         add_alias_from_expression_to: strOrNull(raw.add_alias_from_expression_to),
       };
     }

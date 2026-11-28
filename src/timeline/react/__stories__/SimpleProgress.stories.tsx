@@ -3,12 +3,18 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, waitFor, within } from "storybook/test";
 import { RunTimeline } from "../RunTimeline";
 import { SnapshotReplay } from "./SnapshotReplay";
-import { REVIEW_FILINGS_REGISTRY, VET_COMPANY_REGISTRY } from "./methodRegistries";
+import {
+  REVIEW_FILINGS_REGISTRY,
+  REVIEW_NDA_REGISTRY,
+  VET_COMPANY_REGISTRY,
+} from "./methodRegistries";
 import type { ProgressSnapshot } from "@timeline/progressSnapshot";
 import {
   CANCELED_RUN_SNAPSHOT,
   DRY_RUN_SNAPSHOTS,
   REVIEW_FILINGS_SNAPSHOTS,
+  REVIEW_NDA_CANCELED_SNAPSHOT,
+  REVIEW_NDA_SNAPSHOTS,
   VET_COMPANY_SNAPSHOTS,
   WIDE_BATCH_SNAPSHOTS,
   WORKED_EXAMPLE_SNAPSHOT,
@@ -94,8 +100,8 @@ export const WorkedExample: Story = {
     expect(batch?.textContent).toContain("1 of 3 done · 2 in progress");
     expect(batch?.textContent).toContain("Having trouble with 1 filing");
     expect(canvas.getByRole("progressbar")).toHaveAttribute("aria-valuenow", "1");
-    // The step the run has not reached, named from the registry.
-    expect(lineAt(canvasElement, `${ROOT}/step_4`)?.dataset.state).toBe("upcoming");
+    // The step left to run only assembles the report: plumbing, which has no line.
+    expect(lineAt(canvasElement, `${ROOT}/step_4`)).toBeNull();
     // Never a line per item.
     expect(canvasElement.querySelector(`li[data-key="${BATCH}/item_1"]`)).toBeNull();
   },
@@ -165,8 +171,8 @@ export const WideBatch: Story = {
 
 /**
  * The wide batch's run once it failed: where it failed, the problem in words,
- * counts that add up to the total, with the skipped filing counted apart, and
- * the step the run never reached.
+ * counts that add up to the total, with the skipped filing counted apart. The
+ * step the run never reached only assembles the report, so it has no line.
  */
 export const WideBatchFailed: Story = {
   args: { snapshot: WIDE_BATCH_SNAPSHOTS[WIDE_BATCH_SNAPSHOTS.length - 1] },
@@ -175,19 +181,17 @@ export const WideBatchFailed: Story = {
     expect(lineAt(canvasElement, BATCH)?.textContent).toContain(
       "22 of 24 done · 1 failed · 1 skipped",
     );
-    const report = lineAt(canvasElement, `${ROOT}/step_4`);
-    expect(report?.dataset.state).toBe("notRun");
-    expect(report?.textContent).toContain("Not run");
+    expect(lineAt(canvasElement, `${ROOT}/step_4`)).toBeNull();
   },
 };
 
-/** Before anything started: the steps the run will take, from the registry. */
+/** Before anything started: the steps the run will take, from the registry, its plumbing left out. */
 export const WaitingToStart: Story = {
   args: { snapshot: REVIEW_FILINGS_SNAPSHOTS[0] },
   play: async ({ canvasElement }) => {
     await waitFor(() => expect(headlineOf(canvasElement)).toBe("Waiting to start"));
     const lines = canvasElement.querySelectorAll('li[data-state="upcoming"]');
-    expect(lines).toHaveLength(4);
+    expect(lines).toHaveLength(3);
   },
 };
 
@@ -225,7 +229,7 @@ export const VetCompany: Story = {
   ),
 };
 
-/** A canceled run: what was going stops where it was, and the steps past it read as never run. */
+/** A canceled run: what was going stops where it was; the step past it only assembles the report, so it has no line. */
 export const CanceledRun: Story = {
   args: { snapshot: CANCELED_RUN_SNAPSHOT },
   play: async ({ canvasElement }) => {
@@ -233,7 +237,75 @@ export const CanceledRun: Story = {
     expect(lineAt(canvasElement, BATCH)?.dataset.state).toBe("stopped");
     expect(lineAt(canvasElement, BATCH)?.textContent).toContain("Stopped");
     expect(canvasElement.querySelector('li[data-state="upcoming"]')).toBeNull();
-    expect(lineAt(canvasElement, `${ROOT}/step_4`)?.dataset.state).toBe("notRun");
+    expect(lineAt(canvasElement, `${ROOT}/step_4`)).toBeNull();
+  },
+};
+
+const NDA_ROOT = "legal.review_nda";
+
+/**
+ * A method written for the person waiting on it: each step titled by its
+ * `activity`, the condition's outcome by its label in its tone with its
+ * description under it, and the PipeCompose that gathers the clauses left
+ * out, since it only reshapes data. The PipeFunc that renders the PDF writes a
+ * file, so it is a step.
+ */
+export const InTheMethodsWords: Story = {
+  args: {
+    snapshot: REVIEW_NDA_SNAPSHOTS[REVIEW_NDA_SNAPSHOTS.length - 1],
+    live: false,
+    pipeRegistry: REVIEW_NDA_REGISTRY,
+    entryPipeRef: NDA_ROOT,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await waitFor(() => expect(headlineOf(canvasElement)).toMatch(/^Done/));
+    await expect(canvas.getByText("Reading the NDA")).toBeInTheDocument();
+    expect(canvas.getByText("Preparing the PDF")).toBeInTheDocument();
+    const decision = lineAt(canvasElement, `${NDA_ROOT}/step_4`);
+    expect(decision?.textContent).toContain("Deciding how closely to check");
+    expect(decision?.textContent).toContain("→ Detailed check");
+    expect(decision?.textContent).toContain("A lawyer-grade review of every clause");
+    expect(decision?.querySelector(".mthds-simple-progress-outcome--caution")).toBeInTheDocument();
+    // The plumbing step has no line, its activity notwithstanding.
+    expect(lineAt(canvasElement, `${NDA_ROOT}/step_2`)).toBeNull();
+    expect(canvas.queryByText("Gathering the clauses")).toBeNull();
+  },
+};
+
+/** The same method in the light theme, where each tone takes its light value. */
+export const InTheMethodsWordsLight: Story = {
+  ...InTheMethodsWords,
+  args: { ...InTheMethodsWords.args, theme: "light" },
+};
+
+/** The NDA review replayed from before it starts: the plan, then each step in the method's words. */
+export const InTheMethodsWordsReplayed: Story = {
+  render: (args) => (
+    <SnapshotReplay
+      snapshots={REVIEW_NDA_SNAPSHOTS}
+      autoplay
+      initialSpeed={3}
+      theme={args.theme}
+      timelineStyle="simple"
+      pipeRegistry={REVIEW_NDA_REGISTRY}
+      entryPipeRef={NDA_ROOT}
+    />
+  ),
+};
+
+/** The NDA review canceled while it checked each clause: the steps past it read as never run. */
+export const InTheMethodsWordsCanceled: Story = {
+  args: {
+    snapshot: REVIEW_NDA_CANCELED_SNAPSHOT,
+    pipeRegistry: REVIEW_NDA_REGISTRY,
+    entryPipeRef: NDA_ROOT,
+  },
+  play: async ({ canvasElement }) => {
+    await waitFor(() => expect(headlineOf(canvasElement)).toMatch(/^Canceled/));
+    expect(lineAt(canvasElement, `${NDA_ROOT}/step_5`)?.dataset.state).toBe("notRun");
+    expect(lineAt(canvasElement, `${NDA_ROOT}/step_5`)?.textContent).toContain("Not run");
+    expect(lineAt(canvasElement, `${NDA_ROOT}/step_6`)?.dataset.state).toBe("notRun");
   },
 };
 

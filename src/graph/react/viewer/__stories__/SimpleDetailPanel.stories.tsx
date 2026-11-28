@@ -14,6 +14,8 @@ import { DRY_CV_SCREENING } from "./mockGraphSpec";
 import { STATIC_CV_SCREENING } from "./staticGraphSpec";
 import { withStoredTextMembers } from "./storedTextSpec";
 import { waitForGraphRender } from "./storyTestUtils";
+import { buildStaticGraphSpecFromToml } from "@static-graph/buildStaticGraphSpec";
+import reviewNdaBundle from "@timeline/react/__stories__/methods/review_nda.mthds?raw";
 import {
   CONTRACTS_BATCH_WITH_INNER_SEQ,
   CONTRACTS_CV_BATCH_SCREENING,
@@ -213,6 +215,40 @@ export const ADecision: Story = {
     const el = canvasElement.querySelector(".simple-detail")!;
     await expect(el.querySelectorAll(".simple-detail-outcome--taken").length).toBe(1);
   },
+};
+
+/**
+ * A method written for the person who runs it: each step titled by its
+ * `activity`, and a decision whose outcome tables give each outcome a label,
+ * a description and a tone. The arrows carry the labels, and the panel shows
+ * each outcome in its tone with what taking it means.
+ */
+export const ADecisionInTheMethodsWords: Story = {
+  args: {
+    ...base,
+    graph: { graphSpec: buildStaticGraphSpecFromToml(reviewNdaBundle).spec },
+  },
+  play: async ({ canvasElement }) => {
+    await nodeTitled(canvasElement, "Reading the NDA");
+    const title = "Deciding how closely to check";
+    await userEvent.click(await nodeTitled(canvasElement, title));
+    await expectPanelTitle(canvasElement, title);
+    const panel = await simplePanel(canvasElement);
+    await expect(panel.getByText("A lawyer-grade review of every clause")).toBeInTheDocument();
+    const el = canvasElement.querySelector(".simple-detail")!;
+    await expect(el.querySelector(".simple-detail-outcome-label--caution")?.textContent).toBe(
+      "Detailed check",
+    );
+    await expect(el.querySelector(".simple-detail-outcome-label--positive")?.textContent).toBe(
+      "Standard check",
+    );
+  },
+};
+
+/** The same method in the dark theme, where each tone takes its dark value. */
+export const ADecisionInTheMethodsWordsDark: Story = {
+  ...ADecisionInTheMethodsWords,
+  args: { ...ADecisionInTheMethodsWords.args, theme: GRAPH_THEME.DARK },
 };
 
 /** A repeated group: what it repeats over and the steps it repeats, each a link. */

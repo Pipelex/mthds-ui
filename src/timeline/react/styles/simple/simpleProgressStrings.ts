@@ -6,7 +6,7 @@
  * fragments elsewhere, since another language orders its words differently.
  */
 import type { SimpleItemTally, SimpleLineState } from "@timeline/styles/simpleProgress";
-import { outcomeLabel } from "@graph/styles/humanize";
+import { outcomeKeyLabel } from "@graph/styles/humanize";
 import { formatDuration } from "@timeline/timelineTime";
 
 export interface SimpleProgressStrings {
@@ -29,10 +29,13 @@ export interface SimpleProgressStrings {
   together: string;
   /** A batch's mark after its title: "for each filing", "for each item". */
   forEach: (item: string | null) => string;
-  /** After a decision's title, the outcome it took: the default outcome's key is `null`. */
-  outcomeTaken: (key: string | null) => string;
-  /** On a branch of a condition that resolved none, as a dry run's, the outcome it stands for. */
-  branchFor: (key: string | null) => string;
+  /**
+   * After a decision's title, the outcome it took: the default outcome's key is
+   * `null`, and `label` is the outcome's name for people when the method gives one.
+   */
+  outcomeTaken: (key: string | null, label: string | null) => string;
+  /** On a branch of a condition that resolved none, as a dry run's, the outcome it stands for, by its label when it has one. */
+  branchFor: (key: string | null, label: string | null) => string;
   /** A wide parallel's finished branches folded into one line. */
   finishedBranches: (count: number) => string;
   /** The deepest work going on past the indentation cap, before its title. */
@@ -118,8 +121,11 @@ export const DEFAULT_SIMPLE_PROGRESS_STRINGS: SimpleProgressStrings = {
 
   together: "at the same time",
   forEach: (item) => `for each ${item ?? "item"}`,
-  outcomeTaken: (key) => `→ ${key === null ? "Default" : outcomeLabel(key)}`,
-  branchFor: (key) => (key === null ? "otherwise" : `if ${outcomeLabel(key)}`),
+  outcomeTaken: (key, label) => `→ ${label ?? (key === null ? "Default" : outcomeKeyLabel(key))}`,
+  branchFor: (key, label) => {
+    if (key === null) return label === null ? "otherwise" : `otherwise: ${label}`;
+    return `if ${label ?? outcomeKeyLabel(key)}`;
+  },
   finishedBranches: (count) => `${count} done`,
   now: "Now:",
 

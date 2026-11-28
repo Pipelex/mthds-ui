@@ -328,6 +328,15 @@
   flex-shrink: 0; /* label stays at its natural width */
 }
 
+/* An outcome's key column carries its label, which a method may write as a
+   sentence: it shares the row with the pipe it names instead of squeezing it. */
+.detail-kv-key--outcome {
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: 60%;
+  overflow-wrap: anywhere;
+}
+
 .detail-kv-value {
   font-family: var(--font-mono);
   color: var(--text-default);
@@ -336,6 +345,46 @@
   text-align: right;
   word-break: break-word;
   overflow-wrap: anywhere;
+}
+
+/* ─── A step's activity and a condition's outcome words ─── */
+
+.detail-activity {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+.detail-activity-label {
+  color: var(--text-dim);
+}
+
+/* An outcome's label reads in its tone, through the tone tokens, never a literal. */
+.detail-outcome-label {
+  font-family: var(--font-sans);
+  font-weight: 600;
+}
+
+.detail-outcome-label--positive {
+  color: var(--positive);
+}
+
+.detail-outcome-label--caution {
+  color: var(--caution);
+}
+
+.detail-outcome-label--negative {
+  color: var(--negative);
+}
+
+.detail-outcome-label--neutral {
+  color: var(--neutral);
+}
+
+.detail-outcome-description {
+  display: block;
+  font-family: var(--font-sans);
+  color: var(--text-muted);
 }
 
 /* ─── Field block: labeled multi-line text (for long resolved values) ─── */

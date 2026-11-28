@@ -183,55 +183,38 @@ export function sentenceCase(text: string): string {
 }
 
 /**
- * A pipe's title in plain words: its authored description as a title
- * (`sentenceCase`), or its humanized code when it has none. The simple graph
- * style titles its steps this way, and the simple timeline style its lines, so
- * a step reads the same in both. `fromDescription` says which it was.
- */
-export function pipeTitle(
-  description: string | null | undefined,
-  pipeCode: string,
-): { title: string; fromDescription: boolean } {
-  const described = sentenceCase(description ?? "");
-  if (described) return { title: described, fromDescription: true };
-  return { title: humanizeIdentifier(pipeCode), fromDescription: false };
-}
-
-/**
  * An identifier as words inside a sentence: `humanizeIdentifier`'s words with
  * their first letter in lower case, unless the first word is an acronym
  * (`filing` → "filing", `cv_file` → "CV file").
  */
 export function humanizeInSentence(identifier: string): string {
-  const words = humanizeIdentifier(identifier);
+  return wordsInSentence(humanizeIdentifier(identifier));
+}
+
+/**
+ * Words in sentence case moved inside a sentence: the first letter in lower
+ * case, unless the first word is an acronym ("High risk" → "high risk", "PDF
+ * file" stays "PDF file").
+ */
+export function wordsInSentence(words: string): string {
   const first = words.split(" ")[0] ?? "";
   return first.length >= 2 && first === first.toUpperCase()
     ? words
     : words.charAt(0).toLowerCase() + words.slice(1);
 }
 
-/** The outcome names that read better as other words: a yes-or-no test's, and the default. */
-const OUTCOME_WORDS: Readonly<Record<string, string>> = {
+/** The outcome keys that read better as other words: a yes-or-no test's. */
+const OUTCOME_KEY_WORDS: Readonly<Record<string, string>> = {
   true: "Yes",
   false: "No",
-  default: "Otherwise",
 };
 
 /**
- * A condition's outcome as an arrow label: `english` → "English",
- * `high_priority` → "High priority", a yes-or-no test's `true` and `false` →
- * "Yes" and "No", and the `default` outcome → "Otherwise". A branch taken on
- * several outcomes, written `no_fit | default` as the static builder labels it,
- * reads "No fit or otherwise".
+ * One key of a condition's outcome map in plain words: `high_priority` →
+ * "High priority", a yes-or-no test's `true` and `false` → "Yes" and "No". A
+ * key is always the method's own outcome, so one the method names `default`
+ * reads "Default", never the default outcome's "Otherwise".
  */
-export function outcomeLabel(outcome: string): string {
-  const outcomes = outcome
-    .split("|")
-    .map((o) => o.trim())
-    .filter((o) => o.length > 0);
-  const labels = outcomes.map((o, index) => {
-    const label = OUTCOME_WORDS[o.toLowerCase()] ?? humanizeIdentifier(o);
-    return index === 0 ? label : label.charAt(0).toLowerCase() + label.slice(1);
-  });
-  return labels.join(" or ");
+export function outcomeKeyLabel(key: string): string {
+  return OUTCOME_KEY_WORDS[key.toLowerCase()] ?? humanizeIdentifier(key);
 }
