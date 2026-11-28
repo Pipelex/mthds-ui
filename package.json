@@ -42,10 +42,6 @@
       "import": "./dist/form/index.js",
       "types": "./dist/form/index.d.ts"
     },
-    "./form/brand": {
-      "import": "./dist/form/brand/index.js",
-      "types": "./dist/form/brand/index.d.ts"
-    },
     "./form/generative": {
       "import": "./dist/form/generative/index.js",
       "types": "./dist/form/generative/index.d.ts"
