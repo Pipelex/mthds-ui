@@ -2,9 +2,17 @@
 
 ## [Unreleased]
 
+### Added
+
+- **`AppStyleId` and `APP_STYLE_IDS` from `./form/generative/headless` and `./form/generative`**: the style ids `inputBrief` and `resultBrief` take (`quiet`, `soft`, `editorial` and `bold`), which a host imported from `./form/brand` before, now come through the kernel's generative entries this package re-exports.
+
+### Changed
+
+- **The form kernel moves to `@pipelex/mthds-form` ^0.43.0 (Breaking)**: the dependency range moves from `^0.42.3`, which a caret below 1.0 does not bridge, so a host resolves the 0.43 kernel through this package and a host that also names the kernel itself moves to `^0.43.0` to keep one copy. The kernel's `theme.css`, which a host resolves through this package, now defines the status colour tokens `--positive`, `--caution`, `--negative` and `--neutral`, each with a light and a dark default a host overrides like any token; no control reads them yet.
+
 ### Removed
 
-- **The `./form/brand` entry (Breaking)**: `@pipelex/mthds-ui/form/brand`, which re-exported the form kernel's `./brand` entry (`deriveBrandRoles`, `deriveStyleRoles`, `APP_STYLES`, `TYPEFACES`, the brand contract and its compiler), is gone, ahead of the kernel dropping that entry; producing and checking a brand, and deriving roles from a team's colours or style, are the host's, which writes the results onto the tokens the controls read (docs/run-form-panel.md, "Brand ink, and a team's own colours").
+- **The `./form/brand` entry (Breaking)**: `@pipelex/mthds-ui/form/brand`, which re-exported the form kernel's `./brand` entry (`deriveBrandRoles`, `deriveStyleRoles`, `APP_STYLES`, `TYPEFACES`, the brand contract and its compiler), is gone, as is the kernel entry it re-exported; producing and checking a brand, and deriving roles from a team's colours or style, are the host's, which writes the results onto the tokens the controls read (docs/run-form-panel.md, "Brand ink, and a team's own colours").
 
 ## [v0.58.3] - 2026-11-26
 
