@@ -30,7 +30,6 @@ export default defineConfig({
     "src/graph/index.ts",
     "src/graph/react/index.ts",
     "src/form/index.ts",
-    "src/form/brand/index.ts",
     "src/form/generative/index.ts",
     "src/form/generative/headless/index.ts",
     "src/form/react/index.ts",
@@ -56,7 +55,6 @@ export default defineConfig({
     // rather than an optional peer, which makes this MORE important, not less:
     // nothing stops the bundler from inlining a package that is always present.
     "@pipelex/mthds-form",
-    "@pipelex/mthds-form/brand",
     "@pipelex/mthds-form/generative",
     "@pipelex/mthds-form/generative/headless",
     "@pipelex/mthds-form/react",
