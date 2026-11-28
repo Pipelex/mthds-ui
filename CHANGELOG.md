@@ -4,7 +4,7 @@
 
 ### Removed
 
-- **The `./form/brand` entry (Breaking)**: `@pipelex/mthds-ui/form/brand`, which re-exported the form kernel's `./brand` entry (`deriveBrandRoles`, `deriveStyleRoles`, `APP_STYLES`, `TYPEFACES`, the brand contract and its compiler), is gone, as the kernel drops that entry; producing and checking a brand, and deriving roles from a team's colours or style, are the host's, which writes the results onto the tokens the controls read (docs/run-form-panel.md, "Brand ink, and a team's own colours").
+- **The `./form/brand` entry (Breaking)**: `@pipelex/mthds-ui/form/brand`, which re-exported the form kernel's `./brand` entry (`deriveBrandRoles`, `deriveStyleRoles`, `APP_STYLES`, `TYPEFACES`, the brand contract and its compiler), is gone, ahead of the kernel dropping that entry; producing and checking a brand, and deriving roles from a team's colours or style, are the host's, which writes the results onto the tokens the controls read (docs/run-form-panel.md, "Brand ink, and a team's own colours").
 
 ## [v0.58.3] - 2026-11-26
 

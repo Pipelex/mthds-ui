@@ -469,8 +469,8 @@ try {
   process.stdout.write("\nEvery form entry a server imports is no client module\n");
   // Each entry and the kernel entry it re-exports: a directive on either one
   // makes a React Server Components host's server see every export as a client
-  // reference, so a server action calling `inputBrief` or `deriveBrandRoles`
-  // gets a function that throws. `./form/generative/headless` exists for that
+  // reference, so a server action calling `inputBrief` gets a function that
+  // throws. `./form/generative/headless` exists for that
   // server alone.
   // The kernel's entries export an `import` condition alone, which `require`
   // resolution cannot see, so each is resolved as this package's own ESM
