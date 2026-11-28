@@ -20,7 +20,13 @@ import type {
 import type { NodePipeType } from "@graph/types";
 import { BINDING_STEP_TYPE, OUTCOME_TONE, isOutcomeTone } from "@graph/types";
 import { makePipeRef, parsePipeRef } from "@graph/pipeRefs";
-import { humanizeIdentifier, outcomeKeyLabel, sentenceCase, stripDomain } from "./humanize";
+import {
+  humanizeIdentifier,
+  outcomeKeyLabel,
+  sentenceCase,
+  stripDomain,
+  wordsInSentence,
+} from "./humanize";
 import { NATIVE_DOMAIN } from "./nativeConcepts";
 
 // ─── A step's wording ────────────────────────────────────────────────────────
@@ -147,6 +153,23 @@ export function sharedOutcomeTone(
   return new Set(tones).size === 1 ? tones[0] : null;
 }
 
+/**
+ * The description and tone of a row or a line standing for a branch's
+ * outcomes: a description only when exactly one of them has one, and a tone
+ * by `sharedOutcomeTone`, which for a single outcome is its `outcomeTone`.
+ */
+export function branchOutcomeWords(
+  condition: PipeBlueprintUnion | null | undefined,
+  outcomes: readonly OutcomeKey[],
+): { description: string | null; tone: OutcomeTone | null } {
+  const read = outcomes.map((key) => outcomeWordsOf(condition, key));
+  const descriptions = read.flatMap((words) => (words?.description ? [words.description] : []));
+  return {
+    description: descriptions.length === 1 ? descriptions[0] : null,
+    tone: sharedOutcomeTone(read),
+  };
+}
+
 /** The keys of a run graph node's `execution_data` a live run's condition records the words of its outcome under. */
 export const SELECTED_OUTCOME_WORDS_KEY = {
   LABEL: "selected_outcome_label",
@@ -168,6 +191,33 @@ export function selectedOutcomeWords(
     description: executionData[SELECTED_OUTCOME_WORDS_KEY.DESCRIPTION] as string | null | undefined,
     tone: executionData[SELECTED_OUTCOME_WORDS_KEY.TONE] as string | null | undefined,
   });
+}
+
+/**
+ * Which outcome a live run's condition took, from what its node's
+ * `execution_data` records: the outcome map's key, `null` for the default
+ * outcome, or `undefined` when it records none, as a dry run does. The runtime
+ * records the value the expression rendered (`evaluated_expression`) and the
+ * pipe the outcome map names for it (`selected_outcome`), the default
+ * outcome's when the value is no key; the two must agree, so a dry run's
+ * `all_outcomes` takes none. Without the rendered value, the key is the one
+ * whose pipe was run, and the default when no key names it.
+ */
+export function takenOutcomeKey(
+  condition: PipeConditionBlueprint,
+  executionData: Record<string, unknown> | null | undefined,
+): OutcomeKey | undefined {
+  const selected = executionData?.selected_outcome;
+  if (typeof selected !== "string") return undefined;
+  const map = condition.outcome_map;
+  const evaluated = executionData?.evaluated_expression;
+  if (typeof evaluated === "string") {
+    if (Object.hasOwn(map, evaluated)) return map[evaluated] === selected ? evaluated : undefined;
+    return condition.default_outcome === selected ? null : undefined;
+  }
+  const key = Object.keys(map).find((each) => map[each] === selected);
+  if (key !== undefined) return key;
+  return condition.default_outcome === selected ? null : undefined;
 }
 
 /** How a static graph's outcome tag spells the default outcome (`no_fit | default`). */
@@ -199,6 +249,8 @@ export function sameOutcomes(a: readonly OutcomeKey[], b: readonly OutcomeKey[])
  * A branch's outcomes as one label, as an arrow or a row says them: each
  * outcome by its label when the condition gives it one, else in plain words
  * (`outcomeKeyLabel`; the default outcome reads "Otherwise"), joined by "or".
+ * Plain words after the first go in lower case, unless they open with an
+ * acronym, as `humanizeInSentence` keeps one ("Text or PDF").
  */
 export function outcomeArrowLabel(
   outcomes: readonly OutcomeKey[],
@@ -206,8 +258,9 @@ export function outcomeArrowLabel(
 ): string {
   const labels = outcomes.map((key, index) => {
     const words = outcomeWordsOf(condition, key);
-    const label = words?.label ?? (key === null ? DEFAULT_OUTCOME_WORDS : outcomeKeyLabel(key));
-    return index === 0 || words?.label ? label : label.charAt(0).toLowerCase() + label.slice(1);
+    if (words?.label) return words.label;
+    const label = key === null ? DEFAULT_OUTCOME_WORDS : outcomeKeyLabel(key);
+    return index === 0 ? label : wordsInSentence(label);
   });
   return labels.join(" or ");
 }
@@ -294,6 +347,12 @@ export type ConceptLookup = (conceptRef: string) => ConceptInfo | null | undefin
  * bare `Image` or `Document` the domain does not declare is the native. A
  * bare name that resolves to neither is unknown, never taken for a native
  * that writes no file.
+ *
+ * Each concept on the way is read at its fullest: when `lookupConcept` knows
+ * it with a refinement the concept at hand lacks, the lookup's entry is
+ * followed. A concept that states no refinement (`refines: null`) reaches no
+ * file; one that arrives without the field at all, and that the lookup cannot
+ * complete, is unknown.
  */
 export function isFileValuedOutput(
   output: StuffSpecInfo | null | undefined,
@@ -304,7 +363,9 @@ export function isFileValuedOutput(
   const seen = new Set<string>();
   while (concept) {
     if (concept.domain_code === NATIVE_DOMAIN) return FILE_NATIVE_CODES.has(concept.code);
+    concept = fullerConcept(concept, lookupConcept?.(`${concept.domain_code}.${concept.code}`));
     const refines: string | null | undefined = concept.refines;
+    if (refines === undefined) return null;
     if (!refines) return false;
     const qualified: boolean = refines.includes(".");
     if (qualified && refines.slice(0, refines.lastIndexOf(".")) === NATIVE_DOMAIN) {
@@ -322,6 +383,20 @@ export function isFileValuedOutput(
     return FILE_NATIVE_CODES.has(refines) ? true : null;
   }
   return null;
+}
+
+/**
+ * How much a concept entry says of its refinement: a refinement it names, a
+ * `refines: null` stating it names none, or nothing, the field left out.
+ */
+function refinementWeight(concept: ConceptInfo): number {
+  if (typeof concept.refines === "string" && concept.refines !== "") return 2;
+  return concept.refines === undefined ? 0 : 1;
+}
+
+/** Of two entries for one concept, the one that says more of its refinement, `current` on a tie. */
+function fullerConcept(current: ConceptInfo, other: ConceptInfo | null | undefined): ConceptInfo {
+  return other && refinementWeight(other) > refinementWeight(current) ? other : current;
 }
 
 /**
@@ -373,7 +448,10 @@ export function isPlumbingStep(
 /**
  * A concept lookup over what a pipe registry declares: every concept a pipe
  * of it reads or writes, by its full reference, and the concepts of a concept
- * registry beside it when there is one. Built once per registry.
+ * registry beside it when there is one. Built once per registry. A concept
+ * met several times keeps the entry that says most of its refinement, so a
+ * poorer copy read later, one serialised without its `refines` or a stub for
+ * a concept a pipe only names, never replaces a fuller one.
  */
 export function registryConceptLookup(
   pipes: Readonly<Record<string, PipeBlueprintUnion>> | undefined,
@@ -382,7 +460,9 @@ export function registryConceptLookup(
   const known = new Map<string, ConceptInfo>();
   const add = (concept: ConceptInfo | null | undefined) => {
     if (concept?.domain_code && concept.code) {
-      known.set(`${concept.domain_code}.${concept.code}`, concept);
+      const ref = `${concept.domain_code}.${concept.code}`;
+      const held = known.get(ref);
+      known.set(ref, held ? fullerConcept(held, concept) : concept);
     }
   };
   for (const pipe of Object.values(pipes ?? {})) {

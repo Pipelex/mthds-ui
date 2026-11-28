@@ -60,7 +60,6 @@ import {
   humanizeIdentifier,
   humanizeInSentence,
   isGenericConcept,
-  stripDomain,
 } from "./humanize";
 import {
   activityTitle,
@@ -458,6 +457,45 @@ function forEachLabel(itemName: string): string {
  * spec's concept registry records it, which says what kind of value something
  * is without saying what it is.
  */
+/**
+ * Whether a condition branch's target, as `conditionBranches` resolves it, is
+ * the pipe a branch node runs. A pipe of the method is matched on its domain
+ * and its code. A dependency's pipe (`alias->domain.code`) is matched on its
+ * code and the domain a graph names its node by: the alias in a static graph,
+ * the dependency's own domain in a run's, which a bare `alias->code` does not
+ * say, so its code alone stands then. A node with no domain is matched on its
+ * code; the caller refuses a node more than one branch answers.
+ */
+function isBranchTarget(target: string, node: GraphSpecNode): boolean {
+  if (!node.pipe_code) return false;
+  const arrow = target.indexOf("->");
+  const parsed = parsePipeRef(arrow === -1 ? target : target.slice(target.lastIndexOf("->") + 2));
+  if (!parsed || parsed.pipeCode !== node.pipe_code) return false;
+  if (node.domain_code === undefined) return true;
+  if (arrow === -1) return parsed.domainPath === node.domain_code;
+  return (
+    node.domain_code === target.slice(0, arrow) ||
+    parsed.domainPath === null ||
+    parsed.domainPath === node.domain_code
+  );
+}
+
+/**
+ * Whether a static graph's outcome tag (`no_fit | default`) names exactly
+ * these outcomes, the default outcome spelled `default` there; read against
+ * the blueprint's outcomes, so an outcome the method names `default` matches
+ * the tag as well as the default outcome does.
+ */
+function tagNamesOutcomes(tag: string, outcomes: readonly OutcomeKey[]): boolean {
+  const spelled = outcomes.map((key) => key ?? "default").sort();
+  const named = tag
+    .split("|")
+    .map((key) => key.trim())
+    .filter((key) => key.length > 0)
+    .sort();
+  return spelled.length === named.length && spelled.every((key, index) => key === named[index]);
+}
+
 function isBuiltInConcept(graphspec: GraphSpec, conceptRef: string): boolean {
   const info = resolveConceptRef(graphspec, conceptRef);
   if (info) return info.domain_code === NATIVE_DOMAIN;
@@ -700,8 +738,12 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
    * The outcomes a decision's branch is taken on, and its arrow's label. Read
    * off the condition's blueprint when the spec has it (`conditionBranches`,
    * which tells the default outcome from one the method names `default`, and
-   * keeps two branches from reading alike); else off the outcome a static
-   * graph tags the branch with, or the label of the edge that contains it.
+   * keeps two branches from reading alike): the one branch whose fully
+   * resolved target is the branch's own pipe, and whose outcomes agree with
+   * the outcome a static graph tags the branch with, when it tags one. When no
+   * branch, or more than one, answers, the outcome is read off that tag, or
+   * the label of the edge that contains the branch, in the words the
+   * blueprint gives its outcomes.
    */
   function outcomeFor(
     decisionId: string,
@@ -713,19 +755,7 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
       decision?.domain_code && decision.pipe_code
         ? getPipeBlueprint(graphspec, makePipeRef(decision.domain_code, decision.pipe_code))
         : undefined;
-    if (blueprint?.type === "PipeCondition") {
-      if (!branch?.pipe_code) return undefined;
-      // A branch is the one whose pipe the outcomes name: its code, and its
-      // domain, which a bare reference takes from the condition's own.
-      const branchCode = branch.pipe_code;
-      const named = conditionBranches(blueprint).find(({ target }) => {
-        const parsed = parsePipeRef(target);
-        if (!parsed) return stripDomain(target) === branchCode;
-        if (parsed.pipeCode !== branchCode) return false;
-        return branch.domain_code === undefined || branch.domain_code === parsed.domainPath;
-      });
-      return named ? { label: named.label, outcomes: named.outcomes } : undefined;
-    }
+    const condition = blueprint?.type === "PipeCondition" ? blueprint : null;
     const tagged =
       branch?.tags?.outcome ??
       graphspec.edges.find(
@@ -735,9 +765,20 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
           e.target === branchId &&
           e.label,
       )?.label;
+    if (condition && branch) {
+      const answering = conditionBranches(condition).filter(
+        ({ target, outcomes }) =>
+          isBranchTarget(target, branch) && (!tagged || tagNamesOutcomes(tagged, outcomes)),
+      );
+      if (answering.length === 1) {
+        return { label: answering[0].label, outcomes: answering[0].outcomes };
+      }
+    }
     if (!tagged) return undefined;
     const outcomes = outcomeKeysFromTag(tagged);
-    return outcomes.length > 0 ? { label: outcomeArrowLabel(outcomes, null), outcomes } : undefined;
+    return outcomes.length > 0
+      ? { label: outcomeArrowLabel(outcomes, condition), outcomes }
+      : undefined;
   }
 
   function decisionsAbove(nodeId: string): string[] {

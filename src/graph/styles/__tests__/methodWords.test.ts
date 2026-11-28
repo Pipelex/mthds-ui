@@ -22,6 +22,7 @@ import {
   selectedOutcomeWords,
   sharedOutcomeTone,
   stepWording,
+  takenOutcomeKey,
 } from "../methodWords";
 import { buildSimpleNodeDetail } from "../simpleDetail";
 import type { SimpleDecisionDetail } from "../simpleDetail";
@@ -114,6 +115,52 @@ describe("outcome words", () => {
     expect(outcomeArrowLabel(["low", null], CONDITION)).toBe("Low or Standard check");
     expect(outcomeArrowLabel(["high"], null)).toBe("High");
     expect(outcomeArrowLabel(["high", null], null)).toBe("High or otherwise");
+  });
+
+  it("tells which outcome a live run took, the default as null and a dry run's as none", () => {
+    expect(
+      takenOutcomeKey(CONDITION, {
+        evaluated_expression: "high",
+        selected_outcome: "detailed_check",
+      }),
+    ).toBe("high");
+    // `low` and the default share a pipe: the rendered value says which was taken.
+    expect(
+      takenOutcomeKey(CONDITION, {
+        evaluated_expression: "low",
+        selected_outcome: "standard_check",
+      }),
+    ).toBe("low");
+    expect(
+      takenOutcomeKey(CONDITION, {
+        evaluated_expression: "mid",
+        selected_outcome: "standard_check",
+      }),
+    ).toBeNull();
+    expect(
+      takenOutcomeKey(CONDITION, {
+        evaluated_expression: "dry_run",
+        selected_outcome: "all_outcomes",
+      }),
+    ).toBeUndefined();
+    // Without the rendered value, by the pipe that ran.
+    expect(takenOutcomeKey(CONDITION, { selected_outcome: "detailed_check" })).toBe("high");
+    expect(
+      takenOutcomeKey(
+        { ...CONDITION, outcome_map: { high: "detailed_check" } },
+        {
+          selected_outcome: "standard_check",
+        },
+      ),
+    ).toBeNull();
+    expect(takenOutcomeKey(CONDITION, {})).toBeUndefined();
+    expect(takenOutcomeKey(CONDITION, undefined)).toBeUndefined();
+  });
+
+  it("keeps an acronym's capitals inside a joined label", () => {
+    expect(outcomeArrowLabel(["text", "pdf"], null)).toBe("Text or PDF");
+    expect(outcomeArrowLabel(["text", "cv_file"], null)).toBe("Text or CV file");
+    expect(outcomeArrowLabel(["text", "high_risk"], null)).toBe("Text or high risk");
   });
 
   it("reads a static graph's outcome tag, its `default` the default outcome", () => {
@@ -250,6 +297,28 @@ describe("plumbing", () => {
     expect(isPlumbingStep("PipeFunc", registry["legal.f"])).toBe(false);
     const fromConcepts = registryConceptLookup({}, { "legal.Scan": scan });
     expect(fromConcepts("legal.Scan")).toBe(scan);
+  });
+
+  it("reads a concept that arrives without its refinement from the lookup, and keeps the fuller entry", () => {
+    const full = output("Scan", "legal", "native.Image").concept;
+    // Serialised without the optional field: whether it refines anything is unknown.
+    const bare = { ...full };
+    delete bare.refines;
+    const stub = output("Scan", "legal").concept;
+    expect(isFileValuedOutput({ concept: bare }, () => full)).toBe(true);
+    expect(isFileValuedOutput({ concept: stub }, () => full)).toBe(true);
+    expect(isFileValuedOutput({ concept: bare })).toBeNull();
+    expect(isPlumbingStep("PipeFunc", func({ concept: bare }))).toBe(false);
+    // A poorer entry read later does not replace a fuller one.
+    const registry = {
+      "legal.g": func({ concept: full }),
+      "legal.f": func({ concept: bare }),
+      "legal.h": func({ concept: stub }),
+    };
+    const lookup = registryConceptLookup(registry);
+    expect(lookup("legal.Scan")).toBe(full);
+    expect(isPlumbingStep("PipeFunc", registry["legal.f"], lookup)).toBe(false);
+    expect(isPlumbingStep("PipeFunc", registry["legal.h"], lookup)).toBe(false);
   });
 
   it("hides a PipeCompose, a binding step and a PipeFunc that writes no file", () => {
@@ -411,6 +480,17 @@ describe("a decision whose outcomes share words", () => {
       [["default"], "Mine"],
       [[null], "Theirs"],
     ]);
+  });
+
+  it("labels each arrow by the branch its own pipe is, however the method spells it", () => {
+    // The same pipe written bare and qualified: two cards, each its own outcome.
+    const spelled = decisionOf(routeMethod(`a = "x"\nb = "d.x"`));
+    expect(spelled.arrows.map((e) => e.label).sort()).toEqual(["A", "B", "Otherwise"]);
+    // Two dependencies' pipes of one code, and a dependency's bare pipe.
+    const external = decisionOf(
+      routeMethod(`a = "one->x.run"\nb = "two->y.run"\nc = "three->check"`),
+    );
+    expect(external.arrows.map((e) => e.label).sort()).toEqual(["A", "B", "C", "Otherwise"]);
   });
 
   it("tones a row only when every outcome in it is toned alike", () => {

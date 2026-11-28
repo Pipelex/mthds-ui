@@ -36,10 +36,9 @@ import { findStuffByDigest } from "@graph/stuffLookup";
 import type { StuffLocation } from "@graph/stuffLookup";
 import { humanizeIdentifier, stripDomain } from "./humanize";
 import {
+  branchOutcomeWords,
   conditionBranches,
-  outcomeWordsOf,
   sameOutcomes,
-  sharedOutcomeTone,
   stepWording,
   type OutcomeKey,
 } from "./methodWords";
@@ -622,20 +621,18 @@ function decisionOutcomes(
 
 /**
  * The description and tone of a row's outcomes, when the condition's outcome
- * tables give them. A row standing for several outcomes takes a description
- * only when exactly one of them has one, and a tone by `sharedOutcomeTone`:
- * only when every outcome in it has one and they agree, since one row cannot
- * say two things.
+ * tables give them (`branchOutcomeWords`): a row standing for several
+ * outcomes takes a description only when exactly one of them has one, and a
+ * tone only when every outcome in it has one and they agree, since one row
+ * cannot say two things.
  */
 function outcomeWords(
   blueprint: PipeConditionBlueprint,
   outcomes: readonly OutcomeKey[],
 ): Pick<SimpleOutcome, "description" | "tone"> {
-  const read = outcomes.map((key) => outcomeWordsOf(blueprint, key));
-  const descriptions = read.flatMap((words) => (words?.description ? [words.description] : []));
-  const tone = sharedOutcomeTone(read);
+  const { description, tone } = branchOutcomeWords(blueprint, outcomes);
   const result: Pick<SimpleOutcome, "description" | "tone"> = {};
-  if (descriptions.length === 1) result.description = descriptions[0];
+  if (description) result.description = description;
   if (tone) result.tone = tone;
   return result;
 }

@@ -3,9 +3,9 @@ import {
   conceptPlainName,
   humanizeIdentifier,
   humanizeInSentence,
+  wordsInSentence,
   isGenericConcept,
   outcomeKeyLabel,
-  outcomeLabel,
   sentenceCase,
   stripDomain,
 } from "../humanize";
@@ -101,21 +101,12 @@ describe("humanizeInSentence", () => {
     expect(humanizeInSentence("cv_file")).toBe("CV file");
     expect(humanizeInSentence("")).toBe("");
   });
-});
 
-describe("outcomeLabel", () => {
-  it("humanizes an outcome and names the default branch", () => {
-    expect(outcomeLabel("english")).toBe("English");
-    expect(outcomeLabel("high_priority")).toBe("High priority");
-    expect(outcomeLabel("default")).toBe("Otherwise");
-    expect(outcomeLabel("true")).toBe("Yes");
-    expect(outcomeLabel("False")).toBe("No");
-    expect(outcomeLabel("false | default")).toBe("No or otherwise");
-  });
-
-  it("joins the outcomes of a branch taken on several", () => {
-    expect(outcomeLabel("needs_review | default")).toBe("Needs review or otherwise");
-    expect(outcomeLabel("a|b")).toBe("A or b");
+  it("moves words already in sentence case inside a sentence, an acronym kept", () => {
+    expect(wordsInSentence("High risk")).toBe("high risk");
+    expect(wordsInSentence("PDF file")).toBe("PDF file");
+    expect(wordsInSentence("A")).toBe("a");
+    expect(wordsInSentence("")).toBe("");
   });
 });
 
