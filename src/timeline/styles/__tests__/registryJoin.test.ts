@@ -143,11 +143,11 @@ describe("titleOf", () => {
   it("titles by the description, else by the humanized code", () => {
     expect(titleOf(REVIEW_FILINGS_REGISTRY, "filings.extract_filings", "extract_filings")).toEqual({
       title: "Extract the filings from the document",
-      fromDescription: true,
+      source: "description",
     });
     expect(titleOf(undefined, "filings.extract_filings", "extract_filings")).toEqual({
       title: "Extract filings",
-      fromDescription: false,
+      source: "code",
     });
   });
 });
@@ -160,7 +160,7 @@ describe("joinBatch", () => {
   it("names a batch after its branch and item, from the batch the registry holds", () => {
     expect(joinBatch(REVIEW_FILINGS_REGISTRY, batchNode(), null)).toEqual({
       branchRef: "filings.summarize_filing",
-      title: { title: "Summarize a filing", fromDescription: true },
+      title: { title: "Summarize a filing", source: "description" },
       itemName: "filing",
     });
   });
@@ -169,7 +169,7 @@ describe("joinBatch", () => {
     const withoutBatch = without(REVIEW_FILINGS_REGISTRY, "filings.summarize_filing_batch");
     expect(joinBatch(withoutBatch, batchNode(), reviewFilings())).toEqual({
       branchRef: "filings.summarize_filing",
-      title: { title: "Summarize a filing", fromDescription: true },
+      title: { title: "Summarize a filing", source: "description" },
       itemName: "filing",
     });
   });
@@ -177,13 +177,13 @@ describe("joinBatch", () => {
   it("falls back to the pipe its items run, then to the batch's own code, never its description", () => {
     expect(joinBatch(undefined, batchNode(), null)).toEqual({
       branchRef: "filings.summarize_filing",
-      title: { title: "Summarize filing", fromDescription: false },
+      title: { title: "Summarize filing", source: "code" },
       itemName: null,
     });
     const unfanned: InvocationTreeNode = { ...batchNode(), children: [] };
     expect(joinBatch(undefined, unfanned, null)).toEqual({
       branchRef: null,
-      title: { title: "Summarize filing batch", fromDescription: false },
+      title: { title: "Summarize filing batch", source: "code" },
       itemName: null,
     });
   });
@@ -192,7 +192,7 @@ describe("joinBatch", () => {
     const withoutBranch = without(REVIEW_FILINGS_REGISTRY, "filings.summarize_filing");
     expect(joinBatch(withoutBranch, batchNode(), null).title).toEqual({
       title: "Summarize filing",
-      fromDescription: false,
+      source: "code",
     });
   });
 
@@ -216,7 +216,7 @@ describe("joinBatch", () => {
     };
     expect(joinBatch(RUN_GRAPH_REGISTRY, node, null)).toEqual({
       branchRef: "document_batch.summarize_page",
-      title: { title: "Summarize a single page", fromDescription: true },
+      title: { title: "Summarize a single page", source: "description" },
       itemName: "page",
     });
   });

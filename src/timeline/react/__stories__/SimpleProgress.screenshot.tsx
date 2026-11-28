@@ -15,7 +15,8 @@ import previewAnnotations from "../../../../.storybook/preview";
 import * as stories from "./SimpleProgress.stories";
 
 setProjectAnnotations([previewAnnotations]);
-const { WorkedExample, WideBatchFailed, WaitingToStart, NoRegistry } = composeStories(stories);
+const { WorkedExample, WideBatchFailed, WaitingToStart, NoRegistry, InTheMethodsWords } =
+  composeStories(stories);
 
 let root: Root | null = null;
 let container: HTMLElement | null = null;
@@ -59,7 +60,7 @@ async function open(target: HTMLElement, name: string, lines: number): Promise<v
 describe("the simple style, as the stories draw it", () => {
   for (const theme of ["dark", "light"] as const) {
     it(`draws the worked example, ${theme}`, async () => {
-      const target = await renderStory(<WorkedExample theme={theme} />, 4);
+      const target = await renderStory(<WorkedExample theme={theme} />, 3);
       await expect
         .element(page.elementLocator(target))
         .toMatchScreenshot(`worked-example-${theme}`);
@@ -77,13 +78,18 @@ describe("the simple style, as the stories draw it", () => {
     });
 
     it(`draws a run waiting to start, ${theme}`, async () => {
-      const target = await renderStory(<WaitingToStart theme={theme} />, 4);
+      const target = await renderStory(<WaitingToStart theme={theme} />, 3);
       await expect.element(page.elementLocator(target)).toMatchScreenshot(`waiting-${theme}`);
     });
 
     it(`draws the worked example without a registry, ${theme}`, async () => {
       const target = await renderStory(<NoRegistry theme={theme} />, 3);
       await expect.element(page.elementLocator(target)).toMatchScreenshot(`no-registry-${theme}`);
+    });
+
+    it(`draws a run in the method's words, its outcome in its tone, ${theme}`, async () => {
+      const target = await renderStory(<InTheMethodsWords theme={theme} />, 5);
+      await expect.element(page.elementLocator(target)).toMatchScreenshot(`method-words-${theme}`);
     });
   }
 });

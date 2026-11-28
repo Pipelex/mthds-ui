@@ -569,3 +569,73 @@ describe("PipeDetailPanel on a PipeDocGen step", () => {
     expect(unresolved).not.toContain(">url<");
   });
 });
+
+describe("PipeDetailPanel in the method's words", () => {
+  const condition: PipeBlueprintUnion = {
+    type: "PipeCondition",
+    pipe_category: "PipeController",
+    code: "route_by_risk",
+    domain_code: "legal",
+    description: "Pick how closely to check",
+    activity: "Deciding how closely to check",
+    inputs: {},
+    output: {
+      concept: {
+        code: "Text",
+        domain_code: "native",
+        description: "A text",
+        structure_class_name: "TextContent",
+      },
+    },
+    expression: "risk.text",
+    outcome_map: { high: "detailed_check" },
+    default_outcome: "standard_check",
+    outcome_words: {
+      high: { label: "Detailed check", description: "A lawyer-grade review", tone: "caution" },
+    },
+    default_outcome_words: { label: "Standard check", description: null, tone: null },
+  };
+
+  function renderCondition(): string {
+    const node: GraphSpecNode = {
+      id: "cond1",
+      kind: "controller",
+      pipe_code: "route_by_risk",
+      pipe_type: "PipeCondition",
+      description: "Pick how closely to check",
+      activity: "Deciding how closely to check",
+      domain_code: "legal",
+      status: "succeeded",
+      io: { inputs: [], outputs: [] },
+      execution_data: {
+        evaluated_expression: "high",
+        selected_outcome: "detailed_check",
+        selected_outcome_label: "Detailed check",
+        selected_outcome_description: "A lawyer-grade review",
+        selected_outcome_tone: "caution",
+      },
+    };
+    const spec: GraphSpec = {
+      meta: { format: "mthds", mode: "live" },
+      nodes: [node],
+      edges: [],
+      pipe_registry: { "legal.route_by_risk": condition },
+    };
+    return renderToStaticMarkup(React.createElement(PipeDetailPanel, { node, spec }));
+  }
+
+  it("shows the step's activity beside its description", () => {
+    const html = renderCondition();
+    expect(html).toContain("Pick how closely to check");
+    expect(html).toContain("Deciding how closely to check");
+  });
+
+  it("shows the outcome taken by its label in its tone, and each outcome's label", () => {
+    const html = renderCondition();
+    expect(html).toContain("Outcome Taken");
+    expect(html).toContain('detail-outcome-label detail-outcome-label--caution">Detailed check');
+    expect(html).toContain("A lawyer-grade review");
+    // A label with no tone reads as neutral.
+    expect(html).toContain('detail-outcome-label detail-outcome-label--neutral">Standard check');
+  });
+});

@@ -17,7 +17,8 @@
  * over every one of their invocations. `VET_COMPANY_RUN` vets a
  * company: a sequence whose first step is a binding, a parallel of eight
  * sources, a batch over a dotted `batch_over`, and a chain of sequences four
- * levels deep.
+ * levels deep. `REVIEW_NDA_RUN` reviews an NDA with a method that words each
+ * step by its `activity` and labels its condition's outcomes.
  *
  * The methods they ran are written beside them, in `methods/`, and
  * `methodRegistries.ts` builds their pipe registries with the static builder.
@@ -1052,3 +1053,99 @@ export const VET_COMPANY_RUN: RecordedRun = {
 export const VET_COMPANY_SNAPSHOTS: ProgressSnapshot[] = recordedSnapshots(VET_COMPANY_RUN, [
   clockAfterTwo(0),
 ]);
+
+// ─── A run in the method's words ──────────────────────────────────────────────
+
+const nda = (code: string, type: string): RecordedPipe => ({ code, ref: `legal.${code}`, type });
+
+const REVIEW_NDA = nda("review_nda", "PipeSequence");
+const READ_NDA = nda("read_nda", "PipeExtract");
+const GATHER_CLAUSES = nda("gather_clauses", "PipeCompose");
+const RATE_NDA_RISK = nda("rate_risk", "PipeLLM");
+const ROUTE_BY_RISK = nda("route_by_risk", "PipeCondition");
+const DETAILED_CHECK = nda("detailed_check", "PipeLLM");
+const WRITE_REVIEW = nda("write_review", "PipeLLM");
+const RENDER_REVIEW_PDF = nda("render_review_pdf", "PipeFunc");
+
+const NDA_ROOT = "legal.review_nda";
+
+/**
+ * `legal.review_nda`, a method that states an `activity` on each pipe and
+ * labels the outcomes of its condition: it reads the NDA, gathers its clauses
+ * (a PipeCompose, plumbing, which the simple style leaves out), sizes up the
+ * risk, takes the `high` outcome, labelled "Detailed check" in the caution
+ * tone, writes the review and renders it as a PDF (a PipeFunc whose output is
+ * a document, so a step).
+ */
+export const REVIEW_NDA_RUN: RecordedRun = {
+  pipelineRunId: "run_Nd4R3v",
+  mode: "live",
+  day: "2026-11-28",
+  invocations: [
+    {
+      path: NDA_ROOT,
+      pipe: REVIEW_NDA,
+      stepCount: 6,
+      startedAt: "15:00:00.100",
+      endedAt: "15:00:58.400",
+    },
+    {
+      path: `${NDA_ROOT}/step_1`,
+      pipe: READ_NDA,
+      startedAt: "15:00:00.120",
+      endedAt: "15:00:09.800",
+    },
+    {
+      path: `${NDA_ROOT}/step_2`,
+      pipe: GATHER_CLAUSES,
+      startedAt: "15:00:09.820",
+      endedAt: "15:00:09.870",
+    },
+    {
+      path: `${NDA_ROOT}/step_3`,
+      pipe: RATE_NDA_RISK,
+      startedAt: "15:00:09.890",
+      endedAt: "15:00:15.300",
+    },
+    {
+      path: `${NDA_ROOT}/step_4`,
+      pipe: ROUTE_BY_RISK,
+      startedAt: "15:00:15.320",
+      endedAt: "15:00:41.100",
+      resolution: { at: "15:00:15.340", selectedOutcome: "high" },
+    },
+    {
+      path: `${NDA_ROOT}/step_4/outcome_high`,
+      pipe: DETAILED_CHECK,
+      startedAt: "15:00:15.350",
+      endedAt: "15:00:41.080",
+    },
+    {
+      path: `${NDA_ROOT}/step_5`,
+      pipe: WRITE_REVIEW,
+      startedAt: "15:00:41.120",
+      endedAt: "15:00:55.900",
+    },
+    {
+      path: `${NDA_ROOT}/step_6`,
+      pipe: RENDER_REVIEW_PDF,
+      startedAt: "15:00:55.920",
+      endedAt: "15:00:58.380",
+    },
+  ],
+};
+
+/** The NDA review's successive snapshots, from before it starts to its end. */
+export const REVIEW_NDA_SNAPSHOTS: ProgressSnapshot[] = recordedSnapshots(REVIEW_NDA_RUN, [
+  "14:59:59.900",
+]);
+
+/** The NDA review, canceled while it checked each clause: the steps past it read as never run. */
+export const REVIEW_NDA_CANCELED_SNAPSHOT: ProgressSnapshot = snapshotAt(
+  {
+    ...REVIEW_NDA_RUN,
+    pipelineRunId: "run_Nd4C4n",
+    stopped: { at: "15:00:30.000", status: "canceled" },
+  },
+  "15:00:30.000",
+);

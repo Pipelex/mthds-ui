@@ -24,6 +24,10 @@ import {
  *   color-*     → domain-semantic colors (pipe accents, edges, status); kept
  *                 separate because they're meaningful in both themes (a pipe is
  *                 still red), only the *value* shifts for contrast.
+ *   positive, caution, negative, neutral
+ *               → the tone roles: how a condition's outcome reads to a person.
+ *                 Their own group, never derived from a brand's colours, and
+ *                 named as the form kernel names its status tokens.
  */
 const FONT_TOKENS: Record<string, string> = {
   "--font-sans": '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
@@ -86,6 +90,14 @@ export const DARK_PALETTE_COLORS: Record<string, string> = {
   "--color-accent": "#8BE9FD",
   "--color-accent-strong": "#3b82f6",
   "--color-warning": "#FFB86C",
+
+  // Tone roles: how an outcome or an option reads (MTHDS "tone"), never a
+  // brand colour. Named and valued as the form kernel's status tokens, so one
+  // value a host sets serves both. The 400 shades on the dark page.
+  "--positive": "hsl(142 69% 58%)",
+  "--caution": "hsl(43 96% 56%)",
+  "--negative": "hsl(0 91% 71%)",
+  "--neutral": "hsl(240 5% 64.9%)",
 
   // Controller-group palette (tinted borders/backgrounds per controller type)
   "--ctrl-sequence-border": "rgba(148, 163, 184, 0.25)",
@@ -167,6 +179,12 @@ export const LIGHT_PALETTE_COLORS: Record<string, string> = {
   "--color-accent": "#0284c7",
   "--color-accent-strong": "#0284c7",
   "--color-warning": "#d97706",
+
+  // Tone roles, as on the dark palette: the 700 shades and zinc-600 on the light page.
+  "--positive": "hsl(142 72% 29%)",
+  "--caution": "hsl(26 90% 37%)",
+  "--negative": "hsl(0 74% 42%)",
+  "--neutral": "hsl(240 5.2% 33.9%)",
 
   // Controller-group palette
   "--ctrl-sequence-border": "rgba(71, 85, 105, 0.3)",

@@ -16,10 +16,12 @@ import {
   buildSimpleProgress,
   simpleProgressChanges,
   type SimpleLineState,
+  type SimpleOutcome,
   type SimpleProgress,
   type SimpleProgressLine,
   type SimpleRunNote,
 } from "@timeline/styles/simpleProgress";
+import { OUTCOME_TONE } from "@graph/types";
 import type { TimelinePipeRegistry } from "@timeline/styles/registryJoin";
 import { invocationTimes, type SnapshotTimes } from "@timeline/timelineTime";
 import {
@@ -314,6 +316,17 @@ function itemOfChild(parent: SimpleProgressLine, child: SimpleProgressLine): str
   return parent.kind === SIMPLE_LINE_KIND.FOR_EACH ? parent.forEachItem : null;
 }
 
+/**
+ * An outcome's class: its tone's when the method gives the outcome words, an
+ * outcome with a label and no tone reading as neutral, and none for an outcome
+ * named by its key alone, which keeps the line's own colour.
+ */
+function outcomeClass(outcome: SimpleOutcome): string {
+  const base = "mthds-simple-progress-outcome";
+  const tone = outcome.tone ?? (outcome.label !== null ? OUTCOME_TONE.NEUTRAL : null);
+  return tone === null ? base : `${base} ${base}--${tone}`;
+}
+
 const LineView = React.memo(function LineView({
   line,
   item,
@@ -347,10 +360,10 @@ const LineView = React.memo(function LineView({
             <span className="mthds-simple-progress-tag">{` · ${strings.together}`}</span>
           )}
           {line.outcome && (
-            <span className="mthds-simple-progress-outcome">
+            <span className={outcomeClass(line.outcome)}>
               {line.outcome.resolved
-                ? strings.outcomeTaken(line.outcome.key)
-                : strings.branchFor(line.outcome.key)}
+                ? strings.outcomeTaken(line.outcome.key, line.outcome.label)
+                : strings.branchFor(line.outcome.key, line.outcome.label)}
             </span>
           )}
           <span className="mthds-run-timeline-sr">{`, ${strings.state[line.state]}`}</span>
@@ -379,6 +392,9 @@ const LineView = React.memo(function LineView({
           <span className="mthds-simple-progress-toggle-spacer" aria-hidden="true" />
         )}
       </div>
+      {line.outcome?.resolved && line.outcome.description && (
+        <p className="mthds-simple-progress-outcome-description">{line.outcome.description}</p>
+      )}
       <BatchCounts line={line} strings={strings} />
       <HealthNotes line={line} item={item} strings={strings} />
       {line.expanded && line.children.length > 0 && (

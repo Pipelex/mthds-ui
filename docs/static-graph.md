@@ -230,6 +230,12 @@ A list-valued stuff carries its marker wherever the graph names its concept. The
 Producer-less `parallel_combine` targets are classified as combined stuff rather
 than external inputs. This applies to both dry and static graphs.
 
+## Activities and Outcome Words
+
+A pipe's `activity`, the present-tense phrase a method writes for the person waiting on a run (`activity = "Reading the NDA"`), is carried onto its registry blueprint and its node, as a run's graph spec carries it, and the styles title the step by it ([graph-styles.md](graph-styles.md)). A pipe without one has no `activity` key, and the validator drops one a run serialized as `null`.
+
+A `PipeCondition`'s outcome may be written as a table rather than a pipe code, `high = { pipe = "detailed_check", label = "Detailed check", description = "A lawyer-grade review of every clause", tone = "caution" }`, and so may its `default_outcome`. The builder reads the `pipe` into `outcome_map` or `default_outcome` as before, and the words into `outcome_words`, keyed like `outcome_map`, and `default_outcome_words`, each `{ label, description, tone }`, the shape a run's registry carries. An outcome written as a bare pipe code has no words. The builder does not check the words the standard constrains (labels unique per condition, a tone from its vocabulary); a tone outside it is read as no tone.
+
 ## Condition Outputs
 
 A `PipeCondition`'s output is one stuff that every outcome produces. Every outcome writes the condition's one slot, and only one of them runs, so a step after the condition reads that slot without knowing which outcome filled it. The static builder therefore mints the condition's output once, at `<condition node id>:<slot name>`, and renames each outcome's output onto it after walking the outcomes. When an outcome is itself a controller, the rename reaches the operator that wrote the stuff, and stuffs inside the outcome keep their own digests. The graph shows one card for the slot, with an edge from every outcome and an edge to every step reading it.

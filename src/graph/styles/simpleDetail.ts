@@ -16,10 +16,13 @@ import type {
   GraphSpec,
   GraphSpecNode,
   GraphSpecNodeIoItem,
+  OutcomeTone,
+  PipeConditionBlueprint,
   PipeStatus,
   StepCategory,
 } from "@graph/types";
 import {
+  OUTCOME_TONE,
   NODE_TYPE_SIMPLE_DECISION,
   NODE_TYPE_SIMPLE_FRAME,
   NODE_TYPE_SIMPLE_STEP,
@@ -32,7 +35,8 @@ import { getPipeBlueprint, resolveConceptRef, resolveNodeBlueprint } from "@grap
 import { makePipeRef, parsePipeRef } from "@graph/pipeRefs";
 import { findStuffByDigest } from "@graph/stuffLookup";
 import type { StuffLocation } from "@graph/stuffLookup";
-import { humanizeIdentifier, outcomeLabel, pipeTitle, stripDomain } from "./humanize";
+import { humanizeIdentifier, stripDomain } from "./humanize";
+import { DEFAULT_OUTCOME_KEY, outcomeArrowLabel, outcomeWordsOf, stepWording } from "./methodWords";
 import { STORED_VALUE_REFERENCE_MEMBERS, isStoredValueConcept } from "./nativeConcepts";
 import { aggregateStatus, simpleValueTitle } from "./simpleStyle";
 import type { SimpleValueFlow } from "./simpleStyle";
@@ -108,8 +112,12 @@ export type SimpleOutcomeEnd = "fail" | "continue";
 
 /** One way a decision can go. */
 export interface SimpleOutcome {
-  /** The outcome in plain words: "Needs review", "Yes", "Otherwise". */
+  /** The outcome in plain words: its label when the method gives one ("Detailed check"), else "Needs review", "Yes", "Otherwise". */
   label: string;
+  /** What taking the outcome means, when the condition's outcome table says. */
+  description?: string;
+  /** How the outcome reads, when the method gives it words; an outcome with a label and no tone reads as neutral. */
+  tone?: OutcomeTone;
   /** The step it leads to, by the registry's title, drawn or not; empty when `ends` is set. */
   leadsToTitle: string;
   /** Set when the outcome leads to no step, which the canvas draws no arrow for. */
@@ -487,7 +495,7 @@ function stepTitlesInside(
     const children = childrenOf(nodeId);
     if (children.length === 0) {
       if (spec?.kind === "operator") {
-        titles.push(pipeTitle(spec.description, spec.pipe_code ?? "").title);
+        titles.push(stepWording(spec, spec.pipe_code ?? "").title);
       }
       return;
     }
@@ -571,7 +579,7 @@ function decisionOutcomes(
   };
   const byBranch = new Map<string, string[]>();
   const named: [string, string][] = Object.entries(blueprint.outcome_map);
-  if (blueprint.default_outcome) named.push(["default", blueprint.default_outcome]);
+  if (blueprint.default_outcome) named.push([DEFAULT_OUTCOME_KEY, blueprint.default_outcome]);
   for (const [outcome, pipeRef] of named) {
     if (!pipeRef) continue;
     const ref = fullRef(pipeRef);
@@ -589,14 +597,16 @@ function decisionOutcomes(
     });
 
   return [...byBranch.entries()].map(([ref, outcomes]) => {
-    const label = outcomeLabel(outcomes.join("|"));
-    if (isOutcomeEnd(ref)) return { label, leadsToTitle: "", ends: ref };
+    const label = outcomeArrowLabel(outcomes.join("|"), blueprint);
+    const words = outcomeWords(blueprint, outcomes);
+    if (isOutcomeEnd(ref)) return { label, leadsToTitle: "", ends: ref, ...words };
     const branch = getPipeBlueprint(graphspec, ref);
     const parsed = parsePipeRef(ref);
     const code = parsed?.pipeCode ?? stripDomain(ref);
     const row: SimpleOutcome = {
       label,
-      leadsToTitle: pipeTitle(branch?.description, code).title,
+      leadsToTitle: stepWording(branch, code).title,
+      ...words,
     };
     const edge = context.edges.find((e) => e.label === label);
     const leadsTo = edge ? context.link(edge.target) : null;
@@ -604,6 +614,28 @@ function decisionOutcomes(
     if (context.resolved) row.taken = decisionRuns.filter((run) => ranIn(ref, run)).length;
     return row;
   });
+}
+
+/**
+ * The description and tone of a row's outcomes, when the condition's outcome
+ * tables give them. A row standing for several outcomes takes a description
+ * only when exactly one of them has one, and a tone only when all its toned
+ * outcomes agree, since one row cannot say two things.
+ */
+function outcomeWords(
+  blueprint: PipeConditionBlueprint,
+  outcomes: readonly string[],
+): Pick<SimpleOutcome, "description" | "tone"> {
+  const read = outcomes.map((key) =>
+    outcomeWordsOf(blueprint, key === DEFAULT_OUTCOME_KEY ? null : key),
+  );
+  const descriptions = read.flatMap((words) => (words?.description ? [words.description] : []));
+  const labelled = read.filter((words) => words !== null);
+  const tones = new Set(labelled.map((words) => words?.tone ?? OUTCOME_TONE.NEUTRAL));
+  const result: Pick<SimpleOutcome, "description" | "tone"> = {};
+  if (descriptions.length === 1) result.description = descriptions[0];
+  if (labelled.length > 0 && tones.size === 1) result.tone = [...tones][0];
+  return result;
 }
 
 /** Whether a decision's outcome names no pipe: the method fails, or carries on past it. */

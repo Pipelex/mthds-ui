@@ -1,0 +1,123 @@
+domain      = "legal"
+description = "Review an NDA against a playbook, in the words a person waiting on the run reads"
+main_pipe   = "review_nda"
+
+[concept.NdaClauses]
+description = "The clauses of the NDA, gathered for review"
+refines     = "Text"
+
+[concept.RiskLevel]
+description = "How risky the NDA reads at first sight: high or low"
+refines     = "Text"
+
+[concept.ClauseFindings]
+description = "What the check of the clauses found"
+refines     = "Text"
+
+[concept.NdaReview]
+description = "The review of the NDA"
+refines     = "Text"
+
+[pipe.review_nda]
+type        = "PipeSequence"
+description = "Review the NDA against the playbook"
+activity    = "Reviewing the NDA"
+inputs      = { nda = "Document", playbook = "Text" }
+output      = "Document"
+steps = [
+  { pipe = "read_nda", result = "pages" },
+  { pipe = "gather_clauses", result = "clauses" },
+  { pipe = "rate_risk", result = "risk" },
+  { pipe = "route_by_risk", result = "findings" },
+  { pipe = "write_review", result = "review" },
+  { pipe = "render_review_pdf", result = "review_pdf" },
+]
+
+[pipe.read_nda]
+type        = "PipeExtract"
+description = "Extract the pages of the NDA"
+activity    = "Reading the NDA"
+inputs      = { nda = "Document" }
+output      = "Page[]"
+
+[pipe.gather_clauses]
+type        = "PipeCompose"
+description = "Gather the clauses into one text"
+activity    = "Gathering the clauses"
+inputs      = { pages = "Page[]" }
+output      = "NdaClauses"
+template    = """
+@pages
+"""
+
+[pipe.rate_risk]
+type        = "PipeLLM"
+description = "Rate the NDA's risk as high or low"
+activity    = "Sizing up the risk"
+inputs      = { clauses = "NdaClauses" }
+output      = "RiskLevel"
+prompt      = """
+Rate the risk of this NDA as high or low:
+
+@clauses
+"""
+
+[pipe.route_by_risk]
+type            = "PipeCondition"
+description     = "Pick how closely to check the clauses"
+activity        = "Deciding how closely to check"
+inputs          = { risk = "RiskLevel", clauses = "NdaClauses", playbook = "Text" }
+output          = "ClauseFindings"
+expression      = "risk.text"
+default_outcome = { pipe = "standard_check", label = "Standard check", tone = "positive" }
+
+[pipe.route_by_risk.outcomes]
+high = { pipe = "detailed_check", label = "Detailed check", description = "A lawyer-grade review of every clause", tone = "caution" }
+
+[pipe.detailed_check]
+type        = "PipeLLM"
+description = "Check every clause against the playbook"
+activity    = "Checking each clause against your playbook"
+inputs      = { clauses = "NdaClauses", playbook = "Text" }
+output      = "ClauseFindings"
+prompt      = """
+Check every one of these clauses against the playbook:
+
+@clauses
+
+@playbook
+"""
+
+[pipe.standard_check]
+type        = "PipeLLM"
+description = "Check the usual clauses against the playbook"
+activity    = "Checking the usual clauses"
+inputs      = { clauses = "NdaClauses", playbook = "Text" }
+output      = "ClauseFindings"
+prompt      = """
+Check the term, the scope and the exclusions of these clauses against the playbook:
+
+@clauses
+
+@playbook
+"""
+
+[pipe.write_review]
+type        = "PipeLLM"
+description = "Write the review from the findings"
+activity    = "Writing your review"
+inputs      = { findings = "ClauseFindings" }
+output      = "NdaReview"
+prompt      = """
+Write a review of the NDA from these findings:
+
+@findings
+"""
+
+[pipe.render_review_pdf]
+type          = "PipeFunc"
+description   = "Render the review as a PDF"
+activity      = "Preparing the PDF"
+inputs        = { review = "NdaReview" }
+output        = "Document"
+function_name = "render_review_pdf"

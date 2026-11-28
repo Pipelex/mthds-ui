@@ -97,6 +97,8 @@ export function PipeDetailPanel({ node, spec, onConceptClick }: PipeDetailPanelP
   const inputs = node.io?.inputs ?? [];
   const outputs = node.io?.outputs ?? [];
   const description = blueprint?.description ?? node.description;
+  // The words a person watching a run reads for the step, beside the builder's description.
+  const activity = node.activity ?? blueprint?.activity ?? null;
 
   return (
     <>
@@ -146,6 +148,11 @@ export function PipeDetailPanel({ node, spec, onConceptClick }: PipeDetailPanelP
 
         {/* Description */}
         {description && <div className="detail-description">{description}</div>}
+        {activity && (
+          <div className="detail-activity">
+            <span className="detail-activity-label">During a run</span> {activity}
+          </div>
+        )}
 
         {/* Inputs */}
         {inputs.length > 0 && (

@@ -1,5 +1,18 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+
+- **A step is titled by its `activity`**: a pipe's `activity`, the present-tense phrase a method writes for the person waiting on a run, titles its step in the simple graph style, its decision diamond and detail panel, and its line in the simple timeline, ahead of its description, which remains the fallback. `GraphSpecNode` and `PipeBlueprintBase` take `activity`, the static builder carries it from a `.mthds` file, the validator drops a `null` one and refuses an empty one, and the detailed style's panel shows it under the description. See [docs/graph-styles.md](docs/graph-styles.md) and [docs/timeline-styles.md](docs/timeline-styles.md).
+- **A condition's outcomes in the method's words**: `PipeConditionBlueprint` takes `outcome_words` and `default_outcome_words` (`OutcomeWords`: `label`, `description`, `tone`), which the static builder reads from an outcome written as a table (`high = { pipe = "…", label = "…", tone = "caution" }`). The simple graph style labels a decision's arrows by them, its panel shows each outcome's label in its tone with its description, the detailed style's condition panel shows the outcome a live run took from the condition's `selected_outcome_label`, `selected_outcome_description` and `selected_outcome_tone`, and the simple timeline's decision line shows the label in its tone with the description under it. `OUTCOME_TONE`, `isOutcomeTone`, `stepWording`, `outcomeWordsOf`, `selectedOutcomeWords`, `outcomeArrowLabel`, `isFileValuedOutput` and `isPlumbingStep` are exported from `./graph`.
+- **Tone tokens in the palette**: `--positive`, `--caution`, `--negative` and `--neutral`, with a dark and a light value each, the names and values the form kernel's `theme.css` uses, colour an outcome's label wherever it is drawn; a host overrides them through `paletteColors`. A labelled outcome without a tone reads as neutral, and none is inferred. See [docs/theming.md](docs/theming.md#the-tone-tokens).
+
+### Changed
+
+- **The simple timeline leaves out plumbing (Breaking)**: a PipeCompose, a binding step and a PipeFunc whose output is not a file (`native.Image`, `native.Document` or a concept refining one) have no line, unless they failed, are being tried again or are stuck, and are not listed among the steps a run has not reached; a PipeFunc whose output the registry does not describe keeps its line. `buildSimpleProgress` takes `showPlumbing: true` to keep every step, and the detailed style still draws every invocation.
+- **A simple line says where its title came from (Breaking)**: `SimpleProgressLine.titleFromDescription` is replaced by `titleSource`, a `WordingSource` (`activity`, `description` or `code`), `JoinedTitle` is `{ title, source }`, and `SimpleOutcome` carries `label`, `description` and `tone`, `null` when the outcome table gives none.
+
 ## [v0.59.0] - 2026-11-28
 
 ### Added

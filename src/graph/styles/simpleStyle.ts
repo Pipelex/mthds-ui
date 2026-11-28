@@ -2,11 +2,13 @@
 // declared. A projection of the same GraphSpec the detailed style draws — no
 // new facts, and nothing guessed:
 //
-// - every operator is a step, titled by its pipe's description;
+// - every operator is a step, titled by its pipe's `activity`, else its
+//   description;
 // - the method's inputs and its final outputs are the only data drawn as nodes;
 //   every other value becomes the arrows from the step that produced it to each
 //   step that reads it;
-// - a condition is a decision whose arrows carry its outcomes;
+// - a condition is a decision whose arrows carry its outcomes, by the labels
+//   its outcome tables give them;
 // - a batch runs "for each" item: its branch is drawn once, in a frame when it
 //   has several steps, as one marked step when it has one;
 // - sequences and parallels have no frame: the arrows are the order, and
@@ -57,10 +59,9 @@ import {
   humanizeIdentifier,
   humanizeInSentence,
   isGenericConcept,
-  outcomeLabel,
-  pipeTitle,
   stripDomain,
 } from "./humanize";
+import { DEFAULT_OUTCOME_KEY, outcomeArrowLabel, stepWording } from "./methodWords";
 import { estimateWrap, textWidthPx, type WrapEstimate } from "./textMetrics";
 import { NATIVE_DOMAIN } from "./nativeConcepts";
 
@@ -689,19 +690,19 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
 
   function outcomeFor(decisionId: string, branchId: string): string | undefined {
     const branch = specById.get(branchId);
+    const decision = specById.get(decisionId);
+    const blueprint =
+      decision?.domain_code && decision.pipe_code
+        ? getPipeBlueprint(graphspec, makePipeRef(decision.domain_code, decision.pipe_code))
+        : undefined;
     const tagged = branch?.tags?.outcome;
-    if (tagged) return outcomeLabel(tagged);
+    if (tagged) return outcomeArrowLabel(tagged, blueprint);
     const contains = graphspec.edges.find(
       (e) =>
         e.kind === "contains" && repOf(e.source) === decisionId && e.target === branchId && e.label,
     );
-    if (contains?.label) return outcomeLabel(contains.label);
-    const decision = specById.get(decisionId);
-    if (!decision?.domain_code || !decision.pipe_code || !branch?.pipe_code) return undefined;
-    const blueprint = getPipeBlueprint(
-      graphspec,
-      makePipeRef(decision.domain_code, decision.pipe_code),
-    );
+    if (contains?.label) return outcomeArrowLabel(contains.label, blueprint);
+    if (!decision?.domain_code || !branch?.pipe_code) return undefined;
     if (blueprint?.type !== "PipeCondition") return undefined;
     // An outcome is the branch's when it names the branch's pipe: its code, and
     // its domain, which a bare reference takes from the condition's own.
@@ -718,9 +719,9 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
       .filter(([, pipeRef]) => namesBranch(pipeRef))
       .map(([outcome]) => outcome);
     if (blueprint.default_outcome && namesBranch(blueprint.default_outcome)) {
-      outcomes.push("default");
+      outcomes.push(DEFAULT_OUTCOME_KEY);
     }
-    return outcomes.length > 0 ? outcomeLabel(outcomes.join("|")) : undefined;
+    return outcomes.length > 0 ? outcomeArrowLabel(outcomes.join("|"), blueprint) : undefined;
   }
 
   function decisionsAbove(nodeId: string): string[] {
@@ -936,8 +937,8 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
   }
 
   /**
-   * What a step box says: its description, or for a folded batch, its
-   * branch's. A binding step, drawn only when it failed, names the field it was
+   * What a step box says: its `activity`, else its description, or for a
+   * folded batch, its own activity, else its branch's wording. A binding step, drawn only when it failed, names the field it was
    * picking, the last segment of its path, since its description is the
    * runtime's own sentence about names.
    */
@@ -946,11 +947,11 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
       return humanizeIdentifier(spec.pipe_code?.split(".").pop() ?? "");
     }
     let source = spec;
-    if (folded && spec.pipe_type === "PipeBatch") {
+    if (folded && spec.pipe_type === "PipeBatch" && !spec.activity) {
       const branch = specById.get(rawAnalysis.containmentTree[spec.id]?.[0] ?? "");
       if (branch) source = branch;
     }
-    return pipeTitle(source.description, source.pipe_code ?? "").title;
+    return stepWording(source, source.pipe_code ?? "").title;
   }
 
   const stepById = new Map(drawnSteps.map((card) => [card.id, card]));
@@ -1000,7 +1001,7 @@ export function projectSimpleGraph(input: SimpleProjectionInput): SimpleProjecti
       continue;
     }
     if (decisionSet.has(spec.id)) {
-      const title = pipeTitle(spec.description, spec.pipe_code ?? "").title;
+      const title = stepWording(spec, spec.pipe_code ?? "").title;
       simpleNodes.push({
         id: spec.id,
         type: NODE_TYPE_SIMPLE_DECISION,
