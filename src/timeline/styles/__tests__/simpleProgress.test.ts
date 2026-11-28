@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { ProgressInvocation, ProgressSnapshot } from "@timeline/progressSnapshot";
+import type { PipeConditionBlueprint } from "@graph/types";
 import {
   CANCELED_RUN_SNAPSHOT,
   CONDENSE_FAILED_PROBLEM,
@@ -1233,5 +1234,111 @@ describe("in the method's words", () => {
     );
     expect(line.title).toBe("Summarizing every filing");
     expect(line.titleSource).toBe("activity");
+  });
+});
+
+describe("review round 2 of the method's words", () => {
+  const route = REVIEW_NDA_REGISTRY["legal.route_by_risk"] as PipeConditionBlueprint;
+
+  function routed(extra: Partial<PipeConditionBlueprint>) {
+    return {
+      pipeRegistry: { ...REVIEW_NDA_REGISTRY, "legal.route_by_risk": { ...route, ...extra } },
+    };
+  }
+
+  function dryBranches(options: ReturnType<typeof routed>) {
+    const snapshot = snapshotOf(
+      [
+        invocation("legal.route_by_risk", "legal.route_by_risk", "PipeCondition", "succeeded"),
+        invocation(
+          "legal.route_by_risk/outcome_high",
+          "legal.detailed_check",
+          "PipeLLM",
+          "succeeded",
+        ),
+        invocation(
+          "legal.route_by_risk/outcome_approve",
+          "legal.standard_check",
+          "PipeLLM",
+          "succeeded",
+        ),
+      ],
+      { mode: "dry" },
+    );
+    return buildSimpleProgress(snapshot, {
+      ...options,
+      expanded: { "legal.route_by_risk": true },
+    }).lines[0].children.map((child) => child.outcome);
+  }
+
+  it("reads a dry run's branch shared by several outcomes as the whole branch", () => {
+    const outcome_map = { high: "detailed_check", approve: "standard_check" };
+    const agreeing = dryBranches(
+      routed({
+        outcome_map,
+        outcome_words: {
+          ...route.outcome_words,
+          approve: { label: "Approve", tone: "positive" },
+        },
+      }),
+    );
+    expect(agreeing[1]).toMatchObject({
+      key: "approve",
+      label: "Approve or Standard check",
+      tone: "positive",
+    });
+    const disagreeing = dryBranches(
+      routed({
+        outcome_map,
+        outcome_words: { ...route.outcome_words, approve: { label: "Approve", tone: "caution" } },
+      }),
+    );
+    expect(disagreeing[1]).toMatchObject({ label: "Approve or Standard check", tone: null });
+    // A branch of one outcome keeps that outcome's own words.
+    expect(disagreeing[0]).toMatchObject({ key: "high", label: "Detailed check", tone: "caution" });
+  });
+
+  it("stores the tone an outcome reads in, neutral for a label alone", () => {
+    const decision = (words: PipeConditionBlueprint["default_outcome_words"]) =>
+      buildSimpleProgress(
+        snapshotOf([
+          invocation("legal.route_by_risk", "legal.route_by_risk", "PipeCondition", "succeeded", {
+            condition: { selected_outcome: null },
+          }),
+        ]),
+        routed({ default_outcome_words: words }),
+      ).lines[0].outcome;
+    expect(decision({ label: "Standard check", tone: null })?.tone).toBe("neutral");
+    expect(decision({ description: "The usual pass" })?.tone).toBeNull();
+    expect(decision({ label: "Standard check", tone: "positive" })?.tone).toBe("positive");
+  });
+
+  it("counts only the branches it shows when it decides a parallel is wide", () => {
+    const branch = (n: number, type: string) =>
+      invocation(`d.gather/branch_${n}`, `d.step_${n}`, type, "succeeded");
+    const snapshot = snapshotOf([
+      invocation("d.gather", "d.gather", "PipeParallel", "running", { branch_count: 6 }),
+      branch(1, "PipeLLM"),
+      branch(2, "PipeLLM"),
+      branch(3, "PipeLLM"),
+      branch(4, "PipeLLM"),
+      branch(5, "PipeCompose"),
+      branch(6, "PipeCompose"),
+    ]);
+    const lines = buildSimpleProgress(snapshot).lines[0].children;
+    expect(lines.map((line) => line.kind)).toEqual(["step", "step", "step", "step"]);
+  });
+
+  it("draws a pipe whose only children are plumbing as a step", () => {
+    const snapshot = snapshotOf([
+      invocation("d.tomorrow", "d.tomorrow", "PipeTomorrow", "succeeded"),
+      invocation("d.tomorrow/branch_1", "d.reshape", "PipeCompose", "succeeded"),
+    ]);
+    expect(buildSimpleProgress(snapshot).lines[0].kind).toBe("step");
+  });
+
+  it("keeps a run whose entry pipe is itself plumbing on one line", () => {
+    const snapshot = snapshotOf([invocation("d.reshape", "d.reshape", "PipeCompose", "succeeded")]);
+    expect(buildSimpleProgress(snapshot).lines.map((line) => line.title)).toEqual(["Reshape"]);
   });
 });

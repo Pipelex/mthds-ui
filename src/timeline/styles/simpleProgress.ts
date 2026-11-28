@@ -12,7 +12,14 @@
 import type { Problem } from "mthds/errors";
 import type { OutcomeTone, PipeBlueprintUnion, PipeSequenceBlueprint } from "@graph/types";
 import { humanizeInSentence } from "@graph/styles/humanize";
-import { WORDING_SOURCE, outcomeWordsOf, type WordingSource } from "@graph/styles/methodWords";
+import {
+  WORDING_SOURCE,
+  branchOutcomeWords,
+  conditionBranches,
+  outcomeTone,
+  outcomeWordsOf,
+  type WordingSource,
+} from "@graph/styles/methodWords";
 import {
   DEGRADATION_REASON,
   INVOCATION_STATUS,
@@ -40,6 +47,7 @@ import {
   joinBatch,
   joinedSequence,
   pipeOf,
+  qualifyPipeCode,
   sequenceMatches,
   sequenceOf,
   stepNumberOf,
@@ -123,11 +131,20 @@ export interface SimpleOutcome {
   key: string | null;
   /** True when it is the condition's `selected_outcome`, false when read off the branch's path. */
   resolved: boolean;
-  /** The outcome's name for people ("Detailed check"). */
+  /**
+   * The outcome's name for people ("Detailed check"). On a dry run's branch
+   * that several outcomes share, the branch's name, as its arrow in the graph
+   * reads ("Approve or Standard check").
+   */
   label: string | null;
   /** What taking the outcome means, which the view shows under the line where there is room. */
   description: string | null;
-  /** How the outcome reads; an outcome with words and no tone reads as neutral. */
+  /**
+   * The tone the outcome reads in, by the rule every view follows
+   * (`outcomeTone`): the tone the method states, else neutral when it gives
+   * the outcome a label, else `null`. A branch several outcomes share takes a
+   * tone only when every one of them has one and they agree.
+   */
   tone: OutcomeTone | null;
 }
 
@@ -310,7 +327,7 @@ function isBatchNode(node: InvocationTreeNode): boolean {
   );
 }
 
-function kindOfNode(node: InvocationTreeNode): SimpleLineKind {
+function kindOfNode(ctx: Context, node: InvocationTreeNode): SimpleLineKind {
   if (isBatchNode(node)) return SIMPLE_LINE_KIND.FOR_EACH;
   switch (node.invocation.pipe_type) {
     case "PipeSequence":
@@ -320,7 +337,8 @@ function kindOfNode(node: InvocationTreeNode): SimpleLineKind {
     case "PipeCondition":
       return SIMPLE_LINE_KIND.DECISION;
     default:
-      return node.children.length > 0 ? SIMPLE_LINE_KIND.GROUP : SIMPLE_LINE_KIND.STEP;
+      // A pipe whose only children are plumbing has nothing to show beneath it.
+      return shownChildren(ctx, node).length > 0 ? SIMPLE_LINE_KIND.GROUP : SIMPLE_LINE_KIND.STEP;
   }
 }
 
@@ -477,20 +495,38 @@ function shownChildren(ctx: Context, node: InvocationTreeNode): InvocationTreeNo
   return node.children.filter((child) => !hidesAsPlumbing(ctx, child.invocation));
 }
 
-/** The words a condition's registry entry gives one of its outcomes, as a line carries them. */
+/**
+ * The words a condition's registry entry gives one of its outcomes, as a line
+ * carries them, each read by the rule the graph's panels follow. The outcome a
+ * condition took is that one outcome. A dry run's branch stands for every
+ * outcome leading to its pipe, and the runtime names its group after the first
+ * of them, so a branch several outcomes share reads as the whole branch: the
+ * label its arrow carries in the graph ("Approve or Standard check",
+ * `conditionBranches`), and a tone only when every outcome in it has one and
+ * they agree (`branchOutcomeWords`).
+ */
 function outcomeOf(
   ctx: Context,
   conditionRef: string | undefined,
   key: string | null,
   resolved: boolean,
 ): SimpleOutcome {
-  const words = conditionRef ? outcomeWordsOf(pipeOf(ctx.registry, conditionRef), key) : null;
+  const condition = conditionRef ? pipeOf(ctx.registry, conditionRef) : null;
+  const branch =
+    !resolved && condition?.type === "PipeCondition"
+      ? conditionBranches(condition).find(({ outcomes }) => outcomes[0] === key)
+      : undefined;
+  if (branch && branch.outcomes.length > 1) {
+    const { description, tone } = branchOutcomeWords(condition, branch.outcomes);
+    return { key, resolved, label: branch.label, description, tone };
+  }
+  const words = outcomeWordsOf(condition, key);
   return {
     key,
     resolved,
     label: words?.label ?? null,
     description: words?.description ?? null,
-    tone: words?.tone ?? null,
+    tone: outcomeTone(words),
   };
 }
 
@@ -875,11 +911,35 @@ function childLines(
   }
   if (
     node.invocation.pipe_type === "PipeParallel" &&
-    Math.max(node.children.length, node.invocation.branch_count ?? 0) > ctx.wideParallelThreshold
+    shownBranchCount(ctx, node) > ctx.wideParallelThreshold
   ) {
     lines = foldFinished(node, lines);
   }
   return lines;
+}
+
+/**
+ * How many branches of a parallel the checklist shows: those it draws, or,
+ * while some have not started, the count the run reports less the branches
+ * that are plumbing, the more of the started ones it hid and the ones the
+ * registry declares.
+ */
+function shownBranchCount(ctx: Context, node: InvocationTreeNode): number {
+  const shown = shownChildren(ctx, node).length;
+  const reported = node.invocation.branch_count;
+  if (reported === undefined) return shown;
+  const parallel = pipeOf(ctx.registry, node.invocation.pipe_ref);
+  const declaredPlumbing =
+    ctx.showPlumbing ||
+    parallel?.type !== "PipeParallel" ||
+    !Array.isArray(parallel.parallel_sub_pipes)
+      ? 0
+      : parallel.parallel_sub_pipes.filter((sub) => {
+          const pipe = pipeOf(ctx.registry, qualifyPipeCode(sub.pipe_code, parallel.domain_code));
+          return pipe !== null && isPlumbingPipe(ctx.registry, pipe.type, pipe);
+        }).length;
+  const hidden = Math.max(node.children.length - shown, declaredPlumbing);
+  return Math.max(shown, reported - hidden);
 }
 
 /**
@@ -914,7 +974,7 @@ function lineOf(
   depth: number,
   parentSequence: PipeSequenceBlueprint | null,
 ): SimpleProgressLine {
-  const kind = kindOfNode(node);
+  const kind = kindOfNode(ctx, node);
   if (kind === SIMPLE_LINE_KIND.FOR_EACH) {
     const line = forEachLine(ctx, node, depth, parentSequence);
     line.outcome = branchOutcome(ctx, node, parent);
